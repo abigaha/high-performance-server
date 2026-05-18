@@ -1,48 +1,72 @@
 #pragma once
 
-#include <mutex>
-#include <source_location>
+// #include <fstream>
+// #include <mutex>
+// #include <source_location>
 #include <string>
-#include <string_view>
+// #include <string_view>
+#include <stdint.h>
 
-#include <fstream>
+#include <memory>
 
 namespace hps {
 
-enum class LogLevel { Debug = 0, Info = 1, Warn = 2, Error = 3 };
+// 日志级别
+enum class LogLevel { DEBUG = 1, INFO = 2, WARN = 3, ERROR = 4, FATAL = 5 };
 
-class Logger {
+// 日志事件
+class LogEvent {
 public:
-  explicit Logger(const std::string &file_path,
-                  LogLevel min_level = LogLevel::Info);
-  ~Logger();
-
-  Logger(const Logger &) = delete;
-  Logger &operator=(const Logger &) = delete;
-
-  void set_level(LogLevel min_level);
-  void
-  debug(std::string_view message,
-        const std::source_location location = std::source_location::current());
-  void
-  info(std::string_view message,
-       const std::source_location location = std::source_location::current());
-  void
-  warn(std::string_view message,
-       const std::source_location location = std::source_location::current());
-  void
-  error(std::string_view message,
-        const std::source_location location = std::source_location::current());
+  typedef std::shared_ptr<LogEvent> ptr;
+  LogEvent();
 
 private:
-  void log(LogLevel level, std::string_view message,
-           const std::source_location &location);
-  static std::string level_to_string(LogLevel level);
-  static std::string current_time_string();
-
-  std::ofstream file_;
-  std::mutex mutex_;
-  LogLevel min_level_;
+  const char* m_file = nullptr;  // 文件名
+  int32_t m_line = 0;            // 行号
+  uint32_t m_threadId = 0;       // 线程ID
+  uint32_t m_fiberId = 0;        // 协程ID
+  uint32_t m_elapse = 0;         // 程序启动开始到现在的毫秒数
+  uint64_t m_time = 0;           // 时间戳
+  std::string m_content;         // 日志内容
 };
 
-} // namespace hps
+// 日志格式器
+class LogFormatter {
+public:
+  typedef std::shared_ptr<LogFormatter> ptr;
+  LogFormatter(const std::string& pattern);
+  std::string format(LogLevel level, const LogEvent::ptr event);
+};
+
+// 日志输出地
+class LogAppender {
+public:
+  typedef std::shared_ptr<LogAppender> ptr;
+  virtual ~LogAppender() = default;
+
+  void log(LogLevel level, const LogEvent::ptr event);
+
+private:
+  LogLevel m_level = LogLevel::DEBUG;
+};
+
+// 日志器
+class Logger {
+public:
+  typedef std::shared_ptr<Logger> ptr;
+  void log(LogLevel level, const LogEvent::ptr event);
+  Logger(const std::string& name = "root");
+
+private:
+  LogLevel level = LogLevel::DEBUG;
+  std::string m_name;
+  LogAppender::ptr m_appender;
+};
+
+// 输出到控制台的Appender
+class StdoutLogAppender : public LogAppender {};
+
+// 输出到文件的Appender
+class FileLogAppender : public LogAppender {};
+
+}  // namespace hps
