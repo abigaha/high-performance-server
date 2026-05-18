@@ -17,7 +17,7 @@ enum class LogLevel { DEBUG = 1, INFO = 2, WARN = 3, ERROR = 4, FATAL = 5 };
 // 日志事件
 class LogEvent {
 public:
-  typedef std::shared_ptr<LogEvent> ptr;
+  using ptr = std::shared_ptr<LogEvent>;
   LogEvent();
 
 private:
@@ -33,7 +33,7 @@ private:
 // 日志格式器
 class LogFormatter {
 public:
-  typedef std::shared_ptr<LogFormatter> ptr;
+  using ptr = std::shared_ptr<LogFormatter>;
   LogFormatter(const std::string& pattern);
   std::string format(LogLevel level, const LogEvent::ptr event);
 };
@@ -53,7 +53,7 @@ private:
 // 日志器
 class Logger {
 public:
-  typedef std::shared_ptr<Logger> ptr;
+  using ptr = std::shared_ptr<Logger>;
   void log(LogLevel level, const LogEvent::ptr event);
   Logger(const std::string& name = "root");
 
