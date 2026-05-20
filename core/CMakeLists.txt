@@ -4,16 +4,19 @@ project(high-performance-server)
 
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/bin)
 
-add_subdirectory(${CMAKE_SOURCE_DIR}/main/logger)
+add_subdirectory(${CMAKE_SOURCE_DIR}/core/logger)
 
 add_executable(${PROJECT_NAME})
 
 target_include_directories(${PROJECT_NAME}
-                           PRIVATE ${CMAKE_SOURCE_DIR}/main/logger)
+                           PRIVATE ${CMAKE_SOURCE_DIR}/core/logger/include)
+
+target_sources(${PROJECT_NAME}
+               PRIVATE ${CMAKE_SOURCE_DIR}/core/logger/include/logger.h)
 
 target_sources(
-  ${PROJECT_NAME} PRIVATE ${CMAKE_SOURCE_DIR}/main/main.cpp
-                          ${CMAKE_SOURCE_DIR}/main/logger/logger.cpp)
+  ${PROJECT_NAME} PRIVATE ${CMAKE_SOURCE_DIR}/core/main.cpp
+                          ${CMAKE_SOURCE_DIR}/core/logger/src/logger.cpp)
 
 target_link_directories(${PROJECT_NAME} PRIVATE ${CMAKE_SOURCE_DIR}/lib)
 
