@@ -79,6 +79,20 @@ void Logger::delAppender(const LogAppender::ptr appender) {
   }
 }
 
+Logger& Logger::getInstance() {
+  static Logger instance("server");
+
+  auto appender = std::make_shared<StdoutLogAppender>();
+  auto formatter =
+      std::make_shared<LogFormatter>("%d{%Y-%m-%d %H:%M:%S} [%p] [%t] %c: %f%l : %m%n");
+  appender->setFormatter(formatter);
+  instance.addAppender(appender);
+
+  instance.setLevel(LogLevel::DEBUG);
+
+  return instance;
+}
+
 FileLogAppender::FileLogAppender(const std::string& filename) : filename_(filename) {
   reopen();
 }

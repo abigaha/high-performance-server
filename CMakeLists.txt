@@ -9,3 +9,6 @@ set(CMAKE_BUILD_TYPE Debug)
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
 add_subdirectory(core)
+
+# target_compile_definitions( high-performance-server PRIVATE
+# $<CONFIG:DEBUG>:DEBUG_BUILD $<CONFIG:RELEASE>:RELEASE_BUILD)

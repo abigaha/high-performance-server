@@ -165,6 +165,13 @@ public:
   LogLevel getLevel() const { return level_; }
   void setLevel(LogLevel val) { level_ = val; }
 
+  Logger& operator<<(const std::string& msg) {
+    log(level_, createEvent(msg));
+    return *this;
+  }
+
+  static Logger& getInstance();
+
 private:
   LogLevel level_ = LogLevel::DEBUG;
   std::string name_;
