@@ -1,12 +1,11 @@
-#include <iostream>
-
+#include "logappender.h"
 #include "logger.h"
 
 int main() {
   // 创建 Logger
   auto logger = std::make_shared<hps::Logger>("server");
 
-  auto loggerInstance = hps::Logger::getInstance();
+  auto& loggerInstance = hps::Logger::getInstance();
 
   // 创建文件 Appender
   auto file = std::make_shared<hps::FileLogAppender>("server.log");

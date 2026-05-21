@@ -11,12 +11,18 @@ add_executable(${PROJECT_NAME})
 target_include_directories(${PROJECT_NAME}
                            PRIVATE ${CMAKE_SOURCE_DIR}/core/logger/include)
 
-target_sources(${PROJECT_NAME}
-               PRIVATE ${CMAKE_SOURCE_DIR}/core/logger/include/logger.h)
+target_sources(
+  ${PROJECT_NAME}
+  PRIVATE ${CMAKE_SOURCE_DIR}/core/logger/include/logger.h
+          ${CMAKE_SOURCE_DIR}/core/logger/include/logformatter.h
+          ${CMAKE_SOURCE_DIR}/core/logger/include/logappender.h)
 
 target_sources(
-  ${PROJECT_NAME} PRIVATE ${CMAKE_SOURCE_DIR}/core/main.cpp
-                          ${CMAKE_SOURCE_DIR}/core/logger/src/logger.cpp)
+  ${PROJECT_NAME}
+  PRIVATE ${CMAKE_SOURCE_DIR}/core/main.cpp
+          ${CMAKE_SOURCE_DIR}/core/logger/src/logger.cpp
+          ${CMAKE_SOURCE_DIR}/core/logger/src/logformatter.cpp
+          ${CMAKE_SOURCE_DIR}/core/logger/src/logappender.cpp)
 
 target_link_directories(${PROJECT_NAME} PRIVATE ${CMAKE_SOURCE_DIR}/lib)
 

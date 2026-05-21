@@ -34,10 +34,10 @@ bin：编译后的可执行文件
                            │
                 ┌──────────┴──────────┐
                 │                     │
-         ┌──────▼──────┐      ┌──────▼──────┐
+         ┌──────▼──────┐      ┌───────▼─────┐
          │  StdoutApp  │      │  FileApp    │
          │(控制台输出) │      │  (文件输出) │
-         └──────┬──────┘      └──────┬──────┘
+         └──────┬──────┘      └───────┬─────┘
                 │                     │
                 └──────────┬──────────┘
                            │
@@ -95,12 +95,14 @@ enum class LogLevel { DEBUG = 1, INFO = 2, WARN = 3, ERROR = 4, FATAL = 5 };
 #### 构造函数
 
 ```cpp
-LogEvent::LogEvent(const std::string& content, 
+LogEvent::LogEvent(const std::string& content,
+                   const std::string& logger_name = "root",
                    const std::source_location& loc = std::source_location::current());
 ```
 
 **参数**：
 - `content`：日志内容（消息文本）
+- `logger_name`：Logger 名称（默认 root）
 - `loc`：源位置信息（默认为调用点，由编译器自动填充）
 
 **初始化流程**：
@@ -108,6 +110,7 @@ LogEvent::LogEvent(const std::string& content,
 2. 通过 `std::this_thread::get_id()` 获取当前线程ID（转换为 uint32_t hash）
 3. 使用 `std::chrono::system_clock` 获取系统时间戳
 4. 计算程序启动至今的运行时间（毫秒）
+5. 读取当前线程绑定的协程ID（未绑定时为 0）
 
 #### 访问器方法
 
@@ -145,9 +148,50 @@ LogFormatter::LogFormatter(const std::string& pattern);
 | `%f` | 源文件名（含路径） | /path/to/file.cpp |
 | `%l` | 源代码行号 | 42 |
 | `%t` | 线程ID | 12345 |
+| `%C` | 协程ID | 7 |
 | `%c` | Logger名称 | root |
 | `%n` | 换行符 | \n |
 | 普通文本 | 直接输出 | 任何其他字符 |
+
+**协程ID说明**：协程ID 需要在协程恢复时绑定到当前线程上下文；未绑定时输出为 0。
+
+```cpp
+// 协程恢复时绑定ID（示例）
+uint64_t cid = Logger::allocCoroutineId();
+Logger::CoroutineScope scope(cid);
+logger->info("running in coroutine");
+```
+
+**C++20 协程恢复时绑定协程ID（示例）**：
+
+```cpp
+#include <coroutine>
+
+struct Task {
+  struct promise_type {
+    uint64_t cid = Logger::allocCoroutineId();
+    Task get_return_object() {
+      return Task{std::coroutine_handle<promise_type>::from_promise(*this)};
+    }
+    std::suspend_always initial_suspend() { return {}; }
+    std::suspend_always final_suspend() noexcept { return {}; }
+    void return_void() {}
+    void unhandled_exception() { std::terminate(); }
+  };
+
+  std::coroutine_handle<promise_type> h;
+
+  void resume() {
+    Logger::CoroutineScope scope(h.promise().cid);
+    h.resume();
+  }
+};
+
+Task worker(Logger& logger) {
+  logger.info("running in coroutine");
+  co_return;
+}
+```
 
 #### 使用示例
 
@@ -161,8 +205,8 @@ auto fmt2 = std::make_shared<LogFormatter>("%d{%Y-%m-%d %H:%M:%S} [%p] %f:%l %m%
 // 输出：2026-05-20 15:45:24 [ERROR] main.cpp:42 Connection failed
 
 // 模式示例 3：自定义格式
-auto fmt3 = std::make_shared<LogFormatter>("<%p> [%t] %m%n");
-// 输出：<WARN> [12345] Low memory
+auto fmt3 = std::make_shared<LogFormatter>("<%p> [%t/%C] %m%n");
+// 输出：<WARN> [12345/7] Low memory
 ```
 
 #### 核心方法
@@ -182,7 +226,7 @@ std::string format(LogLevel level, const LogEvent::ptr event);
   
 - **FormatItem 层次**：
   - 基类 `FormatItem`（虚基类）
-  - 子类包括：`MessageFormatItem`、`LevelFormatItem`、`DateTimeFormatItem` 等
+  - 子类包括：`MessageFormatItem`、`LevelFormatItem`、`CoroutineIdFormatItem`、`DateTimeFormatItem` 等
   - 每个子类实现 `format()` 方法，负责单一职责
 
 ---
@@ -374,6 +418,7 @@ logger->warn("Output");    // 输出（WARN >= WARN）
 
 ```cpp
 #include "logger.h"
+#include "logappender.h"
 using namespace hps;
 
 auto logger = std::make_shared<Logger>("app");
@@ -420,6 +465,7 @@ logger->fatal("Database unavailable");
 
 ```cpp
 #include "logger.h"
+#include "logappender.h"
 
 using namespace hps;
 
@@ -516,9 +562,9 @@ logger->setLevel(LogLevel::WARN);
 "%d{%Y-%m-%d %H:%M:%S} [%p] %m%n"
 // 输出：2026-05-20 15:45:24 [ERROR] This is a message
 
-// 详细格式（包含文件和线程）
-"%d{%Y-%m-%d %H:%M:%S} [%p] [%t] %f:%l %m%n"
-// 输出：2026-05-20 15:45:24 [ERROR] [12345] main.cpp:42 This is a message
+// 详细格式（包含文件、线程、协程）
+"%d{%Y-%m-%d %H:%M:%S} [%p] [%t] [%C] %f:%l %m%n"
+// 输出：2026-05-20 15:45:24 [ERROR] [12345] [7] main.cpp:42 This is a message
 
 // 自定义格式
 "<%p> %d{%H:%M:%S} - %m%n"
@@ -590,12 +636,14 @@ A: 为每个模块创建独立的 Logger 实例，配置不同的 Appender 和�
 
 | 成员函数 | 签名 | 说明 |
 |---------|------|------|
-| 构造函数 | `LogEvent(const std::string& content, const std::source_location& loc = std::source_location::current())` | 创建日志事件，自动捕获源位置 |
+| 构造函数 | `LogEvent(const std::string& content, const std::string& logger_name = "root", const std::source_location& loc = std::source_location::current())` | 创建日志事件，自动捕获源位置 |
 | `getFile()` | `const char*` | 返回源文件路径 |
 | `getLine()` | `int32_t` | 返回源代码行号 |
 | `getThreadId()` | `uint32_t` | 返回线程ID（哈希值） |
 | `getElapse()` | `uint32_t` | 返回程序启动至今的毫秒数 |
 | `getTime()` | `uint64_t` | 返回系统时间戳（秒） |
+| `getCoroutineId()` | `uint64_t` | 返回协程ID（未绑定时为 0） |
+| `getLoggerName()` | `const std::string&` | 返回日志器名称 |
 | `getContent()` | `const std::string&` | 返回日志内容 |
 
 ### LogFormatter 完整接口
@@ -633,14 +681,18 @@ A: 为每个模块创建独立的 Logger 实例，配置不同的 Appender 和�
 |---------|------|------|
 | 构造函数 | `Logger(const std::string& name = "root")` | 创建日志器实例 |
 | `createEvent()` | `LogEvent::ptr createEvent(const std::string& content, const std::source_location& loc = std::source_location::current())` | 创建日志事件（工厂方法） |
+| `CoroutineScope` | `Logger::CoroutineScope(uint64_t id)` | RAII 绑定当前线程的协程ID |
+| `allocCoroutineId()` | `static uint64_t allocCoroutineId()` | 分配新的协程ID（原子递增） |
+| `setCurrentCoroutineId()` | `static void setCurrentCoroutineId(uint64_t id)` | 设置当前线程的协程ID |
+| `getCurrentCoroutineId()` | `static uint64_t getCurrentCoroutineId()` | 获取当前线程的协程ID |
 | `debug()` | `void debug(const std::string& msg, const std::source_location& loc = std::source_location::current())` | 记录DEBUG级别日志 |
 | `info()` | `void info(const std::string& msg, const std::source_location& loc = std::source_location::current())` | 记录INFO级别日志 |
 | `warn()` | `void warn(const std::string& msg, const std::source_location& loc = std::source_location::current())` | 记录WARN级别日志 |
 | `error()` | `void error(const std::string& msg, const std::source_location& loc = std::source_location::current())` | 记录ERROR级别日志 |
 | `fatal()` | `void fatal(const std::string& msg, const std::source_location& loc = std::source_location::current())` | 记录FATAL级别日志 |
 | `log()` | `void log(LogLevel level, const LogEvent::ptr event)` | 根据级别分发日志到所有Appender |
-| `addAppender()` | `void addAppender(const LogAppender::ptr appender)` | 添加输出目标 |
-| `delAppender()` | `void delAppender(const LogAppender::ptr appender)` | 移除输出目标 |
+| `addAppender()` | `void addAppender(const std::shared_ptr<LogAppender>& appender)` | 添加输出目标 |
+| `delAppender()` | `void delAppender(const std::shared_ptr<LogAppender>& appender)` | 移除输出目标 |
 | `setLevel()` | `void setLevel(LogLevel val)` | 设置最小日志级别 |
 | `getLevel()` | `LogLevel getLevel() const` | 获取当前最小日志级别 |
 
@@ -650,21 +702,21 @@ A: 为每个模块创建独立的 Logger 实例，配置不同的 Appender 和�
 
 ```
 ┌──────────────────────────────────────────────────────────────┐
-│                      应用程序 (使用者)                         │
+│                      应用程序 (使用者)                       │
 └──────────────┬───────────────────────────────────────────────┘
                │
                │ 调用 logger->debug("msg"), etc.
                ▼
      ┌─────────────────────┐
      │     Logger          │◄───────── 日志主类
-     │  (名称、级别、App列表)│
+     │(名称、级别、App列表)│
      └──────────┬──────────┘
                 │
                 │ 创建 LogEvent
                 ▼
     ┌──────────────────────┐
     │    LogEvent          │◄───────── 日志事件
-    │  (内容、位置、时间)    │
+    │(内容、位置、时间)    │
     └──────┬───────────────┘
            │
            │ 分发给所有 Appender
@@ -672,29 +724,29 @@ A: 为每个模块创建独立的 Logger 实例，配置不同的 Appender 和�
     ┌──────┴──────┬──────────┬────────┐
     │             │          │        │
     ▼             ▼          ▼        ▼
-┌────────┐  ┌───────────┐ ┌─────┐ ┌────────┐
-│ Stdout │  │ FileApp   │ │网络  │ │异步App │
-│Appender│  │ (未实现)   │ │(未实) │ │(未实)  │
-└────┬───┘  └─────┬─────┘ └─────┘ └────────┘
+┌────────┐  ┌───────────┐ ┌───────┐ ┌────────┐
+│ Stdout │  │ FileApp   │ │网络   │ │异步App │
+│Appender│  │ (未实现)  │ │(未实) │ │(未实)  │
+└────┬───┘  └─────┬─────┘ └───────┘ └────────┘
      │           │
      │ 调用 formatter->format()
      │           │
      └─────┬─────┘
            ▼
-     ┌────────────────────┐
-     │  LogFormatter      │◄───────── 格式化器
+     ┌────────────────────────┐
+     │  LogFormatter          │◄───────── 格式化器
      │ (模式解析、FormatItems)│
-     └────────────────────┘
+     └────────────────────────┘
            │
            │ 遍历所有 FormatItem
            │
     ┌──────┴────┬─────────┬──────────┬──────┬──────┐
     │           │         │          │      │      │
     ▼           ▼         ▼          ▼      ▼      ▼
-┌──────┐ ┌────────┐ ┌─────────┐ ┌─────┐ ┌──┐ ┌────┐
+┌───────┐ ┌─────────┐ ┌─────────┐ ┌─────┐ ┌──┐ ┌────┐
 │Message│ │LevelItem│ │DateTime │ │File │ │Ln│ │Thr │
 │Item   │ │         │ │Item     │ │Name │ │  │ │ID  │
-└──────┘ └────────┘ └─────────┘ └─────┘ └──┘ └────┘
+└───────┘ └─────────┘ └─────────┘ └─────┘ └──┘ └────┘
 ```
 
 ---
@@ -852,6 +904,8 @@ A: 为每个模块创建独立的 Logger 实例，配置不同的 Appender 和�
 **头文件路径**：
 ```
 core/logger/include/logger.h
+core/logger/include/logformatter.h
+core/logger/include/logappender.h
 ```
 
 **库文件**：
@@ -870,4 +924,3 @@ g++-14 -std=gnu++23 -I/path/to/core/logger/include your_code.cpp \
 target_link_libraries(your_target PRIVATE logger)
 target_include_directories(your_target PRIVATE ${LOGGER_INCLUDE_DIR})
 ```
-

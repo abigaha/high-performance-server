@@ -11,6 +11,14 @@ add_library(logger)
 
 target_include_directories(logger PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include)
 
-target_sources(logger PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/include/logger.h)
+target_sources(
+  logger
+  PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/include/logger.h
+  PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/include/logformatter.h
+  PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/include/logappender.h)
 
-target_sources(logger PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/src/logger.cpp)
+target_sources(
+  logger
+  PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/src/logger.cpp
+  PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/src/logformatter.cpp
+  PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/src/logappender.cpp)
