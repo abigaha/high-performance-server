@@ -8,8 +8,10 @@ add_subdirectory(${CMAKE_SOURCE_DIR}/core/logger)
 
 add_executable(${PROJECT_NAME})
 
-target_include_directories(${PROJECT_NAME}
-                           PRIVATE ${CMAKE_SOURCE_DIR}/core/logger/include)
+target_include_directories(
+  ${PROJECT_NAME}
+  PRIVATE ${CMAKE_SOURCE_DIR}/core/logger/include
+  PRIVATE ${CMAKE_SOURCE_DIR}/coroutine/include)
 
 target_sources(
   ${PROJECT_NAME}
