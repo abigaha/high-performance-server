@@ -4,6 +4,7 @@
 #include <cstdint>
 #include <exception>
 #include <optional>
+#include <stop_token>
 #include <utility>
 
 #include "logger.h"
@@ -23,6 +24,9 @@ public:
     std::suspend_always final_suspend() noexcept { return {}; }
     void unhandled_exception() { std::terminate(); }
 
+    std::stop_token get_stop_token() const { return stop_source_.get_token(); }
+    bool request_stop() noexcept { return stop_source_.request_stop(); }
+
     template <typename U>
     void return_value(U&& value) {
       return_value_.emplace(std::forward<U>(value));
@@ -38,6 +42,7 @@ public:
     uint64_t cid = hps::Logger::allocCoroutineId();
     std::optional<T> yield_value_;
     std::optional<T> return_value_;
+    std::stop_source stop_source_;
   };
 
 public:
@@ -63,6 +68,14 @@ public:
   }
 
   bool done() const { return !handle_ || handle_.done(); }
+
+  void cancel() {
+    if (!handle_)
+      return;
+    handle_.promise().request_stop();
+    handle_.destroy();
+    handle_ = {};
+  }
 
   void resume() {
     if (!handle_ || handle_.done())
