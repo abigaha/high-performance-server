@@ -8,6 +8,7 @@
 #include <utility>
 
 #include "logger.h"
+#include "memory_pool.h"
 
 namespace hps {
 
@@ -34,10 +35,13 @@ public:
 
     template <typename U>
     std::suspend_always yield_value(U&& value) {
-      // 多次 co_yield 会覆盖为最新值（这是“当前值”语义）
       yield_value_.emplace(std::forward<U>(value));
       return {};
     }
+
+    void* operator new([[maybe_unused]] size_t coroSize) { return pool_.allocate(); }
+
+    void operator delete(void* ptr) { pool_.deallocate(ptr); }
 
     uint64_t cid = hps::Logger::allocCoroutineId();
     std::optional<T> yield_value_;
@@ -137,6 +141,10 @@ public:
 
 private:
   std::coroutine_handle<promise_type> handle_{};
+  static MemoryPool pool_;
 };
+
+template <typename T>
+MemoryPool CoroItem<T>::pool_{sizeof(CoroItem<T>), 128};
 
 }  // namespace hps

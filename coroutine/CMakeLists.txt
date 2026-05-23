@@ -7,18 +7,15 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/lib)
 
-add_library(${PROJECT_NAME})
+add_library(${PROJECT_NAME} INTERFACE)
 
 target_include_directories(
-  ${PROJECT_NAME} PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include
-                         ${CMAKE_SOURCE_DIR}/core/logger/include)
+  ${PROJECT_NAME} INTERFACE ${CMAKE_CURRENT_SOURCE_DIR}/include
+                            ${CMAKE_SOURCE_DIR}/memory-pool/include)
 
 target_sources(${PROJECT_NAME}
                PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/include/coroitem.hpp)
 
-# target_sources(${PROJECT_NAME} PRIVATE
-# ${CMAKE_CURRENT_SOURCE_DIR}/src/coroitem.cpp)
+target_link_directories(${PROJECT_NAME} INTERFACE ${CMAKE_SOURCE_DIR}/lib)
 
-target_link_directories(${PROJECT_NAME} PRIVATE ${CMAKE_SOURCE_DIR}/lib)
-
-target_link_libraries(${PROJECT_NAME} logger)
+target_link_libraries(${PROJECT_NAME} INTERFACE logger memory-pool)

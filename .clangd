@@ -1,0 +1,12 @@
+CompileFlags:
+  Add:
+    - -std=c++23
+    # AUTO_INCLUDE_BEGIN
+    - -Wall
+    - -Wextra
+    - -Wpedantic
+    - -Wunused-parameter
+    - -I/home/jmj/work-space/projects/high-performance-server/core/logger/include
+    - -I/home/jmj/work-space/projects/high-performance-server/coroutine/include
+    - -I/home/jmj/work-space/projects/high-performance-server/memory-pool/include
+    # AUTO_INCLUDE_END

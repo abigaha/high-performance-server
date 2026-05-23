@@ -7,7 +7,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/lib)
 
-add_library(logger)
+add_library(logger SHARED)
 
 target_include_directories(logger PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include)
 
