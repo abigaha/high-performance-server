@@ -1,13 +1,19 @@
 #include "memory_pool.h"
 
 #include <cstdlib>
+// #include <memory>
 
-MemoryPool::MemoryPool(std::size_t blockSize, std::size_t blockCount, std::size_t pageSize)
-    : blockSize_(alignSize(blockSize, alignof(std::max_align_t))),
-      blockCount_(blockCount),
-      freeList_(nullptr),
-      pageSize_(pageSize) {
-  expand();
+namespace hps {
+
+MemoryPool::MemoryPool() : blockSize_{0}, blockCount_{0}, pageSize_(0), freeList_(nullptr) {}
+
+void MemoryPool::initialize(std::size_t blockSize, std::size_t blockCount) {
+  std::call_once(initFlag_, [this, blockCount, blockSize]() {
+    blockSize_ = alignSize(blockSize, alignof(std::max_align_t));
+    blockCount_ = blockCount;
+    pageSize_ = blockSize_ * blockCount_;
+    expand();
+  });
 }
 
 MemoryPool::~MemoryPool() noexcept {
@@ -17,15 +23,12 @@ MemoryPool::~MemoryPool() noexcept {
 }
 
 auto MemoryPool::expand() -> void {
-  if (pageSize_ < blockSize_ * blockCount_) {
-    pageSize_ = blockSize_ * blockCount_;
-  } else {
-    blockCount_ = pageSize_ / blockSize_;
-  }
+  pageSize_ = blockSize_ * blockCount_;
+
   void *page = ::operator new(pageSize_);
   pages_.push_back(page);
 
-  char *block = static_cast<char *>(page);
+  char *block = reinterpret_cast<char *>(page);
   for (std::size_t i = 0; i < blockCount_; ++i) {
     FreeBlock *freeBlock = reinterpret_cast<FreeBlock *>(block);
     freeBlock->next = freeList_;
@@ -40,13 +43,15 @@ void *MemoryPool::allocate() {
   }
   FreeBlock *block = freeList_;
   freeList_ = block->next;
-  return block;
+  return reinterpret_cast<void *>(block);
 }
 
 void MemoryPool::deallocate(void *ptr) {
   if (!ptr)
     return;
-  FreeBlock *block = static_cast<FreeBlock *>(ptr);
+  FreeBlock *block = reinterpret_cast<FreeBlock *>(ptr);
   block->next = freeList_;
   freeList_ = block;
 }
+
+}  // namespace hps

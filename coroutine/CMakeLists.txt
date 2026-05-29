@@ -19,3 +19,5 @@ target_sources(${PROJECT_NAME}
 target_link_directories(${PROJECT_NAME} INTERFACE ${CMAKE_SOURCE_DIR}/lib)
 
 target_link_libraries(${PROJECT_NAME} INTERFACE logger memory-pool)
+
+target_compile_options(${PROJECT_NAME} INTERFACE -fopenmp -ltbb)

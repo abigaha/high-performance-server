@@ -1,14 +1,19 @@
 #pragma once
 #include <cstddef>
+#include <mutex>
 #include <vector>
 
 // #include "logger.h"
 
+namespace hps {
+
 class MemoryPool {
 public:
-  MemoryPool(std::size_t blockSize, std::size_t blockCount, std::size_t pageSize = 8192);
+  MemoryPool();
   ~MemoryPool() noexcept;
-  //
+
+  void initialize(std::size_t blockSize, std::size_t blockCount);
+
   void *allocate();
   void deallocate(void *ptr);
 
@@ -28,4 +33,7 @@ private:
   std::size_t pageSize_;
   FreeBlock *freeList_;
   std::vector<void *> pages_;
+  std::once_flag initFlag_;
 };
+
+}  // namespace hps

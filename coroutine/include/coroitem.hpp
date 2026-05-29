@@ -1,5 +1,6 @@
 #pragma once
 
+#include <algorithm>
 #include <coroutine>
 #include <cstdint>
 #include <exception>
@@ -39,9 +40,14 @@ public:
       return {};
     }
 
-    void* operator new([[maybe_unused]] size_t coroSize) { return pool_.allocate(); }
+    void* operator new(size_t coroSize) {
+      pool_.initialize(coroSize * 2, 1024);
+      return pool_.allocate();
+    }
 
     void operator delete(void* ptr) { pool_.deallocate(ptr); }
+
+    static MemoryPool pool_;
 
     uint64_t cid = hps::Logger::allocCoroutineId();
     std::optional<T> yield_value_;
@@ -113,7 +119,6 @@ public:
       hps::Logger::getInstance().error("Invalid coroutine handle");
       throw std::runtime_error("Invalid coroutine handle");
     }
-
     auto& opt = handle_.promise().yield_value_;
     if (!opt.has_value()) {
       hps::Logger::getInstance().error("No yield value set");
@@ -141,10 +146,9 @@ public:
 
 private:
   std::coroutine_handle<promise_type> handle_{};
-  static MemoryPool pool_;
 };
 
 template <typename T>
-MemoryPool CoroItem<T>::pool_{sizeof(CoroItem<T>), 128};
+MemoryPool CoroItem<T>::promise_type::pool_;
 
 }  // namespace hps
