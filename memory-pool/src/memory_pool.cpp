@@ -1,11 +1,12 @@
 #include "memory_pool.h"
 
 #include <cstdlib>
-// #include <memory>
+
+#include "logger.h"
 
 namespace hps {
 
-MemoryPool::MemoryPool() : blockSize_{0}, blockCount_{0}, pageSize_(0), freeList_(nullptr) {}
+MemoryPool::MemoryPool() = default;
 
 void MemoryPool::initialize(std::size_t blockSize, std::size_t blockCount) {
   std::call_once(initFlag_, [this, blockCount, blockSize]() {
@@ -13,6 +14,8 @@ void MemoryPool::initialize(std::size_t blockSize, std::size_t blockCount) {
     blockCount_ = blockCount;
     pageSize_ = blockSize_ * blockCount_;
     expand();
+    Logger::_info("内存池初始化成功，每个块大小为: " + std::to_string(blockSize_) +
+                  ", 每个内存页的块数为: " + std::to_string(blockCount_));
   });
 }
 
@@ -25,31 +28,31 @@ MemoryPool::~MemoryPool() noexcept {
 auto MemoryPool::expand() -> void {
   pageSize_ = blockSize_ * blockCount_;
 
-  void *page = ::operator new(pageSize_);
+  auto *page = ::operator new(pageSize_);
   pages_.push_back(page);
 
-  char *block = reinterpret_cast<char *>(page);
+  auto *char_page = static_cast<char *>(page);
   for (std::size_t i = 0; i < blockCount_; ++i) {
-    FreeBlock *freeBlock = reinterpret_cast<FreeBlock *>(block);
+    // NOLINTNEXTLINE(cppcoreguidelines-pro-type-reinterpret-cast,cppcoreguidelines-pro-bounds-pointer-arithmetic)
+    auto *freeBlock = reinterpret_cast<FreeBlock *>(char_page + i * blockSize_);
     freeBlock->next = freeList_;
     freeList_ = freeBlock;
-    block += blockSize_;
   }
 }
 
 void *MemoryPool::allocate() {
-  if (!freeList_) {
+  if (freeList_ == nullptr) {
     expand();
   }
-  FreeBlock *block = freeList_;
+  auto *block = freeList_;
   freeList_ = block->next;
-  return reinterpret_cast<void *>(block);
+  return static_cast<void *>(block);
 }
 
 void MemoryPool::deallocate(void *ptr) {
-  if (!ptr)
+  if (ptr == nullptr)
     return;
-  FreeBlock *block = reinterpret_cast<FreeBlock *>(ptr);
+  auto *block = static_cast<FreeBlock *>(ptr);
   block->next = freeList_;
   freeList_ = block;
 }

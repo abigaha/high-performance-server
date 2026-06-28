@@ -45,12 +45,10 @@ build/
 Build/
 build-*/
 
-# CMake generated files
-CMakeFiles/
-CMakeCache.txt
-cmake_install.cmake
-Makefile
-install_manifest.txt
+# xmake
+.xmake/
+xmake.conf
+.pylintrc
 compile_commands.json
 
 # Temporary files
@@ -71,6 +69,7 @@ Testing/
 
 .idx
 .clangd/
+.clangd
 .clang-tidy
 .clang-format
 

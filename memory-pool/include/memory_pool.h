@@ -3,8 +3,6 @@
 #include <mutex>
 #include <vector>
 
-// #include "logger.h"
-
 namespace hps {
 
 class MemoryPool {
@@ -28,10 +26,10 @@ private:
     return (size + alignment - 1) & ~(alignment - 1);
   }
 
-  std::size_t blockSize_;
-  std::size_t blockCount_;
-  std::size_t pageSize_;
-  FreeBlock *freeList_;
+  std::size_t blockSize_{};
+  std::size_t blockCount_{};
+  std::size_t pageSize_{};
+  FreeBlock *freeList_{nullptr};
   std::vector<void *> pages_;
   std::once_flag initFlag_;
 };

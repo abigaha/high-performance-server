@@ -1,0 +1,13 @@
+target("net")
+set_kind("headeronly")
+set_targetdir(path.join(os.projectdir(), "lib"))
+add_headerfiles("coroutine/(**.hpp)")
+add_includedirs("coroutine", { public = true })
+add_deps("logger", "memory-pool")
+
+includes("thread-pool")
+includes("file-send-process")
+includes("file-receive-process")
+includes("tcp/ctcpclient")
+includes("tcp/ctcpserver")
+includes("http")

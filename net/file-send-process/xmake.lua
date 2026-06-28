@@ -1,0 +1,5 @@
+target("file-send-process")
+set_kind("binary")
+set_targetdir(path.join(os.projectdir(), "bin"))
+add_files("main.cpp")
+add_deps("logger", "net", "thread-pool", "ctcpclient")

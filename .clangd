@@ -1,12 +1,17 @@
 CompileFlags:
   Add:
     - -std=c++23
-    # AUTO_INCLUDE_BEGIN
     - -Wall
     - -Wextra
     - -Wpedantic
     - -Wunused-parameter
-    - -I/home/jmj/work-space/projects/high-performance-server/core/logger/include
-    - -I/home/jmj/work-space/projects/high-performance-server/coroutine/include
+    - -I/home/jmj/.xmake/packages/g/gtest/v1.17.0/fe669f042f444a6cb3a06c810a609640/include
+    - -I/home/jmj/work-space/projects/high-performance-server/build/.objs/high-performance-server/linux/x86_64/release/core/cxx
+    - -I/home/jmj/work-space/projects/high-performance-server/file-system/include
+    - -I/home/jmj/work-space/projects/high-performance-server/logger/include
     - -I/home/jmj/work-space/projects/high-performance-server/memory-pool/include
-    # AUTO_INCLUDE_END
+    - -I/home/jmj/work-space/projects/high-performance-server/net/coroutine
+    - -I/home/jmj/work-space/projects/high-performance-server/net/http/include
+    - -I/home/jmj/work-space/projects/high-performance-server/net/tcp/ctcpclient/include
+    - -I/home/jmj/work-space/projects/high-performance-server/net/tcp/ctcpserver/include
+    - -I/home/jmj/work-space/projects/high-performance-server/net/thread-pool/include

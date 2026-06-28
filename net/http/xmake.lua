@@ -1,0 +1,8 @@
+target("http")
+set_languages("c++20")
+set_kind("shared")
+add_files("src/*.cpp")
+add_includedirs("include", { public = true })
+on_load(function(target)
+	target:set("installdir", path.join(os.projectdir(), "lib"))
+end)
