@@ -4,6 +4,7 @@
 
 #include <array>
 #include <cerrno>
+#include <cstddef>
 #include <cstring>
 
 namespace hps {
@@ -17,7 +18,9 @@ Connection::~Connection() {
 }
 
 std::string Connection::client_ip() const {
-  return inet_ntoa(addr_.sin_addr);
+  std::array<char, static_cast<std::size_t>(INET_ADDRSTRLEN)> buf{};
+  inet_ntop(AF_INET, &addr_.sin_addr, buf.data(), buf.size());
+  return {buf.data()};
 }
 
 uint16_t Connection::client_port() const {
@@ -30,7 +33,7 @@ ssize_t Connection::read_from_fd() {
   }
 
   ssize_t total_read = 0;
-  std::array<char, 65536> buf{};
+  std::array<char, 65536> buf;
 
   while (true) {
     ssize_t n = ::read(fd_, buf.data(), buf.size());

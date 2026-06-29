@@ -32,6 +32,7 @@ private:
   FreeBlock *freeList_{nullptr};
   std::vector<void *> pages_;
   std::once_flag initFlag_;
+  std::mutex mutex_;
 };
 
 }  // namespace hps

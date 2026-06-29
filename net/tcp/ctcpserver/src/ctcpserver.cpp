@@ -57,11 +57,7 @@ void CTcpServer::signal_handler(int sig) {
   }
 }
 
-CTcpServer::CTcpServer(const Config& config) : config_(config) {
-  if (s_instance == nullptr) {
-    s_instance = this;
-  }
-}
+CTcpServer::CTcpServer(const Config& config) : config_(config) {}
 
 CTcpServer::~CTcpServer() {
   stop();
@@ -75,6 +71,12 @@ bool CTcpServer::init() {
     Logger::_warn("CTcpServer 已经初始化");
     return true;
   }
+
+  if (s_instance != nullptr) {
+    Logger::_error("CTcpServer 多实例不被支持，信号处理可能不准确");
+    return false;
+  }
+  s_instance = this;
 
   server_sockfd_ = socket(AF_INET, SOCK_STREAM | SOCK_NONBLOCK, IPPROTO_TCP);
   if (server_sockfd_ < 0) {
@@ -198,7 +200,6 @@ void CTcpServer::stop() {
   if (wake_fd_ >= 0) {
     uint64_t val = 1;
     [[maybe_unused]] auto unused = write(wake_fd_, &val, sizeof(val));
-    (void)unused;
   }
 }
 
@@ -260,10 +261,12 @@ void CTcpServer::handle_event(const struct epoll_event& evt) {
   } else if (fd == wake_fd_) {
     uint64_t val = 0;
     [[maybe_unused]] auto unused = read(wake_fd_, &val, sizeof(val));
-    (void)unused;
     process_dirty_connections();
   } else {
     if ((ev & (EPOLLERR | EPOLLHUP | EPOLLRDHUP)) != 0U) {
+      if ((ev & (EPOLLHUP | EPOLLRDHUP)) != 0U) {
+        handle_read(fd);
+      }
       close_connection(fd);
     } else if ((ev & EPOLLIN) != 0U) {
       if (!handle_read(fd)) {
@@ -335,6 +338,9 @@ bool CTcpServer::handle_read(int fd) {
       handler_(conn);
 
       if (!conn->write_buffer().empty()) {
+        conn->write_to_fd();
+      }
+      if (!conn->write_buffer().empty()) {
         {
           std::lock_guard<std::mutex> lock(dirty_mutex_);
           dirty_fds_.push_back(conn->fd());
@@ -386,7 +392,6 @@ void CTcpServer::notify_wake(int wake_fd) {
   }
   uint64_t val = 1;
   [[maybe_unused]] auto unused = write(wake_fd, &val, sizeof(val));
-  (void)unused;
 }
 
 void CTcpServer::process_dirty_connections() {
@@ -400,7 +405,10 @@ void CTcpServer::process_dirty_connections() {
     if (!connections_.contains(fd)) {
       continue;
     }
-    epoll_ctl_mod(epoll_fd_, EpollFd{fd}, EpollEvents{EPOLLIN | EPOLLOUT | EPOLLET | EPOLLRDHUP});
+    connections_[fd]->write_to_fd();
+    if (!connections_[fd]->write_buffer().empty()) {
+      epoll_ctl_mod(epoll_fd_, EpollFd{fd}, EpollEvents{EPOLLIN | EPOLLOUT | EPOLLET | EPOLLRDHUP});
+    }
   }
 }
 

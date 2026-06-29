@@ -90,4 +90,5 @@ scripts/test.sh
 setup.sh
 source.tar.gz
 tui.json
-
+core.*
+plan/

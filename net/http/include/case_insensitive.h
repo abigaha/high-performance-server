@@ -8,12 +8,13 @@ namespace hps {
 
 /** 大小写不敏感的字符串哈希 */
 struct CaseInsensitiveHash {
+  static constexpr size_t kGoldenRatio = 0x9e3779b9;
+
   size_t operator()(const std::string& key) const noexcept {
     size_t h = 0;
     for (char ch : key) {
-      // 将字符转为大写后参与哈希计算
       auto upper = static_cast<size_t>(std::toupper(static_cast<unsigned char>(ch)));
-      h ^= upper + static_cast<size_t>(0x9e3779b9) + (h << 6U) + (h >> 2U);
+      h ^= upper + kGoldenRatio + (h << 6U) + (h >> 2U);
     }
     return h;
   }

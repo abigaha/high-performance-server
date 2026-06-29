@@ -164,7 +164,7 @@ bool CTcpClient::recv_into_buffer(DurationMs timeout) {
     return false;
   }
 
-  std::array<char, 4096> buf{};
+  std::array<char, 4096> buf;
   ssize_t n = recv(client_sockfd_, buf.data(), buf.size(), 0);
   if (n > 0) {
     read_buf_.append(buf.data(), static_cast<std::size_t>(n));
@@ -172,6 +172,7 @@ bool CTcpClient::recv_into_buffer(DurationMs timeout) {
   }
 
   if (n == 0) {
+    peer_closed_ = true;
     disconnect();
   }
   return false;
@@ -207,10 +208,11 @@ bool CTcpClient::read_raw(std::string& data, uint32_t timeout_ms) {
   read_buf_.clear();
 
   while (wait_readable(client_sockfd_, DurationMs{0})) {
-    std::array<char, 4096> buf{};
+    std::array<char, 4096> buf;
     ssize_t n = recv(client_sockfd_, buf.data(), buf.size(), 0);
     if (n <= 0) {
       if (n == 0) {
+        peer_closed_ = true;
         disconnect();
       }
       return !data.empty();
@@ -244,7 +246,7 @@ bool CTcpClient::sendFile(const std::string& file_path) const {
     return false;
   }
 
-  std::array<char, 4096> buf{};
+  std::array<char, 4096> buf;
   std::ifstream file(file_path, std::ios::binary);
   if (!file) {
     Logger::_error("无法打开文件: " + file_path);

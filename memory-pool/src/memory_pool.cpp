@@ -41,6 +41,7 @@ auto MemoryPool::expand() -> void {
 }
 
 void *MemoryPool::allocate() {
+  std::lock_guard lock(mutex_);
   if (freeList_ == nullptr) {
     expand();
   }
@@ -52,6 +53,7 @@ void *MemoryPool::allocate() {
 void MemoryPool::deallocate(void *ptr) {
   if (ptr == nullptr)
     return;
+  std::lock_guard lock(mutex_);
   auto *block = static_cast<FreeBlock *>(ptr);
   block->next = freeList_;
   freeList_ = block;

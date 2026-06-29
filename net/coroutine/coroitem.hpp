@@ -1,12 +1,14 @@
 #pragma once
 
+#include "i_memory_pool.h"
 #include "logger.h"
-#include "memory_pool.h"
+#include "memory_pool_factory.h"
 
 #include <algorithm>
 #include <coroutine>
 #include <cstdint>
 #include <exception>
+#include <memory>
 #include <optional>
 #include <stop_token>
 #include <utility>
@@ -24,7 +26,7 @@ public:
 
     std::suspend_always final_suspend() noexcept { return {}; }
 
-    void unhandled_exception() { std::terminate(); }
+    void unhandled_exception() { exception_ = std::current_exception(); }
 
     std::stop_token get_stop_token() const { return stop_source_.get_token(); }
 
@@ -41,15 +43,20 @@ public:
       return {};
     }
 
-    void* operator new(size_t coroSize) {
-      pool_.initialize(coroSize * 2, 1024);
-      return pool_.allocate();
+    // NOLINTNEXTLINE(hicpp-new-delete-operators,misc-new-delete-overloads)
+    void* operator new(size_t coroSize) { return get_pool().allocate(coroSize); }
+
+    void operator delete(void* ptr, size_t coroSize) {
+      auto& pool = get_pool();
+      pool.deallocate(ptr, coroSize);
     }
 
-    void operator delete(void* ptr) { pool_.deallocate(ptr); }
+    static IMemoryPool& get_pool() {
+      static auto instance = CreateMemoryPool();
+      return *instance;
+    }
 
-    static MemoryPool pool_;
-
+    std::exception_ptr exception_;
     uint64_t cid = hps::Logger::allocCoroutineId();
     std::optional<T> yield_value_;
     std::optional<T> return_value_;
@@ -82,11 +89,9 @@ public:
   bool done() const { return !handle_ || handle_.done(); }
 
   void cancel() {
-    if (!handle_)
+    if (!handle_ || handle_.done())
       return;
     handle_.promise().request_stop();
-    handle_.destroy();
-    handle_ = {};
   }
 
   void resume() {
@@ -98,6 +103,12 @@ public:
 
     hps::Logger::CoroutineScope scope(handle_.promise().cid);
     handle_.resume();
+
+    auto& exc = handle_.promise().exception_;
+    if (exc) [[unlikely]] {
+      auto e = std::move(exc);
+      std::rethrow_exception(e);
+    }
   }
 
   bool has_yield_value() const { return handle_ && handle_.promise().yield_value_.has_value(); }
@@ -149,8 +160,5 @@ public:
 private:
   std::coroutine_handle<promise_type> handle_{};
 };
-
-template <typename T>
-MemoryPool CoroItem<T>::promise_type::pool_;
 
 } // namespace hps

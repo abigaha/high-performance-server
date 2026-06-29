@@ -16,6 +16,7 @@ enum class ReadMode { Line, Raw };
 class CTcpClient {
 public:
   CTcpClient(const std::string& server_ip, uint16_t server_port);
+  /** @param connect_timeout_ms 连接超时（毫秒），仅在 Raw 模式下受支持；Line 模式使用默认超时 */
   CTcpClient(uint32_t connect_timeout_ms, const std::string& server_ip, uint16_t server_port);
   ~CTcpClient();
   CTcpClient(const CTcpClient&) = delete;
@@ -52,6 +53,7 @@ private:
   uint16_t server_port_;
   uint32_t connect_timeout_ms_;
   std::string read_buf_;
+  bool peer_closed_{false};
 };
 
 } // namespace hps

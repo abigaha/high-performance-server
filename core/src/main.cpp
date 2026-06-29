@@ -11,7 +11,7 @@ hps::CoroItem<int> exampleCoroutine2() {
   hps::Logger::getInstance().info("Coroutine started");
   co_yield 10;
   hps::Logger::getInstance().info("Coroutine resumed");
-  co_return NULL;
+  co_return 0;
 }
 
 int main() {
@@ -43,6 +43,8 @@ int main() {
   // 测试协程
   auto coro = exampleCoroutine();
   coro.resume();
-  std::cout << "Coroutine returned value: " << coro.return_value() << std::endl;
+  if (coro.done()) {
+    std::cout << "Coroutine returned value: " << coro.return_value() << std::endl;
+  }
   return 0;
 }

@@ -31,6 +31,7 @@ public:
   bool push(const T& item);
   bool push(T&& item);
   bool pop(T& item);
+  bool try_pop(T& item);
   T pop();
 
 private:
@@ -97,13 +98,13 @@ LockFreeQueue<T, Capacity, Allocator>::~LockFreeQueue() {
 
 template <typename T, std::size_t Capacity, typename Allocator>
 inline bool LockFreeQueue<T, Capacity, Allocator>::empty() {
-  return get_index(head_.load(std::memory_order_relaxed)) == get_index(tail_.load(std::memory_order_relaxed));
+  return get_index(head_.load(std::memory_order_acquire)) == get_index(tail_.load(std::memory_order_acquire));
 }
 
 template <typename T, std::size_t Capacity, typename Allocator>
 inline bool LockFreeQueue<T, Capacity, Allocator>::full() {
-  return (get_index(tail_.load(std::memory_order_relaxed)) + 1) % capacity_ ==
-         get_index(head_.load(std::memory_order_relaxed));
+  return (get_index(tail_.load(std::memory_order_acquire)) + 1) % capacity_ ==
+         get_index(head_.load(std::memory_order_acquire));
 }
 
 template <typename T, std::size_t Capacity, typename Allocator>
@@ -178,6 +179,31 @@ bool LockFreeQueue<T, Capacity, Allocator>::pop(T& item) {
       return true;
     }
   }
+}
+
+template <typename T, std::size_t Capacity, typename Allocator>
+bool LockFreeQueue<T, Capacity, Allocator>::try_pop(T& item) {
+  std::uint64_t current_head = head_.load(std::memory_order_acquire);
+  if (get_index(current_head) == get_index(tail_.load(std::memory_order_acquire)))
+    return false;
+  std::uint64_t next_head = increment_index(current_head);
+  if (head_.compare_exchange_weak(current_head, next_head, std::memory_order_acquire, std::memory_order_relaxed)) {
+    std::uint32_t head_index = get_index(current_head);
+    while (state_[head_index].load(std::memory_order_acquire) != State::Pushed) {
+      if (state_[head_index].load(std::memory_order_acquire) == State::Aborting) {
+        state_[head_index].store(State::Empty, std::memory_order_release);
+        return false;
+      }
+    }
+    static_assert(std::is_nothrow_move_assignable_v<T>);
+    item = std::move(*std::next(buffer_, static_cast<std::ptrdiff_t>(head_index)));
+    state_[head_index].store(State::Popping, std::memory_order_release);
+    std::allocator_traits<decltype(allocator_)>::destroy(allocator_,
+                                                         std::next(buffer_, static_cast<std::ptrdiff_t>(head_index)));
+    state_[head_index].store(State::Empty, std::memory_order_release);
+    return true;
+  }
+  return false;
 }
 
 template <typename T, std::size_t Capacity, typename Allocator>

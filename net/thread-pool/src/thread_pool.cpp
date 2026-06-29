@@ -1,5 +1,7 @@
 #include "thread_pool.h"
 
+#include <mutex>
+
 namespace hps {
 
 ThreadPool::ThreadPool(size_t numThreads) {
@@ -9,11 +11,11 @@ ThreadPool::ThreadPool(size_t numThreads) {
 }
 
 ThreadPool::~ThreadPool() {
-  // 顺序：先停止任务队列（pop 返回 false），再请求线程停止，最后 join
   tasks_.stop();
   for (auto& w : workers_) {
     w.request_stop();
   }
+  cv_.notify_all();
   for (auto& w : workers_) {
     if (w.joinable()) {
       w.join();
@@ -24,21 +26,27 @@ ThreadPool::~ThreadPool() {
 void ThreadPool::worker(std::stop_token stop_token) {
   while (!stop_token.stop_requested()) {
     std::function<void()> task;
-    // pop 返回 false 说明队列已 stop 或为空
-    if (!tasks_.pop(task)) {
-      continue;
+    {
+      std::unique_lock lock(cv_mutex_);
+      cv_.wait(lock, [this, &stop_token] {
+        return stop_token.stop_requested() || pending_.load(std::memory_order_acquire) > 0;
+      });
     }
-    task();
+    if (stop_token.stop_requested()) {
+      break;
+    }
+    if (tasks_.try_pop(task)) {
+      task();
+      if (pending_.fetch_sub(1, std::memory_order_release) == 1) {
+        cv_.notify_one();
+      }
+    }
   }
 }
 
 void ThreadPool::wait_for_all_tasks() {
-  while (true) {
-    if (tasks_.empty()) {
-      break;
-    }
-    std::this_thread::yield();
-  }
+  std::unique_lock lock(cv_mutex_);
+  cv_.wait(lock, [this] { return pending_.load(std::memory_order_acquire) == 0; });
 }
 
 } // namespace hps

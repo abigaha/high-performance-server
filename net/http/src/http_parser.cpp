@@ -198,7 +198,12 @@ ParserResult HttpParser::feed_chunk_size(char c) {
     }
     auto semi = line_buf_.find(';');
     std::string hex_str = (semi == std::string::npos) ? line_buf_ : line_buf_.substr(0, semi);
-    chunk_size_ = std::strtoul(hex_str.c_str(), nullptr, 16);
+    char* end = nullptr;
+    chunk_size_ = std::strtoul(hex_str.c_str(), &end, 16);
+    if (end == hex_str.c_str() || *end != '\0') {
+      error_ = ParserError::BAD_REQUEST;
+      return {.err = error_, .consumed = 1};
+    }
     chunk_bytes_read_ = 0;
     if (chunk_size_ == 0) {
       state_ = ParserState::BODY_CHUNK_TRAILER;
