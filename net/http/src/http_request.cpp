@@ -56,6 +56,7 @@ void HttpRequest::clear() noexcept {
   version = "HTTP/1.1";
   headers.clear();
   body.clear();
+  path_params.clear();
 }
 
 } // namespace hps

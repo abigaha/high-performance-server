@@ -4,6 +4,7 @@
 
 #include <string>
 #include <string_view>
+#include <unordered_map>
 
 namespace hps {
 
@@ -35,6 +36,7 @@ struct HttpRequest {
   std::string version = "HTTP/1.1";        ///< HTTP 版本
   HeaderMap headers;                       ///< 请求头（大小写不敏感）
   std::string body;                        ///< 请求体
+  std::unordered_map<std::string, std::string> path_params; ///< 路由参数（如 {"id":"42"}）
 
   /** 重置为默认状态 */
   void clear() noexcept;
