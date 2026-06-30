@@ -49,14 +49,31 @@ CTcpClient& CTcpClient::operator=(CTcpClient&& other) noexcept {
   return *this;
 }
 
-bool CTcpClient::send_all(int fd, const char* data, std::size_t size) {
+bool CTcpClient::send_all(int fd, const char* data, std::size_t size, DurationMs timeout) {
+  // N2-H：非阻塞 socket 需处理 EAGAIN/EWOULDBLOCK（poll 等可写后重试）、EINTR（重试）
   std::size_t total = 0;
   while (total < size) {
     ssize_t n = send(fd, std::next(data, static_cast<std::ptrdiff_t>(total)), size - total, 0);
-    if (n < 0) {
-      return false;
+    if (n >= 0) {
+      total += static_cast<std::size_t>(n);
+      continue;
     }
-    total += static_cast<std::size_t>(n);
+    // n < 0
+    if (errno == EINTR) {
+      continue; // 被信号中断，重试
+    }
+    if (errno == EAGAIN || errno == EWOULDBLOCK) {
+      // 发送缓冲区满，poll 等待可写
+      struct pollfd pfd {};
+      pfd.fd = fd;
+      pfd.events = POLLOUT;
+      int ret = poll(&pfd, 1, static_cast<int>(timeout.value));
+      if (ret <= 0) {
+        return false; // 超时或出错
+      }
+      continue; // 可写后重试
+    }
+    return false; // 其他错误
   }
   return true;
 }
@@ -146,7 +163,7 @@ bool CTcpClient::sendMessage(const std::string& message) const {
     Logger::_error("未连接到服务器");
     return false;
   }
-  return send_all(client_sockfd_, message.data(), message.size());
+  return send_all(client_sockfd_, message.data(), message.size(), DurationMs{connect_timeout_ms_});
 }
 
 bool CTcpClient::receiveMessage(std::string& message, ReadMode mode, uint32_t read_timeout_ms) {
@@ -254,7 +271,7 @@ bool CTcpClient::sendFile(const std::string& file_path) const {
   }
 
   while (file.read(buf.data(), buf.size())) {
-    if (!send_all(client_sockfd_, buf.data(), buf.size())) {
+    if (!send_all(client_sockfd_, buf.data(), buf.size(), DurationMs{connect_timeout_ms_})) {
       Logger::_error("发送文件数据失败");
       return false;
     }
@@ -262,7 +279,7 @@ bool CTcpClient::sendFile(const std::string& file_path) const {
 
   std::streamsize remaining = file.gcount();
   if (remaining > 0) {
-    if (!send_all(client_sockfd_, buf.data(), static_cast<std::size_t>(remaining))) {
+    if (!send_all(client_sockfd_, buf.data(), static_cast<std::size_t>(remaining), DurationMs{connect_timeout_ms_})) {
       Logger::_error("发送文件数据失败");
       return false;
     }
@@ -275,7 +292,7 @@ bool CTcpClient::sendFile(const std::string& data, std::size_t size) const {
     Logger::_error("未连接到服务器");
     return false;
   }
-  return send_all(client_sockfd_, data.data(), size);
+  return send_all(client_sockfd_, data.data(), size, DurationMs{connect_timeout_ms_});
 }
 
 } // namespace hps

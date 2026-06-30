@@ -36,11 +36,11 @@ public:
   bool is_connected() const { return client_sockfd_ >= 0; }
 
 private:
-  static bool send_all(int fd, const char* data, std::size_t size);
-
   struct DurationMs {
     uint32_t value;
   };
+
+  static bool send_all(int fd, const char* data, std::size_t size, DurationMs timeout);
 
   bool wait_connected(int fd, DurationMs timeout);
   bool wait_readable(int fd, DurationMs timeout);

@@ -48,9 +48,14 @@ public:
 
   bool reopen();
 
+  // L4-L：auto_flush 控制，默认 true（crash-safe），高频场景可设 false
+  void set_auto_flush(bool val) { auto_flush_ = val; }
+  bool auto_flush() const { return auto_flush_; }
+
 private:
   std::string filename_;
   std::ofstream filestream_;
+  bool auto_flush_{true};
 };
 
 } // namespace hps

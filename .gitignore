@@ -92,3 +92,6 @@ source.tar.gz
 tui.json
 core.*
 plan/
+
+# CodeBuddy 工作流配置（本地，不入库）
+.codebuddy/

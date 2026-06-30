@@ -91,10 +91,7 @@ public:
 
   void setLevel(LogLevel val) { level_.store(val, std::memory_order_relaxed); }
 
-  Logger& operator<<(const std::string& msg) {
-    log(getLevel(), createEvent(msg));
-    return *this;
-  }
+  // N12-L：移除语义混乱的 operator<<（用 getLevel() 作日志级别），改用显式 debug/info/... 方法
 
   static Logger& getInstance();
 

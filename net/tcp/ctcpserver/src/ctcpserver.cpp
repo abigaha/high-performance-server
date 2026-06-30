@@ -337,10 +337,16 @@ bool CTcpServer::handle_read(int fd) {
     thread_pool_->enqueue([this, conn]() {
       handler_(conn);
 
-      if (!conn->write_buffer().empty()) {
-        conn->write_to_fd();
+      // N1-H：write_to_fd 与 write_buffer 检查须持 write_mutex
+      bool need_dirty = false;
+      {
+        std::lock_guard<std::mutex> wlock(conn->write_mutex());
+        conn->write_to_fd_locked();
+        if (!conn->write_buffer().empty()) {
+          need_dirty = true;
+        }
       }
-      if (!conn->write_buffer().empty()) {
+      if (need_dirty) {
         {
           std::lock_guard<std::mutex> lock(dirty_mutex_);
           dirty_fds_.push_back(conn->fd());
@@ -359,11 +365,15 @@ bool CTcpServer::handle_write(int fd) {
     return false;
   }
 
-  auto& conn = it->second;
+  bool done = false;
+  {
+    auto& conn = it->second;
+    std::lock_guard<std::mutex> wlock(conn->write_mutex());
+    conn->write_to_fd_locked();
+    done = conn->write_buffer().empty();
+  }
 
-  conn->write_to_fd();
-
-  if (conn->write_buffer().empty()) {
+  if (done) {
     epoll_ctl_mod(epoll_fd_, EpollFd{fd}, EpollEvents{EPOLLIN | EPOLLET | EPOLLRDHUP});
     Logger::_info("数据发送完成 (fd=" + std::to_string(fd) + ")");
   } else {
@@ -405,8 +415,16 @@ void CTcpServer::process_dirty_connections() {
     if (!connections_.contains(fd)) {
       continue;
     }
-    connections_[fd]->write_to_fd();
-    if (!connections_[fd]->write_buffer().empty()) {
+    bool still_dirty = false;
+    {
+      auto& conn = connections_[fd];
+      std::lock_guard<std::mutex> wlock(conn->write_mutex());
+      conn->write_to_fd_locked();
+      if (!conn->write_buffer().empty()) {
+        still_dirty = true;
+      }
+    }
+    if (still_dirty) {
       epoll_ctl_mod(epoll_fd_, EpollFd{fd}, EpollEvents{EPOLLIN | EPOLLOUT | EPOLLET | EPOLLRDHUP});
     }
   }

@@ -199,7 +199,8 @@ ParserResult HttpParser::feed_chunk_size(char c) {
     auto semi = line_buf_.find(';');
     std::string hex_str = (semi == std::string::npos) ? line_buf_ : line_buf_.substr(0, semi);
     char* end = nullptr;
-    chunk_size_ = std::strtoul(hex_str.c_str(), &end, 16);
+    // N10-L：strtoul 返回 unsigned long，32 位系统截断；改 strtoull 返回 unsigned long long
+    chunk_size_ = std::strtoull(hex_str.c_str(), &end, 16);
     if (end == hex_str.c_str() || *end != '\0') {
       error_ = ParserError::BAD_REQUEST;
       return {.err = error_, .consumed = 1};

@@ -48,7 +48,11 @@ private:
 
 template <class F, class... Args>
 void ThreadPool::enqueue(F&& f, Args&&... args) {
-  tasks_.push([f = std::forward<F>(f), ... args = std::forward<Args>(args)]() mutable { f(std::move(args)...); });
+  // N4-M：检查 push 返回值，失败时回滚 pending_ 避免任务丢失导致 wait_for_all_tasks 死等
+  bool ok = tasks_.push([f = std::forward<F>(f), ... args = std::forward<Args>(args)]() mutable { f(std::move(args)...); });
+  if (!ok) {
+    return; // 队列已 stop，任务丢弃
+  }
   pending_.fetch_add(1, std::memory_order_release);
   cv_.notify_one();
 }

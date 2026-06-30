@@ -7,13 +7,6 @@ hps::CoroItem<int> exampleCoroutine() {
   co_return 42;
 }
 
-hps::CoroItem<int> exampleCoroutine2() {
-  hps::Logger::getInstance().info("Coroutine started");
-  co_yield 10;
-  hps::Logger::getInstance().info("Coroutine resumed");
-  co_return 0;
-}
-
 int main() {
   // 创建 Logger
   auto logger = std::make_shared<hps::Logger>("server");

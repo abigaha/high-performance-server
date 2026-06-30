@@ -35,11 +35,20 @@ void ThreadPool::worker(std::stop_token stop_token) {
     if (stop_token.stop_requested()) {
       break;
     }
-    if (tasks_.try_pop(task)) {
-      task();
-      if (pending_.fetch_sub(1, std::memory_order_release) == 1) {
-        cv_.notify_one();
+    // N3-M：try_pop 失败说明被竞争抢走，循环重试而非立即回 wait（避免忙等）
+    while (!stop_token.stop_requested()) {
+      if (tasks_.try_pop(task)) {
+        task();
+        if (pending_.fetch_sub(1, std::memory_order_release) == 1) {
+          cv_.notify_one();
+        }
+        break;
       }
+      // 被抢，但 pending_>0 说明还有任务；若 pending_==0 说明被别人取完
+      if (pending_.load(std::memory_order_acquire) == 0) {
+        break;
+      }
+      std::this_thread::yield();
     }
   }
 }

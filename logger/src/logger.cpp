@@ -15,6 +15,8 @@ const auto _g_start_time = std::chrono::high_resolution_clock::now();
 // NOLINTBEGIN(cppcoreguidelines-avoid-non-const-global-variables)
 std::atomic<uint64_t> _g_coroutine_id_seed{1};
 thread_local uint64_t _g_current_coroutine_id = 0;
+// N6-M：thread_local 缓存 tid，避免每条日志 stringstream+hash 开销
+thread_local uint32_t _g_cached_tid = 0;
 // NOLINTEND(cppcoreguidelines-avoid-non-const-global-variables)
 
 } // anonymous namespace
@@ -28,11 +30,14 @@ LogEvent::LogEvent(const std::string& content, const std::string& logger_name, c
     coroutineId_(Logger::getCurrentCoroutineId()),
     loggerName_(logger_name),
     content_(content) {
-  // 获取线程ID
-  auto id = std::this_thread::get_id();
-  std::stringstream ss;
-  ss << id;
-  threadId_ = static_cast<uint32_t>(std::hash<std::string>{}(ss.str()));
+  // N6-M：tid 使用 thread_local 缓存，仅首次计算
+  if (_g_cached_tid == 0) {
+    auto id = std::this_thread::get_id();
+    std::stringstream ss;
+    ss << id;
+    _g_cached_tid = static_cast<uint32_t>(std::hash<std::string>{}(ss.str()));
+  }
+  threadId_ = _g_cached_tid;
 
   // 获取当前时间戳
   auto now = std::chrono::system_clock::now();
@@ -120,21 +125,17 @@ void Logger::delAppender(const std::shared_ptr<LogAppender>& appender) {
 }
 
 Logger& Logger::getInstance() {
+  // N11-L：magic statics 已线程安全，移除冗余 call_once；
+  //        不硬编码 FileLogAppender（避免与用户配置重复写文件），仅默认 stdout
   static Logger instance("server");
   static std::once_flag once;
-
   std::call_once(once, []() {
     auto appender = std::make_shared<StdoutLogAppender>();
     auto formatter = std::make_shared<LogFormatter>("%d{%Y-%m-%d %H:%M:%S} [%p] [%t] [%C] %c: %f%l : %m%n");
     appender->setFormatter(formatter);
-    auto appender2 = std::make_shared<FileLogAppender>("server.log");
-    auto formatter2 = std::make_shared<LogFormatter>("%d{%Y-%m-%d %H:%M:%S} [%p] [%t] [%C] %c: %f%l : %m%n");
-    appender2->setFormatter(formatter2);
     instance.addAppender(appender);
-    instance.addAppender(appender2);
     instance.setLevel(LogLevel::DEBUG);
   });
-
   return instance;
 }
 

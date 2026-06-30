@@ -6,6 +6,7 @@
 #include <chrono>
 #include <cstdint>
 #include <memory>
+#include <mutex>
 #include <string>
 
 namespace hps {
@@ -46,13 +47,22 @@ public:
   ssize_t read_from_fd();
 
   /**
-   * 将 write_buffer_ 中的数据非阻塞写入 socket
+   * 将 write_buffer_ 中的数据非阻塞写入 socket（加锁版，线程安全）
    * @return >0 写入字节数; 0 无数据可写; -1 出错
    */
   ssize_t write_to_fd();
 
+  /**
+   * write_to_fd 的不加锁版本（N1-H：调用方须持有 write_mutex）
+   * @return >0 写入字节数; 0 无数据可写; -1 出错
+   */
+  ssize_t write_to_fd_locked();
+
   /** 关闭连接 */
   void close();
+
+  /** 写入缓冲区访问锁（N1-H：保护 write_buffer_ 跨线程并发写） */
+  std::mutex& write_mutex() { return write_mutex_; }
 
   /** 读取缓冲区（可写引用） */
   std::string& read_buffer() { return read_buffer_; }
@@ -60,7 +70,7 @@ public:
   /** 读取缓冲区（只读） */
   const std::string& read_buffer() const { return read_buffer_; }
 
-  /** 写入缓冲区（可写引用） */
+  /** 写入缓冲区（可写引用，调用方须持有 write_mutex） */
   std::string& write_buffer() { return write_buffer_; }
 
   /** 写入缓冲区（只读） */
@@ -85,6 +95,8 @@ private:
 
   std::string read_buffer_;       ///< 读取缓冲区
   std::string write_buffer_;      ///< 写入缓冲区
+  std::size_t write_offset_{0};   ///< 已发送偏移（N5-M：避免 erase O(n) 移动）
+  mutable std::mutex write_mutex_; ///< 写缓冲区锁（N1-H：跨线程并发写保护）
   State state_{State::CONNECTED}; ///< 连接状态
   Clock::time_point last_active_; ///< 最近活动时间戳
 };
