@@ -28,26 +28,26 @@ public:
 
   int32_t getLine() const { return line_; }
 
-  uint32_t getThreadId() const { return threadId_; }
+  uint32_t get_thread_id() const { return thread_id_; }
 
   uint32_t getElapse() const { return elapse_; }
 
   uint64_t getTime() const { return time_; }
 
-  uint64_t getCoroutineId() const { return coroutineId_; }
+  uint64_t get_coroutine_id() const { return coroutine_id_; }
 
-  const std::string& getLoggerName() const { return loggerName_; }
+  const std::string& get_logger_name() const { return logger_name_; }
 
   const std::string& getContent() const { return content_; }
 
 private:
   const char* file_ = nullptr; // 文件名
   int32_t line_ = 0;           // 行号
-  uint32_t threadId_ = 0;      // 线程ID
+  uint32_t thread_id_ = 0;      // 线程ID
   uint32_t elapse_ = 0;        // 程序启动开始到现在的毫秒数
   uint64_t time_ = 0;          // 时间戳
-  uint64_t coroutineId_ = 0;   // 协程ID
-  std::string loggerName_;     // 日志器名称
+  uint64_t coroutine_id_ = 0;   // 协程ID
+  std::string logger_name_;     // 日志器名称
   std::string content_;        // 日志内容
 };
 

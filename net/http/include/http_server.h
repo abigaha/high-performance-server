@@ -1,6 +1,6 @@
 #pragma once
 
-#include "ctcpserver.h"
+#include "tcp_server.h"
 #include "http_parser.h"
 #include "http_request.h"
 #include "http_response.h"
@@ -17,7 +17,7 @@ namespace hps {
 /**
  * HTTP 服务器
  *
- * 封装 CTcpServer + Router，提供 HTTP 请求路由分发。
+ * 封装 TcpServer + Router，提供 HTTP 请求路由分发。
  * 用户通过 get/post/put/del 注册路由，start() 启动服务。
  *
  * 连接处理：每次可读事件后，用局部 HttpParser 解析 read_buffer，
@@ -28,13 +28,13 @@ class HttpServer {
 public:
   using Handler = Router::Handler;
 
-  explicit HttpServer(const CTcpServer::Config& config = {});
-  ~HttpServer(); // out-of-line（持有 unique_ptr<ThreadPool> 的 CTcpServer 需完整类型）
+  explicit HttpServer(const TcpServer::Config& config = {});
+  ~HttpServer(); // out-of-line（持有 unique_ptr<ThreadPool> 的 TcpServer 需完整类型）
 
   HttpServer(const HttpServer&) = delete;
   HttpServer& operator=(const HttpServer&) = delete;
 
-  /** 初始化底层 CTcpServer（socket/bind/listen/epoll） */
+  /** 初始化底层 TcpServer（socket/bind/listen/epoll） */
   bool init();
 
   /** 启动事件循环（阻塞，由主线程调用） */
@@ -66,7 +66,7 @@ private:
   /** 获取/创建连接级 mutex（串行化同一 conn 的 handler） */
   std::shared_ptr<std::mutex> get_conn_mutex(Connection* c);
 
-  CTcpServer server_;
+  TcpServer server_;
   Router router_;
 
   std::mutex conn_map_mutex_;

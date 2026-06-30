@@ -54,7 +54,7 @@ private:
   }
 
 private:
-  enum class State : uint8_t { Empty, Pushed, Popping, Aborting };
+  enum class State : uint8_t { EMPTY, PUSHED, POPPING, ABORTING };
 
 private:
   [[no_unique_address]] Allocator allocator_;
@@ -79,7 +79,7 @@ LockFreeQueue<T, Capacity, Allocator>::LockFreeQueue() :
     stop_source_{},
     stop_token_{stop_source_.get_token()} {
   for (auto& s : state_) {
-    s.store(State::Empty, std::memory_order_relaxed);
+    s.store(State::EMPTY, std::memory_order_relaxed);
   }
 }
 
@@ -90,7 +90,7 @@ LockFreeQueue<T, Capacity, Allocator>::~LockFreeQueue() {
     std::uint32_t head_index = get_index(current_head);
     std::allocator_traits<decltype(allocator_)>::destroy(allocator_,
                                                          std::next(buffer_, static_cast<std::ptrdiff_t>(head_index)));
-    state_[head_index].store(State::Empty, std::memory_order_relaxed);
+    state_[head_index].store(State::EMPTY, std::memory_order_relaxed);
     head_.store(increment_index(current_head), std::memory_order_relaxed);
   }
   std::allocator_traits<decltype(allocator_)>::deallocate(allocator_, buffer_, capacity_);
@@ -130,10 +130,10 @@ bool LockFreeQueue<T, Capacity, Allocator>::emplace(Args&&... args) {
         std::allocator_traits<decltype(allocator_)>::construct(
           allocator_, std::next(buffer_, static_cast<std::ptrdiff_t>(tail_index)), std::forward<Args>(args)...);
       } catch (...) {
-        state_[tail_index].store(State::Aborting, std::memory_order_release);
+        state_[tail_index].store(State::ABORTING, std::memory_order_release);
         return false;
       }
-      state_[tail_index].store(State::Pushed, std::memory_order_release);
+      state_[tail_index].store(State::PUSHED, std::memory_order_release);
       return true;
     }
   }
@@ -163,19 +163,19 @@ bool LockFreeQueue<T, Capacity, Allocator>::pop(T& item) {
     std::uint64_t next_head = increment_index(current_head);
     if (head_.compare_exchange_weak(current_head, next_head, std::memory_order_release, std::memory_order_relaxed)) {
       std::uint32_t head_index = get_index(current_head);
-      while (state_[head_index].load(std::memory_order_acquire) != State::Pushed) {
-        if (state_[head_index].load(std::memory_order_acquire) == State::Aborting) {
-          state_[head_index].store(State::Empty, std::memory_order_release);
+      while (state_[head_index].load(std::memory_order_acquire) != State::PUSHED) {
+        if (state_[head_index].load(std::memory_order_acquire) == State::ABORTING) {
+          state_[head_index].store(State::EMPTY, std::memory_order_release);
           return false;
         }
         std::this_thread::yield();
       }
       static_assert(std::is_nothrow_move_assignable_v<T>, "T的移动构造赋值运算符必须是noexcept的");
       item = std::move(*std::next(buffer_, static_cast<std::ptrdiff_t>(head_index)));
-      state_[head_index].store(State::Popping, std::memory_order_release);
+      state_[head_index].store(State::POPPING, std::memory_order_release);
       std::allocator_traits<decltype(allocator_)>::destroy(allocator_,
                                                            std::next(buffer_, static_cast<std::ptrdiff_t>(head_index)));
-      state_[head_index].store(State::Empty, std::memory_order_release);
+      state_[head_index].store(State::EMPTY, std::memory_order_release);
       return true;
     }
   }
@@ -189,18 +189,18 @@ bool LockFreeQueue<T, Capacity, Allocator>::try_pop(T& item) {
   std::uint64_t next_head = increment_index(current_head);
   if (head_.compare_exchange_weak(current_head, next_head, std::memory_order_acquire, std::memory_order_relaxed)) {
     std::uint32_t head_index = get_index(current_head);
-    while (state_[head_index].load(std::memory_order_acquire) != State::Pushed) {
-      if (state_[head_index].load(std::memory_order_acquire) == State::Aborting) {
-        state_[head_index].store(State::Empty, std::memory_order_release);
+    while (state_[head_index].load(std::memory_order_acquire) != State::PUSHED) {
+      if (state_[head_index].load(std::memory_order_acquire) == State::ABORTING) {
+        state_[head_index].store(State::EMPTY, std::memory_order_release);
         return false;
       }
     }
     static_assert(std::is_nothrow_move_assignable_v<T>);
     item = std::move(*std::next(buffer_, static_cast<std::ptrdiff_t>(head_index)));
-    state_[head_index].store(State::Popping, std::memory_order_release);
+    state_[head_index].store(State::POPPING, std::memory_order_release);
     std::allocator_traits<decltype(allocator_)>::destroy(allocator_,
                                                          std::next(buffer_, static_cast<std::ptrdiff_t>(head_index)));
-    state_[head_index].store(State::Empty, std::memory_order_release);
+    state_[head_index].store(State::EMPTY, std::memory_order_release);
     return true;
   }
   return false;

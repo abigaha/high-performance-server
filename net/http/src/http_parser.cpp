@@ -114,7 +114,7 @@ void HttpParser::handle_end_of_headers() {
       error_ = ParserError::BAD_REQUEST;
       return;
     }
-    if (cl > MAX_BODY_SIZE) {
+    if (cl > kMaxBodySize) {
       error_ = ParserError::PAYLOAD_TOO_LARGE;
       return;
     }
@@ -178,7 +178,7 @@ ParserResult HttpParser::feed_body_identity(char c) {
     request_.body.push_back(c);
     --body_bytes_remaining_;
     ++total_body_bytes_;
-    if (total_body_bytes_ > MAX_BODY_SIZE) {
+    if (total_body_bytes_ > kMaxBodySize) {
       error_ = ParserError::PAYLOAD_TOO_LARGE;
       return {.err = error_, .consumed = 1};
     }
@@ -209,7 +209,7 @@ ParserResult HttpParser::feed_chunk_size(char c) {
     if (chunk_size_ == 0) {
       state_ = ParserState::BODY_CHUNK_TRAILER;
     } else {
-      if (total_body_bytes_ + chunk_size_ > MAX_BODY_SIZE) {
+      if (total_body_bytes_ + chunk_size_ > kMaxBodySize) {
         error_ = ParserError::PAYLOAD_TOO_LARGE;
         return {.err = error_, .consumed = 1};
       }
@@ -228,7 +228,7 @@ ParserResult HttpParser::feed_chunk_data(char c) {
     request_.body.push_back(c);
     ++chunk_bytes_read_;
     ++total_body_bytes_;
-    if (total_body_bytes_ > MAX_BODY_SIZE) {
+    if (total_body_bytes_ > kMaxBodySize) {
       error_ = ParserError::PAYLOAD_TOO_LARGE;
       return {.err = error_, .consumed = 1};
     }

@@ -139,19 +139,19 @@ void LogFormatter::ElapseFormatItem::format(std::ostream& os,
 void LogFormatter::NameFormatItem::format(std::ostream& os,
                                           [[maybe_unused]] LogLevel level,
                                           const LogEvent::ptr event) {
-  os << event->getLoggerName();
+  os << event->get_logger_name();
 }
 
 void LogFormatter::ThreadIdFormatItem::format(std::ostream& os,
                                               [[maybe_unused]] LogLevel level,
                                               const LogEvent::ptr event) {
-  os << event->getThreadId();
+  os << event->get_thread_id();
 }
 
 void LogFormatter::CoroutineIdFormatItem::format(std::ostream& os,
                                                  [[maybe_unused]] LogLevel level,
                                                  const LogEvent::ptr event) {
-  os << event->getCoroutineId();
+  os << event->get_coroutine_id();
 }
 
 LogFormatter::DateTimeFormatItem::DateTimeFormatItem(const std::string& format) : format_(format) {}

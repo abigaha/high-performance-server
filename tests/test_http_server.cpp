@@ -1,4 +1,4 @@
-#include "ctcpclient.h"
+#include "tcp_client.h"
 #include "http_server.h"
 #include "thread_pool.h"
 
@@ -20,15 +20,15 @@ namespace {
 
 // 辅助：发送原始 HTTP 请求并读取响应
 std::string send_raw(uint16_t port, const std::string& raw) {
-  CTcpClient client("127.0.0.1", port);
-  if (!client.connectToServer()) {
+  TcpClient client("127.0.0.1", port);
+  if (!client.connect_to_server()) {
     return "";
   }
-  if (!client.sendMessage(raw)) {
+  if (!client.send_message(raw)) {
     return "";
   }
   std::string resp;
-  client.receiveMessage(resp, ReadMode::Raw, 2000);
+  client.receive_message(resp, ReadMode::RAW, 2000);
   return resp;
 }
 
@@ -36,7 +36,7 @@ std::string send_raw(uint16_t port, const std::string& raw) {
 
 // TH1: GET 基本请求
 TEST(HttpServerTest, GetBasic) {
-  HttpServer server(CTcpServer::Config{0, 128, 2, 50});
+  HttpServer server(TcpServer::Config{0, 128, 2, 50});
   server.get("/hello", [](const HttpRequest&, HttpResponse& resp) {
     resp.set_status(200, "OK");
     resp.set_content_type("text/plain");
@@ -60,7 +60,7 @@ TEST(HttpServerTest, GetBasic) {
 
 // TH2: 参数路由
 TEST(HttpServerTest, ParamRoute) {
-  HttpServer server(CTcpServer::Config{0, 128, 2, 50});
+  HttpServer server(TcpServer::Config{0, 128, 2, 50});
   server.get("/song/:id", [](const HttpRequest& req, HttpResponse& resp) {
     resp.set_status(200, "OK");
     resp.set_content_type("text/plain");
@@ -84,7 +84,7 @@ TEST(HttpServerTest, ParamRoute) {
 
 // TH3: 404 未找到
 TEST(HttpServerTest, NotFound) {
-  HttpServer server(CTcpServer::Config{0, 128, 2, 50});
+  HttpServer server(TcpServer::Config{0, 128, 2, 50});
   ASSERT_TRUE(server.init());
   std::thread t([&server]() { server.start(); });
   t.detach();
@@ -100,7 +100,7 @@ TEST(HttpServerTest, NotFound) {
 
 // TH4: POST 带 body
 TEST(HttpServerTest, PostBody) {
-  HttpServer server(CTcpServer::Config{0, 128, 2, 50});
+  HttpServer server(TcpServer::Config{0, 128, 2, 50});
   server.post("/echo", [](const HttpRequest& req, HttpResponse& resp) {
     resp.set_status(200, "OK");
     resp.set_content_type("text/plain");
@@ -125,7 +125,7 @@ TEST(HttpServerTest, PostBody) {
 
 // TH5: Keep-Alive 同连接多请求
 TEST(HttpServerTest, KeepAlive) {
-  HttpServer server(CTcpServer::Config{0, 128, 2, 50});
+  HttpServer server(TcpServer::Config{0, 128, 2, 50});
   server.get("/ping", [](const HttpRequest&, HttpResponse& resp) {
     resp.set_status(200, "OK");
     resp.set_content_type("text/plain");
@@ -140,18 +140,18 @@ TEST(HttpServerTest, KeepAlive) {
   uint16_t port = server.actual_port();
 
   // 同连接发两个请求
-  CTcpClient client("127.0.0.1", port);
-  ASSERT_TRUE(client.connectToServer());
-  ASSERT_TRUE(client.sendMessage("GET /ping HTTP/1.1\r\nHost: localhost\r\n\r\n"));
+  TcpClient client("127.0.0.1", port);
+  ASSERT_TRUE(client.connect_to_server());
+  ASSERT_TRUE(client.send_message("GET /ping HTTP/1.1\r\nHost: localhost\r\n\r\n"));
   std::this_thread::sleep_for(std::chrono::milliseconds(150));
   std::string resp1;
-  client.receiveMessage(resp1, ReadMode::Raw, 2000);
+  client.receive_message(resp1, ReadMode::RAW, 2000);
   ASSERT_NE(resp1.find("pong"), std::string::npos) << "第一次响应: " << resp1;
 
-  ASSERT_TRUE(client.sendMessage("GET /ping HTTP/1.1\r\nHost: localhost\r\nConnection: close\r\n\r\n"));
+  ASSERT_TRUE(client.send_message("GET /ping HTTP/1.1\r\nHost: localhost\r\nConnection: close\r\n\r\n"));
   std::this_thread::sleep_for(std::chrono::milliseconds(150));
   std::string resp2;
-  client.receiveMessage(resp2, ReadMode::Raw, 2000);
+  client.receive_message(resp2, ReadMode::RAW, 2000);
 
   server.stop();
   std::this_thread::sleep_for(std::chrono::milliseconds(50));
@@ -161,7 +161,7 @@ TEST(HttpServerTest, KeepAlive) {
 
 // TH6: 畸形请求 400
 TEST(HttpServerTest, Malformed) {
-  HttpServer server(CTcpServer::Config{0, 128, 2, 50});
+  HttpServer server(TcpServer::Config{0, 128, 2, 50});
   ASSERT_TRUE(server.init());
   std::thread t([&server]() { server.start(); });
   t.detach();
@@ -177,7 +177,7 @@ TEST(HttpServerTest, Malformed) {
 
 // TH7: handler 异常返回 500
 TEST(HttpServerTest, HandlerException) {
-  HttpServer server(CTcpServer::Config{0, 128, 2, 50});
+  HttpServer server(TcpServer::Config{0, 128, 2, 50});
   server.get("/boom", [](const HttpRequest&, HttpResponse&) {
     throw std::runtime_error("boom!");
   });

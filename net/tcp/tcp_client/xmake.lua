@@ -1,4 +1,4 @@
-target("ctcpserver")
+target("tcp_client")
 set_kind("shared")
 set_targetdir(path.join(os.projectdir(), "lib"))
 add_headerfiles("include/(**.h)", "include/(**.hpp)")

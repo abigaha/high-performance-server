@@ -1,4 +1,4 @@
-#include "ctcpclient.h"
+#include "tcp_client.h"
 #include "logger.h"
 #include "thread_pool.h"
 
@@ -39,13 +39,13 @@ int main() {
     msg += std::to_string(port);
     hps::Logger::_info(msg);
 
-    std::vector<hps::CTcpClient> clients;
+    std::vector<hps::TcpClient> clients;
     clients.reserve(10);
     for (int i = 0; i < 10; ++i) {
       clients.emplace_back(ip, port);
     }
     for (auto& client : clients) {
-      if (!client.connectToServer()) {
+      if (!client.connect_to_server()) {
         continue;
       }
       hps::Logger::_info("成功连接服务器: " + ip + ":" + std::to_string(port));

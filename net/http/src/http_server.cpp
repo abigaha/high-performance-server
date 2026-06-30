@@ -8,7 +8,7 @@
 
 namespace hps {
 
-HttpServer::HttpServer(const CTcpServer::Config& config) : server_(config) {}
+HttpServer::HttpServer(const TcpServer::Config& config) : server_(config) {}
 HttpServer::~HttpServer() = default; // out-of-line 定义，此 TU 已 include thread_pool.h
 
 bool HttpServer::init() {

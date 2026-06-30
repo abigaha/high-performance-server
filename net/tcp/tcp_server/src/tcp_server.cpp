@@ -1,4 +1,4 @@
-#include "ctcpserver.h"
+#include "tcp_server.h"
 
 #include "logger.h"
 #include "thread_pool.h"
@@ -20,7 +20,7 @@ namespace hps {
 
 namespace {
 
-constexpr int MAX_EPOLL_EVENTS = 64;
+constexpr int kMaxEpollEvents = 64;
 
 struct EpollFd {
   int fd;
@@ -48,35 +48,35 @@ int epoll_ctl_mod(int epoll_fd, EpollFd target, EpollEvents ev_flags) {
 
 } // anonymous namespace
 
-CTcpServer* CTcpServer::s_instance = nullptr;
+TcpServer* TcpServer::s_instance_ = nullptr;
 
-void CTcpServer::signal_handler(int sig) {
-  if (s_instance != nullptr) {
+void TcpServer::signal_handler(int sig) {
+  if (s_instance_ != nullptr) {
     Logger::_warn("收到信号 " + std::to_string(sig) + "，正在关闭服务器...");
-    s_instance->stop();
+    s_instance_->stop();
   }
 }
 
-CTcpServer::CTcpServer(const Config& config) : config_(config) {}
+TcpServer::TcpServer(const Config& config) : config_(config) {}
 
-CTcpServer::~CTcpServer() {
+TcpServer::~TcpServer() {
   stop();
-  if (s_instance == this) {
-    s_instance = nullptr;
+  if (s_instance_ == this) {
+    s_instance_ = nullptr;
   }
 }
 
-bool CTcpServer::init() {
+bool TcpServer::init() {
   if (server_sockfd_ >= 0) {
-    Logger::_warn("CTcpServer 已经初始化");
+    Logger::_warn("TcpServer 已经初始化");
     return true;
   }
 
-  if (s_instance != nullptr) {
-    Logger::_error("CTcpServer 多实例不被支持，信号处理可能不准确");
+  if (s_instance_ != nullptr) {
+    Logger::_error("TcpServer 多实例不被支持，信号处理可能不准确");
     return false;
   }
-  s_instance = this;
+  s_instance_ = this;
 
   server_sockfd_ = socket(AF_INET, SOCK_STREAM | SOCK_NONBLOCK, IPPROTO_TCP);
   if (server_sockfd_ < 0) {
@@ -173,29 +173,29 @@ bool CTcpServer::init() {
 
   thread_pool_ = std::make_unique<ThreadPool>(config_.thread_count);
 
-  Logger::_info("CTcpServer 初始化成功，端口: " + std::to_string(config_.port) +
+  Logger::_info("TcpServer 初始化成功，端口: " + std::to_string(config_.port) +
                 ", 线程数: " + std::to_string(config_.thread_count));
 
   return true;
 }
 
-void CTcpServer::set_handler(Handler handler) {
+void TcpServer::set_handler(Handler handler) {
   handler_ = std::move(handler);
 }
 
-void CTcpServer::start() {
+void TcpServer::start() {
   if (!running_.exchange(true)) {
-    Logger::_info("CTcpServer 启动事件循环");
+    Logger::_info("TcpServer 启动事件循环");
     event_loop();
   }
 }
 
-void CTcpServer::stop() {
+void TcpServer::stop() {
   if (!running_.exchange(false)) {
     return;
   }
 
-  Logger::_info("CTcpServer 正在停止...");
+  Logger::_info("TcpServer 正在停止...");
 
   if (wake_fd_ >= 0) {
     uint64_t val = 1;
@@ -203,8 +203,8 @@ void CTcpServer::stop() {
   }
 }
 
-void CTcpServer::event_loop() {
-  std::array<struct epoll_event, MAX_EPOLL_EVENTS> events{};
+void TcpServer::event_loop() {
+  std::array<struct epoll_event, kMaxEpollEvents> events{};
 
   while (running_.load()) {
     int nfds = epoll_wait(epoll_fd_, events.data(), static_cast<int>(events.size()), config_.epoll_timeout_ms);
@@ -222,10 +222,10 @@ void CTcpServer::event_loop() {
   }
 
   cleanup_resources();
-  Logger::_info("CTcpServer 已停止");
+  Logger::_info("TcpServer 已停止");
 }
 
-void CTcpServer::cleanup_resources() {
+void TcpServer::cleanup_resources() {
   for (auto& [fd, conn] : connections_) {
     conn->close();
     epoll_ctl(epoll_fd_, EPOLL_CTL_DEL, fd, nullptr);
@@ -249,7 +249,7 @@ void CTcpServer::cleanup_resources() {
   signal(SIGTERM, SIG_DFL);
 }
 
-void CTcpServer::handle_event(const struct epoll_event& evt) {
+void TcpServer::handle_event(const struct epoll_event& evt) {
   const int fd = evt.data.fd;
   const uint32_t ev = evt.events;
   if (fd == server_sockfd_) {
@@ -280,7 +280,7 @@ void CTcpServer::handle_event(const struct epoll_event& evt) {
   }
 }
 
-bool CTcpServer::handle_accept() {
+bool TcpServer::handle_accept() {
   while (true) {
     struct sockaddr_in client_addr {};
 
@@ -312,7 +312,7 @@ bool CTcpServer::handle_accept() {
   return true;
 }
 
-bool CTcpServer::handle_read(int fd) {
+bool TcpServer::handle_read(int fd) {
   auto it = connections_.find(fd);
   if (it == connections_.end()) {
     return false;
@@ -359,7 +359,7 @@ bool CTcpServer::handle_read(int fd) {
   return true;
 }
 
-bool CTcpServer::handle_write(int fd) {
+bool TcpServer::handle_write(int fd) {
   auto it = connections_.find(fd);
   if (it == connections_.end()) {
     return false;
@@ -383,7 +383,7 @@ bool CTcpServer::handle_write(int fd) {
   return true;
 }
 
-void CTcpServer::close_connection(int fd) {
+void TcpServer::close_connection(int fd) {
   auto it = connections_.find(fd);
   if (it == connections_.end()) {
     return;
@@ -396,7 +396,7 @@ void CTcpServer::close_connection(int fd) {
   connections_.erase(it);
 }
 
-void CTcpServer::notify_wake(int wake_fd) {
+void TcpServer::notify_wake(int wake_fd) {
   if (wake_fd < 0) {
     return;
   }
@@ -404,7 +404,7 @@ void CTcpServer::notify_wake(int wake_fd) {
   [[maybe_unused]] auto unused = write(wake_fd, &val, sizeof(val));
 }
 
-void CTcpServer::process_dirty_connections() {
+void TcpServer::process_dirty_connections() {
   std::vector<int> fds;
   {
     std::lock_guard<std::mutex> lock(dirty_mutex_);

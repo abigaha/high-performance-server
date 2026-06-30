@@ -38,12 +38,12 @@ struct ParserResult {
  * 状态机设计，支持分片 feed 输入。每次调用 feed() 返回 ParserResult，
  * 包含错误码和已消费的字节数。
  *
- * 最大 body 大小：MAX_BODY_SIZE（100 MiB）
+ * 最大 body 大小：kMaxBodySize（100 MiB）
  */
 class HttpParser {
 public:
   /** body 最大字节数限制（100 MiB） */
-  static constexpr uint64_t MAX_BODY_SIZE = static_cast<const uint64_t>(100) * 1024 * 1024;
+  static constexpr uint64_t kMaxBodySize = static_cast<const uint64_t>(100) * 1024 * 1024;
 
   HttpParser();
 

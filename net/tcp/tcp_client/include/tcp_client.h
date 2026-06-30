@@ -11,27 +11,27 @@
 
 namespace hps {
 
-enum class ReadMode { Line, Raw };
+enum class ReadMode { LINE, RAW };
 
-class CTcpClient {
+class TcpClient {
 public:
-  CTcpClient(const std::string& server_ip, uint16_t server_port);
+  TcpClient(const std::string& server_ip, uint16_t server_port);
   /** @param connect_timeout_ms 连接超时（毫秒），仅在 Raw 模式下受支持；Line 模式使用默认超时 */
-  CTcpClient(uint32_t connect_timeout_ms, const std::string& server_ip, uint16_t server_port);
-  ~CTcpClient();
-  CTcpClient(const CTcpClient&) = delete;
-  CTcpClient& operator=(const CTcpClient&) = delete;
-  CTcpClient(CTcpClient&& other) noexcept;
-  CTcpClient& operator=(CTcpClient&& other) noexcept;
+  TcpClient(uint32_t connect_timeout_ms, const std::string& server_ip, uint16_t server_port);
+  ~TcpClient();
+  TcpClient(const TcpClient&) = delete;
+  TcpClient& operator=(const TcpClient&) = delete;
+  TcpClient(TcpClient&& other) noexcept;
+  TcpClient& operator=(TcpClient&& other) noexcept;
 
-  bool connectToServer();
+  bool connect_to_server();
   void disconnect();
 
-  bool sendMessage(const std::string& message) const;
-  bool receiveMessage(std::string& message, ReadMode mode = ReadMode::Line, uint32_t read_timeout_ms = 5000);
+  bool send_message(const std::string& message) const;
+  bool receive_message(std::string& message, ReadMode mode = ReadMode::LINE, uint32_t read_timeout_ms = 5000);
 
-  bool sendFile(const std::string& file_path) const;
-  bool sendFile(const std::string& data, std::size_t size) const;
+  bool send_file(const std::string& file_path) const;
+  bool send_file(const std::string& data, std::size_t size) const;
 
   bool is_connected() const { return client_sockfd_ >= 0; }
 

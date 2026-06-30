@@ -23,7 +23,7 @@ class ThreadPool;
  * 支持优雅关闭（SIGINT/SIGTERM）、跨线程事件通知（eventfd）、
  * 可配置线程数/端口/backlog/超时等参数。
  */
-class CTcpServer {
+class TcpServer {
 public:
   /** 服务器配置 */
   struct Config {
@@ -40,17 +40,17 @@ public:
    * 默认构造函数
    *
    * 使用 Config 默认值初始化。注意：不能直接写成
-   * CTcpServer(Config config = {})，因为 GCC 对含有默认成员初始化器的
+   * TcpServer(Config config = {})，因为 GCC 对含有默认成员初始化器的
    * 聚合类型的默认参数存在兼容问题。
    */
-  CTcpServer() : config_(Config{}) {}
+  TcpServer() : config_(Config{}) {}
 
   /** 使用自定义配置构造 */
-  explicit CTcpServer(const Config& config);
-  ~CTcpServer();
+  explicit TcpServer(const Config& config);
+  ~TcpServer();
 
-  CTcpServer(const CTcpServer&) = delete;
-  CTcpServer& operator=(const CTcpServer&) = delete;
+  TcpServer(const TcpServer&) = delete;
+  TcpServer& operator=(const TcpServer&) = delete;
 
   /** 初始化：socket/bind/listen/epoll/eventfd/signal/ThreadPool */
   bool init();
@@ -116,7 +116,7 @@ private:
   std::mutex dirty_mutex_;     ///< dirty_fds_ 保护锁
   std::vector<int> dirty_fds_; ///< 待处理 EPOLLOUT 的连接 fd
 
-  static CTcpServer* s_instance;       ///< 全局实例指针（信号处理用）
+  static TcpServer* s_instance_;       ///< 全局实例指针（信号处理用）
   static void signal_handler(int sig); ///< SIGINT/SIGTERM 处理函数
 };
 

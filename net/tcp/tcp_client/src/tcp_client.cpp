@@ -1,4 +1,4 @@
-#include "ctcpclient.h"
+#include "tcp_client.h"
 
 #include "logger.h"
 
@@ -17,17 +17,17 @@ constexpr uint32_t DEFAULT_CONNECT_TIMEOUT_MS = 5000;
 
 } // anonymous namespace
 
-CTcpClient::CTcpClient(const std::string& server_ip, uint16_t server_port) :
+TcpClient::TcpClient(const std::string& server_ip, uint16_t server_port) :
     server_ip_(server_ip), server_port_(server_port), connect_timeout_ms_(DEFAULT_CONNECT_TIMEOUT_MS) {}
 
-CTcpClient::CTcpClient(uint32_t connect_timeout_ms, const std::string& server_ip, uint16_t server_port) :
+TcpClient::TcpClient(uint32_t connect_timeout_ms, const std::string& server_ip, uint16_t server_port) :
     server_ip_(server_ip), server_port_(server_port), connect_timeout_ms_(connect_timeout_ms) {}
 
-CTcpClient::~CTcpClient() {
+TcpClient::~TcpClient() {
   disconnect();
 }
 
-CTcpClient::CTcpClient(CTcpClient&& other) noexcept :
+TcpClient::TcpClient(TcpClient&& other) noexcept :
     client_sockfd_(other.client_sockfd_),
     server_ip_(std::move(other.server_ip_)),
     server_port_(other.server_port_),
@@ -36,7 +36,7 @@ CTcpClient::CTcpClient(CTcpClient&& other) noexcept :
   other.client_sockfd_ = -1;
 }
 
-CTcpClient& CTcpClient::operator=(CTcpClient&& other) noexcept {
+TcpClient& TcpClient::operator=(TcpClient&& other) noexcept {
   if (this != &other) {
     disconnect();
     client_sockfd_ = other.client_sockfd_;
@@ -49,7 +49,7 @@ CTcpClient& CTcpClient::operator=(CTcpClient&& other) noexcept {
   return *this;
 }
 
-bool CTcpClient::send_all(int fd, const char* data, std::size_t size, DurationMs timeout) {
+bool TcpClient::send_all(int fd, const char* data, std::size_t size, DurationMs timeout) {
   // N2-H：非阻塞 socket 需处理 EAGAIN/EWOULDBLOCK（poll 等可写后重试）、EINTR（重试）
   std::size_t total = 0;
   while (total < size) {
@@ -78,7 +78,7 @@ bool CTcpClient::send_all(int fd, const char* data, std::size_t size, DurationMs
   return true;
 }
 
-bool CTcpClient::wait_connected(int fd, DurationMs timeout) {
+bool TcpClient::wait_connected(int fd, DurationMs timeout) {
   struct pollfd pfd {};
 
   pfd.fd = fd;
@@ -94,7 +94,7 @@ bool CTcpClient::wait_connected(int fd, DurationMs timeout) {
   return getsockopt(fd, SOL_SOCKET, SO_ERROR, &err, &errlen) >= 0 && err == 0;
 }
 
-bool CTcpClient::wait_readable(int fd, DurationMs timeout) {
+bool TcpClient::wait_readable(int fd, DurationMs timeout) {
   struct pollfd pfd {};
 
   pfd.fd = fd;
@@ -104,7 +104,7 @@ bool CTcpClient::wait_readable(int fd, DurationMs timeout) {
   return ret > 0;
 }
 
-bool CTcpClient::connectToServer() {
+bool TcpClient::connect_to_server() {
   disconnect();
 
   client_sockfd_ = socket(AF_INET, SOCK_STREAM | SOCK_NONBLOCK, IPPROTO_TCP);
@@ -150,7 +150,7 @@ bool CTcpClient::connectToServer() {
   return true;
 }
 
-void CTcpClient::disconnect() {
+void TcpClient::disconnect() {
   if (client_sockfd_ >= 0) {
     close(client_sockfd_);
     client_sockfd_ = -1;
@@ -158,7 +158,7 @@ void CTcpClient::disconnect() {
   read_buf_.clear();
 }
 
-bool CTcpClient::sendMessage(const std::string& message) const {
+bool TcpClient::send_message(const std::string& message) const {
   if (client_sockfd_ < 0) {
     Logger::_error("未连接到服务器");
     return false;
@@ -166,17 +166,17 @@ bool CTcpClient::sendMessage(const std::string& message) const {
   return send_all(client_sockfd_, message.data(), message.size(), DurationMs{connect_timeout_ms_});
 }
 
-bool CTcpClient::receiveMessage(std::string& message, ReadMode mode, uint32_t read_timeout_ms) {
+bool TcpClient::receive_message(std::string& message, ReadMode mode, uint32_t read_timeout_ms) {
   if (client_sockfd_ < 0) {
     return false;
   }
-  if (mode == ReadMode::Line) {
+  if (mode == ReadMode::LINE) {
     return read_line(message);
   }
   return read_raw(message, read_timeout_ms);
 }
 
-bool CTcpClient::recv_into_buffer(DurationMs timeout) {
+bool TcpClient::recv_into_buffer(DurationMs timeout) {
   if (!wait_readable(client_sockfd_, timeout)) {
     return false;
   }
@@ -195,7 +195,7 @@ bool CTcpClient::recv_into_buffer(DurationMs timeout) {
   return false;
 }
 
-bool CTcpClient::read_line(std::string& line) {
+bool TcpClient::read_line(std::string& line) {
   while (true) {
     auto pos = read_buf_.find('\n');
     if (pos != std::string::npos) {
@@ -220,7 +220,7 @@ bool CTcpClient::read_line(std::string& line) {
   }
 }
 
-bool CTcpClient::read_raw(std::string& data, uint32_t timeout_ms) {
+bool TcpClient::read_raw(std::string& data, uint32_t timeout_ms) {
   data = std::move(read_buf_);
   read_buf_.clear();
 
@@ -257,7 +257,7 @@ bool CTcpClient::read_raw(std::string& data, uint32_t timeout_ms) {
   return true;
 }
 
-bool CTcpClient::sendFile(const std::string& file_path) const {
+bool TcpClient::send_file(const std::string& file_path) const {
   if (client_sockfd_ < 0) {
     Logger::_error("未连接到服务器");
     return false;
@@ -287,7 +287,7 @@ bool CTcpClient::sendFile(const std::string& file_path) const {
   return true;
 }
 
-bool CTcpClient::sendFile(const std::string& data, std::size_t size) const {
+bool TcpClient::send_file(const std::string& data, std::size_t size) const {
   if (client_sockfd_ < 0) {
     Logger::_error("未连接到服务器");
     return false;

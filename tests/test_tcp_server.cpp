@@ -1,4 +1,4 @@
-#include "ctcpserver.h"
+#include "tcp_server.h"
 #include "thread_pool.h"
 
 #include <arpa/inet.h>
@@ -14,10 +14,10 @@
 #include <thread>
 #include <vector>
 
-class CTcpServerTest : public ::testing::Test {
+class TcpServerTest : public ::testing::Test {
 protected:
-  hps::CTcpServer::Config config_;
-  std::unique_ptr<hps::CTcpServer> server_;
+  hps::TcpServer::Config config_;
+  std::unique_ptr<hps::TcpServer> server_;
   std::thread server_thread_;
   std::atomic<bool> server_ready_{false};
 
@@ -37,7 +37,7 @@ protected:
   }
 
   void start_server() {
-    server_ = std::make_unique<hps::CTcpServer>(config_);
+    server_ = std::make_unique<hps::TcpServer>(config_);
     ASSERT_TRUE(server_->init());
     server_ready_ = true;
     server_thread_ = std::thread([this]() { server_->start(); });
@@ -70,24 +70,24 @@ protected:
   }
 };
 
-TEST_F(CTcpServerTest, InitSuccess) {
-  hps::CTcpServer server(config_);
+TEST_F(TcpServerTest, InitSuccess) {
+  hps::TcpServer server(config_);
   EXPECT_TRUE(server.init());
   EXPECT_GT(server.actual_port(), 0);
 }
 
-TEST_F(CTcpServerTest, InitDuplicatePort) {
-  hps::CTcpServer server1(config_);
+TEST_F(TcpServerTest, InitDuplicatePort) {
+  hps::TcpServer server1(config_);
   ASSERT_TRUE(server1.init());
 
-  hps::CTcpServer::Config same_port_config;
+  hps::TcpServer::Config same_port_config;
   same_port_config.port = server1.actual_port();
 
-  hps::CTcpServer server2(same_port_config);
+  hps::TcpServer server2(same_port_config);
   EXPECT_FALSE(server2.init()); // 端口已被占用
 }
 
-TEST_F(CTcpServerTest, StartStop) {
+TEST_F(TcpServerTest, StartStop) {
   start_server();
 
   EXPECT_TRUE(server_->is_running());
@@ -99,12 +99,12 @@ TEST_F(CTcpServerTest, StartStop) {
   EXPECT_FALSE(server_->is_running());
 }
 
-TEST_F(CTcpServerTest, SingleConnectionEcho) {
+TEST_F(TcpServerTest, SingleConnectionEcho) {
   std::atomic<bool> handler_called{false};
   std::string received_data;
 
   config_.port = 0;
-  server_ = std::make_unique<hps::CTcpServer>(config_);
+  server_ = std::make_unique<hps::TcpServer>(config_);
   server_->set_handler([&](std::shared_ptr<hps::Connection> conn) {
     handler_called = true;
     received_data = conn->read_buffer();
@@ -151,12 +151,12 @@ TEST_F(CTcpServerTest, SingleConnectionEcho) {
   server_thread_ = std::thread();
 }
 
-TEST_F(CTcpServerTest, MultipleConcurrentConnections) {
+TEST_F(TcpServerTest, MultipleConcurrentConnections) {
   std::atomic<int> handler_count{0};
   constexpr int NUM_CLIENTS = 10;
 
   config_.port = 0;
-  server_ = std::make_unique<hps::CTcpServer>(config_);
+  server_ = std::make_unique<hps::TcpServer>(config_);
   server_->set_handler([&](std::shared_ptr<hps::Connection> conn) {
     handler_count++;
     conn->write_buffer() = "OK";
@@ -190,9 +190,9 @@ TEST_F(CTcpServerTest, MultipleConcurrentConnections) {
   server_thread_ = std::thread();
 }
 
-TEST_F(CTcpServerTest, NoHandlerNoCrash) {
+TEST_F(TcpServerTest, NoHandlerNoCrash) {
   config_.port = 0;
-  server_ = std::make_unique<hps::CTcpServer>(config_);
+  server_ = std::make_unique<hps::TcpServer>(config_);
   ASSERT_TRUE(server_->init());
   server_thread_ = std::thread([this]() { server_->start(); });
   while (!server_->is_running()) {
@@ -212,12 +212,12 @@ TEST_F(CTcpServerTest, NoHandlerNoCrash) {
   server_thread_ = std::thread();
 }
 
-TEST_F(CTcpServerTest, ClientDisconnect) {
+TEST_F(TcpServerTest, ClientDisconnect) {
   std::atomic<int> connect_count{0};
   std::atomic<int> close_detected{0};
 
   config_.port = 0;
-  server_ = std::make_unique<hps::CTcpServer>(config_);
+  server_ = std::make_unique<hps::TcpServer>(config_);
   server_->set_handler([&](std::shared_ptr<hps::Connection> conn) {
     connect_count++;
     conn->write_buffer() = "OK";

@@ -57,7 +57,7 @@ public:
     }
 
     std::exception_ptr exception_;
-    uint64_t cid = hps::Logger::allocCoroutineId();
+    uint64_t cid_ = hps::Logger::allocCoroutineId();
     std::optional<T> yield_value_;
     std::optional<T> return_value_;
     std::stop_source stop_source_;
@@ -101,7 +101,7 @@ public:
     // 清空旧 yield，避免读到上一次的值
     handle_.promise().yield_value_.reset();
 
-    hps::Logger::CoroutineScope scope(handle_.promise().cid);
+    hps::Logger::CoroutineScope scope(handle_.promise().cid_);
     handle_.resume();
 
     auto& exc = handle_.promise().exception_;

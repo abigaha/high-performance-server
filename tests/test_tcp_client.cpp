@@ -1,4 +1,4 @@
-#include "ctcpclient.h"
+#include "tcp_client.h"
 
 #include <arpa/inet.h>
 #include <gtest/gtest.h>
@@ -66,18 +66,18 @@ std::string temp_file_path() {
   const char* tmpdir = std::getenv("TMPDIR");
   if (tmpdir == nullptr)
     tmpdir = "/tmp";
-  return std::string(tmpdir) + "/opencode_test_ctcpclient_" + std::to_string(getpid());
+  return std::string(tmpdir) + "/opencode_test_tcp_client_" + std::to_string(getpid());
 }
 
 } // anonymous namespace
 
-TEST(CTcpClientTest, ConnectTimeout) {
-  hps::CTcpClient client(100, "127.0.0.1", 1);
-  EXPECT_FALSE(client.connectToServer());
+TEST(TcpClientTest, ConnectTimeout) {
+  hps::TcpClient client(100, "127.0.0.1", 1);
+  EXPECT_FALSE(client.connect_to_server());
   EXPECT_FALSE(client.is_connected());
 }
 
-TEST(CTcpClientTest, SendReceiveLine) {
+TEST(TcpClientTest, SendReceiveLine) {
   int srv = create_echo_server();
   ASSERT_GE(srv, 0);
   int port = get_port(srv);
@@ -85,13 +85,13 @@ TEST(CTcpClientTest, SendReceiveLine) {
 
   std::thread t(run_echo_server, srv);
 
-  hps::CTcpClient client("127.0.0.1", static_cast<uint16_t>(port));
-  ASSERT_TRUE(client.connectToServer());
+  hps::TcpClient client("127.0.0.1", static_cast<uint16_t>(port));
+  ASSERT_TRUE(client.connect_to_server());
   EXPECT_TRUE(client.is_connected());
 
-  EXPECT_TRUE(client.sendMessage("hello\n"));
+  EXPECT_TRUE(client.send_message("hello\n"));
   std::string reply;
-  EXPECT_TRUE(client.receiveMessage(reply, hps::ReadMode::Line));
+  EXPECT_TRUE(client.receive_message(reply, hps::ReadMode::LINE));
   EXPECT_EQ(reply, "hello");
 
   client.disconnect();
@@ -99,7 +99,7 @@ TEST(CTcpClientTest, SendReceiveLine) {
   close(srv);
 }
 
-TEST(CTcpClientTest, ReceiveTimeout) {
+TEST(TcpClientTest, ReceiveTimeout) {
   int srv = create_echo_server();
   ASSERT_GE(srv, 0);
   int port = get_port(srv);
@@ -107,18 +107,18 @@ TEST(CTcpClientTest, ReceiveTimeout) {
 
   std::thread t(run_echo_server, srv);
 
-  hps::CTcpClient client("127.0.0.1", static_cast<uint16_t>(port));
-  ASSERT_TRUE(client.connectToServer());
+  hps::TcpClient client("127.0.0.1", static_cast<uint16_t>(port));
+  ASSERT_TRUE(client.connect_to_server());
 
   std::string reply;
-  EXPECT_FALSE(client.receiveMessage(reply, hps::ReadMode::Raw, 100));
+  EXPECT_FALSE(client.receive_message(reply, hps::ReadMode::RAW, 100));
 
   client.disconnect();
   t.join();
   close(srv);
 }
 
-TEST(CTcpClientTest, SendFile) {
+TEST(TcpClientTest, SendFile) {
   int srv = create_echo_server();
   ASSERT_GE(srv, 0);
   int port = get_port(srv);
@@ -133,12 +133,12 @@ TEST(CTcpClientTest, SendFile) {
     f << "file_content_123";
   }
 
-  hps::CTcpClient client("127.0.0.1", static_cast<uint16_t>(port));
-  ASSERT_TRUE(client.connectToServer());
-  EXPECT_TRUE(client.sendFile(path));
+  hps::TcpClient client("127.0.0.1", static_cast<uint16_t>(port));
+  ASSERT_TRUE(client.connect_to_server());
+  EXPECT_TRUE(client.send_file(path));
 
   std::string reply;
-  EXPECT_TRUE(client.receiveMessage(reply, hps::ReadMode::Raw));
+  EXPECT_TRUE(client.receive_message(reply, hps::ReadMode::RAW));
   EXPECT_EQ(reply, "file_content_123");
 
   client.disconnect();
@@ -147,7 +147,7 @@ TEST(CTcpClientTest, SendFile) {
   std::remove(path.c_str());
 }
 
-TEST(CTcpClientTest, SendLargeData) {
+TEST(TcpClientTest, SendLargeData) {
   int srv = create_echo_server();
   ASSERT_GE(srv, 0);
   int port = get_port(srv);
@@ -157,12 +157,12 @@ TEST(CTcpClientTest, SendLargeData) {
 
   std::thread t(run_echo_server, srv);
 
-  hps::CTcpClient client("127.0.0.1", static_cast<uint16_t>(port));
-  ASSERT_TRUE(client.connectToServer());
-  EXPECT_TRUE(client.sendFile(large_data, large_data.size()));
+  hps::TcpClient client("127.0.0.1", static_cast<uint16_t>(port));
+  ASSERT_TRUE(client.connect_to_server());
+  EXPECT_TRUE(client.send_file(large_data, large_data.size()));
 
   std::string reply;
-  EXPECT_TRUE(client.receiveMessage(reply, hps::ReadMode::Raw));
+  EXPECT_TRUE(client.receive_message(reply, hps::ReadMode::RAW));
   EXPECT_EQ(reply.size(), large_data.size());
 
   client.disconnect();
@@ -170,7 +170,7 @@ TEST(CTcpClientTest, SendLargeData) {
   close(srv);
 }
 
-TEST(CTcpClientTest, DisconnectReconnect) {
+TEST(TcpClientTest, DisconnectReconnect) {
   int srv = create_echo_server();
   ASSERT_GE(srv, 0);
   int port = get_port(srv);
@@ -178,14 +178,14 @@ TEST(CTcpClientTest, DisconnectReconnect) {
 
   std::thread t1(run_echo_server, srv);
 
-  hps::CTcpClient client("127.0.0.1", static_cast<uint16_t>(port));
+  hps::TcpClient client("127.0.0.1", static_cast<uint16_t>(port));
 
-  ASSERT_TRUE(client.connectToServer());
+  ASSERT_TRUE(client.connect_to_server());
   EXPECT_TRUE(client.is_connected());
   client.disconnect();
   EXPECT_FALSE(client.is_connected());
 
-  ASSERT_TRUE(client.connectToServer());
+  ASSERT_TRUE(client.connect_to_server());
   EXPECT_TRUE(client.is_connected());
 
   client.disconnect();
@@ -193,7 +193,7 @@ TEST(CTcpClientTest, DisconnectReconnect) {
   close(srv);
 }
 
-TEST(CTcpClientTest, MoveSemantics) {
+TEST(TcpClientTest, MoveSemantics) {
   int srv = create_echo_server();
   ASSERT_GE(srv, 0);
   int port = get_port(srv);
@@ -201,17 +201,17 @@ TEST(CTcpClientTest, MoveSemantics) {
 
   std::thread t(run_echo_server, srv);
 
-  hps::CTcpClient client("127.0.0.1", static_cast<uint16_t>(port));
-  ASSERT_TRUE(client.connectToServer());
+  hps::TcpClient client("127.0.0.1", static_cast<uint16_t>(port));
+  ASSERT_TRUE(client.connect_to_server());
   EXPECT_TRUE(client.is_connected());
 
-  hps::CTcpClient moved(std::move(client));
+  hps::TcpClient moved(std::move(client));
   EXPECT_TRUE(moved.is_connected());
   EXPECT_FALSE(client.is_connected());
 
-  EXPECT_TRUE(moved.sendMessage("data\n"));
+  EXPECT_TRUE(moved.send_message("data\n"));
   std::string reply;
-  EXPECT_TRUE(moved.receiveMessage(reply, hps::ReadMode::Line));
+  EXPECT_TRUE(moved.receive_message(reply, hps::ReadMode::LINE));
   EXPECT_EQ(reply, "data");
 
   moved.disconnect();
@@ -219,7 +219,7 @@ TEST(CTcpClientTest, MoveSemantics) {
   close(srv);
 }
 
-TEST(CTcpClientTest, SendPartialRetry) {
+TEST(TcpClientTest, SendPartialRetry) {
   int srv = create_echo_server();
   ASSERT_GE(srv, 0);
   int port = get_port(srv);
@@ -227,14 +227,14 @@ TEST(CTcpClientTest, SendPartialRetry) {
 
   std::thread t(run_echo_server, srv);
 
-  hps::CTcpClient client("127.0.0.1", static_cast<uint16_t>(port));
-  ASSERT_TRUE(client.connectToServer());
+  hps::TcpClient client("127.0.0.1", static_cast<uint16_t>(port));
+  ASSERT_TRUE(client.connect_to_server());
 
   std::string msg = "partial_test\n";
-  EXPECT_TRUE(client.sendMessage(msg));
+  EXPECT_TRUE(client.send_message(msg));
 
   std::string reply;
-  EXPECT_TRUE(client.receiveMessage(reply, hps::ReadMode::Line));
+  EXPECT_TRUE(client.receive_message(reply, hps::ReadMode::LINE));
   EXPECT_EQ(reply, "partial_test");
 
   client.disconnect();
