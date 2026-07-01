@@ -60,7 +60,7 @@ void TcpServer::signal_handler(int sig) {
 TcpServer::TcpServer(const Config& config) : config_(config) {}
 
 TcpServer::~TcpServer() {
-  stop();
+  this->TcpServer::stop();  // 限定调用避免析构时虚分发绕过
   if (s_instance_ == this) {
     s_instance_ = nullptr;
   }
@@ -171,7 +171,7 @@ bool TcpServer::init() {
   sigaction(SIGINT, &sa, nullptr);
   sigaction(SIGTERM, &sa, nullptr);
 
-  thread_pool_ = std::make_unique<ThreadPool>(config_.thread_count);
+  thread_pool_ = std::make_unique<LockFreeThreadPool>(config_.thread_count);
 
   Logger::_info("TcpServer 初始化成功，端口: " + std::to_string(config_.port) +
                 ", 线程数: " + std::to_string(config_.thread_count));

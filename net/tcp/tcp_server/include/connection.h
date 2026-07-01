@@ -4,12 +4,17 @@
 #include <sys/socket.h>
 
 #include <chrono>
+#include <coroutine>
 #include <cstdint>
 #include <memory>
 #include <mutex>
 #include <string>
 
 namespace hps {
+
+// F6：协程可等待对象前向声明（Connection::await_read/await_write 返回类型）
+struct ReadAwaiter;
+struct WriteAwaiter;
 
 /**
  * TCP 连接封装
@@ -88,6 +93,12 @@ public:
   /** 更新最近活动时间为现在 */
   void update_active() { last_active_ = Clock::now(); }
 
+  /** 协程化非阻塞读（F6：返回 ReadAwaiter，可被 co_await） */
+  ReadAwaiter await_read() noexcept;
+
+  /** 协程化非阻塞写（F6：返回 WriteAwaiter，可被 co_await） */
+  WriteAwaiter await_write() noexcept;
+
 private:
   int fd_{-1}; ///< socket 文件描述符
 
@@ -99,6 +110,37 @@ private:
   mutable std::mutex write_mutex_; ///< 写缓冲区锁（N1-H：跨线程并发写保护）
   State state_{State::CONNECTED};  ///< 连接状态
   Clock::time_point last_active_;  ///< 最近活动时间戳
+};
+
+// ==================== 协程可等待对象 ====================
+
+/**
+ * 非阻塞读可等待对象（F6：协程化 IO 支持）
+ *
+ * 通过 Connection::await_read() 获取，co_await 它执行非阻塞读。
+ * 当前为简单实现（立即 resume），后续可集成 epoll 变为真异步。
+ */
+struct ReadAwaiter {
+  Connection* conn{nullptr};
+  ssize_t result{0};
+
+  bool await_ready() const noexcept { return false; }
+  void await_suspend(std::coroutine_handle<> handle);
+  ssize_t await_resume() const noexcept { return result; }
+};
+
+/**
+ * 非阻塞写可等待对象（F6：协程化 IO 支持）
+ *
+ * 通过 Connection::await_write() 获取，co_await 它执行非阻塞写。
+ */
+struct WriteAwaiter {
+  Connection* conn{nullptr};
+  ssize_t result{0};
+
+  bool await_ready() const noexcept { return false; }
+  void await_suspend(std::coroutine_handle<> handle);
+  ssize_t await_resume() const noexcept { return result; }
 };
 
 } // namespace hps

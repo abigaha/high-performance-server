@@ -2,6 +2,7 @@
 
 #include "lock_free_queue.hpp"
 #include "move_only_function.h"
+#include "thread_pool_base.h"
 
 #include <atomic>
 #include <concepts>
@@ -15,38 +16,26 @@
 namespace hps {
 
 /**
- * 基于无锁队列 + 条件变量的线程池
+ * 基于无锁队列 + 条件变量的锁无关（lock-free）线程池
  *
- * 内部以 LockFreeQueue<MoveOnlyFunction> 作为无锁任务队列，
- * 配合 std::condition_variable 实现工作线程的休眠唤醒，避免忙等自旋。
- * 任务通过 MoveOnlyFunction（SBO 优化）存储，避免 std::function 堆分配。
+ * 使用 LockFreeQueue<MoveOnlyFunction> 作为无锁任务队列（SBO 优化，
+ * 避免 std::function 堆分配），配合 std::condition_variable 实现
+ * 工作线程的休眠唤醒，避免忙等自旋。
  */
-class ThreadPool {
+class LockFreeThreadPool : public ThreadPoolBase<LockFreeThreadPool> {
 public:
-  /**
-   * 构造函数
-   * @param numThreads 工作线程数（0 表示不创建工作线程）
-   */
-  explicit ThreadPool(size_t numThreads);
+  explicit LockFreeThreadPool(size_t numThreads);
+  ~LockFreeThreadPool();
 
-  ~ThreadPool();
-
-  /**
-   * 投递任务到线程池
-   * @tparam F 可调用对象类型（lambda 等），需满足 std::invocable
-   * @tparam Args 绑定参数类型
-   * @param f 可调用对象
-   * @param args 绑定参数
-   */
+  /** CRTP 实现 */
   template <typename F, typename... Args>
     requires std::invocable<F, Args...>
-  void enqueue(F&& f, Args&&... args);
+  void enqueue_impl(F&& f, Args&&... args);
 
-  /** 等待所有已投递任务完成 */
-  void wait_for_all_tasks();
+  void wait_impl();
+  void stop_impl();
 
 private:
-  /** 工作线程主函数 */
   void worker(std::stop_token stop_token);
 
   std::vector<std::jthread> workers_;     ///< 工作线程集合（jthread 自动 join）
@@ -58,13 +47,11 @@ private:
 
 template <typename F, typename... Args>
   requires std::invocable<F, Args...>
-void ThreadPool::enqueue(F&& f, Args&&... args) {
-  // 绑定参数到 lambda（C++20 pack expansion in lambda init-capture）
+void LockFreeThreadPool::enqueue_impl(F&& f, Args&&... args) {
   auto bound = [f = std::forward<F>(f), ... args = std::forward<Args>(args)]() mutable { f(std::move(args)...); };
-  // N4-M：检查 push 返回值，失败时不增 pending_ 避免任务丢失导致 wait_for_all_tasks 死等
   bool ok = tasks_.push(MoveOnlyFunction(std::move(bound)));
   if (!ok) {
-    return; // 队列已 stop，任务丢弃
+    return;
   }
   pending_.fetch_add(1, std::memory_order_release);
   cv_.notify_one();

@@ -15,7 +15,7 @@ namespace hps {
 class TieredMemoryPool : public MemoryPoolBase<TieredMemoryPool> {
 public:
   TieredMemoryPool() = default;
-  ~TieredMemoryPool() noexcept override;
+  ~TieredMemoryPool() noexcept;
 
   TieredMemoryPool(const TieredMemoryPool&) = delete;
   TieredMemoryPool& operator=(const TieredMemoryPool&) = delete;

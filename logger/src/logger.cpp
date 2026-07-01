@@ -6,6 +6,7 @@
 #include <chrono>
 #include <functional>
 #include <sstream>
+#include <stdexcept>
 #include <thread>
 #include <vector>
 
@@ -124,19 +125,29 @@ void Logger::delAppender(const std::shared_ptr<LogAppender>& appender) {
   }
 }
 
+std::unique_ptr<Logger> Logger::s_instance_{nullptr};
+
+void Logger::init(const std::string& name) {
+  if (s_instance_) {
+    return;
+  }
+  s_instance_ = std::unique_ptr<Logger>(new Logger(name));
+  auto appender = std::make_shared<StdoutLogAppender>();
+  auto formatter = std::make_shared<LogFormatter>("%d{%Y-%m-%d %H:%M:%S} [%p] [%t] [%C] %c: %f%l : %m%n");
+  appender->setFormatter(formatter);
+  s_instance_->addAppender(appender);
+  s_instance_->setLevel(LogLevel::DEBUG);
+}
+
+void Logger::shutdown() {
+  s_instance_.reset();
+}
+
 Logger& Logger::getInstance() {
-  // N11-L：magic statics 已线程安全，移除冗余 call_once；
-  //        不硬编码 FileLogAppender（避免与用户配置重复写文件），仅默认 stdout
-  static Logger instance("server");
-  static std::once_flag once;
-  std::call_once(once, []() {
-    auto appender = std::make_shared<StdoutLogAppender>();
-    auto formatter = std::make_shared<LogFormatter>("%d{%Y-%m-%d %H:%M:%S} [%p] [%t] [%C] %c: %f%l : %m%n");
-    appender->setFormatter(formatter);
-    instance.addAppender(appender);
-    instance.setLevel(LogLevel::DEBUG);
-  });
-  return instance;
+  if (!s_instance_) {
+    throw std::runtime_error("Logger::getInstance() failed: Logger not initialized. Call Logger::init() first.");
+  }
+  return *s_instance_;
 }
 
 } // namespace hps

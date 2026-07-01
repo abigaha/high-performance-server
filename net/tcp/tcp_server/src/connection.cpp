@@ -131,4 +131,25 @@ void Connection::consume_read_buffer(size_t bytes) {
   update_active();
 }
 
+// ==================== 协程可等待对象实现 ====================
+// F6：当前为简单实现（同步读/写 + 立即 resume），后续可集成 epoll 变为真异步
+
+ReadAwaiter Connection::await_read() noexcept {
+  return ReadAwaiter{this};
+}
+
+WriteAwaiter Connection::await_write() noexcept {
+  return WriteAwaiter{this};
+}
+
+void ReadAwaiter::await_suspend(std::coroutine_handle<> handle) {
+  result = conn->read_from_fd();
+  handle.resume();
+}
+
+void WriteAwaiter::await_suspend(std::coroutine_handle<> handle) {
+  result = conn->write_to_fd();
+  handle.resume();
+}
+
 } // namespace hps

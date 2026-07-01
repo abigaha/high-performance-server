@@ -50,7 +50,7 @@ int main() {
       }
       hps::Logger::_info("成功连接服务器: " + ip + ":" + std::to_string(port));
     }
-    hps::ThreadPool thread_pool(clients.size());
+    hps::LockFreeThreadPool thread_pool(clients.size());
     std::ifstream file(path, std::ios::binary);
     if (!file) {
       hps::Logger::_error("无法打开文件: " + path);

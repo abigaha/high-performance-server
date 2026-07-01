@@ -53,7 +53,7 @@ public:
     if constexpr (sizeof(DecayedF) <= kInlineSize && alignof(DecayedF) <= kInlineAlign) {
       // SBO：栈存储
       heap_ = false;
-      // NOLINTNEXTLINE(cppcoreguidelines-owning-memory)
+      // NOLINTNEXTLINE(cppcoreguidelines-owning-memory,cppcoreguidelines-pro-bounds-array-to-pointer-decay,hicpp-no-array-decay)
       ::new (storage_) DecayedF(std::forward<F>(f));
       vtable_ = &sbo_vtable<DecayedF>;
     } else {
@@ -132,6 +132,7 @@ const MoveOnlyFunction::VTable MoveOnlyFunction::sbo_vtable = {
       (*f)();
     },
     // move
+    // NOLINTNEXTLINE(bugprone-easily-swappable-parameters)
     [](void* from, void* to) {
       auto* src = static_cast<F*>(from);
       ::new (to) F(std::move(*src));
@@ -151,6 +152,7 @@ const MoveOnlyFunction::VTable MoveOnlyFunction::heap_vtable = {
       (*f)();
     },
     // move
+    // NOLINTNEXTLINE(bugprone-easily-swappable-parameters)
     [](void* from, void* to) {
       auto*& src = *reinterpret_cast<F**>(from);
       *reinterpret_cast<F**>(to) = src;

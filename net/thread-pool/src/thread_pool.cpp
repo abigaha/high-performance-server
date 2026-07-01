@@ -4,13 +4,17 @@
 
 namespace hps {
 
-ThreadPool::ThreadPool(size_t numThreads) {
+LockFreeThreadPool::LockFreeThreadPool(size_t numThreads) {
   for (size_t i = 0; i < numThreads; ++i) {
     workers_.emplace_back([this](std::stop_token st) { worker(st); });
   }
 }
 
-ThreadPool::~ThreadPool() {
+LockFreeThreadPool::~LockFreeThreadPool() {
+  stop_impl();
+}
+
+void LockFreeThreadPool::stop_impl() {
   tasks_.stop();
   for (auto& w : workers_) {
     w.request_stop();
@@ -23,7 +27,7 @@ ThreadPool::~ThreadPool() {
   }
 }
 
-void ThreadPool::worker(std::stop_token stop_token) {
+void LockFreeThreadPool::worker(std::stop_token stop_token) {
   while (!stop_token.stop_requested()) {
     MoveOnlyFunction task;
     {
@@ -35,7 +39,6 @@ void ThreadPool::worker(std::stop_token stop_token) {
     if (stop_token.stop_requested()) {
       break;
     }
-    // N3-M：try_pop 失败说明被竞争抢走，循环重试而非立即回 wait（避免忙等）
     while (!stop_token.stop_requested()) {
       if (tasks_.try_pop(task)) {
         task();
@@ -44,7 +47,6 @@ void ThreadPool::worker(std::stop_token stop_token) {
         }
         break;
       }
-      // 被抢，但 pending_>0 说明还有任务；若 pending_==0 说明被别人取完
       if (pending_.load(std::memory_order_acquire) == 0) {
         break;
       }
@@ -53,7 +55,7 @@ void ThreadPool::worker(std::stop_token stop_token) {
   }
 }
 
-void ThreadPool::wait_for_all_tasks() {
+void LockFreeThreadPool::wait_impl() {
   std::unique_lock lock(cv_mutex_);
   cv_.wait(lock, [this] { return pending_.load(std::memory_order_acquire) == 0; });
 }

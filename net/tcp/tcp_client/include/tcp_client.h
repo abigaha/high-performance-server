@@ -1,5 +1,7 @@
 #pragma once
 
+#include "i_tcp_client.h"
+
 #include <netdb.h>
 #include <netinet/in.h>
 #include <sys/socket.h>
@@ -11,29 +13,28 @@
 
 namespace hps {
 
-enum class ReadMode { LINE, RAW };
-
-class TcpClient {
+class TcpClient : public ITcpClient {
 public:
   TcpClient(const std::string& server_ip, uint16_t server_port);
-  /** @param connect_timeout_ms 连接超时（毫秒），仅在 Raw 模式下受支持；Line 模式使用默认超时 */
+  /** @param connect_timeout_ms 连接超时（毫秒），仅在 RAW 模式下受支持；LINE 模式使用默认超时 */
   TcpClient(uint32_t connect_timeout_ms, const std::string& server_ip, uint16_t server_port);
-  ~TcpClient();
+  ~TcpClient() override;
   TcpClient(const TcpClient&) = delete;
   TcpClient& operator=(const TcpClient&) = delete;
   TcpClient(TcpClient&& other) noexcept;
   TcpClient& operator=(TcpClient&& other) noexcept;
 
-  bool connect_to_server();
-  void disconnect();
+  bool connect_to_server() override;
+  void disconnect() override;
 
-  bool send_message(const std::string& message) const;
-  bool receive_message(std::string& message, ReadMode mode = ReadMode::LINE, uint32_t read_timeout_ms = 5000);
+  bool send_message(const std::string& message) const override;
+  // NOLINTNEXTLINE(google-default-arguments): 调用方借基类默认值，override 需保持一致
+  bool receive_message(std::string& message, ReadMode mode = ReadMode::LINE, uint32_t read_timeout_ms = 5000) override;
 
   bool send_file(const std::string& file_path) const;
   bool send_file(const std::string& data, std::size_t size) const;
 
-  bool is_connected() const { return client_sockfd_ >= 0; }
+  bool is_connected() const override { return client_sockfd_ >= 0; }
 
 private:
   struct DurationMs {

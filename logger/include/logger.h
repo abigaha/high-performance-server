@@ -7,6 +7,7 @@
 #include <memory>
 #include <mutex>
 #include <source_location>
+#include <stdexcept>
 #include <string>
 
 namespace hps {
@@ -55,7 +56,6 @@ private:
 class Logger {
 public:
   using ptr = std::shared_ptr<Logger>;
-  explicit Logger(const std::string& name = "root");
 
   void log(LogLevel level, const LogEvent::ptr event);
 
@@ -93,33 +93,42 @@ public:
 
   // N12-L：移除语义混乱的 operator<<（用 getLevel() 作日志级别），改用显式 debug/info/... 方法
 
+  // 两阶段生命周期管理
+  static void init(const std::string& name = "server");
+  static void shutdown();
   static Logger& getInstance();
 
+  // 静态便捷 API：未 init 时静默丢弃（测试兼容）；直接 getInstance() 调用强限制抛异常
   static void _debug(const std::string& msg, const std::source_location& loc = std::source_location::current()) {
-    getInstance().debug(msg, loc);
+    if (s_instance_) { s_instance_->debug(msg, loc); }
   }
 
   static void _info(const std::string& msg, const std::source_location& loc = std::source_location::current()) {
-    getInstance().info(msg, loc);
+    if (s_instance_) { s_instance_->info(msg, loc); }
   }
 
   static void _warn(const std::string& msg, const std::source_location& loc = std::source_location::current()) {
-    getInstance().warn(msg, loc);
+    if (s_instance_) { s_instance_->warn(msg, loc); }
   }
 
   static void _error(const std::string& msg, const std::source_location& loc = std::source_location::current()) {
-    getInstance().error(msg, loc);
+    if (s_instance_) { s_instance_->error(msg, loc); }
   }
 
   static void _fatal(const std::string& msg, const std::source_location& loc = std::source_location::current()) {
-    getInstance().fatal(msg, loc);
+    if (s_instance_) { s_instance_->fatal(msg, loc); }
   }
 
 private:
+  // 构造函数私有，仅允许 init() 通过静态成员权限构造，保证单例不被破坏
+  explicit Logger(const std::string& name = "root");
+
   std::atomic<LogLevel> level_{LogLevel::DEBUG};
   std::string name_;
   std::list<std::shared_ptr<LogAppender>> appenders_;
   mutable std::mutex mutex_;
+
+  static std::unique_ptr<Logger> s_instance_;
 };
 
 } // namespace hps

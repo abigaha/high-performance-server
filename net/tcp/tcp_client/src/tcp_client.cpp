@@ -24,7 +24,7 @@ TcpClient::TcpClient(uint32_t connect_timeout_ms, const std::string& server_ip, 
     server_ip_(server_ip), server_port_(server_port), connect_timeout_ms_(connect_timeout_ms) {}
 
 TcpClient::~TcpClient() {
-  disconnect();
+  this->TcpClient::disconnect();  // 限定调用避免析构时虚分发绕过
 }
 
 TcpClient::TcpClient(TcpClient&& other) noexcept :
@@ -167,6 +167,7 @@ bool TcpClient::send_message(const std::string& message) const {
   return send_all(client_sockfd_, message.data(), message.size(), DurationMs{connect_timeout_ms_});
 }
 
+// NOLINTNEXTLINE(google-default-arguments): 与基类声明一致的默认参数
 bool TcpClient::receive_message(std::string& message, ReadMode mode, uint32_t read_timeout_ms) {
   if (client_sockfd_ < 0) {
     return false;
