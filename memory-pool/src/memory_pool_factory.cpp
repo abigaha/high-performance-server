@@ -4,7 +4,7 @@
 
 namespace hps {
 
-auto CreateMemoryPool() -> std::unique_ptr<IMemoryPool> {
+auto CreateMemoryPool() -> std::unique_ptr<MemoryPoolBase<TieredMemoryPool>> {
   return std::make_unique<TieredMemoryPool>();
 }
 

@@ -1,6 +1,5 @@
 #pragma once
 
-#include "i_memory_pool.h"
 #include "logger.h"
 #include "memory_pool_factory.h"
 
@@ -51,7 +50,7 @@ public:
       pool.deallocate(ptr, coroSize);
     }
 
-    static IMemoryPool& get_pool() {
+    static MemoryPoolBase<TieredMemoryPool>& get_pool() {
       static auto instance = CreateMemoryPool();
       return *instance;
     }

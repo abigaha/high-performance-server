@@ -25,7 +25,7 @@ ThreadPool::~ThreadPool() {
 
 void ThreadPool::worker(std::stop_token stop_token) {
   while (!stop_token.stop_requested()) {
-    std::function<void()> task;
+    MoveOnlyFunction task;
     {
       std::unique_lock lock(cv_mutex_);
       cv_.wait(lock, [this, &stop_token] {

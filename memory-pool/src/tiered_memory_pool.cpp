@@ -50,7 +50,7 @@ void TieredMemoryPool::ensure_registered(ThreadCache& cache) {
   registryHead_ = &cache;
 }
 
-void* TieredMemoryPool::allocate(std::size_t size) {
+void* TieredMemoryPool::allocate_impl(std::size_t size) {
   if (destroyed_.load(std::memory_order_acquire)) [[unlikely]] {
     return ::operator new(size);
   }
@@ -97,7 +97,7 @@ void* TieredMemoryPool::allocate(std::size_t size) {
   return static_cast<void*>(node);
 }
 
-void TieredMemoryPool::deallocate(void* ptr, std::size_t size) {
+void TieredMemoryPool::deallocate_impl(void* ptr, std::size_t size) {
   if (ptr == nullptr) {
     return;
   }

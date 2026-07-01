@@ -7,12 +7,12 @@
 #include <mutex>
 #include <vector>
 
-#include "i_memory_pool.h"
+#include "memory_pool_base.h"
 #include "size_class.h"
 
 namespace hps {
 
-class TieredMemoryPool : public IMemoryPool {
+class TieredMemoryPool : public MemoryPoolBase<TieredMemoryPool> {
 public:
   TieredMemoryPool() = default;
   ~TieredMemoryPool() noexcept override;
@@ -20,8 +20,9 @@ public:
   TieredMemoryPool(const TieredMemoryPool&) = delete;
   TieredMemoryPool& operator=(const TieredMemoryPool&) = delete;
 
-  void* allocate(std::size_t size) override;
-  void deallocate(void* ptr, std::size_t size) override;
+  // CRTP 实现（非虚，编译期内联）
+  void* allocate_impl(std::size_t size);
+  void deallocate_impl(void* ptr, std::size_t size);
 
 private:
   struct FreeNode {

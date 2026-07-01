@@ -2,10 +2,12 @@
 
 #include <memory>
 
-#include "i_memory_pool.h"
+#include "memory_pool_base.h"
+#include "tiered_memory_pool.h"
 
 namespace hps {
 
-auto CreateMemoryPool() -> std::unique_ptr<IMemoryPool>;
+// 返回 CRTP 基类智能指针，消费者依赖 MemoryPoolBase<TieredMemoryPool> 接口（静态多态，内联）
+auto CreateMemoryPool() -> std::unique_ptr<MemoryPoolBase<TieredMemoryPool>>;
 
 }  // namespace hps
