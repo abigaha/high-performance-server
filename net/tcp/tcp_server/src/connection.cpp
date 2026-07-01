@@ -80,8 +80,7 @@ ssize_t Connection::write_to_fd_locked() {
 
   // N5-M：用偏移量游标避免 erase(0,n) 的 O(n) 内存移动
   while (write_offset_ < write_buffer_.size()) {
-    ssize_t n = ::write(fd_, write_buffer_.data() + write_offset_,
-                        write_buffer_.size() - write_offset_);
+    ssize_t n = ::write(fd_, write_buffer_.data() + write_offset_, write_buffer_.size() - write_offset_);
     if (n > 0) {
       write_offset_ += static_cast<size_t>(n);
       total_written += n;

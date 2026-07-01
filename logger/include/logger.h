@@ -43,11 +43,11 @@ public:
 private:
   const char* file_ = nullptr; // 文件名
   int32_t line_ = 0;           // 行号
-  uint32_t thread_id_ = 0;      // 线程ID
+  uint32_t thread_id_ = 0;     // 线程ID
   uint32_t elapse_ = 0;        // 程序启动开始到现在的毫秒数
   uint64_t time_ = 0;          // 时间戳
-  uint64_t coroutine_id_ = 0;   // 协程ID
-  std::string logger_name_;     // 日志器名称
+  uint64_t coroutine_id_ = 0;  // 协程ID
+  std::string logger_name_;    // 日志器名称
   std::string content_;        // 日志内容
 };
 

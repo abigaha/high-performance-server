@@ -1,10 +1,10 @@
 #pragma once
 
-#include "tcp_server.h"
 #include "http_parser.h"
 #include "http_request.h"
 #include "http_response.h"
 #include "router.h"
+#include "tcp_server.h"
 
 #include <cstdint>
 #include <memory>
@@ -60,8 +60,7 @@ private:
   void handle_connection(Connection& conn);
 
   /** 发送错误响应（默认响应体） */
-  static void send_error(Connection& conn, int status, std::string_view text,
-                         std::string_view detail);
+  static void send_error(Connection& conn, int status, std::string_view text, std::string_view detail);
 
   /** 获取/创建连接级 mutex（串行化同一 conn 的 handler） */
   std::shared_ptr<std::mutex> get_conn_mutex(Connection* c);

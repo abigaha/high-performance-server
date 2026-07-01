@@ -3,6 +3,7 @@
 namespace hps {
 
 Router::Router() : root_(std::make_unique<Node>()) {}
+
 Router::~Router() = default;
 
 std::vector<std::string> Router::split_path(std::string_view path) {
@@ -25,8 +26,11 @@ void Router::add(HttpMethod method, std::string_view path, Handler handler) {
 }
 
 // NOLINTNEXTLINE(misc-no-recursion) trie 树结构固有递归，改迭代会显著降低可读性
-void Router::insert(Node& node, const std::vector<std::string>& segments,
-                    std::size_t idx, HttpMethod method, Handler handler) {
+void Router::insert(Node& node,
+                    const std::vector<std::string>& segments,
+                    std::size_t idx,
+                    HttpMethod method,
+                    Handler handler) {
   if (idx == segments.size()) {
     node.handlers[method] = std::move(handler);
     return;
@@ -53,7 +57,8 @@ void Router::insert(Node& node, const std::vector<std::string>& segments,
   }
 }
 
-bool Router::match(HttpMethod method, std::string_view path,
+bool Router::match(HttpMethod method,
+                   std::string_view path,
                    Handler& outHandler,
                    std::unordered_map<std::string, std::string>& outParams) const {
   auto segments = split_path(path);
@@ -61,8 +66,10 @@ bool Router::match(HttpMethod method, std::string_view path,
 }
 
 // NOLINTNEXTLINE(misc-no-recursion) trie 树结构固有递归，回溯匹配需递归
-bool Router::search(const Node& node, const std::vector<std::string>& segments,
-                    std::size_t idx, HttpMethod method,
+bool Router::search(const Node& node,
+                    const std::vector<std::string>& segments,
+                    std::size_t idx,
+                    HttpMethod method,
                     Handler& outHandler,
                     std::unordered_map<std::string, std::string>& outParams) const {
   if (idx == segments.size()) {

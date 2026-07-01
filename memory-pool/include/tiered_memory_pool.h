@@ -32,7 +32,7 @@ private:
   struct ThreadCache {
     std::array<FreeNode*, kSizeClassCount> freeLists_{};
     std::array<std::size_t, kSizeClassCount> counts_{};
-    ThreadCache* next_{nullptr};   // 侵入式注册链表
+    ThreadCache* next_{nullptr};  // 侵入式注册链表
     TieredMemoryPool* owner_{nullptr};
   };
 

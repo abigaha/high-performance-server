@@ -9,6 +9,7 @@
 namespace hps {
 
 HttpServer::HttpServer(const TcpServer::Config& config) : server_(config) {}
+
 HttpServer::~HttpServer() = default; // out-of-line 定义，此 TU 已 include thread_pool.h
 
 bool HttpServer::init() {
@@ -21,9 +22,13 @@ bool HttpServer::init() {
   return server_.init();
 }
 
-void HttpServer::start() { server_.start(); }
+void HttpServer::start() {
+  server_.start();
+}
 
-void HttpServer::stop() { server_.stop(); }
+void HttpServer::stop() {
+  server_.stop();
+}
 
 void HttpServer::get(std::string_view path, Handler handler) {
   router_.add(HttpMethod::GET, path, std::move(handler));
@@ -129,8 +134,7 @@ void HttpServer::handle_connection(Connection& conn) {
   conn.consume_read_buffer(total_consumed);
 }
 
-void HttpServer::send_error(Connection& conn, int status, std::string_view text,
-                            std::string_view detail) {
+void HttpServer::send_error(Connection& conn, int status, std::string_view text, std::string_view detail) {
   HttpResponse resp;
   resp.set_status(status, text);
   resp.set_content_type("text/plain; charset=utf-8");

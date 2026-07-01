@@ -93,12 +93,12 @@ private:
 
   struct sockaddr_in addr_ {}; ///< 客户端地址信息
 
-  std::string read_buffer_;       ///< 读取缓冲区
-  std::string write_buffer_;      ///< 写入缓冲区
-  std::size_t write_offset_{0};   ///< 已发送偏移（N5-M：避免 erase O(n) 移动）
+  std::string read_buffer_;        ///< 读取缓冲区
+  std::string write_buffer_;       ///< 写入缓冲区
+  std::size_t write_offset_{0};    ///< 已发送偏移（N5-M：避免 erase O(n) 移动）
   mutable std::mutex write_mutex_; ///< 写缓冲区锁（N1-H：跨线程并发写保护）
-  State state_{State::CONNECTED}; ///< 连接状态
-  Clock::time_point last_active_; ///< 最近活动时间戳
+  State state_{State::CONNECTED};  ///< 连接状态
+  Clock::time_point last_active_;  ///< 最近活动时间戳
 };
 
 } // namespace hps

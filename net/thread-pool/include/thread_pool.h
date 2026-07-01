@@ -4,8 +4,8 @@
 #include "move_only_function.h"
 
 #include <atomic>
-#include <condition_variable>
 #include <concepts>
+#include <condition_variable>
 #include <mutex>
 #include <stop_token>
 #include <thread>
@@ -49,11 +49,11 @@ private:
   /** 工作线程主函数 */
   void worker(std::stop_token stop_token);
 
-  std::vector<std::jthread> workers_;              ///< 工作线程集合（jthread 自动 join）
-  LockFreeQueue<MoveOnlyFunction> tasks_;          ///< 无锁任务队列（MoveOnlyFunction SBO 优化）
-  std::mutex cv_mutex_;                            ///< 条件变量互斥量
-  std::condition_variable cv_;                     ///< 任务到达通知
-  std::atomic<int> pending_{0};                    ///< 待处理任务数
+  std::vector<std::jthread> workers_;     ///< 工作线程集合（jthread 自动 join）
+  LockFreeQueue<MoveOnlyFunction> tasks_; ///< 无锁任务队列（MoveOnlyFunction SBO 优化）
+  std::mutex cv_mutex_;                   ///< 条件变量互斥量
+  std::condition_variable cv_;            ///< 任务到达通知
+  std::atomic<int> pending_{0};           ///< 待处理任务数
 };
 
 template <typename F, typename... Args>

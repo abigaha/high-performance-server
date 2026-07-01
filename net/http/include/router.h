@@ -47,7 +47,8 @@ public:
    * @param outParams 输出路径参数
    * @return true 匹配成功；false 无匹配
    */
-  bool match(HttpMethod method, std::string_view path,
+  bool match(HttpMethod method,
+             std::string_view path,
              Handler& outHandler,
              std::unordered_map<std::string, std::string>& outParams) const;
 
@@ -64,10 +65,15 @@ private:
   /** 按 '/' 分割路径，忽略空段（归一化斜杠） */
   static std::vector<std::string> split_path(std::string_view path);
 
-  void insert(Node& node, const std::vector<std::string>& segments,
-              std::size_t idx, HttpMethod method, Handler handler);
-  bool search(const Node& node, const std::vector<std::string>& segments,
-              std::size_t idx, HttpMethod method,
+  void insert(Node& node,
+              const std::vector<std::string>& segments,
+              std::size_t idx,
+              HttpMethod method,
+              Handler handler);
+  bool search(const Node& node,
+              const std::vector<std::string>& segments,
+              std::size_t idx,
+              HttpMethod method,
               Handler& outHandler,
               std::unordered_map<std::string, std::string>& outParams) const;
 };

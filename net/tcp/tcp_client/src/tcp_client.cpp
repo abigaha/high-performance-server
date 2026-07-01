@@ -65,6 +65,7 @@ bool TcpClient::send_all(int fd, const char* data, std::size_t size, DurationMs 
     if (errno == EAGAIN || errno == EWOULDBLOCK) {
       // 发送缓冲区满，poll 等待可写
       struct pollfd pfd {};
+
       pfd.fd = fd;
       pfd.events = POLLOUT;
       int ret = poll(&pfd, 1, static_cast<int>(timeout.value));

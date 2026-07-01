@@ -61,6 +61,7 @@ TEST(MoveOnlyFunctionTest, EmptyCall) {
 
 // TM6: LockFreeQueue 集成测试
 #include "lock_free_queue.hpp"
+
 TEST(MoveOnlyFunctionTest, LockFreeQueueIntegration) {
   g_call_count = 0;
   LockFreeQueue<MoveOnlyFunction> q;

@@ -1,5 +1,5 @@
-#include "tcp_client.h"
 #include "http_server.h"
+#include "tcp_client.h"
 #include "thread_pool.h"
 
 #include <gtest/gtest.h>
@@ -114,8 +114,8 @@ TEST(HttpServerTest, PostBody) {
   std::this_thread::sleep_for(std::chrono::milliseconds(100));
   uint16_t port = server.actual_port();
 
-  auto resp = send_raw(port,
-    "POST /echo HTTP/1.1\r\nHost: localhost\r\nContent-Length: 5\r\nConnection: close\r\n\r\nhello");
+  auto resp =
+    send_raw(port, "POST /echo HTTP/1.1\r\nHost: localhost\r\nContent-Length: 5\r\nConnection: close\r\n\r\nhello");
   server.stop();
   std::this_thread::sleep_for(std::chrono::milliseconds(50));
 
@@ -178,9 +178,7 @@ TEST(HttpServerTest, Malformed) {
 // TH7: handler 异常返回 500
 TEST(HttpServerTest, HandlerException) {
   HttpServer server(TcpServer::Config{0, 128, 2, 50});
-  server.get("/boom", [](const HttpRequest&, HttpResponse&) {
-    throw std::runtime_error("boom!");
-  });
+  server.get("/boom", [](const HttpRequest&, HttpResponse&) { throw std::runtime_error("boom!"); });
 
   ASSERT_TRUE(server.init());
   std::thread t([&server]() { server.start(); });

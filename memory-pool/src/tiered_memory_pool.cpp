@@ -39,11 +39,11 @@ TieredMemoryPool::~TieredMemoryPool() noexcept {
 
 void TieredMemoryPool::ensure_registered(ThreadCache& cache) {
   if (cache.owner_ == this) {
-    return; // 已注册
+    return;  // 已注册
   }
   std::lock_guard lock(registryMutex_);
   if (cache.owner_ == this) {
-    return; // double-check
+    return;  // double-check
   }
   cache.owner_ = this;
   cache.next_ = registryHead_;
