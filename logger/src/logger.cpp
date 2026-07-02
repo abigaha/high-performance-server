@@ -126,17 +126,17 @@ void Logger::delAppender(const std::shared_ptr<LogAppender>& appender) {
 }
 
 std::unique_ptr<Logger> Logger::s_instance_{nullptr};
+std::once_flag Logger::s_init_flag_;
 
 void Logger::init(const std::string& name) {
-  if (s_instance_) {
-    return;
-  }
-  s_instance_ = std::unique_ptr<Logger>(new Logger(name));
-  auto appender = std::make_shared<StdoutLogAppender>();
-  auto formatter = std::make_shared<LogFormatter>("%d{%Y-%m-%d %H:%M:%S} [%p] [%t] [%C] %c: %f%l : %m%n");
-  appender->setFormatter(formatter);
-  s_instance_->addAppender(appender);
-  s_instance_->setLevel(LogLevel::DEBUG);
+  std::call_once(s_init_flag_, [&name] {
+    s_instance_ = std::unique_ptr<Logger>(new Logger(name));
+    auto appender = std::make_shared<StdoutLogAppender>();
+    auto formatter = std::make_shared<LogFormatter>("%d{%Y-%m-%d %H:%M:%S} [%p] [%t] [%C] %c: %f%l : %m%n");
+    appender->setFormatter(formatter);
+    s_instance_->addAppender(appender);
+    s_instance_->setLevel(LogLevel::DEBUG);
+  });
 }
 
 void Logger::shutdown() {

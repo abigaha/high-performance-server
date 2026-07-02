@@ -129,6 +129,7 @@ private:
   mutable std::mutex mutex_;
 
   static std::unique_ptr<Logger> s_instance_;
+  static std::once_flag s_init_flag_;
 };
 
 } // namespace hps
