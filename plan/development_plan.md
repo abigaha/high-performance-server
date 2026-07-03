@@ -11,6 +11,7 @@
 | Step | 模块 | 状态 | 详情 |
 |------|------|------|------|
 | Step 0–2 | 基础设施 + 路由 + HTTP | ✅ 已完成 | [step-0-2-infrastructure.md](step-0-2-infrastructure.md) |
+| — | 内存池三级缓存优化 | 待开始（Step 0–2 补充） | [memory-pool-tiered-optimization.md](memory-pool-tiered-optimization.md) |
 | Step 2.5 | 架构重构 | ✅ 已完成 | [step-2.5-arch-refactor.md](step-2.5-arch-refactor.md) |
 | Step 3 | 接口层落地 | ✅ 已完成 | [step-3-interface-layer.md](step-3-interface-layer.md) |
 | Step 4 | file-system | ✅ 已完成 | [step-4-file-system.md](step-4-file-system.md) |
