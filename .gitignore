@@ -83,7 +83,6 @@ AGENTS.md
 compile_commands_fixed.json
 # goal.md
 opencode.jsonc
-plan/development_plan.md
 scripts/dev.sh
 scripts/lint.sh
 scripts/test.sh
@@ -91,7 +90,6 @@ setup.sh
 source.tar.gz
 tui.json
 core.*
-plan/
 
 # CodeBuddy 工作流配置（本地，不入库）
 .codebuddy/
