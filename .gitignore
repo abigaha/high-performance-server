@@ -81,7 +81,7 @@ Testing/
 .codegraph
 AGENTS.md
 compile_commands_fixed.json
-goal.md
+# goal.md
 opencode.jsonc
 plan/development_plan.md
 scripts/dev.sh
@@ -95,3 +95,7 @@ plan/
 
 # CodeBuddy 工作流配置（本地，不入库）
 .codebuddy/
+
+.opencode/
+.opencode
+
