@@ -1,6 +1,6 @@
 # Step 7：file-transfer 文件传输模块
 
-> **状态**：待开始
+> **状态**：✅ 已完成
 > **优先级**：P0
 
 ## 背景
@@ -11,11 +11,13 @@
 
 | # | 功能点 | 优先级 | 说明 |
 |---|--------|--------|------|
-| F1 | **IFileTransfer 抽象接口** | P0 | 文件传输操作抽象层 |
-| F2 | **小文件传输** | P0 | 单连接传输，依赖 ITcpClient |
-| F3 | **大文件传输** | P0 | fork/exec 唤起独立进程，切割并行传输 |
-| F4 | **file-send-process** | P0 | 发送端独立进程 |
-| F5 | **file-receive-process** | P0 | 接收端独立进程 |
+| # | 功能点 | 优先级 | 说明 | 状态 |
+|---|--------|--------|------|------|
+| F1 | **IFileTransfer 抽象接口** | P0 | 文件传输操作抽象层 | ✅ |
+| F2 | **小文件传输** | P0 | 单连接传输，依赖 ITcpClient | ✅ |
+| F3 | **大文件传输** | P0 | fork/exec 唤起独立进程，切割并行传输 | ✅ |
+| F4 | **file-send-process** | P0 | 发送端独立进程 | ✅ |
+| F5 | **file-receive-process** | P0 | 接收端独立进程 | ✅ |
 
 ## 接口设计（初步）
 
@@ -47,6 +49,12 @@ public:
 
 | # | 说明 |
 |---|------|
-| T1 | transfer_small 调用 ITcpClient 发送文件 |
-| T2 | transfer_large 唤起进程（mock fork/exec）|
-| T3 | receive_file 监听并保存 |
+| # | 说明 | 状态 |
+|---|------|------|
+| T1 | transfer_small 调用 ITcpClient 发送文件 | ✅ |
+| T2 | transfer_small 文件不存在返回 false | ✅ |
+| T3 | transfer_small 连接未建立返回 false | ✅ |
+| T4 | ChunkHeader 网络字节序 roundtrip | ✅ |
+| T5 | ChunkHeader 内存布局 28 字节 | ✅ |
+| T6 | ChunkHeader 序列化/反序列化一致性 | ✅ |
+| T7 | receive_file raw socket 接收单 chunk 并重组 | ✅ |
