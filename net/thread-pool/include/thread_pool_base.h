@@ -35,4 +35,4 @@ protected:
   ~ThreadPoolBase() = default;
 };
 
-}  // namespace hps
+} // namespace hps

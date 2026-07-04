@@ -18,6 +18,7 @@ for _, file in ipairs(os.files("tests/*.cpp")) do
     local name = path.basename(file)
     target("test_" .. name)
         set_kind("binary")
+        set_rundir("$(projectdir)")
         add_packages("gtest")
         add_files(file)
         add_includedirs("net/tcp/tcp_server/include",
@@ -26,11 +27,12 @@ for _, file in ipairs(os.files("tests/*.cpp")) do
                         "net/http/include",
                         "net/coroutine",
                         "net/file-transfer/include",
+                        "net/ssl/include",
                         "logger/include",
                         "memory-pool/include",
                         "file-system/include",
                         "db/include")
-        add_deps("tcp_server", "tcp_client", "http", "file-system", "db", "file-transfer")
+        add_deps("tcp_server", "tcp_client", "http", "file-system", "db", "file-transfer", "net_ssl")
         -- 为 test binary 设置 RPATH（传递性），而非 RUNPATH
         add_ldflags("-Wl,-rpath," .. path.join(os.projectdir(), "lib"), "-Wl,--disable-new-dtags", {force = true})
         add_tests("default")

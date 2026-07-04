@@ -24,8 +24,7 @@ public:
   virtual ~IRouter() = default;
 
   virtual void add(HttpMethod method, std::string_view path, Handler handler) = 0;
-  virtual bool match(HttpMethod method, std::string_view path,
-                     Handler& outHandler, Params& outParams) const = 0;
+  virtual bool match(HttpMethod method, std::string_view path, Handler& outHandler, Params& outParams) const = 0;
 };
 
-}  // namespace hps
+} // namespace hps

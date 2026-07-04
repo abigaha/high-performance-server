@@ -2,6 +2,7 @@
 
 #include "connection.h"
 #include "i_tcp_server.h"
+#include "ssl_context.h"
 
 #include <sys/epoll.h>
 
@@ -32,6 +33,7 @@ public:
     size_t backlog{128};       ///< listen backlog 队列长度
     size_t thread_count{4};    ///< LockFreeThreadPool 工作线程数
     int epoll_timeout_ms{100}; ///< epoll_wait 超时（毫秒）
+    SslConfig ssl_config{};    ///< SSL 配置（enabled=false 时不启用）
   };
 
   /**
@@ -54,6 +56,7 @@ public:
   void start() override;
   void stop() override;
   void set_handler(Handler handler) override;
+
   uint16_t actual_port() const override { return actual_port_; }
 
   /** 服务器是否正在运行 */
@@ -87,15 +90,28 @@ private:
   /** 处理被 handler 线程标记为 dirty 的连接 */
   void process_dirty_connections();
 
+  /** SSL 握手处理 */
+  void handle_ssl_handshake(std::shared_ptr<Connection>& conn, const struct epoll_event& ev);
+
+  /** SSL 双模式检测（首次 EPOLLIN 时 peek 首字节判断协议） */
+  bool try_ssl_detection(std::shared_ptr<Connection>& conn, const struct epoll_event& ev);
+
+  /** SSL 握手重试 */
+  bool try_ssl_handshake(std::shared_ptr<Connection>& conn, const struct epoll_event& ev);
+
+  /** 处理普通连接事件（非 SSL 状态） */
+  void handle_client_event(int fd, const struct epoll_event& ev);
+
   /** 清理所有资源（epoll/fd/signal） */
   void cleanup_resources();
 
-  Config config_;                                                    ///< 服务器配置
-  uint16_t actual_port_{0};                                          ///< 实际绑定端口
-  int server_sockfd_{-1};                                           ///< 监听 socket fd
-  int epoll_fd_{-1};                                                ///< epoll 实例 fd
-  int wake_fd_{-1};                                                  ///< eventfd（跨线程唤醒事件循环）
-  std::atomic<bool> running_{false};                                 ///< 运行状态标志
+  Config config_;
+  std::unique_ptr<SslContext> ssl_context_; ///< SSL 上下文（可选）                    ///< 服务器配置
+  uint16_t actual_port_{0};                 ///< 实际绑定端口
+  int server_sockfd_{-1};                   ///< 监听 socket fd
+  int epoll_fd_{-1};                        ///< epoll 实例 fd
+  int wake_fd_{-1};                         ///< eventfd（跨线程唤醒事件循环）
+  std::atomic<bool> running_{false};        ///< 运行状态标志
 
   std::unique_ptr<LockFreeThreadPool> thread_pool_;                  ///< 工作线程池
   std::unordered_map<int, std::shared_ptr<Connection>> connections_; ///< 活跃连接表
@@ -105,7 +121,7 @@ private:
   std::mutex dirty_mutex_;     ///< dirty_fds_ 保护锁
   std::vector<int> dirty_fds_; ///< 待处理 EPOLLOUT 的连接 fd
 
-  static TcpServer* s_instance_;        ///< 全局实例指针（信号处理用）
+  static TcpServer* s_instance_;       ///< 全局实例指针（信号处理用）
   static void signal_handler(int sig); ///< SIGINT/SIGTERM 处理函数
 };
 

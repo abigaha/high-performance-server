@@ -371,7 +371,12 @@ Step 7 ─── file-transfer 文件传输模块 (IFileTransfer 实现) ✅ 已
   ├─ file-receive-process 实现: raw socket监听, 多线程接收, pwrite重组
   └─ 测试: test_file_transfer(7用例) 全通过
         │
-Step 8 ─── HTTPS/TLS (OpenSSL, 双模式)
+Step 8 ─── HTTPS/TLS (OpenSSL, 双模式) ✅ 已完成
+  ├─ SslContext 封装 + Connection SSL 集成
+  ├─ 双模式检测（peek 首字节 0x16 → TLS）
+  ├─ 异步 SSL 握手（WANT_READ/WANT_WRITE 重试）
+  ├─ 测试证书自动生成（xmake after_build 脚本）
+  └─ 测试: test_ssl(9用例) 全通过
         │
 Step 9 ─── WebSocket 握手 + 帧编解码
         │
@@ -402,7 +407,8 @@ Step 11 ─── main.cpp 整合启动
 | file-system | 3 | 100% | ✅ 就绪（IFileSystem + FileSystem 已落地）|
 | net/file-receive | 1 | 100% | ✅ 就绪（file-receive-process 已实现）|
 | **database** | **8** | **100%** | **✅ 就绪（IDatabasePool + DatabasePool + boost::mysql 已落地）** |
-| tests | 17 | 100% | ✅ 就绪（60 用例全通过）|
+| **net/ssl** | **3** | **100%** | **✅ 就绪（SslContext + Connection SSL 集成 + 双模式检测）** |
+| tests | 18 | 100% | ✅ 就绪（69 用例全通过）|
 
 ---
 
@@ -412,6 +418,7 @@ Step 11 ─── main.cpp 整合启动
 |------|------|------|------|
 | `file-transfer` | `net/file-transfer/` | `IFileTransfer` | ✅ 已实现（小文件大文件传输 + 独立进程） |
 | `database` | `db/` | `IDatabasePool` | ✅ 已实现（boost::mysql 连接池） |
+| `net/ssl` | `net/ssl/` | (SslContext 封装) | ✅ 已实现（双模式 HTTPS/TLS） |
 | `LockedThreadPool` | `net/thread-pool/` | `ThreadPoolBase<LockedThreadPool>` | 待新增 |
 
 ---
@@ -437,3 +444,4 @@ Step 11 ─── main.cpp 整合启动
 | file-system | `test_file_system.cpp` | ✅ 有（14 用例：split/hash/store/delete/路径穿越）|
 | database | `test_database_pool.cpp` | ✅ 有（14 用例：模型/连接池/超时/CRUD）|
 | file-transfer | `test_file_transfer.cpp` | ✅ 有（7 用例：小文件传输/ChunkHeader/串行化/接收重组）|
+| SSL/TLS | `test_ssl.cpp` | ✅ 有（9 用例：SslContext/TLS握手/加密通信/双模式/清理）|

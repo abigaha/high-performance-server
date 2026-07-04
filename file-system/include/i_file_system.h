@@ -14,9 +14,9 @@ namespace hps {
  * compute_chunk_hash 时按 offset seek + 按需读取。
  */
 struct FileChunk {
-  std::string source_path;  ///< 源文件路径
-  std::size_t offset;       ///< 块在文件中的起始偏移（字节）
-  std::size_t size;         ///< 块大小（字节）
+  std::string source_path; ///< 源文件路径
+  std::size_t offset;      ///< 块在文件中的起始偏移（字节）
+  std::size_t size;        ///< 块大小（字节）
 };
 
 /**
@@ -48,4 +48,4 @@ public:
   virtual std::optional<std::vector<char>> read_file(const std::string& path) = 0;
 };
 
-}  // namespace hps
+} // namespace hps

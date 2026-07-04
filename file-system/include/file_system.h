@@ -43,4 +43,4 @@ private:
   static std::string sha256_hex(const char* data, std::size_t len);
 };
 
-}  // namespace hps
+} // namespace hps

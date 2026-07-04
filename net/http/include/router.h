@@ -25,8 +25,7 @@ public:
   Router& operator=(const Router&) = delete;
 
   void add(HttpMethod method, std::string_view path, Handler handler) override;
-  bool match(HttpMethod method, std::string_view path,
-             Handler& outHandler, Params& outParams) const override;
+  bool match(HttpMethod method, std::string_view path, Handler& outHandler, Params& outParams) const override;
 
 private:
   struct Node {
@@ -39,11 +38,17 @@ private:
   std::unique_ptr<Node> root_;
 
   static std::vector<std::string> split_path(std::string_view path);
-  void insert(Node& node, const std::vector<std::string>& segments,
-              std::size_t idx, HttpMethod method, Handler handler);
-  bool search(const Node& node, const std::vector<std::string>& segments,
-              std::size_t idx, HttpMethod method,
-              Handler& outHandler, Params& outParams) const;
+  void insert(Node& node,
+              const std::vector<std::string>& segments,
+              std::size_t idx,
+              HttpMethod method,
+              Handler handler);
+  bool search(const Node& node,
+              const std::vector<std::string>& segments,
+              std::size_t idx,
+              HttpMethod method,
+              Handler& outHandler,
+              Params& outParams) const;
 };
 
 } // namespace hps

@@ -27,4 +27,4 @@ public:
   virtual uint16_t actual_port() const = 0;
 };
 
-}  // namespace hps
+} // namespace hps

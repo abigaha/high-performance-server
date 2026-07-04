@@ -22,6 +22,7 @@ namespace hps {
 class MoveOnlyFunction {
 public:
   MoveOnlyFunction() noexcept = default;
+
   ~MoveOnlyFunction() { reset(); }
 
   MoveOnlyFunction(const MoveOnlyFunction&) = delete;
@@ -47,8 +48,7 @@ public:
   // NOLINTNEXTLINE(bugprone-forwarding-reference-overload,hicpp-explicit-conversions,noExplicitConstructor)
   explicit MoveOnlyFunction(F&& f) {
     using DecayedF = std::decay_t<F>;
-    static_assert(std::is_nothrow_move_constructible_v<DecayedF>,
-                  "F must be nothrow move constructible");
+    static_assert(std::is_nothrow_move_constructible_v<DecayedF>, "F must be nothrow move constructible");
 
     if constexpr (sizeof(DecayedF) <= kInlineSize && alignof(DecayedF) <= kInlineAlign) {
       // SBO：栈存储
@@ -87,7 +87,7 @@ public:
   }
 
 private:
-  static constexpr std::size_t kInlineSize = 32;  ///< SBO 阈值（字节）
+  static constexpr std::size_t kInlineSize = 32; ///< SBO 阈值（字节）
   static constexpr std::size_t kInlineAlign = alignof(std::max_align_t);
 
   struct VTable {
@@ -107,7 +107,7 @@ private:
   const VTable* vtable_{nullptr};
   bool heap_{false};
   // NOLINTNEXTLINE(cppcoreguidelines-avoid-c-arrays,hicpp-avoid-c-arrays,modernize-avoid-c-arrays)
-  alignas(kInlineAlign) std::byte storage_[kInlineSize];  // SBO 存储（C 数组因 placement new 需求，不用 std::array）
+  alignas(kInlineAlign) std::byte storage_[kInlineSize]; // SBO 存储（C 数组因 placement new 需求，不用 std::array）
 
   // NOLINTNEXTLINE(cppcoreguidelines-rvalue-reference-param-not-moved)
   void move_from(MoveOnlyFunction&& other) noexcept {
@@ -126,45 +126,42 @@ private:
 // SBO vtable 实现
 template <typename F>
 const MoveOnlyFunction::VTable MoveOnlyFunction::sbo_vtable = {
-    // invoke
-    [](void* storage) {
-      auto* f = static_cast<F*>(storage);
-      (*f)();
-    },
-    // move
-    // NOLINTNEXTLINE(bugprone-easily-swappable-parameters)
-    [](void* from, void* to) {
-      auto* src = static_cast<F*>(from);
-      ::new (to) F(std::move(*src));
-      src->~F();
-    },
-    // destroy
-    [](void* storage) {
-      static_cast<F*>(storage)->~F();
-    }};
+  // invoke
+  [](void* storage) {
+    auto* f = static_cast<F*>(storage);
+    (*f)();
+  },
+  // move
+  // NOLINTNEXTLINE(bugprone-easily-swappable-parameters)
+  [](void* from, void* to) {
+    auto* src = static_cast<F*>(from);
+    ::new (to) F(std::move(*src));
+    src->~F();
+  },
+  // destroy
+  [](void* storage) { static_cast<F*>(storage)->~F(); }};
 
 // 堆存储 vtable 实现
 template <typename F>
 const MoveOnlyFunction::VTable MoveOnlyFunction::heap_vtable = {
-    // invoke
-    [](void* storage) {
-      auto* f = *reinterpret_cast<F**>(storage);
-      (*f)();
-    },
-    // move
-    // NOLINTNEXTLINE(bugprone-easily-swappable-parameters)
-    [](void* from, void* to) {
-      auto*& src = *reinterpret_cast<F**>(from);
-      *reinterpret_cast<F**>(to) = src;
-      src = nullptr;
-    },
-    // destroy
-    [](void* storage) {
-      auto*& f = *reinterpret_cast<F**>(storage);
-      // NOLINTNEXTLINE(cppcoreguidelines-owning-memory)
-      delete f;
-      f = nullptr;
-    }
-  };
+  // invoke
+  [](void* storage) {
+    auto* f = *reinterpret_cast<F**>(storage);
+    (*f)();
+  },
+  // move
+  // NOLINTNEXTLINE(bugprone-easily-swappable-parameters)
+  [](void* from, void* to) {
+    auto*& src = *reinterpret_cast<F**>(from);
+    *reinterpret_cast<F**>(to) = src;
+    src = nullptr;
+  },
+  // destroy
+  [](void* storage) {
+    auto*& f = *reinterpret_cast<F**>(storage);
+    // NOLINTNEXTLINE(cppcoreguidelines-owning-memory)
+    delete f;
+    f = nullptr;
+  }};
 
-}  // namespace hps
+} // namespace hps

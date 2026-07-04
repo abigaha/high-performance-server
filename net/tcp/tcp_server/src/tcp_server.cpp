@@ -5,6 +5,8 @@
 
 #include <arpa/inet.h>
 #include <fcntl.h>
+#include <openssl/err.h>
+#include <openssl/ssl.h>
 #include <sys/epoll.h>
 #include <sys/eventfd.h>
 #include <sys/socket.h>
@@ -60,7 +62,7 @@ void TcpServer::signal_handler(int sig) {
 TcpServer::TcpServer(const Config& config) : config_(config) {}
 
 TcpServer::~TcpServer() {
-  this->TcpServer::stop();  // 限定调用避免析构时虚分发绕过
+  this->TcpServer::stop(); // 限定调用避免析构时虚分发绕过
   if (s_instance_ == this) {
     s_instance_ = nullptr;
   }
@@ -173,6 +175,17 @@ bool TcpServer::init() {
 
   thread_pool_ = std::make_unique<LockFreeThreadPool>(config_.thread_count);
 
+  if (config_.ssl_config.enabled) {
+    try {
+      ssl_context_ = std::make_unique<SslContext>(config_.ssl_config);
+    } catch (const std::exception& e) {
+      Logger::_error("SSL 上下文初始化失败: " + std::string(e.what()));
+      cleanup_resources();
+      return false;
+    }
+    Logger::_info("SSL 已启用");
+  }
+
   Logger::_info("TcpServer 初始化成功，端口: " + std::to_string(config_.port) +
                 ", 线程数: " + std::to_string(config_.thread_count));
 
@@ -263,20 +276,16 @@ void TcpServer::handle_event(const struct epoll_event& evt) {
     [[maybe_unused]] auto unused = read(wake_fd_, &val, sizeof(val));
     process_dirty_connections();
   } else {
-    if ((ev & (EPOLLERR | EPOLLHUP | EPOLLRDHUP)) != 0U) {
-      if ((ev & (EPOLLHUP | EPOLLRDHUP)) != 0U) {
-        handle_read(fd);
-      }
-      close_connection(fd);
-    } else if ((ev & EPOLLIN) != 0U) {
-      if (!handle_read(fd)) {
-        close_connection(fd);
-      }
-    } else if ((ev & EPOLLOUT) != 0U) {
-      if (!handle_write(fd)) {
-        close_connection(fd);
-      }
+    auto it = connections_.find(fd);
+    if (it == connections_.end()) {
+      return;
     }
+    auto& conn = it->second;
+
+    if (try_ssl_detection(conn, evt) || try_ssl_handshake(conn, evt)) {
+      return;
+    }
+    handle_client_event(fd, evt);
   }
 }
 
@@ -381,6 +390,88 @@ bool TcpServer::handle_write(int fd) {
   }
 
   return true;
+}
+
+bool TcpServer::try_ssl_detection(std::shared_ptr<Connection>& conn, const struct epoll_event& ev) {
+  if (!config_.ssl_config.enabled) {
+    return false;
+  }
+  if (conn->ssl_state() != Connection::SslState::NONE) {
+    return false;
+  }
+  if ((ev.events & EPOLLIN) == 0U) {
+    return false;
+  }
+
+  std::array<char, 1> peek_buf{};
+  ssize_t n = ::recv(conn->fd(), peek_buf.data(), 1, MSG_PEEK);
+  if (n != 1 || static_cast<unsigned char>(peek_buf[0]) != 0x16) {
+    return false;
+  }
+
+  auto* ssl = ssl_context_->create_ssl();
+  conn->set_ssl(ssl);
+  SSL_set_fd(static_cast<SSL*>(ssl), conn->fd());
+  conn->set_ssl_state(Connection::SslState::HANDSHAKE);
+  handle_ssl_handshake(conn, ev);
+  return true;
+}
+
+bool TcpServer::try_ssl_handshake(std::shared_ptr<Connection>& conn, const struct epoll_event& ev) {
+  if (conn->ssl_state() != Connection::SslState::HANDSHAKE) {
+    return false;
+  }
+  handle_ssl_handshake(conn, ev);
+  return true;
+}
+
+void TcpServer::handle_client_event(int fd, const struct epoll_event& evt) {
+  const uint32_t ev = evt.events;
+  if ((ev & (EPOLLERR | EPOLLHUP | EPOLLRDHUP)) != 0U) {
+    if ((ev & (EPOLLHUP | EPOLLRDHUP)) != 0U) {
+      if (!handle_read(fd)) {
+        close_connection(fd);
+        return;
+      }
+    }
+    close_connection(fd);
+  } else if ((ev & EPOLLIN) != 0U) {
+    if (!handle_read(fd)) {
+      close_connection(fd);
+    }
+  } else if ((ev & EPOLLOUT) != 0U) {
+    if (!handle_write(fd)) {
+      close_connection(fd);
+    }
+  }
+}
+
+void TcpServer::handle_ssl_handshake(std::shared_ptr<Connection>& conn, const struct epoll_event& ev) {
+  int ret = SSL_accept(static_cast<SSL*>(conn->ssl()));
+  if (ret == 1) {
+    conn->set_ssl_state(Connection::SslState::ESTABLISHED);
+    epoll_ctl_mod(epoll_fd_, EpollFd{conn->fd()}, EpollEvents{EPOLLIN | EPOLLET | EPOLLRDHUP});
+    Logger::_info("TLS 握手完成 (fd=" + std::to_string(conn->fd()) + ")");
+    if ((ev.events & EPOLLIN) != 0U) {
+      handle_read(conn->fd());
+    }
+    return;
+  }
+
+  int err = SSL_get_error(static_cast<SSL*>(conn->ssl()), ret);
+  if (err == SSL_ERROR_WANT_READ) {
+    return;
+  }
+  if (err == SSL_ERROR_WANT_WRITE) {
+    epoll_ctl_mod(epoll_fd_, EpollFd{conn->fd()}, EpollEvents{EPOLLOUT | EPOLLET | EPOLLRDHUP});
+    return;
+  }
+
+  auto ssl_err = ERR_get_error();
+  std::array<char, 256> err_buf{};
+  ERR_error_string_n(ssl_err, err_buf.data(), err_buf.size());
+  Logger::_error("SSL_accept 失败 (fd=" + std::to_string(conn->fd()) + "): " + std::string(err_buf.data()));
+  close_connection(conn->fd());
 }
 
 void TcpServer::close_connection(int fd) {

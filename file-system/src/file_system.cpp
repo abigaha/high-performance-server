@@ -16,9 +16,9 @@ namespace hps {
 
 namespace {
 
-constexpr std::size_t kHashReadBufferSize = 65536;  // 64KB 流式读取缓冲
+constexpr std::size_t kHashReadBufferSize = 65536; // 64KB 流式读取缓冲
 
-}  // namespace
+} // namespace
 
 FileSystem::FileSystem(std::string base_dir) : base_dir_(std::move(base_dir)) {
   if (!base_dir_.empty() && base_dir_.back() == '/') {
@@ -27,8 +27,8 @@ FileSystem::FileSystem(std::string base_dir) : base_dir_(std::move(base_dir)) {
 }
 
 std::string FileSystem::to_hex(const unsigned char* hash, unsigned int len) {
-  static constexpr std::array<char, 17> kHexChars = {'0', '1', '2', '3', '4', '5', '6', '7',
-                                                       '8', '9', 'a', 'b', 'c', 'd', 'e', 'f', '\0'};
+  static constexpr std::array<char, 17> kHexChars = {
+    '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f', '\0'};
   std::string hex(static_cast<std::size_t>(len) * 2, '\0');
   for (unsigned int i = 0; i < len; ++i) {
     std::size_t idx = static_cast<std::size_t>(i) * 2;
@@ -72,11 +72,10 @@ std::string FileSystem::resolve_path(const std::string& virtual_path) const {
   auto resolved_str = resolved.string();
   auto base_str = base_resolved.string();
   if (resolved_str == base_str) {
-    return {};  // 虚拟路径解析到 base_dir 本身，不允许
+    return {}; // 虚拟路径解析到 base_dir 本身，不允许
   }
   // 检查 resolved 是否以 base_dir/ 开头
-  if (resolved_str.size() <= base_str.size() ||
-      resolved_str.compare(0, base_str.size(), base_str) != 0 ||
+  if (resolved_str.size() <= base_str.size() || resolved_str.compare(0, base_str.size(), base_str) != 0 ||
       resolved_str[base_str.size()] != '/') {
     return {};
   }
@@ -213,9 +212,8 @@ std::optional<std::vector<char>> FileSystem::read_file(const std::string& path) 
     return std::nullopt;
   }
 
-  std::vector<char> data((std::istreambuf_iterator<char>(file)),
-                         std::istreambuf_iterator<char>());
+  std::vector<char> data((std::istreambuf_iterator<char>(file)), std::istreambuf_iterator<char>());
   return data;
 }
 
-}  // namespace hps
+} // namespace hps

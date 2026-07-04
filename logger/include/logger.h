@@ -100,23 +100,33 @@ public:
 
   // 静态便捷 API：未 init 时静默丢弃（测试兼容）；直接 getInstance() 调用强限制抛异常
   static void _debug(const std::string& msg, const std::source_location& loc = std::source_location::current()) {
-    if (s_instance_) { s_instance_->debug(msg, loc); }
+    if (s_instance_) {
+      s_instance_->debug(msg, loc);
+    }
   }
 
   static void _info(const std::string& msg, const std::source_location& loc = std::source_location::current()) {
-    if (s_instance_) { s_instance_->info(msg, loc); }
+    if (s_instance_) {
+      s_instance_->info(msg, loc);
+    }
   }
 
   static void _warn(const std::string& msg, const std::source_location& loc = std::source_location::current()) {
-    if (s_instance_) { s_instance_->warn(msg, loc); }
+    if (s_instance_) {
+      s_instance_->warn(msg, loc);
+    }
   }
 
   static void _error(const std::string& msg, const std::source_location& loc = std::source_location::current()) {
-    if (s_instance_) { s_instance_->error(msg, loc); }
+    if (s_instance_) {
+      s_instance_->error(msg, loc);
+    }
   }
 
   static void _fatal(const std::string& msg, const std::source_location& loc = std::source_location::current()) {
-    if (s_instance_) { s_instance_->fatal(msg, loc); }
+    if (s_instance_) {
+      s_instance_->fatal(msg, loc);
+    }
   }
 
 private:

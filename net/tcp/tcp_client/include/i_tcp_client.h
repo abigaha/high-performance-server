@@ -24,4 +24,4 @@ public:
   virtual bool is_connected() const = 0;
 };
 
-}  // namespace hps
+} // namespace hps

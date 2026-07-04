@@ -2,7 +2,6 @@
 #include "coroitem.hpp"
 
 #include <gtest/gtest.h>
-
 #include <sys/socket.h>
 #include <unistd.h>
 

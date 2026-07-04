@@ -10,6 +10,8 @@
 #include <mutex>
 #include <string>
 
+struct ssl_st;
+
 namespace hps {
 
 // F6：协程可等待对象前向声明（Connection::await_read/await_write 返回类型）
@@ -29,6 +31,9 @@ public:
 
   /** 连接状态 */
   enum class State : uint8_t { CONNECTED, CLOSED };
+
+  /** SSL 状态 */
+  enum class SslState : uint8_t { NONE, HANDSHAKE, ESTABLISHED };
 
   Connection(int fd, const sockaddr_in& addr);
   ~Connection();
@@ -93,6 +98,16 @@ public:
   /** 更新最近活动时间为现在 */
   void update_active() { last_active_ = Clock::now(); }
 
+  /** SSL 对象 */
+  ssl_st* ssl() const { return ssl_; }
+
+  void set_ssl(ssl_st* ssl) { ssl_ = ssl; }
+
+  /** SSL 状态 */
+  SslState ssl_state() const { return ssl_state_; }
+
+  void set_ssl_state(SslState state) { ssl_state_ = state; }
+
   /** 协程化非阻塞读（F6：返回 ReadAwaiter，可被 co_await） */
   ReadAwaiter await_read() noexcept;
 
@@ -100,7 +115,15 @@ public:
   WriteAwaiter await_write() noexcept;
 
 private:
+  ssize_t ssl_read_from_fd();
+  ssize_t plain_read_from_fd();
+  ssize_t ssl_write_to_fd_locked();
+  ssize_t plain_write_to_fd_locked();
+
   int fd_{-1}; ///< socket 文件描述符
+
+  ssl_st* ssl_{nullptr};               ///< OpenSSL 对象（可选）
+  SslState ssl_state_{SslState::NONE}; ///< SSL 状态
 
   struct sockaddr_in addr_ {}; ///< 客户端地址信息
 
@@ -125,7 +148,9 @@ struct ReadAwaiter {
   ssize_t result{0};
 
   bool await_ready() const noexcept { return false; }
+
   void await_suspend(std::coroutine_handle<> handle);
+
   ssize_t await_resume() const noexcept { return result; }
 };
 
@@ -139,7 +164,9 @@ struct WriteAwaiter {
   ssize_t result{0};
 
   bool await_ready() const noexcept { return false; }
+
   void await_suspend(std::coroutine_handle<> handle);
+
   ssize_t await_resume() const noexcept { return result; }
 };
 

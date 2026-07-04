@@ -24,7 +24,7 @@ TcpClient::TcpClient(uint32_t connect_timeout_ms, const std::string& server_ip, 
     server_ip_(server_ip), server_port_(server_port), connect_timeout_ms_(connect_timeout_ms) {}
 
 TcpClient::~TcpClient() {
-  this->TcpClient::disconnect();  // 限定调用避免析构时虚分发绕过
+  this->TcpClient::disconnect(); // 限定调用避免析构时虚分发绕过
 }
 
 TcpClient::TcpClient(TcpClient&& other) noexcept :

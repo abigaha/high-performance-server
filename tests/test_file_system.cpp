@@ -47,7 +47,7 @@ constexpr const char* kEmptySha256 = "e3b0c44298fc1c149afbf4c8996fb92427ae41e464
 // 已知 SHA-256 测试向量（"hello"）
 constexpr const char* kHelloSha256 = "2cf24dba5fb0a30e26e83b2ac5b9e29e1b161e5c1fa7425e73043362938b9824";
 
-}  // namespace
+} // namespace
 
 int main(int argc, char** argv) {
   ::testing::InitGoogleTest(&argc, argv);
@@ -58,7 +58,7 @@ int main(int argc, char** argv) {
 // NOLINTNEXTLINE(readability-function-cognitive-complexity) gtest 宏展开导致嵌套层级虚高
 TEST(FileSystemTest, SplitFileEvenChunks) {
   TempDir tmp;
-  std::string content(100, 'x');  // 100 字节
+  std::string content(100, 'x'); // 100 字节
   tmp.write_file("test.bin", content);
 
   hps::FileSystem fs(tmp.path());
@@ -84,7 +84,7 @@ TEST(FileSystemTest, SplitFileUnevenLastChunk) {
 
   ASSERT_EQ(chunks.size(), 4U);
   EXPECT_EQ(chunks[3].offset, 90U);
-  EXPECT_EQ(chunks[3].size, 10U);  // 最后一块 10 字节
+  EXPECT_EQ(chunks[3].size, 10U); // 最后一块 10 字节
 }
 
 // T3: chunk_size=0 返回空 vector
