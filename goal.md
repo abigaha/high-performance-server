@@ -363,10 +363,13 @@ Step 6 ─── database 数据库连接池 (IDatabasePool 实现) ✅ 已完�
   ├─ SQL schema DDL
   └─ 测试: test_database_pool(14用例) 全通过
         │
-Step 7 ─── file-transfer 文件传输模块 (IFileTransfer 实现)
-  ├─ 小文件单连接传输
-  ├─ 大文件唤起 file-send/receive 进程切割并行传输
-  └─ file-send-process / file-receive-process 进程实现
+Step 7 ─── file-transfer 文件传输模块 (IFileTransfer 实现) ✅ 已完成
+  ├─ IFileTransfer 抽象接口: transfer_small / transfer_large / receive_file
+  ├─ FileTransfer 实现: 小文件(ITcpClient send_message), 大文件(fork/exec + stdin协议)
+  ├─ ChunkHeader 28B 线缆协议 (HPSF magic, 网络字节序, packed)
+  ├─ file-send-process 完善: stdin解析, LockFreeThreadPool并发发送, pread分块
+  ├─ file-receive-process 实现: raw socket监听, 多线程接收, pwrite重组
+  └─ 测试: test_file_transfer(7用例) 全通过
         │
 Step 8 ─── HTTPS/TLS (OpenSSL, 双模式)
         │
@@ -394,11 +397,12 @@ Step 11 ─── main.cpp 整合启动
 | net/tcp/tcp_server | 4 | 90% | ✅ 就绪（ITcpServer 已落地）|
 | net/thread-pool | 3 | 90% | ✅ 就绪（CRTP 基类 + LockFreeThreadPool 改名已落地）|
 | memory-pool | 6 | 100% | ✅ 就绪（去 virtual 析构 + 静态 deleter 已落地）|
-| net/file-send | 1 | 40% | ❌ 未完成 |
+| net/file-transfer | 5 | 100% | ✅ 就绪（IFileTransfer + FileTransfer + chunk_header 已落地）|
+| net/file-send | 1 | 100% | ✅ 就绪（file-send-process 已完善）|
 | file-system | 3 | 100% | ✅ 就绪（IFileSystem + FileSystem 已落地）|
-| net/file-receive | 1 | 0% | 🚫 空桩 |
+| net/file-receive | 1 | 100% | ✅ 就绪（file-receive-process 已实现）|
 | **database** | **8** | **100%** | **✅ 就绪（IDatabasePool + DatabasePool + boost::mysql 已落地）** |
-| tests | 16 | 100% | ✅ 就绪（53 用例全通过）|
+| tests | 17 | 100% | ✅ 就绪（60 用例全通过）|
 
 ---
 
@@ -406,7 +410,7 @@ Step 11 ─── main.cpp 整合启动
 
 | 模块 | 目录 | 接口 | 状态 |
 |------|------|------|------|
-| `file-transfer` | `net/file-transfer/` | `IFileTransfer` | 待新增 |
+| `file-transfer` | `net/file-transfer/` | `IFileTransfer` | ✅ 已实现（小文件大文件传输 + 独立进程） |
 | `database` | `db/` | `IDatabasePool` | ✅ 已实现（boost::mysql 连接池） |
 | `LockedThreadPool` | `net/thread-pool/` | `ThreadPoolBase<LockedThreadPool>` | 待新增 |
 
@@ -432,4 +436,4 @@ Step 11 ─── main.cpp 整合启动
 | logger | — | ❌ 无 |
 | file-system | `test_file_system.cpp` | ✅ 有（14 用例：split/hash/store/delete/路径穿越）|
 | database | `test_database_pool.cpp` | ✅ 有（14 用例：模型/连接池/超时/CRUD）|
-| file-send/receive | — | ❌ 无（模块未完成）|
+| file-transfer | `test_file_transfer.cpp` | ✅ 有（7 用例：小文件传输/ChunkHeader/串行化/接收重组）|
