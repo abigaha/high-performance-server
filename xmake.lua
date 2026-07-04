@@ -10,6 +10,7 @@ includes("logger")
 includes("file-system")
 includes("memory-pool")
 includes("net")
+includes("db")
 
 -- ===== 测试（自动发现 tests/ 目录下的测试文件）=====
 
@@ -24,10 +25,12 @@ for _, file in ipairs(os.files("tests/*.cpp")) do
                         "net/thread-pool/include",
                         "net/http/include",
                         "net/coroutine",
+                        "net/file-transfer/include",
                         "logger/include",
                         "memory-pool/include",
-                        "file-system/include")
-        add_deps("tcp_server", "tcp_client", "http", "file-system")
+                        "file-system/include",
+                        "db/include")
+        add_deps("tcp_server", "tcp_client", "http", "file-system", "db", "file-transfer")
         -- 为 test binary 设置 RPATH（传递性），而非 RUNPATH
         add_ldflags("-Wl,-rpath," .. path.join(os.projectdir(), "lib"), "-Wl,--disable-new-dtags", {force = true})
         add_tests("default")

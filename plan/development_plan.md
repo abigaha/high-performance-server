@@ -2,7 +2,7 @@
 
 > 基于 `goal.md` 的 Step 进度体系，分阶段实现音乐软件 HTTP 服务器。
 > 各步骤详情见独立文件 `plan/step-*.md`。
-> 当前进度：Step 5（Range 流式传输）已完成，Step 6（database 数据库连接池）为当前关卡。
+> 当前进度：Step 6（database 数据库连接池）已完成，Step 7（file-transfer）为当前关卡。
 
 ---
 
@@ -16,8 +16,8 @@
 | Step 3 | 接口层落地 | ✅ 已完成 | [step-3-interface-layer.md](step-3-interface-layer.md) |
 | Step 4 | file-system | ✅ 已完成 | [step-4-file-system.md](step-4-file-system.md) |
 | Step 5 | Range 流式传输 | ✅ 已完成 | [step-5-range-streaming.md](step-5-range-streaming.md) |
-| **Step 6** | **database 数据库连接池** | **← 当前** | [step-6-database.md](step-6-database.md) |
-| Step 7 | file-transfer | 待开始 | [step-7-file-transfer.md](step-7-file-transfer.md) |
+| Step 6 | database 数据库连接池 | ✅ 已完成 | [step-6-database.md](step-6-database.md) |
+| **Step 7** | **file-transfer** | **← 当前** | [step-7-file-transfer.md](step-7-file-transfer.md) |
 | Step 8 | HTTPS/TLS | 待开始 | [step-8-https-tls.md](step-8-https-tls.md) |
 | Step 9 | WebSocket | 待开始 | [step-9-websocket.md](step-9-websocket.md) |
 | Step 10 | LockedThreadPool | 待开始 | [step-10-locked-thread-pool.md](step-10-locked-thread-pool.md) |

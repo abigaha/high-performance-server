@@ -354,9 +354,14 @@ Step 4 ─── file-system 文件读取 + 虚拟路径解析 (IFileSystem 实�
         │
 Step 5 ─── Range 流式传输 (解析、206 Partial Content) ✅ 已完成
         │
-Step 6 ─── database 数据库连接池 (IDatabasePool 实现)
-  ├─ 用户信息、下载日志、文件哈希、存储地址
-  └─ 基于 lock_free_queue 的连接池
+Step 6 ─── database 数据库连接池 (IDatabasePool 实现) ✅ 已完成
+  ├─ 数据模型: DbConfig/User/DownloadLog/FileMeta
+  ├─ IConnection 抽象接口 + BoostMySqlConnection (boost::mysql)
+  ├─ DatabasePool: mutex+condition_variable 连接池，ping 健康检查，超时等待，close 等待活跃连接
+  ├─ MockConnection 注入，无真实数据库可测
+  ├─ Prepared statement 参数化查询防 SQL 注入
+  ├─ SQL schema DDL
+  └─ 测试: test_database_pool(14用例) 全通过
         │
 Step 7 ─── file-transfer 文件传输模块 (IFileTransfer 实现)
   ├─ 小文件单连接传输
@@ -392,7 +397,8 @@ Step 11 ─── main.cpp 整合启动
 | net/file-send | 1 | 40% | ❌ 未完成 |
 | file-system | 3 | 100% | ✅ 就绪（IFileSystem + FileSystem 已落地）|
 | net/file-receive | 1 | 0% | 🚫 空桩 |
-| tests | 15 | 100% | ✅ 就绪（39 用例全通过）|
+| **database** | **8** | **100%** | **✅ 就绪（IDatabasePool + DatabasePool + boost::mysql 已落地）** |
+| tests | 16 | 100% | ✅ 就绪（53 用例全通过）|
 
 ---
 
@@ -401,7 +407,7 @@ Step 11 ─── main.cpp 整合启动
 | 模块 | 目录 | 接口 | 状态 |
 |------|------|------|------|
 | `file-transfer` | `net/file-transfer/` | `IFileTransfer` | 待新增 |
-| `database` | `db/` | `IDatabasePool` | 待新增 |
+| `database` | `db/` | `IDatabasePool` | ✅ 已实现（boost::mysql 连接池） |
 | `LockedThreadPool` | `net/thread-pool/` | `ThreadPoolBase<LockedThreadPool>` | 待新增 |
 
 ---
@@ -425,4 +431,5 @@ Step 11 ─── main.cpp 整合启动
 | range-parser | `test_range_parser.cpp` | ✅ 有（10 用例）|
 | logger | — | ❌ 无 |
 | file-system | `test_file_system.cpp` | ✅ 有（14 用例：split/hash/store/delete/路径穿越）|
+| database | `test_database_pool.cpp` | ✅ 有（14 用例：模型/连接池/超时/CRUD）|
 | file-send/receive | — | ❌ 无（模块未完成）|

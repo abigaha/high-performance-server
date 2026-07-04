@@ -1,0 +1,7 @@
+target("file-transfer")
+    set_kind("shared")
+    set_targetdir(path.join(os.projectdir(), "lib"))
+    add_headerfiles("include/(**.h)", "include/(**.hpp)")
+    add_includedirs("include", { public = true })
+    add_files("src/*.cpp")
+    add_deps("logger", "file-system", "tcp_client", "tcp_server")
