@@ -18,8 +18,8 @@
 | Step 5 | Range 流式传输 | ✅ 已完成 | [step-5-range-streaming.md](step-5-range-streaming.md) |
 | Step 6 | database 数据库连接池 | ✅ 已完成 | [step-6-database.md](step-6-database.md) |
 | Step 7 | file-transfer | ✅ 已完成 | [step-7-file-transfer.md](step-7-file-transfer.md) |
-| **Step 8** | **HTTPS/TLS** | **✅ 已完成** | [step-8-https-tls.md](step-8-https-tls.md) |
-| Step 9 | WebSocket | **← 当前** | [step-9-websocket.md](step-9-websocket.md) |
+| Step 8 | HTTPS/TLS | ✅ 已完成 | [step-8-https-tls.md](step-8-https-tls.md) |
+| **Step 9** | **WebSocket** | **← 当前** | [step-9-websocket.md](step-9-websocket.md) |
 | Step 10 | LockedThreadPool | 待开始 | [step-10-locked-thread-pool.md](step-10-locked-thread-pool.md) |
 | Step 11 | main.cpp 整合 | 待开始 | [step-11-main-integration.md](step-11-main-integration.md) |
 
