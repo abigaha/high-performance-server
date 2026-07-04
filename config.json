@@ -1,0 +1,28 @@
+{
+  "server": {
+    "port": 8080,
+    "backlog": 128,
+    "thread_count": 4,
+    "epoll_timeout_ms": 100
+  },
+  "database": {
+    "host": "127.0.0.1",
+    "port": 3306,
+    "username": "root",
+    "password": "",
+    "database": "music_server",
+    "pool_size": 10,
+    "connect_timeout_ms": 3000,
+    "read_timeout_ms": 5000
+  },
+  "ssl": {
+    "enabled": false,
+    "cert_file": "",
+    "key_file": "",
+    "ca_file": "",
+    "verify_peer": false
+  },
+  "filesystem": {
+    "root_dir": "./data"
+  }
+}

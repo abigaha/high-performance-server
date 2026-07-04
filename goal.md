@@ -9,9 +9,9 @@
 - C++20 / g++ / xmake
 - HTTP/1.1 + HTTPS (TLS)
 - WebSocket (实时通信)
-- MySQL (数据/音乐索引管理)
+- boost::mysql (数据/音乐索引管理)
 - 协程 (Coroutine, C++20 `std::coroutine`)
-- 线程池 + 无锁队列 (LockFreeQueue)
+- 线程池（LockFree 无锁 + Locked 有锁双实现）
 - Range 流式传输 (音乐播放进度控制)
 
 ---
@@ -52,15 +52,17 @@ core (main)
   │   ├─ LockFreeThreadPool (现有无锁版)
   │   └─ LockedThreadPool (新增有锁通用版)
   ├─ net
-  │   ├─ coroutine (无接口, 与 Connection 耦合, await_transform)
-  │   ├─ tcp_server (ITcpServer 抽象类)
+  │   ├─ coroutine (无接口, 与 Connection 耦合, await_read/await_write)
+  │   ├─ tcp_server (ITcpServer 抽象类 + SslContext 集成)
   │   ├─ tcp_client (ITcpClient 抽象类)
-  │   ├─ http (IHttpServer/IRouter 抽象类)
+  │   ├─ ssl (SslContext 封装, OpenSSL)
+  │   ├─ websocket (帧编解码 + WsConnection 事件循环)
+  │   ├─ http (IHttpServer/IRouter 抽象类 + Range 流式传输 + WebSocket 升级)
   │   └─ file-transfer (IFileTransfer 抽象类)
   │       ├─ file-send-process (独立进程)
   │       └─ file-receive-process (独立进程)
   ├─ file-system (IFileSystem 抽象类)
-  └─ database (IDatabasePool 抽象类, 新增)
+  └─ database (IDatabasePool 抽象类, boost::mysql 连接池)
 ```
 
 ---
@@ -157,7 +159,22 @@ private:
 };
 
 // 实现 2：新增有锁通用版
-class LockedThreadPool : public ThreadPoolBase<LockedThreadPool> { ... };
+class LockedThreadPool : public ThreadPoolBase<LockedThreadPool> {
+public:
+  explicit LockedThreadPool(std::size_t num_threads);
+  template <typename F, typename... Args> requires std::invocable<F, Args...>
+  void enqueue_impl(F&& f, Args&&... args);
+  void wait_impl();
+  bool wait_for(std::chrono::milliseconds timeout);
+  void stop_impl();
+private:
+  std::vector<std::jthread> workers_;
+  std::queue<MoveOnlyFunction> tasks_;
+  std::mutex queue_mutex_;
+  std::condition_variable cv_;
+  std::atomic<int> pending_{0};
+  bool stop_{false};
+};
 ```
 
 ### 4. coroutine — 无接口，与 Connection 耦合
@@ -298,9 +315,9 @@ main() {
 |------|------|
 | HTTP 解析 | 手写轻量解析器 |
 | 路由匹配 | 前缀树 (trie) |
-| 连接模型 | 每个连接一个 Coroutine |
+| 连接模型 | 非阻塞 epoll ET + per-connection handler |
 | 并发处理 | thread-pool + Coroutine 协作 |
-| 数据库 | MySQL Connector/C++ 或 libmysqlclient |
+| 数据库 | boost::mysql 连接池 (IDatabasePool) |
 | TLS | OpenSSL |
 | 命名空间 | 全部统一到 `hps` |
 | 命名规则 | 成员变量 `_` 后缀，全局变量 `g_` 前缀，常量 `k`+PascalCase，枚举 UPPER_SNAKE_CASE |
@@ -387,12 +404,19 @@ Step 9 ─── WebSocket 握手 + 帧编解码 ✅ 已完成
   ├─ HttpServer 集成（ws() 路由注册，Upgrade 检测，方案B 事件循环）
   └─ 测试: test_websocket(12用例) 全通过
         │
-Step 10 ─── LockedThreadPool 有锁通用线程池实现
+Step 10 ─── LockedThreadPool 有锁通用线程池实现 ✅ 已完成
+  ├─ CRTP 继承 ThreadPoolBase<LockedThreadPool>
+  ├─ std::queue + std::mutex 有锁任务队列
+  ├─ condition_variable 等待通知，wait_for(ms) 超时支持
+  ├─ stop() 队列清空 + pending 重置 + jthread 优雅关闭
+  ├─ 异常安全：worker 内 try-catch + Logger::_error 记录
+  └─ 测试: test_locked_thread_pool(8用例) 全通过
         │
-Step 11 ─── main.cpp 整合启动
-  ├─ 服务器启动流程
-  ├─ 路由注册
-  └─ 配置管理
+Step 11 ─── main.cpp 整合启动 ✅ 已完成
+  ├─ 服务器启动流程: Logger::init → 配置加载 → DatabasePool(MockConnection) → FileSystem → HttpServer → start → 信号等待 → stop → close → shutdown
+  ├─ 路由注册: /api/health, /api/users/:id, POST /api/users, /api/users/:id/history, /api/files/:hash, ws://host/ws
+  ├─ 配置管理: config.json (nlohmann/json) + 命令行参数 (--port/--threads/--db-host等)
+  └─ 测试: 手动启动验证 + 全量回归测试 20二进制全部通过
 ```
 
 ---
@@ -406,8 +430,8 @@ Step 11 ─── main.cpp 整合启动
 | net/http | 11 | 100% | ✅ 就绪（Range 流式传输已落地）|
 | net/tcp/tcp_client | 2 | 100% | ✅ 就绪（ITcpClient 已落地）|
 | net/coroutine | 1 | 100% | ✅ 就绪（Connection awaitable 已落地）|
-| net/tcp/tcp_server | 4 | 90% | ✅ 就绪（ITcpServer 已落地）|
-| net/thread-pool | 3 | 90% | ✅ 就绪（CRTP 基类 + LockFreeThreadPool 改名已落地）|
+| net/tcp/tcp_server | 4 | 100% | ✅ 就绪（ITcpServer + epoll ET + SSL + 优雅关闭）|
+| net/thread-pool | 5 | 100% | ✅ 就绪（CRTP + LockFree + Locked 双实现）|
 | memory-pool | 6 | 100% | ✅ 就绪（去 virtual 析构 + 静态 deleter 已落地）|
 | net/file-transfer | 5 | 100% | ✅ 就绪（IFileTransfer + FileTransfer + chunk_header 已落地）|
 | net/file-send | 1 | 100% | ✅ 就绪（file-send-process 已完善）|
@@ -415,8 +439,8 @@ Step 11 ─── main.cpp 整合启动
 | net/file-receive | 1 | 100% | ✅ 就绪（file-receive-process 已实现）|
 | database | 8 | 100% | ✅ 就绪（IDatabasePool + DatabasePool + boost::mysql 已落地） |
 | net/ssl | 3 | 100% | ✅ 就绪（SslContext + Connection SSL 集成 + 双模式检测） |
-| **net/websocket** | **5** | **100%** | **✅ 就绪（帧编解码 + 握手 + WsConnection 事件循环）** |
-| tests | 19 | 100% | ✅ 就绪（81 用例全通过）|
+| net/websocket | 5 | 100% | ✅ 就绪（帧编解码 + 握手 + WsConnection 事件循环） |
+| tests | 20 | 100% | ✅ 就绪（~167 用例全通过）|
 
 ---
 
@@ -428,7 +452,7 @@ Step 11 ─── main.cpp 整合启动
 | `database` | `db/` | `IDatabasePool` | ✅ 已实现（boost::mysql 连接池） |
 | `net/ssl` | `net/ssl/` | (SslContext 封装) | ✅ 已实现（双模式 HTTPS/TLS） |
 | `net/websocket` | `net/websocket/` | `websocket.h` / `ws_connection.h` | ✅ 已实现（帧编解码 + 握手 + 事件循环） |
-| `LockedThreadPool` | `net/thread-pool/` | `ThreadPoolBase<LockedThreadPool>` | 待新增 |
+| `LockedThreadPool` | `net/thread-pool/` | `ThreadPoolBase<LockedThreadPool>` | ✅ 已实现（有锁通用版，含 wait_for 超时） |
 
 ---
 
@@ -443,7 +467,8 @@ Step 11 ─── main.cpp 整合启动
 | HttpResponse | `test_http_response.cpp` | ✅ 有 |
 | UrlDecode | `test_url_decode.cpp` | ✅ 有 |
 | MemoryPool | `test_memory_pool.cpp` | ✅ 有 |
-| thread-pool | `test_lock_free_queue.cpp` | ✅ 有 |
+| thread-pool (LockFree) | `test_lock_free_queue.cpp` | ✅ 有 |
+| thread-pool (Locked) | `test_locked_thread_pool.cpp` | ✅ 有（8 用例）|
 | MoveOnlyFunction | `test_move_only_function.cpp` | ✅ 有 |
 | coroutine | `test_coroutine.cpp` | ✅ 有（5 用例：异常传播/正常完成/await_read 读/await_read EAGAIN/await_write）|
 | Router | `test_router.cpp` | ✅ 有（9 用例）|

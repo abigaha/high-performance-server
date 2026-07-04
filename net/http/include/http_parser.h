@@ -43,7 +43,7 @@ struct ParserResult {
 class HttpParser {
 public:
   /** body 最大字节数限制（100 MiB） */
-  static constexpr uint64_t kMaxBodySize = static_cast<const uint64_t>(100) * 1024 * 1024;
+  static constexpr uint64_t kMaxBodySize = static_cast<uint64_t>(100) * 1024 * 1024;
 
   HttpParser();
 

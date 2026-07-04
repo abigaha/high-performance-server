@@ -2,7 +2,8 @@ target("high-performance-server")
 set_kind("binary")
 set_targetdir(path.join(os.projectdir(), "bin"))
 add_files("src/*.cpp")
-add_deps("logger", "net")
+add_deps("logger", "http", "db", "file-system")
+add_packages("nlohmann_json")
 
 -- Compilation options
 add_cxxflags("-g", "-O0", "-Wall", "-Wextra", "-Wpedantic", "-Werror")

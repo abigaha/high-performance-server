@@ -3,6 +3,7 @@
 #include "connection.h"
 #include "i_tcp_server.h"
 #include "ssl_context.h"
+#include "thread_pool.h"
 
 #include <sys/epoll.h>
 
@@ -15,8 +16,6 @@
 #include <vector>
 
 namespace hps {
-
-class LockFreeThreadPool;
 
 /**
  * TCP 服务器

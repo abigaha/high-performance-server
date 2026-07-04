@@ -2,7 +2,7 @@
 
 > 基于 `goal.md` 的 Step 进度体系，分阶段实现音乐软件 HTTP 服务器。
 > 各步骤详情见独立文件 `plan/step-*.md`。
-> 当前进度：Step 8（HTTPS/TLS）已完成，Step 9（WebSocket）为当前关卡。
+> **所有步骤已完成。**
 
 ---
 
@@ -19,16 +19,16 @@
 | Step 6 | database 数据库连接池 | ✅ 已完成 | [step-6-database.md](step-6-database.md) |
 | Step 7 | file-transfer | ✅ 已完成 | [step-7-file-transfer.md](step-7-file-transfer.md) |
 | Step 8 | HTTPS/TLS | ✅ 已完成 | [step-8-https-tls.md](step-8-https-tls.md) |
-| **Step 9** | **WebSocket** | **← 当前** | [step-9-websocket.md](step-9-websocket.md) |
-| Step 10 | LockedThreadPool | 待开始 | [step-10-locked-thread-pool.md](step-10-locked-thread-pool.md) |
-| Step 11 | main.cpp 整合 | 待开始 | [step-11-main-integration.md](step-11-main-integration.md) |
+| Step 9 | WebSocket | ✅ 已完成 | [step-9-websocket.md](step-9-websocket.md) |
+| Step 10 | LockedThreadPool | ✅ 已完成 | [step-10-locked-thread-pool.md](step-10-locked-thread-pool.md) |
+| Step 11 | main.cpp 整合 | ✅ 已完成 | [step-11-main-integration.md](step-11-main-integration.md) |
 
 ---
 
 ## 质量门禁（每 Step 严格执行）
 
-- [ ] clang-tidy: 0 error + 0 warning + 0 style
-- [ ] cppcheck --enable=all: 0 error + 0 warning + 0 style + 0 performance
-- [ ] 编译: 0 error + 0 warning
-- [ ] xmake test: 100% 通过
-- [ ] CodeQL: 0 critical + 0 high severity
+- [x] clang-tidy: 0 error + 0 warning + 0 style
+- [x] cppcheck --enable=all: 0 error + 0 warning + 0 style + 0 performance
+- [x] 编译: 0 error + 0 warning
+- [x] xmake test: 100% 通过 (20 二进制, ~167 用例)
+- [x] CodeQL: 0 critical + 0 high severity

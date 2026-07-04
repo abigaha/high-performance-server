@@ -2,6 +2,7 @@ add_rules("mode.debug", "mode.release")
 set_languages("c++20")
 
 add_requires("gtest")
+add_requires("nlohmann_json")
 
 -- ===== 包含所有子模块 =====
 
