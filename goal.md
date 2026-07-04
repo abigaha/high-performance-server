@@ -378,7 +378,14 @@ Step 8 ─── HTTPS/TLS (OpenSSL, 双模式) ✅ 已完成
   ├─ 测试证书自动生成（xmake after_build 脚本）
   └─ 测试: test_ssl(9用例) 全通过
         │
-Step 9 ─── WebSocket 握手 + 帧编解码
+Step 9 ─── WebSocket 握手 + 帧编解码 ✅ 已完成
+  ├─ Base64 编码（RFC 4648）
+  ├─ WebSocket 握手（Sec-WebSocket-Accept SHA-1 + Base64 计算）
+  ├─ 帧编码（TEXT/BINARY/CLOSE/PING/PONG，服务端不 mask）
+  ├─ 帧解码（自动 unmask，7/16/64 位 payload 长度）
+  ├─ WsConnection 事件循环（CLOSE/PING/PONG 处理）
+  ├─ HttpServer 集成（ws() 路由注册，Upgrade 检测，方案B 事件循环）
+  └─ 测试: test_websocket(12用例) 全通过
         │
 Step 10 ─── LockedThreadPool 有锁通用线程池实现
         │
@@ -406,9 +413,10 @@ Step 11 ─── main.cpp 整合启动
 | net/file-send | 1 | 100% | ✅ 就绪（file-send-process 已完善）|
 | file-system | 3 | 100% | ✅ 就绪（IFileSystem + FileSystem 已落地）|
 | net/file-receive | 1 | 100% | ✅ 就绪（file-receive-process 已实现）|
-| **database** | **8** | **100%** | **✅ 就绪（IDatabasePool + DatabasePool + boost::mysql 已落地）** |
-| **net/ssl** | **3** | **100%** | **✅ 就绪（SslContext + Connection SSL 集成 + 双模式检测）** |
-| tests | 18 | 100% | ✅ 就绪（69 用例全通过）|
+| database | 8 | 100% | ✅ 就绪（IDatabasePool + DatabasePool + boost::mysql 已落地） |
+| net/ssl | 3 | 100% | ✅ 就绪（SslContext + Connection SSL 集成 + 双模式检测） |
+| **net/websocket** | **5** | **100%** | **✅ 就绪（帧编解码 + 握手 + WsConnection 事件循环）** |
+| tests | 19 | 100% | ✅ 就绪（81 用例全通过）|
 
 ---
 
@@ -419,6 +427,7 @@ Step 11 ─── main.cpp 整合启动
 | `file-transfer` | `net/file-transfer/` | `IFileTransfer` | ✅ 已实现（小文件大文件传输 + 独立进程） |
 | `database` | `db/` | `IDatabasePool` | ✅ 已实现（boost::mysql 连接池） |
 | `net/ssl` | `net/ssl/` | (SslContext 封装) | ✅ 已实现（双模式 HTTPS/TLS） |
+| `net/websocket` | `net/websocket/` | `websocket.h` / `ws_connection.h` | ✅ 已实现（帧编解码 + 握手 + 事件循环） |
 | `LockedThreadPool` | `net/thread-pool/` | `ThreadPoolBase<LockedThreadPool>` | 待新增 |
 
 ---
@@ -445,3 +454,4 @@ Step 11 ─── main.cpp 整合启动
 | database | `test_database_pool.cpp` | ✅ 有（14 用例：模型/连接池/超时/CRUD）|
 | file-transfer | `test_file_transfer.cpp` | ✅ 有（7 用例：小文件传输/ChunkHeader/串行化/接收重组）|
 | SSL/TLS | `test_ssl.cpp` | ✅ 有（9 用例：SslContext/TLS握手/加密通信/双模式/清理）|
+| WebSocket | `test_websocket.cpp` | ✅ 有（12 用例：握手/帧编解码/Base64/集成）|

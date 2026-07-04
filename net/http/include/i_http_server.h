@@ -3,9 +3,13 @@
 #include "i_router.h"
 
 #include <cstdint>
+#include <functional>
+#include <memory>
 #include <string_view>
 
 namespace hps {
+
+class WsConnection;
 
 /**
  * HTTP 服务器接口（抽象类）
@@ -16,6 +20,7 @@ namespace hps {
 class IHttpServer {
 public:
   using Handler = IRouter::Handler;
+  using WsHandler = std::function<void(const HttpRequest&, std::shared_ptr<WsConnection>)>;
 
   virtual ~IHttpServer() = default;
 
@@ -27,6 +32,8 @@ public:
   virtual void post(std::string_view path, Handler handler) = 0;
   virtual void put(std::string_view path, Handler handler) = 0;
   virtual void del(std::string_view path, Handler handler) = 0;
+
+  virtual void ws(std::string_view path, WsHandler handler) = 0;
 
   virtual uint16_t actual_port() const = 0;
 };

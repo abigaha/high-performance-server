@@ -2,7 +2,10 @@
 
 #include "logger.h"
 #include "thread_pool.h"
+#include "websocket.h"
+#include "ws_connection.h"
 
+#include <memory>
 #include <string>
 #include <utility>
 
@@ -10,11 +13,10 @@ namespace hps {
 
 HttpServer::HttpServer(const TcpServer::Config& config) : server_(config) {}
 
-HttpServer::~HttpServer() = default; // out-of-line 定义，此 TU 已 include thread_pool.h
+HttpServer::~HttpServer() = default;
 
 bool HttpServer::init() {
   server_.set_handler([this](std::shared_ptr<Connection> conn) {
-    // 获取连接级 mutex，串行化同一 conn 的并发 handler 调用
     auto cm = get_conn_mutex(conn.get());
     std::lock_guard<std::mutex> cl(*cm);
     handle_connection(*conn);
@@ -46,6 +48,10 @@ void HttpServer::del(std::string_view path, Handler handler) {
   router_.add(HttpMethod::DELETE, path, std::move(handler));
 }
 
+void HttpServer::ws(std::string_view path, WsHandler handler) {
+  ws_handlers_[std::string(path)] = std::move(handler);
+}
+
 std::shared_ptr<std::mutex> HttpServer::get_conn_mutex(Connection* c) {
   std::lock_guard<std::mutex> lock(conn_map_mutex_);
   auto& m = conn_mutexes_[c];
@@ -55,8 +61,35 @@ std::shared_ptr<std::mutex> HttpServer::get_conn_mutex(Connection* c) {
   return m;
 }
 
+bool HttpServer::try_handle_ws_upgrade(Connection& conn, const HttpRequest& req, std::size_t total_consumed) {
+  auto ws_it = ws_handlers_.find(req.path);
+  if (ws_it == ws_handlers_.end()) {
+    return false;
+  }
+
+  HttpResponse ws_resp;
+  if (!ws_server_handshake(req, ws_resp)) {
+    return false;
+  }
+
+  {
+    auto serialized = ws_resp.serialize();
+    std::lock_guard<std::mutex> wlock(conn.write_mutex());
+    conn.write_buffer().append(serialized);
+    conn.write_to_fd_locked();
+  }
+  conn.consume_read_buffer(total_consumed);
+
+  auto conn_ptr = conn.shared_from_this();
+  auto ws_conn = std::make_shared<WsConnection>(conn_ptr, [](WsFrame) {}, [](uint16_t) {});
+
+  WsHandler ws_handler = ws_it->second;
+  ws_handler(req, ws_conn);
+  ws_conn->start_event_loop();
+  return true;
+}
+
 void HttpServer::handle_connection(Connection& conn) {
-  // 局部 parser，无共享状态竞态；每次从 read_buffer 起始解析
   HttpParser parser;
   const auto& buf = conn.read_buffer();
   std::size_t total_consumed = 0;
@@ -67,7 +100,7 @@ void HttpServer::handle_connection(Connection& conn) {
     total_consumed += result.consumed;
 
     if (result.err == ParserError::INCOMPLETE) {
-      break; // 等待更多数据
+      break;
     }
 
     if (result.err == ParserError::BAD_REQUEST) {
@@ -82,53 +115,57 @@ void HttpServer::handle_connection(Connection& conn) {
       return;
     }
 
-    // result.err == OK 且解析完成
-    if (parser.state() == ParserState::COMPLETE) {
-      const auto& req = parser.request();
-
-      // 路由匹配
-      Router::Handler handler;
-      std::unordered_map<std::string, std::string> params;
-      bool matched = router_.match(req.method, req.path, handler, params);
-
-      if (!matched) {
-        send_error(conn, 404, "Not Found", req.path);
-        parser.reset();
-        continue;
-      }
-
-      // 构造带路径参数的 request 副本传入 handler
-      HttpRequest req_with_params = req;
-      req_with_params.path_params = std::move(params);
-
-      HttpResponse resp;
-      // 执行 handler（捕获异常防线程退出）
-      try {
-        handler(req_with_params, resp);
-      } catch (const std::exception& e) {
-        Logger::_error("handler 异常: " + std::string(e.what()));
-        send_error(conn, 500, "Internal Server Error", e.what());
-        parser.reset();
-        continue;
-      } catch (...) {
-        Logger::_error("handler 未知异常");
-        send_error(conn, 500, "Internal Server Error", "unknown error");
-        parser.reset();
-        continue;
-      }
-
-      // 序列化响应并写入 write_buffer（持 write_mutex）
-      {
-        auto serialized = resp.serialize();
-        std::lock_guard<std::mutex> wlock(conn.write_mutex());
-        conn.write_buffer().append(serialized);
-      }
-
-      parser.reset();
-      continue; // 继续解析后续请求（keep-alive / pipeline）
+    if (parser.state() != ParserState::COMPLETE) {
+      break;
     }
 
-    break;
+    const auto& req = parser.request();
+
+    auto up_it = req.headers.find("Upgrade");
+    if (up_it != req.headers.end() && up_it->second == "websocket") {
+      bool upgraded = try_handle_ws_upgrade(conn, req, total_consumed);
+      if (!upgraded) {
+        send_error(conn, 400, "Bad Request", "WebSocket 握手失败");
+        conn.consume_read_buffer(total_consumed);
+      }
+      return;
+    }
+
+    Router::Handler handler;
+    std::unordered_map<std::string, std::string> params;
+    bool matched = router_.match(req.method, req.path, handler, params);
+
+    if (!matched) {
+      send_error(conn, 404, "Not Found", req.path);
+      parser.reset();
+      continue;
+    }
+
+    HttpRequest req_with_params = req;
+    req_with_params.path_params = std::move(params);
+
+    HttpResponse resp;
+    try {
+      handler(req_with_params, resp);
+    } catch (const std::exception& e) {
+      Logger::_error("handler 异常: " + std::string(e.what()));
+      send_error(conn, 500, "Internal Server Error", e.what());
+      parser.reset();
+      continue;
+    } catch (...) {
+      Logger::_error("handler 未知异常");
+      send_error(conn, 500, "Internal Server Error", "unknown error");
+      parser.reset();
+      continue;
+    }
+
+    {
+      auto serialized = resp.serialize();
+      std::lock_guard<std::mutex> wlock(conn.write_mutex());
+      conn.write_buffer().append(serialized);
+    }
+
+    parser.reset();
   }
 
   conn.consume_read_buffer(total_consumed);

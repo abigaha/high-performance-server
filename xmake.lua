@@ -28,11 +28,12 @@ for _, file in ipairs(os.files("tests/*.cpp")) do
                         "net/coroutine",
                         "net/file-transfer/include",
                         "net/ssl/include",
+                        "net/websocket/include",
                         "logger/include",
                         "memory-pool/include",
                         "file-system/include",
                         "db/include")
-        add_deps("tcp_server", "tcp_client", "http", "file-system", "db", "file-transfer", "net_ssl")
+        add_deps("tcp_server", "tcp_client", "http", "file-system", "db", "file-transfer", "net_ssl", "websocket")
         -- 为 test binary 设置 RPATH（传递性），而非 RUNPATH
         add_ldflags("-Wl,-rpath," .. path.join(os.projectdir(), "lib"), "-Wl,--disable-new-dtags", {force = true})
         add_tests("default")
