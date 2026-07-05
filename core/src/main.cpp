@@ -8,36 +8,21 @@
 #include "ssl_context.h"
 #include "ws_connection.h"
 
-#include <atomic>
 #include <chrono>
-#include <csignal>
 #include <cstdlib>
 #include <fstream>
-#include <future>
 #include <iostream>
 #include <memory>
 #include <nlohmann/json.hpp>
 #include <stdexcept>
 #include <string>
-#include <thread>
 #include <utility>
 
 namespace hps {
 namespace {
 
-// NOLINTBEGIN(cppcoreguidelines-avoid-non-const-global-variables)
-std::promise<void> g_shutdown_promise;
-std::atomic<bool> g_shutdown_requested{false};
+// NOLINTNEXTLINE(cppcoreguidelines-avoid-non-const-global-variables)
 std::chrono::steady_clock::time_point g_start_time;
-
-// NOLINTEND(cppcoreguidelines-avoid-non-const-global-variables)
-
-extern "C" void signal_handler(int sig) {
-  if (!g_shutdown_requested.exchange(true)) {
-    g_shutdown_promise.set_value();
-    (void)sig;
-  }
-}
 
 struct ServerConfig {
   uint16_t port{8080};
@@ -146,6 +131,16 @@ void parse_cmd_args(int argc, char** argv, ServerConfig& cfg, std::string& confi
       cfg.db.port = static_cast<uint16_t>(std::stoul(argv[++i]));
     } else if (arg == "--data-dir" && i + 1 < argc) {
       cfg.fs_root_dir = argv[++i];
+    } else if (arg == "--ssl-cert" && i + 1 < argc) {
+      cfg.ssl.cert_file = argv[++i];
+      cfg.ssl.enabled = true;
+    } else if (arg == "--ssl-key" && i + 1 < argc) {
+      cfg.ssl.key_file = argv[++i];
+      cfg.ssl.enabled = true;
+    } else if (arg == "--ssl-ca" && i + 1 < argc) {
+      cfg.ssl.ca_file = argv[++i];
+    } else if (arg == "--ssl-verify") {
+      cfg.ssl.verify_peer = true;
     } else if (arg == "--help") {
       std::cout << "用法: high-performance-server [选项]\n"
                 << "  --port <port>         监听端口 (默认 8080)\n"
@@ -154,6 +149,10 @@ void parse_cmd_args(int argc, char** argv, ServerConfig& cfg, std::string& confi
                 << "  --db-host <host>      数据库主机\n"
                 << "  --db-port <port>      数据库端口\n"
                 << "  --data-dir <dir>      数据存储目录\n"
+                << "  --ssl-cert <path>     SSL 证书路径 (同时启用 SSL)\n"
+                << "  --ssl-key <path>      SSL 密钥路径 (同时启用 SSL)\n"
+                << "  --ssl-ca <path>       SSL CA 证书路径\n"
+                << "  --ssl-verify          启用客户端证书验证\n"
                 << "  --help                显示此帮助\n";
       std::exit(0);
     }
@@ -343,18 +342,11 @@ int main(int argc, char* argv[]) {
   }
   hps::Logger::_info("HTTP 服务器已初始化，绑定端口: " + std::to_string(server.actual_port()));
 
-  std::signal(SIGINT, hps::signal_handler);
-  std::signal(SIGTERM, hps::signal_handler);
-
-  auto shutdown_future = hps::g_shutdown_promise.get_future();
-
   hps::Logger::_info("HTTP 服务器启动，监听端口: " + std::to_string(server.actual_port()));
+
+  // 信号处理由 TcpServer::init() 中的 sigaction 完成，
+  // SIGINT/SIGTERM → TcpServer::signal_handler → stop() → event_loop 退出
   server.start();
-
-  shutdown_future.wait();
-
-  hps::Logger::_info("正在停止 HTTP 服务器...");
-  server.stop();
 
   hps::Logger::_info("正在关闭数据库连接池...");
   db->close();

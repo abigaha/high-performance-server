@@ -421,6 +421,24 @@ Step 11 ─── main.cpp 整合启动 ✅ 已完成
 
 ---
 
+## Step 12 — Docker 化部署
+
+### 目标
+1. 多阶段构建 Dockerfile（ubuntu:22.04），分离构建/运行环境
+2. 支持 release 模式编译，产物最小化
+3. 支持 SSL 证书挂载和配置文件挂载
+4. 支持 docker-compose 编排（服务 + 数据库）
+5. 镜像大小控制在 200MB 以内
+
+### 计划
+- [ ] 创建 Dockerfile（builder + runtime 多阶段构建）
+- [ ] 创建 .dockerignore
+- [ ] 创建 docker-compose.yml（服务 + MySQL）
+- [ ] 健康检查端点验证
+- [ ] CI 集成镜像构建
+
+---
+
 ## 模块完成度总览
 
 | 模块 | 文件数 | 完成度 | 状态 |

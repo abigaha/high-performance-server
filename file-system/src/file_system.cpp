@@ -1,6 +1,6 @@
 #include "file_system.h"
 
-#include <openssl/sha.h>
+#include <openssl/evp.h>
 
 #include <algorithm>
 #include <array>
@@ -41,10 +41,14 @@ std::string FileSystem::to_hex(const unsigned char* hash, unsigned int len) {
 }
 
 std::string FileSystem::sha256_hex(const char* data, std::size_t len) {
-  std::array<unsigned char, SHA256_DIGEST_LENGTH> hash{};
-  // NOLINTNEXTLINE(clang-diagnostic-deprecated-declarations) OpenSSL 3.0 废弃低级 API，改用 EVP 需大改，暂保留
-  SHA256(reinterpret_cast<const unsigned char*>(data), len, hash.data());
-  return to_hex(hash.data(), SHA256_DIGEST_LENGTH);
+  std::array<unsigned char, EVP_MAX_MD_SIZE> hash{};
+  unsigned int hash_len = 0;
+  auto* ctx = EVP_MD_CTX_new();
+  EVP_DigestInit_ex(ctx, EVP_sha256(), nullptr);
+  EVP_DigestUpdate(ctx, data, len);
+  EVP_DigestFinal_ex(ctx, hash.data(), &hash_len);
+  EVP_MD_CTX_free(ctx);
+  return to_hex(hash.data(), hash_len);
 }
 
 std::string FileSystem::resolve_path(const std::string& virtual_path) const {
@@ -116,23 +120,24 @@ std::string FileSystem::compute_file_hash(const std::string& path) {
     return {};
   }
 
-  SHA256_CTX ctx;
-  // NOLINTBEGIN(clang-diagnostic-deprecated-declarations) OpenSSL 3.0 废弃低级哈希 API，暂保留
-  SHA256_Init(&ctx);
+  auto* ctx = EVP_MD_CTX_new();
+  EVP_DigestInit_ex(ctx, EVP_sha256(), nullptr);
 
   std::vector<char> buffer(kHashReadBufferSize);
   while (file) {
     file.read(buffer.data(), static_cast<std::streamsize>(buffer.size()));
     auto bytes_read = static_cast<std::size_t>(file.gcount());
     if (bytes_read > 0) {
-      SHA256_Update(&ctx, buffer.data(), bytes_read);
+      EVP_DigestUpdate(ctx, buffer.data(), bytes_read);
     }
   }
 
-  std::array<unsigned char, SHA256_DIGEST_LENGTH> hash{};
-  SHA256_Final(hash.data(), &ctx);
-  // NOLINTEND(clang-diagnostic-deprecated-declarations)
-  return to_hex(hash.data(), SHA256_DIGEST_LENGTH);
+  std::array<unsigned char, EVP_MAX_MD_SIZE> hash{};
+  unsigned int hash_len = 0;
+  EVP_DigestFinal_ex(ctx, hash.data(), &hash_len);
+  EVP_MD_CTX_free(ctx);
+  auto hex = to_hex(hash.data(), hash_len);
+  return hex;
 }
 
 std::string FileSystem::compute_chunk_hash(const FileChunk& chunk) {
@@ -146,9 +151,8 @@ std::string FileSystem::compute_chunk_hash(const FileChunk& chunk) {
     return {};
   }
 
-  SHA256_CTX ctx;
-  // NOLINTBEGIN(clang-diagnostic-deprecated-declarations) OpenSSL 3.0 废弃低级哈希 API，暂保留
-  SHA256_Init(&ctx);
+  auto* ctx = EVP_MD_CTX_new();
+  EVP_DigestInit_ex(ctx, EVP_sha256(), nullptr);
 
   std::size_t remaining = chunk.size;
   std::vector<char> buffer(kHashReadBufferSize);
@@ -159,14 +163,15 @@ std::string FileSystem::compute_chunk_hash(const FileChunk& chunk) {
     if (bytes_read == 0) {
       break;
     }
-    SHA256_Update(&ctx, buffer.data(), bytes_read);
+    EVP_DigestUpdate(ctx, buffer.data(), bytes_read);
     remaining -= bytes_read;
   }
 
-  std::array<unsigned char, SHA256_DIGEST_LENGTH> hash{};
-  SHA256_Final(hash.data(), &ctx);
-  // NOLINTEND(clang-diagnostic-deprecated-declarations)
-  return to_hex(hash.data(), SHA256_DIGEST_LENGTH);
+  std::array<unsigned char, EVP_MAX_MD_SIZE> hash{};
+  unsigned int hash_len = 0;
+  EVP_DigestFinal_ex(ctx, hash.data(), &hash_len);
+  EVP_MD_CTX_free(ctx);
+  return to_hex(hash.data(), hash_len);
 }
 
 bool FileSystem::store_file(const std::string& path, const std::vector<char>& data) {

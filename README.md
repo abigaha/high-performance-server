@@ -1,91 +1,209 @@
 # High-Performance Server
 
-高性能 TCP 服务器框架，基于 epoll ET 模式 + 线程池 + 协程的设计方案，支持 HTTP 协议解析，面向高并发场景。
+基于 epoll ET（边缘触发）+ 线程池 + C++20 协程的高性能 TCP/HTTP 服务器框架，支持 HTTPS、WebSocket、Range 流式传输、文件传输、数据库连接池。
 
 ## 技术栈
 
 | 类别 | 选择 | 版本 | 说明 |
 |------|------|------|------|
-| 语言 | C++ | C++20 | 使用 std::jthread、std::stop_token、std::span 等现代特性 |
+| 语言 | C++ | C++20 | jthread、stop_token、span、coroutine |
 | 编译器 | g++ | 14.x | Linux 原生编译 |
-| 构建系统 | xmake | 3.0.9+ | 跨平台 Lua 脚本化构建 |
-| 测试框架 | Google Test | 1.17 | 单元测试 + 断言 |
-| 调试器 | GDB | - | 运行时调试 |
-| 静态分析 | clang-tidy | - | 代码风格 + 静态检查 |
-| 静态分析 | cppcheck | - | 深度静态分析 |
+| 构建系统 | xmake | 3.0.9+ | Lua 脚本化构建 |
+| 网络模型 | epoll ET | - | 边缘触发 + eventfd 跨线程唤醒 |
+| 测试框架 | Google Test | 1.17 | 单元测试 |
+| TLS | OpenSSL | 3.x | 双模式检测（明文/TLS 自动识别）|
+| 数据库 | boost::mysql | - | 连接池 + 预处理查询 |
+| 静态分析 | clang-tidy + cppcheck | - | 代码风格 + 深度检查 |
 | 语义分析 | CodeQL | Docker | 安全漏洞 + 质量门禁 |
 
-## 模块架构
-
-```
-core/               ← 主入口（main.cpp）
-  │
-  ├── logger/       ← 日志模块（同步/异步日志，级别过滤）
-  │
-  ├── memory-pool/  ← 内存池（对象池分配器）
-  │
-  └── net/          ← 网络层
-        ├── coroutine/       ← 协程基础设施（coroitem.hpp）
-        ├── thread-pool/     ← 线程池（无锁任务队列 + jthread）
-        ├── tcp/
-        │   ├── ctcpclient/  ← TCP 客户端封装
-        │   └── ctcpserver/  ← TCP 服务器（epoll + ThreadPool）
-        ├── http/            ← HTTP 协议实现
-        │   ├── include/
-        │   │   ├── case_insensitive.h  ← 大小写不敏感 HeaderMap
-        │   │   ├── http_request.h      ← HttpRequest + HttpMethod
-        │   │   ├── http_response.h     ← HttpResponse + serialize
-        │   │   ├── http_parser.h       ← 流式解析器状态机
-        │   │   └── url_decode.h        ← URL 百分比解码
-        │   └── src/ ← 实现文件
-        ├── file-send-process/    ← 文件发送服务
-        └── file-receive-process/ ← 文件接收服务
-```
-
-### 核心模块说明
-
-| 模块 | 说明 |
-|------|------|
-| **CTcpServer** | 基于 epoll ET 模式的高性能 TCP 服务器。主线程事件循环，业务处理委托给 ThreadPool，支持 eventfd 跨线程唤醒、SIGINT/SIGTERM 优雅关闭、可配置参数 |
-| **ThreadPool** | 基于 std::jthread 和 LockFreeQueue（无锁环形缓冲）的线程池。支持任务投递、优雅停止（stop → request_stop → join） |
-| **Connection** | TCP 连接封装，非阻塞 I/O + 读写缓冲区，状态管理，超时追踪 |
-| **HttpParser** | 流式 HTTP 请求解析器状态机，支持 Content-Length 和 Chunked Transfer-Encoding，分片 feed，100 MiB body 限制 |
-| **HttpRequest/HttpResponse** | HTTP 请求/响应数据结构，含大小写不敏感 HeaderMap |
-| **MemoryPool** | 对象池分配器，减少高频对象的动态内存分配开销 |
-
-## 构建指引
+## 快速开始
 
 ### 前置条件
 
 ```bash
-# 安装 xmake
+# 1. 安装 xmake
 curl -fsSL https://xmake.io/shget.text | bash
+# 确保 ~/.local/bin 在 PATH 中
+export PATH="$HOME/.local/bin:$PATH"
 
-# 安装依赖（项目会自动处理 gtest）
+# 2. 安装系统依赖（Ubuntu 22.04）
+sudo apt install -y build-essential libssl-dev libstdc++-11-dev
+
+# 3. 安装项目依赖（gtest, nlohmann_json 自动下载）
 xmake require
 ```
 
-### 常用命令
+### 编译
 
-| 命令 | 说明 |
+```bash
+# Debug 模式（默认，含 AddressSanitizer）
+xmake
+
+# Release 模式（-O3 优化）
+xmake f -m release -y && xmake
+
+# 重新配置并编译
+xmake f -c -y && xmake
+
+# 多核编译
+xmake -j$(nproc)
+```
+
+### 运行
+
+```bash
+# 使用默认配置（config.json, 端口 9000）
+xmake run
+
+# 或直接运行二进制
+./build/linux/x86_64/release/high-performance-server
+
+# 指定端口
+./build/linux/x86_64/release/high-performance-server --port 8080
+
+# 指定配置文件
+./build/linux/x86_64/release/high-performance-server --config /path/to/config.json
+```
+
+### 停止服务器
+
+按 `Ctrl-C` 发送 SIGINT 信号，服务器会优雅关闭：
+
+```
+^C
+[2026-07-05 12:00:00] [WARN] [00000] tcp_server.cpp:57 收到信号 2，正在关闭服务器...
+[2026-07-05 12:00:00] [INFO] [00000] tcp_server.cpp:237 TcpServer 已停止
+[2026-07-05 12:00:00] [INFO] [00000] main.cpp:348 正在关闭数据库连接池...
+[2026-07-05 12:00:00] [INFO] [00000] main.cpp:351 服务器已停止
+```
+
+**信号处理机制**：`TcpServer::init()` 通过 `sigaction` 注册 SIGINT/SIGTERM 处理函数。收到信号时，静态方法 `TcpServer::signal_handler` 调用 `s_instance_->stop()`，设置 `running_ = false` 并通过 eventfd 唤醒 epoll_wait，使事件循环自然退出。
+
+## 命令行选项
+
+| 参数 | 类型 | 默认值 | 说明 |
+|------|------|--------|------|
+| `--port <port>` | uint16 | 8080 | 监听端口（0 = 内核自动分配）|
+| `--config <path>` | string | config.json | 配置文件路径 |
+| `--threads <n>` | size_t | 4 | 工作线程数 |
+| `--db-host <host>` | string | 127.0.0.1 | 数据库主机 |
+| `--db-port <port>` | uint16 | 3306 | 数据库端口 |
+| `--data-dir <dir>` | string | ./data | 数据存储目录 |
+| `--ssl-cert <path>` | string | - | SSL 证书路径（同时启用 SSL）|
+| `--ssl-key <path>` | string | - | SSL 密钥路径（同时启用 SSL）|
+| `--ssl-ca <path>` | string | - | SSL CA 证书路径 |
+| `--ssl-verify` | flag | false | 启用客户端证书验证 |
+| `--help` | flag | - | 显示帮助信息 |
+
+```bash
+# 完整示例
+./high-performance-server \
+  --port 443 \
+  --threads 8 \
+  --ssl-cert ./build/cert.pem \
+  --ssl-key ./build/key.pem \
+  --db-host 10.0.0.1 \
+  --data-dir /mnt/data
+```
+
+## 配置文件
+
+服务器启动时读取 `config.json`，命令行参数优先级高于配置文件。
+
+### 完整示例
+
+```json
+{
+  "server": {
+    "port": 9000,
+    "backlog": 128,
+    "thread_count": 4,
+    "epoll_timeout_ms": 100
+  },
+  "database": {
+    "host": "127.0.0.1",
+    "port": 3306,
+    "username": "root",
+    "password": "",
+    "database": "music_server",
+    "pool_size": 10,
+    "connect_timeout_ms": 3000,
+    "read_timeout_ms": 5000
+  },
+  "ssl": {
+    "enabled": false,
+    "cert_file": "./build/cert.pem",
+    "key_file": "./build/key.pem",
+    "ca_file": "./build/ca.pem",
+    "verify_peer": false
+  },
+  "filesystem": {
+    "root_dir": "./data"
+  }
+}
+```
+
+### 字段说明
+
+#### server 节
+
+| 字段 | 类型 | 默认值 | 说明 |
+|------|------|--------|------|
+| `port` | uint16 | 9000 | 监听端口 |
+| `backlog` | size_t | 128 | listen 队列长度 |
+| `thread_count` | size_t | 4 | LockFreeThreadPool 工作线程数 |
+| `epoll_timeout_ms` | int | 100 | epoll_wait 超时（毫秒）|
+
+#### database 节
+
+| 字段 | 类型 | 默认值 | 说明 |
+|------|------|--------|------|
+| `host` | string | 127.0.0.1 | 数据库主机 |
+| `port` | uint16 | 3306 | 数据库端口 |
+| `username` | string | root | 用户名 |
+| `password` | string | "" | 密码 |
+| `database` | string | music_server | 数据库名 |
+| `pool_size` | size_t | 10 | 连接池大小 |
+| `connect_timeout_ms` | uint32 | 3000 | 连接超时 |
+| `read_timeout_ms` | uint32 | 5000 | 读取超时 |
+
+#### ssl 节
+
+| 字段 | 类型 | 默认值 | 说明 |
+|------|------|--------|------|
+| `enabled` | bool | false | 是否启用 TLS |
+| `cert_file` | string | ./build/cert.pem | 服务器证书路径 |
+| `key_file` | string | ./build/key.pem | 私钥路径 |
+| `ca_file` | string | ./build/ca.pem | CA 证书路径 |
+| `verify_peer` | bool | false | 是否验证客户端证书 |
+
+#### filesystem 节
+
+| 字段 | 类型 | 默认值 | 说明 |
+|------|------|--------|------|
+| `root_dir` | string | ./data | 文件存储根目录 |
+
+## 路由与 API
+
+服务器启动后自动注册以下路由：
+
+### REST API
+
+| 方法 | 路径 | 说明 |
+|------|------|------|
+| GET | `/api/health` | 健康检查（返回 uptime） |
+| GET | `/api/users/:id` | 获取用户信息 |
+| POST | `/api/users` | 创建用户 |
+| GET | `/api/users/:id/history` | 获取用户下载历史 |
+| GET | `/api/files/:hash` | 获取文件元信息 |
+
+### WebSocket
+
+| 路径 | 说明 |
 |------|------|
-| `xmake` | 编译项目（debug 模式） |
-| `xmake f -c && xmake` | 清除配置后重新编译 |
-| `xmake run` | 运行默认目标 |
-| `xmake run <target>` | 运行指定目标 |
-| `xmake test` | 运行所有测试 |
-| `xmake test -f <case>` | 运行指定测试用例 |
-| `xmake -b <target>` | 构建指定目标 |
-| `xmake clean` | 清理构建产物 |
-| `xmake project -k compile_commands` | 生成 compile_commands.json |
-| `xmake -v` | 详细编译输出 |
+| `/ws` | WebSocket 连接端点 |
 
-### 编译模式
-
-- **release**：`xmake f -m release && xmake`（默认，-O3 优化）
-- **debug**：`xmake f -m debug && xmake`（-g -O0，含 AddressSanitizer）
-
-## 测试指引
+## 测试指南
 
 ### 运行全部测试
 
@@ -93,86 +211,145 @@ xmake require
 xmake test
 ```
 
-### 运行单个测试
+### 运行单个测试文件
 
 ```bash
-xmake run test_test_ctcpserver
-xmake run test_test_http_parser
+xmake test -f test_tcp_server
+# 或
+./build/linux/x86_64/release/test_test_tcp_server
 ```
 
-### 直接执行测试二进制
+### 运行单个用例
 
 ```bash
-LD_LIBRARY_PATH=lib ./build/linux/x86_64/release/test_test_http_parser
+xmake run test_test_tcp_server --gtest_filter="*SignalStopServer*"
 ```
 
 ### 测试覆盖
 
-| 测试文件 | 测试数 | 覆盖模块 |
-|----------|--------|----------|
-| `test_ctcpserver.cpp` | 7 | CTcpServer 初始化/启动/停止/echo/并发/无Handler/断连 |
-| `test_ctcpserver_connection.cpp` | 10 | Connection 构造/读/写/关闭/状态/大缓冲/空操作 |
-| `test_http_request.cpp` | 4 | HttpRequest 默认状态/clear/方法转换 |
-| `test_http_response.cpp` | 8 | HttpResponse 状态/header/serialize/clear/大小写忽略 |
-| `test_http_parser.cpp` | 19 | 解析器 GET/POST/chunked/分片feed/过大/重置/错误 |
-| `test_url_decode.cpp` | 8 | URL 解码 普通/plus/百分号/混合/非法/空/大小写 |
-| **合计** | **56** | |
+| 模块 | 测试数 | 覆盖内容 |
+|------|--------|----------|
+| TcpServer | ~8 | 初始化/启动/停止/信号停止/echo/并发/无Handler/断连 |
+| TcpServer Connection | 10 | 构造/读/写/关闭/状态/大缓冲/空操作 |
+| HttpParser | 19 | GET/POST/chunked/分片feed/过大/重置/错误 |
+| HttpRequest | 4 | 默认状态/clear/方法转换 |
+| HttpResponse | 8 | 状态/header/serialize/clear/大小写忽略 |
+| UrlDecode | 8 | 普通/plus/百分号/混合/非法/空/大小写 |
+| Router | 9 | 注册/匹配/参数/404/405/冲突/通配 |
+| HttpServer | 7 | 端到端请求/响应/keep-alive/错误码 |
+| MemoryPool | - | 分配/释放/碎片 |
+| ThreadPool (LockFree) | - | 无锁队列/任务调度 |
+| ThreadPool (Locked) | 8 | 有锁队列/超时/优雅停止 |
+| Coroutine | 5 | 异常/完成/await_read/write |
+| FileSystem | 14 | 分片/hash/存储/删除/路径遍历防护 |
+| DatabasePool | 14 | 连接池/CRUD/超时/健康检查 |
+| FileTransfer | 7 | 小文件/ChunkHeader/接收重组 |
+| SSL/TLS | 9 | SslContext/握手/加密通信/双模式 |
+| WebSocket | 12 | 握手/帧编解码/Base64/集成 |
+| Range Parser | 10 | 单区间/多区间/非法/边界 |
+| **合计** | **~167** | |
+
+## 信号处理与优雅停止
+
+服务器通过以下机制确保优雅关闭：
+
+```
+用户按 Ctrl-C (SIGINT) 或 kill 发送 SIGTERM
+        │
+        ▼
+sigaction 触发 TcpServer::signal_handler(int sig)
+        │
+        ▼
+s_instance_->stop()
+  ├─ running_ = false
+  └─ eventfd 写入 1 字节（epoll_wait 立即返回）
+        │
+        ▼
+event_loop 检测到 running_ == false，退出循环
+        │
+        ▼
+cleanup_resources()
+  ├─ 关闭所有客户端连接
+  ├─ 关闭 eventfd / epoll_fd / server socket
+  └─ signal(SIGINT, SIG_DFL), signal(SIGTERM, SIG_DFL)
+        │
+        ▼
+main() 继续执行：
+  ├─ 关闭数据库连接池
+  └─ Logger::shutdown()
+```
+
+关键点：
+- `TcpServer::init()` 通过 `sigaction()` 注册信号处理（非 `std::signal()`，避免竞态）
+- `epoll_wait` 超时 100ms 确保及时响应停止信号
+- 所有资源通过 RAII + 显式 `close` 双重保障
+- 线程池 `jthread` 自动 join
+
+## 开发工作流
+
+```bash
+# 1. 格式化代码
+bash scripts/dev.sh format
+
+# 2. Lint 检查（clang-tidy + cppcheck）
+bash scripts/dev.sh lint
+# 增量检查（仅 Git 变更文件）
+bash scripts/lint.sh --changed
+
+# 3. 编译
+bash scripts/dev.sh compile
+
+# 4. 运行测试
+bash scripts/dev.sh test
+
+# 5. CodeQL 分析
+bash scripts/dev.sh codeql
+
+# 6. 全流程
+bash scripts/dev.sh all
+```
+
+## Docker 部署
+
+### 构建镜像
+
+```bash
+docker build -t high-performance-server .
+```
+
+### 运行容器
+
+```bash
+# 基本运行
+docker run -d --name my-server -p 9000:9000 high-performance-server
+
+# 挂载配置文件和 SSL 证书
+docker run -d --name my-server -p 443:9000 \
+  -v /path/to/config.json:/app/config.json \
+  -v /path/to/cert.pem:/app/build/cert.pem \
+  -v /path/to/key.pem:/app/build/key.pem \
+  -v /data:/app/data \
+  high-performance-server
+```
+
+### 验证运行
+
+```bash
+curl http://localhost:9000/api/health
+# {"status":"ok","uptime":42}
+```
 
 ## 质量门禁
 
-本项目采用严格的质量门禁策略，所有代码必须通过以下检查：
+| 检查项 | 标准 | 命令 |
+|--------|------|------|
+| 编译 | 0 error + 0 warning | `xmake` |
+| clang-tidy | 0 error + 0 warning + 0 style | `bash scripts/lint.sh` |
+| cppcheck | 0 error + 0 warning + 0 style + 0 performance | `bash scripts/lint.sh` |
+| CodeQL | 0 critical + 0 high | `bash scripts/dev.sh codeql` |
+| 测试 | 100% 通过 | `bash scripts/test.sh` |
 
-### 1. 编译（0 error + 0 warning）
-
-```bash
-xmake
-```
-
-### 2. 静态分析
-
-```bash
-# clang-tidy（0 error + 0 warning + 0 style）
-clang-tidy net/http/src/*.cpp -- -std=c++20 -Inet/http/include -Ilogger/include
-
-# cppcheck（0 error + 0 warning + 0 style + 0 performance）
-cppcheck --enable=all --inconclusive --suppress=missingIncludeSystem \
-  --language=c++ --std=c++20 -Inet/http/include -Ilogger/include \
-  net/http/src/*.cpp
-```
-
-### 3. CodeQL（0 critical + 0 high）
-
-CodeQL 分析通过 Docker 容器运行，端口 8080：
-
-```bash
-xmake project -k compile_commands
-# 预处理 compile_commands.json（过滤外部依赖，directory 改为 ".")
-# 打包源码（src/、tests/、xmake.lua，排除 *.o、.xmake/、build/）
-# 发送分析请求
-curl -X POST "http://<server-ip>:8080/analyze" \
-  -F "source=@source.tar.gz;type=application/gzip" \
-  -F "compile_commands=@compile_commands_fixed.json;type=application/json"
-```
-
-### 4. 测试（100% 通过）
-
-```bash
-xmake test
-# 或逐个运行
-for t in build/linux/x86_64/release/test_test_*; do
-  LD_LIBRARY_PATH=lib timeout 30 "$t" || echo "FAIL: $t"
-done
-```
-
-### 门禁流程
-
-```
-编译通过 → clang-tidy → cppcheck → CodeQL → 测试通过 → 通过
-                        ↓ 失败              ↓ 失败
-                        修复代码 ← ← ← ← ← ←
-```
-
-## 目录结构
+## 项目结构
 
 ```
 project/
@@ -180,46 +357,33 @@ project/
 ├── xmake.lua              # 顶层构建配置
 ├── README.md              # 本文件
 ├── goal.md                # 项目目标文档
-├── opencode.jsonc         # opencode 配置
-├── tui.json               # TUI 配置
-├── plan/                  # 开发计划
-├── scripts/               # 工具脚本
+├── Dockerfile             # Docker 多阶段构建
+├── config.json            # 服务器配置
 ├── core/                  # 主程序入口
 │   └── src/main.cpp
-├── logger/                # 日志模块
-│   ├── include/
-│   └── src/
-├── memory-pool/           # 内存池
-│   ├── include/
-│   └── src/
+├── logger/                # 日志模块（两阶段单例）
+├── memory-pool/           # 内存池（CRTP 静态多态）
 ├── file-system/           # 文件系统
-│   ├── include/
-│   └── src/
+├── db/                    # 数据库连接池（boost::mysql）
 ├── net/                   # 网络层
-│   ├── coroutine/         # 协程基础
-│   ├── thread-pool/       # 线程池
-│   │   ├── include/
-│   │   └── src/
+│   ├── coroutine/         # 协程（C++20 std::coroutine）
+│   ├── thread-pool/       # 线程池（LockFree + Locked 双实现）
 │   ├── tcp/
-│   │   ├── ctcpclient/    # TCP 客户端
-│   │   └── ctcpserver/    # TCP 服务器
-│   │       ├── include/   #   ctcpserver.h, connection.h
-│   │       └── src/       #   ctcpserver.cpp, connection.cpp
-│   ├── http/              # HTTP 协议
-│   │   ├── include/       #   case_insensitive.h, http_request.h,
-│   │   │                  #   http_response.h, http_parser.h, url_decode.h
-│   │   └── src/           #   *.cpp
-│   ├── file-send-process/
-│   └── file-receive-process/
-├── tests/                 # 单元测试
-│   ├── test_ctcpserver.cpp
-│   ├── test_ctcpserver_connection.cpp
-│   ├── test_http_request.cpp
-│   ├── test_http_response.cpp
-│   ├── test_http_parser.cpp
-│   └── test_url_decode.cpp
-├── lib/                   # 构建输出（共享库）
-└── build/                 # 构建缓存
+│   │   ├── tcp_client/    # TCP 客户端
+│   │   └── tcp_server/    # TCP 服务器（epoll ET + SSL + 优雅关闭）
+│   ├── http/              # HTTP 协议实现
+│   ├── ssl/               # OpenSSL 封装
+│   ├── websocket/         # WebSocket 帧编解码
+│   ├── file-transfer/     # 文件传输（小文件单连接 + 大文件多进程）
+│   ├── file-send-process/ # 文件发送独立进程
+│   └── file-receive-process/ # 文件接收独立进程
+├── tests/                 # 单元测试（~167 用例）
+├── scripts/               # 开发脚本
+│   ├── dev.sh             # 开发工具菜单
+│   ├── lint.sh            # clang-tidy + cppcheck
+│   └── test.sh            # 测试运行器
+├── plan/                  # 开发计划
+└── lib/                   # 动态库输出目录
 ```
 
 ## 编码规范
@@ -228,46 +392,33 @@ project/
 
 | 类别 | 风格 | 示例 |
 |------|------|------|
-| 类名 | PascalCase | `ThreadPool`, `CTcpServer`, `HttpParser` |
+| 类/类型 | PascalCase | `ThreadPool`, `TcpServer`, `HttpParser` |
 | 函数/变量 | snake_case | `init_pool`, `connection_count`, `read_from_fd` |
-| 成员变量 | snake_case + 下划线 | `config_`, `running_`, `fd_`, `state_` |
-| 常量/枚举值 | UPPER_SNAKE_CASE | `MAX_THREADS`, `MAX_BODY_SIZE`, `PAYLOAD_TOO_LARGE` |
+| 成员变量 | snake_case + `_` 后缀 | `config_`, `running_`, `fd_` |
+| 常量 | `k` + PascalCase | `kMaxEpollEvents`, `kMaxBodySize` |
+| 枚举值 | UPPER_SNAKE_CASE | `REQUEST_LINE`, `HEADERS`, `BODY` |
+| 全局变量 | `g_` 前缀 | `g_start_time` |
 | 命名空间 | snake_case | `hps` |
 
 ### 头文件
 
-- 使用 `#pragma once` 代替宏保护
-- 优先前置声明，减少头文件依赖
-- 头文件包含顺序：本模块头文件 → 标准库 → 系统头文件
+- `#pragma once` 代替宏保护
+- 包含顺序：本模块 → 标准库 → 系统头文件
+- 优先前置声明
 
-### 内存与资源管理
+### 内存管理
 
-- 优先 RAII（std::unique_ptr、std::shared_ptr、std::jthread 等）
+- RAII 优先（unique_ptr, shared_ptr, jthread）
 - 禁止裸 new/delete
-- fd 等系统资源在析构函数或 close_connection 中释放
+- 网络 fd 在析构或 close_connection 中释放
 
-### C++20 特性使用
+### C++20 特性
 
-- `std::jthread` + `std::stop_token`：自动 join 的线程管理
-- `std::span` / `std::string_view`：零拷贝的缓冲区引用
+- `std::jthread` + `std::stop_token`：自动 join
+- `std::span` / `std::string_view`：零拷贝视图
 - `std::atomic`：无锁状态标志
-- `std::chrono::steady_clock`：稳定的时间度量
-
-## 依赖关系
-
-```
-test_* （二进制）
-  ├── ctcpserver （共享库）
-  │   ├── connection （共享库——与 ctcpserver 同目标）
-  │   ├── thread-pool （共享库）
-  │   │   └── lock_free_queue （头文件）
-  │   ├── logger （共享库）
-  │   └── memory-pool （共享库）
-  ├── http （共享库）
-  └── gtest （外部包，静态链接）
-```
-
-测试二进制通过 RPATH（`--disable-new-dtags`）定位共享库，确保运行时能找到 `lib/` 目录下的动态库及其传递依赖。
+- `std::coroutine`：协程实现异步 IO
+- `std::format`（若可用）：类型安全格式化
 
 ## License
 

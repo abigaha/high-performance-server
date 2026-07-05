@@ -1,0 +1,51 @@
+# Git
+.git
+.gitignore
+.gitattributes
+
+# Build
+build/
+.xmake/
+compile_commands*
+
+# IDE / Editor
+.cache/
+.clangd/
+.clang-tidy
+.clang-format
+.codebuddy/
+.codegraph/
+.opencode/
+.vscode/
+.idea/
+
+# Runtime artifacts
+*.log
+*.pid
+*.o
+*.obj
+*.exe
+*.so
+*.a
+*.tmp
+
+# Test
+tests/
+Testing/
+
+# Config
+AGENTS.md
+goal.md
+opencode.jsonc
+tui.json
+*.md
+
+# Scripts
+scripts/
+
+# Plan
+plan/
+
+# Docker
+Dockerfile
+.dockerignore

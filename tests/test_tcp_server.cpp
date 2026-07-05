@@ -9,6 +9,7 @@
 
 #include <atomic>
 #include <chrono>
+#include <csignal>
 #include <cstring>
 #include <string>
 #include <thread>
@@ -240,6 +241,32 @@ TEST_F(TcpServerTest, ClientDisconnect) {
   EXPECT_EQ(connect_count.load(), 1);
 
   server_->stop();
+  server_thread_.join();
+  server_thread_ = std::thread();
+}
+
+TEST_F(TcpServerTest, SignalStopServer) {
+  config_.port = 0;
+  server_ = std::make_unique<hps::TcpServer>(config_);
+  ASSERT_TRUE(server_->init());
+  server_thread_ = std::thread([this]() { server_->start(); });
+  while (!server_->is_running()) {
+    std::this_thread::yield();
+  }
+
+  EXPECT_TRUE(server_->is_running());
+
+  // 发送 SIGINT 模拟 Ctrl-C
+  raise(SIGINT);
+
+  // 等待服务器停止（超时 3 秒）
+  auto deadline = std::chrono::steady_clock::now() + std::chrono::seconds(3);
+  while (server_->is_running() && std::chrono::steady_clock::now() < deadline) {
+    std::this_thread::sleep_for(std::chrono::milliseconds(10));
+  }
+
+  EXPECT_FALSE(server_->is_running());
+
   server_thread_.join();
   server_thread_ = std::thread();
 }
