@@ -2,7 +2,7 @@
 
 ## 概述
 
-本文档定义了 High-Performance Server 项目的完整功能验证流程。验证分为 13 个维度，覆盖编译、单元测试、REST API、错误处理、Keep-Alive、WebSocket、信号停止、SSL/TLS、配置参数、文件系统等所有核心功能。
+本文档定义了 High-Performance Server 项目的完整功能验证流程。验证分为 15 个维度，覆盖编译、单元测试、REST API、错误处理、Keep-Alive、WebSocket、信号停止、SSL/TLS、配置参数、文件系统、文件上传下载、并发连接、边界条件等所有核心功能。
 
 ## 前置条件
 
@@ -123,7 +123,7 @@ s = socket.socket()
 s.connect(('localhost', 9090))
 s.settimeout(3)
 req = b'GET /api/health HTTP/1.1\r\nHost: localhost\r\nConnection: keep-alive\r\n\r\n'
-for i in range(3):
+for i in range(10):
     s.sendall(req)
     resp = b''
     while True:
@@ -140,7 +140,7 @@ s.close()
 "
 ```
 
-**预期**：三个请求均返回 `HTTP/1.1 200 OK`
+**预期**：10 个请求均返回 `HTTP/1.1 200 OK`
 
 ---
 
@@ -212,15 +212,45 @@ kill %1
 
 ---
 
-### V12：文件系统
+### V12：文件上传/下载/哈希
+
+覆盖文件全生命周期：上传 → 元信息 → 下载比对 → 二进制 → 大文件 → 重复上传幂等。
 
 ```bash
-ls -d data/ 2>/dev/null || mkdir data
-```
+# 上传 100B 文件
+TMP_DATA=$(mktemp)
+python3 -c "import sys; sys.stdout.buffer.write(b'x' * 100)" > "$TMP_DATA"
+V12_HASH=$(sha256sum "$TMP_DATA" | cut -d' ' -f1)
+curl -s -X POST --data-binary @"$TMP_DATA" http://localhost:9090/api/files/upload
+# 预期: 201 + {"hash":"<sha256>","size":100}
 
-服务器启动时日志包含：
-```
-文件系统已初始化，根目录: ./data
+# 查元信息
+curl -s http://localhost:9090/api/files/$V12_HASH
+# 预期: 200 + {"file_hash":"...","file_size":100,...}
+
+# 下载比对 hash
+curl -s -o /tmp/dl http://localhost:9090/api/files/$V12_HASH/download
+sha256sum /tmp/dl  # 预期: 与 V12_HASH 一致
+
+# 上传含 null 二进制文件（256 字节）
+python3 -c "import sys; sys.stdout.buffer.write(bytes(range(256)))" > "$TMP_DATA"
+V12_HASH2=$(sha256sum "$TMP_DATA" | cut -d' ' -f1)
+curl -s -X POST --data-binary @"$TMP_DATA" http://localhost:9090/api/files/upload
+# 预期: 201
+
+# 上传 5MB 大文件
+python3 -c "import sys; sys.stdout.buffer.write(b'ABCD' * (5*1024*1024//4))" > "$TMP_DATA"
+V12_HASH3=$(sha256sum "$TMP_DATA" | cut -d' ' -f1)
+curl -s --max-time 30 -X POST --data-binary @"$TMP_DATA" http://localhost:9090/api/files/upload
+# 预期: 201
+
+# 下载不存在文件
+curl -s http://localhost:9090/api/files/000.../download
+# 预期: 404
+
+# 重复上传（幂等）
+curl -s -X POST -d 'xxxxxxxxxx...' http://localhost:9090/api/files/upload
+# 预期: 200 + {"exists":true}
 ```
 
 ---
@@ -235,13 +265,64 @@ bin/high-performance-server --help
 
 ---
 
+### V14：并发连接
+
+4 个线程同时发起 HTTP 请求，验证服务器并发处理能力。
+
+```bash
+python3 -c "
+import socket, concurrent.futures
+def req():
+    s = socket.socket(); s.settimeout(10)
+    s.connect(('localhost', 9090))
+    s.sendall(b'GET /api/health HTTP/1.1\r\nHost: localhost\r\nConnection: close\r\n\r\n')
+    resp = b''
+    try:
+        while True:
+            chunk = s.recv(4096)
+            if not chunk: break
+            resp += chunk
+    except socket.timeout: pass
+    s.close()
+    return b'200 OK' in resp
+with concurrent.futures.ThreadPoolExecutor(4) as ex:
+    print(sum(1 for r in ex.map(lambda _: req(), range(4)) if r))
+"
+```
+
+**预期**：输出 `4`，表示全部请求成功。
+
+---
+
+### V15：边界条件
+
+```bash
+# 空 body POST
+curl -s -X POST -d '' http://localhost:9090/api/users
+# 预期: 非 000（500 / 405 等均可）
+
+# PUT/DELETE 到 GET-only 路由
+curl -s -X PUT http://localhost:9090/api/health
+# 预期: 405 或 404（非 200）
+curl -s -X DELETE http://localhost:9090/api/health
+# 预期: 405 或 404（非 200）
+```
+
+```bash
+bin/high-performance-server --help
+```
+
+**预期**：列出全部 11 个选项
+
+---
+
 ## 已知问题
 
 | # | 问题 | 严重度 | 说明 |
 |---|------|--------|------|
 | B1 | WebSocket 升级后 epoll 与 WS 事件循环双读竞争 | 高 | WS 帧数据被 epoll 的 `handle_read` 读取后重新入队，WS 帧无法到达 `WsConnection`。帧编解码由单元测试覆盖 |
-| B2 | config.json 覆盖命令行参数 | 低 | `parse_cmd_args` 先于 `parse_json_file` 调用，JSON 配置胜出。预期 CLI 应优先 |
-| B3 | DELETE/PUT 等方法返回 404 而非 405 | 低 | 路径存在但方法不匹配时，Router 返回 404。需在 Router 中区分"路径不存在"和"方法不匹配" |
+| B2 | config.json 覆盖命令行参数 | 低 | ✅ 已修复：`parse_json_file` 先于 `parse_cmd_args`，CLI 参数覆盖 JSON |
+| B3 | DELETE/PUT 等方法返回 404 而非 405 | 低 | ✅ 已修复：路由存在但方法不匹配时返回 405 |
 
 ## 快速运行
 

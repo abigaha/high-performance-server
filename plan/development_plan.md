@@ -22,6 +22,7 @@
 | Step 9 | WebSocket | ✅ 已完成 | [step-9-websocket.md](step-9-websocket.md) |
 | Step 10 | LockedThreadPool | ✅ 已完成 | [step-10-locked-thread-pool.md](step-10-locked-thread-pool.md) |
 | Step 11 | main.cpp 整合 | ✅ 已完成 | [step-11-main-integration.md](step-11-main-integration.md) |
+| Step 12 | 端到端验证 | ✅ 已完成 | [end-to-end-verification.md](end-to-end-verification.md) |
 
 ---
 

@@ -49,6 +49,8 @@ main() {
 | POST | `/api/users` | `db.create_user(u)` → 201 / 500 |
 | GET | `/api/users/:id/history` | `db.get_download_history(id)` → JSON 数组 |
 | GET | `/api/files/:hash` | `db.get_file_meta(hash)` → JSON 200 / 404 |
+| POST | `/api/files/upload` | 上传文件 → 201 `{"hash":"...","size":N}` / 200 `{"exists":true}` |
+| GET | `/api/files/:hash/download` | 下载文件 → 200 octet-stream / 404 |
 | WS | `/ws` | 握手 → WsConnection 帧日志打印 |
 
 handler 实现完整 CRUD 逻辑，底层使用 MockConnection 工厂（无需真实 MySQL）。

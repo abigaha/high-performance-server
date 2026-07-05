@@ -417,11 +417,22 @@ Step 11 ─── main.cpp 整合启动 ✅ 已完成
   ├─ 路由注册: /api/health, /api/users/:id, POST /api/users, /api/users/:id/history, /api/files/:hash, ws://host/ws
   ├─ 配置管理: config.json (nlohmann/json) + 命令行参数 (--port/--threads/--db-host等)
   └─ 测试: 手动启动验证 + 全量回归测试 20二进制全部通过
+        │
+Step 12 ─── 端到端验证 ✅ 已完成
+  ├─ main.cpp 路由注册: POST /api/files/upload + GET /api/files/:hash/download
+  ├─ B2 修复: CLI 参数覆盖 JSON (parse_json_file → parse_cmd_args 交换)
+  ├─ B5 修复: Router path_exists 接口 (405 vs 404 区分)
+  ├─ B6/B7 修复: 静态 map 元信息持久化 + 双写 (绕开 MockConnection)
+  ├─ 大 body 分片: persistent parser per connection (Connection* key)
+  ├─ 线程安全: parsers_ / s_file_meta 加 std::mutex 保护
+  ├─ HttpParser 修复: Content-Length:0 直接 COMPLETE
+  ├─ verification/verify.sh 增强: V12 文件全生命周期, V14 并发, V15 边界
+  └─ 全量回归: lint 0/0 + test 20/20 + CodeQL 0/0 + verify 37/37
 ```
 
 ---
 
-## Step 12 — Docker 化部署
+## Step 13 — Docker 化部署
 
 ### 目标
 1. 多阶段构建 Dockerfile（ubuntu:22.04），分离构建/运行环境

@@ -108,7 +108,7 @@ xmake run
 
 ## 配置文件
 
-服务器启动时读取 `config.json`，命令行参数优先级高于配置文件。
+服务器启动时读取 `config.json`，命令行参数优先级高于配置文件（JSON 先加载，CLI 后覆盖）。
 
 ### 完整示例
 
@@ -196,6 +196,8 @@ xmake run
 | POST | `/api/users` | 创建用户 |
 | GET | `/api/users/:id/history` | 获取用户下载历史 |
 | GET | `/api/files/:hash` | 获取文件元信息 |
+| POST | `/api/files/upload` | 上传文件 |
+| GET | `/api/files/:hash/download` | 下载文件 |
 
 ### WebSocket
 
