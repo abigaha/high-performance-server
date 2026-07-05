@@ -120,7 +120,11 @@ void HttpParser::handle_end_of_headers() {
     }
     body_bytes_remaining_ = cl;
     total_body_bytes_ = 0;
-    state_ = ParserState::BODY_IDENTITY;
+    if (cl == 0) {
+      state_ = ParserState::COMPLETE;
+    } else {
+      state_ = ParserState::BODY_IDENTITY;
+    }
     return;
   }
   auto it_te = request_.headers.find("Transfer-Encoding");

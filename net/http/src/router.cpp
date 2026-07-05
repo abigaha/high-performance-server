@@ -106,4 +106,11 @@ bool Router::search(const Node& node,
   return false;
 }
 
+bool Router::path_exists(std::string_view path) const {
+  auto segments = split_path(path);
+  Handler dummy_handler;
+  Params dummy_params;
+  return search(*root_, segments, 0, HttpMethod::GET, dummy_handler, dummy_params);
+}
+
 } // namespace hps

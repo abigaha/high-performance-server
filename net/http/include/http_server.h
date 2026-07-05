@@ -54,6 +54,9 @@ private:
 
   std::mutex conn_map_mutex_;
   std::unordered_map<Connection*, std::shared_ptr<std::mutex>> conn_mutexes_;
+
+  std::mutex parsers_mutex_;
+  std::unordered_map<Connection*, HttpParser> parsers_;
 };
 
 } // namespace hps

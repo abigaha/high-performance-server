@@ -1,13 +1,12 @@
 {
   "server": {
-    "port": 9000,
+    "port": 9090,
     "backlog": 128,
     "thread_count": 4,
     "epoll_timeout_ms": 100
   },
   "database": {
     "host": "127.0.0.1",
-    "port": 3306,
     "username": "root",
     "password": "",
     "database": "music_server",
@@ -17,9 +16,9 @@
   },
   "ssl": {
     "enabled": false,
-    "cert_file": "./build/cert.pem",
-    "key_file": "./build/key.pem",
-    "ca_file": "./build/ca.pem",
+    "cert_file": "./build/certs/cert.pem",
+    "key_file": "./build/certs/key.pem",
+    "ca_file": "",
     "verify_peer": false
   },
   "filesystem": {

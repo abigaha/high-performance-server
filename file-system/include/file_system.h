@@ -27,6 +27,9 @@ public:
   bool delete_file(const std::string& path) override;
   std::optional<std::vector<char>> read_file(const std::string& path) override;
 
+  /** 对指定数据计算 SHA-256 并返回十六进制字符串 */
+  static std::string sha256_hex(const char* data, std::size_t len);
+
 private:
   std::string base_dir_;
 
@@ -38,9 +41,6 @@ private:
 
   /** 二进制哈希转十六进制字符串 */
   static std::string to_hex(const unsigned char* hash, unsigned int len);
-
-  /** 对指定数据计算 SHA-256 并返回十六进制字符串 */
-  static std::string sha256_hex(const char* data, std::size_t len);
 };
 
 } // namespace hps

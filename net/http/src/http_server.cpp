@@ -89,8 +89,22 @@ bool HttpServer::try_handle_ws_upgrade(Connection& conn, const HttpRequest& req,
   return true;
 }
 
+// NOLINTNEXTLINE(readability-function-cognitive-complexity): 连接处理器，多种协议路径 + 分片状态管理，多分支嵌套是固有复杂度
 void HttpServer::handle_connection(Connection& conn) {
-  HttpParser parser;
+  HttpParser* parser_ptr = nullptr;
+  {
+    std::lock_guard lock(parsers_mutex_);
+    if (conn.state() == Connection::State::CLOSED) {
+      parsers_.erase(&conn);
+      return;
+    }
+    auto it = parsers_.find(&conn);
+    if (it == parsers_.end()) {
+      it = parsers_.emplace(&conn, HttpParser()).first;
+    }
+    parser_ptr = &it->second;
+  }
+  auto& parser = *parser_ptr;
   const auto& buf = conn.read_buffer();
   std::size_t total_consumed = 0;
 
@@ -106,12 +120,20 @@ void HttpServer::handle_connection(Connection& conn) {
     if (result.err == ParserError::BAD_REQUEST) {
       send_error(conn, 400, "Bad Request", "请求格式错误");
       conn.consume_read_buffer(total_consumed);
+      {
+        std::lock_guard lock(parsers_mutex_);
+        parsers_.erase(&conn);
+      }
       return;
     }
 
     if (result.err == ParserError::PAYLOAD_TOO_LARGE) {
       send_error(conn, 413, "Payload Too Large", "请求体过大");
       conn.consume_read_buffer(total_consumed);
+      {
+        std::lock_guard lock(parsers_mutex_);
+        parsers_.erase(&conn);
+      }
       return;
     }
 
@@ -136,7 +158,11 @@ void HttpServer::handle_connection(Connection& conn) {
     bool matched = router_.match(req.method, req.path, handler, params);
 
     if (!matched) {
-      send_error(conn, 404, "Not Found", req.path);
+      if (router_.path_exists(req.path)) {
+        send_error(conn, 405, "Method Not Allowed", req.path);
+      } else {
+        send_error(conn, 404, "Not Found", req.path);
+      }
       parser.reset();
       continue;
     }

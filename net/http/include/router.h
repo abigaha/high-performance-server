@@ -26,6 +26,7 @@ public:
 
   void add(HttpMethod method, std::string_view path, Handler handler) override;
   bool match(HttpMethod method, std::string_view path, Handler& outHandler, Params& outParams) const override;
+  bool path_exists(std::string_view path) const override;
 
 private:
   struct Node {

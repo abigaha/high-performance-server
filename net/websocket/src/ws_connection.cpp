@@ -2,6 +2,8 @@
 
 #include "logger.h"
 
+#include <poll.h>
+
 #include <cstdint>
 #include <cstring>
 #include <mutex>
@@ -94,6 +96,16 @@ bool handle_frame(WsFrame& frame,
 void WsConnection::start_event_loop() {
   std::string leftover;
   while (!closed_) {
+    {
+      struct pollfd pfd;
+      pfd.fd = conn_->fd();
+      pfd.events = POLLIN;
+      int pret = poll(&pfd, 1, 100);
+      if (pret <= 0) {
+        break;
+      }
+    }
+
     auto n = conn_->read_from_fd();
     if (n < 0) {
       Logger::_error("WsConnection: read error");

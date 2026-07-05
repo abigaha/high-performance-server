@@ -13,10 +13,13 @@
 #include <fstream>
 #include <iostream>
 #include <memory>
+#include <mutex>
 #include <nlohmann/json.hpp>
 #include <stdexcept>
 #include <string>
+#include <unordered_map>
 #include <utility>
+#include <vector>
 
 namespace hps {
 namespace {
@@ -179,12 +182,112 @@ void parse_json_file(const std::string& path, ServerConfig& cfg) {
 ServerConfig load_config(int argc, char** argv) {
   ServerConfig cfg;
   std::string config_path = "config.json";
-  parse_cmd_args(argc, argv, cfg, config_path);
   parse_json_file(config_path, cfg);
+  parse_cmd_args(argc, argv, cfg, config_path);
   return cfg;
 }
 
-void register_routes(HttpServer& server, DatabasePool& db, FileSystem& /*fs*/) {
+// NOLINTNEXTLINE(readability-function-cognitive-complexity): 路由注册函数，每个 handler lambda 的复杂度独立，整体偏高是注册模式固有特性
+void register_routes(HttpServer& server, DatabasePool& db, FileSystem& fs) {
+  static std::unordered_map<std::string, FileMeta> s_file_meta;
+  static std::mutex s_file_meta_mutex;
+
+  auto handle_upload = [&fs, &db](const HttpRequest& req, HttpResponse& resp) {
+    if (req.body.empty()) {
+      resp.set_status(400, "Bad Request");
+      resp.set_content_type("application/json");
+      resp.body = R"({"error":"empty body"})";
+      resp.set_content_length(resp.body.size());
+      return;
+    }
+    auto hash = FileSystem::sha256_hex(req.body.data(), req.body.size());
+    {
+      std::lock_guard lock(s_file_meta_mutex);
+      auto it = s_file_meta.find(hash);
+      if (it != s_file_meta.end()) {
+        resp.set_status(200, "OK");
+        resp.set_content_type("application/json");
+        resp.body = R"({"hash":")" + hash + R"(","size":)" + std::to_string(req.body.size()) + R"(,"exists":true})";
+        resp.set_content_length(resp.body.size());
+        return;
+      }
+    }
+    auto existing = db.get_file_meta(hash);
+    if (existing) {
+      {
+        std::lock_guard lock(s_file_meta_mutex);
+        s_file_meta[hash] = *existing;
+      }
+      resp.set_status(200, "OK");
+      resp.set_content_type("application/json");
+      resp.body = R"({"hash":")" + hash + R"(,"size":)" + std::to_string(req.body.size()) + R"(,"exists":true})";
+      resp.set_content_length(resp.body.size());
+      return;
+    }
+    std::string path = "uploads/" + hash;
+    std::vector<char> file_data(req.body.begin(), req.body.end());
+    if (!fs.store_file(path, file_data)) {
+      resp.set_status(500, "Internal Server Error");
+      resp.set_content_type("application/json");
+      resp.body = R"({"error":"store failed"})";
+      resp.set_content_length(resp.body.size());
+      return;
+    }
+    FileMeta meta;
+    meta.file_hash = hash;
+    meta.file_path = path;
+    meta.file_size = req.body.size();
+    meta.content_type = "application/octet-stream";
+    db.store_file_meta(meta);
+    {
+      std::lock_guard lock(s_file_meta_mutex);
+      s_file_meta[hash] = meta;
+    }
+    resp.set_status(201, "Created");
+    resp.set_content_type("application/json");
+    resp.body = R"({"hash":")" + hash + R"(","size":)" + std::to_string(req.body.size()) + R"(})";
+    resp.set_content_length(resp.body.size());
+  };
+
+  auto handle_download = [&fs, &db](const HttpRequest& req, HttpResponse& resp) {
+    auto it = req.path_params.find("hash");
+    if (it == req.path_params.end()) {
+      resp.set_status(400, "Bad Request");
+      resp.set_content_type("application/json");
+      resp.body = R"({"error":"missing hash"})";
+      resp.set_content_length(resp.body.size());
+      return;
+    }
+    const auto& hash = it->second;
+    auto meta = db.get_file_meta(hash);
+    if (!meta) {
+      std::lock_guard lock(s_file_meta_mutex);
+      auto local_it = s_file_meta.find(hash);
+      if (local_it != s_file_meta.end()) {
+        meta = local_it->second;
+      }
+    }
+    if (!meta) {
+      resp.set_status(404, "Not Found");
+      resp.set_content_type("application/json");
+      resp.body = R"({"error":"file not found"})";
+      resp.set_content_length(resp.body.size());
+      return;
+    }
+    auto data = fs.read_file(meta->file_path);
+    if (!data) {
+      resp.set_status(500, "Internal Server Error");
+      resp.set_content_type("application/json");
+      resp.body = R"({"error":"file read failed"})";
+      resp.set_content_length(resp.body.size());
+      return;
+    }
+    resp.set_status(200, "OK");
+    resp.set_content_type("application/octet-stream");
+    resp.body.assign(data->data(), data->size());
+    resp.set_content_length(resp.body.size());
+  };
+
   server.get("/api/health", [](const HttpRequest& /*req*/, HttpResponse& resp) {
     auto uptime =
       std::chrono::duration_cast<std::chrono::seconds>(std::chrono::steady_clock::now() - g_start_time).count();
@@ -266,7 +369,15 @@ void register_routes(HttpServer& server, DatabasePool& db, FileSystem& /*fs*/) {
       resp.set_content_type("application/json");
       return;
     }
-    auto meta = db.get_file_meta(it->second);
+    const auto& hash = it->second;
+    auto meta = db.get_file_meta(hash);
+    if (!meta) {
+      std::lock_guard lock(s_file_meta_mutex);
+      auto local_it = s_file_meta.find(hash);
+      if (local_it != s_file_meta.end()) {
+        meta = local_it->second;
+      }
+    }
     if (!meta) {
       resp.set_status(404, "Not Found");
       resp.body = R"({"error":"file not found"})";
@@ -280,6 +391,10 @@ void register_routes(HttpServer& server, DatabasePool& db, FileSystem& /*fs*/) {
                 std::to_string(meta->file_size) + R"(})";
     resp.set_content_length(resp.body.size());
   });
+
+  server.post("/api/files/upload", handle_upload);
+
+  server.get("/api/files/:hash/download", handle_download);
 
   server.ws("/ws", [](const HttpRequest& req, std::shared_ptr<WsConnection> ws_conn) {
     Logger::_info("WebSocket 连接已建立: " + req.path);
