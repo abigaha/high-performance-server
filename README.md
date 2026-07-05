@@ -183,27 +183,215 @@ xmake run
 |------|------|--------|------|
 | `root_dir` | string | ./data | 文件存储根目录 |
 
-## 路由与 API
-
-服务器启动后自动注册以下路由：
+## 外部接口
 
 ### REST API
 
+基于 HTTP/1.1，请求体为 JSON，响应体为 JSON 或二进制流。路径参数以 `:name` 格式声明，匹配时自动注入 `req.path_params`。
+
+#### 端点
+
 | 方法 | 路径 | 说明 |
 |------|------|------|
-| GET | `/api/health` | 健康检查（返回 uptime） |
+| GET | `/api/health` | 健康检查 |
 | GET | `/api/users/:id` | 获取用户信息 |
 | POST | `/api/users` | 创建用户 |
 | GET | `/api/users/:id/history` | 获取用户下载历史 |
 | GET | `/api/files/:hash` | 获取文件元信息 |
-| POST | `/api/files/upload` | 上传文件 |
-| GET | `/api/files/:hash/download` | 下载文件 |
+| POST | `/api/files/upload` | 上传文件（body 即文件内容） |
+| GET | `/api/files/:hash/download` | 下载文件（支持 Range） |
+
+#### 请求 / 响应格式
+
+**GET /api/health**
+```json
+// → 200
+{"status":"ok","uptime":42}
+```
+
+**GET /api/users/:id**
+```json
+// ← {"id": 1}
+// → 200 {"user_id":1,"username":"alice"}
+// → 404 {"error":"user not found"}
+```
+
+**POST /api/users**
+```json
+// → {"username":"alice","email":"alice@example.com"}
+// ← 201 {"status":"created"}
+// ← 500 {"error":"create failed"}
+```
+
+**GET /api/users/:id/history**
+```json
+// ← {"id": 1}
+// → 200 {"downloads":[{"log_id":1,"file_hash":"abc123"}]}
+// → 400 {"error":"missing id"}
+```
+
+**GET /api/files/:hash**
+```json
+// ← {"hash": "sha256hex"}
+// → 200 {"file_hash":"abc","file_path":"uploads/abc","file_size":1024}
+// → 404 {"error":"file not found"}
+```
+
+**POST /api/files/upload**
+```
+// → body: 原始二进制（文件内容）
+// ← 201 {"hash":"sha256hex","size":1024}
+// ← 200 {"hash":"sha256hex","size":1024,"exists":true}
+// ← 400 {"error":"empty body"}
+// ← 500 {"error":"store failed"}
+```
+
+**GET /api/files/:hash/download**
+```
+// → 200 application/octet-stream（完整文件）
+// → 206 Partial Content（Range 请求）
+// → 404 {"error":"file not found"}
+```
+
+#### 统一错误响应
+
+```
+// HTTP 400 / 404 / 500
+{"error":"描述信息"}
+```
 
 ### WebSocket
 
-| 路径 | 说明 |
+#### 握手
+
+```
+GET /ws HTTP/1.1
+Host: server
+Upgrade: websocket
+Connection: Upgrade
+Sec-WebSocket-Key: dGhlIHNhbXBsZSBub25jZQ==
+Sec-WebSocket-Version: 13
+```
+
+成功 → `101 Switching Protocols`
+
+#### 帧格式（RFC 6455）
+
+每个数据帧包含 opcode（操作类型）和 payload（载荷）：
+
+| Opcode | 名称 | 说明 |
+|--------|------|------|
+| `0x0` | CONTINUATION | 分片续帧 |
+| `0x1` | TEXT | UTF-8 文本 |
+| `0x2` | BINARY | 二进制 |
+| `0x8` | CLOSE | 关闭连接 |
+| `0x9` | PING | 心跳 |
+| `0xA` | PONG | 心跳回复 |
+
+关闭帧附带 2 字节大端关闭码：
+
+| 码值 | 含义 |
 |------|------|
-| `/ws` | WebSocket 连接端点 |
+| 1000 | 正常关闭 |
+| 1001 | 端点离开 |
+| 1002 | 协议错误 |
+| 1003 | 不支持的数据类型 |
+| 1007 | 无效 payload |
+| 1008 | 策略违规 |
+| 1009 | 消息过大 |
+
+服务端通过 `ws_encode_frame(opcode, payload)` 编码发送；
+客户端数据通过 `ws_decode_frame(data)` 解码为 `WsFrame{fin, opcode, payload}`。
+
+### Range 流式传输
+
+支持 HTTP Range 请求头，用于部分下载和断点续传。
+
+#### 请求
+
+```
+GET /api/files/:hash/download HTTP/1.1
+Range: bytes=0-1023
+```
+
+Range 格式：
+
+| 格式 | 示例 | 含义 |
+|------|------|------|
+| `bytes=start-end` | `bytes=0-1023` | 指定区间 |
+| `bytes=start-` | `bytes=1024-` | 从指定位置到末尾 |
+| `bytes=-suffix` | `bytes=-1024` | 最后 N 字节 |
+| 多区间 | `bytes=0-99,200-299` | 多个区间 |
+
+#### 响应
+
+| 情况 | 状态码 | Content-Type |
+|------|--------|-------------|
+| 单区间 | 206 | `application/octet-stream` |
+| 多区间 | 206 | `multipart/byteranges; boundary=HPS_<random>` |
+| 无效区间 | 416 | `application/json` |
+
+单区间响应头：
+```
+Content-Range: bytes 0-1023/1048576
+```
+
+多区间响应体：
+```
+--HPS_abc123
+Content-Type: application/octet-stream
+Content-Range: bytes 0-99/1000
+
+[数据]
+--HPS_abc123
+Content-Type: application/octet-stream
+Content-Range: bytes 200-299/1000
+
+[数据]
+--HPS_abc123--
+```
+
+### 文件传输（进程间协议）
+
+大文件传输 fork 出 `file-send-process` 独立进程，通过管道传递以下元数据（纯文本）：
+
+```
+第一行: <total_size> <path> <peer_ip> <peer_port> <chunk_count>
+后续行: <chunk_index> <offset> <size>
+```
+
+示例：
+```
+1048576 /data/video.mp4 10.0.0.2 9001 4
+0 0 262144
+1 262144 262144
+2 524288 262144
+3 786432 262144
+```
+
+| 字段 | 类型 | 说明 |
+|------|------|------|
+| total_size | uint64 | 文件总字节数 |
+| path | string | 源文件路径 |
+| peer_ip | string | 目标 IP |
+| peer_port | uint16 | 目标端口 |
+| chunk_count | uint32 | 分片数 |
+| chunk_index | uint32 | 分片序号 |
+| offset | uint64 | 分片在文件中的偏移 |
+| size | uint64 | 分片字节数 |
+
+#### ChunkHeader（线路二进制协议）
+
+每片数据前附加 28 字节固定头（所有多字节字段为大端序）：
+
+```
+偏移  大小  字段         说明
+0     4    magic        魔数 "HPSF" (0x48505346)
+4     4    chunk_index  分片序号
+8     8    offset       文件偏移
+16    8    chunk_size   分片数据大小
+24    4    total_chunks 总分片数
+```
 
 ## 测试指南
 
