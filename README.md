@@ -52,17 +52,17 @@ xmake -j$(nproc)
 ### 运行
 
 ```bash
-# 使用默认配置（config.json, 端口 9000）
+# 使用默认配置（config.json, 端口 9090）
 xmake run
 
 # 或直接运行二进制
-./build/linux/x86_64/release/high-performance-server
+./bin/high-performance-server
 
 # 指定端口
-./build/linux/x86_64/release/high-performance-server --port 8080
+./bin/high-performance-server --port 9090
 
 # 指定配置文件
-./build/linux/x86_64/release/high-performance-server --config /path/to/config.json
+./bin/high-performance-server --config /path/to/config.json
 ```
 
 ### 停止服务器
@@ -313,32 +313,55 @@ bash scripts/dev.sh all
 
 ## Docker 部署
 
-### 构建镜像
+### 前置条件
+
+- Docker Engine 24+
+- 已编译的 release 二进制（`xmake f -m release -y && xmake`）
+
+### 一键构建运行
 
 ```bash
-docker build -t high-performance-server .
+bash scripts/docker.sh
+```
+
+### 手动构建镜像
+
+```bash
+docker build -t hps-server .
 ```
 
 ### 运行容器
 
 ```bash
 # 基本运行
-docker run -d --name my-server -p 9000:9000 high-performance-server
+docker run -d --name hps-server -p 9090:9090 hps-server
 
 # 挂载配置文件和 SSL 证书
-docker run -d --name my-server -p 443:9000 \
-  -v /path/to/config.json:/app/config.json \
-  -v /path/to/cert.pem:/app/build/cert.pem \
-  -v /path/to/key.pem:/app/build/key.pem \
-  -v /data:/app/data \
-  high-performance-server
+docker run -d --name hps-server -p 9090:9090 \
+  -v ./config.json:/app/config.json:ro \
+  -v ./build/certs:/app/build/certs:ro \
+  -v ./data:/app/data \
+  hps-server
+```
+
+### docker-compose 编排（含 MySQL）
+
+```bash
+docker compose up -d
 ```
 
 ### 验证运行
 
 ```bash
-curl http://localhost:9000/api/health
+curl http://localhost:9090/api/health
 # {"status":"ok","uptime":42}
+```
+
+### 停止
+
+```bash
+docker stop hps-server            # 单容器
+docker compose down               # 编排停止
 ```
 
 ## 质量门禁
@@ -359,7 +382,7 @@ project/
 ├── xmake.lua              # 顶层构建配置
 ├── README.md              # 本文件
 ├── goal.md                # 项目目标文档
-├── Dockerfile             # Docker 多阶段构建
+├── Dockerfile             # Docker 运行时镜像（从本机 COPY 产物）
 ├── config.json            # 服务器配置
 ├── core/                  # 主程序入口
 │   └── src/main.cpp

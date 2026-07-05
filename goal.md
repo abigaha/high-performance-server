@@ -432,7 +432,7 @@ Step 12 ─── 端到端验证 ✅ 已完成
 
 ---
 
-## Step 13 — Docker 化部署
+## Step 13 — Docker 化部署 ✅ 已完成
 
 ### 目标
 1. 多阶段构建 Dockerfile（ubuntu:22.04），分离构建/运行环境
@@ -442,11 +442,13 @@ Step 12 ─── 端到端验证 ✅ 已完成
 5. 镜像大小控制在 200MB 以内
 
 ### 计划
-- [ ] 创建 Dockerfile（builder + runtime 多阶段构建）
-- [ ] 创建 .dockerignore
-- [ ] 创建 docker-compose.yml（服务 + MySQL）
-- [ ] 健康检查端点验证
-- [ ] CI 集成镜像构建
+- [x] 创建 Dockerfile（运行时镜像，COPY 本机产物）
+- [x] 创建 .dockerignore
+- [x] 创建 docker-compose.yml（服务 + MySQL，端口 9090）
+- [x] 健康检查端点验证（HEALTHCHECK + /api/health）
+- [x] CI 集成镜像构建（GitHub Actions）
+- [x] 质量门禁：lint 0/0 + test 20/20 + CodeQL 0/0
+- [x] 镜像大小 139MB（≤ 200MB）
 
 ---
 

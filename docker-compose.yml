@@ -1,11 +1,9 @@
-version: "3.9"
-
 services:
   high-performance-server:
     build: .
     container_name: hps-server
     ports:
-      - "8080:8080"
+      - "9090:9090"
     volumes:
       - ./config.json:/app/config.json:ro
       - ./build/certs:/app/build/certs:ro
@@ -15,6 +13,12 @@ services:
     depends_on:
       mysql:
         condition: service_healthy
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:9090/api/health"]
+      interval: 10s
+      timeout: 3s
+      retries: 5
+      start_period: 5s
     restart: unless-stopped
 
   mysql:

@@ -1,99 +1,78 @@
-# Prerequisites
-*.d
 
-# Compiled Object files
-*.slo
-*.lo
-*.o
-*.obj
-
-# Precompiled Headers
-*.gch
-*.pch
-
-# Linker files
-*.ilk
-
-# Debugger Files
-*.pdb
-
-# Compiled Dynamic libraries
-*.so
-*.dylib
-*.dll
-*.so.*
-
-
-# Fortran module files
-*.mod
-*.smod
-
-# Compiled Static libraries
-*.lai
-*.la
 *.a
-*.lib
-
-# Executables
-*.exe
-*.out
+AGENTS.md
 *.app
+*.bak
 bin/
-
-# Build directories
+build-*/
 build/
 Build/
-build-*/
-
-# xmake
-.xmake/
-xmake.conf
-.pylintrc
-compile_commands.json
-
-# Temporary files
-*.tmp
-*.log
-*.bak
-*.swp
-
-# vcpkg
-vcpkg_installed/
-
-# debug information files
-*.dwo
-
-# test output & cache
-Testing/
+# Build directories
 .cache/
-
-.idx
+.clangd
 .clangd/
-.clangd
-.clang-tidy
 .clang-format
-
-.github/
-
-
-.clangd
-.codegraph/
+.clang-tidy
+.codebuddy/
+# CodeBuddy 工作流配置（本地，不入库）
 .codegraph
-AGENTS.md
+.codegraph/
 compile_commands_fixed.json
+compile_commands.json
+# Compiled Dynamic libraries
+# Compiled Object files
+# Compiled Static libraries
+core.*
+*.d
+data/uploads/
+# Debugger Files
+# debug information files
+*.dll
+*.dwo
+*.dylib
+*.exe
+# Executables
+# Fortran module files
+*.gch
+.github/
 # goal.md
+.idx
+*.ilk
+*.la
+*.lai
+*.lib
+# Linker files
+*.lo
+*.log
+*.mod
+*.o
+*.obj
+.opencode
+.opencode/
 opencode.jsonc
+*.out
+*.pch
+*.pdb
+# Precompiled Headers
+# Prerequisites
+.pylintrc
 scripts/dev.sh
 scripts/lint.sh
 scripts/test.sh
 setup.sh
+*.slo
+*.smod
+*.so
+*.so.*
 source.tar.gz
+*.swp
+# Temporary files
+Testing/
+# test output & cache
+*.tmp
 tui.json
-core.*
-
-# CodeBuddy 工作流配置（本地，不入库）
-.codebuddy/
-
-.opencode/
-.opencode
-
+# vcpkg
+vcpkg_installed/
+# xmake
+.xmake/
+xmake.conf

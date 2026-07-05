@@ -3,8 +3,9 @@
 .gitignore
 .gitattributes
 
-# Build
-build/
+# Build (允许 certs 子目录)
+build/*
+!build/certs/
 .xmake/
 compile_commands*
 

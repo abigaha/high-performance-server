@@ -179,10 +179,23 @@ void parse_json_file(const std::string& path, ServerConfig& cfg) {
   }
 }
 
+void apply_env_overrides(ServerConfig& cfg) {
+  if (const char* env = std::getenv("DB_HOST")) {
+    cfg.db.host = env;
+  }
+  if (const char* env = std::getenv("DB_PORT")) {
+    cfg.db.port = static_cast<uint16_t>(std::stoul(env));
+  }
+  if (const char* env = std::getenv("SERVER_PORT")) {
+    cfg.port = static_cast<uint16_t>(std::stoul(env));
+  }
+}
+
 ServerConfig load_config(int argc, char** argv) {
   ServerConfig cfg;
   std::string config_path = "config.json";
   parse_json_file(config_path, cfg);
+  apply_env_overrides(cfg);
   parse_cmd_args(argc, argv, cfg, config_path);
   return cfg;
 }
