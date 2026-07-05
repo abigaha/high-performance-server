@@ -12,7 +12,7 @@ Build/
 .clangd
 .clangd/
 .clang-format
-.clang-tidy
+# .clang-tidy 已追踪
 .codebuddy/
 # CodeBuddy 工作流配置（本地，不入库）
 .codegraph
@@ -56,9 +56,7 @@ opencode.jsonc
 # Precompiled Headers
 # Prerequisites
 .pylintrc
-scripts/dev.sh
-scripts/lint.sh
-scripts/test.sh
+# 脚本已追踪
 setup.sh
 *.slo
 *.smod

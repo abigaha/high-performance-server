@@ -1,0 +1,64 @@
+Checks: >
+  clang-diagnostic-*,
+  -clang-diagnostic-unknown-pragmas,
+  clang-analyzer-*,
+  -clang-analyzer-alpha*,
+  bugprone-*,
+  -bugprone-unchecked-optional-access,
+  performance-*,
+  -performance-unnecessary-value-param,
+  -performance-enum-size,
+  -performance-avoid-endl,
+  modernize-*,
+  -modernize-use-auto,
+  -modernize-use-trailing-return-type,
+  -modernize-use-nodiscard,
+  -modernize-pass-by-value,
+  readability-*,
+  -readability-braces-around-statements,
+  -readability-else-after-return,
+  -readability-identifier-length,
+  -readability-magic-numbers,
+  -readability-identifier-naming,
+  -readability-avoid-const-params-in-decls,
+  -readability-redundant-access-specifiers,
+  -readability-redundant-inline-specifier,
+  -readability-convert-member-functions-to-static,
+  cppcoreguidelines-*,
+  -cppcoreguidelines-avoid-magic-numbers,
+  -cppcoreguidelines-special-member-functions,
+  -cppcoreguidelines-non-private-member-variables-in-classes,
+  -cppcoreguidelines-pro-type-member-init,
+  -cppcoreguidelines-pro-type-reinterpret-cast,
+  -cppcoreguidelines-pro-bounds-constant-array-index,
+  -cppcoreguidelines-pro-bounds-pointer-arithmetic,
+  google-*,
+  -google-readability-braces-around-statements,
+  -google-explicit-constructor,
+  hicpp-*,
+  -hicpp-explicit-conversions,
+  -hicpp-special-member-functions,
+  -hicpp-member-init,
+  -hicpp-braces-around-statements,
+  misc-*,
+  -misc-non-private-member-variables-in-classes,
+  -misc-const-correctness,
+  -misc-include-cleaner,
+  llvm-*,
+  -llvm-include-order,
+  -llvm-header-guard
+
+WarningsAsErrors: ''
+HeaderFilterRegex: '.*'
+FormatStyle: file
+CheckOptions:
+  - key: readability-identifier-naming.ClassCase
+    value: CamelCase
+  - key: readability-identifier-naming.VariableCase
+    value: camelBack
+  - key: readability-identifier-naming.FunctionCase
+    value: camelBack
+  - key: readability-identifier-naming.MemberCase
+    value: camelBack
+  - key: readability-identifier-naming.NamespaceCase
+    value: CamelCase
