@@ -13,8 +13,6 @@
 | 测试框架 | Google Test | 1.17 | 单元测试 |
 | TLS | OpenSSL | 3.x | 双模式检测（明文/TLS 自动识别）|
 | 数据库 | boost::mysql | - | 连接池 + 预处理查询 |
-| 静态分析 | clang-tidy + cppcheck | - | 代码风格 + 深度检查 |
-| 语义分析 | CodeQL | Docker | 安全漏洞 + 质量门禁 |
 
 ## 快速开始
 
@@ -36,10 +34,10 @@ xmake require
 ### 编译
 
 ```bash
-# Debug 模式（默认，含 AddressSanitizer）
+# Debug 模式（默认，含 AddressSanitizer + UndefinedBehaviorSanitizer）
 xmake
 
-# Release 模式（-O3 优化）
+# Release 模式（-O2 优化）
 xmake f -m release -y && xmake
 
 # 重新配置并编译
@@ -100,8 +98,8 @@ xmake run
 ./high-performance-server \
   --port 443 \
   --threads 8 \
-  --ssl-cert ./build/cert.pem \
-  --ssl-key ./build/key.pem \
+  --ssl-cert ./build/certs/cert.pem \
+  --ssl-key ./build/certs/key.pem \
   --db-host 10.0.0.1 \
   --data-dir /mnt/data
 ```
@@ -115,7 +113,7 @@ xmake run
 ```json
 {
   "server": {
-    "port": 9000,
+    "port": 9090,
     "backlog": 128,
     "thread_count": 4,
     "epoll_timeout_ms": 100
@@ -132,9 +130,9 @@ xmake run
   },
   "ssl": {
     "enabled": false,
-    "cert_file": "./build/cert.pem",
-    "key_file": "./build/key.pem",
-    "ca_file": "./build/ca.pem",
+    "cert_file": "./build/certs/cert.pem",
+    "key_file": "./build/certs/key.pem",
+    "ca_file": "",
     "verify_peer": false
   },
   "filesystem": {
@@ -182,6 +180,93 @@ xmake run
 | 字段 | 类型 | 默认值 | 说明 |
 |------|------|--------|------|
 | `root_dir` | string | ./data | 文件存储根目录 |
+
+## 脚本工具
+
+项目提供以下脚本，均从项目根目录执行：
+
+### `bash scripts/dev.sh <子命令>` — 开发工具
+
+子命令：
+
+| 子命令 | 说明 |
+|--------|------|
+| `compile` | 编译（多核，`.cpp` 文件变更后校验）|
+| `compile --clean` | 清缓存后编译 |
+| `format` | 用 clang-format 格式化全部 `.cpp/.hpp/.h`（排除 build/.xmake）|
+| `lint` | 执行 Lint 检查（透传参数给 `scripts/lint.sh`）|
+| `test` | 执行全部测试（调用 `scripts/test.sh`）|
+| `codeql` | 提交 CodeQL 分析（自动探测服务器地址）|
+| `all` | 依次执行 format → lint → compile → test |
+
+无参数时进入交互菜单。
+
+### `bash scripts/lint.sh [选项] [文件/目录...]` — Lint 检查
+
+同时运行 clang-tidy 和 cppcheck，自动生成 `compile_commands.json`（若不存在或 xmake.lua 更新）。
+
+| 选项 | 说明 |
+|------|------|
+| `--changed` | 仅检查 Git 已变更文件（相对 HEAD，含未跟踪）|
+| `-j, --jobs N` | 并发数（默认 CPU 核数）|
+| `-h, --help` | 显示帮助 |
+| `文件/目录...` | 指定检查范围（非 `--changed` 时）|
+
+示例：
+
+```bash
+# 全量检查
+bash scripts/lint.sh
+
+# 增量检查
+bash scripts/lint.sh --changed
+
+# 并发 8 线程
+bash scripts/lint.sh -j 8
+
+# 检查指定目录
+bash scripts/lint.sh net/http/ tests/
+
+# 检查指定文件
+bash scripts/lint.sh net/http/src/http_parser.cpp
+```
+
+### `bash scripts/test.sh [测试名]` — 测试运行
+
+| 参数 | 说明 |
+|------|------|
+| 无参数 | 运行全部测试（20 个测试二进制）|
+| `测试名` | 仅运行指定测试文件（如 `test_tcp_server`）|
+
+### `bash scripts/docker.sh <子命令>` — Docker 部署
+
+子命令：
+
+| 子命令 | 说明 |
+|--------|------|
+| `build` | Release 编译 |
+| `image` | 构建 Docker 镜像 `hps-server` |
+| `run` | 运行容器（端口 9090）+ 健康检查 |
+| `stop` | 停止并删除容器 |
+| `up` | `docker compose up -d`（含 MySQL）|
+| `down` | `docker compose down` |
+| `all` | 依次执行 build → image → stop → run |
+
+无参数时进入交互菜单。
+
+### `bash verification/verify.sh` — 端到端验证
+
+一键执行 15 个维度（V1~V15）、37 项验证，覆盖编译、单元测试、REST API、错误处理、Keep-Alive、WebSocket、信号停止、SSL/TLS、CLI 参数、文件上传/下载/哈希、并发连接、边界条件。输出 PASS/FAIL 报告。
+
+详细验证步骤见 `verification/README.md`。
+
+### `bash setup.sh` — 环境初始化
+
+在 Ubuntu 22.04 上安装：g++/gdb/make、xmake、clang-tidy/cppcheck/clang-format。
+
+```bash
+bash setup.sh
+```
 
 ## 外部接口
 
@@ -395,25 +480,30 @@ Content-Range: bytes 200-299/1000
 
 ## 测试指南
 
-### 运行全部测试
+### 运行测试
 
 ```bash
+# 全部测试（推荐）
+bash scripts/test.sh
+
+# 全部测试（xmake 直接调用）
 xmake test
-```
 
-### 运行单个测试文件
-
-```bash
+# 单个测试文件
+bash scripts/test.sh test_tcp_server
 xmake test -f test_tcp_server
-# 或
-./build/linux/x86_64/release/test_test_tcp_server
+
+# 单个用例
+xmake run test_tcp_server --gtest_filter="*SignalStopServer*"
 ```
 
-### 运行单个用例
+### 端到端验证
 
 ```bash
-xmake run test_test_tcp_server --gtest_filter="*SignalStopServer*"
+bash verification/verify.sh
 ```
+
+一键执行 15 维度、37 项验证，输出 PASS/FAIL 报告（详见 `verification/README.md`）。
 
 ### 测试覆盖
 
@@ -475,30 +565,6 @@ main() 继续执行：
 - 所有资源通过 RAII + 显式 `close` 双重保障
 - 线程池 `jthread` 自动 join
 
-## 开发工作流
-
-```bash
-# 1. 格式化代码
-bash scripts/dev.sh format
-
-# 2. Lint 检查（clang-tidy + cppcheck）
-bash scripts/dev.sh lint
-# 增量检查（仅 Git 变更文件）
-bash scripts/lint.sh --changed
-
-# 3. 编译
-bash scripts/dev.sh compile
-
-# 4. 运行测试
-bash scripts/dev.sh test
-
-# 5. CodeQL 分析
-bash scripts/dev.sh codeql
-
-# 6. 全流程
-bash scripts/dev.sh all
-```
-
 ## Docker 部署
 
 ### 前置条件
@@ -552,16 +618,6 @@ docker stop hps-server            # 单容器
 docker compose down               # 编排停止
 ```
 
-## 质量门禁
-
-| 检查项 | 标准 | 命令 |
-|--------|------|------|
-| 编译 | 0 error + 0 warning | `xmake` |
-| clang-tidy | 0 error + 0 warning + 0 style | `bash scripts/lint.sh` |
-| cppcheck | 0 error + 0 warning + 0 style + 0 performance | `bash scripts/lint.sh` |
-| CodeQL | 0 critical + 0 high | `bash scripts/dev.sh codeql` |
-| 测试 | 100% 通过 | `bash scripts/test.sh` |
-
 ## 项目结构
 
 ```
@@ -591,10 +647,16 @@ project/
 │   ├── file-send-process/ # 文件发送独立进程
 │   └── file-receive-process/ # 文件接收独立进程
 ├── tests/                 # 单元测试（~167 用例）
-├── scripts/               # 开发脚本
-│   ├── dev.sh             # 开发工具菜单
-│   ├── lint.sh            # clang-tidy + cppcheck
-│   └── test.sh            # 测试运行器
+├── scripts/               # 运维脚本
+│   ├── dev.sh             # 开发工具（子命令：compile/format/lint/test/codeql/all）
+│   ├── docker.sh          # Docker 部署（子命令：build/image/run/stop/up/down/all）
+│   ├── lint.sh            # Lint 检查（clang-tidy + cppcheck，支持 --changed/-j/路径）
+│   └── test.sh            # 测试运行器（支持指定测试名）
+├── verification/          # 端到端验证
+│   ├── verify.sh          # 15 维度 37 项功能验证
+│   ├── README.md          # 验证步骤说明
+│   └── ws_test.py         # WebSocket 测试
+├── setup.sh               # Ubuntu 环境初始化（g++/xmake/clang-tidy）
 ├── plan/                  # 开发计划
 └── lib/                   # 动态库输出目录
 ```
