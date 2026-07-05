@@ -13,6 +13,8 @@
 | 测试框架 | Google Test | 1.17 | 单元测试 |
 | TLS | OpenSSL | 3.x | 双模式检测（明文/TLS 自动识别）|
 | 数据库 | boost::mysql | - | 连接池 + 预处理查询 |
+| 静态分析 | clang-tidy + cppcheck | - | 代码风格 + 深度检查 |
+| 语义分析 | CodeQL | Docker | 安全漏洞 + 质量门禁 |
 
 ## 快速开始
 
@@ -565,6 +567,30 @@ main() 继续执行：
 - 所有资源通过 RAII + 显式 `close` 双重保障
 - 线程池 `jthread` 自动 join
 
+## 开发工作流
+
+```bash
+# 1. 格式化代码
+bash scripts/dev.sh format
+
+# 2. Lint 检查（clang-tidy + cppcheck）
+bash scripts/dev.sh lint
+# 增量检查（仅 Git 变更文件）
+bash scripts/lint.sh --changed
+
+# 3. 编译
+bash scripts/dev.sh compile
+
+# 4. 运行测试
+bash scripts/dev.sh test
+
+# 5. CodeQL 分析
+bash scripts/dev.sh codeql
+
+# 6. 全流程
+bash scripts/dev.sh all
+```
+
 ## Docker 部署
 
 ### 前置条件
@@ -617,6 +643,16 @@ curl http://localhost:9090/api/health
 docker stop hps-server            # 单容器
 docker compose down               # 编排停止
 ```
+
+## 质量门禁
+
+| 检查项 | 标准 | 命令 |
+|--------|------|------|
+| 编译 | 0 error + 0 warning | `xmake` |
+| clang-tidy | 0 error + 0 warning + 0 style | `bash scripts/lint.sh` |
+| cppcheck | 0 error + 0 warning + 0 style + 0 performance | `bash scripts/lint.sh` |
+| CodeQL | 0 critical + 0 high | `bash scripts/dev.sh codeql` |
+| 测试 | 100% 通过 | `bash scripts/test.sh` |
 
 ## 项目结构
 
