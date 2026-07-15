@@ -187,21 +187,18 @@ xmake run
 
 项目提供以下脚本，均从项目根目录执行：
 
-### `bash scripts/dev.sh <子命令>` — 开发工具
+### `bash scripts/<脚本名>` — 独立脚本工具
 
-子命令：
+所有脚本支持无参交互菜单模式和 `-h/--help` 参数：
 
-| 子命令 | 说明 |
-|--------|------|
-| `compile` | 编译（多核，`.cpp` 文件变更后校验）|
-| `compile --clean` | 清缓存后编译 |
-| `format` | 用 clang-format 格式化全部 `.cpp/.hpp/.h`（排除 build/.xmake）|
-| `lint` | 执行 Lint 检查（透传参数给 `scripts/lint.sh`）|
-| `test` | 执行全部测试（调用 `scripts/test.sh`）|
-| `codeql` | 提交 CodeQL 分析（自动探测服务器地址）|
-| `all` | 依次执行 format → lint → compile → test |
-
-无参数时进入交互菜单。
+| 脚本 | 子命令 | 说明 |
+|------|--------|------|
+| `compile.sh` | `build`, `--clean` | 编译项目（多核）|
+| `format.sh` | `all`, `<路径...>` | clang-format 格式化 `.cpp/.hpp/.h`|
+| `codeql.sh` | `run` | 提交 CodeQL 分析（自动探测服务器地址）|
+| `pipeline.sh` | `all`, `format`, `lint`, `compile`, `test` | 一键流水线 |
+| `benchmark.sh` | `micro`, `load`, `diff`, `gen-data`, `build` | 性能基准测试 |
+| `docker.sh` | `build`, `image`, `run`, `stop`, `up`, `down`, `all` | Docker 部署 |
 
 ### `bash scripts/lint.sh [选项] [文件/目录...]` — Lint 检查
 
@@ -530,6 +527,7 @@ bash verification/verify.sh
 | WebSocket | 12 | 握手/帧编解码/Base64/集成 |
 | Range Parser | 10 | 单区间/多区间/非法/边界 |
 | **合计** | **~167** | |
+| **性能基准测试** | **12 个二进制** | 12 个模块微基准测试 + HTTP 负载测试（详见 benchmark/README.md）|
 
 ## 信号处理与优雅停止
 
@@ -571,24 +569,46 @@ main() 继续执行：
 
 ```bash
 # 1. 格式化代码
-bash scripts/dev.sh format
+bash scripts/format.sh
 
 # 2. Lint 检查（clang-tidy + cppcheck）
-bash scripts/dev.sh lint
+bash scripts/lint.sh
 # 增量检查（仅 Git 变更文件）
 bash scripts/lint.sh --changed
 
 # 3. 编译
-bash scripts/dev.sh compile
+bash scripts/compile.sh
 
 # 4. 运行测试
-bash scripts/dev.sh test
+bash scripts/test.sh
 
-# 5. CodeQL 分析
-bash scripts/dev.sh codeql
+# 5. 性能基准测试
+bash scripts/benchmark.sh micro    # 微基准测试
+bash scripts/benchmark.sh load    # HTTP 负载测试
+bash scripts/benchmark.sh diff    # 基线对比
 
-# 6. 全流程
-bash scripts/dev.sh all
+# 6. CodeQL 分析
+bash scripts/codeql.sh
+
+# 7. 全流程
+bash scripts/pipeline.sh
+```
+
+### 性能基准测试详细说明
+
+包含 12 个模块的微基准测试和 HTTP 负载测试：
+
+```bash
+# 编译 + 运行微基准测试（Release 模式）
+bash scripts/benchmark.sh micro
+
+# 生成测试数据（1KB ~ 100MB）
+bash scripts/benchmark.sh gen-data
+
+# HTTP 负载测试（需服务器运行）
+bash scripts/benchmark.sh load
+
+# 微基准测试清单见 benchmark/README.md
 ```
 
 ## Docker 部署
@@ -651,7 +671,7 @@ docker compose down               # 编排停止
 | 编译 | 0 error + 0 warning | `xmake` |
 | clang-tidy | 0 error + 0 warning + 0 style | `bash scripts/lint.sh` |
 | cppcheck | 0 error + 0 warning + 0 style + 0 performance | `bash scripts/lint.sh` |
-| CodeQL | 0 critical + 0 high | `bash scripts/dev.sh codeql` |
+| CodeQL | 0 critical + 0 high | `bash scripts/codeql.sh` |
 | 测试 | 100% 通过 | `bash scripts/test.sh` |
 
 ## 项目结构
@@ -684,7 +704,14 @@ project/
 │   └── file-receive-process/ # 文件接收独立进程
 ├── tests/                 # 单元测试（~167 用例）
 ├── scripts/               # 运维脚本
-│   ├── dev.sh             # 开发工具（子命令：compile/format/lint/test/codeql/all）
+│   ├── compile.sh         # 编译
+│   ├── format.sh          # 格式化
+│   ├── codeql.sh          # CodeQL 安全分析
+│   ├── pipeline.sh        # 一键流水线
+│   ├── lint.sh            # 静态检查（clang-tidy + cppcheck）
+│   ├── test.sh            # 测试
+│   ├── benchmark.sh       # 性能基准测试
+│   ├── docker.sh          # Docker 部署
 │   ├── docker.sh          # Docker 部署（子命令：build/image/run/stop/up/down/all）
 │   ├── lint.sh            # Lint 检查（clang-tidy + cppcheck，支持 --changed/-j/路径）
 │   └── test.sh            # 测试运行器（支持指定测试名）

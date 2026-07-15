@@ -128,6 +128,8 @@ else
         cfg=""
         if [[ "$f" == tests/* ]] && [ -f "${proot}/tests/.clang-tidy" ]; then
           cfg="--config-file=${proot}/tests/.clang-tidy"
+        elif [[ "$f" == benchmark/* ]] && [ -f "${proot}/benchmark/.clang-tidy" ]; then
+          cfg="--config-file=${proot}/benchmark/.clang-tidy"
         fi
         if ! "$cmd" --quiet $cfg --header-filter="${proot}/.*" -p . "$f" > "$outdir/$idx.out" 2>&1; then
           echo "$f" >> "$outdir/failed"

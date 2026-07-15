@@ -25,6 +25,8 @@ compile_commands.json
 core.*
 *.d
 data/uploads/
+data/bench/
+benchmark/baseline/
 # Debugger Files
 # debug information files
 *.dll
