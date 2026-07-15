@@ -1,0 +1,220 @@
+{
+  "scriptCompleted": true,
+  "filesAnalyzed": 4,
+  "filesSkipped": [],
+  "results": [
+    {
+      "path": "memory-pool/include/memory_pool_base.h",
+      "language": "c",
+      "fileCategory": "code",
+      "totalLines": 38,
+      "nonEmptyLines": 31,
+      "callGraph": [
+        {
+          "caller": "deallocate",
+          "callee": "deallocate_impl",
+          "lineNumber": 27
+        },
+        {
+          "caller": "deallocate",
+          "callee": "static_cast<Derived*>",
+          "lineNumber": 27
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "memory-pool/include/memory_pool_factory.h",
+      "language": "c",
+      "fileCategory": "code",
+      "totalLines": 26,
+      "nonEmptyLines": 19,
+      "functions": [
+        {
+          "name": "TieredMemoryPoolDeleter",
+          "startLine": 11,
+          "endLine": 15,
+          "params": [
+            "p"
+          ]
+        },
+        {
+          "name": "CreateMemoryPool",
+          "startLine": 21,
+          "endLine": 24,
+          "params": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "TieredMemoryPoolDeleter",
+          "line": 11,
+          "isDefault": false
+        },
+        {
+          "name": "CreateMemoryPool",
+          "line": 21,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "TieredMemoryPoolDeleter",
+          "callee": "static_cast<TieredMemoryPool*>",
+          "lineNumber": 14
+        },
+        {
+          "caller": "CreateMemoryPool",
+          "callee": "MemoryPoolPtr",
+          "lineNumber": 23
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 2,
+        "functionCount": 2,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "memory-pool/include/size_class.h",
+      "language": "c",
+      "fileCategory": "code",
+      "totalLines": 46,
+      "nonEmptyLines": 38,
+      "functions": [
+        {
+          "name": "round_up_size",
+          "startLine": 18,
+          "endLine": 27,
+          "params": [
+            "size"
+          ]
+        },
+        {
+          "name": "size_class_index",
+          "startLine": 29,
+          "endLine": 39,
+          "params": [
+            "size"
+          ]
+        },
+        {
+          "name": "size_class_size",
+          "startLine": 41,
+          "endLine": 44,
+          "params": [
+            "index"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "round_up_size",
+          "line": 18,
+          "isDefault": false
+        },
+        {
+          "name": "size_class_index",
+          "line": 29,
+          "isDefault": false
+        },
+        {
+          "name": "size_class_size",
+          "line": 41,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 3,
+        "functionCount": 3,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "memory-pool/include/tiered_memory_pool.h",
+      "language": "c",
+      "fileCategory": "code",
+      "totalLines": 67,
+      "nonEmptyLines": 53,
+      "functions": [
+        {
+          "name": "TieredMemoryPool",
+          "startLine": 17,
+          "endLine": 17,
+          "params": []
+        },
+        {
+          "name": "TieredMemoryPool",
+          "startLine": 20,
+          "endLine": 20,
+          "params": []
+        }
+      ],
+      "classes": [
+        {
+          "name": "TieredMemoryPool",
+          "startLine": 15,
+          "endLine": 65,
+          "methods": [
+            "TieredMemoryPool",
+            "TieredMemoryPool",
+            "deallocate_impl",
+            "ensure_registered",
+            "central_allocate_batch",
+            "return_batch_to_central",
+            "try_merge_and_promote",
+            "try_merge_central",
+            "try_merge_in_list",
+            "page_index_of"
+          ],
+          "properties": [
+            "allocate_impl",
+            "tl_cache_",
+            "centralMutex_",
+            "pagesMutex_",
+            "centralFreeLists_",
+            "pages_",
+            "destroyed_",
+            "registryMutex_",
+            "registryHead_"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "TieredMemoryPool",
+          "line": 17,
+          "isDefault": false
+        },
+        {
+          "name": "TieredMemoryPool",
+          "line": 20,
+          "isDefault": false
+        },
+        {
+          "name": "deallocate_impl",
+          "line": 25,
+          "isDefault": false
+        },
+        {
+          "name": "TieredMemoryPool",
+          "line": 15,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 2,
+        "exportCount": 4,
+        "functionCount": 2,
+        "classCount": 1
+      }
+    }
+  ]
+}

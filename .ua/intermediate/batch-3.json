@@ -1,0 +1,246 @@
+{
+  "batchIndex": 3,
+  "language": "zh",
+  "nodes": [
+    {
+      "id": "file:memory-pool/include/memory_pool_base.h",
+      "type": "file",
+      "name": "memory_pool_base.h",
+      "path": "memory-pool/include/memory_pool_base.h",
+      "language": "c",
+      "sizeLines": 38,
+      "category": "code",
+      "complexity": "moderate",
+      "filePath": "memory-pool/include/memory_pool_base.h"
+    },
+    {
+      "id": "file:memory-pool/include/memory_pool_factory.h",
+      "type": "file",
+      "name": "memory_pool_factory.h",
+      "path": "memory-pool/include/memory_pool_factory.h",
+      "language": "c",
+      "sizeLines": 26,
+      "category": "code",
+      "complexity": "moderate",
+      "filePath": "memory-pool/include/memory_pool_factory.h"
+    },
+    {
+      "id": "function:memory-pool/include/memory_pool_factory.h::TieredMemoryPoolDeleter",
+      "type": "function",
+      "name": "TieredMemoryPoolDeleter",
+      "file": "memory-pool/include/memory_pool_factory.h",
+      "startLine": 11,
+      "endLine": 15,
+      "params": [
+        "p"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:memory-pool/include/memory_pool_factory.h::CreateMemoryPool",
+      "type": "function",
+      "name": "CreateMemoryPool",
+      "file": "memory-pool/include/memory_pool_factory.h",
+      "startLine": 21,
+      "endLine": 24,
+      "params": [],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:memory-pool/include/size_class.h",
+      "type": "file",
+      "name": "size_class.h",
+      "path": "memory-pool/include/size_class.h",
+      "language": "c",
+      "sizeLines": 46,
+      "category": "code",
+      "complexity": "moderate",
+      "filePath": "memory-pool/include/size_class.h"
+    },
+    {
+      "id": "function:memory-pool/include/size_class.h::round_up_size",
+      "type": "function",
+      "name": "round_up_size",
+      "file": "memory-pool/include/size_class.h",
+      "startLine": 18,
+      "endLine": 27,
+      "params": [
+        "size"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:memory-pool/include/size_class.h::size_class_index",
+      "type": "function",
+      "name": "size_class_index",
+      "file": "memory-pool/include/size_class.h",
+      "startLine": 29,
+      "endLine": 39,
+      "params": [
+        "size"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:memory-pool/include/size_class.h::size_class_size",
+      "type": "function",
+      "name": "size_class_size",
+      "file": "memory-pool/include/size_class.h",
+      "startLine": 41,
+      "endLine": 44,
+      "params": [
+        "index"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:memory-pool/include/tiered_memory_pool.h",
+      "type": "file",
+      "name": "tiered_memory_pool.h",
+      "path": "memory-pool/include/tiered_memory_pool.h",
+      "language": "c",
+      "sizeLines": 67,
+      "category": "code",
+      "complexity": "moderate",
+      "filePath": "memory-pool/include/tiered_memory_pool.h"
+    },
+    {
+      "id": "class:memory-pool/include/tiered_memory_pool.h::TieredMemoryPool",
+      "type": "class",
+      "name": "TieredMemoryPool",
+      "file": "memory-pool/include/tiered_memory_pool.h",
+      "startLine": 15,
+      "endLine": 65,
+      "methods": [
+        "TieredMemoryPool",
+        "TieredMemoryPool",
+        "deallocate_impl",
+        "ensure_registered",
+        "central_allocate_batch",
+        "return_batch_to_central",
+        "try_merge_and_promote",
+        "try_merge_central",
+        "try_merge_in_list",
+        "page_index_of"
+      ],
+      "properties": [
+        "allocate_impl",
+        "tl_cache_",
+        "centralMutex_",
+        "pagesMutex_",
+        "centralFreeLists_",
+        "pages_",
+        "destroyed_",
+        "registryMutex_",
+        "registryHead_"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:memory-pool/include/tiered_memory_pool.h::TieredMemoryPool",
+      "type": "function",
+      "name": "TieredMemoryPool",
+      "file": "memory-pool/include/tiered_memory_pool.h",
+      "startLine": 17,
+      "endLine": 17,
+      "params": [],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:memory-pool/include/tiered_memory_pool.h::deallocate_impl",
+      "type": "function",
+      "name": "deallocate_impl",
+      "file": "memory-pool/include/tiered_memory_pool.h",
+      "startLine": 0,
+      "endLine": 0,
+      "params": [],
+      "complexity": "moderate"
+    }
+  ],
+  "edges": [
+    {
+      "source": "file:memory-pool/include/memory_pool_factory.h",
+      "target": "function:memory-pool/include/memory_pool_factory.h::TieredMemoryPoolDeleter",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:memory-pool/include/memory_pool_factory.h",
+      "target": "function:memory-pool/include/memory_pool_factory.h::CreateMemoryPool",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:memory-pool/include/memory_pool_factory.h",
+      "target": "file:memory-pool/include/tiered_memory_pool.h",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:memory-pool/include/size_class.h",
+      "target": "function:memory-pool/include/size_class.h::round_up_size",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:memory-pool/include/size_class.h",
+      "target": "function:memory-pool/include/size_class.h::size_class_index",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:memory-pool/include/size_class.h",
+      "target": "function:memory-pool/include/size_class.h::size_class_size",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:memory-pool/include/tiered_memory_pool.h",
+      "target": "class:memory-pool/include/tiered_memory_pool.h::TieredMemoryPool",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:memory-pool/include/tiered_memory_pool.h",
+      "target": "function:memory-pool/include/tiered_memory_pool.h::TieredMemoryPool",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:memory-pool/include/tiered_memory_pool.h",
+      "target": "function:memory-pool/include/tiered_memory_pool.h::deallocate_impl",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:memory-pool/include/tiered_memory_pool.h",
+      "target": "file:memory-pool/include/memory_pool_base.h",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:memory-pool/include/tiered_memory_pool.h",
+      "target": "file:memory-pool/include/size_class.h",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    }
+  ],
+  "stats": {
+    "files": 4,
+    "classes": 1,
+    "functions": 7,
+    "edges_contains": 8,
+    "edges_imports": 3
+  }
+}

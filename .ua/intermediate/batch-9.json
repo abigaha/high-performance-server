@@ -1,0 +1,212 @@
+{
+  "nodes": [
+    {
+      "id": "file:scripts/dev.sh",
+      "type": "file",
+      "name": "dev.sh",
+      "filePath": "scripts/dev.sh",
+      "summary": "\u7f16\u8bd1/\u683c\u5f0f\u5316/Lint/CodeQL/\u6d4b\u8bd5\u7b49\u5f00\u53d1\u547d\u4ee4",
+      "tags": [
+        "dev",
+        "tool",
+        "script"
+      ],
+      "complexity": 1
+    },
+    {
+      "id": "file:scripts/docker.sh",
+      "type": "file",
+      "name": "docker.sh",
+      "filePath": "scripts/docker.sh",
+      "summary": "Docker \u955c\u50cf\u6784\u5efa/\u8fd0\u884c/\u7f16\u6392\u7ba1\u7406\u547d\u4ee4",
+      "tags": [
+        "docker",
+        "tool",
+        "script"
+      ],
+      "complexity": 1
+    },
+    {
+      "id": "file:scripts/lint.sh",
+      "type": "file",
+      "name": "lint.sh",
+      "filePath": "scripts/lint.sh",
+      "summary": "clang-tidy/cppcheck \u9759\u6001\u5206\u6790\u5305\u88c5\u811a\u672c",
+      "tags": [
+        "lint",
+        "analysis",
+        "script"
+      ],
+      "complexity": 1
+    },
+    {
+      "id": "file:scripts/test.sh",
+      "type": "file",
+      "name": "test.sh",
+      "filePath": "scripts/test.sh",
+      "summary": "Google Test \u6d4b\u8bd5\u8fd0\u884c\u5305\u88c5\u811a\u672c",
+      "tags": [
+        "test",
+        "gtest",
+        "script"
+      ],
+      "complexity": 1
+    },
+    {
+      "id": "function:scripts/dev.sh:cmd_compile",
+      "type": "function",
+      "name": "cmd_compile",
+      "filePath": "scripts/dev.sh",
+      "summary": "\u7f16\u8bd1\u9879\u76ee\uff08xmake\uff09",
+      "tags": [
+        "build",
+        "compile"
+      ],
+      "complexity": 1
+    },
+    {
+      "id": "function:scripts/dev.sh:cmd_format",
+      "type": "function",
+      "name": "cmd_format",
+      "filePath": "scripts/dev.sh",
+      "summary": "\u683c\u5f0f\u5316 C/C++ \u6e90\u7801\uff08clang-format\uff09",
+      "tags": [
+        "format",
+        "style"
+      ],
+      "complexity": 1
+    },
+    {
+      "id": "function:scripts/dev.sh:cmd_codeql",
+      "type": "function",
+      "name": "cmd_codeql",
+      "filePath": "scripts/dev.sh",
+      "summary": "CodeQL \u6e90\u7801\u5206\u6790\uff1a\u6253\u5305\u2192\u4e0a\u4f20\u2192\u7ed3\u679c\u89e3\u6790",
+      "tags": [
+        "codeql",
+        "analysis",
+        "security"
+      ],
+      "complexity": 4
+    },
+    {
+      "id": "function:scripts/dev.sh:menu",
+      "type": "function",
+      "name": "menu",
+      "filePath": "scripts/dev.sh",
+      "summary": "\u4ea4\u4e92\u5f0f\u83dc\u5355\uff0c\u5217\u51fa\u6240\u6709\u53ef\u7528\u5b50\u547d\u4ee4",
+      "tags": [
+        "interactive",
+        "menu",
+        "ui"
+      ],
+      "complexity": 2
+    },
+    {
+      "id": "function:scripts/docker.sh:cmd_run",
+      "type": "function",
+      "name": "cmd_run",
+      "filePath": "scripts/docker.sh",
+      "summary": "\u8fd0\u884c Docker \u5bb9\u5668\u5e76\u6620\u5c04\u7aef\u53e3\u4e0e\u5377",
+      "tags": [
+        "docker",
+        "run"
+      ],
+      "complexity": 1
+    },
+    {
+      "id": "function:scripts/docker.sh:menu",
+      "type": "function",
+      "name": "menu",
+      "filePath": "scripts/docker.sh",
+      "summary": "\u4ea4\u4e92\u5f0f\u83dc\u5355\uff0c\u5217\u51fa Docker \u5b50\u547d\u4ee4",
+      "tags": [
+        "interactive",
+        "menu"
+      ],
+      "complexity": 2
+    },
+    {
+      "id": "function:scripts/lint.sh:usage",
+      "type": "function",
+      "name": "usage",
+      "filePath": "scripts/lint.sh",
+      "summary": "\u663e\u793a lint.sh \u4f7f\u7528\u8bf4\u660e\u4e0e\u9009\u9879",
+      "tags": [
+        "help",
+        "usage"
+      ],
+      "complexity": 1
+    },
+    {
+      "id": "function:scripts/lint.sh:collect_path_sources",
+      "type": "function",
+      "name": "collect_path_sources",
+      "filePath": "scripts/lint.sh",
+      "summary": "\u6536\u96c6\u6307\u5b9a\u8def\u5f84\u4e0b\u7684 C/C++ \u6e90\u6587\u4ef6",
+      "tags": [
+        "source",
+        "collect"
+      ],
+      "complexity": 1
+    }
+  ],
+  "edges": [
+    {
+      "source": "file:scripts/dev.sh",
+      "target": "function:scripts/dev.sh:cmd_compile",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:scripts/dev.sh",
+      "target": "function:scripts/dev.sh:cmd_format",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:scripts/dev.sh",
+      "target": "function:scripts/dev.sh:cmd_codeql",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:scripts/dev.sh",
+      "target": "function:scripts/dev.sh:menu",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:scripts/docker.sh",
+      "target": "function:scripts/docker.sh:cmd_run",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:scripts/docker.sh",
+      "target": "function:scripts/docker.sh:menu",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:scripts/lint.sh",
+      "target": "function:scripts/lint.sh:usage",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:scripts/lint.sh",
+      "target": "function:scripts/lint.sh:collect_path_sources",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    }
+  ]
+}

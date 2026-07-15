@@ -58,6 +58,7 @@ if os.host() == "linux" and os.isfile("/usr/lib/x86_64-linux-gnu/libbenchmark.so
         local name = path.basename(file)
         target("bench_" .. name)
             set_kind("binary")
+            set_targetdir(path.join(os.projectdir(), "bin"))
             set_rundir("$(projectdir)")
             set_group("benchmark")
             add_files(file)

@@ -1,0 +1,119 @@
+{
+  "projectRoot": "/home/jmj/work-space/projects/high-performance-server",
+  "batchFiles": [
+    {
+      "path": "plan/development_plan.md",
+      "language": "markdown",
+      "sizeLines": 35,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "plan/docker-deployment.md",
+      "language": "markdown",
+      "sizeLines": 30,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "plan/end-to-end-verification.md",
+      "language": "markdown",
+      "sizeLines": 74,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "plan/memory-pool-tiered-optimization.md",
+      "language": "markdown",
+      "sizeLines": 39,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "plan/step-0-2-infrastructure.md",
+      "language": "markdown",
+      "sizeLines": 117,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "plan/step-10-locked-thread-pool.md",
+      "language": "markdown",
+      "sizeLines": 131,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "plan/step-11-main-integration.md",
+      "language": "markdown",
+      "sizeLines": 86,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "plan/step-2-routing.md",
+      "language": "markdown",
+      "sizeLines": 82,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "plan/step-2.5-arch-refactor.md",
+      "language": "markdown",
+      "sizeLines": 36,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "plan/step-3-interface-layer.md",
+      "language": "markdown",
+      "sizeLines": 105,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "plan/step-4-file-system.md",
+      "language": "markdown",
+      "sizeLines": 63,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "plan/step-5-range-streaming.md",
+      "language": "markdown",
+      "sizeLines": 61,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "plan/step-6-database.md",
+      "language": "markdown",
+      "sizeLines": 120,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "plan/step-7-file-transfer.md",
+      "language": "markdown",
+      "sizeLines": 56,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "plan/step-8-https-tls.md",
+      "language": "markdown",
+      "sizeLines": 61,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "plan/step-9-websocket.md",
+      "language": "markdown",
+      "sizeLines": 101,
+      "fileCategory": "docs"
+    }
+  ],
+  "batchImportData": {
+    "plan/development_plan.md": [],
+    "plan/docker-deployment.md": [],
+    "plan/end-to-end-verification.md": [],
+    "plan/memory-pool-tiered-optimization.md": [],
+    "plan/step-0-2-infrastructure.md": [],
+    "plan/step-10-locked-thread-pool.md": [],
+    "plan/step-11-main-integration.md": [],
+    "plan/step-2-routing.md": [],
+    "plan/step-2.5-arch-refactor.md": [],
+    "plan/step-3-interface-layer.md": [],
+    "plan/step-4-file-system.md": [],
+    "plan/step-5-range-streaming.md": [],
+    "plan/step-6-database.md": [],
+    "plan/step-7-file-transfer.md": [],
+    "plan/step-8-https-tls.md": [],
+    "plan/step-9-websocket.md": []
+  }
+}

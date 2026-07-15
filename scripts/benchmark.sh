@@ -11,9 +11,11 @@ cd "$PROJECT_ROOT"
 export LD_LIBRARY_PATH="$PROJECT_ROOT/lib${LD_LIBRARY_PATH:+:$LD_LIBRARY_PATH}"
 
 BASELINE_DIR="$PROJECT_ROOT/benchmark/baseline"
+REPORT_DIR="$PROJECT_ROOT/benchmark/reports"
 TIMESTAMP=$(date '+%Y%m%d_%H%M%S')
 GIT_HASH=$(git rev-parse --short HEAD 2>/dev/null || echo "unknown")
 HOSTNAME=$(hostname 2>/dev/null || echo "unknown")
+mkdir -p "$REPORT_DIR"
 
 ensure_binaries() {
   local missing=0
@@ -42,6 +44,27 @@ env_info() {
   "memory_kb": "$(grep MemTotal /proc/meminfo 2>/dev/null | awk '{print $2}' || echo 'unknown')"
 }
 EOF
+}
+
+save_text_report() {
+  local name="$1"
+  local content="$2"
+  local report_file="$REPORT_DIR/${name}_${TIMESTAMP}.txt"
+  mkdir -p "$REPORT_DIR"
+  {
+    echo "=========================================="
+    echo "  性能测试报告: $name"
+    echo "  时间: $TIMESTAMP"
+    echo "  Git:  $GIT_HASH"
+    echo "  主机: $HOSTNAME"
+    echo "  CPU:  $(grep -m1 'model name' /proc/cpuinfo 2>/dev/null | sed 's/.*: //' || echo 'unknown')"
+    echo "  核心: $(nproc 2>/dev/null || echo 'unknown')"
+    echo "=========================================="
+    echo ""
+    echo "$content"
+  } > "$report_file"
+  green "报告已保存: $report_file"
+  ln -sf "$report_file" "$REPORT_DIR/${name}_latest.txt"
 }
 
 save_baseline() {
@@ -103,7 +126,7 @@ cmd_micro() {
   bench_bins=$(find "$PROJECT_ROOT/bin" -name 'bench_*' -type f 2>/dev/null | sort || true)
 
   if [ -z "$bench_bins" ]; then
-    red "未找到 benchmark 二进制（bin/bench_*），请先编译"
+    red "未找到 benchmark 二进制（bin/bench_bench_*），请先编译"
     exit 1
   fi
 
@@ -173,6 +196,33 @@ print(json.dumps(d, indent=2))
 ")
   save_baseline "micro_latest" "$full_data"
   green "微基准测试完成，结果已保存到 $BASELINE_DIR/micro_latest.json"
+
+  # 生成文本报告
+  local report_file="$REPORT_DIR/micro_${TIMESTAMP}.txt"
+  mkdir -p "$REPORT_DIR"
+  {
+    echo "=========================================="
+    echo "  微基准测试报告"
+    echo "  时间: $TIMESTAMP"
+    echo "  Git:  $GIT_HASH"
+    echo "  主机: $HOSTNAME"
+    echo "  CPU:  $(grep -m1 'model name' /proc/cpuinfo 2>/dev/null | sed 's/.*: //' || echo 'unknown')"
+    echo "  核心: $(nproc 2>/dev/null || echo 'unknown')"
+    echo "=========================================="
+    echo ""
+    for bin in $bench_bins; do
+      local name; name=$(basename "$bin")
+      echo "--- $name ---"
+      "$bin" 2>/dev/null | while IFS= read -r line; do
+        if echo "$line" | grep -qE '^[-_A-Za-z0-9/]+\s+'; then
+          echo "  $line"
+        fi
+      done
+      echo ""
+    done
+  } > "$report_file"
+  green "报告已保存: $report_file"
+  ln -sf "$report_file" "$REPORT_DIR/micro_latest.txt"
 }
 
 cmd_load() {
@@ -186,12 +236,10 @@ cmd_load() {
   fi
 
   local port=9090
-  local pid_file="/tmp/hps_bench_server.pid"
 
   yellow "启动服务器（端口 $port）..."
-  "$server_bin" --port "$port" --threads 4 &
-  local server_pid=$!
-  echo "$server_pid" > "$pid_file"
+  "$server_bin" --port "$port" --threads "$(nproc)" &
+  g_bench_server_pid=$!
 
   for i in $(seq 1 30); do
     if curl -sf "http://127.0.0.1:$port/api/health" >/dev/null 2>&1; then
@@ -202,10 +250,8 @@ cmd_load() {
   done
 
   cleanup() {
-    if [ -f "$pid_file" ]; then
-      kill "$(cat "$pid_file")" 2>/dev/null || true
-      rm -f "$pid_file"
-    fi
+    kill "${g_bench_server_pid:-}" 2>/dev/null || true
+    wait "${g_bench_server_pid:-}" 2>/dev/null || true
   }
   trap cleanup EXIT
 
@@ -223,10 +269,11 @@ cmd_load() {
   for url in "${urls[@]}"; do
     for conn in "${concurrency_levels[@]}"; do
       local path_part; path_part=$(echo "$url" | sed 's|.*/api/|/api/|')
-      for duration in 5; do
+      for duration in 15; do
         yellow "  $path_part  并发=$conn  持续时间=${duration}s"
         local output
-        output=$(wrk -t"$conn" -c"$conn" -d"${duration}s" --latency "$url" 2>/dev/null || true)
+        local wrk_threads=$(( conn < $(nproc) ? conn : $(nproc) ))
+        output=$(wrk -t"$wrk_threads" -c"$conn" -d"${duration}s" --latency "$url" 2>/dev/null || true)
         if [ -n "$output" ]; then
           local rps; rps=$(echo "$output" | grep 'Requests/sec' | awk '{print $2}')
           local avg_lat; avg_lat=$(echo "$output" | grep 'Latency' | head -1 | awk '{print $2}' | sed 's/ms//')
@@ -242,9 +289,9 @@ d = json.load(sys.stdin)
 d.append({
     'url': '$url',
     'concurrency': $conn,
-    'duration': ${duration}s,
+    'duration': '${duration}s',
     'rps': ${rps:-0},
-    'avg_latency_ms': ${avg_lat:-0},
+    'avg_latency_ms': '${avg_lat:-0}',
     'p50': '$p50',
     'p90': '$p90',
     'p99': '$p99'
@@ -256,18 +303,45 @@ print(json.dumps(d))
     done
   done
 
-  local env; env=$(env_info)
+  local env_json; env_json=$(env_info)
+  export BENCH_ENV_JSON="$env_json"
   local full_data
   full_data=$(echo "{}" | python3 -c "
-import json,sys
+import json,sys,os
 d = json.load(sys.stdin)
 d['type'] = 'load'
-d['environment'] = json.loads('$env')
+d['environment'] = json.loads(os.environ['BENCH_ENV_JSON'])
 d['results'] = $load_results
 print(json.dumps(d, indent=2))
 ")
   save_baseline "load_latest" "$full_data"
   green "负载测试完成，结果已保存到 $BASELINE_DIR/load_latest.json"
+
+  # 生成文本报告
+  local report_file="$REPORT_DIR/load_${TIMESTAMP}.txt"
+  mkdir -p "$REPORT_DIR"
+  {
+    echo "=========================================="
+    echo "  负载测试报告"
+    echo "  时间: $TIMESTAMP"
+    echo "  Git:  $GIT_HASH"
+    echo "  主机: $HOSTNAME"
+    echo "  CPU:  $(grep -m1 'model name' /proc/cpuinfo 2>/dev/null | sed 's/.*: //' || echo 'unknown')"
+    echo "  核心: $(nproc 2>/dev/null || echo 'unknown')"
+    echo "=========================================="
+    echo ""
+    printf "%-25s %10s %10s %12s %12s %12s\n" "端点" "并发" "RPS" "平均延迟" "p50" "p90" "p99"
+    echo "$(printf '=%.0s' {1..95})"
+    echo "$load_results" | python3 -c "
+import json,sys
+results = json.load(sys.stdin)
+for r in sorted(results, key=lambda x: (x.get('url',''), x.get('concurrency',0))):
+    url = r.get('url','').split('/api/')[-1] if '/api/' in r.get('url','') else r.get('url','')
+    print(f\"{url:25s} {r.get('concurrency',0):10d} {r.get('rps',0):10.1f} {str(r.get('avg_latency_ms','N/A')):>10s}ms {str(r.get('p50','N/A')):>10s} {str(r.get('p90','N/A')):>10s} {str(r.get('p99','N/A')):>10s}\")
+"
+  } > "$report_file"
+  green "报告已保存: $report_file"
+  ln -sf "$report_file" "$REPORT_DIR/load_latest.txt"
 }
 
 cmd_diff() {

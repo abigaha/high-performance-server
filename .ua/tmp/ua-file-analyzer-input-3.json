@@ -1,0 +1,40 @@
+{
+  "projectRoot": "/home/jmj/work-space/projects/high-performance-server",
+  "batchFiles": [
+    {
+      "path": "memory-pool/include/memory_pool_base.h",
+      "language": "c",
+      "sizeLines": 38,
+      "fileCategory": "code"
+    },
+    {
+      "path": "memory-pool/include/memory_pool_factory.h",
+      "language": "c",
+      "sizeLines": 26,
+      "fileCategory": "code"
+    },
+    {
+      "path": "memory-pool/include/size_class.h",
+      "language": "c",
+      "sizeLines": 46,
+      "fileCategory": "code"
+    },
+    {
+      "path": "memory-pool/include/tiered_memory_pool.h",
+      "language": "c",
+      "sizeLines": 67,
+      "fileCategory": "code"
+    }
+  ],
+  "batchImportData": {
+    "memory-pool/include/memory_pool_base.h": [],
+    "memory-pool/include/memory_pool_factory.h": [
+      "memory-pool/include/tiered_memory_pool.h"
+    ],
+    "memory-pool/include/size_class.h": [],
+    "memory-pool/include/tiered_memory_pool.h": [
+      "memory-pool/include/memory_pool_base.h",
+      "memory-pool/include/size_class.h"
+    ]
+  }
+}

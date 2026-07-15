@@ -1,0 +1,265 @@
+{
+  "scriptCompleted": true,
+  "filesAnalyzed": 4,
+  "filesSkipped": [],
+  "results": [
+    {
+      "path": "scripts/dev.sh",
+      "language": "shell",
+      "fileCategory": "script",
+      "totalLines": 213,
+      "nonEmptyLines": 194,
+      "functions": [
+        {
+          "name": "red",
+          "startLine": 7,
+          "endLine": 7,
+          "params": []
+        },
+        {
+          "name": "green",
+          "startLine": 8,
+          "endLine": 8,
+          "params": []
+        },
+        {
+          "name": "yellow",
+          "startLine": 9,
+          "endLine": 9,
+          "params": []
+        },
+        {
+          "name": "blue",
+          "startLine": 10,
+          "endLine": 10,
+          "params": []
+        },
+        {
+          "name": "cmd_compile",
+          "startLine": 12,
+          "endLine": 20,
+          "params": []
+        },
+        {
+          "name": "cmd_format",
+          "startLine": 22,
+          "endLine": 36,
+          "params": []
+        },
+        {
+          "name": "cmd_lint",
+          "startLine": 38,
+          "endLine": 41,
+          "params": []
+        },
+        {
+          "name": "cmd_test",
+          "startLine": 43,
+          "endLine": 46,
+          "params": []
+        },
+        {
+          "name": "cmd_codeql",
+          "startLine": 48,
+          "endLine": 163,
+          "params": []
+        },
+        {
+          "name": "cmd_all",
+          "startLine": 165,
+          "endLine": 170,
+          "params": []
+        },
+        {
+          "name": "menu",
+          "startLine": 172,
+          "endLine": 199,
+          "params": []
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 11,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "scripts/docker.sh",
+      "language": "shell",
+      "fileCategory": "script",
+      "totalLines": 107,
+      "nonEmptyLines": 96,
+      "functions": [
+        {
+          "name": "red",
+          "startLine": 7,
+          "endLine": 7,
+          "params": []
+        },
+        {
+          "name": "green",
+          "startLine": 8,
+          "endLine": 8,
+          "params": []
+        },
+        {
+          "name": "yellow",
+          "startLine": 9,
+          "endLine": 9,
+          "params": []
+        },
+        {
+          "name": "blue",
+          "startLine": 10,
+          "endLine": 10,
+          "params": []
+        },
+        {
+          "name": "cmd_build",
+          "startLine": 12,
+          "endLine": 16,
+          "params": []
+        },
+        {
+          "name": "cmd_image",
+          "startLine": 18,
+          "endLine": 23,
+          "params": []
+        },
+        {
+          "name": "cmd_run",
+          "startLine": 25,
+          "endLine": 37,
+          "params": []
+        },
+        {
+          "name": "cmd_stop",
+          "startLine": 39,
+          "endLine": 44,
+          "params": []
+        },
+        {
+          "name": "cmd_compose_up",
+          "startLine": 46,
+          "endLine": 50,
+          "params": []
+        },
+        {
+          "name": "cmd_compose_down",
+          "startLine": 52,
+          "endLine": 56,
+          "params": []
+        },
+        {
+          "name": "cmd_all",
+          "startLine": 58,
+          "endLine": 63,
+          "params": []
+        },
+        {
+          "name": "menu",
+          "startLine": 65,
+          "endLine": 92,
+          "params": []
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 12,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "scripts/lint.sh",
+      "language": "shell",
+      "fileCategory": "script",
+      "totalLines": 191,
+      "nonEmptyLines": 169,
+      "functions": [
+        {
+          "name": "red",
+          "startLine": 7,
+          "endLine": 7,
+          "params": []
+        },
+        {
+          "name": "green",
+          "startLine": 8,
+          "endLine": 8,
+          "params": []
+        },
+        {
+          "name": "yellow",
+          "startLine": 9,
+          "endLine": 9,
+          "params": []
+        },
+        {
+          "name": "usage",
+          "startLine": 17,
+          "endLine": 28,
+          "params": []
+        },
+        {
+          "name": "collect_all_sources",
+          "startLine": 60,
+          "endLine": 65,
+          "params": []
+        },
+        {
+          "name": "collect_path_sources",
+          "startLine": 67,
+          "endLine": 81,
+          "params": []
+        },
+        {
+          "name": "collect_changed_sources",
+          "startLine": 83,
+          "endLine": 90,
+          "params": []
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 7,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "scripts/test.sh",
+      "language": "shell",
+      "fileCategory": "script",
+      "totalLines": 36,
+      "nonEmptyLines": 31,
+      "functions": [
+        {
+          "name": "red",
+          "startLine": 7,
+          "endLine": 7,
+          "params": []
+        },
+        {
+          "name": "green",
+          "startLine": 8,
+          "endLine": 8,
+          "params": []
+        },
+        {
+          "name": "yellow",
+          "startLine": 9,
+          "endLine": 9,
+          "params": []
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 3,
+        "classCount": 0
+      }
+    }
+  ]
+}

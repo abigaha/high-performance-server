@@ -1,0 +1,104 @@
+# .understandignore — patterns for files/dirs to exclude from analysis
+# Syntax: same as .gitignore (globs, # comments, ! negation, trailing / for dirs)
+# Lines below are suggestions — uncomment to activate.
+# Use ! prefix to force-include something excluded by defaults.
+#
+# Built-in defaults (always excluded unless negated):
+#   node_modules/, .git/, dist/, build/, obj/, *.lock, *.min.js, etc.
+#
+
+# --- From .gitignore (uncomment to exclude) ---
+
+# *.a
+# AGENTS.md
+# *.app
+# *.bak
+# bin/
+# build-*/
+# Build/
+# .clangd
+# .clangd/
+# .clang-format
+# .codebuddy/
+# .codegraph
+# .codegraph/
+# compile_commands_fixed.json
+# compile_commands.json
+# core.*
+# *.d
+# data/uploads/
+# *.dll
+# *.dwo
+# *.dylib
+# *.exe
+# *.gch
+# .github/
+# .idx
+# *.ilk
+# *.la
+# *.lai
+# *.lib
+# *.lo
+# *.mod
+# *.o
+# *.obj
+# .opencode
+# .opencode/
+# opencode.jsonc
+# *.out
+# *.pch
+# *.pdb
+# .pylintrc
+# setup.sh
+# *.slo
+# *.smod
+# *.so
+# *.so.*
+# source.tar.gz
+# *.swp
+# Testing/
+# *.tmp
+# tui.json
+# vcpkg_installed/
+# .xmake/
+# xmake.conf
+
+# --- Detected directories (uncomment to exclude) ---
+
+# scripts/
+# tests/
+
+# --- Test file patterns (uncomment to exclude) ---
+
+# JS / TS
+# *.test.*
+# *.spec.*
+# *.snap
+# C# / .NET
+# **/*Tests.cs
+# **/*Test.cs
+# **/*Fixture.cs
+# **/*.Tests.csproj
+# Java / Kotlin
+# **/src/test/**
+# **/*Test.java
+# **/*IT.java
+# **/*Spec.kt
+# Go
+# **/*_test.go
+# C++
+# **/*_test.cc
+# **/*_test.cpp
+# **/*_test.cxx
+# **/*Test.cc
+# **/*Test.cpp
+# **/*_unittest.cc
+# **/*_unittest.cpp
+# **/*_browsertest.cc
+# **/*_benchmark.cc
+# **/*Benchmark.cpp
+# Python
+# **/test_*.py
+# **/*_test.py
+# **/tests.py
+# **/conftest.py

@@ -1,0 +1,5814 @@
+{
+  "batchIndex": 12,
+  "algorithm": "louvain",
+  "totalFiles": 25,
+  "nodes": [
+    {
+      "id": "file:net/thread-pool/src/locked_thread_pool.cpp",
+      "type": "file",
+      "label": "文件: net/thread-pool/src/locked_thread_pool.cpp",
+      "properties": {
+        "path": "net/thread-pool/src/locked_thread_pool.cpp",
+        "language": "cpp",
+        "category": "code",
+        "totalLines": 76,
+        "nonEmptyLines": 67
+      }
+    },
+    {
+      "id": "func:net/thread-pool/src/locked_thread_pool.cpp::LockedThreadPool",
+      "type": "function",
+      "label": "函数: LockedThreadPool",
+      "properties": {
+        "name": "LockedThreadPool",
+        "file": "net/thread-pool/src/locked_thread_pool.cpp",
+        "startLine": 7,
+        "endLine": 12,
+        "params": [
+          "num_threads"
+        ],
+        "isMethod": false
+      }
+    },
+    {
+      "id": "func:net/thread-pool/src/locked_thread_pool.cpp::~LockedThreadPool",
+      "type": "function",
+      "label": "函数: ~LockedThreadPool",
+      "properties": {
+        "name": "~LockedThreadPool",
+        "file": "net/thread-pool/src/locked_thread_pool.cpp",
+        "startLine": 14,
+        "endLine": 18,
+        "params": [],
+        "isMethod": false
+      }
+    },
+    {
+      "id": "func:net/thread-pool/src/locked_thread_pool.cpp::worker",
+      "type": "function",
+      "label": "函数: worker",
+      "properties": {
+        "name": "worker",
+        "file": "net/thread-pool/src/locked_thread_pool.cpp",
+        "startLine": 20,
+        "endLine": 45,
+        "params": [
+          "stop_token"
+        ],
+        "isMethod": false
+      }
+    },
+    {
+      "id": "func:net/thread-pool/src/locked_thread_pool.cpp::wait_impl",
+      "type": "function",
+      "label": "函数: wait_impl",
+      "properties": {
+        "name": "wait_impl",
+        "file": "net/thread-pool/src/locked_thread_pool.cpp",
+        "startLine": 47,
+        "endLine": 50,
+        "params": [],
+        "isMethod": false
+      }
+    },
+    {
+      "id": "func:net/thread-pool/src/locked_thread_pool.cpp::wait_for",
+      "type": "function",
+      "label": "函数: wait_for",
+      "properties": {
+        "name": "wait_for",
+        "file": "net/thread-pool/src/locked_thread_pool.cpp",
+        "startLine": 52,
+        "endLine": 55,
+        "params": [
+          "timeout"
+        ],
+        "isMethod": false
+      }
+    },
+    {
+      "id": "func:net/thread-pool/src/locked_thread_pool.cpp::stop_impl",
+      "type": "function",
+      "label": "函数: stop_impl",
+      "properties": {
+        "name": "stop_impl",
+        "file": "net/thread-pool/src/locked_thread_pool.cpp",
+        "startLine": 57,
+        "endLine": 74,
+        "params": [],
+        "isMethod": false
+      }
+    },
+    {
+      "id": "file:net/thread-pool/src/thread_pool.cpp",
+      "type": "file",
+      "label": "文件: net/thread-pool/src/thread_pool.cpp",
+      "properties": {
+        "path": "net/thread-pool/src/thread_pool.cpp",
+        "language": "cpp",
+        "category": "code",
+        "totalLines": 63,
+        "nonEmptyLines": 55
+      }
+    },
+    {
+      "id": "func:net/thread-pool/src/thread_pool.cpp::LockFreeThreadPool",
+      "type": "function",
+      "label": "函数: LockFreeThreadPool",
+      "properties": {
+        "name": "LockFreeThreadPool",
+        "file": "net/thread-pool/src/thread_pool.cpp",
+        "startLine": 7,
+        "endLine": 11,
+        "params": [
+          "numThreads"
+        ],
+        "isMethod": false
+      }
+    },
+    {
+      "id": "func:net/thread-pool/src/thread_pool.cpp::~LockFreeThreadPool",
+      "type": "function",
+      "label": "函数: ~LockFreeThreadPool",
+      "properties": {
+        "name": "~LockFreeThreadPool",
+        "file": "net/thread-pool/src/thread_pool.cpp",
+        "startLine": 13,
+        "endLine": 15,
+        "params": [],
+        "isMethod": false
+      }
+    },
+    {
+      "id": "func:net/thread-pool/src/thread_pool.cpp::stop_impl",
+      "type": "function",
+      "label": "函数: stop_impl",
+      "properties": {
+        "name": "stop_impl",
+        "file": "net/thread-pool/src/thread_pool.cpp",
+        "startLine": 17,
+        "endLine": 28,
+        "params": [],
+        "isMethod": false
+      }
+    },
+    {
+      "id": "func:net/thread-pool/src/thread_pool.cpp::worker",
+      "type": "function",
+      "label": "函数: worker",
+      "properties": {
+        "name": "worker",
+        "file": "net/thread-pool/src/thread_pool.cpp",
+        "startLine": 30,
+        "endLine": 56,
+        "params": [
+          "stop_token"
+        ],
+        "isMethod": false
+      }
+    },
+    {
+      "id": "func:net/thread-pool/src/thread_pool.cpp::wait_impl",
+      "type": "function",
+      "label": "函数: wait_impl",
+      "properties": {
+        "name": "wait_impl",
+        "file": "net/thread-pool/src/thread_pool.cpp",
+        "startLine": 58,
+        "endLine": 61,
+        "params": [],
+        "isMethod": false
+      }
+    },
+    {
+      "id": "file:net/thread-pool/xmake.lua",
+      "type": "file",
+      "label": "文件: net/thread-pool/xmake.lua",
+      "properties": {
+        "path": "net/thread-pool/xmake.lua",
+        "language": "lua",
+        "category": "code",
+        "totalLines": 7,
+        "nonEmptyLines": 7
+      }
+    },
+    {
+      "id": "file:net/websocket/include/websocket.h",
+      "type": "file",
+      "label": "文件: net/websocket/include/websocket.h",
+      "properties": {
+        "path": "net/websocket/include/websocket.h",
+        "language": "c",
+        "category": "code",
+        "totalLines": 40,
+        "nonEmptyLines": 29
+      }
+    },
+    {
+      "id": "class:net/websocket/include/websocket.h::WsFrame",
+      "type": "class",
+      "label": "类: WsFrame",
+      "properties": {
+        "name": "WsFrame",
+        "startLine": 24,
+        "endLine": 28,
+        "methodCount": 0,
+        "propertyCount": 3
+      }
+    },
+    {
+      "id": "file:net/websocket/include/ws_connection.h",
+      "type": "file",
+      "label": "文件: net/websocket/include/ws_connection.h",
+      "properties": {
+        "path": "net/websocket/include/ws_connection.h",
+        "language": "c",
+        "category": "code",
+        "totalLines": 37,
+        "nonEmptyLines": 24
+      }
+    },
+    {
+      "id": "class:net/websocket/include/ws_connection.h::WsConnection",
+      "type": "class",
+      "label": "类: WsConnection",
+      "properties": {
+        "name": "WsConnection",
+        "startLine": 11,
+        "endLine": 35,
+        "methodCount": 6,
+        "propertyCount": 4
+      }
+    },
+    {
+      "id": "func:net/websocket/include/ws_connection.h::send",
+      "type": "function",
+      "label": "函数: send",
+      "properties": {
+        "name": "send",
+        "file": "net/websocket/include/ws_connection.h",
+        "isMethod": true
+      }
+    },
+    {
+      "id": "func:net/websocket/include/ws_connection.h::close",
+      "type": "function",
+      "label": "函数: close",
+      "properties": {
+        "name": "close",
+        "file": "net/websocket/include/ws_connection.h",
+        "isMethod": true
+      }
+    },
+    {
+      "id": "func:net/websocket/include/ws_connection.h::set_message_handler",
+      "type": "function",
+      "label": "函数: set_message_handler",
+      "properties": {
+        "name": "set_message_handler",
+        "file": "net/websocket/include/ws_connection.h",
+        "isMethod": true
+      }
+    },
+    {
+      "id": "func:net/websocket/include/ws_connection.h::set_close_handler",
+      "type": "function",
+      "label": "函数: set_close_handler",
+      "properties": {
+        "name": "set_close_handler",
+        "file": "net/websocket/include/ws_connection.h",
+        "isMethod": true
+      }
+    },
+    {
+      "id": "func:net/websocket/include/ws_connection.h::start_event_loop",
+      "type": "function",
+      "label": "函数: start_event_loop",
+      "properties": {
+        "name": "start_event_loop",
+        "file": "net/websocket/include/ws_connection.h",
+        "isMethod": true
+      }
+    },
+    {
+      "id": "func:net/websocket/include/ws_connection.h::do_send",
+      "type": "function",
+      "label": "函数: do_send",
+      "properties": {
+        "name": "do_send",
+        "file": "net/websocket/include/ws_connection.h",
+        "isMethod": true
+      }
+    },
+    {
+      "id": "file:net/websocket/src/websocket.cpp",
+      "type": "file",
+      "label": "文件: net/websocket/src/websocket.cpp",
+      "properties": {
+        "path": "net/websocket/src/websocket.cpp",
+        "language": "cpp",
+        "category": "code",
+        "totalLines": 175,
+        "nonEmptyLines": 142
+      }
+    },
+    {
+      "id": "func:net/websocket/src/websocket.cpp::base64_encode",
+      "type": "function",
+      "label": "函数: base64_encode",
+      "properties": {
+        "name": "base64_encode",
+        "file": "net/websocket/src/websocket.cpp",
+        "startLine": 23,
+        "endLine": 49,
+        "params": [
+          "input"
+        ],
+        "isMethod": false
+      }
+    },
+    {
+      "id": "func:net/websocket/src/websocket.cpp::ws_server_handshake",
+      "type": "function",
+      "label": "函数: ws_server_handshake",
+      "properties": {
+        "name": "ws_server_handshake",
+        "file": "net/websocket/src/websocket.cpp",
+        "startLine": 51,
+        "endLine": 77,
+        "params": [
+          "req",
+          "resp"
+        ],
+        "isMethod": false
+      }
+    },
+    {
+      "id": "func:net/websocket/src/websocket.cpp::ws_encode_frame",
+      "type": "function",
+      "label": "函数: ws_encode_frame",
+      "properties": {
+        "name": "ws_encode_frame",
+        "file": "net/websocket/src/websocket.cpp",
+        "startLine": 79,
+        "endLine": 101,
+        "params": [
+          "opcode",
+          "payload",
+          "fin"
+        ],
+        "isMethod": false
+      }
+    },
+    {
+      "id": "func:net/websocket/src/websocket.cpp::ws_decode_frame",
+      "type": "function",
+      "label": "函数: ws_decode_frame",
+      "properties": {
+        "name": "ws_decode_frame",
+        "file": "net/websocket/src/websocket.cpp",
+        "startLine": 103,
+        "endLine": 164,
+        "params": [
+          "data"
+        ],
+        "isMethod": false
+      }
+    },
+    {
+      "id": "func:net/websocket/src/websocket.cpp::ws_close_code",
+      "type": "function",
+      "label": "函数: ws_close_code",
+      "properties": {
+        "name": "ws_close_code",
+        "file": "net/websocket/src/websocket.cpp",
+        "startLine": 166,
+        "endLine": 173,
+        "params": [
+          "frame"
+        ],
+        "isMethod": false
+      }
+    },
+    {
+      "id": "file:net/websocket/src/ws_connection.cpp",
+      "type": "file",
+      "label": "文件: net/websocket/src/ws_connection.cpp",
+      "properties": {
+        "path": "net/websocket/src/ws_connection.cpp",
+        "language": "cpp",
+        "category": "code",
+        "totalLines": 165,
+        "nonEmptyLines": 141
+      }
+    },
+    {
+      "id": "func:net/websocket/src/ws_connection.cpp::WsConnection",
+      "type": "function",
+      "label": "函数: WsConnection",
+      "properties": {
+        "name": "WsConnection",
+        "file": "net/websocket/src/ws_connection.cpp",
+        "startLine": 17,
+        "endLine": 18,
+        "params": [
+          "conn",
+          "on_message",
+          "on_close"
+        ],
+        "isMethod": false
+      }
+    },
+    {
+      "id": "func:net/websocket/src/ws_connection.cpp::send",
+      "type": "function",
+      "label": "函数: send",
+      "properties": {
+        "name": "send",
+        "file": "net/websocket/src/ws_connection.cpp",
+        "startLine": 20,
+        "endLine": 26,
+        "params": [
+          "opcode",
+          "payload",
+          "fin"
+        ],
+        "isMethod": false
+      }
+    },
+    {
+      "id": "func:net/websocket/src/ws_connection.cpp::close",
+      "type": "function",
+      "label": "函数: close",
+      "properties": {
+        "name": "close",
+        "file": "net/websocket/src/ws_connection.cpp",
+        "startLine": 28,
+        "endLine": 42,
+        "params": [
+          "code",
+          "reason"
+        ],
+        "isMethod": false
+      }
+    },
+    {
+      "id": "func:net/websocket/src/ws_connection.cpp::calc_frame_size",
+      "type": "function",
+      "label": "函数: calc_frame_size",
+      "properties": {
+        "name": "calc_frame_size",
+        "file": "net/websocket/src/ws_connection.cpp",
+        "startLine": 46,
+        "endLine": 62,
+        "params": [
+          "data"
+        ],
+        "isMethod": false
+      }
+    },
+    {
+      "id": "func:net/websocket/src/ws_connection.cpp::handle_frame",
+      "type": "function",
+      "label": "函数: handle_frame",
+      "properties": {
+        "name": "handle_frame",
+        "file": "net/websocket/src/ws_connection.cpp",
+        "startLine": 64,
+        "endLine": 92,
+        "params": [
+          "frame",
+          "on_message",
+          "on_close",
+          "do_send",
+          "closed"
+        ],
+        "isMethod": false
+      }
+    },
+    {
+      "id": "func:net/websocket/src/ws_connection.cpp::start_event_loop",
+      "type": "function",
+      "label": "函数: start_event_loop",
+      "properties": {
+        "name": "start_event_loop",
+        "file": "net/websocket/src/ws_connection.cpp",
+        "startLine": 96,
+        "endLine": 157,
+        "params": [],
+        "isMethod": false
+      }
+    },
+    {
+      "id": "func:net/websocket/src/ws_connection.cpp::do_send",
+      "type": "function",
+      "label": "函数: do_send",
+      "properties": {
+        "name": "do_send",
+        "file": "net/websocket/src/ws_connection.cpp",
+        "startLine": 159,
+        "endLine": 163,
+        "params": [
+          "frame"
+        ],
+        "isMethod": false
+      }
+    },
+    {
+      "id": "file:net/websocket/xmake.lua",
+      "type": "file",
+      "label": "文件: net/websocket/xmake.lua",
+      "properties": {
+        "path": "net/websocket/xmake.lua",
+        "language": "lua",
+        "category": "code",
+        "totalLines": 10,
+        "nonEmptyLines": 10
+      }
+    },
+    {
+      "id": "file:net/xmake.lua",
+      "type": "file",
+      "label": "文件: net/xmake.lua",
+      "properties": {
+        "path": "net/xmake.lua",
+        "language": "lua",
+        "category": "code",
+        "totalLines": 16,
+        "nonEmptyLines": 15
+      }
+    },
+    {
+      "id": "file:tests/.clang-tidy",
+      "type": "file",
+      "label": "文件: tests/.clang-tidy",
+      "properties": {
+        "path": "tests/.clang-tidy",
+        "language": "unknown",
+        "category": "code",
+        "totalLines": 79,
+        "nonEmptyLines": 78
+      }
+    },
+    {
+      "id": "file:tests/test_coroutine.cpp",
+      "type": "file",
+      "label": "文件: tests/test_coroutine.cpp",
+      "properties": {
+        "path": "tests/test_coroutine.cpp",
+        "language": "cpp",
+        "category": "code",
+        "totalLines": 123,
+        "nonEmptyLines": 95
+      }
+    },
+    {
+      "id": "func:tests/test_coroutine.cpp::main",
+      "type": "function",
+      "label": "函数: main",
+      "properties": {
+        "name": "main",
+        "file": "tests/test_coroutine.cpp",
+        "startLine": 14,
+        "endLine": 17,
+        "params": [
+          "argc",
+          "argv"
+        ],
+        "isMethod": false
+      }
+    },
+    {
+      "id": "func:tests/test_coroutine.cpp::TEST",
+      "type": "function",
+      "label": "函数: TEST",
+      "properties": {
+        "name": "TEST",
+        "file": "tests/test_coroutine.cpp",
+        "startLine": 20,
+        "endLine": 30,
+        "params": [],
+        "isMethod": false
+      }
+    },
+    {
+      "id": "func:tests/test_coroutine.cpp::zero_addr",
+      "type": "function",
+      "label": "函数: zero_addr",
+      "properties": {
+        "name": "zero_addr",
+        "file": "tests/test_coroutine.cpp",
+        "startLine": 48,
+        "endLine": 51,
+        "params": [],
+        "isMethod": false
+      }
+    },
+    {
+      "id": "func:tests/test_coroutine.cpp::read_coro",
+      "type": "function",
+      "label": "函数: read_coro",
+      "properties": {
+        "name": "read_coro",
+        "file": "tests/test_coroutine.cpp",
+        "startLine": 53,
+        "endLine": 56,
+        "params": [
+          "conn"
+        ],
+        "isMethod": false
+      }
+    },
+    {
+      "id": "func:tests/test_coroutine.cpp::write_coro",
+      "type": "function",
+      "label": "函数: write_coro",
+      "properties": {
+        "name": "write_coro",
+        "file": "tests/test_coroutine.cpp",
+        "startLine": 58,
+        "endLine": 61,
+        "params": [
+          "conn"
+        ],
+        "isMethod": false
+      }
+    },
+    {
+      "id": "file:tests/test_database_pool.cpp",
+      "type": "file",
+      "label": "文件: tests/test_database_pool.cpp",
+      "properties": {
+        "path": "tests/test_database_pool.cpp",
+        "language": "cpp",
+        "category": "code",
+        "totalLines": 352,
+        "nonEmptyLines": 293
+      }
+    },
+    {
+      "id": "class:tests/test_database_pool.cpp::MockPool",
+      "type": "class",
+      "label": "类: MockPool",
+      "properties": {
+        "name": "MockPool",
+        "startLine": 20,
+        "endLine": 38,
+        "methodCount": 1,
+        "propertyCount": 3
+      }
+    },
+    {
+      "id": "func:tests/test_database_pool.cpp::MockPool",
+      "type": "function",
+      "label": "函数: MockPool",
+      "properties": {
+        "name": "MockPool",
+        "file": "tests/test_database_pool.cpp",
+        "isMethod": true
+      }
+    },
+    {
+      "id": "func:tests/test_database_pool.cpp::TEST",
+      "type": "function",
+      "label": "函数: TEST",
+      "properties": {
+        "name": "TEST",
+        "file": "tests/test_database_pool.cpp",
+        "startLine": 43,
+        "endLine": 53,
+        "params": [],
+        "isMethod": false
+      }
+    },
+    {
+      "id": "func:tests/test_database_pool.cpp::main",
+      "type": "function",
+      "label": "函数: main",
+      "properties": {
+        "name": "main",
+        "file": "tests/test_database_pool.cpp",
+        "startLine": 349,
+        "endLine": 352,
+        "params": [
+          "argc",
+          "argv"
+        ],
+        "isMethod": false
+      }
+    },
+    {
+      "id": "file:tests/test_file_system.cpp",
+      "type": "file",
+      "label": "文件: tests/test_file_system.cpp",
+      "properties": {
+        "path": "tests/test_file_system.cpp",
+        "language": "cpp",
+        "category": "code",
+        "totalLines": 218,
+        "nonEmptyLines": 173
+      }
+    },
+    {
+      "id": "class:tests/test_file_system.cpp::TempDir",
+      "type": "class",
+      "label": "类: TempDir",
+      "properties": {
+        "name": "TempDir",
+        "startLine": 16,
+        "endLine": 42,
+        "methodCount": 5,
+        "propertyCount": 1
+      }
+    },
+    {
+      "id": "func:tests/test_file_system.cpp::TempDir",
+      "type": "function",
+      "label": "函数: TempDir",
+      "properties": {
+        "name": "TempDir",
+        "file": "tests/test_file_system.cpp",
+        "isMethod": true
+      }
+    },
+    {
+      "id": "func:tests/test_file_system.cpp::~TempDir",
+      "type": "function",
+      "label": "函数: ~TempDir",
+      "properties": {
+        "name": "~TempDir",
+        "file": "tests/test_file_system.cpp",
+        "isMethod": true
+      }
+    },
+    {
+      "id": "func:tests/test_file_system.cpp::file_path",
+      "type": "function",
+      "label": "函数: file_path",
+      "properties": {
+        "name": "file_path",
+        "file": "tests/test_file_system.cpp",
+        "isMethod": true
+      }
+    },
+    {
+      "id": "func:tests/test_file_system.cpp::write_file",
+      "type": "function",
+      "label": "函数: write_file",
+      "properties": {
+        "name": "write_file",
+        "file": "tests/test_file_system.cpp",
+        "isMethod": true
+      }
+    },
+    {
+      "id": "func:tests/test_file_system.cpp::main",
+      "type": "function",
+      "label": "函数: main",
+      "properties": {
+        "name": "main",
+        "file": "tests/test_file_system.cpp",
+        "startLine": 52,
+        "endLine": 55,
+        "params": [
+          "argc",
+          "argv"
+        ],
+        "isMethod": false
+      }
+    },
+    {
+      "id": "func:tests/test_file_system.cpp::TEST",
+      "type": "function",
+      "label": "函数: TEST",
+      "properties": {
+        "name": "TEST",
+        "file": "tests/test_file_system.cpp",
+        "startLine": 59,
+        "endLine": 74,
+        "params": [],
+        "isMethod": false
+      }
+    },
+    {
+      "id": "file:tests/test_file_transfer.cpp",
+      "type": "file",
+      "label": "文件: tests/test_file_transfer.cpp",
+      "properties": {
+        "path": "tests/test_file_transfer.cpp",
+        "language": "cpp",
+        "category": "code",
+        "totalLines": 337,
+        "nonEmptyLines": 275
+      }
+    },
+    {
+      "id": "class:tests/test_file_transfer.cpp::TempDir",
+      "type": "class",
+      "label": "类: TempDir",
+      "properties": {
+        "name": "TempDir",
+        "startLine": 84,
+        "endLine": 109,
+        "methodCount": 5,
+        "propertyCount": 1
+      }
+    },
+    {
+      "id": "func:tests/test_file_transfer.cpp::TempDir",
+      "type": "function",
+      "label": "函数: TempDir",
+      "properties": {
+        "name": "TempDir",
+        "file": "tests/test_file_transfer.cpp",
+        "isMethod": true
+      }
+    },
+    {
+      "id": "func:tests/test_file_transfer.cpp::~TempDir",
+      "type": "function",
+      "label": "函数: ~TempDir",
+      "properties": {
+        "name": "~TempDir",
+        "file": "tests/test_file_transfer.cpp",
+        "isMethod": true
+      }
+    },
+    {
+      "id": "func:tests/test_file_transfer.cpp::file_path",
+      "type": "function",
+      "label": "函数: file_path",
+      "properties": {
+        "name": "file_path",
+        "file": "tests/test_file_transfer.cpp",
+        "isMethod": true
+      }
+    },
+    {
+      "id": "func:tests/test_file_transfer.cpp::write_file",
+      "type": "function",
+      "label": "函数: write_file",
+      "properties": {
+        "name": "write_file",
+        "file": "tests/test_file_transfer.cpp",
+        "isMethod": true
+      }
+    },
+    {
+      "id": "func:tests/test_file_transfer.cpp::create_echo_server",
+      "type": "function",
+      "label": "函数: create_echo_server",
+      "properties": {
+        "name": "create_echo_server",
+        "file": "tests/test_file_transfer.cpp",
+        "startLine": 28,
+        "endLine": 49,
+        "params": [],
+        "isMethod": false
+      }
+    },
+    {
+      "id": "func:tests/test_file_transfer.cpp::get_port",
+      "type": "function",
+      "label": "函数: get_port",
+      "properties": {
+        "name": "get_port",
+        "file": "tests/test_file_transfer.cpp",
+        "startLine": 51,
+        "endLine": 58,
+        "params": [
+          "fd"
+        ],
+        "isMethod": false
+      }
+    },
+    {
+      "id": "func:tests/test_file_transfer.cpp::run_echo_server",
+      "type": "function",
+      "label": "函数: run_echo_server",
+      "properties": {
+        "name": "run_echo_server",
+        "file": "tests/test_file_transfer.cpp",
+        "startLine": 60,
+        "endLine": 70,
+        "params": [
+          "listen_fd"
+        ],
+        "isMethod": false
+      }
+    },
+    {
+      "id": "func:tests/test_file_transfer.cpp::recv_all",
+      "type": "function",
+      "label": "函数: recv_all",
+      "properties": {
+        "name": "recv_all",
+        "file": "tests/test_file_transfer.cpp",
+        "startLine": 72,
+        "endLine": 82,
+        "params": [
+          "fd",
+          "buf",
+          "size"
+        ],
+        "isMethod": false
+      }
+    },
+    {
+      "id": "func:tests/test_file_transfer.cpp::TEST",
+      "type": "function",
+      "label": "函数: TEST",
+      "properties": {
+        "name": "TEST",
+        "file": "tests/test_file_transfer.cpp",
+        "startLine": 113,
+        "endLine": 139,
+        "params": [],
+        "isMethod": false
+      }
+    },
+    {
+      "id": "func:tests/test_file_transfer.cpp::main",
+      "type": "function",
+      "label": "函数: main",
+      "properties": {
+        "name": "main",
+        "file": "tests/test_file_transfer.cpp",
+        "startLine": 334,
+        "endLine": 337,
+        "params": [
+          "argc",
+          "argv"
+        ],
+        "isMethod": false
+      }
+    },
+    {
+      "id": "file:tests/test_http_parser.cpp",
+      "type": "file",
+      "label": "文件: tests/test_http_parser.cpp",
+      "properties": {
+        "path": "tests/test_http_parser.cpp",
+        "language": "cpp",
+        "category": "code",
+        "totalLines": 204,
+        "nonEmptyLines": 179
+      }
+    },
+    {
+      "id": "func:tests/test_http_parser.cpp::TEST",
+      "type": "function",
+      "label": "函数: TEST",
+      "properties": {
+        "name": "TEST",
+        "file": "tests/test_http_parser.cpp",
+        "startLine": 9,
+        "endLine": 20,
+        "params": [],
+        "isMethod": false
+      }
+    },
+    {
+      "id": "func:tests/test_http_parser.cpp::main",
+      "type": "function",
+      "label": "函数: main",
+      "properties": {
+        "name": "main",
+        "file": "tests/test_http_parser.cpp",
+        "startLine": 201,
+        "endLine": 204,
+        "params": [
+          "argc",
+          "argv"
+        ],
+        "isMethod": false
+      }
+    },
+    {
+      "id": "file:tests/test_http_request.cpp",
+      "type": "file",
+      "label": "文件: tests/test_http_request.cpp",
+      "properties": {
+        "path": "tests/test_http_request.cpp",
+        "language": "cpp",
+        "category": "code",
+        "totalLines": 47,
+        "nonEmptyLines": 40
+      }
+    },
+    {
+      "id": "func:tests/test_http_request.cpp::TEST",
+      "type": "function",
+      "label": "函数: TEST",
+      "properties": {
+        "name": "TEST",
+        "file": "tests/test_http_request.cpp",
+        "startLine": 7,
+        "endLine": 15,
+        "params": [],
+        "isMethod": false
+      }
+    },
+    {
+      "id": "func:tests/test_http_request.cpp::main",
+      "type": "function",
+      "label": "函数: main",
+      "properties": {
+        "name": "main",
+        "file": "tests/test_http_request.cpp",
+        "startLine": 44,
+        "endLine": 47,
+        "params": [
+          "argc",
+          "argv"
+        ],
+        "isMethod": false
+      }
+    },
+    {
+      "id": "file:tests/test_http_response.cpp",
+      "type": "file",
+      "label": "文件: tests/test_http_response.cpp",
+      "properties": {
+        "path": "tests/test_http_response.cpp",
+        "language": "cpp",
+        "category": "code",
+        "totalLines": 77,
+        "nonEmptyLines": 66
+      }
+    },
+    {
+      "id": "func:tests/test_http_response.cpp::TEST",
+      "type": "function",
+      "label": "函数: TEST",
+      "properties": {
+        "name": "TEST",
+        "file": "tests/test_http_response.cpp",
+        "startLine": 7,
+        "endLine": 14,
+        "params": [],
+        "isMethod": false
+      }
+    },
+    {
+      "id": "func:tests/test_http_response.cpp::main",
+      "type": "function",
+      "label": "函数: main",
+      "properties": {
+        "name": "main",
+        "file": "tests/test_http_response.cpp",
+        "startLine": 74,
+        "endLine": 77,
+        "params": [
+          "argc",
+          "argv"
+        ],
+        "isMethod": false
+      }
+    },
+    {
+      "id": "file:tests/test_http_server.cpp",
+      "type": "file",
+      "label": "文件: tests/test_http_server.cpp",
+      "properties": {
+        "path": "tests/test_http_server.cpp",
+        "language": "cpp",
+        "category": "code",
+        "totalLines": 194,
+        "nonEmptyLines": 159
+      }
+    },
+    {
+      "id": "func:tests/test_http_server.cpp::main",
+      "type": "function",
+      "label": "函数: main",
+      "properties": {
+        "name": "main",
+        "file": "tests/test_http_server.cpp",
+        "startLine": 14,
+        "endLine": 17,
+        "params": [
+          "argc",
+          "argv"
+        ],
+        "isMethod": false
+      }
+    },
+    {
+      "id": "func:tests/test_http_server.cpp::send_raw",
+      "type": "function",
+      "label": "函数: send_raw",
+      "properties": {
+        "name": "send_raw",
+        "file": "tests/test_http_server.cpp",
+        "startLine": 22,
+        "endLine": 33,
+        "params": [
+          "port",
+          "raw"
+        ],
+        "isMethod": false
+      }
+    },
+    {
+      "id": "func:tests/test_http_server.cpp::TEST",
+      "type": "function",
+      "label": "函数: TEST",
+      "properties": {
+        "name": "TEST",
+        "file": "tests/test_http_server.cpp",
+        "startLine": 38,
+        "endLine": 59,
+        "params": [],
+        "isMethod": false
+      }
+    },
+    {
+      "id": "file:tests/test_lock_free_queue.cpp",
+      "type": "file",
+      "label": "文件: tests/test_lock_free_queue.cpp",
+      "properties": {
+        "path": "tests/test_lock_free_queue.cpp",
+        "language": "cpp",
+        "category": "code",
+        "totalLines": 77,
+        "nonEmptyLines": 62
+      }
+    },
+    {
+      "id": "func:tests/test_lock_free_queue.cpp::main",
+      "type": "function",
+      "label": "函数: main",
+      "properties": {
+        "name": "main",
+        "file": "tests/test_lock_free_queue.cpp",
+        "startLine": 11,
+        "endLine": 14,
+        "params": [
+          "argc",
+          "argv"
+        ],
+        "isMethod": false
+      }
+    },
+    {
+      "id": "func:tests/test_lock_free_queue.cpp::TEST",
+      "type": "function",
+      "label": "函数: TEST",
+      "properties": {
+        "name": "TEST",
+        "file": "tests/test_lock_free_queue.cpp",
+        "startLine": 17,
+        "endLine": 31,
+        "params": [],
+        "isMethod": false
+      }
+    },
+    {
+      "id": "file:tests/test_locked_thread_pool.cpp",
+      "type": "file",
+      "label": "文件: tests/test_locked_thread_pool.cpp",
+      "properties": {
+        "path": "tests/test_locked_thread_pool.cpp",
+        "language": "cpp",
+        "category": "code",
+        "totalLines": 103,
+        "nonEmptyLines": 91
+      }
+    },
+    {
+      "id": "func:tests/test_locked_thread_pool.cpp::main",
+      "type": "function",
+      "label": "函数: main",
+      "properties": {
+        "name": "main",
+        "file": "tests/test_locked_thread_pool.cpp",
+        "startLine": 13,
+        "endLine": 16,
+        "params": [
+          "argc",
+          "argv"
+        ],
+        "isMethod": false
+      }
+    },
+    {
+      "id": "func:tests/test_locked_thread_pool.cpp::TEST",
+      "type": "function",
+      "label": "函数: TEST",
+      "properties": {
+        "name": "TEST",
+        "file": "tests/test_locked_thread_pool.cpp",
+        "startLine": 18,
+        "endLine": 25,
+        "params": [],
+        "isMethod": false
+      }
+    },
+    {
+      "id": "file:tests/test_memory_pool.cpp",
+      "type": "file",
+      "label": "文件: tests/test_memory_pool.cpp",
+      "properties": {
+        "path": "tests/test_memory_pool.cpp",
+        "language": "cpp",
+        "category": "code",
+        "totalLines": 149,
+        "nonEmptyLines": 124
+      }
+    },
+    {
+      "id": "func:tests/test_memory_pool.cpp::main",
+      "type": "function",
+      "label": "函数: main",
+      "properties": {
+        "name": "main",
+        "file": "tests/test_memory_pool.cpp",
+        "startLine": 13,
+        "endLine": 16,
+        "params": [
+          "argc",
+          "argv"
+        ],
+        "isMethod": false
+      }
+    },
+    {
+      "id": "func:tests/test_memory_pool.cpp::TEST",
+      "type": "function",
+      "label": "函数: TEST",
+      "properties": {
+        "name": "TEST",
+        "file": "tests/test_memory_pool.cpp",
+        "startLine": 19,
+        "endLine": 25,
+        "params": [],
+        "isMethod": false
+      }
+    },
+    {
+      "id": "file:tests/test_move_only_function.cpp",
+      "type": "file",
+      "label": "文件: tests/test_move_only_function.cpp",
+      "properties": {
+        "path": "tests/test_move_only_function.cpp",
+        "language": "cpp",
+        "category": "code",
+        "totalLines": 83,
+        "nonEmptyLines": 71
+      }
+    },
+    {
+      "id": "func:tests/test_move_only_function.cpp::TEST",
+      "type": "function",
+      "label": "函数: TEST",
+      "properties": {
+        "name": "TEST",
+        "file": "tests/test_move_only_function.cpp",
+        "startLine": 15,
+        "endLine": 22,
+        "params": [],
+        "isMethod": false
+      }
+    },
+    {
+      "id": "func:tests/test_move_only_function.cpp::main",
+      "type": "function",
+      "label": "函数: main",
+      "properties": {
+        "name": "main",
+        "file": "tests/test_move_only_function.cpp",
+        "startLine": 80,
+        "endLine": 83,
+        "params": [
+          "argc",
+          "argv"
+        ],
+        "isMethod": false
+      }
+    },
+    {
+      "id": "file:tests/test_range_parser.cpp",
+      "type": "file",
+      "label": "文件: tests/test_range_parser.cpp",
+      "properties": {
+        "path": "tests/test_range_parser.cpp",
+        "language": "cpp",
+        "category": "code",
+        "totalLines": 128,
+        "nonEmptyLines": 107
+      }
+    },
+    {
+      "id": "func:tests/test_range_parser.cpp::main",
+      "type": "function",
+      "label": "函数: main",
+      "properties": {
+        "name": "main",
+        "file": "tests/test_range_parser.cpp",
+        "startLine": 10,
+        "endLine": 13,
+        "params": [
+          "argc",
+          "argv"
+        ],
+        "isMethod": false
+      }
+    },
+    {
+      "id": "func:tests/test_range_parser.cpp::TEST",
+      "type": "function",
+      "label": "函数: TEST",
+      "properties": {
+        "name": "TEST",
+        "file": "tests/test_range_parser.cpp",
+        "startLine": 18,
+        "endLine": 25,
+        "params": [],
+        "isMethod": false
+      }
+    },
+    {
+      "id": "file:tests/test_router.cpp",
+      "type": "file",
+      "label": "文件: tests/test_router.cpp",
+      "properties": {
+        "path": "tests/test_router.cpp",
+        "language": "cpp",
+        "category": "code",
+        "totalLines": 124,
+        "nonEmptyLines": 106
+      }
+    },
+    {
+      "id": "func:tests/test_router.cpp::main",
+      "type": "function",
+      "label": "函数: main",
+      "properties": {
+        "name": "main",
+        "file": "tests/test_router.cpp",
+        "startLine": 9,
+        "endLine": 12,
+        "params": [
+          "argc",
+          "argv"
+        ],
+        "isMethod": false
+      }
+    },
+    {
+      "id": "func:tests/test_router.cpp::make_handler",
+      "type": "function",
+      "label": "函数: make_handler",
+      "properties": {
+        "name": "make_handler",
+        "file": "tests/test_router.cpp",
+        "startLine": 15,
+        "endLine": 20,
+        "params": [
+          "tag"
+        ],
+        "isMethod": false
+      }
+    },
+    {
+      "id": "func:tests/test_router.cpp::TEST",
+      "type": "function",
+      "label": "函数: TEST",
+      "properties": {
+        "name": "TEST",
+        "file": "tests/test_router.cpp",
+        "startLine": 24,
+        "endLine": 31,
+        "params": [],
+        "isMethod": false
+      }
+    },
+    {
+      "id": "file:tests/test_ssl.cpp",
+      "type": "file",
+      "label": "文件: tests/test_ssl.cpp",
+      "properties": {
+        "path": "tests/test_ssl.cpp",
+        "language": "cpp",
+        "category": "code",
+        "totalLines": 357,
+        "nonEmptyLines": 299
+      }
+    },
+    {
+      "id": "class:tests/test_ssl.cpp::SslClient",
+      "type": "class",
+      "label": "类: SslClient",
+      "properties": {
+        "name": "SslClient",
+        "startLine": 51,
+        "endLine": 98,
+        "methodCount": 4,
+        "propertyCount": 3
+      }
+    },
+    {
+      "id": "func:tests/test_ssl.cpp::connect_to",
+      "type": "function",
+      "label": "函数: connect_to",
+      "properties": {
+        "name": "connect_to",
+        "file": "tests/test_ssl.cpp",
+        "isMethod": true
+      }
+    },
+    {
+      "id": "func:tests/test_ssl.cpp::read",
+      "type": "function",
+      "label": "函数: read",
+      "properties": {
+        "name": "read",
+        "file": "tests/test_ssl.cpp",
+        "isMethod": true
+      }
+    },
+    {
+      "id": "func:tests/test_ssl.cpp::write",
+      "type": "function",
+      "label": "函数: write",
+      "properties": {
+        "name": "write",
+        "file": "tests/test_ssl.cpp",
+        "isMethod": true
+      }
+    },
+    {
+      "id": "func:tests/test_ssl.cpp::~SslClient",
+      "type": "function",
+      "label": "函数: ~SslClient",
+      "properties": {
+        "name": "~SslClient",
+        "file": "tests/test_ssl.cpp",
+        "isMethod": true
+      }
+    },
+    {
+      "id": "func:tests/test_ssl.cpp::cert_path",
+      "type": "function",
+      "label": "函数: cert_path",
+      "properties": {
+        "name": "cert_path",
+        "file": "tests/test_ssl.cpp",
+        "startLine": 29,
+        "endLine": 31,
+        "params": [
+          "name"
+        ],
+        "isMethod": false
+      }
+    },
+    {
+      "id": "func:tests/test_ssl.cpp::ensure_certs",
+      "type": "function",
+      "label": "函数: ensure_certs",
+      "properties": {
+        "name": "ensure_certs",
+        "file": "tests/test_ssl.cpp",
+        "startLine": 33,
+        "endLine": 48,
+        "params": [],
+        "isMethod": false
+      }
+    },
+    {
+      "id": "func:tests/test_ssl.cpp::raw_connect",
+      "type": "function",
+      "label": "函数: raw_connect",
+      "properties": {
+        "name": "raw_connect",
+        "file": "tests/test_ssl.cpp",
+        "startLine": 101,
+        "endLine": 117,
+        "params": [
+          "port"
+        ],
+        "isMethod": false
+      }
+    },
+    {
+      "id": "func:tests/test_ssl.cpp::TEST",
+      "type": "function",
+      "label": "函数: TEST",
+      "properties": {
+        "name": "TEST",
+        "file": "tests/test_ssl.cpp",
+        "startLine": 122,
+        "endLine": 129,
+        "params": [],
+        "isMethod": false
+      }
+    },
+    {
+      "id": "func:tests/test_ssl.cpp::main",
+      "type": "function",
+      "label": "函数: main",
+      "properties": {
+        "name": "main",
+        "file": "tests/test_ssl.cpp",
+        "startLine": 354,
+        "endLine": 357,
+        "params": [
+          "argc",
+          "argv"
+        ],
+        "isMethod": false
+      }
+    }
+  ],
+  "edges": [
+    {
+      "source": "file:net/thread-pool/src/locked_thread_pool.cpp",
+      "target": "func:net/thread-pool/src/locked_thread_pool.cpp::LockedThreadPool",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:net/thread-pool/src/locked_thread_pool.cpp",
+      "target": "func:net/thread-pool/src/locked_thread_pool.cpp::~LockedThreadPool",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:net/thread-pool/src/locked_thread_pool.cpp",
+      "target": "func:net/thread-pool/src/locked_thread_pool.cpp::worker",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:net/thread-pool/src/locked_thread_pool.cpp",
+      "target": "func:net/thread-pool/src/locked_thread_pool.cpp::wait_impl",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:net/thread-pool/src/locked_thread_pool.cpp",
+      "target": "func:net/thread-pool/src/locked_thread_pool.cpp::wait_for",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:net/thread-pool/src/locked_thread_pool.cpp",
+      "target": "func:net/thread-pool/src/locked_thread_pool.cpp::stop_impl",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "func:net/thread-pool/src/locked_thread_pool.cpp::LockedThreadPool",
+      "target": "func:net/thread-pool/src/locked_thread_pool.cpp::worker",
+      "relation": "calls",
+      "properties": {
+        "lineNumber": 10
+      }
+    },
+    {
+      "source": "func:net/thread-pool/src/locked_thread_pool.cpp::~LockedThreadPool",
+      "target": "func:net/thread-pool/src/locked_thread_pool.cpp::stop_impl",
+      "relation": "calls",
+      "properties": {
+        "lineNumber": 16
+      }
+    },
+    {
+      "source": "func:net/thread-pool/src/locked_thread_pool.cpp::wait_for",
+      "target": "func:net/thread-pool/src/locked_thread_pool.cpp::wait_for",
+      "relation": "calls",
+      "properties": {
+        "lineNumber": 54
+      }
+    },
+    {
+      "source": "file:net/thread-pool/src/locked_thread_pool.cpp",
+      "target": "func:net/thread-pool/src/locked_thread_pool.cpp::LockedThreadPool",
+      "relation": "declares",
+      "properties": {
+        "line": 7,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:net/thread-pool/src/locked_thread_pool.cpp",
+      "target": "func:net/thread-pool/src/locked_thread_pool.cpp::~LockedThreadPool",
+      "relation": "declares",
+      "properties": {
+        "line": 14,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:net/thread-pool/src/locked_thread_pool.cpp",
+      "target": "func:net/thread-pool/src/locked_thread_pool.cpp::worker",
+      "relation": "declares",
+      "properties": {
+        "line": 20,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:net/thread-pool/src/locked_thread_pool.cpp",
+      "target": "func:net/thread-pool/src/locked_thread_pool.cpp::wait_impl",
+      "relation": "declares",
+      "properties": {
+        "line": 47,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:net/thread-pool/src/locked_thread_pool.cpp",
+      "target": "func:net/thread-pool/src/locked_thread_pool.cpp::wait_for",
+      "relation": "declares",
+      "properties": {
+        "line": 52,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:net/thread-pool/src/locked_thread_pool.cpp",
+      "target": "func:net/thread-pool/src/locked_thread_pool.cpp::stop_impl",
+      "relation": "declares",
+      "properties": {
+        "line": 57,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:net/thread-pool/src/thread_pool.cpp",
+      "target": "func:net/thread-pool/src/thread_pool.cpp::LockFreeThreadPool",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:net/thread-pool/src/thread_pool.cpp",
+      "target": "func:net/thread-pool/src/thread_pool.cpp::~LockFreeThreadPool",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:net/thread-pool/src/thread_pool.cpp",
+      "target": "func:net/thread-pool/src/thread_pool.cpp::stop_impl",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:net/thread-pool/src/thread_pool.cpp",
+      "target": "func:net/thread-pool/src/thread_pool.cpp::worker",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:net/thread-pool/src/thread_pool.cpp",
+      "target": "func:net/thread-pool/src/thread_pool.cpp::wait_impl",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "func:net/thread-pool/src/thread_pool.cpp::LockFreeThreadPool",
+      "target": "func:net/thread-pool/src/thread_pool.cpp::worker",
+      "relation": "calls",
+      "properties": {
+        "lineNumber": 9
+      }
+    },
+    {
+      "source": "func:net/thread-pool/src/thread_pool.cpp::~LockFreeThreadPool",
+      "target": "func:net/thread-pool/src/thread_pool.cpp::stop_impl",
+      "relation": "calls",
+      "properties": {
+        "lineNumber": 14
+      }
+    },
+    {
+      "source": "file:net/thread-pool/src/thread_pool.cpp",
+      "target": "func:net/thread-pool/src/thread_pool.cpp::LockFreeThreadPool",
+      "relation": "declares",
+      "properties": {
+        "line": 7,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:net/thread-pool/src/thread_pool.cpp",
+      "target": "func:net/thread-pool/src/thread_pool.cpp::~LockFreeThreadPool",
+      "relation": "declares",
+      "properties": {
+        "line": 13,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:net/thread-pool/src/thread_pool.cpp",
+      "target": "func:net/thread-pool/src/thread_pool.cpp::stop_impl",
+      "relation": "declares",
+      "properties": {
+        "line": 17,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:net/thread-pool/src/thread_pool.cpp",
+      "target": "func:net/thread-pool/src/thread_pool.cpp::worker",
+      "relation": "declares",
+      "properties": {
+        "line": 30,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:net/thread-pool/src/thread_pool.cpp",
+      "target": "func:net/thread-pool/src/thread_pool.cpp::wait_impl",
+      "relation": "declares",
+      "properties": {
+        "line": 58,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:net/websocket/include/websocket.h",
+      "target": "class:net/websocket/include/websocket.h::WsFrame",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_class"
+      }
+    },
+    {
+      "source": "file:net/websocket/include/websocket.h",
+      "target": "class:net/websocket/include/websocket.h::WsFrame",
+      "relation": "declares",
+      "properties": {
+        "line": 24,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:net/websocket/include/ws_connection.h",
+      "target": "class:net/websocket/include/ws_connection.h::WsConnection",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_class"
+      }
+    },
+    {
+      "source": "class:net/websocket/include/ws_connection.h::WsConnection",
+      "target": "func:net/websocket/include/ws_connection.h::send",
+      "relation": "contains",
+      "properties": {
+        "kind": "class_contains_method"
+      }
+    },
+    {
+      "source": "class:net/websocket/include/ws_connection.h::WsConnection",
+      "target": "func:net/websocket/include/ws_connection.h::close",
+      "relation": "contains",
+      "properties": {
+        "kind": "class_contains_method"
+      }
+    },
+    {
+      "source": "class:net/websocket/include/ws_connection.h::WsConnection",
+      "target": "func:net/websocket/include/ws_connection.h::set_message_handler",
+      "relation": "contains",
+      "properties": {
+        "kind": "class_contains_method"
+      }
+    },
+    {
+      "source": "class:net/websocket/include/ws_connection.h::WsConnection",
+      "target": "func:net/websocket/include/ws_connection.h::set_close_handler",
+      "relation": "contains",
+      "properties": {
+        "kind": "class_contains_method"
+      }
+    },
+    {
+      "source": "class:net/websocket/include/ws_connection.h::WsConnection",
+      "target": "func:net/websocket/include/ws_connection.h::start_event_loop",
+      "relation": "contains",
+      "properties": {
+        "kind": "class_contains_method"
+      }
+    },
+    {
+      "source": "class:net/websocket/include/ws_connection.h::WsConnection",
+      "target": "func:net/websocket/include/ws_connection.h::do_send",
+      "relation": "contains",
+      "properties": {
+        "kind": "class_contains_method"
+      }
+    },
+    {
+      "source": "file:net/websocket/include/ws_connection.h",
+      "target": "file:net/websocket/include/websocket.h",
+      "relation": "include",
+      "properties": {
+        "kind": "file_include_file"
+      }
+    },
+    {
+      "source": "file:net/websocket/include/ws_connection.h",
+      "target": "func:net/websocket/include/ws_connection.h::send",
+      "relation": "declares",
+      "properties": {
+        "line": 18,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:net/websocket/include/ws_connection.h",
+      "target": "func:net/websocket/include/ws_connection.h::close",
+      "relation": "declares",
+      "properties": {
+        "line": 20,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:net/websocket/include/ws_connection.h",
+      "target": "func:net/websocket/include/ws_connection.h::set_message_handler",
+      "relation": "declares",
+      "properties": {
+        "line": 22,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:net/websocket/include/ws_connection.h",
+      "target": "func:net/websocket/include/ws_connection.h::set_close_handler",
+      "relation": "declares",
+      "properties": {
+        "line": 24,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:net/websocket/include/ws_connection.h",
+      "target": "func:net/websocket/include/ws_connection.h::start_event_loop",
+      "relation": "declares",
+      "properties": {
+        "line": 26,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:net/websocket/include/ws_connection.h",
+      "target": "class:net/websocket/include/ws_connection.h::WsConnection",
+      "relation": "declares",
+      "properties": {
+        "line": 11,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:net/websocket/src/websocket.cpp",
+      "target": "func:net/websocket/src/websocket.cpp::base64_encode",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:net/websocket/src/websocket.cpp",
+      "target": "func:net/websocket/src/websocket.cpp::ws_server_handshake",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:net/websocket/src/websocket.cpp",
+      "target": "func:net/websocket/src/websocket.cpp::ws_encode_frame",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:net/websocket/src/websocket.cpp",
+      "target": "func:net/websocket/src/websocket.cpp::ws_decode_frame",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:net/websocket/src/websocket.cpp",
+      "target": "func:net/websocket/src/websocket.cpp::ws_close_code",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "func:net/websocket/src/websocket.cpp::ws_server_handshake",
+      "target": "func:net/websocket/src/websocket.cpp::base64_encode",
+      "relation": "calls",
+      "properties": {
+        "lineNumber": 70
+      }
+    },
+    {
+      "source": "file:net/websocket/src/websocket.cpp",
+      "target": "func:net/websocket/src/websocket.cpp::base64_encode",
+      "relation": "declares",
+      "properties": {
+        "line": 23,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:net/websocket/src/websocket.cpp",
+      "target": "func:net/websocket/src/websocket.cpp::ws_server_handshake",
+      "relation": "declares",
+      "properties": {
+        "line": 51,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:net/websocket/src/websocket.cpp",
+      "target": "func:net/websocket/src/websocket.cpp::ws_encode_frame",
+      "relation": "declares",
+      "properties": {
+        "line": 79,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:net/websocket/src/websocket.cpp",
+      "target": "func:net/websocket/src/websocket.cpp::ws_decode_frame",
+      "relation": "declares",
+      "properties": {
+        "line": 103,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:net/websocket/src/websocket.cpp",
+      "target": "func:net/websocket/src/websocket.cpp::ws_close_code",
+      "relation": "declares",
+      "properties": {
+        "line": 166,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:net/websocket/src/ws_connection.cpp",
+      "target": "func:net/websocket/src/ws_connection.cpp::WsConnection",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:net/websocket/src/ws_connection.cpp",
+      "target": "func:net/websocket/src/ws_connection.cpp::send",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:net/websocket/src/ws_connection.cpp",
+      "target": "func:net/websocket/src/ws_connection.cpp::close",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:net/websocket/src/ws_connection.cpp",
+      "target": "func:net/websocket/src/ws_connection.cpp::calc_frame_size",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:net/websocket/src/ws_connection.cpp",
+      "target": "func:net/websocket/src/ws_connection.cpp::handle_frame",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:net/websocket/src/ws_connection.cpp",
+      "target": "func:net/websocket/src/ws_connection.cpp::start_event_loop",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:net/websocket/src/ws_connection.cpp",
+      "target": "func:net/websocket/src/ws_connection.cpp::do_send",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "func:net/websocket/src/ws_connection.cpp::send",
+      "target": "func:net/websocket/src/ws_connection.cpp::do_send",
+      "relation": "calls",
+      "properties": {
+        "lineNumber": 25
+      }
+    },
+    {
+      "source": "func:net/websocket/src/ws_connection.cpp::close",
+      "target": "func:net/websocket/src/ws_connection.cpp::do_send",
+      "relation": "calls",
+      "properties": {
+        "lineNumber": 40
+      }
+    },
+    {
+      "source": "func:net/websocket/src/ws_connection.cpp::close",
+      "target": "func:net/websocket/src/ws_connection.cpp::close",
+      "relation": "calls",
+      "properties": {
+        "lineNumber": 41
+      }
+    },
+    {
+      "source": "func:net/websocket/src/ws_connection.cpp::handle_frame",
+      "target": "func:net/websocket/src/ws_connection.cpp::do_send",
+      "relation": "calls",
+      "properties": {
+        "lineNumber": 80
+      }
+    },
+    {
+      "source": "func:net/websocket/src/ws_connection.cpp::start_event_loop",
+      "target": "func:net/websocket/src/ws_connection.cpp::calc_frame_size",
+      "relation": "calls",
+      "properties": {
+        "lineNumber": 132
+      }
+    },
+    {
+      "source": "func:net/websocket/src/ws_connection.cpp::start_event_loop",
+      "target": "func:net/websocket/src/ws_connection.cpp::handle_frame",
+      "relation": "calls",
+      "properties": {
+        "lineNumber": 142
+      }
+    },
+    {
+      "source": "func:net/websocket/src/ws_connection.cpp::start_event_loop",
+      "target": "func:net/websocket/src/ws_connection.cpp::do_send",
+      "relation": "calls",
+      "properties": {
+        "lineNumber": 142
+      }
+    },
+    {
+      "source": "func:net/websocket/src/ws_connection.cpp::start_event_loop",
+      "target": "func:net/websocket/src/ws_connection.cpp::close",
+      "relation": "calls",
+      "properties": {
+        "lineNumber": 144
+      }
+    },
+    {
+      "source": "func:net/websocket/src/ws_connection.cpp::start_event_loop",
+      "target": "func:net/websocket/src/ws_connection.cpp::close",
+      "relation": "calls",
+      "properties": {
+        "lineNumber": 155
+      }
+    },
+    {
+      "source": "file:net/websocket/src/ws_connection.cpp",
+      "target": "func:net/websocket/src/ws_connection.cpp::WsConnection",
+      "relation": "declares",
+      "properties": {
+        "line": 17,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:net/websocket/src/ws_connection.cpp",
+      "target": "func:net/websocket/src/ws_connection.cpp::send",
+      "relation": "declares",
+      "properties": {
+        "line": 20,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:net/websocket/src/ws_connection.cpp",
+      "target": "func:net/websocket/src/ws_connection.cpp::close",
+      "relation": "declares",
+      "properties": {
+        "line": 28,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:net/websocket/src/ws_connection.cpp",
+      "target": "func:net/websocket/src/ws_connection.cpp::calc_frame_size",
+      "relation": "declares",
+      "properties": {
+        "line": 46,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:net/websocket/src/ws_connection.cpp",
+      "target": "func:net/websocket/src/ws_connection.cpp::handle_frame",
+      "relation": "declares",
+      "properties": {
+        "line": 64,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:net/websocket/src/ws_connection.cpp",
+      "target": "func:net/websocket/src/ws_connection.cpp::start_event_loop",
+      "relation": "declares",
+      "properties": {
+        "line": 96,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:net/websocket/src/ws_connection.cpp",
+      "target": "func:net/websocket/src/ws_connection.cpp::do_send",
+      "relation": "declares",
+      "properties": {
+        "line": 159,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:tests/test_coroutine.cpp",
+      "target": "func:tests/test_coroutine.cpp::main",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:tests/test_coroutine.cpp",
+      "target": "func:tests/test_coroutine.cpp::TEST",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:tests/test_coroutine.cpp",
+      "target": "func:tests/test_coroutine.cpp::TEST",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:tests/test_coroutine.cpp",
+      "target": "func:tests/test_coroutine.cpp::zero_addr",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:tests/test_coroutine.cpp",
+      "target": "func:tests/test_coroutine.cpp::read_coro",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:tests/test_coroutine.cpp",
+      "target": "func:tests/test_coroutine.cpp::write_coro",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:tests/test_coroutine.cpp",
+      "target": "func:tests/test_coroutine.cpp::TEST",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:tests/test_coroutine.cpp",
+      "target": "func:tests/test_coroutine.cpp::TEST",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:tests/test_coroutine.cpp",
+      "target": "func:tests/test_coroutine.cpp::TEST",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "func:tests/test_coroutine.cpp::TEST",
+      "target": "func:tests/test_coroutine.cpp::read_coro",
+      "relation": "calls",
+      "properties": {
+        "lineNumber": 74
+      }
+    },
+    {
+      "source": "func:tests/test_coroutine.cpp::TEST",
+      "target": "func:tests/test_coroutine.cpp::read_coro",
+      "relation": "calls",
+      "properties": {
+        "lineNumber": 91
+      }
+    },
+    {
+      "source": "func:tests/test_coroutine.cpp::TEST",
+      "target": "func:tests/test_coroutine.cpp::write_coro",
+      "relation": "calls",
+      "properties": {
+        "lineNumber": 111
+      }
+    },
+    {
+      "source": "file:tests/test_coroutine.cpp",
+      "target": "func:tests/test_coroutine.cpp::main",
+      "relation": "declares",
+      "properties": {
+        "line": 14,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:tests/test_coroutine.cpp",
+      "target": "func:tests/test_coroutine.cpp::TEST",
+      "relation": "declares",
+      "properties": {
+        "line": 20,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:tests/test_coroutine.cpp",
+      "target": "func:tests/test_coroutine.cpp::TEST",
+      "relation": "declares",
+      "properties": {
+        "line": 33,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:tests/test_coroutine.cpp",
+      "target": "func:tests/test_coroutine.cpp::zero_addr",
+      "relation": "declares",
+      "properties": {
+        "line": 48,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:tests/test_coroutine.cpp",
+      "target": "func:tests/test_coroutine.cpp::read_coro",
+      "relation": "declares",
+      "properties": {
+        "line": 53,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:tests/test_coroutine.cpp",
+      "target": "func:tests/test_coroutine.cpp::write_coro",
+      "relation": "declares",
+      "properties": {
+        "line": 58,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:tests/test_coroutine.cpp",
+      "target": "func:tests/test_coroutine.cpp::TEST",
+      "relation": "declares",
+      "properties": {
+        "line": 65,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:tests/test_coroutine.cpp",
+      "target": "func:tests/test_coroutine.cpp::TEST",
+      "relation": "declares",
+      "properties": {
+        "line": 84,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:tests/test_coroutine.cpp",
+      "target": "func:tests/test_coroutine.cpp::TEST",
+      "relation": "declares",
+      "properties": {
+        "line": 99,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:tests/test_database_pool.cpp",
+      "target": "class:tests/test_database_pool.cpp::MockPool",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_class"
+      }
+    },
+    {
+      "source": "class:tests/test_database_pool.cpp::MockPool",
+      "target": "func:tests/test_database_pool.cpp::MockPool",
+      "relation": "contains",
+      "properties": {
+        "kind": "class_contains_method"
+      }
+    },
+    {
+      "source": "file:tests/test_database_pool.cpp",
+      "target": "func:tests/test_database_pool.cpp::TEST",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:tests/test_database_pool.cpp",
+      "target": "func:tests/test_database_pool.cpp::TEST",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:tests/test_database_pool.cpp",
+      "target": "func:tests/test_database_pool.cpp::TEST",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:tests/test_database_pool.cpp",
+      "target": "func:tests/test_database_pool.cpp::TEST",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:tests/test_database_pool.cpp",
+      "target": "func:tests/test_database_pool.cpp::TEST",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:tests/test_database_pool.cpp",
+      "target": "func:tests/test_database_pool.cpp::TEST",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:tests/test_database_pool.cpp",
+      "target": "func:tests/test_database_pool.cpp::TEST",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:tests/test_database_pool.cpp",
+      "target": "func:tests/test_database_pool.cpp::TEST",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:tests/test_database_pool.cpp",
+      "target": "func:tests/test_database_pool.cpp::TEST",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:tests/test_database_pool.cpp",
+      "target": "func:tests/test_database_pool.cpp::TEST",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:tests/test_database_pool.cpp",
+      "target": "func:tests/test_database_pool.cpp::TEST",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:tests/test_database_pool.cpp",
+      "target": "func:tests/test_database_pool.cpp::TEST",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:tests/test_database_pool.cpp",
+      "target": "func:tests/test_database_pool.cpp::TEST",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:tests/test_database_pool.cpp",
+      "target": "func:tests/test_database_pool.cpp::TEST",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:tests/test_database_pool.cpp",
+      "target": "func:tests/test_database_pool.cpp::main",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:tests/test_database_pool.cpp",
+      "target": "class:tests/test_database_pool.cpp::MockPool",
+      "relation": "declares",
+      "properties": {
+        "line": 25,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:tests/test_database_pool.cpp",
+      "target": "class:tests/test_database_pool.cpp::MockPool",
+      "relation": "declares",
+      "properties": {
+        "line": 20,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:tests/test_database_pool.cpp",
+      "target": "func:tests/test_database_pool.cpp::TEST",
+      "relation": "declares",
+      "properties": {
+        "line": 43,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:tests/test_database_pool.cpp",
+      "target": "func:tests/test_database_pool.cpp::TEST",
+      "relation": "declares",
+      "properties": {
+        "line": 58,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:tests/test_database_pool.cpp",
+      "target": "func:tests/test_database_pool.cpp::TEST",
+      "relation": "declares",
+      "properties": {
+        "line": 82,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:tests/test_database_pool.cpp",
+      "target": "func:tests/test_database_pool.cpp::TEST",
+      "relation": "declares",
+      "properties": {
+        "line": 103,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:tests/test_database_pool.cpp",
+      "target": "func:tests/test_database_pool.cpp::TEST",
+      "relation": "declares",
+      "properties": {
+        "line": 127,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:tests/test_database_pool.cpp",
+      "target": "func:tests/test_database_pool.cpp::TEST",
+      "relation": "declares",
+      "properties": {
+        "line": 149,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:tests/test_database_pool.cpp",
+      "target": "func:tests/test_database_pool.cpp::TEST",
+      "relation": "declares",
+      "properties": {
+        "line": 169,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:tests/test_database_pool.cpp",
+      "target": "func:tests/test_database_pool.cpp::TEST",
+      "relation": "declares",
+      "properties": {
+        "line": 216,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:tests/test_database_pool.cpp",
+      "target": "func:tests/test_database_pool.cpp::TEST",
+      "relation": "declares",
+      "properties": {
+        "line": 236,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:tests/test_database_pool.cpp",
+      "target": "func:tests/test_database_pool.cpp::TEST",
+      "relation": "declares",
+      "properties": {
+        "line": 255,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:tests/test_database_pool.cpp",
+      "target": "func:tests/test_database_pool.cpp::TEST",
+      "relation": "declares",
+      "properties": {
+        "line": 270,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:tests/test_database_pool.cpp",
+      "target": "func:tests/test_database_pool.cpp::TEST",
+      "relation": "declares",
+      "properties": {
+        "line": 295,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:tests/test_database_pool.cpp",
+      "target": "func:tests/test_database_pool.cpp::TEST",
+      "relation": "declares",
+      "properties": {
+        "line": 310,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:tests/test_database_pool.cpp",
+      "target": "func:tests/test_database_pool.cpp::TEST",
+      "relation": "declares",
+      "properties": {
+        "line": 338,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:tests/test_database_pool.cpp",
+      "target": "func:tests/test_database_pool.cpp::main",
+      "relation": "declares",
+      "properties": {
+        "line": 349,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:tests/test_file_system.cpp",
+      "target": "class:tests/test_file_system.cpp::TempDir",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_class"
+      }
+    },
+    {
+      "source": "class:tests/test_file_system.cpp::TempDir",
+      "target": "func:tests/test_file_system.cpp::TempDir",
+      "relation": "contains",
+      "properties": {
+        "kind": "class_contains_method"
+      }
+    },
+    {
+      "source": "class:tests/test_file_system.cpp::TempDir",
+      "target": "func:tests/test_file_system.cpp::~TempDir",
+      "relation": "contains",
+      "properties": {
+        "kind": "class_contains_method"
+      }
+    },
+    {
+      "source": "class:tests/test_file_system.cpp::TempDir",
+      "target": "func:tests/test_file_system.cpp::TempDir",
+      "relation": "contains",
+      "properties": {
+        "kind": "class_contains_method"
+      }
+    },
+    {
+      "source": "class:tests/test_file_system.cpp::TempDir",
+      "target": "func:tests/test_file_system.cpp::file_path",
+      "relation": "contains",
+      "properties": {
+        "kind": "class_contains_method"
+      }
+    },
+    {
+      "source": "class:tests/test_file_system.cpp::TempDir",
+      "target": "func:tests/test_file_system.cpp::write_file",
+      "relation": "contains",
+      "properties": {
+        "kind": "class_contains_method"
+      }
+    },
+    {
+      "source": "file:tests/test_file_system.cpp",
+      "target": "func:tests/test_file_system.cpp::main",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:tests/test_file_system.cpp",
+      "target": "func:tests/test_file_system.cpp::TEST",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:tests/test_file_system.cpp",
+      "target": "func:tests/test_file_system.cpp::TEST",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:tests/test_file_system.cpp",
+      "target": "func:tests/test_file_system.cpp::TEST",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:tests/test_file_system.cpp",
+      "target": "func:tests/test_file_system.cpp::TEST",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:tests/test_file_system.cpp",
+      "target": "func:tests/test_file_system.cpp::TEST",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:tests/test_file_system.cpp",
+      "target": "func:tests/test_file_system.cpp::TEST",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:tests/test_file_system.cpp",
+      "target": "func:tests/test_file_system.cpp::TEST",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:tests/test_file_system.cpp",
+      "target": "func:tests/test_file_system.cpp::TEST",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:tests/test_file_system.cpp",
+      "target": "func:tests/test_file_system.cpp::TEST",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:tests/test_file_system.cpp",
+      "target": "func:tests/test_file_system.cpp::TEST",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:tests/test_file_system.cpp",
+      "target": "func:tests/test_file_system.cpp::TEST",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:tests/test_file_system.cpp",
+      "target": "func:tests/test_file_system.cpp::TEST",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:tests/test_file_system.cpp",
+      "target": "func:tests/test_file_system.cpp::TEST",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:tests/test_file_system.cpp",
+      "target": "func:tests/test_file_system.cpp::TEST",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "func:tests/test_file_system.cpp::TEST",
+      "target": "func:tests/test_file_system.cpp::write_file",
+      "relation": "calls",
+      "properties": {
+        "lineNumber": 62
+      }
+    },
+    {
+      "source": "func:tests/test_file_system.cpp::TEST",
+      "target": "func:tests/test_file_system.cpp::file_path",
+      "relation": "calls",
+      "properties": {
+        "lineNumber": 65
+      }
+    },
+    {
+      "source": "func:tests/test_file_system.cpp::TEST",
+      "target": "func:tests/test_file_system.cpp::write_file",
+      "relation": "calls",
+      "properties": {
+        "lineNumber": 80
+      }
+    },
+    {
+      "source": "func:tests/test_file_system.cpp::TEST",
+      "target": "func:tests/test_file_system.cpp::file_path",
+      "relation": "calls",
+      "properties": {
+        "lineNumber": 83
+      }
+    },
+    {
+      "source": "func:tests/test_file_system.cpp::TEST",
+      "target": "func:tests/test_file_system.cpp::write_file",
+      "relation": "calls",
+      "properties": {
+        "lineNumber": 93
+      }
+    },
+    {
+      "source": "func:tests/test_file_system.cpp::TEST",
+      "target": "func:tests/test_file_system.cpp::file_path",
+      "relation": "calls",
+      "properties": {
+        "lineNumber": 96
+      }
+    },
+    {
+      "source": "func:tests/test_file_system.cpp::TEST",
+      "target": "func:tests/test_file_system.cpp::file_path",
+      "relation": "calls",
+      "properties": {
+        "lineNumber": 104
+      }
+    },
+    {
+      "source": "func:tests/test_file_system.cpp::TEST",
+      "target": "func:tests/test_file_system.cpp::write_file",
+      "relation": "calls",
+      "properties": {
+        "lineNumber": 111
+      }
+    },
+    {
+      "source": "func:tests/test_file_system.cpp::TEST",
+      "target": "func:tests/test_file_system.cpp::file_path",
+      "relation": "calls",
+      "properties": {
+        "lineNumber": 114
+      }
+    },
+    {
+      "source": "func:tests/test_file_system.cpp::TEST",
+      "target": "func:tests/test_file_system.cpp::file_path",
+      "relation": "calls",
+      "properties": {
+        "lineNumber": 122
+      }
+    },
+    {
+      "source": "func:tests/test_file_system.cpp::TEST",
+      "target": "func:tests/test_file_system.cpp::write_file",
+      "relation": "calls",
+      "properties": {
+        "lineNumber": 130
+      }
+    },
+    {
+      "source": "func:tests/test_file_system.cpp::TEST",
+      "target": "func:tests/test_file_system.cpp::file_path",
+      "relation": "calls",
+      "properties": {
+        "lineNumber": 133
+      }
+    },
+    {
+      "source": "func:tests/test_file_system.cpp::TEST",
+      "target": "func:tests/test_file_system.cpp::write_file",
+      "relation": "calls",
+      "properties": {
+        "lineNumber": 208
+      }
+    },
+    {
+      "source": "func:tests/test_file_system.cpp::TEST",
+      "target": "func:tests/test_file_system.cpp::file_path",
+      "relation": "calls",
+      "properties": {
+        "lineNumber": 211
+      }
+    },
+    {
+      "source": "file:tests/test_file_system.cpp",
+      "target": "class:tests/test_file_system.cpp::TempDir",
+      "relation": "declares",
+      "properties": {
+        "line": 18,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:tests/test_file_system.cpp",
+      "target": "func:tests/test_file_system.cpp::~TempDir",
+      "relation": "declares",
+      "properties": {
+        "line": 25,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:tests/test_file_system.cpp",
+      "target": "class:tests/test_file_system.cpp::TempDir",
+      "relation": "declares",
+      "properties": {
+        "line": 27,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:tests/test_file_system.cpp",
+      "target": "func:tests/test_file_system.cpp::file_path",
+      "relation": "declares",
+      "properties": {
+        "line": 32,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:tests/test_file_system.cpp",
+      "target": "func:tests/test_file_system.cpp::write_file",
+      "relation": "declares",
+      "properties": {
+        "line": 35,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:tests/test_file_system.cpp",
+      "target": "class:tests/test_file_system.cpp::TempDir",
+      "relation": "declares",
+      "properties": {
+        "line": 16,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:tests/test_file_system.cpp",
+      "target": "func:tests/test_file_system.cpp::main",
+      "relation": "declares",
+      "properties": {
+        "line": 52,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:tests/test_file_system.cpp",
+      "target": "func:tests/test_file_system.cpp::TEST",
+      "relation": "declares",
+      "properties": {
+        "line": 59,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:tests/test_file_system.cpp",
+      "target": "func:tests/test_file_system.cpp::TEST",
+      "relation": "declares",
+      "properties": {
+        "line": 77,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:tests/test_file_system.cpp",
+      "target": "func:tests/test_file_system.cpp::TEST",
+      "relation": "declares",
+      "properties": {
+        "line": 91,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:tests/test_file_system.cpp",
+      "target": "func:tests/test_file_system.cpp::TEST",
+      "relation": "declares",
+      "properties": {
+        "line": 101,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:tests/test_file_system.cpp",
+      "target": "func:tests/test_file_system.cpp::TEST",
+      "relation": "declares",
+      "properties": {
+        "line": 109,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:tests/test_file_system.cpp",
+      "target": "func:tests/test_file_system.cpp::TEST",
+      "relation": "declares",
+      "properties": {
+        "line": 119,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:tests/test_file_system.cpp",
+      "target": "func:tests/test_file_system.cpp::TEST",
+      "relation": "declares",
+      "properties": {
+        "line": 127,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:tests/test_file_system.cpp",
+      "target": "func:tests/test_file_system.cpp::TEST",
+      "relation": "declares",
+      "properties": {
+        "line": 139,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:tests/test_file_system.cpp",
+      "target": "func:tests/test_file_system.cpp::TEST",
+      "relation": "declares",
+      "properties": {
+        "line": 153,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:tests/test_file_system.cpp",
+      "target": "func:tests/test_file_system.cpp::TEST",
+      "relation": "declares",
+      "properties": {
+        "line": 161,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:tests/test_file_system.cpp",
+      "target": "func:tests/test_file_system.cpp::TEST",
+      "relation": "declares",
+      "properties": {
+        "line": 174,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:tests/test_file_system.cpp",
+      "target": "func:tests/test_file_system.cpp::TEST",
+      "relation": "declares",
+      "properties": {
+        "line": 181,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:tests/test_file_system.cpp",
+      "target": "func:tests/test_file_system.cpp::TEST",
+      "relation": "declares",
+      "properties": {
+        "line": 195,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:tests/test_file_system.cpp",
+      "target": "func:tests/test_file_system.cpp::TEST",
+      "relation": "declares",
+      "properties": {
+        "line": 205,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:tests/test_file_transfer.cpp",
+      "target": "class:tests/test_file_transfer.cpp::TempDir",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_class"
+      }
+    },
+    {
+      "source": "class:tests/test_file_transfer.cpp::TempDir",
+      "target": "func:tests/test_file_transfer.cpp::TempDir",
+      "relation": "contains",
+      "properties": {
+        "kind": "class_contains_method"
+      }
+    },
+    {
+      "source": "class:tests/test_file_transfer.cpp::TempDir",
+      "target": "func:tests/test_file_transfer.cpp::~TempDir",
+      "relation": "contains",
+      "properties": {
+        "kind": "class_contains_method"
+      }
+    },
+    {
+      "source": "class:tests/test_file_transfer.cpp::TempDir",
+      "target": "func:tests/test_file_transfer.cpp::TempDir",
+      "relation": "contains",
+      "properties": {
+        "kind": "class_contains_method"
+      }
+    },
+    {
+      "source": "class:tests/test_file_transfer.cpp::TempDir",
+      "target": "func:tests/test_file_transfer.cpp::file_path",
+      "relation": "contains",
+      "properties": {
+        "kind": "class_contains_method"
+      }
+    },
+    {
+      "source": "class:tests/test_file_transfer.cpp::TempDir",
+      "target": "func:tests/test_file_transfer.cpp::write_file",
+      "relation": "contains",
+      "properties": {
+        "kind": "class_contains_method"
+      }
+    },
+    {
+      "source": "file:tests/test_file_transfer.cpp",
+      "target": "func:tests/test_file_transfer.cpp::create_echo_server",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:tests/test_file_transfer.cpp",
+      "target": "func:tests/test_file_transfer.cpp::get_port",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:tests/test_file_transfer.cpp",
+      "target": "func:tests/test_file_transfer.cpp::run_echo_server",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:tests/test_file_transfer.cpp",
+      "target": "func:tests/test_file_transfer.cpp::recv_all",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:tests/test_file_transfer.cpp",
+      "target": "func:tests/test_file_transfer.cpp::TEST",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:tests/test_file_transfer.cpp",
+      "target": "func:tests/test_file_transfer.cpp::TEST",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:tests/test_file_transfer.cpp",
+      "target": "func:tests/test_file_transfer.cpp::TEST",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:tests/test_file_transfer.cpp",
+      "target": "func:tests/test_file_transfer.cpp::TEST",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:tests/test_file_transfer.cpp",
+      "target": "func:tests/test_file_transfer.cpp::TEST",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:tests/test_file_transfer.cpp",
+      "target": "func:tests/test_file_transfer.cpp::TEST",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:tests/test_file_transfer.cpp",
+      "target": "func:tests/test_file_transfer.cpp::TEST",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:tests/test_file_transfer.cpp",
+      "target": "func:tests/test_file_transfer.cpp::main",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "func:tests/test_file_transfer.cpp::TEST",
+      "target": "func:tests/test_file_transfer.cpp::write_file",
+      "relation": "calls",
+      "properties": {
+        "lineNumber": 116
+      }
+    },
+    {
+      "source": "func:tests/test_file_transfer.cpp::TEST",
+      "target": "func:tests/test_file_transfer.cpp::create_echo_server",
+      "relation": "calls",
+      "properties": {
+        "lineNumber": 118
+      }
+    },
+    {
+      "source": "func:tests/test_file_transfer.cpp::TEST",
+      "target": "func:tests/test_file_transfer.cpp::get_port",
+      "relation": "calls",
+      "properties": {
+        "lineNumber": 120
+      }
+    },
+    {
+      "source": "func:tests/test_file_transfer.cpp::TEST",
+      "target": "func:tests/test_file_transfer.cpp::file_path",
+      "relation": "calls",
+      "properties": {
+        "lineNumber": 130
+      }
+    },
+    {
+      "source": "func:tests/test_file_transfer.cpp::TEST",
+      "target": "func:tests/test_file_transfer.cpp::file_path",
+      "relation": "calls",
+      "properties": {
+        "lineNumber": 147
+      }
+    },
+    {
+      "source": "func:tests/test_file_transfer.cpp::TEST",
+      "target": "func:tests/test_file_transfer.cpp::write_file",
+      "relation": "calls",
+      "properties": {
+        "lineNumber": 152
+      }
+    },
+    {
+      "source": "func:tests/test_file_transfer.cpp::TEST",
+      "target": "func:tests/test_file_transfer.cpp::file_path",
+      "relation": "calls",
+      "properties": {
+        "lineNumber": 157
+      }
+    },
+    {
+      "source": "func:tests/test_file_transfer.cpp::TEST",
+      "target": "func:tests/test_file_transfer.cpp::file_path",
+      "relation": "calls",
+      "properties": {
+        "lineNumber": 216
+      }
+    },
+    {
+      "source": "func:tests/test_file_transfer.cpp::TEST",
+      "target": "func:tests/test_file_transfer.cpp::recv_all",
+      "relation": "calls",
+      "properties": {
+        "lineNumber": 301
+      }
+    },
+    {
+      "source": "func:tests/test_file_transfer.cpp::TEST",
+      "target": "func:tests/test_file_transfer.cpp::recv_all",
+      "relation": "calls",
+      "properties": {
+        "lineNumber": 318
+      }
+    },
+    {
+      "source": "file:tests/test_file_transfer.cpp",
+      "target": "func:tests/test_file_transfer.cpp::create_echo_server",
+      "relation": "declares",
+      "properties": {
+        "line": 28,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:tests/test_file_transfer.cpp",
+      "target": "func:tests/test_file_transfer.cpp::get_port",
+      "relation": "declares",
+      "properties": {
+        "line": 51,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:tests/test_file_transfer.cpp",
+      "target": "func:tests/test_file_transfer.cpp::run_echo_server",
+      "relation": "declares",
+      "properties": {
+        "line": 60,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:tests/test_file_transfer.cpp",
+      "target": "func:tests/test_file_transfer.cpp::recv_all",
+      "relation": "declares",
+      "properties": {
+        "line": 72,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:tests/test_file_transfer.cpp",
+      "target": "class:tests/test_file_transfer.cpp::TempDir",
+      "relation": "declares",
+      "properties": {
+        "line": 86,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:tests/test_file_transfer.cpp",
+      "target": "func:tests/test_file_transfer.cpp::~TempDir",
+      "relation": "declares",
+      "properties": {
+        "line": 93,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:tests/test_file_transfer.cpp",
+      "target": "class:tests/test_file_transfer.cpp::TempDir",
+      "relation": "declares",
+      "properties": {
+        "line": 95,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:tests/test_file_transfer.cpp",
+      "target": "func:tests/test_file_transfer.cpp::file_path",
+      "relation": "declares",
+      "properties": {
+        "line": 100,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:tests/test_file_transfer.cpp",
+      "target": "func:tests/test_file_transfer.cpp::write_file",
+      "relation": "declares",
+      "properties": {
+        "line": 102,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:tests/test_file_transfer.cpp",
+      "target": "class:tests/test_file_transfer.cpp::TempDir",
+      "relation": "declares",
+      "properties": {
+        "line": 84,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:tests/test_file_transfer.cpp",
+      "target": "func:tests/test_file_transfer.cpp::TEST",
+      "relation": "declares",
+      "properties": {
+        "line": 113,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:tests/test_file_transfer.cpp",
+      "target": "func:tests/test_file_transfer.cpp::TEST",
+      "relation": "declares",
+      "properties": {
+        "line": 141,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:tests/test_file_transfer.cpp",
+      "target": "func:tests/test_file_transfer.cpp::TEST",
+      "relation": "declares",
+      "properties": {
+        "line": 150,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:tests/test_file_transfer.cpp",
+      "target": "func:tests/test_file_transfer.cpp::TEST",
+      "relation": "declares",
+      "properties": {
+        "line": 160,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:tests/test_file_transfer.cpp",
+      "target": "func:tests/test_file_transfer.cpp::TEST",
+      "relation": "declares",
+      "properties": {
+        "line": 178,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:tests/test_file_transfer.cpp",
+      "target": "func:tests/test_file_transfer.cpp::TEST",
+      "relation": "declares",
+      "properties": {
+        "line": 182,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:tests/test_file_transfer.cpp",
+      "target": "func:tests/test_file_transfer.cpp::TEST",
+      "relation": "declares",
+      "properties": {
+        "line": 214,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:tests/test_file_transfer.cpp",
+      "target": "func:tests/test_file_transfer.cpp::main",
+      "relation": "declares",
+      "properties": {
+        "line": 334,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:tests/test_http_parser.cpp",
+      "target": "func:tests/test_http_parser.cpp::TEST",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:tests/test_http_parser.cpp",
+      "target": "func:tests/test_http_parser.cpp::TEST",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:tests/test_http_parser.cpp",
+      "target": "func:tests/test_http_parser.cpp::TEST",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:tests/test_http_parser.cpp",
+      "target": "func:tests/test_http_parser.cpp::TEST",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:tests/test_http_parser.cpp",
+      "target": "func:tests/test_http_parser.cpp::TEST",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:tests/test_http_parser.cpp",
+      "target": "func:tests/test_http_parser.cpp::TEST",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:tests/test_http_parser.cpp",
+      "target": "func:tests/test_http_parser.cpp::TEST",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:tests/test_http_parser.cpp",
+      "target": "func:tests/test_http_parser.cpp::TEST",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:tests/test_http_parser.cpp",
+      "target": "func:tests/test_http_parser.cpp::TEST",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:tests/test_http_parser.cpp",
+      "target": "func:tests/test_http_parser.cpp::TEST",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:tests/test_http_parser.cpp",
+      "target": "func:tests/test_http_parser.cpp::TEST",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:tests/test_http_parser.cpp",
+      "target": "func:tests/test_http_parser.cpp::TEST",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:tests/test_http_parser.cpp",
+      "target": "func:tests/test_http_parser.cpp::TEST",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:tests/test_http_parser.cpp",
+      "target": "func:tests/test_http_parser.cpp::TEST",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:tests/test_http_parser.cpp",
+      "target": "func:tests/test_http_parser.cpp::TEST",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:tests/test_http_parser.cpp",
+      "target": "func:tests/test_http_parser.cpp::TEST",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:tests/test_http_parser.cpp",
+      "target": "func:tests/test_http_parser.cpp::TEST",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:tests/test_http_parser.cpp",
+      "target": "func:tests/test_http_parser.cpp::TEST",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:tests/test_http_parser.cpp",
+      "target": "func:tests/test_http_parser.cpp::TEST",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:tests/test_http_parser.cpp",
+      "target": "func:tests/test_http_parser.cpp::main",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:tests/test_http_parser.cpp",
+      "target": "func:tests/test_http_parser.cpp::TEST",
+      "relation": "declares",
+      "properties": {
+        "line": 9,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:tests/test_http_parser.cpp",
+      "target": "func:tests/test_http_parser.cpp::TEST",
+      "relation": "declares",
+      "properties": {
+        "line": 22,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:tests/test_http_parser.cpp",
+      "target": "func:tests/test_http_parser.cpp::TEST",
+      "relation": "declares",
+      "properties": {
+        "line": 34,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:tests/test_http_parser.cpp",
+      "target": "func:tests/test_http_parser.cpp::TEST",
+      "relation": "declares",
+      "properties": {
+        "line": 49,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:tests/test_http_parser.cpp",
+      "target": "func:tests/test_http_parser.cpp::TEST",
+      "relation": "declares",
+      "properties": {
+        "line": 57,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:tests/test_http_parser.cpp",
+      "target": "func:tests/test_http_parser.cpp::TEST",
+      "relation": "declares",
+      "properties": {
+        "line": 65,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:tests/test_http_parser.cpp",
+      "target": "func:tests/test_http_parser.cpp::TEST",
+      "relation": "declares",
+      "properties": {
+        "line": 71,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:tests/test_http_parser.cpp",
+      "target": "func:tests/test_http_parser.cpp::TEST",
+      "relation": "declares",
+      "properties": {
+        "line": 77,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:tests/test_http_parser.cpp",
+      "target": "func:tests/test_http_parser.cpp::TEST",
+      "relation": "declares",
+      "properties": {
+        "line": 88,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:tests/test_http_parser.cpp",
+      "target": "func:tests/test_http_parser.cpp::TEST",
+      "relation": "declares",
+      "properties": {
+        "line": 96,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:tests/test_http_parser.cpp",
+      "target": "func:tests/test_http_parser.cpp::TEST",
+      "relation": "declares",
+      "properties": {
+        "line": 111,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:tests/test_http_parser.cpp",
+      "target": "func:tests/test_http_parser.cpp::TEST",
+      "relation": "declares",
+      "properties": {
+        "line": 128,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:tests/test_http_parser.cpp",
+      "target": "func:tests/test_http_parser.cpp::TEST",
+      "relation": "declares",
+      "properties": {
+        "line": 141,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:tests/test_http_parser.cpp",
+      "target": "func:tests/test_http_parser.cpp::TEST",
+      "relation": "declares",
+      "properties": {
+        "line": 147,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:tests/test_http_parser.cpp",
+      "target": "func:tests/test_http_parser.cpp::TEST",
+      "relation": "declares",
+      "properties": {
+        "line": 155,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:tests/test_http_parser.cpp",
+      "target": "func:tests/test_http_parser.cpp::TEST",
+      "relation": "declares",
+      "properties": {
+        "line": 163,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:tests/test_http_parser.cpp",
+      "target": "func:tests/test_http_parser.cpp::TEST",
+      "relation": "declares",
+      "properties": {
+        "line": 171,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:tests/test_http_parser.cpp",
+      "target": "func:tests/test_http_parser.cpp::TEST",
+      "relation": "declares",
+      "properties": {
+        "line": 186,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:tests/test_http_parser.cpp",
+      "target": "func:tests/test_http_parser.cpp::TEST",
+      "relation": "declares",
+      "properties": {
+        "line": 194,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:tests/test_http_parser.cpp",
+      "target": "func:tests/test_http_parser.cpp::main",
+      "relation": "declares",
+      "properties": {
+        "line": 201,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:tests/test_http_request.cpp",
+      "target": "func:tests/test_http_request.cpp::TEST",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:tests/test_http_request.cpp",
+      "target": "func:tests/test_http_request.cpp::TEST",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:tests/test_http_request.cpp",
+      "target": "func:tests/test_http_request.cpp::TEST",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:tests/test_http_request.cpp",
+      "target": "func:tests/test_http_request.cpp::TEST",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:tests/test_http_request.cpp",
+      "target": "func:tests/test_http_request.cpp::main",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:tests/test_http_request.cpp",
+      "target": "func:tests/test_http_request.cpp::TEST",
+      "relation": "declares",
+      "properties": {
+        "line": 7,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:tests/test_http_request.cpp",
+      "target": "func:tests/test_http_request.cpp::TEST",
+      "relation": "declares",
+      "properties": {
+        "line": 17,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:tests/test_http_request.cpp",
+      "target": "func:tests/test_http_request.cpp::TEST",
+      "relation": "declares",
+      "properties": {
+        "line": 30,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:tests/test_http_request.cpp",
+      "target": "func:tests/test_http_request.cpp::TEST",
+      "relation": "declares",
+      "properties": {
+        "line": 36,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:tests/test_http_request.cpp",
+      "target": "func:tests/test_http_request.cpp::main",
+      "relation": "declares",
+      "properties": {
+        "line": 44,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:tests/test_http_response.cpp",
+      "target": "func:tests/test_http_response.cpp::TEST",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:tests/test_http_response.cpp",
+      "target": "func:tests/test_http_response.cpp::TEST",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:tests/test_http_response.cpp",
+      "target": "func:tests/test_http_response.cpp::TEST",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:tests/test_http_response.cpp",
+      "target": "func:tests/test_http_response.cpp::TEST",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:tests/test_http_response.cpp",
+      "target": "func:tests/test_http_response.cpp::TEST",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:tests/test_http_response.cpp",
+      "target": "func:tests/test_http_response.cpp::TEST",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:tests/test_http_response.cpp",
+      "target": "func:tests/test_http_response.cpp::TEST",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:tests/test_http_response.cpp",
+      "target": "func:tests/test_http_response.cpp::TEST",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:tests/test_http_response.cpp",
+      "target": "func:tests/test_http_response.cpp::main",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:tests/test_http_response.cpp",
+      "target": "func:tests/test_http_response.cpp::TEST",
+      "relation": "declares",
+      "properties": {
+        "line": 7,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:tests/test_http_response.cpp",
+      "target": "func:tests/test_http_response.cpp::TEST",
+      "relation": "declares",
+      "properties": {
+        "line": 16,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:tests/test_http_response.cpp",
+      "target": "func:tests/test_http_response.cpp::TEST",
+      "relation": "declares",
+      "properties": {
+        "line": 23,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:tests/test_http_response.cpp",
+      "target": "func:tests/test_http_response.cpp::TEST",
+      "relation": "declares",
+      "properties": {
+        "line": 29,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:tests/test_http_response.cpp",
+      "target": "func:tests/test_http_response.cpp::TEST",
+      "relation": "declares",
+      "properties": {
+        "line": 35,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:tests/test_http_response.cpp",
+      "target": "func:tests/test_http_response.cpp::TEST",
+      "relation": "declares",
+      "properties": {
+        "line": 48,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:tests/test_http_response.cpp",
+      "target": "func:tests/test_http_response.cpp::TEST",
+      "relation": "declares",
+      "properties": {
+        "line": 56,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:tests/test_http_response.cpp",
+      "target": "func:tests/test_http_response.cpp::TEST",
+      "relation": "declares",
+      "properties": {
+        "line": 67,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:tests/test_http_response.cpp",
+      "target": "func:tests/test_http_response.cpp::main",
+      "relation": "declares",
+      "properties": {
+        "line": 74,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:tests/test_http_server.cpp",
+      "target": "func:tests/test_http_server.cpp::main",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:tests/test_http_server.cpp",
+      "target": "func:tests/test_http_server.cpp::send_raw",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:tests/test_http_server.cpp",
+      "target": "func:tests/test_http_server.cpp::TEST",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:tests/test_http_server.cpp",
+      "target": "func:tests/test_http_server.cpp::TEST",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:tests/test_http_server.cpp",
+      "target": "func:tests/test_http_server.cpp::TEST",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:tests/test_http_server.cpp",
+      "target": "func:tests/test_http_server.cpp::TEST",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:tests/test_http_server.cpp",
+      "target": "func:tests/test_http_server.cpp::TEST",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:tests/test_http_server.cpp",
+      "target": "func:tests/test_http_server.cpp::TEST",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:tests/test_http_server.cpp",
+      "target": "func:tests/test_http_server.cpp::TEST",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "func:tests/test_http_server.cpp::TEST",
+      "target": "func:tests/test_http_server.cpp::send_raw",
+      "relation": "calls",
+      "properties": {
+        "lineNumber": 53
+      }
+    },
+    {
+      "source": "func:tests/test_http_server.cpp::TEST",
+      "target": "func:tests/test_http_server.cpp::send_raw",
+      "relation": "calls",
+      "properties": {
+        "lineNumber": 77
+      }
+    },
+    {
+      "source": "func:tests/test_http_server.cpp::TEST",
+      "target": "func:tests/test_http_server.cpp::send_raw",
+      "relation": "calls",
+      "properties": {
+        "lineNumber": 94
+      }
+    },
+    {
+      "source": "func:tests/test_http_server.cpp::TEST",
+      "target": "func:tests/test_http_server.cpp::send_raw",
+      "relation": "calls",
+      "properties": {
+        "lineNumber": 118
+      }
+    },
+    {
+      "source": "func:tests/test_http_server.cpp::TEST",
+      "target": "func:tests/test_http_server.cpp::send_raw",
+      "relation": "calls",
+      "properties": {
+        "lineNumber": 171
+      }
+    },
+    {
+      "source": "func:tests/test_http_server.cpp::TEST",
+      "target": "func:tests/test_http_server.cpp::send_raw",
+      "relation": "calls",
+      "properties": {
+        "lineNumber": 189
+      }
+    },
+    {
+      "source": "file:tests/test_http_server.cpp",
+      "target": "func:tests/test_http_server.cpp::main",
+      "relation": "declares",
+      "properties": {
+        "line": 14,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:tests/test_http_server.cpp",
+      "target": "func:tests/test_http_server.cpp::send_raw",
+      "relation": "declares",
+      "properties": {
+        "line": 22,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:tests/test_http_server.cpp",
+      "target": "func:tests/test_http_server.cpp::TEST",
+      "relation": "declares",
+      "properties": {
+        "line": 38,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:tests/test_http_server.cpp",
+      "target": "func:tests/test_http_server.cpp::TEST",
+      "relation": "declares",
+      "properties": {
+        "line": 62,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:tests/test_http_server.cpp",
+      "target": "func:tests/test_http_server.cpp::TEST",
+      "relation": "declares",
+      "properties": {
+        "line": 86,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:tests/test_http_server.cpp",
+      "target": "func:tests/test_http_server.cpp::TEST",
+      "relation": "declares",
+      "properties": {
+        "line": 102,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:tests/test_http_server.cpp",
+      "target": "func:tests/test_http_server.cpp::TEST",
+      "relation": "declares",
+      "properties": {
+        "line": 127,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:tests/test_http_server.cpp",
+      "target": "func:tests/test_http_server.cpp::TEST",
+      "relation": "declares",
+      "properties": {
+        "line": 163,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:tests/test_http_server.cpp",
+      "target": "func:tests/test_http_server.cpp::TEST",
+      "relation": "declares",
+      "properties": {
+        "line": 179,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:tests/test_lock_free_queue.cpp",
+      "target": "func:tests/test_lock_free_queue.cpp::main",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:tests/test_lock_free_queue.cpp",
+      "target": "func:tests/test_lock_free_queue.cpp::TEST",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:tests/test_lock_free_queue.cpp",
+      "target": "func:tests/test_lock_free_queue.cpp::TEST",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:tests/test_lock_free_queue.cpp",
+      "target": "func:tests/test_lock_free_queue.cpp::TEST",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:tests/test_lock_free_queue.cpp",
+      "target": "func:tests/test_lock_free_queue.cpp::main",
+      "relation": "declares",
+      "properties": {
+        "line": 11,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:tests/test_lock_free_queue.cpp",
+      "target": "func:tests/test_lock_free_queue.cpp::TEST",
+      "relation": "declares",
+      "properties": {
+        "line": 17,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:tests/test_lock_free_queue.cpp",
+      "target": "func:tests/test_lock_free_queue.cpp::TEST",
+      "relation": "declares",
+      "properties": {
+        "line": 34,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:tests/test_lock_free_queue.cpp",
+      "target": "func:tests/test_lock_free_queue.cpp::TEST",
+      "relation": "declares",
+      "properties": {
+        "line": 70,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:tests/test_locked_thread_pool.cpp",
+      "target": "func:tests/test_locked_thread_pool.cpp::main",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:tests/test_locked_thread_pool.cpp",
+      "target": "func:tests/test_locked_thread_pool.cpp::TEST",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:tests/test_locked_thread_pool.cpp",
+      "target": "func:tests/test_locked_thread_pool.cpp::TEST",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:tests/test_locked_thread_pool.cpp",
+      "target": "func:tests/test_locked_thread_pool.cpp::TEST",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:tests/test_locked_thread_pool.cpp",
+      "target": "func:tests/test_locked_thread_pool.cpp::TEST",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:tests/test_locked_thread_pool.cpp",
+      "target": "func:tests/test_locked_thread_pool.cpp::TEST",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:tests/test_locked_thread_pool.cpp",
+      "target": "func:tests/test_locked_thread_pool.cpp::TEST",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:tests/test_locked_thread_pool.cpp",
+      "target": "func:tests/test_locked_thread_pool.cpp::TEST",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:tests/test_locked_thread_pool.cpp",
+      "target": "func:tests/test_locked_thread_pool.cpp::TEST",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:tests/test_locked_thread_pool.cpp",
+      "target": "func:tests/test_locked_thread_pool.cpp::main",
+      "relation": "declares",
+      "properties": {
+        "line": 13,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:tests/test_locked_thread_pool.cpp",
+      "target": "func:tests/test_locked_thread_pool.cpp::TEST",
+      "relation": "declares",
+      "properties": {
+        "line": 18,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:tests/test_locked_thread_pool.cpp",
+      "target": "func:tests/test_locked_thread_pool.cpp::TEST",
+      "relation": "declares",
+      "properties": {
+        "line": 27,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:tests/test_locked_thread_pool.cpp",
+      "target": "func:tests/test_locked_thread_pool.cpp::TEST",
+      "relation": "declares",
+      "properties": {
+        "line": 39,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:tests/test_locked_thread_pool.cpp",
+      "target": "func:tests/test_locked_thread_pool.cpp::TEST",
+      "relation": "declares",
+      "properties": {
+        "line": 53,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:tests/test_locked_thread_pool.cpp",
+      "target": "func:tests/test_locked_thread_pool.cpp::TEST",
+      "relation": "declares",
+      "properties": {
+        "line": 62,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:tests/test_locked_thread_pool.cpp",
+      "target": "func:tests/test_locked_thread_pool.cpp::TEST",
+      "relation": "declares",
+      "properties": {
+        "line": 70,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:tests/test_locked_thread_pool.cpp",
+      "target": "func:tests/test_locked_thread_pool.cpp::TEST",
+      "relation": "declares",
+      "properties": {
+        "line": 83,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:tests/test_locked_thread_pool.cpp",
+      "target": "func:tests/test_locked_thread_pool.cpp::TEST",
+      "relation": "declares",
+      "properties": {
+        "line": 92,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:tests/test_memory_pool.cpp",
+      "target": "func:tests/test_memory_pool.cpp::main",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:tests/test_memory_pool.cpp",
+      "target": "func:tests/test_memory_pool.cpp::TEST",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:tests/test_memory_pool.cpp",
+      "target": "func:tests/test_memory_pool.cpp::TEST",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:tests/test_memory_pool.cpp",
+      "target": "func:tests/test_memory_pool.cpp::TEST",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:tests/test_memory_pool.cpp",
+      "target": "func:tests/test_memory_pool.cpp::TEST",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:tests/test_memory_pool.cpp",
+      "target": "func:tests/test_memory_pool.cpp::TEST",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:tests/test_memory_pool.cpp",
+      "target": "func:tests/test_memory_pool.cpp::TEST",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:tests/test_memory_pool.cpp",
+      "target": "func:tests/test_memory_pool.cpp::TEST",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:tests/test_memory_pool.cpp",
+      "target": "func:tests/test_memory_pool.cpp::TEST",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:tests/test_memory_pool.cpp",
+      "target": "func:tests/test_memory_pool.cpp::TEST",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:tests/test_memory_pool.cpp",
+      "target": "func:tests/test_memory_pool.cpp::main",
+      "relation": "declares",
+      "properties": {
+        "line": 13,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:tests/test_memory_pool.cpp",
+      "target": "func:tests/test_memory_pool.cpp::TEST",
+      "relation": "declares",
+      "properties": {
+        "line": 19,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:tests/test_memory_pool.cpp",
+      "target": "func:tests/test_memory_pool.cpp::TEST",
+      "relation": "declares",
+      "properties": {
+        "line": 28,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:tests/test_memory_pool.cpp",
+      "target": "func:tests/test_memory_pool.cpp::TEST",
+      "relation": "declares",
+      "properties": {
+        "line": 36,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:tests/test_memory_pool.cpp",
+      "target": "func:tests/test_memory_pool.cpp::TEST",
+      "relation": "declares",
+      "properties": {
+        "line": 55,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:tests/test_memory_pool.cpp",
+      "target": "func:tests/test_memory_pool.cpp::TEST",
+      "relation": "declares",
+      "properties": {
+        "line": 68,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:tests/test_memory_pool.cpp",
+      "target": "func:tests/test_memory_pool.cpp::TEST",
+      "relation": "declares",
+      "properties": {
+        "line": 78,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:tests/test_memory_pool.cpp",
+      "target": "func:tests/test_memory_pool.cpp::TEST",
+      "relation": "declares",
+      "properties": {
+        "line": 95,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:tests/test_memory_pool.cpp",
+      "target": "func:tests/test_memory_pool.cpp::TEST",
+      "relation": "declares",
+      "properties": {
+        "line": 116,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:tests/test_memory_pool.cpp",
+      "target": "func:tests/test_memory_pool.cpp::TEST",
+      "relation": "declares",
+      "properties": {
+        "line": 133,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:tests/test_move_only_function.cpp",
+      "target": "func:tests/test_move_only_function.cpp::TEST",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:tests/test_move_only_function.cpp",
+      "target": "func:tests/test_move_only_function.cpp::TEST",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:tests/test_move_only_function.cpp",
+      "target": "func:tests/test_move_only_function.cpp::TEST",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:tests/test_move_only_function.cpp",
+      "target": "func:tests/test_move_only_function.cpp::TEST",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:tests/test_move_only_function.cpp",
+      "target": "func:tests/test_move_only_function.cpp::TEST",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:tests/test_move_only_function.cpp",
+      "target": "func:tests/test_move_only_function.cpp::TEST",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:tests/test_move_only_function.cpp",
+      "target": "func:tests/test_move_only_function.cpp::main",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:tests/test_move_only_function.cpp",
+      "target": "func:tests/test_move_only_function.cpp::TEST",
+      "relation": "declares",
+      "properties": {
+        "line": 15,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:tests/test_move_only_function.cpp",
+      "target": "func:tests/test_move_only_function.cpp::TEST",
+      "relation": "declares",
+      "properties": {
+        "line": 25,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:tests/test_move_only_function.cpp",
+      "target": "func:tests/test_move_only_function.cpp::TEST",
+      "relation": "declares",
+      "properties": {
+        "line": 36,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:tests/test_move_only_function.cpp",
+      "target": "func:tests/test_move_only_function.cpp::TEST",
+      "relation": "declares",
+      "properties": {
+        "line": 48,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:tests/test_move_only_function.cpp",
+      "target": "func:tests/test_move_only_function.cpp::TEST",
+      "relation": "declares",
+      "properties": {
+        "line": 56,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:tests/test_move_only_function.cpp",
+      "target": "func:tests/test_move_only_function.cpp::TEST",
+      "relation": "declares",
+      "properties": {
+        "line": 65,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:tests/test_move_only_function.cpp",
+      "target": "func:tests/test_move_only_function.cpp::main",
+      "relation": "declares",
+      "properties": {
+        "line": 80,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:tests/test_range_parser.cpp",
+      "target": "func:tests/test_range_parser.cpp::main",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:tests/test_range_parser.cpp",
+      "target": "func:tests/test_range_parser.cpp::TEST",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:tests/test_range_parser.cpp",
+      "target": "func:tests/test_range_parser.cpp::TEST",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:tests/test_range_parser.cpp",
+      "target": "func:tests/test_range_parser.cpp::TEST",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:tests/test_range_parser.cpp",
+      "target": "func:tests/test_range_parser.cpp::TEST",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:tests/test_range_parser.cpp",
+      "target": "func:tests/test_range_parser.cpp::TEST",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:tests/test_range_parser.cpp",
+      "target": "func:tests/test_range_parser.cpp::TEST",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:tests/test_range_parser.cpp",
+      "target": "func:tests/test_range_parser.cpp::TEST",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:tests/test_range_parser.cpp",
+      "target": "func:tests/test_range_parser.cpp::TEST",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:tests/test_range_parser.cpp",
+      "target": "func:tests/test_range_parser.cpp::TEST",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:tests/test_range_parser.cpp",
+      "target": "func:tests/test_range_parser.cpp::TEST",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:tests/test_range_parser.cpp",
+      "target": "func:tests/test_range_parser.cpp::main",
+      "relation": "declares",
+      "properties": {
+        "line": 10,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:tests/test_range_parser.cpp",
+      "target": "func:tests/test_range_parser.cpp::TEST",
+      "relation": "declares",
+      "properties": {
+        "line": 18,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:tests/test_range_parser.cpp",
+      "target": "func:tests/test_range_parser.cpp::TEST",
+      "relation": "declares",
+      "properties": {
+        "line": 28,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:tests/test_range_parser.cpp",
+      "target": "func:tests/test_range_parser.cpp::TEST",
+      "relation": "declares",
+      "properties": {
+        "line": 38,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:tests/test_range_parser.cpp",
+      "target": "func:tests/test_range_parser.cpp::TEST",
+      "relation": "declares",
+      "properties": {
+        "line": 48,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:tests/test_range_parser.cpp",
+      "target": "func:tests/test_range_parser.cpp::TEST",
+      "relation": "declares",
+      "properties": {
+        "line": 60,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:tests/test_range_parser.cpp",
+      "target": "func:tests/test_range_parser.cpp::TEST",
+      "relation": "declares",
+      "properties": {
+        "line": 70,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:tests/test_range_parser.cpp",
+      "target": "func:tests/test_range_parser.cpp::TEST",
+      "relation": "declares",
+      "properties": {
+        "line": 77,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:tests/test_range_parser.cpp",
+      "target": "func:tests/test_range_parser.cpp::TEST",
+      "relation": "declares",
+      "properties": {
+        "line": 94,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:tests/test_range_parser.cpp",
+      "target": "func:tests/test_range_parser.cpp::TEST",
+      "relation": "declares",
+      "properties": {
+        "line": 108,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:tests/test_range_parser.cpp",
+      "target": "func:tests/test_range_parser.cpp::TEST",
+      "relation": "declares",
+      "properties": {
+        "line": 120,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:tests/test_router.cpp",
+      "target": "func:tests/test_router.cpp::main",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:tests/test_router.cpp",
+      "target": "func:tests/test_router.cpp::make_handler",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:tests/test_router.cpp",
+      "target": "func:tests/test_router.cpp::TEST",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:tests/test_router.cpp",
+      "target": "func:tests/test_router.cpp::TEST",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:tests/test_router.cpp",
+      "target": "func:tests/test_router.cpp::TEST",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:tests/test_router.cpp",
+      "target": "func:tests/test_router.cpp::TEST",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:tests/test_router.cpp",
+      "target": "func:tests/test_router.cpp::TEST",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:tests/test_router.cpp",
+      "target": "func:tests/test_router.cpp::TEST",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:tests/test_router.cpp",
+      "target": "func:tests/test_router.cpp::TEST",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:tests/test_router.cpp",
+      "target": "func:tests/test_router.cpp::TEST",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:tests/test_router.cpp",
+      "target": "func:tests/test_router.cpp::TEST",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "func:tests/test_router.cpp::TEST",
+      "target": "func:tests/test_router.cpp::make_handler",
+      "relation": "calls",
+      "properties": {
+        "lineNumber": 26
+      }
+    },
+    {
+      "source": "func:tests/test_router.cpp::TEST",
+      "target": "func:tests/test_router.cpp::make_handler",
+      "relation": "calls",
+      "properties": {
+        "lineNumber": 36
+      }
+    },
+    {
+      "source": "func:tests/test_router.cpp::TEST",
+      "target": "func:tests/test_router.cpp::make_handler",
+      "relation": "calls",
+      "properties": {
+        "lineNumber": 47
+      }
+    },
+    {
+      "source": "func:tests/test_router.cpp::TEST",
+      "target": "func:tests/test_router.cpp::make_handler",
+      "relation": "calls",
+      "properties": {
+        "lineNumber": 59
+      }
+    },
+    {
+      "source": "func:tests/test_router.cpp::TEST",
+      "target": "func:tests/test_router.cpp::make_handler",
+      "relation": "calls",
+      "properties": {
+        "lineNumber": 68
+      }
+    },
+    {
+      "source": "func:tests/test_router.cpp::TEST",
+      "target": "func:tests/test_router.cpp::make_handler",
+      "relation": "calls",
+      "properties": {
+        "lineNumber": 77
+      }
+    },
+    {
+      "source": "func:tests/test_router.cpp::TEST",
+      "target": "func:tests/test_router.cpp::make_handler",
+      "relation": "calls",
+      "properties": {
+        "lineNumber": 78
+      }
+    },
+    {
+      "source": "func:tests/test_router.cpp::TEST",
+      "target": "func:tests/test_router.cpp::make_handler",
+      "relation": "calls",
+      "properties": {
+        "lineNumber": 96
+      }
+    },
+    {
+      "source": "func:tests/test_router.cpp::TEST",
+      "target": "func:tests/test_router.cpp::make_handler",
+      "relation": "calls",
+      "properties": {
+        "lineNumber": 106
+      }
+    },
+    {
+      "source": "func:tests/test_router.cpp::TEST",
+      "target": "func:tests/test_router.cpp::make_handler",
+      "relation": "calls",
+      "properties": {
+        "lineNumber": 116
+      }
+    },
+    {
+      "source": "func:tests/test_router.cpp::TEST",
+      "target": "func:tests/test_router.cpp::make_handler",
+      "relation": "calls",
+      "properties": {
+        "lineNumber": 117
+      }
+    },
+    {
+      "source": "file:tests/test_router.cpp",
+      "target": "func:tests/test_router.cpp::main",
+      "relation": "declares",
+      "properties": {
+        "line": 9,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:tests/test_router.cpp",
+      "target": "func:tests/test_router.cpp::make_handler",
+      "relation": "declares",
+      "properties": {
+        "line": 15,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:tests/test_router.cpp",
+      "target": "func:tests/test_router.cpp::TEST",
+      "relation": "declares",
+      "properties": {
+        "line": 24,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:tests/test_router.cpp",
+      "target": "func:tests/test_router.cpp::TEST",
+      "relation": "declares",
+      "properties": {
+        "line": 34,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:tests/test_router.cpp",
+      "target": "func:tests/test_router.cpp::TEST",
+      "relation": "declares",
+      "properties": {
+        "line": 45,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:tests/test_router.cpp",
+      "target": "func:tests/test_router.cpp::TEST",
+      "relation": "declares",
+      "properties": {
+        "line": 57,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:tests/test_router.cpp",
+      "target": "func:tests/test_router.cpp::TEST",
+      "relation": "declares",
+      "properties": {
+        "line": 66,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:tests/test_router.cpp",
+      "target": "func:tests/test_router.cpp::TEST",
+      "relation": "declares",
+      "properties": {
+        "line": 75,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:tests/test_router.cpp",
+      "target": "func:tests/test_router.cpp::TEST",
+      "relation": "declares",
+      "properties": {
+        "line": 94,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:tests/test_router.cpp",
+      "target": "func:tests/test_router.cpp::TEST",
+      "relation": "declares",
+      "properties": {
+        "line": 104,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:tests/test_router.cpp",
+      "target": "func:tests/test_router.cpp::TEST",
+      "relation": "declares",
+      "properties": {
+        "line": 114,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:tests/test_ssl.cpp",
+      "target": "class:tests/test_ssl.cpp::SslClient",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_class"
+      }
+    },
+    {
+      "source": "class:tests/test_ssl.cpp::SslClient",
+      "target": "func:tests/test_ssl.cpp::connect_to",
+      "relation": "contains",
+      "properties": {
+        "kind": "class_contains_method"
+      }
+    },
+    {
+      "source": "class:tests/test_ssl.cpp::SslClient",
+      "target": "func:tests/test_ssl.cpp::read",
+      "relation": "contains",
+      "properties": {
+        "kind": "class_contains_method"
+      }
+    },
+    {
+      "source": "class:tests/test_ssl.cpp::SslClient",
+      "target": "func:tests/test_ssl.cpp::write",
+      "relation": "contains",
+      "properties": {
+        "kind": "class_contains_method"
+      }
+    },
+    {
+      "source": "class:tests/test_ssl.cpp::SslClient",
+      "target": "func:tests/test_ssl.cpp::~SslClient",
+      "relation": "contains",
+      "properties": {
+        "kind": "class_contains_method"
+      }
+    },
+    {
+      "source": "file:tests/test_ssl.cpp",
+      "target": "func:tests/test_ssl.cpp::cert_path",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:tests/test_ssl.cpp",
+      "target": "func:tests/test_ssl.cpp::ensure_certs",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:tests/test_ssl.cpp",
+      "target": "func:tests/test_ssl.cpp::raw_connect",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:tests/test_ssl.cpp",
+      "target": "func:tests/test_ssl.cpp::TEST",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:tests/test_ssl.cpp",
+      "target": "func:tests/test_ssl.cpp::TEST",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:tests/test_ssl.cpp",
+      "target": "func:tests/test_ssl.cpp::TEST",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:tests/test_ssl.cpp",
+      "target": "func:tests/test_ssl.cpp::TEST",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:tests/test_ssl.cpp",
+      "target": "func:tests/test_ssl.cpp::TEST",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:tests/test_ssl.cpp",
+      "target": "func:tests/test_ssl.cpp::TEST",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:tests/test_ssl.cpp",
+      "target": "func:tests/test_ssl.cpp::TEST",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:tests/test_ssl.cpp",
+      "target": "func:tests/test_ssl.cpp::TEST",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:tests/test_ssl.cpp",
+      "target": "func:tests/test_ssl.cpp::TEST",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:tests/test_ssl.cpp",
+      "target": "func:tests/test_ssl.cpp::main",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "func:tests/test_ssl.cpp::ensure_certs",
+      "target": "func:tests/test_ssl.cpp::cert_path",
+      "relation": "calls",
+      "properties": {
+        "lineNumber": 36
+      }
+    },
+    {
+      "source": "func:tests/test_ssl.cpp::ensure_certs",
+      "target": "func:tests/test_ssl.cpp::cert_path",
+      "relation": "calls",
+      "properties": {
+        "lineNumber": 41
+      }
+    },
+    {
+      "source": "func:tests/test_ssl.cpp::ensure_certs",
+      "target": "func:tests/test_ssl.cpp::cert_path",
+      "relation": "calls",
+      "properties": {
+        "lineNumber": 42
+      }
+    },
+    {
+      "source": "func:tests/test_ssl.cpp::ensure_certs",
+      "target": "func:tests/test_ssl.cpp::cert_path",
+      "relation": "calls",
+      "properties": {
+        "lineNumber": 45
+      }
+    },
+    {
+      "source": "func:tests/test_ssl.cpp::ensure_certs",
+      "target": "func:tests/test_ssl.cpp::cert_path",
+      "relation": "calls",
+      "properties": {
+        "lineNumber": 46
+      }
+    },
+    {
+      "source": "func:tests/test_ssl.cpp::TEST",
+      "target": "func:tests/test_ssl.cpp::ensure_certs",
+      "relation": "calls",
+      "properties": {
+        "lineNumber": 123
+      }
+    },
+    {
+      "source": "func:tests/test_ssl.cpp::TEST",
+      "target": "func:tests/test_ssl.cpp::cert_path",
+      "relation": "calls",
+      "properties": {
+        "lineNumber": 125
+      }
+    },
+    {
+      "source": "func:tests/test_ssl.cpp::TEST",
+      "target": "func:tests/test_ssl.cpp::cert_path",
+      "relation": "calls",
+      "properties": {
+        "lineNumber": 126
+      }
+    },
+    {
+      "source": "func:tests/test_ssl.cpp::TEST",
+      "target": "func:tests/test_ssl.cpp::ensure_certs",
+      "relation": "calls",
+      "properties": {
+        "lineNumber": 142
+      }
+    },
+    {
+      "source": "func:tests/test_ssl.cpp::TEST",
+      "target": "func:tests/test_ssl.cpp::cert_path",
+      "relation": "calls",
+      "properties": {
+        "lineNumber": 144
+      }
+    },
+    {
+      "source": "func:tests/test_ssl.cpp::TEST",
+      "target": "func:tests/test_ssl.cpp::cert_path",
+      "relation": "calls",
+      "properties": {
+        "lineNumber": 145
+      }
+    },
+    {
+      "source": "func:tests/test_ssl.cpp::TEST",
+      "target": "func:tests/test_ssl.cpp::ensure_certs",
+      "relation": "calls",
+      "properties": {
+        "lineNumber": 155
+      }
+    },
+    {
+      "source": "func:tests/test_ssl.cpp::TEST",
+      "target": "func:tests/test_ssl.cpp::cert_path",
+      "relation": "calls",
+      "properties": {
+        "lineNumber": 160
+      }
+    },
+    {
+      "source": "func:tests/test_ssl.cpp::TEST",
+      "target": "func:tests/test_ssl.cpp::cert_path",
+      "relation": "calls",
+      "properties": {
+        "lineNumber": 161
+      }
+    },
+    {
+      "source": "func:tests/test_ssl.cpp::TEST",
+      "target": "func:tests/test_ssl.cpp::connect_to",
+      "relation": "calls",
+      "properties": {
+        "lineNumber": 182
+      }
+    },
+    {
+      "source": "func:tests/test_ssl.cpp::TEST",
+      "target": "func:tests/test_ssl.cpp::write",
+      "relation": "calls",
+      "properties": {
+        "lineNumber": 185
+      }
+    },
+    {
+      "source": "func:tests/test_ssl.cpp::TEST",
+      "target": "func:tests/test_ssl.cpp::ensure_certs",
+      "relation": "calls",
+      "properties": {
+        "lineNumber": 198
+      }
+    },
+    {
+      "source": "func:tests/test_ssl.cpp::TEST",
+      "target": "func:tests/test_ssl.cpp::cert_path",
+      "relation": "calls",
+      "properties": {
+        "lineNumber": 203
+      }
+    },
+    {
+      "source": "func:tests/test_ssl.cpp::TEST",
+      "target": "func:tests/test_ssl.cpp::cert_path",
+      "relation": "calls",
+      "properties": {
+        "lineNumber": 204
+      }
+    },
+    {
+      "source": "func:tests/test_ssl.cpp::TEST",
+      "target": "func:tests/test_ssl.cpp::connect_to",
+      "relation": "calls",
+      "properties": {
+        "lineNumber": 228
+      }
+    },
+    {
+      "source": "func:tests/test_ssl.cpp::TEST",
+      "target": "func:tests/test_ssl.cpp::write",
+      "relation": "calls",
+      "properties": {
+        "lineNumber": 231
+      }
+    },
+    {
+      "source": "func:tests/test_ssl.cpp::TEST",
+      "target": "func:tests/test_ssl.cpp::ensure_certs",
+      "relation": "calls",
+      "properties": {
+        "lineNumber": 243
+      }
+    },
+    {
+      "source": "func:tests/test_ssl.cpp::TEST",
+      "target": "func:tests/test_ssl.cpp::cert_path",
+      "relation": "calls",
+      "properties": {
+        "lineNumber": 248
+      }
+    },
+    {
+      "source": "func:tests/test_ssl.cpp::TEST",
+      "target": "func:tests/test_ssl.cpp::cert_path",
+      "relation": "calls",
+      "properties": {
+        "lineNumber": 249
+      }
+    },
+    {
+      "source": "func:tests/test_ssl.cpp::TEST",
+      "target": "func:tests/test_ssl.cpp::raw_connect",
+      "relation": "calls",
+      "properties": {
+        "lineNumber": 268
+      }
+    },
+    {
+      "source": "func:tests/test_ssl.cpp::TEST",
+      "target": "func:tests/test_ssl.cpp::ensure_certs",
+      "relation": "calls",
+      "properties": {
+        "lineNumber": 283
+      }
+    },
+    {
+      "source": "func:tests/test_ssl.cpp::TEST",
+      "target": "func:tests/test_ssl.cpp::cert_path",
+      "relation": "calls",
+      "properties": {
+        "lineNumber": 288
+      }
+    },
+    {
+      "source": "func:tests/test_ssl.cpp::TEST",
+      "target": "func:tests/test_ssl.cpp::cert_path",
+      "relation": "calls",
+      "properties": {
+        "lineNumber": 289
+      }
+    },
+    {
+      "source": "func:tests/test_ssl.cpp::TEST",
+      "target": "func:tests/test_ssl.cpp::connect_to",
+      "relation": "calls",
+      "properties": {
+        "lineNumber": 305
+      }
+    },
+    {
+      "source": "func:tests/test_ssl.cpp::TEST",
+      "target": "func:tests/test_ssl.cpp::write",
+      "relation": "calls",
+      "properties": {
+        "lineNumber": 307
+      }
+    },
+    {
+      "source": "func:tests/test_ssl.cpp::TEST",
+      "target": "func:tests/test_ssl.cpp::ensure_certs",
+      "relation": "calls",
+      "properties": {
+        "lineNumber": 318
+      }
+    },
+    {
+      "source": "func:tests/test_ssl.cpp::TEST",
+      "target": "func:tests/test_ssl.cpp::cert_path",
+      "relation": "calls",
+      "properties": {
+        "lineNumber": 320
+      }
+    },
+    {
+      "source": "func:tests/test_ssl.cpp::TEST",
+      "target": "func:tests/test_ssl.cpp::cert_path",
+      "relation": "calls",
+      "properties": {
+        "lineNumber": 321
+      }
+    },
+    {
+      "source": "file:tests/test_ssl.cpp",
+      "target": "func:tests/test_ssl.cpp::cert_path",
+      "relation": "declares",
+      "properties": {
+        "line": 29,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:tests/test_ssl.cpp",
+      "target": "func:tests/test_ssl.cpp::ensure_certs",
+      "relation": "declares",
+      "properties": {
+        "line": 33,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:tests/test_ssl.cpp",
+      "target": "func:tests/test_ssl.cpp::connect_to",
+      "relation": "declares",
+      "properties": {
+        "line": 56,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:tests/test_ssl.cpp",
+      "target": "func:tests/test_ssl.cpp::read",
+      "relation": "declares",
+      "properties": {
+        "line": 84,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:tests/test_ssl.cpp",
+      "target": "func:tests/test_ssl.cpp::write",
+      "relation": "declares",
+      "properties": {
+        "line": 86,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:tests/test_ssl.cpp",
+      "target": "func:tests/test_ssl.cpp::~SslClient",
+      "relation": "declares",
+      "properties": {
+        "line": 88,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:tests/test_ssl.cpp",
+      "target": "class:tests/test_ssl.cpp::SslClient",
+      "relation": "declares",
+      "properties": {
+        "line": 51,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:tests/test_ssl.cpp",
+      "target": "func:tests/test_ssl.cpp::raw_connect",
+      "relation": "declares",
+      "properties": {
+        "line": 101,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:tests/test_ssl.cpp",
+      "target": "func:tests/test_ssl.cpp::TEST",
+      "relation": "declares",
+      "properties": {
+        "line": 122,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:tests/test_ssl.cpp",
+      "target": "func:tests/test_ssl.cpp::TEST",
+      "relation": "declares",
+      "properties": {
+        "line": 132,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:tests/test_ssl.cpp",
+      "target": "func:tests/test_ssl.cpp::TEST",
+      "relation": "declares",
+      "properties": {
+        "line": 141,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:tests/test_ssl.cpp",
+      "target": "func:tests/test_ssl.cpp::TEST",
+      "relation": "declares",
+      "properties": {
+        "line": 154,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:tests/test_ssl.cpp",
+      "target": "func:tests/test_ssl.cpp::TEST",
+      "relation": "declares",
+      "properties": {
+        "line": 197,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:tests/test_ssl.cpp",
+      "target": "func:tests/test_ssl.cpp::TEST",
+      "relation": "declares",
+      "properties": {
+        "line": 242,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:tests/test_ssl.cpp",
+      "target": "func:tests/test_ssl.cpp::TEST",
+      "relation": "declares",
+      "properties": {
+        "line": 282,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:tests/test_ssl.cpp",
+      "target": "func:tests/test_ssl.cpp::TEST",
+      "relation": "declares",
+      "properties": {
+        "line": 317,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:tests/test_ssl.cpp",
+      "target": "func:tests/test_ssl.cpp::TEST",
+      "relation": "declares",
+      "properties": {
+        "line": 341,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:tests/test_ssl.cpp",
+      "target": "func:tests/test_ssl.cpp::main",
+      "relation": "declares",
+      "properties": {
+        "line": 354,
+        "isDefault": false
+      }
+    }
+  ]
+}

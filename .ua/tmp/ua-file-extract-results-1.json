@@ -1,0 +1,658 @@
+{
+  "scriptCompleted": true,
+  "filesAnalyzed": 7,
+  "filesSkipped": [],
+  "results": [
+    {
+      "path": "db/include/boost_mysql_connection.h",
+      "language": "c",
+      "fileCategory": "code",
+      "totalLines": 29,
+      "nonEmptyLines": 22,
+      "functions": [
+        {
+          "name": "BoostMySqlConnection",
+          "startLine": 12,
+          "endLine": 12,
+          "params": []
+        },
+        {
+          "name": "BoostMySqlConnection",
+          "startLine": 14,
+          "endLine": 14,
+          "params": []
+        }
+      ],
+      "classes": [
+        {
+          "name": "BoostMySqlConnection",
+          "startLine": 7,
+          "endLine": 27,
+          "methods": [
+            "BoostMySqlConnection",
+            "BoostMySqlConnection",
+            "connect",
+            "is_open",
+            "ping",
+            "query",
+            "execute",
+            "close"
+          ],
+          "properties": [
+            "impl_"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "BoostMySqlConnection",
+          "line": 12,
+          "isDefault": false
+        },
+        {
+          "name": "BoostMySqlConnection",
+          "line": 14,
+          "isDefault": false
+        },
+        {
+          "name": "connect",
+          "line": 17,
+          "isDefault": false
+        },
+        {
+          "name": "is_open",
+          "line": 18,
+          "isDefault": false
+        },
+        {
+          "name": "ping",
+          "line": 19,
+          "isDefault": false
+        },
+        {
+          "name": "query",
+          "line": 20,
+          "isDefault": false
+        },
+        {
+          "name": "execute",
+          "line": 21,
+          "isDefault": false
+        },
+        {
+          "name": "close",
+          "line": 22,
+          "isDefault": false
+        },
+        {
+          "name": "BoostMySqlConnection",
+          "line": 7,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 9,
+        "functionCount": 2,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "db/include/database_pool.h",
+      "language": "c",
+      "fileCategory": "code",
+      "totalLines": 53,
+      "nonEmptyLines": 41,
+      "functions": [
+        {
+          "name": "DatabasePool",
+          "startLine": 22,
+          "endLine": 22,
+          "params": []
+        },
+        {
+          "name": "DatabasePool",
+          "startLine": 24,
+          "endLine": 24,
+          "params": []
+        }
+      ],
+      "classes": [
+        {
+          "name": "DatabasePool",
+          "startLine": 15,
+          "endLine": 51,
+          "methods": [
+            "DatabasePool",
+            "DatabasePool",
+            "init",
+            "close",
+            "get_user",
+            "create_user",
+            "log_download",
+            "get_download_history",
+            "store_file_meta",
+            "get_file_meta",
+            "get_connection",
+            "release_connection",
+            "do_close"
+          ],
+          "properties": [
+            "factory_",
+            "config_",
+            "mutex_",
+            "cv_",
+            "pool_",
+            "active_connections_",
+            "closed_"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "DatabasePool",
+          "line": 22,
+          "isDefault": false
+        },
+        {
+          "name": "DatabasePool",
+          "line": 24,
+          "isDefault": false
+        },
+        {
+          "name": "init",
+          "line": 27,
+          "isDefault": false
+        },
+        {
+          "name": "close",
+          "line": 28,
+          "isDefault": false
+        },
+        {
+          "name": "get_user",
+          "line": 30,
+          "isDefault": false
+        },
+        {
+          "name": "create_user",
+          "line": 31,
+          "isDefault": false
+        },
+        {
+          "name": "log_download",
+          "line": 32,
+          "isDefault": false
+        },
+        {
+          "name": "get_download_history",
+          "line": 33,
+          "isDefault": false
+        },
+        {
+          "name": "store_file_meta",
+          "line": 34,
+          "isDefault": false
+        },
+        {
+          "name": "get_file_meta",
+          "line": 35,
+          "isDefault": false
+        },
+        {
+          "name": "DatabasePool",
+          "line": 15,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 2,
+        "exportCount": 11,
+        "functionCount": 2,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "db/include/db_config.h",
+      "language": "c",
+      "fileCategory": "code",
+      "totalLines": 19,
+      "nonEmptyLines": 15,
+      "classes": [
+        {
+          "name": "DbConfig",
+          "startLine": 8,
+          "endLine": 17,
+          "methods": [],
+          "properties": [
+            "host",
+            "port",
+            "username",
+            "password",
+            "database",
+            "pool_size",
+            "connect_timeout_ms",
+            "read_timeout_ms"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "DbConfig",
+          "line": 8,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 1,
+        "functionCount": 0,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "db/include/iconnection.h",
+      "language": "c",
+      "fileCategory": "code",
+      "totalLines": 34,
+      "nonEmptyLines": 24,
+      "functions": [
+        {
+          "name": "~IConnection",
+          "startLine": 19,
+          "endLine": 19,
+          "params": []
+        }
+      ],
+      "classes": [
+        {
+          "name": "QueryResult",
+          "startLine": 12,
+          "endLine": 15,
+          "methods": [],
+          "properties": [
+            "columns",
+            "rows"
+          ]
+        },
+        {
+          "name": "IConnection",
+          "startLine": 17,
+          "endLine": 32,
+          "methods": [
+            "~IConnection",
+            "connect",
+            "is_open",
+            "ping",
+            "query",
+            "execute",
+            "close"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "QueryResult",
+          "line": 12,
+          "isDefault": false
+        },
+        {
+          "name": "~IConnection",
+          "line": 19,
+          "isDefault": false
+        },
+        {
+          "name": "connect",
+          "line": 21,
+          "isDefault": false
+        },
+        {
+          "name": "is_open",
+          "line": 22,
+          "isDefault": false
+        },
+        {
+          "name": "ping",
+          "line": 23,
+          "isDefault": false
+        },
+        {
+          "name": "query",
+          "line": 26,
+          "isDefault": false
+        },
+        {
+          "name": "execute",
+          "line": 29,
+          "isDefault": false
+        },
+        {
+          "name": "close",
+          "line": 31,
+          "isDefault": false
+        },
+        {
+          "name": "IConnection",
+          "line": 17,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 9,
+        "functionCount": 1,
+        "classCount": 2
+      }
+    },
+    {
+      "path": "db/include/idatabase_pool.h",
+      "language": "c",
+      "fileCategory": "code",
+      "totalLines": 29,
+      "nonEmptyLines": 20,
+      "functions": [
+        {
+          "name": "~IDatabasePool",
+          "startLine": 14,
+          "endLine": 14,
+          "params": []
+        }
+      ],
+      "classes": [
+        {
+          "name": "IDatabasePool",
+          "startLine": 12,
+          "endLine": 27,
+          "methods": [
+            "~IDatabasePool",
+            "init",
+            "close",
+            "get_user",
+            "create_user",
+            "log_download",
+            "get_download_history",
+            "store_file_meta",
+            "get_file_meta"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "~IDatabasePool",
+          "line": 14,
+          "isDefault": false
+        },
+        {
+          "name": "init",
+          "line": 16,
+          "isDefault": false
+        },
+        {
+          "name": "close",
+          "line": 17,
+          "isDefault": false
+        },
+        {
+          "name": "get_user",
+          "line": 19,
+          "isDefault": false
+        },
+        {
+          "name": "create_user",
+          "line": 20,
+          "isDefault": false
+        },
+        {
+          "name": "log_download",
+          "line": 22,
+          "isDefault": false
+        },
+        {
+          "name": "get_download_history",
+          "line": 23,
+          "isDefault": false
+        },
+        {
+          "name": "store_file_meta",
+          "line": 25,
+          "isDefault": false
+        },
+        {
+          "name": "get_file_meta",
+          "line": 26,
+          "isDefault": false
+        },
+        {
+          "name": "IDatabasePool",
+          "line": 12,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 2,
+        "exportCount": 10,
+        "functionCount": 1,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "db/include/mock_connection.h",
+      "language": "c",
+      "fileCategory": "code",
+      "totalLines": 75,
+      "nonEmptyLines": 61,
+      "functions": [
+        {
+          "name": "connect",
+          "startLine": 34,
+          "endLine": 40,
+          "params": []
+        },
+        {
+          "name": "is_open",
+          "startLine": 42,
+          "endLine": 42,
+          "params": []
+        },
+        {
+          "name": "ping",
+          "startLine": 44,
+          "endLine": 47,
+          "params": []
+        },
+        {
+          "name": "query",
+          "startLine": 49,
+          "endLine": 56,
+          "params": [
+            "sql",
+            "params"
+          ]
+        },
+        {
+          "name": "execute",
+          "startLine": 58,
+          "endLine": 65,
+          "params": [
+            "sql",
+            "params"
+          ]
+        },
+        {
+          "name": "close",
+          "startLine": 67,
+          "endLine": 72,
+          "params": []
+        }
+      ],
+      "classes": [
+        {
+          "name": "MockConnection",
+          "startLine": 14,
+          "endLine": 73,
+          "methods": [
+            "connect",
+            "is_open",
+            "ping",
+            "query",
+            "execute",
+            "close"
+          ],
+          "properties": [
+            "connect_result",
+            "ping_result",
+            "is_open_result",
+            "query_result",
+            "execute_result",
+            "query_hook",
+            "execute_hook",
+            "connect_hook",
+            "close_hook",
+            "connect_count",
+            "ping_count",
+            "close_count",
+            "last_sql",
+            "last_params"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "connect",
+          "line": 34,
+          "isDefault": false
+        },
+        {
+          "name": "is_open",
+          "line": 42,
+          "isDefault": false
+        },
+        {
+          "name": "ping",
+          "line": 44,
+          "isDefault": false
+        },
+        {
+          "name": "query",
+          "line": 49,
+          "isDefault": false
+        },
+        {
+          "name": "execute",
+          "line": 58,
+          "isDefault": false
+        },
+        {
+          "name": "close",
+          "line": 67,
+          "isDefault": false
+        },
+        {
+          "name": "MockConnection",
+          "line": 14,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "connect",
+          "callee": "connect_hook",
+          "lineNumber": 37
+        },
+        {
+          "caller": "query",
+          "callee": "query_hook",
+          "lineNumber": 53
+        },
+        {
+          "caller": "execute",
+          "callee": "execute_hook",
+          "lineNumber": 62
+        },
+        {
+          "caller": "close",
+          "callee": "close_hook",
+          "lineNumber": 70
+        }
+      ],
+      "metrics": {
+        "importCount": 2,
+        "exportCount": 7,
+        "functionCount": 6,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "db/include/models.h",
+      "language": "c",
+      "fileCategory": "code",
+      "totalLines": 32,
+      "nonEmptyLines": 26,
+      "classes": [
+        {
+          "name": "User",
+          "startLine": 9,
+          "endLine": 15,
+          "methods": [],
+          "properties": [
+            "user_id",
+            "username",
+            "password_hash",
+            "email",
+            "created_at"
+          ]
+        },
+        {
+          "name": "DownloadLog",
+          "startLine": 17,
+          "endLine": 22,
+          "methods": [],
+          "properties": [
+            "log_id",
+            "user_id",
+            "file_hash",
+            "downloaded_at"
+          ]
+        },
+        {
+          "name": "FileMeta",
+          "startLine": 24,
+          "endLine": 30,
+          "methods": [],
+          "properties": [
+            "file_hash",
+            "file_path",
+            "file_size",
+            "content_type",
+            "created_at"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "User",
+          "line": 9,
+          "isDefault": false
+        },
+        {
+          "name": "DownloadLog",
+          "line": 17,
+          "isDefault": false
+        },
+        {
+          "name": "FileMeta",
+          "line": 24,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 3,
+        "functionCount": 0,
+        "classCount": 3
+      }
+    }
+  ]
+}

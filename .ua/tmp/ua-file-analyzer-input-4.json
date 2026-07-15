@@ -1,0 +1,32 @@
+{
+  "projectRoot": "/home/jmj/work-space/projects/high-performance-server",
+  "batchFiles": [
+    {
+      "path": "logger/include/logappender.h",
+      "language": "c",
+      "sizeLines": 62,
+      "fileCategory": "code"
+    },
+    {
+      "path": "logger/include/logformatter.h",
+      "language": "c",
+      "sizeLines": 103,
+      "fileCategory": "code"
+    },
+    {
+      "path": "logger/include/logger.h",
+      "language": "c",
+      "sizeLines": 145,
+      "fileCategory": "code"
+    }
+  ],
+  "batchImportData": {
+    "logger/include/logappender.h": [
+      "logger/include/logformatter.h"
+    ],
+    "logger/include/logformatter.h": [
+      "logger/include/logger.h"
+    ],
+    "logger/include/logger.h": []
+  }
+}

@@ -23,7 +23,7 @@ public:
 
     std::suspend_never initial_suspend() noexcept { return {}; }
 
-    std::suspend_never final_suspend() noexcept { return {}; }
+    std::suspend_always final_suspend() noexcept { return {}; }
 
     void return_void() noexcept {}
 

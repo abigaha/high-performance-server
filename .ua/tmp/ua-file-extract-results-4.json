@@ -1,0 +1,576 @@
+{
+  "scriptCompleted": true,
+  "filesAnalyzed": 3,
+  "filesSkipped": [],
+  "results": [
+    {
+      "path": "logger/include/logappender.h",
+      "language": "c",
+      "fileCategory": "code",
+      "totalLines": 62,
+      "nonEmptyLines": 47,
+      "functions": [
+        {
+          "name": "~LogAppender",
+          "startLine": 15,
+          "endLine": 15,
+          "params": []
+        },
+        {
+          "name": "setFormatter",
+          "startLine": 19,
+          "endLine": 22,
+          "params": [
+            "val"
+          ]
+        },
+        {
+          "name": "getFormatter",
+          "startLine": 24,
+          "endLine": 27,
+          "params": []
+        },
+        {
+          "name": "set_auto_flush",
+          "startLine": 52,
+          "endLine": 52,
+          "params": [
+            "val"
+          ]
+        },
+        {
+          "name": "auto_flush",
+          "startLine": 54,
+          "endLine": 54,
+          "params": []
+        }
+      ],
+      "classes": [
+        {
+          "name": "LogAppender",
+          "startLine": 12,
+          "endLine": 33,
+          "methods": [
+            "~LogAppender",
+            "log",
+            "setFormatter",
+            "getFormatter"
+          ],
+          "properties": [
+            "level_",
+            "formatter_",
+            "mutex_"
+          ]
+        },
+        {
+          "name": "StdoutLogAppender",
+          "startLine": 36,
+          "endLine": 40,
+          "methods": [
+            "log"
+          ],
+          "properties": []
+        },
+        {
+          "name": "FileLogAppender",
+          "startLine": 43,
+          "endLine": 60,
+          "methods": [
+            "log",
+            "reopen",
+            "set_auto_flush",
+            "auto_flush"
+          ],
+          "properties": [
+            "filename_",
+            "filestream_",
+            "auto_flush_"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "~LogAppender",
+          "line": 15,
+          "isDefault": false
+        },
+        {
+          "name": "log",
+          "line": 17,
+          "isDefault": false
+        },
+        {
+          "name": "setFormatter",
+          "line": 19,
+          "isDefault": false
+        },
+        {
+          "name": "getFormatter",
+          "line": 24,
+          "isDefault": false
+        },
+        {
+          "name": "LogAppender",
+          "line": 12,
+          "isDefault": false
+        },
+        {
+          "name": "log",
+          "line": 39,
+          "isDefault": false
+        },
+        {
+          "name": "StdoutLogAppender",
+          "line": 36,
+          "isDefault": false
+        },
+        {
+          "name": "log",
+          "line": 47,
+          "isDefault": false
+        },
+        {
+          "name": "reopen",
+          "line": 49,
+          "isDefault": false
+        },
+        {
+          "name": "set_auto_flush",
+          "line": 52,
+          "isDefault": false
+        },
+        {
+          "name": "auto_flush",
+          "line": 54,
+          "isDefault": false
+        },
+        {
+          "name": "FileLogAppender",
+          "line": 43,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 12,
+        "functionCount": 5,
+        "classCount": 3
+      }
+    },
+    {
+      "path": "logger/include/logformatter.h",
+      "language": "c",
+      "fileCategory": "code",
+      "totalLines": 103,
+      "nonEmptyLines": 80,
+      "classes": [
+        {
+          "name": "LogFormatter",
+          "startLine": 13,
+          "endLine": 101,
+          "methods": [
+            "format",
+            "init"
+          ],
+          "properties": [
+            "pattern_",
+            "items_"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "format",
+          "line": 17,
+          "isDefault": false
+        },
+        {
+          "name": "LogFormatter",
+          "line": 13,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 2,
+        "functionCount": 0,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "logger/include/logger.h",
+      "language": "c",
+      "fileCategory": "code",
+      "totalLines": 145,
+      "nonEmptyLines": 108,
+      "functions": [
+        {
+          "name": "getLine",
+          "startLine": 30,
+          "endLine": 30,
+          "params": []
+        },
+        {
+          "name": "get_thread_id",
+          "startLine": 32,
+          "endLine": 32,
+          "params": []
+        },
+        {
+          "name": "getElapse",
+          "startLine": 34,
+          "endLine": 34,
+          "params": []
+        },
+        {
+          "name": "getTime",
+          "startLine": 36,
+          "endLine": 36,
+          "params": []
+        },
+        {
+          "name": "get_coroutine_id",
+          "startLine": 38,
+          "endLine": 38,
+          "params": []
+        },
+        {
+          "name": "getLevel",
+          "startLine": 90,
+          "endLine": 90,
+          "params": []
+        },
+        {
+          "name": "setLevel",
+          "startLine": 92,
+          "endLine": 92,
+          "params": [
+            "val"
+          ]
+        },
+        {
+          "name": "_debug",
+          "startLine": 102,
+          "endLine": 106,
+          "params": [
+            "msg"
+          ]
+        },
+        {
+          "name": "_info",
+          "startLine": 108,
+          "endLine": 112,
+          "params": [
+            "msg"
+          ]
+        },
+        {
+          "name": "_warn",
+          "startLine": 114,
+          "endLine": 118,
+          "params": [
+            "msg"
+          ]
+        },
+        {
+          "name": "_error",
+          "startLine": 120,
+          "endLine": 124,
+          "params": [
+            "msg"
+          ]
+        },
+        {
+          "name": "_fatal",
+          "startLine": 126,
+          "endLine": 130,
+          "params": [
+            "msg"
+          ]
+        }
+      ],
+      "classes": [
+        {
+          "name": "LogAppender",
+          "startLine": 15,
+          "endLine": 15,
+          "methods": [],
+          "properties": []
+        },
+        {
+          "name": "LogEvent",
+          "startLine": 21,
+          "endLine": 53,
+          "methods": [
+            "getLine",
+            "get_thread_id",
+            "getElapse",
+            "getTime",
+            "get_coroutine_id"
+          ],
+          "properties": [
+            "file_",
+            "line_",
+            "thread_id_",
+            "elapse_",
+            "time_",
+            "coroutine_id_",
+            "logger_name_",
+            "content_"
+          ]
+        },
+        {
+          "name": "Logger",
+          "startLine": 56,
+          "endLine": 143,
+          "methods": [
+            "log",
+            "createEvent",
+            "allocCoroutineId",
+            "setCurrentCoroutineId",
+            "getCurrentCoroutineId",
+            "debug",
+            "info",
+            "warn",
+            "error",
+            "fatal",
+            "addAppender",
+            "delAppender",
+            "getLevel",
+            "setLevel",
+            "init",
+            "shutdown",
+            "_debug",
+            "_info",
+            "_warn",
+            "_error",
+            "_fatal"
+          ],
+          "properties": [
+            "level_",
+            "name_",
+            "appenders_",
+            "mutex_",
+            "s_instance_",
+            "s_init_flag_"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "LogAppender",
+          "line": 15,
+          "isDefault": false
+        },
+        {
+          "name": "getLine",
+          "line": 30,
+          "isDefault": false
+        },
+        {
+          "name": "get_thread_id",
+          "line": 32,
+          "isDefault": false
+        },
+        {
+          "name": "getElapse",
+          "line": 34,
+          "isDefault": false
+        },
+        {
+          "name": "getTime",
+          "line": 36,
+          "isDefault": false
+        },
+        {
+          "name": "get_coroutine_id",
+          "line": 38,
+          "isDefault": false
+        },
+        {
+          "name": "LogEvent",
+          "line": 21,
+          "isDefault": false
+        },
+        {
+          "name": "log",
+          "line": 60,
+          "isDefault": false
+        },
+        {
+          "name": "createEvent",
+          "line": 62,
+          "isDefault": false
+        },
+        {
+          "name": "allocCoroutineId",
+          "line": 77,
+          "isDefault": false
+        },
+        {
+          "name": "setCurrentCoroutineId",
+          "line": 78,
+          "isDefault": false
+        },
+        {
+          "name": "getCurrentCoroutineId",
+          "line": 79,
+          "isDefault": false
+        },
+        {
+          "name": "debug",
+          "line": 81,
+          "isDefault": false
+        },
+        {
+          "name": "info",
+          "line": 82,
+          "isDefault": false
+        },
+        {
+          "name": "warn",
+          "line": 83,
+          "isDefault": false
+        },
+        {
+          "name": "error",
+          "line": 84,
+          "isDefault": false
+        },
+        {
+          "name": "fatal",
+          "line": 85,
+          "isDefault": false
+        },
+        {
+          "name": "addAppender",
+          "line": 87,
+          "isDefault": false
+        },
+        {
+          "name": "delAppender",
+          "line": 88,
+          "isDefault": false
+        },
+        {
+          "name": "getLevel",
+          "line": 90,
+          "isDefault": false
+        },
+        {
+          "name": "setLevel",
+          "line": 92,
+          "isDefault": false
+        },
+        {
+          "name": "init",
+          "line": 97,
+          "isDefault": false
+        },
+        {
+          "name": "shutdown",
+          "line": 98,
+          "isDefault": false
+        },
+        {
+          "name": "_debug",
+          "line": 102,
+          "isDefault": false
+        },
+        {
+          "name": "_info",
+          "line": 108,
+          "isDefault": false
+        },
+        {
+          "name": "_warn",
+          "line": 114,
+          "isDefault": false
+        },
+        {
+          "name": "_error",
+          "line": 120,
+          "isDefault": false
+        },
+        {
+          "name": "_fatal",
+          "line": 126,
+          "isDefault": false
+        },
+        {
+          "name": "Logger",
+          "line": 56,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "getLevel",
+          "callee": "load",
+          "lineNumber": 90
+        },
+        {
+          "caller": "setLevel",
+          "callee": "store",
+          "lineNumber": 92
+        },
+        {
+          "caller": "_debug",
+          "callee": "std::source_location::current",
+          "lineNumber": 102
+        },
+        {
+          "caller": "_debug",
+          "callee": "debug",
+          "lineNumber": 104
+        },
+        {
+          "caller": "_info",
+          "callee": "std::source_location::current",
+          "lineNumber": 108
+        },
+        {
+          "caller": "_info",
+          "callee": "info",
+          "lineNumber": 110
+        },
+        {
+          "caller": "_warn",
+          "callee": "std::source_location::current",
+          "lineNumber": 114
+        },
+        {
+          "caller": "_warn",
+          "callee": "warn",
+          "lineNumber": 116
+        },
+        {
+          "caller": "_error",
+          "callee": "std::source_location::current",
+          "lineNumber": 120
+        },
+        {
+          "caller": "_error",
+          "callee": "error",
+          "lineNumber": 122
+        },
+        {
+          "caller": "_fatal",
+          "callee": "std::source_location::current",
+          "lineNumber": 126
+        },
+        {
+          "caller": "_fatal",
+          "callee": "fatal",
+          "lineNumber": 128
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 29,
+        "functionCount": 12,
+        "classCount": 3
+      }
+    }
+  ]
+}

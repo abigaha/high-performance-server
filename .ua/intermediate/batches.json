@@ -1,0 +1,2156 @@
+{
+  "schemaVersion": 1,
+  "algorithm": "louvain",
+  "totalFiles": 141,
+  "totalBatches": 14,
+  "exportsByPath": {
+    ".clang-tidy": [],
+    ".ua/.understandignore": [],
+    "core/pch.h": [],
+    "core/src/main.cpp": [
+      "ServerConfig",
+      "parse_server_section",
+      "parse_database_section",
+      "parse_ssl_section",
+      "parse_fs_section",
+      "parse_cmd_args",
+      "parse_json_file",
+      "apply_env_overrides",
+      "load_config",
+      "register_routes",
+      "main"
+    ],
+    "core/xmake.lua": [],
+    "db/include/boost_mysql_connection.h": [
+      "BoostMySqlConnection",
+      "BoostMySqlConnection",
+      "connect",
+      "is_open",
+      "ping",
+      "query",
+      "execute",
+      "close",
+      "BoostMySqlConnection"
+    ],
+    "db/include/database_pool.h": [
+      "DatabasePool",
+      "DatabasePool",
+      "init",
+      "close",
+      "get_user",
+      "create_user",
+      "log_download",
+      "get_download_history",
+      "store_file_meta",
+      "get_file_meta",
+      "DatabasePool"
+    ],
+    "db/include/db_config.h": [
+      "DbConfig"
+    ],
+    "db/include/iconnection.h": [
+      "QueryResult",
+      "~IConnection",
+      "connect",
+      "is_open",
+      "ping",
+      "query",
+      "execute",
+      "close",
+      "IConnection"
+    ],
+    "db/include/idatabase_pool.h": [
+      "~IDatabasePool",
+      "init",
+      "close",
+      "get_user",
+      "create_user",
+      "log_download",
+      "get_download_history",
+      "store_file_meta",
+      "get_file_meta",
+      "IDatabasePool"
+    ],
+    "db/include/mock_connection.h": [
+      "connect",
+      "is_open",
+      "ping",
+      "query",
+      "execute",
+      "close",
+      "MockConnection"
+    ],
+    "db/include/models.h": [
+      "User",
+      "DownloadLog",
+      "FileMeta"
+    ],
+    "db/src/boost_mysql_connection.cpp": [
+      "Impl",
+      "connect",
+      "is_open",
+      "ping",
+      "query",
+      "execute",
+      "close_socket",
+      "BoostMySqlConnection::Impl",
+      "BoostMySqlConnection",
+      "~BoostMySqlConnection",
+      "connect",
+      "is_open",
+      "ping",
+      "query",
+      "execute",
+      "close"
+    ],
+    "db/src/database_pool.cpp": [
+      "default_factory",
+      "DatabasePool",
+      "~DatabasePool",
+      "close",
+      "init",
+      "do_close",
+      "get_connection",
+      "release_connection",
+      "escape_string",
+      "get_user",
+      "create_user",
+      "log_download",
+      "get_download_history",
+      "store_file_meta",
+      "get_file_meta"
+    ],
+    "db/xmake.lua": [],
+    "file-system/include/file_system.h": [
+      "split_file",
+      "compute_file_hash",
+      "compute_chunk_hash",
+      "store_file",
+      "delete_file",
+      "read_file",
+      "sha256_hex",
+      "FileSystem"
+    ],
+    "file-system/include/i_file_system.h": [
+      "FileChunk",
+      "~IFileSystem",
+      "split_file",
+      "compute_file_hash",
+      "compute_chunk_hash",
+      "store_file",
+      "delete_file",
+      "read_file",
+      "IFileSystem"
+    ],
+    "file-system/src/file_system.cpp": [
+      "FileSystem",
+      "to_hex",
+      "sha256_hex",
+      "resolve_path",
+      "split_file",
+      "compute_file_hash",
+      "compute_chunk_hash",
+      "store_file",
+      "delete_file",
+      "read_file"
+    ],
+    "file-system/xmake.lua": [],
+    "logger/include/logappender.h": [
+      "~LogAppender",
+      "log",
+      "setFormatter",
+      "getFormatter",
+      "LogAppender",
+      "log",
+      "StdoutLogAppender",
+      "log",
+      "reopen",
+      "set_auto_flush",
+      "auto_flush",
+      "FileLogAppender"
+    ],
+    "logger/include/logformatter.h": [
+      "format",
+      "LogFormatter"
+    ],
+    "logger/include/logger.h": [
+      "LogAppender",
+      "getLine",
+      "get_thread_id",
+      "getElapse",
+      "getTime",
+      "get_coroutine_id",
+      "LogEvent",
+      "log",
+      "createEvent",
+      "allocCoroutineId",
+      "setCurrentCoroutineId",
+      "getCurrentCoroutineId",
+      "debug",
+      "info",
+      "warn",
+      "error",
+      "fatal",
+      "addAppender",
+      "delAppender",
+      "getLevel",
+      "setLevel",
+      "init",
+      "shutdown",
+      "_debug",
+      "_info",
+      "_warn",
+      "_error",
+      "_fatal",
+      "Logger"
+    ],
+    "logger/src/logappender.cpp": [
+      "FileLogAppender",
+      "reopen",
+      "log",
+      "log"
+    ],
+    "logger/src/logformatter.cpp": [
+      "LogFormatter",
+      "format",
+      "init",
+      "MessageFormatItem::format",
+      "LevelFormatItem::format",
+      "ElapseFormatItem::format",
+      "NameFormatItem::format",
+      "ThreadIdFormatItem::format",
+      "CoroutineIdFormatItem::format",
+      "DateTimeFormatItem::DateTimeFormatItem",
+      "DateTimeFormatItem::format",
+      "NewLineFormatItem::format",
+      "StringFormatItem::format",
+      "LineFormatItem::format",
+      "FileNameFormatItem::format",
+      "PatternErrorFormatItem::format"
+    ],
+    "logger/src/logger.cpp": [
+      "LogEvent",
+      "Logger",
+      "createEvent",
+      "allocCoroutineId",
+      "setCurrentCoroutineId",
+      "getCurrentCoroutineId",
+      "CoroutineScope::CoroutineScope",
+      "CoroutineScope::~CoroutineScope",
+      "log",
+      "debug",
+      "info",
+      "warn",
+      "error",
+      "fatal",
+      "addAppender",
+      "delAppender",
+      "init",
+      "shutdown"
+    ],
+    "logger/xmake.lua": [],
+    "memory-pool/include/memory_pool_base.h": [],
+    "memory-pool/include/memory_pool_factory.h": [
+      "TieredMemoryPoolDeleter",
+      "CreateMemoryPool"
+    ],
+    "memory-pool/include/size_class.h": [
+      "round_up_size",
+      "size_class_index",
+      "size_class_size"
+    ],
+    "memory-pool/include/tiered_memory_pool.h": [
+      "TieredMemoryPool",
+      "TieredMemoryPool",
+      "deallocate_impl",
+      "TieredMemoryPool"
+    ],
+    "memory-pool/src/tiered_memory_pool.cpp": [
+      "~TieredMemoryPool",
+      "ensure_registered",
+      "deallocate_impl",
+      "central_allocate_batch",
+      "return_batch_to_central",
+      "try_merge_and_promote",
+      "try_merge_in_list",
+      "try_merge_central",
+      "page_index_of"
+    ],
+    "memory-pool/xmake.lua": [],
+    "net/coroutine/coroitem.hpp": [],
+    "net/file-receive-process/main.cpp": [
+      "ClientContext",
+      "handle_client",
+      "parse_args",
+      "main"
+    ],
+    "net/file-receive-process/xmake.lua": [],
+    "net/file-send-process/main.cpp": [
+      "SendTask",
+      "send_all",
+      "send_chunk",
+      "main"
+    ],
+    "net/file-send-process/xmake.lua": [],
+    "net/file-transfer/include/chunk_header.h": [
+      "to_network",
+      "from_network",
+      "ChunkHeader"
+    ],
+    "net/file-transfer/include/file_transfer.h": [
+      "IFileSystem",
+      "transfer_small",
+      "transfer_large",
+      "receive_file",
+      "FileTransfer"
+    ],
+    "net/file-transfer/include/i_file_transfer.h": [
+      "ITcpClient",
+      "ITcpServer",
+      "~IFileTransfer",
+      "transfer_small",
+      "transfer_large",
+      "receive_file",
+      "IFileTransfer"
+    ],
+    "net/file-transfer/src/chunk_header.cpp": [
+      "to_network",
+      "from_network"
+    ],
+    "net/file-transfer/src/file_transfer.cpp": [
+      "FileTransfer",
+      "transfer_small",
+      "transfer_large",
+      "setup_listen_socket",
+      "accept_and_receive_chunk",
+      "receive_file",
+      "recv_all"
+    ],
+    "net/file-transfer/xmake.lua": [],
+    "net/http/include/case_insensitive.h": [
+      "operator()",
+      "CaseInsensitiveHash",
+      "operator()",
+      "CaseInsensitiveEq"
+    ],
+    "net/http/include/http_parser.h": [
+      "ParserResult",
+      "feed",
+      "state",
+      "error",
+      "reset",
+      "HttpParser"
+    ],
+    "net/http/include/http_request.h": [
+      "clear",
+      "HttpRequest"
+    ],
+    "net/http/include/http_response.h": [
+      "set_status",
+      "set_header",
+      "set_content_type",
+      "set_content_length",
+      "serialize",
+      "clear",
+      "HttpResponse"
+    ],
+    "net/http/include/http_server.h": [
+      "WsConnection",
+      "HttpServer",
+      "init",
+      "start",
+      "stop",
+      "get",
+      "post",
+      "put",
+      "del",
+      "ws",
+      "actual_port",
+      "HttpServer"
+    ],
+    "net/http/include/i_http_server.h": [
+      "WsConnection",
+      "~IHttpServer",
+      "init",
+      "start",
+      "stop",
+      "get",
+      "post",
+      "put",
+      "del",
+      "ws",
+      "actual_port",
+      "IHttpServer"
+    ],
+    "net/http/include/i_router.h": [
+      "~IRouter",
+      "add",
+      "match",
+      "path_exists",
+      "IRouter"
+    ],
+    "net/http/include/range_parser.h": [
+      "RangeInterval",
+      "RangeRequest",
+      "generate_boundary"
+    ],
+    "net/http/include/router.h": [
+      "Router",
+      "add",
+      "match",
+      "path_exists",
+      "Router"
+    ],
+    "net/http/include/url_decode.h": [],
+    "net/http/src/http_parser.cpp": [
+      "HttpParser",
+      "reset",
+      "reset_line_buf",
+      "feed",
+      "feed_request_line",
+      "handle_end_of_headers",
+      "parse_header_line",
+      "feed_headers",
+      "feed_body_identity",
+      "feed_chunk_size",
+      "feed_chunk_data",
+      "feed_chunk_trailer"
+    ],
+    "net/http/src/http_request.cpp": [
+      "http_method_to_string",
+      "string_to_http_method",
+      "clear"
+    ],
+    "net/http/src/http_response.cpp": [
+      "set_status",
+      "set_header",
+      "set_content_type",
+      "set_content_length",
+      "serialize",
+      "clear"
+    ],
+    "net/http/src/http_server.cpp": [
+      "HttpServer",
+      "~HttpServer",
+      "init",
+      "start",
+      "stop",
+      "get",
+      "post",
+      "put",
+      "del",
+      "ws",
+      "get_conn_mutex",
+      "try_handle_ws_upgrade",
+      "handle_connection",
+      "send_error"
+    ],
+    "net/http/src/range_parser.cpp": [
+      "consume_prefix",
+      "skip_spaces",
+      "parse_number",
+      "try_parse_suffix",
+      "try_parse_byte_range",
+      "parse_range_header",
+      "build_206_headers",
+      "build_416_response"
+    ],
+    "net/http/src/router.cpp": [
+      "Router",
+      "~Router",
+      "split_path",
+      "add",
+      "insert",
+      "match",
+      "search",
+      "path_exists"
+    ],
+    "net/http/src/url_decode.cpp": [
+      "hex_value",
+      "url_decode"
+    ],
+    "net/http/xmake.lua": [],
+    "net/ssl/include/ssl_context.h": [
+      "ssl_st",
+      "ssl_ctx_st",
+      "SslConfig",
+      "SslContext",
+      "SslContext",
+      "accept",
+      "shutdown_and_free",
+      "want_read",
+      "want_write",
+      "read",
+      "write",
+      "SslContext"
+    ],
+    "net/ssl/src/ssl_context.cpp": [
+      "ensure_openssl",
+      "SslContext",
+      "~SslContext",
+      "accept",
+      "shutdown_and_free",
+      "want_read",
+      "want_write",
+      "read",
+      "write"
+    ],
+    "net/ssl/xmake.lua": [],
+    "net/tcp/tcp_client/include/i_tcp_client.h": [
+      "~ITcpClient",
+      "connect_to_server",
+      "disconnect",
+      "send_message",
+      "receive_message",
+      "is_connected",
+      "ITcpClient"
+    ],
+    "net/tcp/tcp_client/include/tcp_client.h": [
+      "TcpClient",
+      "connect_to_server",
+      "disconnect",
+      "send_message",
+      "receive_message",
+      "send_file",
+      "send_file",
+      "is_connected",
+      "TcpClient"
+    ],
+    "net/tcp/tcp_client/src/tcp_client.cpp": [
+      "TcpClient",
+      "TcpClient",
+      "~TcpClient",
+      "TcpClient",
+      "send_all",
+      "wait_connected",
+      "wait_readable",
+      "connect_to_server",
+      "disconnect",
+      "send_message",
+      "receive_message",
+      "recv_into_buffer",
+      "read_line",
+      "read_raw",
+      "send_file",
+      "send_file"
+    ],
+    "net/tcp/tcp_client/xmake.lua": [],
+    "net/tcp/tcp_server/include/connection.h": [
+      "ssl_st",
+      "ReadAwaiter",
+      "WriteAwaiter",
+      "Connection",
+      "fd",
+      "client_ip",
+      "client_port",
+      "read_from_fd",
+      "write_to_fd",
+      "write_to_fd_locked",
+      "close",
+      "consume_read_buffer",
+      "state",
+      "last_active",
+      "update_active",
+      "set_ssl",
+      "ssl_state",
+      "set_ssl_state",
+      "await_read",
+      "await_write",
+      "Connection",
+      "await_ready",
+      "await_suspend",
+      "await_resume",
+      "ReadAwaiter",
+      "await_ready",
+      "await_suspend",
+      "await_resume",
+      "WriteAwaiter"
+    ],
+    "net/tcp/tcp_server/include/i_tcp_server.h": [
+      "~ITcpServer",
+      "init",
+      "start",
+      "stop",
+      "set_handler",
+      "actual_port",
+      "ITcpServer"
+    ],
+    "net/tcp/tcp_server/include/tcp_server.h": [
+      "TcpServer",
+      "TcpServer",
+      "init",
+      "start",
+      "stop",
+      "set_handler",
+      "actual_port",
+      "is_running",
+      "connection_count",
+      "notify_wake",
+      "TcpServer"
+    ],
+    "net/tcp/tcp_server/src/connection.cpp": [
+      "Connection",
+      "~Connection",
+      "client_ip",
+      "client_port",
+      "read_from_fd",
+      "ssl_read_from_fd",
+      "plain_read_from_fd",
+      "ssl_write_to_fd_locked",
+      "plain_write_to_fd_locked",
+      "write_to_fd",
+      "write_to_fd_locked",
+      "close",
+      "consume_read_buffer",
+      "await_read",
+      "await_write",
+      "await_suspend",
+      "await_suspend"
+    ],
+    "net/tcp/tcp_server/src/tcp_server.cpp": [
+      "EpollFd",
+      "EpollEvents",
+      "epoll_ctl_add",
+      "epoll_ctl_mod",
+      "signal_handler",
+      "TcpServer",
+      "~TcpServer",
+      "init",
+      "set_handler",
+      "start",
+      "stop",
+      "event_loop",
+      "cleanup_resources",
+      "handle_event",
+      "handle_accept",
+      "handle_read",
+      "handle_write",
+      "try_ssl_detection",
+      "try_ssl_handshake",
+      "handle_client_event",
+      "handle_ssl_handshake",
+      "close_connection",
+      "notify_wake",
+      "process_dirty_connections"
+    ],
+    "net/tcp/tcp_server/xmake.lua": [],
+    "net/thread-pool/include/lock_free_queue.hpp": [],
+    "net/thread-pool/include/locked_thread_pool.h": [
+      "LockedThreadPool",
+      "wait_impl",
+      "stop_impl",
+      "wait_for",
+      "LockedThreadPool"
+    ],
+    "net/thread-pool/include/move_only_function.h": [
+      "MoveOnlyFunction",
+      "~MoveOnlyFunction",
+      "MoveOnlyFunction",
+      "MoveOnlyFunction",
+      "operator()",
+      "reset",
+      "MoveOnlyFunction"
+    ],
+    "net/thread-pool/include/thread_pool_base.h": [],
+    "net/thread-pool/include/thread_pool.h": [
+      "wait_impl",
+      "stop_impl",
+      "LockFreeThreadPool"
+    ],
+    "net/thread-pool/src/locked_thread_pool.cpp": [
+      "LockedThreadPool",
+      "~LockedThreadPool",
+      "worker",
+      "wait_impl",
+      "wait_for",
+      "stop_impl"
+    ],
+    "net/thread-pool/src/thread_pool.cpp": [
+      "LockFreeThreadPool",
+      "~LockFreeThreadPool",
+      "stop_impl",
+      "worker",
+      "wait_impl"
+    ],
+    "net/thread-pool/xmake.lua": [],
+    "net/websocket/include/websocket.h": [
+      "WsFrame"
+    ],
+    "net/websocket/include/ws_connection.h": [
+      "send",
+      "close",
+      "set_message_handler",
+      "set_close_handler",
+      "start_event_loop",
+      "WsConnection"
+    ],
+    "net/websocket/src/websocket.cpp": [
+      "base64_encode",
+      "ws_server_handshake",
+      "ws_encode_frame",
+      "ws_decode_frame",
+      "ws_close_code"
+    ],
+    "net/websocket/src/ws_connection.cpp": [
+      "WsConnection",
+      "send",
+      "close",
+      "calc_frame_size",
+      "handle_frame",
+      "start_event_loop",
+      "do_send"
+    ],
+    "net/websocket/xmake.lua": [],
+    "net/xmake.lua": [],
+    "tests/.clang-tidy": [],
+    "tests/test_coroutine.cpp": [
+      "main",
+      "TEST",
+      "TEST",
+      "zero_addr",
+      "read_coro",
+      "write_coro",
+      "TEST",
+      "TEST",
+      "TEST"
+    ],
+    "tests/test_database_pool.cpp": [
+      "MockPool",
+      "MockPool",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "main"
+    ],
+    "tests/test_file_system.cpp": [
+      "TempDir",
+      "~TempDir",
+      "TempDir",
+      "file_path",
+      "write_file",
+      "TempDir",
+      "main",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST"
+    ],
+    "tests/test_file_transfer.cpp": [
+      "create_echo_server",
+      "get_port",
+      "run_echo_server",
+      "recv_all",
+      "TempDir",
+      "~TempDir",
+      "TempDir",
+      "file_path",
+      "write_file",
+      "TempDir",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "main"
+    ],
+    "tests/test_http_parser.cpp": [
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "main"
+    ],
+    "tests/test_http_request.cpp": [
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "main"
+    ],
+    "tests/test_http_response.cpp": [
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "main"
+    ],
+    "tests/test_http_server.cpp": [
+      "main",
+      "send_raw",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST"
+    ],
+    "tests/test_lock_free_queue.cpp": [
+      "main",
+      "TEST",
+      "TEST",
+      "TEST"
+    ],
+    "tests/test_locked_thread_pool.cpp": [
+      "main",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST"
+    ],
+    "tests/test_memory_pool.cpp": [
+      "main",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST"
+    ],
+    "tests/test_move_only_function.cpp": [
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "main"
+    ],
+    "tests/test_range_parser.cpp": [
+      "main",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST"
+    ],
+    "tests/test_router.cpp": [
+      "main",
+      "make_handler",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST"
+    ],
+    "tests/test_ssl.cpp": [
+      "cert_path",
+      "ensure_certs",
+      "connect_to",
+      "read",
+      "write",
+      "~SslClient",
+      "SslClient",
+      "raw_connect",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "main"
+    ],
+    "tests/test_tcp_client.cpp": [
+      "create_echo_server",
+      "get_port",
+      "run_echo_server",
+      "temp_file_path",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "main"
+    ],
+    "tests/test_tcp_server_connection.cpp": [
+      "ConnectionTest",
+      "TEST_F",
+      "TEST_F",
+      "TEST_F",
+      "TEST_F",
+      "TEST_F",
+      "TEST_F",
+      "TEST_F",
+      "TEST_F",
+      "TEST_F",
+      "TEST_F",
+      "main"
+    ],
+    "tests/test_tcp_server.cpp": [
+      "TcpServerTest",
+      "TEST_F",
+      "TEST_F",
+      "TEST_F",
+      "TEST_F",
+      "TEST_F",
+      "TEST_F",
+      "TEST_F",
+      "TEST_F",
+      "main"
+    ],
+    "tests/test_url_decode.cpp": [
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "main"
+    ],
+    "tests/test_websocket.cpp": [
+      "main",
+      "B64TestCase",
+      "make_ws_request",
+      "send_raw",
+      "make_masked_frame",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST"
+    ],
+    "verification/ws_test.py": [
+      "test_ws_handshake"
+    ],
+    "xmake.lua": []
+  },
+  "batches": [
+    {
+      "batchIndex": 1,
+      "files": [
+        {
+          "path": "net/http/include/case_insensitive.h",
+          "language": "c",
+          "sizeLines": 45,
+          "fileCategory": "code"
+        },
+        {
+          "path": "net/http/include/http_parser.h",
+          "language": "c",
+          "sizeLines": 104,
+          "fileCategory": "code"
+        },
+        {
+          "path": "net/http/include/http_request.h",
+          "language": "c",
+          "sizeLines": 45,
+          "fileCategory": "code"
+        },
+        {
+          "path": "net/http/include/http_response.h",
+          "language": "c",
+          "sizeLines": 45,
+          "fileCategory": "code"
+        },
+        {
+          "path": "net/http/include/http_server.h",
+          "language": "c",
+          "sizeLines": 62,
+          "fileCategory": "code"
+        },
+        {
+          "path": "net/http/include/i_http_server.h",
+          "language": "c",
+          "sizeLines": 41,
+          "fileCategory": "code"
+        },
+        {
+          "path": "net/http/include/i_router.h",
+          "language": "c",
+          "sizeLines": 31,
+          "fileCategory": "code"
+        },
+        {
+          "path": "net/http/include/range_parser.h",
+          "language": "c",
+          "sizeLines": 41,
+          "fileCategory": "code"
+        },
+        {
+          "path": "net/http/include/router.h",
+          "language": "c",
+          "sizeLines": 55,
+          "fileCategory": "code"
+        }
+      ],
+      "batchImportData": {
+        "net/http/include/case_insensitive.h": [],
+        "net/http/include/http_parser.h": [
+          "net/http/include/http_request.h"
+        ],
+        "net/http/include/http_request.h": [
+          "net/http/include/case_insensitive.h"
+        ],
+        "net/http/include/http_response.h": [
+          "net/http/include/case_insensitive.h"
+        ],
+        "net/http/include/http_server.h": [
+          "net/http/include/http_parser.h",
+          "net/http/include/http_request.h",
+          "net/http/include/http_response.h",
+          "net/http/include/i_http_server.h",
+          "net/http/include/router.h"
+        ],
+        "net/http/include/i_http_server.h": [
+          "net/http/include/i_router.h"
+        ],
+        "net/http/include/i_router.h": [
+          "net/http/include/http_request.h",
+          "net/http/include/http_response.h"
+        ],
+        "net/http/include/range_parser.h": [
+          "net/http/include/http_response.h"
+        ],
+        "net/http/include/router.h": [
+          "net/http/include/http_request.h",
+          "net/http/include/http_response.h",
+          "net/http/include/i_router.h"
+        ]
+      },
+      "neighborMap": {}
+    },
+    {
+      "batchIndex": 2,
+      "files": [
+        {
+          "path": "db/include/boost_mysql_connection.h",
+          "language": "c",
+          "sizeLines": 29,
+          "fileCategory": "code"
+        },
+        {
+          "path": "db/include/database_pool.h",
+          "language": "c",
+          "sizeLines": 53,
+          "fileCategory": "code"
+        },
+        {
+          "path": "db/include/db_config.h",
+          "language": "c",
+          "sizeLines": 19,
+          "fileCategory": "code"
+        },
+        {
+          "path": "db/include/iconnection.h",
+          "language": "c",
+          "sizeLines": 34,
+          "fileCategory": "code"
+        },
+        {
+          "path": "db/include/idatabase_pool.h",
+          "language": "c",
+          "sizeLines": 29,
+          "fileCategory": "code"
+        },
+        {
+          "path": "db/include/mock_connection.h",
+          "language": "c",
+          "sizeLines": 75,
+          "fileCategory": "code"
+        },
+        {
+          "path": "db/include/models.h",
+          "language": "c",
+          "sizeLines": 32,
+          "fileCategory": "code"
+        }
+      ],
+      "batchImportData": {
+        "db/include/boost_mysql_connection.h": [
+          "db/include/iconnection.h"
+        ],
+        "db/include/database_pool.h": [
+          "db/include/iconnection.h",
+          "db/include/idatabase_pool.h"
+        ],
+        "db/include/db_config.h": [],
+        "db/include/iconnection.h": [
+          "db/include/db_config.h"
+        ],
+        "db/include/idatabase_pool.h": [
+          "db/include/db_config.h",
+          "db/include/models.h"
+        ],
+        "db/include/mock_connection.h": [
+          "db/include/db_config.h",
+          "db/include/iconnection.h"
+        ],
+        "db/include/models.h": []
+      },
+      "neighborMap": {}
+    },
+    {
+      "batchIndex": 3,
+      "files": [
+        {
+          "path": "net/thread-pool/include/lock_free_queue.hpp",
+          "language": "cpp",
+          "sizeLines": 222,
+          "fileCategory": "code"
+        },
+        {
+          "path": "net/thread-pool/include/locked_thread_pool.h",
+          "language": "c",
+          "sizeLines": 62,
+          "fileCategory": "code"
+        },
+        {
+          "path": "net/thread-pool/include/move_only_function.h",
+          "language": "c",
+          "sizeLines": 167,
+          "fileCategory": "code"
+        },
+        {
+          "path": "net/thread-pool/include/thread_pool.h",
+          "language": "c",
+          "sizeLines": 60,
+          "fileCategory": "code"
+        },
+        {
+          "path": "net/thread-pool/include/thread_pool_base.h",
+          "language": "c",
+          "sizeLines": 38,
+          "fileCategory": "code"
+        }
+      ],
+      "batchImportData": {
+        "net/thread-pool/include/lock_free_queue.hpp": [],
+        "net/thread-pool/include/locked_thread_pool.h": [
+          "net/thread-pool/include/move_only_function.h",
+          "net/thread-pool/include/thread_pool_base.h"
+        ],
+        "net/thread-pool/include/move_only_function.h": [],
+        "net/thread-pool/include/thread_pool.h": [
+          "net/thread-pool/include/lock_free_queue.hpp",
+          "net/thread-pool/include/move_only_function.h",
+          "net/thread-pool/include/thread_pool_base.h"
+        ],
+        "net/thread-pool/include/thread_pool_base.h": []
+      },
+      "neighborMap": {}
+    },
+    {
+      "batchIndex": 4,
+      "files": [
+        {
+          "path": "memory-pool/include/memory_pool_base.h",
+          "language": "c",
+          "sizeLines": 38,
+          "fileCategory": "code"
+        },
+        {
+          "path": "memory-pool/include/memory_pool_factory.h",
+          "language": "c",
+          "sizeLines": 26,
+          "fileCategory": "code"
+        },
+        {
+          "path": "memory-pool/include/size_class.h",
+          "language": "c",
+          "sizeLines": 46,
+          "fileCategory": "code"
+        },
+        {
+          "path": "memory-pool/include/tiered_memory_pool.h",
+          "language": "c",
+          "sizeLines": 67,
+          "fileCategory": "code"
+        }
+      ],
+      "batchImportData": {
+        "memory-pool/include/memory_pool_base.h": [],
+        "memory-pool/include/memory_pool_factory.h": [
+          "memory-pool/include/tiered_memory_pool.h"
+        ],
+        "memory-pool/include/size_class.h": [],
+        "memory-pool/include/tiered_memory_pool.h": [
+          "memory-pool/include/memory_pool_base.h",
+          "memory-pool/include/size_class.h"
+        ]
+      },
+      "neighborMap": {}
+    },
+    {
+      "batchIndex": 5,
+      "files": [
+        {
+          "path": "logger/include/logappender.h",
+          "language": "c",
+          "sizeLines": 62,
+          "fileCategory": "code"
+        },
+        {
+          "path": "logger/include/logformatter.h",
+          "language": "c",
+          "sizeLines": 103,
+          "fileCategory": "code"
+        },
+        {
+          "path": "logger/include/logger.h",
+          "language": "c",
+          "sizeLines": 145,
+          "fileCategory": "code"
+        }
+      ],
+      "batchImportData": {
+        "logger/include/logappender.h": [
+          "logger/include/logformatter.h"
+        ],
+        "logger/include/logformatter.h": [
+          "logger/include/logger.h"
+        ],
+        "logger/include/logger.h": []
+      },
+      "neighborMap": {}
+    },
+    {
+      "batchIndex": 6,
+      "files": [
+        {
+          "path": "net/tcp/tcp_server/include/connection.h",
+          "language": "c",
+          "sizeLines": 173,
+          "fileCategory": "code"
+        },
+        {
+          "path": "net/tcp/tcp_server/include/i_tcp_server.h",
+          "language": "c",
+          "sizeLines": 30,
+          "fileCategory": "code"
+        },
+        {
+          "path": "net/tcp/tcp_server/include/tcp_server.h",
+          "language": "c",
+          "sizeLines": 127,
+          "fileCategory": "code"
+        }
+      ],
+      "batchImportData": {
+        "net/tcp/tcp_server/include/connection.h": [],
+        "net/tcp/tcp_server/include/i_tcp_server.h": [
+          "net/tcp/tcp_server/include/connection.h"
+        ],
+        "net/tcp/tcp_server/include/tcp_server.h": [
+          "net/tcp/tcp_server/include/connection.h",
+          "net/tcp/tcp_server/include/i_tcp_server.h"
+        ]
+      },
+      "neighborMap": {}
+    },
+    {
+      "batchIndex": 7,
+      "files": [
+        {
+          "path": ".dockerignore",
+          "language": "unknown",
+          "sizeLines": 52,
+          "fileCategory": "infra"
+        },
+        {
+          "path": "docker-compose.yml",
+          "language": "yaml",
+          "sizeLines": 44,
+          "fileCategory": "infra"
+        },
+        {
+          "path": "Dockerfile",
+          "language": "dockerfile",
+          "sizeLines": 24,
+          "fileCategory": "infra"
+        }
+      ],
+      "batchImportData": {
+        ".dockerignore": [],
+        "docker-compose.yml": [],
+        "Dockerfile": []
+      },
+      "neighborMap": {}
+    },
+    {
+      "batchIndex": 8,
+      "files": [
+        {
+          "path": "README.md",
+          "language": "markdown",
+          "sizeLines": 736,
+          "fileCategory": "docs"
+        },
+        {
+          "path": "config.json",
+          "language": "json",
+          "sizeLines": 27,
+          "fileCategory": "config"
+        },
+        {
+          "path": "goal.md",
+          "language": "markdown",
+          "sizeLines": 513,
+          "fileCategory": "docs"
+        }
+      ],
+      "batchImportData": {
+        "README.md": [],
+        "config.json": [],
+        "goal.md": []
+      },
+      "neighborMap": {}
+    },
+    {
+      "batchIndex": 9,
+      "files": [
+        {
+          "path": "plan/development_plan.md",
+          "language": "markdown",
+          "sizeLines": 35,
+          "fileCategory": "docs"
+        },
+        {
+          "path": "plan/docker-deployment.md",
+          "language": "markdown",
+          "sizeLines": 30,
+          "fileCategory": "docs"
+        },
+        {
+          "path": "plan/end-to-end-verification.md",
+          "language": "markdown",
+          "sizeLines": 74,
+          "fileCategory": "docs"
+        },
+        {
+          "path": "plan/memory-pool-tiered-optimization.md",
+          "language": "markdown",
+          "sizeLines": 39,
+          "fileCategory": "docs"
+        },
+        {
+          "path": "plan/step-0-2-infrastructure.md",
+          "language": "markdown",
+          "sizeLines": 117,
+          "fileCategory": "docs"
+        },
+        {
+          "path": "plan/step-10-locked-thread-pool.md",
+          "language": "markdown",
+          "sizeLines": 131,
+          "fileCategory": "docs"
+        },
+        {
+          "path": "plan/step-11-main-integration.md",
+          "language": "markdown",
+          "sizeLines": 86,
+          "fileCategory": "docs"
+        },
+        {
+          "path": "plan/step-2-routing.md",
+          "language": "markdown",
+          "sizeLines": 82,
+          "fileCategory": "docs"
+        },
+        {
+          "path": "plan/step-2.5-arch-refactor.md",
+          "language": "markdown",
+          "sizeLines": 36,
+          "fileCategory": "docs"
+        },
+        {
+          "path": "plan/step-3-interface-layer.md",
+          "language": "markdown",
+          "sizeLines": 105,
+          "fileCategory": "docs"
+        },
+        {
+          "path": "plan/step-4-file-system.md",
+          "language": "markdown",
+          "sizeLines": 63,
+          "fileCategory": "docs"
+        },
+        {
+          "path": "plan/step-5-range-streaming.md",
+          "language": "markdown",
+          "sizeLines": 61,
+          "fileCategory": "docs"
+        },
+        {
+          "path": "plan/step-6-database.md",
+          "language": "markdown",
+          "sizeLines": 120,
+          "fileCategory": "docs"
+        },
+        {
+          "path": "plan/step-7-file-transfer.md",
+          "language": "markdown",
+          "sizeLines": 56,
+          "fileCategory": "docs"
+        },
+        {
+          "path": "plan/step-8-https-tls.md",
+          "language": "markdown",
+          "sizeLines": 61,
+          "fileCategory": "docs"
+        },
+        {
+          "path": "plan/step-9-websocket.md",
+          "language": "markdown",
+          "sizeLines": 101,
+          "fileCategory": "docs"
+        }
+      ],
+      "batchImportData": {
+        "plan/development_plan.md": [],
+        "plan/docker-deployment.md": [],
+        "plan/end-to-end-verification.md": [],
+        "plan/memory-pool-tiered-optimization.md": [],
+        "plan/step-0-2-infrastructure.md": [],
+        "plan/step-10-locked-thread-pool.md": [],
+        "plan/step-11-main-integration.md": [],
+        "plan/step-2-routing.md": [],
+        "plan/step-2.5-arch-refactor.md": [],
+        "plan/step-3-interface-layer.md": [],
+        "plan/step-4-file-system.md": [],
+        "plan/step-5-range-streaming.md": [],
+        "plan/step-6-database.md": [],
+        "plan/step-7-file-transfer.md": [],
+        "plan/step-8-https-tls.md": [],
+        "plan/step-9-websocket.md": []
+      },
+      "neighborMap": {}
+    },
+    {
+      "batchIndex": 10,
+      "files": [
+        {
+          "path": "scripts/dev.sh",
+          "language": "shell",
+          "sizeLines": 213,
+          "fileCategory": "script"
+        },
+        {
+          "path": "scripts/docker.sh",
+          "language": "shell",
+          "sizeLines": 107,
+          "fileCategory": "script"
+        },
+        {
+          "path": "scripts/lint.sh",
+          "language": "shell",
+          "sizeLines": 191,
+          "fileCategory": "script"
+        },
+        {
+          "path": "scripts/test.sh",
+          "language": "shell",
+          "sizeLines": 36,
+          "fileCategory": "script"
+        }
+      ],
+      "batchImportData": {
+        "scripts/dev.sh": [],
+        "scripts/docker.sh": [],
+        "scripts/lint.sh": [],
+        "scripts/test.sh": []
+      },
+      "neighborMap": {}
+    },
+    {
+      "batchIndex": 11,
+      "files": [
+        {
+          "path": ".clang-tidy",
+          "language": "unknown",
+          "sizeLines": 64,
+          "fileCategory": "code"
+        },
+        {
+          "path": ".ua/.understandignore",
+          "language": "unknown",
+          "sizeLines": 104,
+          "fileCategory": "code"
+        },
+        {
+          "path": ".ua/config.json",
+          "language": "json",
+          "sizeLines": 1,
+          "fileCategory": "config"
+        },
+        {
+          "path": "core/pch.h",
+          "language": "c",
+          "sizeLines": 13,
+          "fileCategory": "code"
+        },
+        {
+          "path": "core/src/main.cpp",
+          "language": "cpp",
+          "sizeLines": 485,
+          "fileCategory": "code"
+        },
+        {
+          "path": "core/xmake.lua",
+          "language": "lua",
+          "sizeLines": 18,
+          "fileCategory": "code"
+        },
+        {
+          "path": "db/schema.sql",
+          "language": "sql",
+          "sizeLines": 29,
+          "fileCategory": "data"
+        },
+        {
+          "path": "db/src/boost_mysql_connection.cpp",
+          "language": "cpp",
+          "sizeLines": 157,
+          "fileCategory": "code"
+        },
+        {
+          "path": "db/src/database_pool.cpp",
+          "language": "cpp",
+          "sizeLines": 276,
+          "fileCategory": "code"
+        },
+        {
+          "path": "db/xmake.lua",
+          "language": "lua",
+          "sizeLines": 8,
+          "fileCategory": "code"
+        },
+        {
+          "path": "file-system/include/file_system.h",
+          "language": "c",
+          "sizeLines": 46,
+          "fileCategory": "code"
+        },
+        {
+          "path": "file-system/include/i_file_system.h",
+          "language": "c",
+          "sizeLines": 51,
+          "fileCategory": "code"
+        },
+        {
+          "path": "file-system/src/file_system.cpp",
+          "language": "cpp",
+          "sizeLines": 224,
+          "fileCategory": "code"
+        },
+        {
+          "path": "file-system/xmake.lua",
+          "language": "lua",
+          "sizeLines": 8,
+          "fileCategory": "code"
+        },
+        {
+          "path": "logger/src/logappender.cpp",
+          "language": "cpp",
+          "sizeLines": 38,
+          "fileCategory": "code"
+        },
+        {
+          "path": "logger/src/logformatter.cpp",
+          "language": "cpp",
+          "sizeLines": 200,
+          "fileCategory": "code"
+        },
+        {
+          "path": "logger/src/logger.cpp",
+          "language": "cpp",
+          "sizeLines": 153,
+          "fileCategory": "code"
+        },
+        {
+          "path": "logger/xmake.lua",
+          "language": "lua",
+          "sizeLines": 6,
+          "fileCategory": "code"
+        },
+        {
+          "path": "memory-pool/src/tiered_memory_pool.cpp",
+          "language": "cpp",
+          "sizeLines": 321,
+          "fileCategory": "code"
+        },
+        {
+          "path": "memory-pool/xmake.lua",
+          "language": "lua",
+          "sizeLines": 7,
+          "fileCategory": "code"
+        },
+        {
+          "path": "net/coroutine/coroitem.hpp",
+          "language": "cpp",
+          "sizeLines": 163,
+          "fileCategory": "code"
+        },
+        {
+          "path": "net/file-receive-process/main.cpp",
+          "language": "cpp",
+          "sizeLines": 222,
+          "fileCategory": "code"
+        },
+        {
+          "path": "net/file-receive-process/xmake.lua",
+          "language": "lua",
+          "sizeLines": 6,
+          "fileCategory": "code"
+        },
+        {
+          "path": "net/file-send-process/main.cpp",
+          "language": "cpp",
+          "sizeLines": 194,
+          "fileCategory": "code"
+        },
+        {
+          "path": "net/file-send-process/xmake.lua",
+          "language": "lua",
+          "sizeLines": 6,
+          "fileCategory": "code"
+        }
+      ],
+      "batchImportData": {
+        ".clang-tidy": [],
+        ".ua/.understandignore": [],
+        ".ua/config.json": [],
+        "core/pch.h": [],
+        "core/src/main.cpp": [],
+        "core/xmake.lua": [],
+        "db/schema.sql": [],
+        "db/src/boost_mysql_connection.cpp": [],
+        "db/src/database_pool.cpp": [],
+        "db/xmake.lua": [],
+        "file-system/include/file_system.h": [
+          "file-system/include/i_file_system.h"
+        ],
+        "file-system/include/i_file_system.h": [],
+        "file-system/src/file_system.cpp": [],
+        "file-system/xmake.lua": [],
+        "logger/src/logappender.cpp": [],
+        "logger/src/logformatter.cpp": [],
+        "logger/src/logger.cpp": [],
+        "logger/xmake.lua": [],
+        "memory-pool/src/tiered_memory_pool.cpp": [],
+        "memory-pool/xmake.lua": [],
+        "net/coroutine/coroitem.hpp": [],
+        "net/file-receive-process/main.cpp": [],
+        "net/file-receive-process/xmake.lua": [],
+        "net/file-send-process/main.cpp": [],
+        "net/file-send-process/xmake.lua": []
+      },
+      "neighborMap": {}
+    },
+    {
+      "batchIndex": 12,
+      "files": [
+        {
+          "path": "net/file-transfer/include/chunk_header.h",
+          "language": "c",
+          "sizeLines": 26,
+          "fileCategory": "code"
+        },
+        {
+          "path": "net/file-transfer/include/file_transfer.h",
+          "language": "c",
+          "sizeLines": 32,
+          "fileCategory": "code"
+        },
+        {
+          "path": "net/file-transfer/include/i_file_transfer.h",
+          "language": "c",
+          "sizeLines": 22,
+          "fileCategory": "code"
+        },
+        {
+          "path": "net/file-transfer/src/chunk_header.cpp",
+          "language": "cpp",
+          "sizeLines": 25,
+          "fileCategory": "code"
+        },
+        {
+          "path": "net/file-transfer/src/file_transfer.cpp",
+          "language": "cpp",
+          "sizeLines": 296,
+          "fileCategory": "code"
+        },
+        {
+          "path": "net/file-transfer/xmake.lua",
+          "language": "lua",
+          "sizeLines": 7,
+          "fileCategory": "code"
+        },
+        {
+          "path": "net/http/include/url_decode.h",
+          "language": "c",
+          "sizeLines": 21,
+          "fileCategory": "code"
+        },
+        {
+          "path": "net/http/src/http_parser.cpp",
+          "language": "cpp",
+          "sizeLines": 268,
+          "fileCategory": "code"
+        },
+        {
+          "path": "net/http/src/http_request.cpp",
+          "language": "cpp",
+          "sizeLines": 62,
+          "fileCategory": "code"
+        },
+        {
+          "path": "net/http/src/http_response.cpp",
+          "language": "cpp",
+          "sizeLines": 42,
+          "fileCategory": "code"
+        },
+        {
+          "path": "net/http/src/http_server.cpp",
+          "language": "cpp",
+          "sizeLines": 212,
+          "fileCategory": "code"
+        },
+        {
+          "path": "net/http/src/range_parser.cpp",
+          "language": "cpp",
+          "sizeLines": 165,
+          "fileCategory": "code"
+        },
+        {
+          "path": "net/http/src/router.cpp",
+          "language": "cpp",
+          "sizeLines": 116,
+          "fileCategory": "code"
+        },
+        {
+          "path": "net/http/src/url_decode.cpp",
+          "language": "cpp",
+          "sizeLines": 42,
+          "fileCategory": "code"
+        },
+        {
+          "path": "net/http/xmake.lua",
+          "language": "lua",
+          "sizeLines": 12,
+          "fileCategory": "code"
+        },
+        {
+          "path": "net/ssl/include/ssl_context.h",
+          "language": "c",
+          "sizeLines": 43,
+          "fileCategory": "code"
+        },
+        {
+          "path": "net/ssl/src/ssl_context.cpp",
+          "language": "cpp",
+          "sizeLines": 156,
+          "fileCategory": "code"
+        },
+        {
+          "path": "net/ssl/xmake.lua",
+          "language": "lua",
+          "sizeLines": 23,
+          "fileCategory": "code"
+        },
+        {
+          "path": "net/tcp/tcp_client/include/i_tcp_client.h",
+          "language": "c",
+          "sizeLines": 27,
+          "fileCategory": "code"
+        },
+        {
+          "path": "net/tcp/tcp_client/include/tcp_client.h",
+          "language": "c",
+          "sizeLines": 60,
+          "fileCategory": "code"
+        },
+        {
+          "path": "net/tcp/tcp_client/src/tcp_client.cpp",
+          "language": "cpp",
+          "sizeLines": 300,
+          "fileCategory": "code"
+        },
+        {
+          "path": "net/tcp/tcp_client/xmake.lua",
+          "language": "lua",
+          "sizeLines": 7,
+          "fileCategory": "code"
+        },
+        {
+          "path": "net/tcp/tcp_server/src/connection.cpp",
+          "language": "cpp",
+          "sizeLines": 229,
+          "fileCategory": "code"
+        },
+        {
+          "path": "net/tcp/tcp_server/src/tcp_server.cpp",
+          "language": "cpp",
+          "sizeLines": 524,
+          "fileCategory": "code"
+        },
+        {
+          "path": "net/tcp/tcp_server/xmake.lua",
+          "language": "lua",
+          "sizeLines": 7,
+          "fileCategory": "code"
+        }
+      ],
+      "batchImportData": {
+        "net/file-transfer/include/chunk_header.h": [],
+        "net/file-transfer/include/file_transfer.h": [
+          "net/file-transfer/include/i_file_transfer.h"
+        ],
+        "net/file-transfer/include/i_file_transfer.h": [],
+        "net/file-transfer/src/chunk_header.cpp": [],
+        "net/file-transfer/src/file_transfer.cpp": [],
+        "net/file-transfer/xmake.lua": [],
+        "net/http/include/url_decode.h": [],
+        "net/http/src/http_parser.cpp": [],
+        "net/http/src/http_request.cpp": [],
+        "net/http/src/http_response.cpp": [],
+        "net/http/src/http_server.cpp": [],
+        "net/http/src/range_parser.cpp": [],
+        "net/http/src/router.cpp": [],
+        "net/http/src/url_decode.cpp": [],
+        "net/http/xmake.lua": [],
+        "net/ssl/include/ssl_context.h": [],
+        "net/ssl/src/ssl_context.cpp": [],
+        "net/ssl/xmake.lua": [],
+        "net/tcp/tcp_client/include/i_tcp_client.h": [],
+        "net/tcp/tcp_client/include/tcp_client.h": [
+          "net/tcp/tcp_client/include/i_tcp_client.h"
+        ],
+        "net/tcp/tcp_client/src/tcp_client.cpp": [],
+        "net/tcp/tcp_client/xmake.lua": [],
+        "net/tcp/tcp_server/src/connection.cpp": [],
+        "net/tcp/tcp_server/src/tcp_server.cpp": [],
+        "net/tcp/tcp_server/xmake.lua": []
+      },
+      "neighborMap": {}
+    },
+    {
+      "batchIndex": 13,
+      "files": [
+        {
+          "path": "net/thread-pool/src/locked_thread_pool.cpp",
+          "language": "cpp",
+          "sizeLines": 76,
+          "fileCategory": "code"
+        },
+        {
+          "path": "net/thread-pool/src/thread_pool.cpp",
+          "language": "cpp",
+          "sizeLines": 63,
+          "fileCategory": "code"
+        },
+        {
+          "path": "net/thread-pool/xmake.lua",
+          "language": "lua",
+          "sizeLines": 7,
+          "fileCategory": "code"
+        },
+        {
+          "path": "net/websocket/include/websocket.h",
+          "language": "c",
+          "sizeLines": 40,
+          "fileCategory": "code"
+        },
+        {
+          "path": "net/websocket/include/ws_connection.h",
+          "language": "c",
+          "sizeLines": 37,
+          "fileCategory": "code"
+        },
+        {
+          "path": "net/websocket/src/websocket.cpp",
+          "language": "cpp",
+          "sizeLines": 175,
+          "fileCategory": "code"
+        },
+        {
+          "path": "net/websocket/src/ws_connection.cpp",
+          "language": "cpp",
+          "sizeLines": 165,
+          "fileCategory": "code"
+        },
+        {
+          "path": "net/websocket/xmake.lua",
+          "language": "lua",
+          "sizeLines": 10,
+          "fileCategory": "code"
+        },
+        {
+          "path": "net/xmake.lua",
+          "language": "lua",
+          "sizeLines": 16,
+          "fileCategory": "code"
+        },
+        {
+          "path": "tests/.clang-tidy",
+          "language": "unknown",
+          "sizeLines": 79,
+          "fileCategory": "code"
+        },
+        {
+          "path": "tests/test_coroutine.cpp",
+          "language": "cpp",
+          "sizeLines": 123,
+          "fileCategory": "code"
+        },
+        {
+          "path": "tests/test_database_pool.cpp",
+          "language": "cpp",
+          "sizeLines": 352,
+          "fileCategory": "code"
+        },
+        {
+          "path": "tests/test_file_system.cpp",
+          "language": "cpp",
+          "sizeLines": 218,
+          "fileCategory": "code"
+        },
+        {
+          "path": "tests/test_file_transfer.cpp",
+          "language": "cpp",
+          "sizeLines": 337,
+          "fileCategory": "code"
+        },
+        {
+          "path": "tests/test_http_parser.cpp",
+          "language": "cpp",
+          "sizeLines": 204,
+          "fileCategory": "code"
+        },
+        {
+          "path": "tests/test_http_request.cpp",
+          "language": "cpp",
+          "sizeLines": 47,
+          "fileCategory": "code"
+        },
+        {
+          "path": "tests/test_http_response.cpp",
+          "language": "cpp",
+          "sizeLines": 77,
+          "fileCategory": "code"
+        },
+        {
+          "path": "tests/test_http_server.cpp",
+          "language": "cpp",
+          "sizeLines": 194,
+          "fileCategory": "code"
+        },
+        {
+          "path": "tests/test_lock_free_queue.cpp",
+          "language": "cpp",
+          "sizeLines": 77,
+          "fileCategory": "code"
+        },
+        {
+          "path": "tests/test_locked_thread_pool.cpp",
+          "language": "cpp",
+          "sizeLines": 103,
+          "fileCategory": "code"
+        },
+        {
+          "path": "tests/test_memory_pool.cpp",
+          "language": "cpp",
+          "sizeLines": 149,
+          "fileCategory": "code"
+        },
+        {
+          "path": "tests/test_move_only_function.cpp",
+          "language": "cpp",
+          "sizeLines": 83,
+          "fileCategory": "code"
+        },
+        {
+          "path": "tests/test_range_parser.cpp",
+          "language": "cpp",
+          "sizeLines": 128,
+          "fileCategory": "code"
+        },
+        {
+          "path": "tests/test_router.cpp",
+          "language": "cpp",
+          "sizeLines": 124,
+          "fileCategory": "code"
+        },
+        {
+          "path": "tests/test_ssl.cpp",
+          "language": "cpp",
+          "sizeLines": 357,
+          "fileCategory": "code"
+        }
+      ],
+      "batchImportData": {
+        "net/thread-pool/src/locked_thread_pool.cpp": [],
+        "net/thread-pool/src/thread_pool.cpp": [],
+        "net/thread-pool/xmake.lua": [],
+        "net/websocket/include/websocket.h": [],
+        "net/websocket/include/ws_connection.h": [
+          "net/websocket/include/websocket.h"
+        ],
+        "net/websocket/src/websocket.cpp": [],
+        "net/websocket/src/ws_connection.cpp": [],
+        "net/websocket/xmake.lua": [],
+        "net/xmake.lua": [],
+        "tests/.clang-tidy": [],
+        "tests/test_coroutine.cpp": [],
+        "tests/test_database_pool.cpp": [],
+        "tests/test_file_system.cpp": [],
+        "tests/test_file_transfer.cpp": [],
+        "tests/test_http_parser.cpp": [],
+        "tests/test_http_request.cpp": [],
+        "tests/test_http_response.cpp": [],
+        "tests/test_http_server.cpp": [],
+        "tests/test_lock_free_queue.cpp": [],
+        "tests/test_locked_thread_pool.cpp": [],
+        "tests/test_memory_pool.cpp": [],
+        "tests/test_move_only_function.cpp": [],
+        "tests/test_range_parser.cpp": [],
+        "tests/test_router.cpp": [],
+        "tests/test_ssl.cpp": []
+      },
+      "neighborMap": {}
+    },
+    {
+      "batchIndex": 14,
+      "files": [
+        {
+          "path": "tests/test_tcp_client.cpp",
+          "language": "cpp",
+          "sizeLines": 248,
+          "fileCategory": "code"
+        },
+        {
+          "path": "tests/test_tcp_server_connection.cpp",
+          "language": "cpp",
+          "sizeLines": 157,
+          "fileCategory": "code"
+        },
+        {
+          "path": "tests/test_tcp_server.cpp",
+          "language": "cpp",
+          "sizeLines": 277,
+          "fileCategory": "code"
+        },
+        {
+          "path": "tests/test_url_decode.cpp",
+          "language": "cpp",
+          "sizeLines": 60,
+          "fileCategory": "code"
+        },
+        {
+          "path": "tests/test_websocket.cpp",
+          "language": "cpp",
+          "sizeLines": 272,
+          "fileCategory": "code"
+        },
+        {
+          "path": "verification/README.md",
+          "language": "markdown",
+          "sizeLines": 333,
+          "fileCategory": "docs"
+        },
+        {
+          "path": "verification/verify.sh",
+          "language": "shell",
+          "sizeLines": 352,
+          "fileCategory": "script"
+        },
+        {
+          "path": "verification/ws_test.py",
+          "language": "python",
+          "sizeLines": 46,
+          "fileCategory": "code"
+        },
+        {
+          "path": "xmake.lua",
+          "language": "lua",
+          "sizeLines": 41,
+          "fileCategory": "code"
+        }
+      ],
+      "batchImportData": {
+        "tests/test_tcp_client.cpp": [],
+        "tests/test_tcp_server_connection.cpp": [],
+        "tests/test_tcp_server.cpp": [],
+        "tests/test_url_decode.cpp": [],
+        "tests/test_websocket.cpp": [],
+        "verification/README.md": [],
+        "verification/verify.sh": [],
+        "verification/ws_test.py": [],
+        "xmake.lua": []
+      },
+      "neighborMap": {}
+    }
+  ]
+}

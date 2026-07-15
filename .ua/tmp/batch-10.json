@@ -1,0 +1,4726 @@
+{
+  "batchIndex": 10,
+  "algorithm": "louvain",
+  "totalFiles": 25,
+  "nodes": [
+    {
+      "id": "file:.clang-tidy",
+      "type": "file",
+      "label": "文件: .clang-tidy",
+      "properties": {
+        "path": ".clang-tidy",
+        "language": "unknown",
+        "category": "code",
+        "totalLines": 64,
+        "nonEmptyLines": 63
+      }
+    },
+    {
+      "id": "file:.ua/.understandignore",
+      "type": "file",
+      "label": "文件: .ua/.understandignore",
+      "properties": {
+        "path": ".ua/.understandignore",
+        "language": "unknown",
+        "category": "code",
+        "totalLines": 104,
+        "nonEmptyLines": 98
+      }
+    },
+    {
+      "id": "file:.ua/config.json",
+      "type": "file",
+      "label": "文件: .ua/config.json",
+      "properties": {
+        "path": ".ua/config.json",
+        "language": "json",
+        "category": "config",
+        "totalLines": 1,
+        "nonEmptyLines": 1
+      }
+    },
+    {
+      "id": "file:core/pch.h",
+      "type": "file",
+      "label": "文件: core/pch.h",
+      "properties": {
+        "path": "core/pch.h",
+        "language": "c",
+        "category": "code",
+        "totalLines": 13,
+        "nonEmptyLines": 13
+      }
+    },
+    {
+      "id": "file:core/src/main.cpp",
+      "type": "file",
+      "label": "文件: core/src/main.cpp",
+      "properties": {
+        "path": "core/src/main.cpp",
+        "language": "cpp",
+        "category": "code",
+        "totalLines": 485,
+        "nonEmptyLines": 447
+      }
+    },
+    {
+      "id": "class:core/src/main.cpp::ServerConfig",
+      "type": "class",
+      "label": "类: ServerConfig",
+      "properties": {
+        "name": "ServerConfig",
+        "startLine": 30,
+        "endLine": 38,
+        "methodCount": 0,
+        "propertyCount": 7
+      }
+    },
+    {
+      "id": "func:core/src/main.cpp::parse_server_section",
+      "type": "function",
+      "label": "函数: parse_server_section",
+      "properties": {
+        "name": "parse_server_section",
+        "file": "core/src/main.cpp",
+        "startLine": 40,
+        "endLine": 57,
+        "params": [
+          "json",
+          "cfg"
+        ],
+        "isMethod": false
+      }
+    },
+    {
+      "id": "func:core/src/main.cpp::parse_database_section",
+      "type": "function",
+      "label": "函数: parse_database_section",
+      "properties": {
+        "name": "parse_database_section",
+        "file": "core/src/main.cpp",
+        "startLine": 59,
+        "endLine": 88,
+        "params": [
+          "json",
+          "cfg"
+        ],
+        "isMethod": false
+      }
+    },
+    {
+      "id": "func:core/src/main.cpp::parse_ssl_section",
+      "type": "function",
+      "label": "函数: parse_ssl_section",
+      "properties": {
+        "name": "parse_ssl_section",
+        "file": "core/src/main.cpp",
+        "startLine": 90,
+        "endLine": 110,
+        "params": [
+          "json",
+          "cfg"
+        ],
+        "isMethod": false
+      }
+    },
+    {
+      "id": "func:core/src/main.cpp::parse_fs_section",
+      "type": "function",
+      "label": "函数: parse_fs_section",
+      "properties": {
+        "name": "parse_fs_section",
+        "file": "core/src/main.cpp",
+        "startLine": 112,
+        "endLine": 120,
+        "params": [
+          "json",
+          "cfg"
+        ],
+        "isMethod": false
+      }
+    },
+    {
+      "id": "func:core/src/main.cpp::parse_cmd_args",
+      "type": "function",
+      "label": "函数: parse_cmd_args",
+      "properties": {
+        "name": "parse_cmd_args",
+        "file": "core/src/main.cpp",
+        "startLine": 122,
+        "endLine": 163,
+        "params": [
+          "argc",
+          "argv",
+          "cfg",
+          "config_path"
+        ],
+        "isMethod": false
+      }
+    },
+    {
+      "id": "func:core/src/main.cpp::parse_json_file",
+      "type": "function",
+      "label": "函数: parse_json_file",
+      "properties": {
+        "name": "parse_json_file",
+        "file": "core/src/main.cpp",
+        "startLine": 165,
+        "endLine": 180,
+        "params": [
+          "path",
+          "cfg"
+        ],
+        "isMethod": false
+      }
+    },
+    {
+      "id": "func:core/src/main.cpp::apply_env_overrides",
+      "type": "function",
+      "label": "函数: apply_env_overrides",
+      "properties": {
+        "name": "apply_env_overrides",
+        "file": "core/src/main.cpp",
+        "startLine": 182,
+        "endLine": 192,
+        "params": [
+          "cfg"
+        ],
+        "isMethod": false
+      }
+    },
+    {
+      "id": "func:core/src/main.cpp::load_config",
+      "type": "function",
+      "label": "函数: load_config",
+      "properties": {
+        "name": "load_config",
+        "file": "core/src/main.cpp",
+        "startLine": 194,
+        "endLine": 201,
+        "params": [
+          "argc",
+          "argv"
+        ],
+        "isMethod": false
+      }
+    },
+    {
+      "id": "func:core/src/main.cpp::register_routes",
+      "type": "function",
+      "label": "函数: register_routes",
+      "properties": {
+        "name": "register_routes",
+        "file": "core/src/main.cpp",
+        "startLine": 204,
+        "endLine": 421,
+        "params": [
+          "server",
+          "db",
+          "fs"
+        ],
+        "isMethod": false
+      }
+    },
+    {
+      "id": "func:core/src/main.cpp::main",
+      "type": "function",
+      "label": "函数: main",
+      "properties": {
+        "name": "main",
+        "file": "core/src/main.cpp",
+        "startLine": 426,
+        "endLine": 485,
+        "params": [
+          "argc",
+          "argv"
+        ],
+        "isMethod": false
+      }
+    },
+    {
+      "id": "file:core/xmake.lua",
+      "type": "file",
+      "label": "文件: core/xmake.lua",
+      "properties": {
+        "path": "core/xmake.lua",
+        "language": "lua",
+        "category": "code",
+        "totalLines": 18,
+        "nonEmptyLines": 15
+      }
+    },
+    {
+      "id": "file:db/schema.sql",
+      "type": "file",
+      "label": "文件: db/schema.sql",
+      "properties": {
+        "path": "db/schema.sql",
+        "language": "sql",
+        "category": "data",
+        "totalLines": 29,
+        "nonEmptyLines": 25
+      }
+    },
+    {
+      "id": "file:db/src/boost_mysql_connection.cpp",
+      "type": "file",
+      "label": "文件: db/src/boost_mysql_connection.cpp",
+      "properties": {
+        "path": "db/src/boost_mysql_connection.cpp",
+        "language": "cpp",
+        "category": "code",
+        "totalLines": 157,
+        "nonEmptyLines": 133
+      }
+    },
+    {
+      "id": "class:db/src/boost_mysql_connection.cpp::BoostMySqlConnection::Impl",
+      "type": "class",
+      "label": "类: BoostMySqlConnection::Impl",
+      "properties": {
+        "name": "BoostMySqlConnection::Impl",
+        "startLine": 16,
+        "endLine": 124,
+        "methodCount": 8,
+        "propertyCount": 2
+      }
+    },
+    {
+      "id": "func:db/src/boost_mysql_connection.cpp::Impl",
+      "type": "function",
+      "label": "函数: Impl",
+      "properties": {
+        "name": "Impl",
+        "file": "db/src/boost_mysql_connection.cpp",
+        "isMethod": true
+      }
+    },
+    {
+      "id": "func:db/src/boost_mysql_connection.cpp::connect",
+      "type": "function",
+      "label": "函数: connect",
+      "properties": {
+        "name": "connect",
+        "file": "db/src/boost_mysql_connection.cpp",
+        "isMethod": true
+      }
+    },
+    {
+      "id": "func:db/src/boost_mysql_connection.cpp::is_open",
+      "type": "function",
+      "label": "函数: is_open",
+      "properties": {
+        "name": "is_open",
+        "file": "db/src/boost_mysql_connection.cpp",
+        "isMethod": true
+      }
+    },
+    {
+      "id": "func:db/src/boost_mysql_connection.cpp::ping",
+      "type": "function",
+      "label": "函数: ping",
+      "properties": {
+        "name": "ping",
+        "file": "db/src/boost_mysql_connection.cpp",
+        "isMethod": true
+      }
+    },
+    {
+      "id": "func:db/src/boost_mysql_connection.cpp::query",
+      "type": "function",
+      "label": "函数: query",
+      "properties": {
+        "name": "query",
+        "file": "db/src/boost_mysql_connection.cpp",
+        "isMethod": true
+      }
+    },
+    {
+      "id": "func:db/src/boost_mysql_connection.cpp::execute",
+      "type": "function",
+      "label": "函数: execute",
+      "properties": {
+        "name": "execute",
+        "file": "db/src/boost_mysql_connection.cpp",
+        "isMethod": true
+      }
+    },
+    {
+      "id": "func:db/src/boost_mysql_connection.cpp::close_socket",
+      "type": "function",
+      "label": "函数: close_socket",
+      "properties": {
+        "name": "close_socket",
+        "file": "db/src/boost_mysql_connection.cpp",
+        "isMethod": true
+      }
+    },
+    {
+      "id": "func:db/src/boost_mysql_connection.cpp::execute_stmt",
+      "type": "function",
+      "label": "函数: execute_stmt",
+      "properties": {
+        "name": "execute_stmt",
+        "file": "db/src/boost_mysql_connection.cpp",
+        "isMethod": true
+      }
+    },
+    {
+      "id": "func:db/src/boost_mysql_connection.cpp::BoostMySqlConnection",
+      "type": "function",
+      "label": "函数: BoostMySqlConnection",
+      "properties": {
+        "name": "BoostMySqlConnection",
+        "file": "db/src/boost_mysql_connection.cpp",
+        "startLine": 126,
+        "endLine": 126,
+        "params": [],
+        "isMethod": false
+      }
+    },
+    {
+      "id": "func:db/src/boost_mysql_connection.cpp::~BoostMySqlConnection",
+      "type": "function",
+      "label": "函数: ~BoostMySqlConnection",
+      "properties": {
+        "name": "~BoostMySqlConnection",
+        "file": "db/src/boost_mysql_connection.cpp",
+        "startLine": 128,
+        "endLine": 131,
+        "params": [],
+        "isMethod": false
+      }
+    },
+    {
+      "id": "func:db/src/boost_mysql_connection.cpp::close",
+      "type": "function",
+      "label": "函数: close",
+      "properties": {
+        "name": "close",
+        "file": "db/src/boost_mysql_connection.cpp",
+        "startLine": 153,
+        "endLine": 155,
+        "params": [],
+        "isMethod": false
+      }
+    },
+    {
+      "id": "file:db/src/database_pool.cpp",
+      "type": "file",
+      "label": "文件: db/src/database_pool.cpp",
+      "properties": {
+        "path": "db/src/database_pool.cpp",
+        "language": "cpp",
+        "category": "code",
+        "totalLines": 276,
+        "nonEmptyLines": 230
+      }
+    },
+    {
+      "id": "func:db/src/database_pool.cpp::default_factory",
+      "type": "function",
+      "label": "函数: default_factory",
+      "properties": {
+        "name": "default_factory",
+        "file": "db/src/database_pool.cpp",
+        "startLine": 13,
+        "endLine": 15,
+        "params": [],
+        "isMethod": false
+      }
+    },
+    {
+      "id": "func:db/src/database_pool.cpp::DatabasePool",
+      "type": "function",
+      "label": "函数: DatabasePool",
+      "properties": {
+        "name": "DatabasePool",
+        "file": "db/src/database_pool.cpp",
+        "startLine": 19,
+        "endLine": 19,
+        "params": [
+          "factory"
+        ],
+        "isMethod": false
+      }
+    },
+    {
+      "id": "func:db/src/database_pool.cpp::~DatabasePool",
+      "type": "function",
+      "label": "函数: ~DatabasePool",
+      "properties": {
+        "name": "~DatabasePool",
+        "file": "db/src/database_pool.cpp",
+        "startLine": 21,
+        "endLine": 23,
+        "params": [],
+        "isMethod": false
+      }
+    },
+    {
+      "id": "func:db/src/database_pool.cpp::close",
+      "type": "function",
+      "label": "函数: close",
+      "properties": {
+        "name": "close",
+        "file": "db/src/database_pool.cpp",
+        "startLine": 25,
+        "endLine": 27,
+        "params": [],
+        "isMethod": false
+      }
+    },
+    {
+      "id": "func:db/src/database_pool.cpp::init",
+      "type": "function",
+      "label": "函数: init",
+      "properties": {
+        "name": "init",
+        "file": "db/src/database_pool.cpp",
+        "startLine": 29,
+        "endLine": 48,
+        "params": [
+          "config"
+        ],
+        "isMethod": false
+      }
+    },
+    {
+      "id": "func:db/src/database_pool.cpp::do_close",
+      "type": "function",
+      "label": "函数: do_close",
+      "properties": {
+        "name": "do_close",
+        "file": "db/src/database_pool.cpp",
+        "startLine": 50,
+        "endLine": 70,
+        "params": [],
+        "isMethod": false
+      }
+    },
+    {
+      "id": "func:db/src/database_pool.cpp::get_connection",
+      "type": "function",
+      "label": "函数: get_connection",
+      "properties": {
+        "name": "get_connection",
+        "file": "db/src/database_pool.cpp",
+        "startLine": 72,
+        "endLine": 101,
+        "params": [],
+        "isMethod": false
+      }
+    },
+    {
+      "id": "func:db/src/database_pool.cpp::release_connection",
+      "type": "function",
+      "label": "函数: release_connection",
+      "properties": {
+        "name": "release_connection",
+        "file": "db/src/database_pool.cpp",
+        "startLine": 103,
+        "endLine": 116,
+        "params": [
+          "conn"
+        ],
+        "isMethod": false
+      }
+    },
+    {
+      "id": "func:db/src/database_pool.cpp::escape_string",
+      "type": "function",
+      "label": "函数: escape_string",
+      "properties": {
+        "name": "escape_string",
+        "file": "db/src/database_pool.cpp",
+        "startLine": 125,
+        "endLine": 140,
+        "params": [
+          "s"
+        ],
+        "isMethod": false
+      }
+    },
+    {
+      "id": "func:db/src/database_pool.cpp::get_user",
+      "type": "function",
+      "label": "函数: get_user",
+      "properties": {
+        "name": "get_user",
+        "file": "db/src/database_pool.cpp",
+        "startLine": 144,
+        "endLine": 170,
+        "params": [
+          "user_id"
+        ],
+        "isMethod": false
+      }
+    },
+    {
+      "id": "func:db/src/database_pool.cpp::create_user",
+      "type": "function",
+      "label": "函数: create_user",
+      "properties": {
+        "name": "create_user",
+        "file": "db/src/database_pool.cpp",
+        "startLine": 172,
+        "endLine": 183,
+        "params": [
+          "user"
+        ],
+        "isMethod": false
+      }
+    },
+    {
+      "id": "func:db/src/database_pool.cpp::log_download",
+      "type": "function",
+      "label": "函数: log_download",
+      "properties": {
+        "name": "log_download",
+        "file": "db/src/database_pool.cpp",
+        "startLine": 185,
+        "endLine": 196,
+        "params": [
+          "log"
+        ],
+        "isMethod": false
+      }
+    },
+    {
+      "id": "func:db/src/database_pool.cpp::get_download_history",
+      "type": "function",
+      "label": "函数: get_download_history",
+      "properties": {
+        "name": "get_download_history",
+        "file": "db/src/database_pool.cpp",
+        "startLine": 198,
+        "endLine": 228,
+        "params": [
+          "user_id"
+        ],
+        "isMethod": false
+      }
+    },
+    {
+      "id": "func:db/src/database_pool.cpp::store_file_meta",
+      "type": "function",
+      "label": "函数: store_file_meta",
+      "properties": {
+        "name": "store_file_meta",
+        "file": "db/src/database_pool.cpp",
+        "startLine": 230,
+        "endLine": 244,
+        "params": [
+          "meta"
+        ],
+        "isMethod": false
+      }
+    },
+    {
+      "id": "func:db/src/database_pool.cpp::get_file_meta",
+      "type": "function",
+      "label": "函数: get_file_meta",
+      "properties": {
+        "name": "get_file_meta",
+        "file": "db/src/database_pool.cpp",
+        "startLine": 246,
+        "endLine": 274,
+        "params": [
+          "hash"
+        ],
+        "isMethod": false
+      }
+    },
+    {
+      "id": "file:db/xmake.lua",
+      "type": "file",
+      "label": "文件: db/xmake.lua",
+      "properties": {
+        "path": "db/xmake.lua",
+        "language": "lua",
+        "category": "code",
+        "totalLines": 8,
+        "nonEmptyLines": 8
+      }
+    },
+    {
+      "id": "file:file-system/include/file_system.h",
+      "type": "file",
+      "label": "文件: file-system/include/file_system.h",
+      "properties": {
+        "path": "file-system/include/file_system.h",
+        "language": "c",
+        "category": "code",
+        "totalLines": 46,
+        "nonEmptyLines": 36
+      }
+    },
+    {
+      "id": "class:file-system/include/file_system.h::FileSystem",
+      "type": "class",
+      "label": "类: FileSystem",
+      "properties": {
+        "name": "FileSystem",
+        "startLine": 15,
+        "endLine": 44,
+        "methodCount": 9,
+        "propertyCount": 1
+      }
+    },
+    {
+      "id": "func:file-system/include/file_system.h::split_file",
+      "type": "function",
+      "label": "函数: split_file",
+      "properties": {
+        "name": "split_file",
+        "file": "file-system/include/file_system.h",
+        "isMethod": true
+      }
+    },
+    {
+      "id": "func:file-system/include/file_system.h::compute_file_hash",
+      "type": "function",
+      "label": "函数: compute_file_hash",
+      "properties": {
+        "name": "compute_file_hash",
+        "file": "file-system/include/file_system.h",
+        "isMethod": true
+      }
+    },
+    {
+      "id": "func:file-system/include/file_system.h::compute_chunk_hash",
+      "type": "function",
+      "label": "函数: compute_chunk_hash",
+      "properties": {
+        "name": "compute_chunk_hash",
+        "file": "file-system/include/file_system.h",
+        "isMethod": true
+      }
+    },
+    {
+      "id": "func:file-system/include/file_system.h::store_file",
+      "type": "function",
+      "label": "函数: store_file",
+      "properties": {
+        "name": "store_file",
+        "file": "file-system/include/file_system.h",
+        "isMethod": true
+      }
+    },
+    {
+      "id": "func:file-system/include/file_system.h::delete_file",
+      "type": "function",
+      "label": "函数: delete_file",
+      "properties": {
+        "name": "delete_file",
+        "file": "file-system/include/file_system.h",
+        "isMethod": true
+      }
+    },
+    {
+      "id": "func:file-system/include/file_system.h::read_file",
+      "type": "function",
+      "label": "函数: read_file",
+      "properties": {
+        "name": "read_file",
+        "file": "file-system/include/file_system.h",
+        "isMethod": true
+      }
+    },
+    {
+      "id": "func:file-system/include/file_system.h::sha256_hex",
+      "type": "function",
+      "label": "函数: sha256_hex",
+      "properties": {
+        "name": "sha256_hex",
+        "file": "file-system/include/file_system.h",
+        "isMethod": true
+      }
+    },
+    {
+      "id": "func:file-system/include/file_system.h::resolve_path",
+      "type": "function",
+      "label": "函数: resolve_path",
+      "properties": {
+        "name": "resolve_path",
+        "file": "file-system/include/file_system.h",
+        "isMethod": true
+      }
+    },
+    {
+      "id": "func:file-system/include/file_system.h::to_hex",
+      "type": "function",
+      "label": "函数: to_hex",
+      "properties": {
+        "name": "to_hex",
+        "file": "file-system/include/file_system.h",
+        "isMethod": true
+      }
+    },
+    {
+      "id": "file:file-system/include/i_file_system.h",
+      "type": "file",
+      "label": "文件: file-system/include/i_file_system.h",
+      "properties": {
+        "path": "file-system/include/i_file_system.h",
+        "language": "c",
+        "category": "code",
+        "totalLines": 51,
+        "nonEmptyLines": 40
+      }
+    },
+    {
+      "id": "class:file-system/include/i_file_system.h::FileChunk",
+      "type": "class",
+      "label": "类: FileChunk",
+      "properties": {
+        "name": "FileChunk",
+        "startLine": 16,
+        "endLine": 20,
+        "methodCount": 0,
+        "propertyCount": 3
+      }
+    },
+    {
+      "id": "class:file-system/include/i_file_system.h::IFileSystem",
+      "type": "class",
+      "label": "类: IFileSystem",
+      "properties": {
+        "name": "IFileSystem",
+        "startLine": 28,
+        "endLine": 49,
+        "methodCount": 7,
+        "propertyCount": 0
+      }
+    },
+    {
+      "id": "func:file-system/include/i_file_system.h::~IFileSystem",
+      "type": "function",
+      "label": "函数: ~IFileSystem",
+      "properties": {
+        "name": "~IFileSystem",
+        "file": "file-system/include/i_file_system.h",
+        "isMethod": true
+      }
+    },
+    {
+      "id": "func:file-system/include/i_file_system.h::split_file",
+      "type": "function",
+      "label": "函数: split_file",
+      "properties": {
+        "name": "split_file",
+        "file": "file-system/include/i_file_system.h",
+        "isMethod": true
+      }
+    },
+    {
+      "id": "func:file-system/include/i_file_system.h::compute_file_hash",
+      "type": "function",
+      "label": "函数: compute_file_hash",
+      "properties": {
+        "name": "compute_file_hash",
+        "file": "file-system/include/i_file_system.h",
+        "isMethod": true
+      }
+    },
+    {
+      "id": "func:file-system/include/i_file_system.h::compute_chunk_hash",
+      "type": "function",
+      "label": "函数: compute_chunk_hash",
+      "properties": {
+        "name": "compute_chunk_hash",
+        "file": "file-system/include/i_file_system.h",
+        "isMethod": true
+      }
+    },
+    {
+      "id": "func:file-system/include/i_file_system.h::store_file",
+      "type": "function",
+      "label": "函数: store_file",
+      "properties": {
+        "name": "store_file",
+        "file": "file-system/include/i_file_system.h",
+        "isMethod": true
+      }
+    },
+    {
+      "id": "func:file-system/include/i_file_system.h::delete_file",
+      "type": "function",
+      "label": "函数: delete_file",
+      "properties": {
+        "name": "delete_file",
+        "file": "file-system/include/i_file_system.h",
+        "isMethod": true
+      }
+    },
+    {
+      "id": "func:file-system/include/i_file_system.h::read_file",
+      "type": "function",
+      "label": "函数: read_file",
+      "properties": {
+        "name": "read_file",
+        "file": "file-system/include/i_file_system.h",
+        "isMethod": true
+      }
+    },
+    {
+      "id": "file:file-system/src/file_system.cpp",
+      "type": "file",
+      "label": "文件: file-system/src/file_system.cpp",
+      "properties": {
+        "path": "file-system/src/file_system.cpp",
+        "language": "cpp",
+        "category": "code",
+        "totalLines": 224,
+        "nonEmptyLines": 184
+      }
+    },
+    {
+      "id": "func:file-system/src/file_system.cpp::FileSystem",
+      "type": "function",
+      "label": "函数: FileSystem",
+      "properties": {
+        "name": "FileSystem",
+        "file": "file-system/src/file_system.cpp",
+        "startLine": 23,
+        "endLine": 27,
+        "params": [
+          "base_dir"
+        ],
+        "isMethod": false
+      }
+    },
+    {
+      "id": "func:file-system/src/file_system.cpp::to_hex",
+      "type": "function",
+      "label": "函数: to_hex",
+      "properties": {
+        "name": "to_hex",
+        "file": "file-system/src/file_system.cpp",
+        "startLine": 29,
+        "endLine": 41,
+        "params": [
+          "hash",
+          "len"
+        ],
+        "isMethod": false
+      }
+    },
+    {
+      "id": "func:file-system/src/file_system.cpp::sha256_hex",
+      "type": "function",
+      "label": "函数: sha256_hex",
+      "properties": {
+        "name": "sha256_hex",
+        "file": "file-system/src/file_system.cpp",
+        "startLine": 43,
+        "endLine": 52,
+        "params": [
+          "data",
+          "len"
+        ],
+        "isMethod": false
+      }
+    },
+    {
+      "id": "func:file-system/src/file_system.cpp::resolve_path",
+      "type": "function",
+      "label": "函数: resolve_path",
+      "properties": {
+        "name": "resolve_path",
+        "file": "file-system/src/file_system.cpp",
+        "startLine": 54,
+        "endLine": 88,
+        "params": [
+          "virtual_path"
+        ],
+        "isMethod": false
+      }
+    },
+    {
+      "id": "func:file-system/src/file_system.cpp::split_file",
+      "type": "function",
+      "label": "函数: split_file",
+      "properties": {
+        "name": "split_file",
+        "file": "file-system/src/file_system.cpp",
+        "startLine": 90,
+        "endLine": 115,
+        "params": [
+          "path",
+          "chunk_size"
+        ],
+        "isMethod": false
+      }
+    },
+    {
+      "id": "func:file-system/src/file_system.cpp::compute_file_hash",
+      "type": "function",
+      "label": "函数: compute_file_hash",
+      "properties": {
+        "name": "compute_file_hash",
+        "file": "file-system/src/file_system.cpp",
+        "startLine": 117,
+        "endLine": 141,
+        "params": [
+          "path"
+        ],
+        "isMethod": false
+      }
+    },
+    {
+      "id": "func:file-system/src/file_system.cpp::compute_chunk_hash",
+      "type": "function",
+      "label": "函数: compute_chunk_hash",
+      "properties": {
+        "name": "compute_chunk_hash",
+        "file": "file-system/src/file_system.cpp",
+        "startLine": 143,
+        "endLine": 175,
+        "params": [
+          "chunk"
+        ],
+        "isMethod": false
+      }
+    },
+    {
+      "id": "func:file-system/src/file_system.cpp::store_file",
+      "type": "function",
+      "label": "函数: store_file",
+      "properties": {
+        "name": "store_file",
+        "file": "file-system/src/file_system.cpp",
+        "startLine": 177,
+        "endLine": 197,
+        "params": [
+          "path",
+          "data"
+        ],
+        "isMethod": false
+      }
+    },
+    {
+      "id": "func:file-system/src/file_system.cpp::delete_file",
+      "type": "function",
+      "label": "函数: delete_file",
+      "properties": {
+        "name": "delete_file",
+        "file": "file-system/src/file_system.cpp",
+        "startLine": 199,
+        "endLine": 207,
+        "params": [
+          "path"
+        ],
+        "isMethod": false
+      }
+    },
+    {
+      "id": "func:file-system/src/file_system.cpp::read_file",
+      "type": "function",
+      "label": "函数: read_file",
+      "properties": {
+        "name": "read_file",
+        "file": "file-system/src/file_system.cpp",
+        "startLine": 209,
+        "endLine": 222,
+        "params": [
+          "path"
+        ],
+        "isMethod": false
+      }
+    },
+    {
+      "id": "file:file-system/xmake.lua",
+      "type": "file",
+      "label": "文件: file-system/xmake.lua",
+      "properties": {
+        "path": "file-system/xmake.lua",
+        "language": "lua",
+        "category": "code",
+        "totalLines": 8,
+        "nonEmptyLines": 8
+      }
+    },
+    {
+      "id": "file:logger/src/logappender.cpp",
+      "type": "file",
+      "label": "文件: logger/src/logappender.cpp",
+      "properties": {
+        "path": "logger/src/logappender.cpp",
+        "language": "cpp",
+        "category": "code",
+        "totalLines": 38,
+        "nonEmptyLines": 31
+      }
+    },
+    {
+      "id": "func:logger/src/logappender.cpp::FileLogAppender",
+      "type": "function",
+      "label": "函数: FileLogAppender",
+      "properties": {
+        "name": "FileLogAppender",
+        "file": "logger/src/logappender.cpp",
+        "startLine": 7,
+        "endLine": 9,
+        "params": [
+          "filename"
+        ],
+        "isMethod": false
+      }
+    },
+    {
+      "id": "func:logger/src/logappender.cpp::reopen",
+      "type": "function",
+      "label": "函数: reopen",
+      "properties": {
+        "name": "reopen",
+        "file": "logger/src/logappender.cpp",
+        "startLine": 11,
+        "endLine": 18,
+        "params": [],
+        "isMethod": false
+      }
+    },
+    {
+      "id": "func:logger/src/logappender.cpp::log",
+      "type": "function",
+      "label": "函数: log",
+      "properties": {
+        "name": "log",
+        "file": "logger/src/logappender.cpp",
+        "startLine": 20,
+        "endLine": 29,
+        "params": [
+          "level",
+          "event"
+        ],
+        "isMethod": false
+      }
+    },
+    {
+      "id": "file:logger/src/logformatter.cpp",
+      "type": "file",
+      "label": "文件: logger/src/logformatter.cpp",
+      "properties": {
+        "path": "logger/src/logformatter.cpp",
+        "language": "cpp",
+        "category": "code",
+        "totalLines": 200,
+        "nonEmptyLines": 172
+      }
+    },
+    {
+      "id": "func:logger/src/logformatter.cpp::LogFormatter",
+      "type": "function",
+      "label": "函数: LogFormatter",
+      "properties": {
+        "name": "LogFormatter",
+        "file": "logger/src/logformatter.cpp",
+        "startLine": 11,
+        "endLine": 13,
+        "params": [
+          "pattern"
+        ],
+        "isMethod": false
+      }
+    },
+    {
+      "id": "func:logger/src/logformatter.cpp::format",
+      "type": "function",
+      "label": "函数: format",
+      "properties": {
+        "name": "format",
+        "file": "logger/src/logformatter.cpp",
+        "startLine": 15,
+        "endLine": 21,
+        "params": [
+          "level",
+          "event"
+        ],
+        "isMethod": false
+      }
+    },
+    {
+      "id": "func:logger/src/logformatter.cpp::init",
+      "type": "function",
+      "label": "函数: init",
+      "properties": {
+        "name": "init",
+        "file": "logger/src/logformatter.cpp",
+        "startLine": 24,
+        "endLine": 103,
+        "params": [],
+        "isMethod": false
+      }
+    },
+    {
+      "id": "func:logger/src/logformatter.cpp::MessageFormatItem::format",
+      "type": "function",
+      "label": "函数: MessageFormatItem::format",
+      "properties": {
+        "name": "MessageFormatItem::format",
+        "file": "logger/src/logformatter.cpp",
+        "startLine": 105,
+        "endLine": 109,
+        "params": [
+          "os",
+          "level",
+          "event"
+        ],
+        "isMethod": false
+      }
+    },
+    {
+      "id": "func:logger/src/logformatter.cpp::LevelFormatItem::format",
+      "type": "function",
+      "label": "函数: LevelFormatItem::format",
+      "properties": {
+        "name": "LevelFormatItem::format",
+        "file": "logger/src/logformatter.cpp",
+        "startLine": 111,
+        "endLine": 131,
+        "params": [
+          "os",
+          "level",
+          "event"
+        ],
+        "isMethod": false
+      }
+    },
+    {
+      "id": "func:logger/src/logformatter.cpp::ElapseFormatItem::format",
+      "type": "function",
+      "label": "函数: ElapseFormatItem::format",
+      "properties": {
+        "name": "ElapseFormatItem::format",
+        "file": "logger/src/logformatter.cpp",
+        "startLine": 133,
+        "endLine": 137,
+        "params": [
+          "os",
+          "level",
+          "event"
+        ],
+        "isMethod": false
+      }
+    },
+    {
+      "id": "func:logger/src/logformatter.cpp::NameFormatItem::format",
+      "type": "function",
+      "label": "函数: NameFormatItem::format",
+      "properties": {
+        "name": "NameFormatItem::format",
+        "file": "logger/src/logformatter.cpp",
+        "startLine": 139,
+        "endLine": 143,
+        "params": [
+          "os",
+          "level",
+          "event"
+        ],
+        "isMethod": false
+      }
+    },
+    {
+      "id": "func:logger/src/logformatter.cpp::ThreadIdFormatItem::format",
+      "type": "function",
+      "label": "函数: ThreadIdFormatItem::format",
+      "properties": {
+        "name": "ThreadIdFormatItem::format",
+        "file": "logger/src/logformatter.cpp",
+        "startLine": 145,
+        "endLine": 149,
+        "params": [
+          "os",
+          "level",
+          "event"
+        ],
+        "isMethod": false
+      }
+    },
+    {
+      "id": "func:logger/src/logformatter.cpp::CoroutineIdFormatItem::format",
+      "type": "function",
+      "label": "函数: CoroutineIdFormatItem::format",
+      "properties": {
+        "name": "CoroutineIdFormatItem::format",
+        "file": "logger/src/logformatter.cpp",
+        "startLine": 151,
+        "endLine": 155,
+        "params": [
+          "os",
+          "level",
+          "event"
+        ],
+        "isMethod": false
+      }
+    },
+    {
+      "id": "func:logger/src/logformatter.cpp::DateTimeFormatItem::DateTimeFormatItem",
+      "type": "function",
+      "label": "函数: DateTimeFormatItem::DateTimeFormatItem",
+      "properties": {
+        "name": "DateTimeFormatItem::DateTimeFormatItem",
+        "file": "logger/src/logformatter.cpp",
+        "startLine": 157,
+        "endLine": 157,
+        "params": [
+          "format"
+        ],
+        "isMethod": false
+      }
+    },
+    {
+      "id": "func:logger/src/logformatter.cpp::DateTimeFormatItem::format",
+      "type": "function",
+      "label": "函数: DateTimeFormatItem::format",
+      "properties": {
+        "name": "DateTimeFormatItem::format",
+        "file": "logger/src/logformatter.cpp",
+        "startLine": 159,
+        "endLine": 168,
+        "params": [
+          "os",
+          "level",
+          "event"
+        ],
+        "isMethod": false
+      }
+    },
+    {
+      "id": "func:logger/src/logformatter.cpp::NewLineFormatItem::format",
+      "type": "function",
+      "label": "函数: NewLineFormatItem::format",
+      "properties": {
+        "name": "NewLineFormatItem::format",
+        "file": "logger/src/logformatter.cpp",
+        "startLine": 170,
+        "endLine": 174,
+        "params": [
+          "os",
+          "level",
+          "event"
+        ],
+        "isMethod": false
+      }
+    },
+    {
+      "id": "func:logger/src/logformatter.cpp::StringFormatItem::format",
+      "type": "function",
+      "label": "函数: StringFormatItem::format",
+      "properties": {
+        "name": "StringFormatItem::format",
+        "file": "logger/src/logformatter.cpp",
+        "startLine": 176,
+        "endLine": 180,
+        "params": [
+          "os",
+          "level",
+          "event"
+        ],
+        "isMethod": false
+      }
+    },
+    {
+      "id": "func:logger/src/logformatter.cpp::LineFormatItem::format",
+      "type": "function",
+      "label": "函数: LineFormatItem::format",
+      "properties": {
+        "name": "LineFormatItem::format",
+        "file": "logger/src/logformatter.cpp",
+        "startLine": 182,
+        "endLine": 186,
+        "params": [
+          "os",
+          "level",
+          "event"
+        ],
+        "isMethod": false
+      }
+    },
+    {
+      "id": "func:logger/src/logformatter.cpp::FileNameFormatItem::format",
+      "type": "function",
+      "label": "函数: FileNameFormatItem::format",
+      "properties": {
+        "name": "FileNameFormatItem::format",
+        "file": "logger/src/logformatter.cpp",
+        "startLine": 188,
+        "endLine": 192,
+        "params": [
+          "os",
+          "level",
+          "event"
+        ],
+        "isMethod": false
+      }
+    },
+    {
+      "id": "func:logger/src/logformatter.cpp::PatternErrorFormatItem::format",
+      "type": "function",
+      "label": "函数: PatternErrorFormatItem::format",
+      "properties": {
+        "name": "PatternErrorFormatItem::format",
+        "file": "logger/src/logformatter.cpp",
+        "startLine": 194,
+        "endLine": 198,
+        "params": [
+          "os",
+          "level",
+          "event"
+        ],
+        "isMethod": false
+      }
+    },
+    {
+      "id": "file:logger/src/logger.cpp",
+      "type": "file",
+      "label": "文件: logger/src/logger.cpp",
+      "properties": {
+        "path": "logger/src/logger.cpp",
+        "language": "cpp",
+        "category": "code",
+        "totalLines": 153,
+        "nonEmptyLines": 124
+      }
+    },
+    {
+      "id": "func:logger/src/logger.cpp::LogEvent",
+      "type": "function",
+      "label": "函数: LogEvent",
+      "properties": {
+        "name": "LogEvent",
+        "file": "logger/src/logger.cpp",
+        "startLine": 28,
+        "endLine": 50,
+        "params": [
+          "content",
+          "logger_name",
+          "loc"
+        ],
+        "isMethod": false
+      }
+    },
+    {
+      "id": "func:logger/src/logger.cpp::Logger",
+      "type": "function",
+      "label": "函数: Logger",
+      "properties": {
+        "name": "Logger",
+        "file": "logger/src/logger.cpp",
+        "startLine": 52,
+        "endLine": 52,
+        "params": [
+          "name"
+        ],
+        "isMethod": false
+      }
+    },
+    {
+      "id": "func:logger/src/logger.cpp::createEvent",
+      "type": "function",
+      "label": "函数: createEvent",
+      "properties": {
+        "name": "createEvent",
+        "file": "logger/src/logger.cpp",
+        "startLine": 54,
+        "endLine": 56,
+        "params": [
+          "content",
+          "loc"
+        ],
+        "isMethod": false
+      }
+    },
+    {
+      "id": "func:logger/src/logger.cpp::allocCoroutineId",
+      "type": "function",
+      "label": "函数: allocCoroutineId",
+      "properties": {
+        "name": "allocCoroutineId",
+        "file": "logger/src/logger.cpp",
+        "startLine": 58,
+        "endLine": 60,
+        "params": [],
+        "isMethod": false
+      }
+    },
+    {
+      "id": "func:logger/src/logger.cpp::setCurrentCoroutineId",
+      "type": "function",
+      "label": "函数: setCurrentCoroutineId",
+      "properties": {
+        "name": "setCurrentCoroutineId",
+        "file": "logger/src/logger.cpp",
+        "startLine": 62,
+        "endLine": 64,
+        "params": [
+          "id"
+        ],
+        "isMethod": false
+      }
+    },
+    {
+      "id": "func:logger/src/logger.cpp::getCurrentCoroutineId",
+      "type": "function",
+      "label": "函数: getCurrentCoroutineId",
+      "properties": {
+        "name": "getCurrentCoroutineId",
+        "file": "logger/src/logger.cpp",
+        "startLine": 66,
+        "endLine": 68,
+        "params": [],
+        "isMethod": false
+      }
+    },
+    {
+      "id": "func:logger/src/logger.cpp::CoroutineScope::CoroutineScope",
+      "type": "function",
+      "label": "函数: CoroutineScope::CoroutineScope",
+      "properties": {
+        "name": "CoroutineScope::CoroutineScope",
+        "file": "logger/src/logger.cpp",
+        "startLine": 70,
+        "endLine": 72,
+        "params": [
+          "id"
+        ],
+        "isMethod": false
+      }
+    },
+    {
+      "id": "func:logger/src/logger.cpp::CoroutineScope::~CoroutineScope",
+      "type": "function",
+      "label": "函数: CoroutineScope::~CoroutineScope",
+      "properties": {
+        "name": "CoroutineScope::~CoroutineScope",
+        "file": "logger/src/logger.cpp",
+        "startLine": 74,
+        "endLine": 76,
+        "params": [],
+        "isMethod": false
+      }
+    },
+    {
+      "id": "func:logger/src/logger.cpp::log",
+      "type": "function",
+      "label": "函数: log",
+      "properties": {
+        "name": "log",
+        "file": "logger/src/logger.cpp",
+        "startLine": 78,
+        "endLine": 90,
+        "params": [
+          "level",
+          "event"
+        ],
+        "isMethod": false
+      }
+    },
+    {
+      "id": "func:logger/src/logger.cpp::debug",
+      "type": "function",
+      "label": "函数: debug",
+      "properties": {
+        "name": "debug",
+        "file": "logger/src/logger.cpp",
+        "startLine": 92,
+        "endLine": 94,
+        "params": [
+          "msg",
+          "loc"
+        ],
+        "isMethod": false
+      }
+    },
+    {
+      "id": "func:logger/src/logger.cpp::info",
+      "type": "function",
+      "label": "函数: info",
+      "properties": {
+        "name": "info",
+        "file": "logger/src/logger.cpp",
+        "startLine": 96,
+        "endLine": 98,
+        "params": [
+          "msg",
+          "loc"
+        ],
+        "isMethod": false
+      }
+    },
+    {
+      "id": "func:logger/src/logger.cpp::warn",
+      "type": "function",
+      "label": "函数: warn",
+      "properties": {
+        "name": "warn",
+        "file": "logger/src/logger.cpp",
+        "startLine": 100,
+        "endLine": 102,
+        "params": [
+          "msg",
+          "loc"
+        ],
+        "isMethod": false
+      }
+    },
+    {
+      "id": "func:logger/src/logger.cpp::error",
+      "type": "function",
+      "label": "函数: error",
+      "properties": {
+        "name": "error",
+        "file": "logger/src/logger.cpp",
+        "startLine": 104,
+        "endLine": 106,
+        "params": [
+          "msg",
+          "loc"
+        ],
+        "isMethod": false
+      }
+    },
+    {
+      "id": "func:logger/src/logger.cpp::fatal",
+      "type": "function",
+      "label": "函数: fatal",
+      "properties": {
+        "name": "fatal",
+        "file": "logger/src/logger.cpp",
+        "startLine": 108,
+        "endLine": 110,
+        "params": [
+          "msg",
+          "loc"
+        ],
+        "isMethod": false
+      }
+    },
+    {
+      "id": "func:logger/src/logger.cpp::addAppender",
+      "type": "function",
+      "label": "函数: addAppender",
+      "properties": {
+        "name": "addAppender",
+        "file": "logger/src/logger.cpp",
+        "startLine": 112,
+        "endLine": 118,
+        "params": [
+          "appender"
+        ],
+        "isMethod": false
+      }
+    },
+    {
+      "id": "func:logger/src/logger.cpp::delAppender",
+      "type": "function",
+      "label": "函数: delAppender",
+      "properties": {
+        "name": "delAppender",
+        "file": "logger/src/logger.cpp",
+        "startLine": 120,
+        "endLine": 126,
+        "params": [
+          "appender"
+        ],
+        "isMethod": false
+      }
+    },
+    {
+      "id": "func:logger/src/logger.cpp::init",
+      "type": "function",
+      "label": "函数: init",
+      "properties": {
+        "name": "init",
+        "file": "logger/src/logger.cpp",
+        "startLine": 131,
+        "endLine": 140,
+        "params": [
+          "name"
+        ],
+        "isMethod": false
+      }
+    },
+    {
+      "id": "func:logger/src/logger.cpp::shutdown",
+      "type": "function",
+      "label": "函数: shutdown",
+      "properties": {
+        "name": "shutdown",
+        "file": "logger/src/logger.cpp",
+        "startLine": 142,
+        "endLine": 144,
+        "params": [],
+        "isMethod": false
+      }
+    },
+    {
+      "id": "file:logger/xmake.lua",
+      "type": "file",
+      "label": "文件: logger/xmake.lua",
+      "properties": {
+        "path": "logger/xmake.lua",
+        "language": "lua",
+        "category": "code",
+        "totalLines": 6,
+        "nonEmptyLines": 6
+      }
+    },
+    {
+      "id": "file:memory-pool/src/tiered_memory_pool.cpp",
+      "type": "file",
+      "label": "文件: memory-pool/src/tiered_memory_pool.cpp",
+      "properties": {
+        "path": "memory-pool/src/tiered_memory_pool.cpp",
+        "language": "cpp",
+        "category": "code",
+        "totalLines": 321,
+        "nonEmptyLines": 265
+      }
+    },
+    {
+      "id": "func:memory-pool/src/tiered_memory_pool.cpp::~TieredMemoryPool",
+      "type": "function",
+      "label": "函数: ~TieredMemoryPool",
+      "properties": {
+        "name": "~TieredMemoryPool",
+        "file": "memory-pool/src/tiered_memory_pool.cpp",
+        "startLine": 14,
+        "endLine": 38,
+        "params": [],
+        "isMethod": false
+      }
+    },
+    {
+      "id": "func:memory-pool/src/tiered_memory_pool.cpp::ensure_registered",
+      "type": "function",
+      "label": "函数: ensure_registered",
+      "properties": {
+        "name": "ensure_registered",
+        "file": "memory-pool/src/tiered_memory_pool.cpp",
+        "startLine": 40,
+        "endLine": 51,
+        "params": [
+          "cache"
+        ],
+        "isMethod": false
+      }
+    },
+    {
+      "id": "func:memory-pool/src/tiered_memory_pool.cpp::deallocate_impl",
+      "type": "function",
+      "label": "函数: deallocate_impl",
+      "properties": {
+        "name": "deallocate_impl",
+        "file": "memory-pool/src/tiered_memory_pool.cpp",
+        "startLine": 100,
+        "endLine": 144,
+        "params": [
+          "ptr",
+          "size"
+        ],
+        "isMethod": false
+      }
+    },
+    {
+      "id": "func:memory-pool/src/tiered_memory_pool.cpp::central_allocate_batch",
+      "type": "function",
+      "label": "函数: central_allocate_batch",
+      "properties": {
+        "name": "central_allocate_batch",
+        "file": "memory-pool/src/tiered_memory_pool.cpp",
+        "startLine": 146,
+        "endLine": 166,
+        "params": [
+          "classIdx"
+        ],
+        "isMethod": false
+      }
+    },
+    {
+      "id": "func:memory-pool/src/tiered_memory_pool.cpp::return_batch_to_central",
+      "type": "function",
+      "label": "函数: return_batch_to_central",
+      "properties": {
+        "name": "return_batch_to_central",
+        "file": "memory-pool/src/tiered_memory_pool.cpp",
+        "startLine": 168,
+        "endLine": 191,
+        "params": [
+          "classIdx",
+          "head",
+          "count"
+        ],
+        "isMethod": false
+      }
+    },
+    {
+      "id": "func:memory-pool/src/tiered_memory_pool.cpp::try_merge_and_promote",
+      "type": "function",
+      "label": "函数: try_merge_and_promote",
+      "properties": {
+        "name": "try_merge_and_promote",
+        "file": "memory-pool/src/tiered_memory_pool.cpp",
+        "startLine": 194,
+        "endLine": 215,
+        "params": [
+          "cache",
+          "classIdx"
+        ],
+        "isMethod": false
+      }
+    },
+    {
+      "id": "func:memory-pool/src/tiered_memory_pool.cpp::try_merge_in_list",
+      "type": "function",
+      "label": "函数: try_merge_in_list",
+      "properties": {
+        "name": "try_merge_in_list",
+        "file": "memory-pool/src/tiered_memory_pool.cpp",
+        "startLine": 217,
+        "endLine": 265,
+        "params": [
+          "list",
+          "count",
+          "blockSize",
+          "outMerged"
+        ],
+        "isMethod": false
+      }
+    },
+    {
+      "id": "func:memory-pool/src/tiered_memory_pool.cpp::try_merge_central",
+      "type": "function",
+      "label": "函数: try_merge_central",
+      "properties": {
+        "name": "try_merge_central",
+        "file": "memory-pool/src/tiered_memory_pool.cpp",
+        "startLine": 268,
+        "endLine": 302,
+        "params": [
+          "classIdx"
+        ],
+        "isMethod": false
+      }
+    },
+    {
+      "id": "func:memory-pool/src/tiered_memory_pool.cpp::page_index_of",
+      "type": "function",
+      "label": "函数: page_index_of",
+      "properties": {
+        "name": "page_index_of",
+        "file": "memory-pool/src/tiered_memory_pool.cpp",
+        "startLine": 308,
+        "endLine": 319,
+        "params": [
+          "ptr",
+          "idx"
+        ],
+        "isMethod": false
+      }
+    },
+    {
+      "id": "file:memory-pool/xmake.lua",
+      "type": "file",
+      "label": "文件: memory-pool/xmake.lua",
+      "properties": {
+        "path": "memory-pool/xmake.lua",
+        "language": "lua",
+        "category": "code",
+        "totalLines": 7,
+        "nonEmptyLines": 7
+      }
+    },
+    {
+      "id": "file:net/coroutine/coroitem.hpp",
+      "type": "file",
+      "label": "文件: net/coroutine/coroitem.hpp",
+      "properties": {
+        "path": "net/coroutine/coroitem.hpp",
+        "language": "cpp",
+        "category": "code",
+        "totalLines": 163,
+        "nonEmptyLines": 129
+      }
+    },
+    {
+      "id": "file:net/file-receive-process/main.cpp",
+      "type": "file",
+      "label": "文件: net/file-receive-process/main.cpp",
+      "properties": {
+        "path": "net/file-receive-process/main.cpp",
+        "language": "cpp",
+        "category": "code",
+        "totalLines": 222,
+        "nonEmptyLines": 187
+      }
+    },
+    {
+      "id": "class:net/file-receive-process/main.cpp::ClientContext",
+      "type": "class",
+      "label": "类: ClientContext",
+      "properties": {
+        "name": "ClientContext",
+        "startLine": 21,
+        "endLine": 27,
+        "methodCount": 0,
+        "propertyCount": 5
+      }
+    },
+    {
+      "id": "func:net/file-receive-process/main.cpp::handle_client",
+      "type": "function",
+      "label": "函数: handle_client",
+      "properties": {
+        "name": "handle_client",
+        "file": "net/file-receive-process/main.cpp",
+        "startLine": 29,
+        "endLine": 104,
+        "params": [
+          "ctx"
+        ],
+        "isMethod": false
+      }
+    },
+    {
+      "id": "func:net/file-receive-process/main.cpp::parse_args",
+      "type": "function",
+      "label": "函数: parse_args",
+      "properties": {
+        "name": "parse_args",
+        "file": "net/file-receive-process/main.cpp",
+        "startLine": 106,
+        "endLine": 118,
+        "params": [
+          "argc",
+          "argv",
+          "port",
+          "save_path",
+          "total_chunks"
+        ],
+        "isMethod": false
+      }
+    },
+    {
+      "id": "func:net/file-receive-process/main.cpp::main",
+      "type": "function",
+      "label": "函数: main",
+      "properties": {
+        "name": "main",
+        "file": "net/file-receive-process/main.cpp",
+        "startLine": 122,
+        "endLine": 222,
+        "params": [
+          "argc",
+          "argv"
+        ],
+        "isMethod": false
+      }
+    },
+    {
+      "id": "file:net/file-receive-process/xmake.lua",
+      "type": "file",
+      "label": "文件: net/file-receive-process/xmake.lua",
+      "properties": {
+        "path": "net/file-receive-process/xmake.lua",
+        "language": "lua",
+        "category": "code",
+        "totalLines": 6,
+        "nonEmptyLines": 6
+      }
+    },
+    {
+      "id": "file:net/file-send-process/main.cpp",
+      "type": "file",
+      "label": "文件: net/file-send-process/main.cpp",
+      "properties": {
+        "path": "net/file-send-process/main.cpp",
+        "language": "cpp",
+        "category": "code",
+        "totalLines": 194,
+        "nonEmptyLines": 164
+      }
+    },
+    {
+      "id": "class:net/file-send-process/main.cpp::SendTask",
+      "type": "class",
+      "label": "类: SendTask",
+      "properties": {
+        "name": "SendTask",
+        "startLine": 24,
+        "endLine": 31,
+        "methodCount": 0,
+        "propertyCount": 6
+      }
+    },
+    {
+      "id": "func:net/file-send-process/main.cpp::send_all",
+      "type": "function",
+      "label": "函数: send_all",
+      "properties": {
+        "name": "send_all",
+        "file": "net/file-send-process/main.cpp",
+        "startLine": 33,
+        "endLine": 52,
+        "params": [
+          "fd",
+          "data",
+          "size"
+        ],
+        "isMethod": false
+      }
+    },
+    {
+      "id": "func:net/file-send-process/main.cpp::send_chunk",
+      "type": "function",
+      "label": "函数: send_chunk",
+      "properties": {
+        "name": "send_chunk",
+        "file": "net/file-send-process/main.cpp",
+        "startLine": 54,
+        "endLine": 122,
+        "params": [
+          "task",
+          "file_fd"
+        ],
+        "isMethod": false
+      }
+    },
+    {
+      "id": "func:net/file-send-process/main.cpp::main",
+      "type": "function",
+      "label": "函数: main",
+      "properties": {
+        "name": "main",
+        "file": "net/file-send-process/main.cpp",
+        "startLine": 126,
+        "endLine": 194,
+        "params": [],
+        "isMethod": false
+      }
+    },
+    {
+      "id": "file:net/file-send-process/xmake.lua",
+      "type": "file",
+      "label": "文件: net/file-send-process/xmake.lua",
+      "properties": {
+        "path": "net/file-send-process/xmake.lua",
+        "language": "lua",
+        "category": "code",
+        "totalLines": 6,
+        "nonEmptyLines": 6
+      }
+    }
+  ],
+  "edges": [
+    {
+      "source": "file:core/src/main.cpp",
+      "target": "class:core/src/main.cpp::ServerConfig",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_class"
+      }
+    },
+    {
+      "source": "file:core/src/main.cpp",
+      "target": "func:core/src/main.cpp::parse_server_section",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:core/src/main.cpp",
+      "target": "func:core/src/main.cpp::parse_database_section",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:core/src/main.cpp",
+      "target": "func:core/src/main.cpp::parse_ssl_section",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:core/src/main.cpp",
+      "target": "func:core/src/main.cpp::parse_fs_section",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:core/src/main.cpp",
+      "target": "func:core/src/main.cpp::parse_cmd_args",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:core/src/main.cpp",
+      "target": "func:core/src/main.cpp::parse_json_file",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:core/src/main.cpp",
+      "target": "func:core/src/main.cpp::apply_env_overrides",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:core/src/main.cpp",
+      "target": "func:core/src/main.cpp::load_config",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:core/src/main.cpp",
+      "target": "func:core/src/main.cpp::register_routes",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:core/src/main.cpp",
+      "target": "func:core/src/main.cpp::main",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "func:core/src/main.cpp::parse_json_file",
+      "target": "func:core/src/main.cpp::parse_server_section",
+      "relation": "calls",
+      "properties": {
+        "lineNumber": 173
+      }
+    },
+    {
+      "source": "func:core/src/main.cpp::parse_json_file",
+      "target": "func:core/src/main.cpp::parse_database_section",
+      "relation": "calls",
+      "properties": {
+        "lineNumber": 174
+      }
+    },
+    {
+      "source": "func:core/src/main.cpp::parse_json_file",
+      "target": "func:core/src/main.cpp::parse_ssl_section",
+      "relation": "calls",
+      "properties": {
+        "lineNumber": 175
+      }
+    },
+    {
+      "source": "func:core/src/main.cpp::parse_json_file",
+      "target": "func:core/src/main.cpp::parse_fs_section",
+      "relation": "calls",
+      "properties": {
+        "lineNumber": 176
+      }
+    },
+    {
+      "source": "func:core/src/main.cpp::load_config",
+      "target": "func:core/src/main.cpp::parse_json_file",
+      "relation": "calls",
+      "properties": {
+        "lineNumber": 197
+      }
+    },
+    {
+      "source": "func:core/src/main.cpp::load_config",
+      "target": "func:core/src/main.cpp::apply_env_overrides",
+      "relation": "calls",
+      "properties": {
+        "lineNumber": 198
+      }
+    },
+    {
+      "source": "func:core/src/main.cpp::load_config",
+      "target": "func:core/src/main.cpp::parse_cmd_args",
+      "relation": "calls",
+      "properties": {
+        "lineNumber": 199
+      }
+    },
+    {
+      "source": "file:core/src/main.cpp",
+      "target": "class:core/src/main.cpp::ServerConfig",
+      "relation": "declares",
+      "properties": {
+        "line": 30,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:core/src/main.cpp",
+      "target": "func:core/src/main.cpp::parse_server_section",
+      "relation": "declares",
+      "properties": {
+        "line": 40,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:core/src/main.cpp",
+      "target": "func:core/src/main.cpp::parse_database_section",
+      "relation": "declares",
+      "properties": {
+        "line": 59,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:core/src/main.cpp",
+      "target": "func:core/src/main.cpp::parse_ssl_section",
+      "relation": "declares",
+      "properties": {
+        "line": 90,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:core/src/main.cpp",
+      "target": "func:core/src/main.cpp::parse_fs_section",
+      "relation": "declares",
+      "properties": {
+        "line": 112,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:core/src/main.cpp",
+      "target": "func:core/src/main.cpp::parse_cmd_args",
+      "relation": "declares",
+      "properties": {
+        "line": 122,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:core/src/main.cpp",
+      "target": "func:core/src/main.cpp::parse_json_file",
+      "relation": "declares",
+      "properties": {
+        "line": 165,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:core/src/main.cpp",
+      "target": "func:core/src/main.cpp::apply_env_overrides",
+      "relation": "declares",
+      "properties": {
+        "line": 182,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:core/src/main.cpp",
+      "target": "func:core/src/main.cpp::load_config",
+      "relation": "declares",
+      "properties": {
+        "line": 194,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:core/src/main.cpp",
+      "target": "func:core/src/main.cpp::register_routes",
+      "relation": "declares",
+      "properties": {
+        "line": 204,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:core/src/main.cpp",
+      "target": "func:core/src/main.cpp::main",
+      "relation": "declares",
+      "properties": {
+        "line": 426,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:db/src/boost_mysql_connection.cpp",
+      "target": "class:db/src/boost_mysql_connection.cpp::BoostMySqlConnection::Impl",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_class"
+      }
+    },
+    {
+      "source": "class:db/src/boost_mysql_connection.cpp::BoostMySqlConnection::Impl",
+      "target": "func:db/src/boost_mysql_connection.cpp::Impl",
+      "relation": "contains",
+      "properties": {
+        "kind": "class_contains_method"
+      }
+    },
+    {
+      "source": "class:db/src/boost_mysql_connection.cpp::BoostMySqlConnection::Impl",
+      "target": "func:db/src/boost_mysql_connection.cpp::connect",
+      "relation": "contains",
+      "properties": {
+        "kind": "class_contains_method"
+      }
+    },
+    {
+      "source": "class:db/src/boost_mysql_connection.cpp::BoostMySqlConnection::Impl",
+      "target": "func:db/src/boost_mysql_connection.cpp::is_open",
+      "relation": "contains",
+      "properties": {
+        "kind": "class_contains_method"
+      }
+    },
+    {
+      "source": "class:db/src/boost_mysql_connection.cpp::BoostMySqlConnection::Impl",
+      "target": "func:db/src/boost_mysql_connection.cpp::ping",
+      "relation": "contains",
+      "properties": {
+        "kind": "class_contains_method"
+      }
+    },
+    {
+      "source": "class:db/src/boost_mysql_connection.cpp::BoostMySqlConnection::Impl",
+      "target": "func:db/src/boost_mysql_connection.cpp::query",
+      "relation": "contains",
+      "properties": {
+        "kind": "class_contains_method"
+      }
+    },
+    {
+      "source": "class:db/src/boost_mysql_connection.cpp::BoostMySqlConnection::Impl",
+      "target": "func:db/src/boost_mysql_connection.cpp::execute",
+      "relation": "contains",
+      "properties": {
+        "kind": "class_contains_method"
+      }
+    },
+    {
+      "source": "class:db/src/boost_mysql_connection.cpp::BoostMySqlConnection::Impl",
+      "target": "func:db/src/boost_mysql_connection.cpp::close_socket",
+      "relation": "contains",
+      "properties": {
+        "kind": "class_contains_method"
+      }
+    },
+    {
+      "source": "class:db/src/boost_mysql_connection.cpp::BoostMySqlConnection::Impl",
+      "target": "func:db/src/boost_mysql_connection.cpp::execute_stmt",
+      "relation": "contains",
+      "properties": {
+        "kind": "class_contains_method"
+      }
+    },
+    {
+      "source": "file:db/src/boost_mysql_connection.cpp",
+      "target": "func:db/src/boost_mysql_connection.cpp::BoostMySqlConnection",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:db/src/boost_mysql_connection.cpp",
+      "target": "func:db/src/boost_mysql_connection.cpp::~BoostMySqlConnection",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:db/src/boost_mysql_connection.cpp",
+      "target": "func:db/src/boost_mysql_connection.cpp::close",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "func:db/src/boost_mysql_connection.cpp::connect",
+      "target": "func:db/src/boost_mysql_connection.cpp::connect",
+      "relation": "calls",
+      "properties": {
+        "lineNumber": 28
+      }
+    },
+    {
+      "source": "func:db/src/boost_mysql_connection.cpp::is_open",
+      "target": "func:db/src/boost_mysql_connection.cpp::is_open",
+      "relation": "calls",
+      "properties": {
+        "lineNumber": 38
+      }
+    },
+    {
+      "source": "func:db/src/boost_mysql_connection.cpp::ping",
+      "target": "func:db/src/boost_mysql_connection.cpp::execute",
+      "relation": "calls",
+      "properties": {
+        "lineNumber": 43
+      }
+    },
+    {
+      "source": "func:db/src/boost_mysql_connection.cpp::query",
+      "target": "func:db/src/boost_mysql_connection.cpp::execute",
+      "relation": "calls",
+      "properties": {
+        "lineNumber": 56
+      }
+    },
+    {
+      "source": "func:db/src/boost_mysql_connection.cpp::query",
+      "target": "func:db/src/boost_mysql_connection.cpp::execute_stmt",
+      "relation": "calls",
+      "properties": {
+        "lineNumber": 59
+      }
+    },
+    {
+      "source": "func:db/src/boost_mysql_connection.cpp::execute",
+      "target": "func:db/src/boost_mysql_connection.cpp::execute",
+      "relation": "calls",
+      "properties": {
+        "lineNumber": 90
+      }
+    },
+    {
+      "source": "func:db/src/boost_mysql_connection.cpp::execute",
+      "target": "func:db/src/boost_mysql_connection.cpp::execute_stmt",
+      "relation": "calls",
+      "properties": {
+        "lineNumber": 93
+      }
+    },
+    {
+      "source": "func:db/src/boost_mysql_connection.cpp::close_socket",
+      "target": "func:db/src/boost_mysql_connection.cpp::is_open",
+      "relation": "calls",
+      "properties": {
+        "lineNumber": 105
+      }
+    },
+    {
+      "source": "func:db/src/boost_mysql_connection.cpp::close_socket",
+      "target": "func:db/src/boost_mysql_connection.cpp::close",
+      "relation": "calls",
+      "properties": {
+        "lineNumber": 107
+      }
+    },
+    {
+      "source": "func:db/src/boost_mysql_connection.cpp::execute_stmt",
+      "target": "func:db/src/boost_mysql_connection.cpp::execute",
+      "relation": "calls",
+      "properties": {
+        "lineNumber": 122
+      }
+    },
+    {
+      "source": "func:db/src/boost_mysql_connection.cpp::~BoostMySqlConnection",
+      "target": "func:db/src/boost_mysql_connection.cpp::close_socket",
+      "relation": "calls",
+      "properties": {
+        "lineNumber": 129
+      }
+    },
+    {
+      "source": "func:db/src/boost_mysql_connection.cpp::connect",
+      "target": "func:db/src/boost_mysql_connection.cpp::connect",
+      "relation": "calls",
+      "properties": {
+        "lineNumber": 134
+      }
+    },
+    {
+      "source": "func:db/src/boost_mysql_connection.cpp::is_open",
+      "target": "func:db/src/boost_mysql_connection.cpp::is_open",
+      "relation": "calls",
+      "properties": {
+        "lineNumber": 138
+      }
+    },
+    {
+      "source": "func:db/src/boost_mysql_connection.cpp::ping",
+      "target": "func:db/src/boost_mysql_connection.cpp::ping",
+      "relation": "calls",
+      "properties": {
+        "lineNumber": 142
+      }
+    },
+    {
+      "source": "func:db/src/boost_mysql_connection.cpp::query",
+      "target": "func:db/src/boost_mysql_connection.cpp::query",
+      "relation": "calls",
+      "properties": {
+        "lineNumber": 146
+      }
+    },
+    {
+      "source": "func:db/src/boost_mysql_connection.cpp::execute",
+      "target": "func:db/src/boost_mysql_connection.cpp::execute",
+      "relation": "calls",
+      "properties": {
+        "lineNumber": 150
+      }
+    },
+    {
+      "source": "func:db/src/boost_mysql_connection.cpp::close",
+      "target": "func:db/src/boost_mysql_connection.cpp::close_socket",
+      "relation": "calls",
+      "properties": {
+        "lineNumber": 154
+      }
+    },
+    {
+      "source": "file:db/src/boost_mysql_connection.cpp",
+      "target": "func:db/src/boost_mysql_connection.cpp::Impl",
+      "relation": "declares",
+      "properties": {
+        "line": 18,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:db/src/boost_mysql_connection.cpp",
+      "target": "func:db/src/boost_mysql_connection.cpp::connect",
+      "relation": "declares",
+      "properties": {
+        "line": 20,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:db/src/boost_mysql_connection.cpp",
+      "target": "func:db/src/boost_mysql_connection.cpp::is_open",
+      "relation": "declares",
+      "properties": {
+        "line": 38,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:db/src/boost_mysql_connection.cpp",
+      "target": "func:db/src/boost_mysql_connection.cpp::ping",
+      "relation": "declares",
+      "properties": {
+        "line": 40,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:db/src/boost_mysql_connection.cpp",
+      "target": "func:db/src/boost_mysql_connection.cpp::query",
+      "relation": "declares",
+      "properties": {
+        "line": 52,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:db/src/boost_mysql_connection.cpp",
+      "target": "func:db/src/boost_mysql_connection.cpp::execute",
+      "relation": "declares",
+      "properties": {
+        "line": 86,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:db/src/boost_mysql_connection.cpp",
+      "target": "func:db/src/boost_mysql_connection.cpp::close_socket",
+      "relation": "declares",
+      "properties": {
+        "line": 103,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:db/src/boost_mysql_connection.cpp",
+      "target": "class:db/src/boost_mysql_connection.cpp::BoostMySqlConnection::Impl",
+      "relation": "declares",
+      "properties": {
+        "line": 16,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:db/src/boost_mysql_connection.cpp",
+      "target": "func:db/src/boost_mysql_connection.cpp::BoostMySqlConnection",
+      "relation": "declares",
+      "properties": {
+        "line": 126,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:db/src/boost_mysql_connection.cpp",
+      "target": "func:db/src/boost_mysql_connection.cpp::~BoostMySqlConnection",
+      "relation": "declares",
+      "properties": {
+        "line": 128,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:db/src/boost_mysql_connection.cpp",
+      "target": "func:db/src/boost_mysql_connection.cpp::connect",
+      "relation": "declares",
+      "properties": {
+        "line": 133,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:db/src/boost_mysql_connection.cpp",
+      "target": "func:db/src/boost_mysql_connection.cpp::is_open",
+      "relation": "declares",
+      "properties": {
+        "line": 137,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:db/src/boost_mysql_connection.cpp",
+      "target": "func:db/src/boost_mysql_connection.cpp::ping",
+      "relation": "declares",
+      "properties": {
+        "line": 141,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:db/src/boost_mysql_connection.cpp",
+      "target": "func:db/src/boost_mysql_connection.cpp::query",
+      "relation": "declares",
+      "properties": {
+        "line": 145,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:db/src/boost_mysql_connection.cpp",
+      "target": "func:db/src/boost_mysql_connection.cpp::execute",
+      "relation": "declares",
+      "properties": {
+        "line": 149,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:db/src/boost_mysql_connection.cpp",
+      "target": "func:db/src/boost_mysql_connection.cpp::close",
+      "relation": "declares",
+      "properties": {
+        "line": 153,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:db/src/database_pool.cpp",
+      "target": "func:db/src/database_pool.cpp::default_factory",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:db/src/database_pool.cpp",
+      "target": "func:db/src/database_pool.cpp::DatabasePool",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:db/src/database_pool.cpp",
+      "target": "func:db/src/database_pool.cpp::~DatabasePool",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:db/src/database_pool.cpp",
+      "target": "func:db/src/database_pool.cpp::close",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:db/src/database_pool.cpp",
+      "target": "func:db/src/database_pool.cpp::init",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:db/src/database_pool.cpp",
+      "target": "func:db/src/database_pool.cpp::do_close",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:db/src/database_pool.cpp",
+      "target": "func:db/src/database_pool.cpp::get_connection",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:db/src/database_pool.cpp",
+      "target": "func:db/src/database_pool.cpp::release_connection",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:db/src/database_pool.cpp",
+      "target": "func:db/src/database_pool.cpp::escape_string",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:db/src/database_pool.cpp",
+      "target": "func:db/src/database_pool.cpp::get_user",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:db/src/database_pool.cpp",
+      "target": "func:db/src/database_pool.cpp::create_user",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:db/src/database_pool.cpp",
+      "target": "func:db/src/database_pool.cpp::log_download",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:db/src/database_pool.cpp",
+      "target": "func:db/src/database_pool.cpp::get_download_history",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:db/src/database_pool.cpp",
+      "target": "func:db/src/database_pool.cpp::store_file_meta",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:db/src/database_pool.cpp",
+      "target": "func:db/src/database_pool.cpp::get_file_meta",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "func:db/src/database_pool.cpp::~DatabasePool",
+      "target": "func:db/src/database_pool.cpp::do_close",
+      "relation": "calls",
+      "properties": {
+        "lineNumber": 22
+      }
+    },
+    {
+      "source": "func:db/src/database_pool.cpp::close",
+      "target": "func:db/src/database_pool.cpp::do_close",
+      "relation": "calls",
+      "properties": {
+        "lineNumber": 26
+      }
+    },
+    {
+      "source": "func:db/src/database_pool.cpp::init",
+      "target": "func:db/src/database_pool.cpp::close",
+      "relation": "calls",
+      "properties": {
+        "lineNumber": 40
+      }
+    },
+    {
+      "source": "func:db/src/database_pool.cpp::do_close",
+      "target": "func:db/src/database_pool.cpp::close",
+      "relation": "calls",
+      "properties": {
+        "lineNumber": 67
+      }
+    },
+    {
+      "source": "func:db/src/database_pool.cpp::get_connection",
+      "target": "func:db/src/database_pool.cpp::close",
+      "relation": "calls",
+      "properties": {
+        "lineNumber": 88
+      }
+    },
+    {
+      "source": "func:db/src/database_pool.cpp::get_user",
+      "target": "func:db/src/database_pool.cpp::get_connection",
+      "relation": "calls",
+      "properties": {
+        "lineNumber": 145
+      }
+    },
+    {
+      "source": "func:db/src/database_pool.cpp::get_user",
+      "target": "func:db/src/database_pool.cpp::release_connection",
+      "relation": "calls",
+      "properties": {
+        "lineNumber": 154
+      }
+    },
+    {
+      "source": "func:db/src/database_pool.cpp::create_user",
+      "target": "func:db/src/database_pool.cpp::get_connection",
+      "relation": "calls",
+      "properties": {
+        "lineNumber": 173
+      }
+    },
+    {
+      "source": "func:db/src/database_pool.cpp::create_user",
+      "target": "func:db/src/database_pool.cpp::release_connection",
+      "relation": "calls",
+      "properties": {
+        "lineNumber": 181
+      }
+    },
+    {
+      "source": "func:db/src/database_pool.cpp::log_download",
+      "target": "func:db/src/database_pool.cpp::get_connection",
+      "relation": "calls",
+      "properties": {
+        "lineNumber": 186
+      }
+    },
+    {
+      "source": "func:db/src/database_pool.cpp::log_download",
+      "target": "func:db/src/database_pool.cpp::release_connection",
+      "relation": "calls",
+      "properties": {
+        "lineNumber": 194
+      }
+    },
+    {
+      "source": "func:db/src/database_pool.cpp::get_download_history",
+      "target": "func:db/src/database_pool.cpp::get_connection",
+      "relation": "calls",
+      "properties": {
+        "lineNumber": 199
+      }
+    },
+    {
+      "source": "func:db/src/database_pool.cpp::get_download_history",
+      "target": "func:db/src/database_pool.cpp::release_connection",
+      "relation": "calls",
+      "properties": {
+        "lineNumber": 209
+      }
+    },
+    {
+      "source": "func:db/src/database_pool.cpp::store_file_meta",
+      "target": "func:db/src/database_pool.cpp::get_connection",
+      "relation": "calls",
+      "properties": {
+        "lineNumber": 231
+      }
+    },
+    {
+      "source": "func:db/src/database_pool.cpp::store_file_meta",
+      "target": "func:db/src/database_pool.cpp::release_connection",
+      "relation": "calls",
+      "properties": {
+        "lineNumber": 242
+      }
+    },
+    {
+      "source": "func:db/src/database_pool.cpp::get_file_meta",
+      "target": "func:db/src/database_pool.cpp::get_connection",
+      "relation": "calls",
+      "properties": {
+        "lineNumber": 247
+      }
+    },
+    {
+      "source": "func:db/src/database_pool.cpp::get_file_meta",
+      "target": "func:db/src/database_pool.cpp::release_connection",
+      "relation": "calls",
+      "properties": {
+        "lineNumber": 256
+      }
+    },
+    {
+      "source": "file:db/src/database_pool.cpp",
+      "target": "func:db/src/database_pool.cpp::default_factory",
+      "relation": "declares",
+      "properties": {
+        "line": 13,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:db/src/database_pool.cpp",
+      "target": "func:db/src/database_pool.cpp::DatabasePool",
+      "relation": "declares",
+      "properties": {
+        "line": 19,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:db/src/database_pool.cpp",
+      "target": "func:db/src/database_pool.cpp::~DatabasePool",
+      "relation": "declares",
+      "properties": {
+        "line": 21,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:db/src/database_pool.cpp",
+      "target": "func:db/src/database_pool.cpp::close",
+      "relation": "declares",
+      "properties": {
+        "line": 25,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:db/src/database_pool.cpp",
+      "target": "func:db/src/database_pool.cpp::init",
+      "relation": "declares",
+      "properties": {
+        "line": 29,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:db/src/database_pool.cpp",
+      "target": "func:db/src/database_pool.cpp::do_close",
+      "relation": "declares",
+      "properties": {
+        "line": 50,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:db/src/database_pool.cpp",
+      "target": "func:db/src/database_pool.cpp::get_connection",
+      "relation": "declares",
+      "properties": {
+        "line": 72,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:db/src/database_pool.cpp",
+      "target": "func:db/src/database_pool.cpp::release_connection",
+      "relation": "declares",
+      "properties": {
+        "line": 103,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:db/src/database_pool.cpp",
+      "target": "func:db/src/database_pool.cpp::escape_string",
+      "relation": "declares",
+      "properties": {
+        "line": 125,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:db/src/database_pool.cpp",
+      "target": "func:db/src/database_pool.cpp::get_user",
+      "relation": "declares",
+      "properties": {
+        "line": 144,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:db/src/database_pool.cpp",
+      "target": "func:db/src/database_pool.cpp::create_user",
+      "relation": "declares",
+      "properties": {
+        "line": 172,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:db/src/database_pool.cpp",
+      "target": "func:db/src/database_pool.cpp::log_download",
+      "relation": "declares",
+      "properties": {
+        "line": 185,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:db/src/database_pool.cpp",
+      "target": "func:db/src/database_pool.cpp::get_download_history",
+      "relation": "declares",
+      "properties": {
+        "line": 198,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:db/src/database_pool.cpp",
+      "target": "func:db/src/database_pool.cpp::store_file_meta",
+      "relation": "declares",
+      "properties": {
+        "line": 230,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:db/src/database_pool.cpp",
+      "target": "func:db/src/database_pool.cpp::get_file_meta",
+      "relation": "declares",
+      "properties": {
+        "line": 246,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:file-system/include/file_system.h",
+      "target": "class:file-system/include/file_system.h::FileSystem",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_class"
+      }
+    },
+    {
+      "source": "class:file-system/include/file_system.h::FileSystem",
+      "target": "func:file-system/include/file_system.h::split_file",
+      "relation": "contains",
+      "properties": {
+        "kind": "class_contains_method"
+      }
+    },
+    {
+      "source": "class:file-system/include/file_system.h::FileSystem",
+      "target": "func:file-system/include/file_system.h::compute_file_hash",
+      "relation": "contains",
+      "properties": {
+        "kind": "class_contains_method"
+      }
+    },
+    {
+      "source": "class:file-system/include/file_system.h::FileSystem",
+      "target": "func:file-system/include/file_system.h::compute_chunk_hash",
+      "relation": "contains",
+      "properties": {
+        "kind": "class_contains_method"
+      }
+    },
+    {
+      "source": "class:file-system/include/file_system.h::FileSystem",
+      "target": "func:file-system/include/file_system.h::store_file",
+      "relation": "contains",
+      "properties": {
+        "kind": "class_contains_method"
+      }
+    },
+    {
+      "source": "class:file-system/include/file_system.h::FileSystem",
+      "target": "func:file-system/include/file_system.h::delete_file",
+      "relation": "contains",
+      "properties": {
+        "kind": "class_contains_method"
+      }
+    },
+    {
+      "source": "class:file-system/include/file_system.h::FileSystem",
+      "target": "func:file-system/include/file_system.h::read_file",
+      "relation": "contains",
+      "properties": {
+        "kind": "class_contains_method"
+      }
+    },
+    {
+      "source": "class:file-system/include/file_system.h::FileSystem",
+      "target": "func:file-system/include/file_system.h::sha256_hex",
+      "relation": "contains",
+      "properties": {
+        "kind": "class_contains_method"
+      }
+    },
+    {
+      "source": "class:file-system/include/file_system.h::FileSystem",
+      "target": "func:file-system/include/file_system.h::resolve_path",
+      "relation": "contains",
+      "properties": {
+        "kind": "class_contains_method"
+      }
+    },
+    {
+      "source": "class:file-system/include/file_system.h::FileSystem",
+      "target": "func:file-system/include/file_system.h::to_hex",
+      "relation": "contains",
+      "properties": {
+        "kind": "class_contains_method"
+      }
+    },
+    {
+      "source": "file:file-system/include/file_system.h",
+      "target": "file:file-system/include/i_file_system.h",
+      "relation": "include",
+      "properties": {
+        "kind": "file_include_file"
+      }
+    },
+    {
+      "source": "file:file-system/include/file_system.h",
+      "target": "func:file-system/include/file_system.h::split_file",
+      "relation": "declares",
+      "properties": {
+        "line": 23,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:file-system/include/file_system.h",
+      "target": "func:file-system/include/file_system.h::compute_file_hash",
+      "relation": "declares",
+      "properties": {
+        "line": 24,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:file-system/include/file_system.h",
+      "target": "func:file-system/include/file_system.h::compute_chunk_hash",
+      "relation": "declares",
+      "properties": {
+        "line": 25,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:file-system/include/file_system.h",
+      "target": "func:file-system/include/file_system.h::store_file",
+      "relation": "declares",
+      "properties": {
+        "line": 26,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:file-system/include/file_system.h",
+      "target": "func:file-system/include/file_system.h::delete_file",
+      "relation": "declares",
+      "properties": {
+        "line": 27,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:file-system/include/file_system.h",
+      "target": "func:file-system/include/file_system.h::read_file",
+      "relation": "declares",
+      "properties": {
+        "line": 28,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:file-system/include/file_system.h",
+      "target": "func:file-system/include/file_system.h::sha256_hex",
+      "relation": "declares",
+      "properties": {
+        "line": 31,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:file-system/include/file_system.h",
+      "target": "class:file-system/include/file_system.h::FileSystem",
+      "relation": "declares",
+      "properties": {
+        "line": 15,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:file-system/include/i_file_system.h",
+      "target": "class:file-system/include/i_file_system.h::FileChunk",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_class"
+      }
+    },
+    {
+      "source": "file:file-system/include/i_file_system.h",
+      "target": "class:file-system/include/i_file_system.h::IFileSystem",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_class"
+      }
+    },
+    {
+      "source": "class:file-system/include/i_file_system.h::IFileSystem",
+      "target": "func:file-system/include/i_file_system.h::~IFileSystem",
+      "relation": "contains",
+      "properties": {
+        "kind": "class_contains_method"
+      }
+    },
+    {
+      "source": "class:file-system/include/i_file_system.h::IFileSystem",
+      "target": "func:file-system/include/i_file_system.h::split_file",
+      "relation": "contains",
+      "properties": {
+        "kind": "class_contains_method"
+      }
+    },
+    {
+      "source": "class:file-system/include/i_file_system.h::IFileSystem",
+      "target": "func:file-system/include/i_file_system.h::compute_file_hash",
+      "relation": "contains",
+      "properties": {
+        "kind": "class_contains_method"
+      }
+    },
+    {
+      "source": "class:file-system/include/i_file_system.h::IFileSystem",
+      "target": "func:file-system/include/i_file_system.h::compute_chunk_hash",
+      "relation": "contains",
+      "properties": {
+        "kind": "class_contains_method"
+      }
+    },
+    {
+      "source": "class:file-system/include/i_file_system.h::IFileSystem",
+      "target": "func:file-system/include/i_file_system.h::store_file",
+      "relation": "contains",
+      "properties": {
+        "kind": "class_contains_method"
+      }
+    },
+    {
+      "source": "class:file-system/include/i_file_system.h::IFileSystem",
+      "target": "func:file-system/include/i_file_system.h::delete_file",
+      "relation": "contains",
+      "properties": {
+        "kind": "class_contains_method"
+      }
+    },
+    {
+      "source": "class:file-system/include/i_file_system.h::IFileSystem",
+      "target": "func:file-system/include/i_file_system.h::read_file",
+      "relation": "contains",
+      "properties": {
+        "kind": "class_contains_method"
+      }
+    },
+    {
+      "source": "file:file-system/include/i_file_system.h",
+      "target": "class:file-system/include/i_file_system.h::FileChunk",
+      "relation": "declares",
+      "properties": {
+        "line": 16,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:file-system/include/i_file_system.h",
+      "target": "func:file-system/include/i_file_system.h::~IFileSystem",
+      "relation": "declares",
+      "properties": {
+        "line": 30,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:file-system/include/i_file_system.h",
+      "target": "func:file-system/include/i_file_system.h::split_file",
+      "relation": "declares",
+      "properties": {
+        "line": 33,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:file-system/include/i_file_system.h",
+      "target": "func:file-system/include/i_file_system.h::compute_file_hash",
+      "relation": "declares",
+      "properties": {
+        "line": 36,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:file-system/include/i_file_system.h",
+      "target": "func:file-system/include/i_file_system.h::compute_chunk_hash",
+      "relation": "declares",
+      "properties": {
+        "line": 39,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:file-system/include/i_file_system.h",
+      "target": "func:file-system/include/i_file_system.h::store_file",
+      "relation": "declares",
+      "properties": {
+        "line": 42,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:file-system/include/i_file_system.h",
+      "target": "func:file-system/include/i_file_system.h::delete_file",
+      "relation": "declares",
+      "properties": {
+        "line": 45,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:file-system/include/i_file_system.h",
+      "target": "func:file-system/include/i_file_system.h::read_file",
+      "relation": "declares",
+      "properties": {
+        "line": 48,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:file-system/include/i_file_system.h",
+      "target": "class:file-system/include/i_file_system.h::IFileSystem",
+      "relation": "declares",
+      "properties": {
+        "line": 28,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:file-system/src/file_system.cpp",
+      "target": "func:file-system/src/file_system.cpp::FileSystem",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:file-system/src/file_system.cpp",
+      "target": "func:file-system/src/file_system.cpp::to_hex",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:file-system/src/file_system.cpp",
+      "target": "func:file-system/src/file_system.cpp::sha256_hex",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:file-system/src/file_system.cpp",
+      "target": "func:file-system/src/file_system.cpp::resolve_path",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:file-system/src/file_system.cpp",
+      "target": "func:file-system/src/file_system.cpp::split_file",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:file-system/src/file_system.cpp",
+      "target": "func:file-system/src/file_system.cpp::compute_file_hash",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:file-system/src/file_system.cpp",
+      "target": "func:file-system/src/file_system.cpp::compute_chunk_hash",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:file-system/src/file_system.cpp",
+      "target": "func:file-system/src/file_system.cpp::store_file",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:file-system/src/file_system.cpp",
+      "target": "func:file-system/src/file_system.cpp::delete_file",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:file-system/src/file_system.cpp",
+      "target": "func:file-system/src/file_system.cpp::read_file",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "func:file-system/src/file_system.cpp::sha256_hex",
+      "target": "func:file-system/src/file_system.cpp::to_hex",
+      "relation": "calls",
+      "properties": {
+        "lineNumber": 51
+      }
+    },
+    {
+      "source": "func:file-system/src/file_system.cpp::compute_file_hash",
+      "target": "func:file-system/src/file_system.cpp::to_hex",
+      "relation": "calls",
+      "properties": {
+        "lineNumber": 139
+      }
+    },
+    {
+      "source": "func:file-system/src/file_system.cpp::compute_chunk_hash",
+      "target": "func:file-system/src/file_system.cpp::to_hex",
+      "relation": "calls",
+      "properties": {
+        "lineNumber": 174
+      }
+    },
+    {
+      "source": "func:file-system/src/file_system.cpp::store_file",
+      "target": "func:file-system/src/file_system.cpp::resolve_path",
+      "relation": "calls",
+      "properties": {
+        "lineNumber": 178
+      }
+    },
+    {
+      "source": "func:file-system/src/file_system.cpp::delete_file",
+      "target": "func:file-system/src/file_system.cpp::resolve_path",
+      "relation": "calls",
+      "properties": {
+        "lineNumber": 200
+      }
+    },
+    {
+      "source": "func:file-system/src/file_system.cpp::read_file",
+      "target": "func:file-system/src/file_system.cpp::resolve_path",
+      "relation": "calls",
+      "properties": {
+        "lineNumber": 210
+      }
+    },
+    {
+      "source": "file:file-system/src/file_system.cpp",
+      "target": "func:file-system/src/file_system.cpp::FileSystem",
+      "relation": "declares",
+      "properties": {
+        "line": 23,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:file-system/src/file_system.cpp",
+      "target": "func:file-system/src/file_system.cpp::to_hex",
+      "relation": "declares",
+      "properties": {
+        "line": 29,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:file-system/src/file_system.cpp",
+      "target": "func:file-system/src/file_system.cpp::sha256_hex",
+      "relation": "declares",
+      "properties": {
+        "line": 43,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:file-system/src/file_system.cpp",
+      "target": "func:file-system/src/file_system.cpp::resolve_path",
+      "relation": "declares",
+      "properties": {
+        "line": 54,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:file-system/src/file_system.cpp",
+      "target": "func:file-system/src/file_system.cpp::split_file",
+      "relation": "declares",
+      "properties": {
+        "line": 90,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:file-system/src/file_system.cpp",
+      "target": "func:file-system/src/file_system.cpp::compute_file_hash",
+      "relation": "declares",
+      "properties": {
+        "line": 117,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:file-system/src/file_system.cpp",
+      "target": "func:file-system/src/file_system.cpp::compute_chunk_hash",
+      "relation": "declares",
+      "properties": {
+        "line": 143,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:file-system/src/file_system.cpp",
+      "target": "func:file-system/src/file_system.cpp::store_file",
+      "relation": "declares",
+      "properties": {
+        "line": 177,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:file-system/src/file_system.cpp",
+      "target": "func:file-system/src/file_system.cpp::delete_file",
+      "relation": "declares",
+      "properties": {
+        "line": 199,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:file-system/src/file_system.cpp",
+      "target": "func:file-system/src/file_system.cpp::read_file",
+      "relation": "declares",
+      "properties": {
+        "line": 209,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:logger/src/logappender.cpp",
+      "target": "func:logger/src/logappender.cpp::FileLogAppender",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:logger/src/logappender.cpp",
+      "target": "func:logger/src/logappender.cpp::reopen",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:logger/src/logappender.cpp",
+      "target": "func:logger/src/logappender.cpp::log",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:logger/src/logappender.cpp",
+      "target": "func:logger/src/logappender.cpp::log",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "func:logger/src/logappender.cpp::FileLogAppender",
+      "target": "func:logger/src/logappender.cpp::reopen",
+      "relation": "calls",
+      "properties": {
+        "lineNumber": 8
+      }
+    },
+    {
+      "source": "file:logger/src/logappender.cpp",
+      "target": "func:logger/src/logappender.cpp::FileLogAppender",
+      "relation": "declares",
+      "properties": {
+        "line": 7,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:logger/src/logappender.cpp",
+      "target": "func:logger/src/logappender.cpp::reopen",
+      "relation": "declares",
+      "properties": {
+        "line": 11,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:logger/src/logappender.cpp",
+      "target": "func:logger/src/logappender.cpp::log",
+      "relation": "declares",
+      "properties": {
+        "line": 20,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:logger/src/logappender.cpp",
+      "target": "func:logger/src/logappender.cpp::log",
+      "relation": "declares",
+      "properties": {
+        "line": 31,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:logger/src/logformatter.cpp",
+      "target": "func:logger/src/logformatter.cpp::LogFormatter",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:logger/src/logformatter.cpp",
+      "target": "func:logger/src/logformatter.cpp::format",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:logger/src/logformatter.cpp",
+      "target": "func:logger/src/logformatter.cpp::init",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:logger/src/logformatter.cpp",
+      "target": "func:logger/src/logformatter.cpp::MessageFormatItem::format",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:logger/src/logformatter.cpp",
+      "target": "func:logger/src/logformatter.cpp::LevelFormatItem::format",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:logger/src/logformatter.cpp",
+      "target": "func:logger/src/logformatter.cpp::ElapseFormatItem::format",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:logger/src/logformatter.cpp",
+      "target": "func:logger/src/logformatter.cpp::NameFormatItem::format",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:logger/src/logformatter.cpp",
+      "target": "func:logger/src/logformatter.cpp::ThreadIdFormatItem::format",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:logger/src/logformatter.cpp",
+      "target": "func:logger/src/logformatter.cpp::CoroutineIdFormatItem::format",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:logger/src/logformatter.cpp",
+      "target": "func:logger/src/logformatter.cpp::DateTimeFormatItem::DateTimeFormatItem",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:logger/src/logformatter.cpp",
+      "target": "func:logger/src/logformatter.cpp::DateTimeFormatItem::format",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:logger/src/logformatter.cpp",
+      "target": "func:logger/src/logformatter.cpp::NewLineFormatItem::format",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:logger/src/logformatter.cpp",
+      "target": "func:logger/src/logformatter.cpp::StringFormatItem::format",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:logger/src/logformatter.cpp",
+      "target": "func:logger/src/logformatter.cpp::LineFormatItem::format",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:logger/src/logformatter.cpp",
+      "target": "func:logger/src/logformatter.cpp::FileNameFormatItem::format",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:logger/src/logformatter.cpp",
+      "target": "func:logger/src/logformatter.cpp::PatternErrorFormatItem::format",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "func:logger/src/logformatter.cpp::LogFormatter",
+      "target": "func:logger/src/logformatter.cpp::init",
+      "relation": "calls",
+      "properties": {
+        "lineNumber": 12
+      }
+    },
+    {
+      "source": "func:logger/src/logformatter.cpp::format",
+      "target": "func:logger/src/logformatter.cpp::format",
+      "relation": "calls",
+      "properties": {
+        "lineNumber": 18
+      }
+    },
+    {
+      "source": "file:logger/src/logformatter.cpp",
+      "target": "func:logger/src/logformatter.cpp::LogFormatter",
+      "relation": "declares",
+      "properties": {
+        "line": 11,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:logger/src/logformatter.cpp",
+      "target": "func:logger/src/logformatter.cpp::format",
+      "relation": "declares",
+      "properties": {
+        "line": 15,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:logger/src/logformatter.cpp",
+      "target": "func:logger/src/logformatter.cpp::init",
+      "relation": "declares",
+      "properties": {
+        "line": 24,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:logger/src/logformatter.cpp",
+      "target": "func:logger/src/logformatter.cpp::MessageFormatItem::format",
+      "relation": "declares",
+      "properties": {
+        "line": 105,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:logger/src/logformatter.cpp",
+      "target": "func:logger/src/logformatter.cpp::LevelFormatItem::format",
+      "relation": "declares",
+      "properties": {
+        "line": 111,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:logger/src/logformatter.cpp",
+      "target": "func:logger/src/logformatter.cpp::ElapseFormatItem::format",
+      "relation": "declares",
+      "properties": {
+        "line": 133,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:logger/src/logformatter.cpp",
+      "target": "func:logger/src/logformatter.cpp::NameFormatItem::format",
+      "relation": "declares",
+      "properties": {
+        "line": 139,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:logger/src/logformatter.cpp",
+      "target": "func:logger/src/logformatter.cpp::ThreadIdFormatItem::format",
+      "relation": "declares",
+      "properties": {
+        "line": 145,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:logger/src/logformatter.cpp",
+      "target": "func:logger/src/logformatter.cpp::CoroutineIdFormatItem::format",
+      "relation": "declares",
+      "properties": {
+        "line": 151,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:logger/src/logformatter.cpp",
+      "target": "func:logger/src/logformatter.cpp::DateTimeFormatItem::DateTimeFormatItem",
+      "relation": "declares",
+      "properties": {
+        "line": 157,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:logger/src/logformatter.cpp",
+      "target": "func:logger/src/logformatter.cpp::DateTimeFormatItem::format",
+      "relation": "declares",
+      "properties": {
+        "line": 159,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:logger/src/logformatter.cpp",
+      "target": "func:logger/src/logformatter.cpp::NewLineFormatItem::format",
+      "relation": "declares",
+      "properties": {
+        "line": 170,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:logger/src/logformatter.cpp",
+      "target": "func:logger/src/logformatter.cpp::StringFormatItem::format",
+      "relation": "declares",
+      "properties": {
+        "line": 176,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:logger/src/logformatter.cpp",
+      "target": "func:logger/src/logformatter.cpp::LineFormatItem::format",
+      "relation": "declares",
+      "properties": {
+        "line": 182,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:logger/src/logformatter.cpp",
+      "target": "func:logger/src/logformatter.cpp::FileNameFormatItem::format",
+      "relation": "declares",
+      "properties": {
+        "line": 188,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:logger/src/logformatter.cpp",
+      "target": "func:logger/src/logformatter.cpp::PatternErrorFormatItem::format",
+      "relation": "declares",
+      "properties": {
+        "line": 194,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:logger/src/logger.cpp",
+      "target": "func:logger/src/logger.cpp::LogEvent",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:logger/src/logger.cpp",
+      "target": "func:logger/src/logger.cpp::Logger",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:logger/src/logger.cpp",
+      "target": "func:logger/src/logger.cpp::createEvent",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:logger/src/logger.cpp",
+      "target": "func:logger/src/logger.cpp::allocCoroutineId",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:logger/src/logger.cpp",
+      "target": "func:logger/src/logger.cpp::setCurrentCoroutineId",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:logger/src/logger.cpp",
+      "target": "func:logger/src/logger.cpp::getCurrentCoroutineId",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:logger/src/logger.cpp",
+      "target": "func:logger/src/logger.cpp::CoroutineScope::CoroutineScope",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:logger/src/logger.cpp",
+      "target": "func:logger/src/logger.cpp::CoroutineScope::~CoroutineScope",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:logger/src/logger.cpp",
+      "target": "func:logger/src/logger.cpp::log",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:logger/src/logger.cpp",
+      "target": "func:logger/src/logger.cpp::debug",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:logger/src/logger.cpp",
+      "target": "func:logger/src/logger.cpp::info",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:logger/src/logger.cpp",
+      "target": "func:logger/src/logger.cpp::warn",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:logger/src/logger.cpp",
+      "target": "func:logger/src/logger.cpp::error",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:logger/src/logger.cpp",
+      "target": "func:logger/src/logger.cpp::fatal",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:logger/src/logger.cpp",
+      "target": "func:logger/src/logger.cpp::addAppender",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:logger/src/logger.cpp",
+      "target": "func:logger/src/logger.cpp::delAppender",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:logger/src/logger.cpp",
+      "target": "func:logger/src/logger.cpp::init",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:logger/src/logger.cpp",
+      "target": "func:logger/src/logger.cpp::shutdown",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "func:logger/src/logger.cpp::log",
+      "target": "func:logger/src/logger.cpp::log",
+      "relation": "calls",
+      "properties": {
+        "lineNumber": 88
+      }
+    },
+    {
+      "source": "func:logger/src/logger.cpp::debug",
+      "target": "func:logger/src/logger.cpp::log",
+      "relation": "calls",
+      "properties": {
+        "lineNumber": 93
+      }
+    },
+    {
+      "source": "func:logger/src/logger.cpp::debug",
+      "target": "func:logger/src/logger.cpp::createEvent",
+      "relation": "calls",
+      "properties": {
+        "lineNumber": 93
+      }
+    },
+    {
+      "source": "func:logger/src/logger.cpp::info",
+      "target": "func:logger/src/logger.cpp::log",
+      "relation": "calls",
+      "properties": {
+        "lineNumber": 97
+      }
+    },
+    {
+      "source": "func:logger/src/logger.cpp::info",
+      "target": "func:logger/src/logger.cpp::createEvent",
+      "relation": "calls",
+      "properties": {
+        "lineNumber": 97
+      }
+    },
+    {
+      "source": "func:logger/src/logger.cpp::warn",
+      "target": "func:logger/src/logger.cpp::log",
+      "relation": "calls",
+      "properties": {
+        "lineNumber": 101
+      }
+    },
+    {
+      "source": "func:logger/src/logger.cpp::warn",
+      "target": "func:logger/src/logger.cpp::createEvent",
+      "relation": "calls",
+      "properties": {
+        "lineNumber": 101
+      }
+    },
+    {
+      "source": "func:logger/src/logger.cpp::error",
+      "target": "func:logger/src/logger.cpp::log",
+      "relation": "calls",
+      "properties": {
+        "lineNumber": 105
+      }
+    },
+    {
+      "source": "func:logger/src/logger.cpp::error",
+      "target": "func:logger/src/logger.cpp::createEvent",
+      "relation": "calls",
+      "properties": {
+        "lineNumber": 105
+      }
+    },
+    {
+      "source": "func:logger/src/logger.cpp::fatal",
+      "target": "func:logger/src/logger.cpp::log",
+      "relation": "calls",
+      "properties": {
+        "lineNumber": 109
+      }
+    },
+    {
+      "source": "func:logger/src/logger.cpp::fatal",
+      "target": "func:logger/src/logger.cpp::createEvent",
+      "relation": "calls",
+      "properties": {
+        "lineNumber": 109
+      }
+    },
+    {
+      "source": "func:logger/src/logger.cpp::init",
+      "target": "func:logger/src/logger.cpp::addAppender",
+      "relation": "calls",
+      "properties": {
+        "lineNumber": 137
+      }
+    },
+    {
+      "source": "file:logger/src/logger.cpp",
+      "target": "func:logger/src/logger.cpp::LogEvent",
+      "relation": "declares",
+      "properties": {
+        "line": 28,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:logger/src/logger.cpp",
+      "target": "func:logger/src/logger.cpp::Logger",
+      "relation": "declares",
+      "properties": {
+        "line": 52,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:logger/src/logger.cpp",
+      "target": "func:logger/src/logger.cpp::createEvent",
+      "relation": "declares",
+      "properties": {
+        "line": 54,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:logger/src/logger.cpp",
+      "target": "func:logger/src/logger.cpp::allocCoroutineId",
+      "relation": "declares",
+      "properties": {
+        "line": 58,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:logger/src/logger.cpp",
+      "target": "func:logger/src/logger.cpp::setCurrentCoroutineId",
+      "relation": "declares",
+      "properties": {
+        "line": 62,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:logger/src/logger.cpp",
+      "target": "func:logger/src/logger.cpp::getCurrentCoroutineId",
+      "relation": "declares",
+      "properties": {
+        "line": 66,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:logger/src/logger.cpp",
+      "target": "func:logger/src/logger.cpp::CoroutineScope::CoroutineScope",
+      "relation": "declares",
+      "properties": {
+        "line": 70,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:logger/src/logger.cpp",
+      "target": "func:logger/src/logger.cpp::CoroutineScope::~CoroutineScope",
+      "relation": "declares",
+      "properties": {
+        "line": 74,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:logger/src/logger.cpp",
+      "target": "func:logger/src/logger.cpp::log",
+      "relation": "declares",
+      "properties": {
+        "line": 78,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:logger/src/logger.cpp",
+      "target": "func:logger/src/logger.cpp::debug",
+      "relation": "declares",
+      "properties": {
+        "line": 92,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:logger/src/logger.cpp",
+      "target": "func:logger/src/logger.cpp::info",
+      "relation": "declares",
+      "properties": {
+        "line": 96,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:logger/src/logger.cpp",
+      "target": "func:logger/src/logger.cpp::warn",
+      "relation": "declares",
+      "properties": {
+        "line": 100,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:logger/src/logger.cpp",
+      "target": "func:logger/src/logger.cpp::error",
+      "relation": "declares",
+      "properties": {
+        "line": 104,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:logger/src/logger.cpp",
+      "target": "func:logger/src/logger.cpp::fatal",
+      "relation": "declares",
+      "properties": {
+        "line": 108,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:logger/src/logger.cpp",
+      "target": "func:logger/src/logger.cpp::addAppender",
+      "relation": "declares",
+      "properties": {
+        "line": 112,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:logger/src/logger.cpp",
+      "target": "func:logger/src/logger.cpp::delAppender",
+      "relation": "declares",
+      "properties": {
+        "line": 120,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:logger/src/logger.cpp",
+      "target": "func:logger/src/logger.cpp::init",
+      "relation": "declares",
+      "properties": {
+        "line": 131,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:logger/src/logger.cpp",
+      "target": "func:logger/src/logger.cpp::shutdown",
+      "relation": "declares",
+      "properties": {
+        "line": 142,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:memory-pool/src/tiered_memory_pool.cpp",
+      "target": "func:memory-pool/src/tiered_memory_pool.cpp::~TieredMemoryPool",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:memory-pool/src/tiered_memory_pool.cpp",
+      "target": "func:memory-pool/src/tiered_memory_pool.cpp::ensure_registered",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:memory-pool/src/tiered_memory_pool.cpp",
+      "target": "func:memory-pool/src/tiered_memory_pool.cpp::deallocate_impl",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:memory-pool/src/tiered_memory_pool.cpp",
+      "target": "func:memory-pool/src/tiered_memory_pool.cpp::central_allocate_batch",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:memory-pool/src/tiered_memory_pool.cpp",
+      "target": "func:memory-pool/src/tiered_memory_pool.cpp::return_batch_to_central",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:memory-pool/src/tiered_memory_pool.cpp",
+      "target": "func:memory-pool/src/tiered_memory_pool.cpp::try_merge_and_promote",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:memory-pool/src/tiered_memory_pool.cpp",
+      "target": "func:memory-pool/src/tiered_memory_pool.cpp::try_merge_in_list",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:memory-pool/src/tiered_memory_pool.cpp",
+      "target": "func:memory-pool/src/tiered_memory_pool.cpp::try_merge_central",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:memory-pool/src/tiered_memory_pool.cpp",
+      "target": "func:memory-pool/src/tiered_memory_pool.cpp::page_index_of",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "func:memory-pool/src/tiered_memory_pool.cpp::deallocate_impl",
+      "target": "func:memory-pool/src/tiered_memory_pool.cpp::ensure_registered",
+      "relation": "calls",
+      "properties": {
+        "lineNumber": 112
+      }
+    },
+    {
+      "source": "func:memory-pool/src/tiered_memory_pool.cpp::deallocate_impl",
+      "target": "func:memory-pool/src/tiered_memory_pool.cpp::try_merge_and_promote",
+      "relation": "calls",
+      "properties": {
+        "lineNumber": 120
+      }
+    },
+    {
+      "source": "func:memory-pool/src/tiered_memory_pool.cpp::deallocate_impl",
+      "target": "func:memory-pool/src/tiered_memory_pool.cpp::return_batch_to_central",
+      "relation": "calls",
+      "properties": {
+        "lineNumber": 140
+      }
+    },
+    {
+      "source": "func:memory-pool/src/tiered_memory_pool.cpp::return_batch_to_central",
+      "target": "func:memory-pool/src/tiered_memory_pool.cpp::try_merge_central",
+      "relation": "calls",
+      "properties": {
+        "lineNumber": 189
+      }
+    },
+    {
+      "source": "func:memory-pool/src/tiered_memory_pool.cpp::try_merge_and_promote",
+      "target": "func:memory-pool/src/tiered_memory_pool.cpp::try_merge_in_list",
+      "relation": "calls",
+      "properties": {
+        "lineNumber": 200
+      }
+    },
+    {
+      "source": "func:memory-pool/src/tiered_memory_pool.cpp::try_merge_and_promote",
+      "target": "func:memory-pool/src/tiered_memory_pool.cpp::try_merge_and_promote",
+      "relation": "calls",
+      "properties": {
+        "lineNumber": 208
+      }
+    },
+    {
+      "source": "func:memory-pool/src/tiered_memory_pool.cpp::try_merge_in_list",
+      "target": "func:memory-pool/src/tiered_memory_pool.cpp::page_index_of",
+      "relation": "calls",
+      "properties": {
+        "lineNumber": 245
+      }
+    },
+    {
+      "source": "func:memory-pool/src/tiered_memory_pool.cpp::try_merge_in_list",
+      "target": "func:memory-pool/src/tiered_memory_pool.cpp::page_index_of",
+      "relation": "calls",
+      "properties": {
+        "lineNumber": 245
+      }
+    },
+    {
+      "source": "func:memory-pool/src/tiered_memory_pool.cpp::try_merge_central",
+      "target": "func:memory-pool/src/tiered_memory_pool.cpp::try_merge_in_list",
+      "relation": "calls",
+      "properties": {
+        "lineNumber": 283
+      }
+    },
+    {
+      "source": "func:memory-pool/src/tiered_memory_pool.cpp::try_merge_central",
+      "target": "func:memory-pool/src/tiered_memory_pool.cpp::try_merge_central",
+      "relation": "calls",
+      "properties": {
+        "lineNumber": 299
+      }
+    },
+    {
+      "source": "file:memory-pool/src/tiered_memory_pool.cpp",
+      "target": "func:memory-pool/src/tiered_memory_pool.cpp::~TieredMemoryPool",
+      "relation": "declares",
+      "properties": {
+        "line": 14,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:memory-pool/src/tiered_memory_pool.cpp",
+      "target": "func:memory-pool/src/tiered_memory_pool.cpp::ensure_registered",
+      "relation": "declares",
+      "properties": {
+        "line": 40,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:memory-pool/src/tiered_memory_pool.cpp",
+      "target": "func:memory-pool/src/tiered_memory_pool.cpp::deallocate_impl",
+      "relation": "declares",
+      "properties": {
+        "line": 100,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:memory-pool/src/tiered_memory_pool.cpp",
+      "target": "func:memory-pool/src/tiered_memory_pool.cpp::central_allocate_batch",
+      "relation": "declares",
+      "properties": {
+        "line": 146,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:memory-pool/src/tiered_memory_pool.cpp",
+      "target": "func:memory-pool/src/tiered_memory_pool.cpp::return_batch_to_central",
+      "relation": "declares",
+      "properties": {
+        "line": 168,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:memory-pool/src/tiered_memory_pool.cpp",
+      "target": "func:memory-pool/src/tiered_memory_pool.cpp::try_merge_and_promote",
+      "relation": "declares",
+      "properties": {
+        "line": 194,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:memory-pool/src/tiered_memory_pool.cpp",
+      "target": "func:memory-pool/src/tiered_memory_pool.cpp::try_merge_in_list",
+      "relation": "declares",
+      "properties": {
+        "line": 217,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:memory-pool/src/tiered_memory_pool.cpp",
+      "target": "func:memory-pool/src/tiered_memory_pool.cpp::try_merge_central",
+      "relation": "declares",
+      "properties": {
+        "line": 268,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:memory-pool/src/tiered_memory_pool.cpp",
+      "target": "func:memory-pool/src/tiered_memory_pool.cpp::page_index_of",
+      "relation": "declares",
+      "properties": {
+        "line": 308,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:net/file-receive-process/main.cpp",
+      "target": "class:net/file-receive-process/main.cpp::ClientContext",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_class"
+      }
+    },
+    {
+      "source": "file:net/file-receive-process/main.cpp",
+      "target": "func:net/file-receive-process/main.cpp::handle_client",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:net/file-receive-process/main.cpp",
+      "target": "func:net/file-receive-process/main.cpp::parse_args",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:net/file-receive-process/main.cpp",
+      "target": "func:net/file-receive-process/main.cpp::main",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "func:net/file-receive-process/main.cpp::main",
+      "target": "func:net/file-receive-process/main.cpp::parse_args",
+      "relation": "calls",
+      "properties": {
+        "lineNumber": 127
+      }
+    },
+    {
+      "source": "file:net/file-receive-process/main.cpp",
+      "target": "class:net/file-receive-process/main.cpp::ClientContext",
+      "relation": "declares",
+      "properties": {
+        "line": 21,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:net/file-receive-process/main.cpp",
+      "target": "func:net/file-receive-process/main.cpp::handle_client",
+      "relation": "declares",
+      "properties": {
+        "line": 29,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:net/file-receive-process/main.cpp",
+      "target": "func:net/file-receive-process/main.cpp::parse_args",
+      "relation": "declares",
+      "properties": {
+        "line": 106,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:net/file-receive-process/main.cpp",
+      "target": "func:net/file-receive-process/main.cpp::main",
+      "relation": "declares",
+      "properties": {
+        "line": 122,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:net/file-send-process/main.cpp",
+      "target": "class:net/file-send-process/main.cpp::SendTask",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_class"
+      }
+    },
+    {
+      "source": "file:net/file-send-process/main.cpp",
+      "target": "func:net/file-send-process/main.cpp::send_all",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:net/file-send-process/main.cpp",
+      "target": "func:net/file-send-process/main.cpp::send_chunk",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:net/file-send-process/main.cpp",
+      "target": "func:net/file-send-process/main.cpp::main",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "func:net/file-send-process/main.cpp::send_chunk",
+      "target": "func:net/file-send-process/main.cpp::send_all",
+      "relation": "calls",
+      "properties": {
+        "lineNumber": 99
+      }
+    },
+    {
+      "source": "func:net/file-send-process/main.cpp::send_chunk",
+      "target": "func:net/file-send-process/main.cpp::send_all",
+      "relation": "calls",
+      "properties": {
+        "lineNumber": 113
+      }
+    },
+    {
+      "source": "func:net/file-send-process/main.cpp::main",
+      "target": "func:net/file-send-process/main.cpp::send_chunk",
+      "relation": "calls",
+      "properties": {
+        "lineNumber": 182
+      }
+    },
+    {
+      "source": "file:net/file-send-process/main.cpp",
+      "target": "class:net/file-send-process/main.cpp::SendTask",
+      "relation": "declares",
+      "properties": {
+        "line": 24,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:net/file-send-process/main.cpp",
+      "target": "func:net/file-send-process/main.cpp::send_all",
+      "relation": "declares",
+      "properties": {
+        "line": 33,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:net/file-send-process/main.cpp",
+      "target": "func:net/file-send-process/main.cpp::send_chunk",
+      "relation": "declares",
+      "properties": {
+        "line": 54,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:net/file-send-process/main.cpp",
+      "target": "func:net/file-send-process/main.cpp::main",
+      "relation": "declares",
+      "properties": {
+        "line": 126,
+        "isDefault": false
+      }
+    }
+  ]
+}

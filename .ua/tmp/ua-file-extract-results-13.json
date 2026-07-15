@@ -1,0 +1,4100 @@
+{
+  "scriptCompleted": true,
+  "filesAnalyzed": 9,
+  "filesSkipped": [],
+  "results": [
+    {
+      "path": "tests/test_tcp_client.cpp",
+      "language": "cpp",
+      "fileCategory": "code",
+      "totalLines": 248,
+      "nonEmptyLines": 192,
+      "functions": [
+        {
+          "name": "create_echo_server",
+          "startLine": 17,
+          "endLine": 40,
+          "params": []
+        },
+        {
+          "name": "get_port",
+          "startLine": 42,
+          "endLine": 50,
+          "params": [
+            "fd"
+          ]
+        },
+        {
+          "name": "run_echo_server",
+          "startLine": 52,
+          "endLine": 63,
+          "params": [
+            "listen_fd"
+          ]
+        },
+        {
+          "name": "temp_file_path",
+          "startLine": 65,
+          "endLine": 70,
+          "params": []
+        },
+        {
+          "name": "TEST",
+          "startLine": 74,
+          "endLine": 78,
+          "params": []
+        },
+        {
+          "name": "TEST",
+          "startLine": 80,
+          "endLine": 100,
+          "params": []
+        },
+        {
+          "name": "TEST",
+          "startLine": 102,
+          "endLine": 119,
+          "params": []
+        },
+        {
+          "name": "TEST",
+          "startLine": 121,
+          "endLine": 148,
+          "params": []
+        },
+        {
+          "name": "TEST",
+          "startLine": 150,
+          "endLine": 171,
+          "params": []
+        },
+        {
+          "name": "TEST",
+          "startLine": 173,
+          "endLine": 194,
+          "params": []
+        },
+        {
+          "name": "TEST",
+          "startLine": 196,
+          "endLine": 220,
+          "params": []
+        },
+        {
+          "name": "TEST",
+          "startLine": 222,
+          "endLine": 243,
+          "params": []
+        },
+        {
+          "name": "main",
+          "startLine": 245,
+          "endLine": 248,
+          "params": [
+            "argc",
+            "argv"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "create_echo_server",
+          "line": 17,
+          "isDefault": false
+        },
+        {
+          "name": "get_port",
+          "line": 42,
+          "isDefault": false
+        },
+        {
+          "name": "run_echo_server",
+          "line": 52,
+          "isDefault": false
+        },
+        {
+          "name": "temp_file_path",
+          "line": 65,
+          "isDefault": false
+        },
+        {
+          "name": "TEST",
+          "line": 74,
+          "isDefault": false
+        },
+        {
+          "name": "TEST",
+          "line": 80,
+          "isDefault": false
+        },
+        {
+          "name": "TEST",
+          "line": 102,
+          "isDefault": false
+        },
+        {
+          "name": "TEST",
+          "line": 121,
+          "isDefault": false
+        },
+        {
+          "name": "TEST",
+          "line": 150,
+          "isDefault": false
+        },
+        {
+          "name": "TEST",
+          "line": 173,
+          "isDefault": false
+        },
+        {
+          "name": "TEST",
+          "line": 196,
+          "isDefault": false
+        },
+        {
+          "name": "TEST",
+          "line": 222,
+          "isDefault": false
+        },
+        {
+          "name": "main",
+          "line": 245,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "create_echo_server",
+          "callee": "socket",
+          "lineNumber": 18
+        },
+        {
+          "caller": "create_echo_server",
+          "callee": "setsockopt",
+          "lineNumber": 23
+        },
+        {
+          "caller": "create_echo_server",
+          "callee": "htonl",
+          "lineNumber": 28
+        },
+        {
+          "caller": "create_echo_server",
+          "callee": "bind",
+          "lineNumber": 31
+        },
+        {
+          "caller": "create_echo_server",
+          "callee": "reinterpret_cast<struct sockaddr*>",
+          "lineNumber": 31
+        },
+        {
+          "caller": "create_echo_server",
+          "callee": "close",
+          "lineNumber": 32
+        },
+        {
+          "caller": "create_echo_server",
+          "callee": "listen",
+          "lineNumber": 35
+        },
+        {
+          "caller": "create_echo_server",
+          "callee": "close",
+          "lineNumber": 36
+        },
+        {
+          "caller": "get_port",
+          "callee": "getsockname",
+          "lineNumber": 46
+        },
+        {
+          "caller": "get_port",
+          "callee": "reinterpret_cast<struct sockaddr*>",
+          "lineNumber": 46
+        },
+        {
+          "caller": "get_port",
+          "callee": "ntohs",
+          "lineNumber": 49
+        },
+        {
+          "caller": "run_echo_server",
+          "callee": "accept",
+          "lineNumber": 53
+        },
+        {
+          "caller": "run_echo_server",
+          "callee": "recv",
+          "lineNumber": 59
+        },
+        {
+          "caller": "run_echo_server",
+          "callee": "data",
+          "lineNumber": 59
+        },
+        {
+          "caller": "run_echo_server",
+          "callee": "size",
+          "lineNumber": 59
+        },
+        {
+          "caller": "run_echo_server",
+          "callee": "send",
+          "lineNumber": 60
+        },
+        {
+          "caller": "run_echo_server",
+          "callee": "data",
+          "lineNumber": 60
+        },
+        {
+          "caller": "run_echo_server",
+          "callee": "static_cast<std::size_t>",
+          "lineNumber": 60
+        },
+        {
+          "caller": "run_echo_server",
+          "callee": "close",
+          "lineNumber": 62
+        },
+        {
+          "caller": "temp_file_path",
+          "callee": "std::getenv",
+          "lineNumber": 66
+        },
+        {
+          "caller": "temp_file_path",
+          "callee": "std::string",
+          "lineNumber": 69
+        },
+        {
+          "caller": "temp_file_path",
+          "callee": "std::to_string",
+          "lineNumber": 69
+        },
+        {
+          "caller": "temp_file_path",
+          "callee": "getpid",
+          "lineNumber": 69
+        },
+        {
+          "caller": "TEST",
+          "callee": "EXPECT_FALSE",
+          "lineNumber": 76
+        },
+        {
+          "caller": "TEST",
+          "callee": "connect_to_server",
+          "lineNumber": 76
+        },
+        {
+          "caller": "TEST",
+          "callee": "EXPECT_FALSE",
+          "lineNumber": 77
+        },
+        {
+          "caller": "TEST",
+          "callee": "is_connected",
+          "lineNumber": 77
+        },
+        {
+          "caller": "TEST",
+          "callee": "create_echo_server",
+          "lineNumber": 81
+        },
+        {
+          "caller": "TEST",
+          "callee": "ASSERT_GE",
+          "lineNumber": 82
+        },
+        {
+          "caller": "TEST",
+          "callee": "get_port",
+          "lineNumber": 83
+        },
+        {
+          "caller": "TEST",
+          "callee": "ASSERT_GT",
+          "lineNumber": 84
+        },
+        {
+          "caller": "TEST",
+          "callee": "static_cast<uint16_t>",
+          "lineNumber": 88
+        },
+        {
+          "caller": "TEST",
+          "callee": "ASSERT_TRUE",
+          "lineNumber": 89
+        },
+        {
+          "caller": "TEST",
+          "callee": "connect_to_server",
+          "lineNumber": 89
+        },
+        {
+          "caller": "TEST",
+          "callee": "EXPECT_TRUE",
+          "lineNumber": 90
+        },
+        {
+          "caller": "TEST",
+          "callee": "is_connected",
+          "lineNumber": 90
+        },
+        {
+          "caller": "TEST",
+          "callee": "EXPECT_TRUE",
+          "lineNumber": 92
+        },
+        {
+          "caller": "TEST",
+          "callee": "send_message",
+          "lineNumber": 92
+        },
+        {
+          "caller": "TEST",
+          "callee": "EXPECT_TRUE",
+          "lineNumber": 94
+        },
+        {
+          "caller": "TEST",
+          "callee": "receive_message",
+          "lineNumber": 94
+        },
+        {
+          "caller": "TEST",
+          "callee": "EXPECT_EQ",
+          "lineNumber": 95
+        },
+        {
+          "caller": "TEST",
+          "callee": "disconnect",
+          "lineNumber": 97
+        },
+        {
+          "caller": "TEST",
+          "callee": "join",
+          "lineNumber": 98
+        },
+        {
+          "caller": "TEST",
+          "callee": "close",
+          "lineNumber": 99
+        },
+        {
+          "caller": "TEST",
+          "callee": "create_echo_server",
+          "lineNumber": 103
+        },
+        {
+          "caller": "TEST",
+          "callee": "ASSERT_GE",
+          "lineNumber": 104
+        },
+        {
+          "caller": "TEST",
+          "callee": "get_port",
+          "lineNumber": 105
+        },
+        {
+          "caller": "TEST",
+          "callee": "ASSERT_GT",
+          "lineNumber": 106
+        },
+        {
+          "caller": "TEST",
+          "callee": "static_cast<uint16_t>",
+          "lineNumber": 110
+        },
+        {
+          "caller": "TEST",
+          "callee": "ASSERT_TRUE",
+          "lineNumber": 111
+        },
+        {
+          "caller": "TEST",
+          "callee": "connect_to_server",
+          "lineNumber": 111
+        },
+        {
+          "caller": "TEST",
+          "callee": "EXPECT_FALSE",
+          "lineNumber": 114
+        },
+        {
+          "caller": "TEST",
+          "callee": "receive_message",
+          "lineNumber": 114
+        },
+        {
+          "caller": "TEST",
+          "callee": "disconnect",
+          "lineNumber": 116
+        },
+        {
+          "caller": "TEST",
+          "callee": "join",
+          "lineNumber": 117
+        },
+        {
+          "caller": "TEST",
+          "callee": "close",
+          "lineNumber": 118
+        },
+        {
+          "caller": "TEST",
+          "callee": "create_echo_server",
+          "lineNumber": 122
+        },
+        {
+          "caller": "TEST",
+          "callee": "ASSERT_GE",
+          "lineNumber": 123
+        },
+        {
+          "caller": "TEST",
+          "callee": "get_port",
+          "lineNumber": 124
+        },
+        {
+          "caller": "TEST",
+          "callee": "ASSERT_GT",
+          "lineNumber": 125
+        },
+        {
+          "caller": "TEST",
+          "callee": "temp_file_path",
+          "lineNumber": 129
+        },
+        {
+          "caller": "TEST",
+          "callee": "ASSERT_TRUE",
+          "lineNumber": 132
+        },
+        {
+          "caller": "TEST",
+          "callee": "static_cast<uint16_t>",
+          "lineNumber": 136
+        },
+        {
+          "caller": "TEST",
+          "callee": "ASSERT_TRUE",
+          "lineNumber": 137
+        },
+        {
+          "caller": "TEST",
+          "callee": "connect_to_server",
+          "lineNumber": 137
+        },
+        {
+          "caller": "TEST",
+          "callee": "EXPECT_TRUE",
+          "lineNumber": 138
+        },
+        {
+          "caller": "TEST",
+          "callee": "send_file",
+          "lineNumber": 138
+        },
+        {
+          "caller": "TEST",
+          "callee": "EXPECT_TRUE",
+          "lineNumber": 141
+        },
+        {
+          "caller": "TEST",
+          "callee": "receive_message",
+          "lineNumber": 141
+        },
+        {
+          "caller": "TEST",
+          "callee": "EXPECT_EQ",
+          "lineNumber": 142
+        },
+        {
+          "caller": "TEST",
+          "callee": "disconnect",
+          "lineNumber": 144
+        },
+        {
+          "caller": "TEST",
+          "callee": "join",
+          "lineNumber": 145
+        },
+        {
+          "caller": "TEST",
+          "callee": "close",
+          "lineNumber": 146
+        },
+        {
+          "caller": "TEST",
+          "callee": "std::remove",
+          "lineNumber": 147
+        },
+        {
+          "caller": "TEST",
+          "callee": "c_str",
+          "lineNumber": 147
+        },
+        {
+          "caller": "TEST",
+          "callee": "create_echo_server",
+          "lineNumber": 151
+        },
+        {
+          "caller": "TEST",
+          "callee": "ASSERT_GE",
+          "lineNumber": 152
+        },
+        {
+          "caller": "TEST",
+          "callee": "get_port",
+          "lineNumber": 153
+        },
+        {
+          "caller": "TEST",
+          "callee": "ASSERT_GT",
+          "lineNumber": 154
+        },
+        {
+          "caller": "TEST",
+          "callee": "static_cast<uint16_t>",
+          "lineNumber": 160
+        },
+        {
+          "caller": "TEST",
+          "callee": "ASSERT_TRUE",
+          "lineNumber": 161
+        },
+        {
+          "caller": "TEST",
+          "callee": "connect_to_server",
+          "lineNumber": 161
+        },
+        {
+          "caller": "TEST",
+          "callee": "EXPECT_TRUE",
+          "lineNumber": 162
+        },
+        {
+          "caller": "TEST",
+          "callee": "send_file",
+          "lineNumber": 162
+        },
+        {
+          "caller": "TEST",
+          "callee": "size",
+          "lineNumber": 162
+        },
+        {
+          "caller": "TEST",
+          "callee": "EXPECT_TRUE",
+          "lineNumber": 165
+        },
+        {
+          "caller": "TEST",
+          "callee": "receive_message",
+          "lineNumber": 165
+        },
+        {
+          "caller": "TEST",
+          "callee": "EXPECT_EQ",
+          "lineNumber": 166
+        },
+        {
+          "caller": "TEST",
+          "callee": "size",
+          "lineNumber": 166
+        },
+        {
+          "caller": "TEST",
+          "callee": "size",
+          "lineNumber": 166
+        },
+        {
+          "caller": "TEST",
+          "callee": "disconnect",
+          "lineNumber": 168
+        },
+        {
+          "caller": "TEST",
+          "callee": "join",
+          "lineNumber": 169
+        },
+        {
+          "caller": "TEST",
+          "callee": "close",
+          "lineNumber": 170
+        },
+        {
+          "caller": "TEST",
+          "callee": "create_echo_server",
+          "lineNumber": 174
+        },
+        {
+          "caller": "TEST",
+          "callee": "ASSERT_GE",
+          "lineNumber": 175
+        },
+        {
+          "caller": "TEST",
+          "callee": "get_port",
+          "lineNumber": 176
+        },
+        {
+          "caller": "TEST",
+          "callee": "ASSERT_GT",
+          "lineNumber": 177
+        },
+        {
+          "caller": "TEST",
+          "callee": "static_cast<uint16_t>",
+          "lineNumber": 181
+        },
+        {
+          "caller": "TEST",
+          "callee": "ASSERT_TRUE",
+          "lineNumber": 183
+        },
+        {
+          "caller": "TEST",
+          "callee": "connect_to_server",
+          "lineNumber": 183
+        },
+        {
+          "caller": "TEST",
+          "callee": "EXPECT_TRUE",
+          "lineNumber": 184
+        },
+        {
+          "caller": "TEST",
+          "callee": "is_connected",
+          "lineNumber": 184
+        },
+        {
+          "caller": "TEST",
+          "callee": "disconnect",
+          "lineNumber": 185
+        },
+        {
+          "caller": "TEST",
+          "callee": "EXPECT_FALSE",
+          "lineNumber": 186
+        },
+        {
+          "caller": "TEST",
+          "callee": "is_connected",
+          "lineNumber": 186
+        },
+        {
+          "caller": "TEST",
+          "callee": "ASSERT_TRUE",
+          "lineNumber": 188
+        },
+        {
+          "caller": "TEST",
+          "callee": "connect_to_server",
+          "lineNumber": 188
+        },
+        {
+          "caller": "TEST",
+          "callee": "EXPECT_TRUE",
+          "lineNumber": 189
+        },
+        {
+          "caller": "TEST",
+          "callee": "is_connected",
+          "lineNumber": 189
+        },
+        {
+          "caller": "TEST",
+          "callee": "disconnect",
+          "lineNumber": 191
+        },
+        {
+          "caller": "TEST",
+          "callee": "join",
+          "lineNumber": 192
+        },
+        {
+          "caller": "TEST",
+          "callee": "close",
+          "lineNumber": 193
+        },
+        {
+          "caller": "TEST",
+          "callee": "create_echo_server",
+          "lineNumber": 197
+        },
+        {
+          "caller": "TEST",
+          "callee": "ASSERT_GE",
+          "lineNumber": 198
+        },
+        {
+          "caller": "TEST",
+          "callee": "get_port",
+          "lineNumber": 199
+        },
+        {
+          "caller": "TEST",
+          "callee": "ASSERT_GT",
+          "lineNumber": 200
+        },
+        {
+          "caller": "TEST",
+          "callee": "static_cast<uint16_t>",
+          "lineNumber": 204
+        },
+        {
+          "caller": "TEST",
+          "callee": "ASSERT_TRUE",
+          "lineNumber": 205
+        },
+        {
+          "caller": "TEST",
+          "callee": "connect_to_server",
+          "lineNumber": 205
+        },
+        {
+          "caller": "TEST",
+          "callee": "EXPECT_TRUE",
+          "lineNumber": 206
+        },
+        {
+          "caller": "TEST",
+          "callee": "is_connected",
+          "lineNumber": 206
+        },
+        {
+          "caller": "TEST",
+          "callee": "EXPECT_TRUE",
+          "lineNumber": 209
+        },
+        {
+          "caller": "TEST",
+          "callee": "is_connected",
+          "lineNumber": 209
+        },
+        {
+          "caller": "TEST",
+          "callee": "EXPECT_FALSE",
+          "lineNumber": 210
+        },
+        {
+          "caller": "TEST",
+          "callee": "is_connected",
+          "lineNumber": 210
+        },
+        {
+          "caller": "TEST",
+          "callee": "EXPECT_TRUE",
+          "lineNumber": 212
+        },
+        {
+          "caller": "TEST",
+          "callee": "send_message",
+          "lineNumber": 212
+        },
+        {
+          "caller": "TEST",
+          "callee": "EXPECT_TRUE",
+          "lineNumber": 214
+        },
+        {
+          "caller": "TEST",
+          "callee": "receive_message",
+          "lineNumber": 214
+        },
+        {
+          "caller": "TEST",
+          "callee": "EXPECT_EQ",
+          "lineNumber": 215
+        },
+        {
+          "caller": "TEST",
+          "callee": "disconnect",
+          "lineNumber": 217
+        },
+        {
+          "caller": "TEST",
+          "callee": "join",
+          "lineNumber": 218
+        },
+        {
+          "caller": "TEST",
+          "callee": "close",
+          "lineNumber": 219
+        },
+        {
+          "caller": "TEST",
+          "callee": "create_echo_server",
+          "lineNumber": 223
+        },
+        {
+          "caller": "TEST",
+          "callee": "ASSERT_GE",
+          "lineNumber": 224
+        },
+        {
+          "caller": "TEST",
+          "callee": "get_port",
+          "lineNumber": 225
+        },
+        {
+          "caller": "TEST",
+          "callee": "ASSERT_GT",
+          "lineNumber": 226
+        },
+        {
+          "caller": "TEST",
+          "callee": "static_cast<uint16_t>",
+          "lineNumber": 230
+        },
+        {
+          "caller": "TEST",
+          "callee": "ASSERT_TRUE",
+          "lineNumber": 231
+        },
+        {
+          "caller": "TEST",
+          "callee": "connect_to_server",
+          "lineNumber": 231
+        },
+        {
+          "caller": "TEST",
+          "callee": "EXPECT_TRUE",
+          "lineNumber": 234
+        },
+        {
+          "caller": "TEST",
+          "callee": "send_message",
+          "lineNumber": 234
+        },
+        {
+          "caller": "TEST",
+          "callee": "EXPECT_TRUE",
+          "lineNumber": 237
+        },
+        {
+          "caller": "TEST",
+          "callee": "receive_message",
+          "lineNumber": 237
+        },
+        {
+          "caller": "TEST",
+          "callee": "EXPECT_EQ",
+          "lineNumber": 238
+        },
+        {
+          "caller": "TEST",
+          "callee": "disconnect",
+          "lineNumber": 240
+        },
+        {
+          "caller": "TEST",
+          "callee": "join",
+          "lineNumber": 241
+        },
+        {
+          "caller": "TEST",
+          "callee": "close",
+          "lineNumber": 242
+        },
+        {
+          "caller": "main",
+          "callee": "::testing::InitGoogleTest",
+          "lineNumber": 246
+        },
+        {
+          "caller": "main",
+          "callee": "RUN_ALL_TESTS",
+          "lineNumber": 247
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 13,
+        "functionCount": 13,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "tests/test_tcp_server_connection.cpp",
+      "language": "cpp",
+      "fileCategory": "code",
+      "totalLines": 157,
+      "nonEmptyLines": 126,
+      "functions": [
+        {
+          "name": "SetUp",
+          "startLine": 21,
+          "endLine": 35,
+          "params": []
+        },
+        {
+          "name": "TearDown",
+          "startLine": 37,
+          "endLine": 42,
+          "params": []
+        },
+        {
+          "name": "TEST_F",
+          "startLine": 45,
+          "endLine": 50,
+          "params": []
+        },
+        {
+          "name": "TEST_F",
+          "startLine": 52,
+          "endLine": 56,
+          "params": []
+        },
+        {
+          "name": "TEST_F",
+          "startLine": 58,
+          "endLine": 71,
+          "params": []
+        },
+        {
+          "name": "TEST_F",
+          "startLine": 73,
+          "endLine": 89,
+          "params": []
+        },
+        {
+          "name": "TEST_F",
+          "startLine": 91,
+          "endLine": 104,
+          "params": []
+        },
+        {
+          "name": "TEST_F",
+          "startLine": 106,
+          "endLine": 122,
+          "params": []
+        },
+        {
+          "name": "TEST_F",
+          "startLine": 124,
+          "endLine": 130,
+          "params": []
+        },
+        {
+          "name": "TEST_F",
+          "startLine": 132,
+          "endLine": 137,
+          "params": []
+        },
+        {
+          "name": "TEST_F",
+          "startLine": 139,
+          "endLine": 143,
+          "params": []
+        },
+        {
+          "name": "TEST_F",
+          "startLine": 145,
+          "endLine": 150,
+          "params": []
+        },
+        {
+          "name": "main",
+          "startLine": 154,
+          "endLine": 157,
+          "params": [
+            "argc",
+            "argv"
+          ]
+        }
+      ],
+      "classes": [
+        {
+          "name": "ConnectionTest",
+          "startLine": 16,
+          "endLine": 43,
+          "methods": [
+            "SetUp",
+            "TearDown"
+          ],
+          "properties": [
+            "sv_",
+            "addr_"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "ConnectionTest",
+          "line": 16,
+          "isDefault": false
+        },
+        {
+          "name": "TEST_F",
+          "line": 45,
+          "isDefault": false
+        },
+        {
+          "name": "TEST_F",
+          "line": 52,
+          "isDefault": false
+        },
+        {
+          "name": "TEST_F",
+          "line": 58,
+          "isDefault": false
+        },
+        {
+          "name": "TEST_F",
+          "line": 73,
+          "isDefault": false
+        },
+        {
+          "name": "TEST_F",
+          "line": 91,
+          "isDefault": false
+        },
+        {
+          "name": "TEST_F",
+          "line": 106,
+          "isDefault": false
+        },
+        {
+          "name": "TEST_F",
+          "line": 124,
+          "isDefault": false
+        },
+        {
+          "name": "TEST_F",
+          "line": 132,
+          "isDefault": false
+        },
+        {
+          "name": "TEST_F",
+          "line": 139,
+          "isDefault": false
+        },
+        {
+          "name": "TEST_F",
+          "line": 145,
+          "isDefault": false
+        },
+        {
+          "name": "main",
+          "line": 154,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "SetUp",
+          "callee": "ASSERT_EQ",
+          "lineNumber": 22
+        },
+        {
+          "caller": "SetUp",
+          "callee": "socketpair",
+          "lineNumber": 22
+        },
+        {
+          "caller": "SetUp",
+          "callee": "fcntl",
+          "lineNumber": 26
+        },
+        {
+          "caller": "SetUp",
+          "callee": "ASSERT_GE",
+          "lineNumber": 27
+        },
+        {
+          "caller": "SetUp",
+          "callee": "ASSERT_EQ",
+          "lineNumber": 28
+        },
+        {
+          "caller": "SetUp",
+          "callee": "fcntl",
+          "lineNumber": 28
+        },
+        {
+          "caller": "SetUp",
+          "callee": "std::memset",
+          "lineNumber": 31
+        },
+        {
+          "caller": "SetUp",
+          "callee": "htonl",
+          "lineNumber": 33
+        },
+        {
+          "caller": "SetUp",
+          "callee": "htons",
+          "lineNumber": 34
+        },
+        {
+          "caller": "TearDown",
+          "callee": "close",
+          "lineNumber": 39
+        },
+        {
+          "caller": "TearDown",
+          "callee": "close",
+          "lineNumber": 41
+        },
+        {
+          "caller": "TEST_F",
+          "callee": "EXPECT_EQ",
+          "lineNumber": 47
+        },
+        {
+          "caller": "TEST_F",
+          "callee": "fd",
+          "lineNumber": 47
+        },
+        {
+          "caller": "TEST_F",
+          "callee": "EXPECT_EQ",
+          "lineNumber": 48
+        },
+        {
+          "caller": "TEST_F",
+          "callee": "client_port",
+          "lineNumber": 48
+        },
+        {
+          "caller": "TEST_F",
+          "callee": "EXPECT_EQ",
+          "lineNumber": 49
+        },
+        {
+          "caller": "TEST_F",
+          "callee": "state",
+          "lineNumber": 49
+        },
+        {
+          "caller": "TEST_F",
+          "callee": "EXPECT_TRUE",
+          "lineNumber": 54
+        },
+        {
+          "caller": "TEST_F",
+          "callee": "empty",
+          "lineNumber": 54
+        },
+        {
+          "caller": "TEST_F",
+          "callee": "read_buffer",
+          "lineNumber": 54
+        },
+        {
+          "caller": "TEST_F",
+          "callee": "EXPECT_TRUE",
+          "lineNumber": 55
+        },
+        {
+          "caller": "TEST_F",
+          "callee": "empty",
+          "lineNumber": 55
+        },
+        {
+          "caller": "TEST_F",
+          "callee": "write_buffer",
+          "lineNumber": 55
+        },
+        {
+          "caller": "TEST_F",
+          "callee": "write",
+          "lineNumber": 62
+        },
+        {
+          "caller": "TEST_F",
+          "callee": "data",
+          "lineNumber": 62
+        },
+        {
+          "caller": "TEST_F",
+          "callee": "size",
+          "lineNumber": 62
+        },
+        {
+          "caller": "TEST_F",
+          "callee": "std::this_thread::sleep_for",
+          "lineNumber": 66
+        },
+        {
+          "caller": "TEST_F",
+          "callee": "std::chrono::milliseconds",
+          "lineNumber": 66
+        },
+        {
+          "caller": "TEST_F",
+          "callee": "read_from_fd",
+          "lineNumber": 68
+        },
+        {
+          "caller": "TEST_F",
+          "callee": "EXPECT_GT",
+          "lineNumber": 69
+        },
+        {
+          "caller": "TEST_F",
+          "callee": "EXPECT_EQ",
+          "lineNumber": 70
+        },
+        {
+          "caller": "TEST_F",
+          "callee": "read_buffer",
+          "lineNumber": 70
+        },
+        {
+          "caller": "TEST_F",
+          "callee": "write",
+          "lineNumber": 77
+        },
+        {
+          "caller": "TEST_F",
+          "callee": "std::this_thread::sleep_for",
+          "lineNumber": 78
+        },
+        {
+          "caller": "TEST_F",
+          "callee": "std::chrono::milliseconds",
+          "lineNumber": 78
+        },
+        {
+          "caller": "TEST_F",
+          "callee": "read_from_fd",
+          "lineNumber": 79
+        },
+        {
+          "caller": "TEST_F",
+          "callee": "EXPECT_EQ",
+          "lineNumber": 80
+        },
+        {
+          "caller": "TEST_F",
+          "callee": "EXPECT_EQ",
+          "lineNumber": 81
+        },
+        {
+          "caller": "TEST_F",
+          "callee": "read_buffer",
+          "lineNumber": 81
+        },
+        {
+          "caller": "TEST_F",
+          "callee": "write",
+          "lineNumber": 84
+        },
+        {
+          "caller": "TEST_F",
+          "callee": "std::this_thread::sleep_for",
+          "lineNumber": 85
+        },
+        {
+          "caller": "TEST_F",
+          "callee": "std::chrono::milliseconds",
+          "lineNumber": 85
+        },
+        {
+          "caller": "TEST_F",
+          "callee": "read_from_fd",
+          "lineNumber": 86
+        },
+        {
+          "caller": "TEST_F",
+          "callee": "EXPECT_EQ",
+          "lineNumber": 87
+        },
+        {
+          "caller": "TEST_F",
+          "callee": "EXPECT_EQ",
+          "lineNumber": 88
+        },
+        {
+          "caller": "TEST_F",
+          "callee": "read_buffer",
+          "lineNumber": 88
+        },
+        {
+          "caller": "TEST_F",
+          "callee": "write_buffer",
+          "lineNumber": 94
+        },
+        {
+          "caller": "TEST_F",
+          "callee": "write_to_fd",
+          "lineNumber": 95
+        },
+        {
+          "caller": "TEST_F",
+          "callee": "EXPECT_EQ",
+          "lineNumber": 96
+        },
+        {
+          "caller": "TEST_F",
+          "callee": "std::memset",
+          "lineNumber": 100
+        },
+        {
+          "caller": "TEST_F",
+          "callee": "read",
+          "lineNumber": 101
+        },
+        {
+          "caller": "TEST_F",
+          "callee": "EXPECT_EQ",
+          "lineNumber": 102
+        },
+        {
+          "caller": "TEST_F",
+          "callee": "EXPECT_EQ",
+          "lineNumber": 103
+        },
+        {
+          "caller": "TEST_F",
+          "callee": "std::string",
+          "lineNumber": 103
+        },
+        {
+          "caller": "TEST_F",
+          "callee": "read_buffer",
+          "lineNumber": 110
+        },
+        {
+          "caller": "TEST_F",
+          "callee": "consume_read_buffer",
+          "lineNumber": 111
+        },
+        {
+          "caller": "TEST_F",
+          "callee": "EXPECT_EQ",
+          "lineNumber": 112
+        },
+        {
+          "caller": "TEST_F",
+          "callee": "read_buffer",
+          "lineNumber": 112
+        },
+        {
+          "caller": "TEST_F",
+          "callee": "consume_read_buffer",
+          "lineNumber": 115
+        },
+        {
+          "caller": "TEST_F",
+          "callee": "EXPECT_TRUE",
+          "lineNumber": 116
+        },
+        {
+          "caller": "TEST_F",
+          "callee": "empty",
+          "lineNumber": 116
+        },
+        {
+          "caller": "TEST_F",
+          "callee": "read_buffer",
+          "lineNumber": 116
+        },
+        {
+          "caller": "TEST_F",
+          "callee": "read_buffer",
+          "lineNumber": 119
+        },
+        {
+          "caller": "TEST_F",
+          "callee": "consume_read_buffer",
+          "lineNumber": 120
+        },
+        {
+          "caller": "TEST_F",
+          "callee": "EXPECT_TRUE",
+          "lineNumber": 121
+        },
+        {
+          "caller": "TEST_F",
+          "callee": "empty",
+          "lineNumber": 121
+        },
+        {
+          "caller": "TEST_F",
+          "callee": "read_buffer",
+          "lineNumber": 121
+        },
+        {
+          "caller": "TEST_F",
+          "callee": "EXPECT_EQ",
+          "lineNumber": 126
+        },
+        {
+          "caller": "TEST_F",
+          "callee": "state",
+          "lineNumber": 126
+        },
+        {
+          "caller": "TEST_F",
+          "callee": "close",
+          "lineNumber": 128
+        },
+        {
+          "caller": "TEST_F",
+          "callee": "EXPECT_EQ",
+          "lineNumber": 129
+        },
+        {
+          "caller": "TEST_F",
+          "callee": "state",
+          "lineNumber": 129
+        },
+        {
+          "caller": "TEST_F",
+          "callee": "close",
+          "lineNumber": 134
+        },
+        {
+          "caller": "TEST_F",
+          "callee": "close",
+          "lineNumber": 135
+        },
+        {
+          "caller": "TEST_F",
+          "callee": "EXPECT_EQ",
+          "lineNumber": 136
+        },
+        {
+          "caller": "TEST_F",
+          "callee": "state",
+          "lineNumber": 136
+        },
+        {
+          "caller": "TEST_F",
+          "callee": "close",
+          "lineNumber": 141
+        },
+        {
+          "caller": "TEST_F",
+          "callee": "EXPECT_EQ",
+          "lineNumber": 142
+        },
+        {
+          "caller": "TEST_F",
+          "callee": "read_from_fd",
+          "lineNumber": 142
+        },
+        {
+          "caller": "TEST_F",
+          "callee": "write_buffer",
+          "lineNumber": 147
+        },
+        {
+          "caller": "TEST_F",
+          "callee": "close",
+          "lineNumber": 148
+        },
+        {
+          "caller": "TEST_F",
+          "callee": "EXPECT_EQ",
+          "lineNumber": 149
+        },
+        {
+          "caller": "TEST_F",
+          "callee": "write_to_fd",
+          "lineNumber": 149
+        },
+        {
+          "caller": "main",
+          "callee": "::testing::InitGoogleTest",
+          "lineNumber": 155
+        },
+        {
+          "caller": "main",
+          "callee": "RUN_ALL_TESTS",
+          "lineNumber": 156
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 12,
+        "functionCount": 13,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "tests/test_tcp_server.cpp",
+      "language": "cpp",
+      "fileCategory": "code",
+      "totalLines": 277,
+      "nonEmptyLines": 228,
+      "functions": [
+        {
+          "name": "SetUp",
+          "startLine": 25,
+          "endLine": 29,
+          "params": []
+        },
+        {
+          "name": "TearDown",
+          "startLine": 31,
+          "endLine": 38,
+          "params": []
+        },
+        {
+          "name": "start_server",
+          "startLine": 40,
+          "endLine": 49,
+          "params": []
+        },
+        {
+          "name": "connect_client",
+          "startLine": 51,
+          "endLine": 71,
+          "params": []
+        },
+        {
+          "name": "TEST_F",
+          "startLine": 74,
+          "endLine": 78,
+          "params": []
+        },
+        {
+          "name": "TEST_F",
+          "startLine": 80,
+          "endLine": 89,
+          "params": []
+        },
+        {
+          "name": "TEST_F",
+          "startLine": 91,
+          "endLine": 101,
+          "params": []
+        },
+        {
+          "name": "TEST_F",
+          "startLine": 103,
+          "endLine": 153,
+          "params": []
+        },
+        {
+          "name": "TEST_F",
+          "startLine": 155,
+          "endLine": 192,
+          "params": []
+        },
+        {
+          "name": "TEST_F",
+          "startLine": 194,
+          "endLine": 214,
+          "params": []
+        },
+        {
+          "name": "TEST_F",
+          "startLine": 216,
+          "endLine": 246,
+          "params": []
+        },
+        {
+          "name": "TEST_F",
+          "startLine": 248,
+          "endLine": 272,
+          "params": []
+        },
+        {
+          "name": "main",
+          "startLine": 274,
+          "endLine": 277,
+          "params": [
+            "argc",
+            "argv"
+          ]
+        }
+      ],
+      "classes": [
+        {
+          "name": "TcpServerTest",
+          "startLine": 18,
+          "endLine": 72,
+          "methods": [
+            "SetUp",
+            "TearDown",
+            "start_server",
+            "connect_client"
+          ],
+          "properties": [
+            "config_",
+            "server_",
+            "server_thread_",
+            "server_ready_"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "TcpServerTest",
+          "line": 18,
+          "isDefault": false
+        },
+        {
+          "name": "TEST_F",
+          "line": 74,
+          "isDefault": false
+        },
+        {
+          "name": "TEST_F",
+          "line": 80,
+          "isDefault": false
+        },
+        {
+          "name": "TEST_F",
+          "line": 91,
+          "isDefault": false
+        },
+        {
+          "name": "TEST_F",
+          "line": 103,
+          "isDefault": false
+        },
+        {
+          "name": "TEST_F",
+          "line": 155,
+          "isDefault": false
+        },
+        {
+          "name": "TEST_F",
+          "line": 194,
+          "isDefault": false
+        },
+        {
+          "name": "TEST_F",
+          "line": 216,
+          "isDefault": false
+        },
+        {
+          "name": "TEST_F",
+          "line": 248,
+          "isDefault": false
+        },
+        {
+          "name": "main",
+          "line": 274,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "TearDown",
+          "callee": "stop",
+          "lineNumber": 33
+        },
+        {
+          "caller": "TearDown",
+          "callee": "joinable",
+          "lineNumber": 35
+        },
+        {
+          "caller": "TearDown",
+          "callee": "join",
+          "lineNumber": 36
+        },
+        {
+          "caller": "start_server",
+          "callee": "std::make_unique<hps::TcpServer>",
+          "lineNumber": 41
+        },
+        {
+          "caller": "start_server",
+          "callee": "ASSERT_TRUE",
+          "lineNumber": 42
+        },
+        {
+          "caller": "start_server",
+          "callee": "init",
+          "lineNumber": 42
+        },
+        {
+          "caller": "start_server",
+          "callee": "std::thread",
+          "lineNumber": 44
+        },
+        {
+          "caller": "start_server",
+          "callee": "start",
+          "lineNumber": 44
+        },
+        {
+          "caller": "start_server",
+          "callee": "is_running",
+          "lineNumber": 46
+        },
+        {
+          "caller": "start_server",
+          "callee": "std::this_thread::yield",
+          "lineNumber": 47
+        },
+        {
+          "caller": "connect_client",
+          "callee": "socket",
+          "lineNumber": 52
+        },
+        {
+          "caller": "connect_client",
+          "callee": "EXPECT_GE",
+          "lineNumber": 53
+        },
+        {
+          "caller": "connect_client",
+          "callee": "std::memset",
+          "lineNumber": 56
+        },
+        {
+          "caller": "connect_client",
+          "callee": "htonl",
+          "lineNumber": 58
+        },
+        {
+          "caller": "connect_client",
+          "callee": "htons",
+          "lineNumber": 59
+        },
+        {
+          "caller": "connect_client",
+          "callee": "actual_port",
+          "lineNumber": 59
+        },
+        {
+          "caller": "connect_client",
+          "callee": "connect",
+          "lineNumber": 61
+        },
+        {
+          "caller": "connect_client",
+          "callee": "reinterpret_cast<struct sockaddr*>",
+          "lineNumber": 63
+        },
+        {
+          "caller": "connect_client",
+          "callee": "close",
+          "lineNumber": 66
+        },
+        {
+          "caller": "TEST_F",
+          "callee": "EXPECT_TRUE",
+          "lineNumber": 76
+        },
+        {
+          "caller": "TEST_F",
+          "callee": "init",
+          "lineNumber": 76
+        },
+        {
+          "caller": "TEST_F",
+          "callee": "EXPECT_GT",
+          "lineNumber": 77
+        },
+        {
+          "caller": "TEST_F",
+          "callee": "actual_port",
+          "lineNumber": 77
+        },
+        {
+          "caller": "TEST_F",
+          "callee": "ASSERT_TRUE",
+          "lineNumber": 82
+        },
+        {
+          "caller": "TEST_F",
+          "callee": "init",
+          "lineNumber": 82
+        },
+        {
+          "caller": "TEST_F",
+          "callee": "actual_port",
+          "lineNumber": 85
+        },
+        {
+          "caller": "TEST_F",
+          "callee": "EXPECT_FALSE",
+          "lineNumber": 88
+        },
+        {
+          "caller": "TEST_F",
+          "callee": "init",
+          "lineNumber": 88
+        },
+        {
+          "caller": "TEST_F",
+          "callee": "start_server",
+          "lineNumber": 92
+        },
+        {
+          "caller": "TEST_F",
+          "callee": "EXPECT_TRUE",
+          "lineNumber": 94
+        },
+        {
+          "caller": "TEST_F",
+          "callee": "is_running",
+          "lineNumber": 94
+        },
+        {
+          "caller": "TEST_F",
+          "callee": "stop",
+          "lineNumber": 96
+        },
+        {
+          "caller": "TEST_F",
+          "callee": "join",
+          "lineNumber": 97
+        },
+        {
+          "caller": "TEST_F",
+          "callee": "std::thread",
+          "lineNumber": 98
+        },
+        {
+          "caller": "TEST_F",
+          "callee": "EXPECT_FALSE",
+          "lineNumber": 100
+        },
+        {
+          "caller": "TEST_F",
+          "callee": "is_running",
+          "lineNumber": 100
+        },
+        {
+          "caller": "TEST_F",
+          "callee": "std::make_unique<hps::TcpServer>",
+          "lineNumber": 108
+        },
+        {
+          "caller": "TEST_F",
+          "callee": "set_handler",
+          "lineNumber": 109
+        },
+        {
+          "caller": "TEST_F",
+          "callee": "read_buffer",
+          "lineNumber": 111
+        },
+        {
+          "caller": "TEST_F",
+          "callee": "write_buffer",
+          "lineNumber": 112
+        },
+        {
+          "caller": "TEST_F",
+          "callee": "read_buffer",
+          "lineNumber": 112
+        },
+        {
+          "caller": "TEST_F",
+          "callee": "ASSERT_TRUE",
+          "lineNumber": 114
+        },
+        {
+          "caller": "TEST_F",
+          "callee": "init",
+          "lineNumber": 114
+        },
+        {
+          "caller": "TEST_F",
+          "callee": "std::thread",
+          "lineNumber": 116
+        },
+        {
+          "caller": "TEST_F",
+          "callee": "start",
+          "lineNumber": 116
+        },
+        {
+          "caller": "TEST_F",
+          "callee": "is_running",
+          "lineNumber": 117
+        },
+        {
+          "caller": "TEST_F",
+          "callee": "std::this_thread::yield",
+          "lineNumber": 118
+        },
+        {
+          "caller": "TEST_F",
+          "callee": "connect_client",
+          "lineNumber": 121
+        },
+        {
+          "caller": "TEST_F",
+          "callee": "ASSERT_GE",
+          "lineNumber": 122
+        },
+        {
+          "caller": "TEST_F",
+          "callee": "send",
+          "lineNumber": 125
+        },
+        {
+          "caller": "TEST_F",
+          "callee": "data",
+          "lineNumber": 125
+        },
+        {
+          "caller": "TEST_F",
+          "callee": "size",
+          "lineNumber": 125
+        },
+        {
+          "caller": "TEST_F",
+          "callee": "std::this_thread::sleep_for",
+          "lineNumber": 128
+        },
+        {
+          "caller": "TEST_F",
+          "callee": "std::chrono::milliseconds",
+          "lineNumber": 128
+        },
+        {
+          "caller": "TEST_F",
+          "callee": "EXPECT_TRUE",
+          "lineNumber": 130
+        },
+        {
+          "caller": "TEST_F",
+          "callee": "EXPECT_EQ",
+          "lineNumber": 131
+        },
+        {
+          "caller": "TEST_F",
+          "callee": "std::memset",
+          "lineNumber": 136
+        },
+        {
+          "caller": "TEST_F",
+          "callee": "std::chrono::steady_clock::now",
+          "lineNumber": 139
+        },
+        {
+          "caller": "TEST_F",
+          "callee": "size",
+          "lineNumber": 140
+        },
+        {
+          "caller": "TEST_F",
+          "callee": "size",
+          "lineNumber": 140
+        },
+        {
+          "caller": "TEST_F",
+          "callee": "std::chrono::steady_clock::now",
+          "lineNumber": 141
+        },
+        {
+          "caller": "TEST_F",
+          "callee": "std::chrono::seconds",
+          "lineNumber": 141
+        },
+        {
+          "caller": "TEST_F",
+          "callee": "recv",
+          "lineNumber": 142
+        },
+        {
+          "caller": "TEST_F",
+          "callee": "append",
+          "lineNumber": 144
+        },
+        {
+          "caller": "TEST_F",
+          "callee": "static_cast<size_t>",
+          "lineNumber": 144
+        },
+        {
+          "caller": "TEST_F",
+          "callee": "EXPECT_EQ",
+          "lineNumber": 147
+        },
+        {
+          "caller": "TEST_F",
+          "callee": "close",
+          "lineNumber": 149
+        },
+        {
+          "caller": "TEST_F",
+          "callee": "stop",
+          "lineNumber": 150
+        },
+        {
+          "caller": "TEST_F",
+          "callee": "join",
+          "lineNumber": 151
+        },
+        {
+          "caller": "TEST_F",
+          "callee": "std::thread",
+          "lineNumber": 152
+        },
+        {
+          "caller": "TEST_F",
+          "callee": "std::make_unique<hps::TcpServer>",
+          "lineNumber": 160
+        },
+        {
+          "caller": "TEST_F",
+          "callee": "set_handler",
+          "lineNumber": 161
+        },
+        {
+          "caller": "TEST_F",
+          "callee": "write_buffer",
+          "lineNumber": 163
+        },
+        {
+          "caller": "TEST_F",
+          "callee": "ASSERT_TRUE",
+          "lineNumber": 165
+        },
+        {
+          "caller": "TEST_F",
+          "callee": "init",
+          "lineNumber": 165
+        },
+        {
+          "caller": "TEST_F",
+          "callee": "std::thread",
+          "lineNumber": 166
+        },
+        {
+          "caller": "TEST_F",
+          "callee": "start",
+          "lineNumber": 166
+        },
+        {
+          "caller": "TEST_F",
+          "callee": "is_running",
+          "lineNumber": 167
+        },
+        {
+          "caller": "TEST_F",
+          "callee": "std::this_thread::yield",
+          "lineNumber": 168
+        },
+        {
+          "caller": "TEST_F",
+          "callee": "connect_client",
+          "lineNumber": 173
+        },
+        {
+          "caller": "TEST_F",
+          "callee": "push_back",
+          "lineNumber": 175
+        },
+        {
+          "caller": "TEST_F",
+          "callee": "std::to_string",
+          "lineNumber": 176
+        },
+        {
+          "caller": "TEST_F",
+          "callee": "send",
+          "lineNumber": 177
+        },
+        {
+          "caller": "TEST_F",
+          "callee": "data",
+          "lineNumber": 177
+        },
+        {
+          "caller": "TEST_F",
+          "callee": "size",
+          "lineNumber": 177
+        },
+        {
+          "caller": "TEST_F",
+          "callee": "std::this_thread::sleep_for",
+          "lineNumber": 181
+        },
+        {
+          "caller": "TEST_F",
+          "callee": "std::chrono::milliseconds",
+          "lineNumber": 181
+        },
+        {
+          "caller": "TEST_F",
+          "callee": "EXPECT_EQ",
+          "lineNumber": 183
+        },
+        {
+          "caller": "TEST_F",
+          "callee": "load",
+          "lineNumber": 183
+        },
+        {
+          "caller": "TEST_F",
+          "callee": "close",
+          "lineNumber": 186
+        },
+        {
+          "caller": "TEST_F",
+          "callee": "stop",
+          "lineNumber": 189
+        },
+        {
+          "caller": "TEST_F",
+          "callee": "join",
+          "lineNumber": 190
+        },
+        {
+          "caller": "TEST_F",
+          "callee": "std::thread",
+          "lineNumber": 191
+        },
+        {
+          "caller": "TEST_F",
+          "callee": "std::make_unique<hps::TcpServer>",
+          "lineNumber": 196
+        },
+        {
+          "caller": "TEST_F",
+          "callee": "ASSERT_TRUE",
+          "lineNumber": 197
+        },
+        {
+          "caller": "TEST_F",
+          "callee": "init",
+          "lineNumber": 197
+        },
+        {
+          "caller": "TEST_F",
+          "callee": "std::thread",
+          "lineNumber": 198
+        },
+        {
+          "caller": "TEST_F",
+          "callee": "start",
+          "lineNumber": 198
+        },
+        {
+          "caller": "TEST_F",
+          "callee": "is_running",
+          "lineNumber": 199
+        },
+        {
+          "caller": "TEST_F",
+          "callee": "std::this_thread::yield",
+          "lineNumber": 200
+        },
+        {
+          "caller": "TEST_F",
+          "callee": "connect_client",
+          "lineNumber": 203
+        },
+        {
+          "caller": "TEST_F",
+          "callee": "ASSERT_GE",
+          "lineNumber": 204
+        },
+        {
+          "caller": "TEST_F",
+          "callee": "send",
+          "lineNumber": 205
+        },
+        {
+          "caller": "TEST_F",
+          "callee": "std::this_thread::sleep_for",
+          "lineNumber": 207
+        },
+        {
+          "caller": "TEST_F",
+          "callee": "std::chrono::milliseconds",
+          "lineNumber": 207
+        },
+        {
+          "caller": "TEST_F",
+          "callee": "close",
+          "lineNumber": 210
+        },
+        {
+          "caller": "TEST_F",
+          "callee": "stop",
+          "lineNumber": 211
+        },
+        {
+          "caller": "TEST_F",
+          "callee": "join",
+          "lineNumber": 212
+        },
+        {
+          "caller": "TEST_F",
+          "callee": "std::thread",
+          "lineNumber": 213
+        },
+        {
+          "caller": "TEST_F",
+          "callee": "std::make_unique<hps::TcpServer>",
+          "lineNumber": 221
+        },
+        {
+          "caller": "TEST_F",
+          "callee": "set_handler",
+          "lineNumber": 222
+        },
+        {
+          "caller": "TEST_F",
+          "callee": "write_buffer",
+          "lineNumber": 224
+        },
+        {
+          "caller": "TEST_F",
+          "callee": "ASSERT_TRUE",
+          "lineNumber": 226
+        },
+        {
+          "caller": "TEST_F",
+          "callee": "init",
+          "lineNumber": 226
+        },
+        {
+          "caller": "TEST_F",
+          "callee": "std::thread",
+          "lineNumber": 227
+        },
+        {
+          "caller": "TEST_F",
+          "callee": "start",
+          "lineNumber": 227
+        },
+        {
+          "caller": "TEST_F",
+          "callee": "is_running",
+          "lineNumber": 228
+        },
+        {
+          "caller": "TEST_F",
+          "callee": "std::this_thread::yield",
+          "lineNumber": 229
+        },
+        {
+          "caller": "TEST_F",
+          "callee": "connect_client",
+          "lineNumber": 233
+        },
+        {
+          "caller": "TEST_F",
+          "callee": "ASSERT_GE",
+          "lineNumber": 234
+        },
+        {
+          "caller": "TEST_F",
+          "callee": "send",
+          "lineNumber": 235
+        },
+        {
+          "caller": "TEST_F",
+          "callee": "std::this_thread::sleep_for",
+          "lineNumber": 236
+        },
+        {
+          "caller": "TEST_F",
+          "callee": "std::chrono::milliseconds",
+          "lineNumber": 236
+        },
+        {
+          "caller": "TEST_F",
+          "callee": "close",
+          "lineNumber": 237
+        },
+        {
+          "caller": "TEST_F",
+          "callee": "std::this_thread::sleep_for",
+          "lineNumber": 240
+        },
+        {
+          "caller": "TEST_F",
+          "callee": "std::chrono::milliseconds",
+          "lineNumber": 240
+        },
+        {
+          "caller": "TEST_F",
+          "callee": "EXPECT_EQ",
+          "lineNumber": 241
+        },
+        {
+          "caller": "TEST_F",
+          "callee": "load",
+          "lineNumber": 241
+        },
+        {
+          "caller": "TEST_F",
+          "callee": "stop",
+          "lineNumber": 243
+        },
+        {
+          "caller": "TEST_F",
+          "callee": "join",
+          "lineNumber": 244
+        },
+        {
+          "caller": "TEST_F",
+          "callee": "std::thread",
+          "lineNumber": 245
+        },
+        {
+          "caller": "TEST_F",
+          "callee": "std::make_unique<hps::TcpServer>",
+          "lineNumber": 250
+        },
+        {
+          "caller": "TEST_F",
+          "callee": "ASSERT_TRUE",
+          "lineNumber": 251
+        },
+        {
+          "caller": "TEST_F",
+          "callee": "init",
+          "lineNumber": 251
+        },
+        {
+          "caller": "TEST_F",
+          "callee": "std::thread",
+          "lineNumber": 252
+        },
+        {
+          "caller": "TEST_F",
+          "callee": "start",
+          "lineNumber": 252
+        },
+        {
+          "caller": "TEST_F",
+          "callee": "is_running",
+          "lineNumber": 253
+        },
+        {
+          "caller": "TEST_F",
+          "callee": "std::this_thread::yield",
+          "lineNumber": 254
+        },
+        {
+          "caller": "TEST_F",
+          "callee": "EXPECT_TRUE",
+          "lineNumber": 257
+        },
+        {
+          "caller": "TEST_F",
+          "callee": "is_running",
+          "lineNumber": 257
+        },
+        {
+          "caller": "TEST_F",
+          "callee": "raise",
+          "lineNumber": 260
+        },
+        {
+          "caller": "TEST_F",
+          "callee": "std::chrono::steady_clock::now",
+          "lineNumber": 263
+        },
+        {
+          "caller": "TEST_F",
+          "callee": "std::chrono::seconds",
+          "lineNumber": 263
+        },
+        {
+          "caller": "TEST_F",
+          "callee": "is_running",
+          "lineNumber": 264
+        },
+        {
+          "caller": "TEST_F",
+          "callee": "std::chrono::steady_clock::now",
+          "lineNumber": 264
+        },
+        {
+          "caller": "TEST_F",
+          "callee": "std::this_thread::sleep_for",
+          "lineNumber": 265
+        },
+        {
+          "caller": "TEST_F",
+          "callee": "std::chrono::milliseconds",
+          "lineNumber": 265
+        },
+        {
+          "caller": "TEST_F",
+          "callee": "EXPECT_FALSE",
+          "lineNumber": 268
+        },
+        {
+          "caller": "TEST_F",
+          "callee": "is_running",
+          "lineNumber": 268
+        },
+        {
+          "caller": "TEST_F",
+          "callee": "join",
+          "lineNumber": 270
+        },
+        {
+          "caller": "TEST_F",
+          "callee": "std::thread",
+          "lineNumber": 271
+        },
+        {
+          "caller": "main",
+          "callee": "::testing::InitGoogleTest",
+          "lineNumber": 275
+        },
+        {
+          "caller": "main",
+          "callee": "RUN_ALL_TESTS",
+          "lineNumber": 276
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 10,
+        "functionCount": 13,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "tests/test_url_decode.cpp",
+      "language": "cpp",
+      "fileCategory": "code",
+      "totalLines": 60,
+      "nonEmptyLines": 49,
+      "functions": [
+        {
+          "name": "TEST",
+          "startLine": 7,
+          "endLine": 11,
+          "params": []
+        },
+        {
+          "name": "TEST",
+          "startLine": 13,
+          "endLine": 17,
+          "params": []
+        },
+        {
+          "name": "TEST",
+          "startLine": 19,
+          "endLine": 23,
+          "params": []
+        },
+        {
+          "name": "TEST",
+          "startLine": 25,
+          "endLine": 29,
+          "params": []
+        },
+        {
+          "name": "TEST",
+          "startLine": 31,
+          "endLine": 34,
+          "params": []
+        },
+        {
+          "name": "TEST",
+          "startLine": 36,
+          "endLine": 40,
+          "params": []
+        },
+        {
+          "name": "TEST",
+          "startLine": 42,
+          "endLine": 46,
+          "params": []
+        },
+        {
+          "name": "TEST",
+          "startLine": 48,
+          "endLine": 55,
+          "params": []
+        },
+        {
+          "name": "main",
+          "startLine": 57,
+          "endLine": 60,
+          "params": [
+            "argc",
+            "argv"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "TEST",
+          "line": 7,
+          "isDefault": false
+        },
+        {
+          "name": "TEST",
+          "line": 13,
+          "isDefault": false
+        },
+        {
+          "name": "TEST",
+          "line": 19,
+          "isDefault": false
+        },
+        {
+          "name": "TEST",
+          "line": 25,
+          "isDefault": false
+        },
+        {
+          "name": "TEST",
+          "line": 31,
+          "isDefault": false
+        },
+        {
+          "name": "TEST",
+          "line": 36,
+          "isDefault": false
+        },
+        {
+          "name": "TEST",
+          "line": 42,
+          "isDefault": false
+        },
+        {
+          "name": "TEST",
+          "line": 48,
+          "isDefault": false
+        },
+        {
+          "name": "main",
+          "line": 57,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "TEST",
+          "callee": "EXPECT_TRUE",
+          "lineNumber": 9
+        },
+        {
+          "caller": "TEST",
+          "callee": "url_decode",
+          "lineNumber": 9
+        },
+        {
+          "caller": "TEST",
+          "callee": "EXPECT_EQ",
+          "lineNumber": 10
+        },
+        {
+          "caller": "TEST",
+          "callee": "EXPECT_TRUE",
+          "lineNumber": 15
+        },
+        {
+          "caller": "TEST",
+          "callee": "url_decode",
+          "lineNumber": 15
+        },
+        {
+          "caller": "TEST",
+          "callee": "EXPECT_EQ",
+          "lineNumber": 16
+        },
+        {
+          "caller": "TEST",
+          "callee": "EXPECT_TRUE",
+          "lineNumber": 21
+        },
+        {
+          "caller": "TEST",
+          "callee": "url_decode",
+          "lineNumber": 21
+        },
+        {
+          "caller": "TEST",
+          "callee": "EXPECT_EQ",
+          "lineNumber": 22
+        },
+        {
+          "caller": "TEST",
+          "callee": "EXPECT_TRUE",
+          "lineNumber": 27
+        },
+        {
+          "caller": "TEST",
+          "callee": "url_decode",
+          "lineNumber": 27
+        },
+        {
+          "caller": "TEST",
+          "callee": "EXPECT_EQ",
+          "lineNumber": 28
+        },
+        {
+          "caller": "TEST",
+          "callee": "EXPECT_FALSE",
+          "lineNumber": 33
+        },
+        {
+          "caller": "TEST",
+          "callee": "url_decode",
+          "lineNumber": 33
+        },
+        {
+          "caller": "TEST",
+          "callee": "EXPECT_FALSE",
+          "lineNumber": 38
+        },
+        {
+          "caller": "TEST",
+          "callee": "url_decode",
+          "lineNumber": 38
+        },
+        {
+          "caller": "TEST",
+          "callee": "EXPECT_FALSE",
+          "lineNumber": 39
+        },
+        {
+          "caller": "TEST",
+          "callee": "url_decode",
+          "lineNumber": 39
+        },
+        {
+          "caller": "TEST",
+          "callee": "EXPECT_TRUE",
+          "lineNumber": 44
+        },
+        {
+          "caller": "TEST",
+          "callee": "url_decode",
+          "lineNumber": 44
+        },
+        {
+          "caller": "TEST",
+          "callee": "EXPECT_TRUE",
+          "lineNumber": 45
+        },
+        {
+          "caller": "TEST",
+          "callee": "empty",
+          "lineNumber": 45
+        },
+        {
+          "caller": "TEST",
+          "callee": "EXPECT_TRUE",
+          "lineNumber": 50
+        },
+        {
+          "caller": "TEST",
+          "callee": "url_decode",
+          "lineNumber": 50
+        },
+        {
+          "caller": "TEST",
+          "callee": "EXPECT_EQ",
+          "lineNumber": 51
+        },
+        {
+          "caller": "TEST",
+          "callee": "clear",
+          "lineNumber": 52
+        },
+        {
+          "caller": "TEST",
+          "callee": "EXPECT_TRUE",
+          "lineNumber": 53
+        },
+        {
+          "caller": "TEST",
+          "callee": "url_decode",
+          "lineNumber": 53
+        },
+        {
+          "caller": "TEST",
+          "callee": "EXPECT_EQ",
+          "lineNumber": 54
+        },
+        {
+          "caller": "main",
+          "callee": "::testing::InitGoogleTest",
+          "lineNumber": 58
+        },
+        {
+          "caller": "main",
+          "callee": "RUN_ALL_TESTS",
+          "lineNumber": 59
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 9,
+        "functionCount": 9,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "tests/test_websocket.cpp",
+      "language": "cpp",
+      "fileCategory": "code",
+      "totalLines": 272,
+      "nonEmptyLines": 240,
+      "functions": [
+        {
+          "name": "main",
+          "startLine": 20,
+          "endLine": 23,
+          "params": [
+            "argc",
+            "argv"
+          ]
+        },
+        {
+          "name": "make_ws_request",
+          "startLine": 45,
+          "endLine": 55,
+          "params": [
+            "key"
+          ]
+        },
+        {
+          "name": "send_raw",
+          "startLine": 57,
+          "endLine": 66,
+          "params": [
+            "port",
+            "raw"
+          ]
+        },
+        {
+          "name": "make_masked_frame",
+          "startLine": 68,
+          "endLine": 91,
+          "params": [
+            "opcode",
+            "payload",
+            "mask_key"
+          ]
+        },
+        {
+          "name": "TEST",
+          "startLine": 96,
+          "endLine": 108,
+          "params": []
+        },
+        {
+          "name": "TEST",
+          "startLine": 111,
+          "endLine": 117,
+          "params": []
+        },
+        {
+          "name": "TEST",
+          "startLine": 120,
+          "endLine": 125,
+          "params": []
+        },
+        {
+          "name": "TEST",
+          "startLine": 128,
+          "endLine": 141,
+          "params": []
+        },
+        {
+          "name": "TEST",
+          "startLine": 144,
+          "endLine": 159,
+          "params": []
+        },
+        {
+          "name": "TEST",
+          "startLine": 162,
+          "endLine": 174,
+          "params": []
+        },
+        {
+          "name": "TEST",
+          "startLine": 177,
+          "endLine": 185,
+          "params": []
+        },
+        {
+          "name": "TEST",
+          "startLine": 188,
+          "endLine": 194,
+          "params": []
+        },
+        {
+          "name": "TEST",
+          "startLine": 197,
+          "endLine": 201,
+          "params": []
+        },
+        {
+          "name": "TEST",
+          "startLine": 204,
+          "endLine": 231,
+          "params": []
+        },
+        {
+          "name": "TEST",
+          "startLine": 234,
+          "endLine": 240,
+          "params": []
+        },
+        {
+          "name": "TEST",
+          "startLine": 243,
+          "endLine": 272,
+          "params": []
+        }
+      ],
+      "classes": [
+        {
+          "name": "B64TestCase",
+          "startLine": 30,
+          "endLine": 33,
+          "methods": [],
+          "properties": [
+            "input",
+            "expected"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "main",
+          "line": 20,
+          "isDefault": false
+        },
+        {
+          "name": "B64TestCase",
+          "line": 30,
+          "isDefault": false
+        },
+        {
+          "name": "make_ws_request",
+          "line": 45,
+          "isDefault": false
+        },
+        {
+          "name": "send_raw",
+          "line": 57,
+          "isDefault": false
+        },
+        {
+          "name": "make_masked_frame",
+          "line": 68,
+          "isDefault": false
+        },
+        {
+          "name": "TEST",
+          "line": 96,
+          "isDefault": false
+        },
+        {
+          "name": "TEST",
+          "line": 111,
+          "isDefault": false
+        },
+        {
+          "name": "TEST",
+          "line": 120,
+          "isDefault": false
+        },
+        {
+          "name": "TEST",
+          "line": 128,
+          "isDefault": false
+        },
+        {
+          "name": "TEST",
+          "line": 144,
+          "isDefault": false
+        },
+        {
+          "name": "TEST",
+          "line": 162,
+          "isDefault": false
+        },
+        {
+          "name": "TEST",
+          "line": 177,
+          "isDefault": false
+        },
+        {
+          "name": "TEST",
+          "line": 188,
+          "isDefault": false
+        },
+        {
+          "name": "TEST",
+          "line": 197,
+          "isDefault": false
+        },
+        {
+          "name": "TEST",
+          "line": 204,
+          "isDefault": false
+        },
+        {
+          "name": "TEST",
+          "line": 234,
+          "isDefault": false
+        },
+        {
+          "name": "TEST",
+          "line": 243,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "main",
+          "callee": "::testing::InitGoogleTest",
+          "lineNumber": 21
+        },
+        {
+          "caller": "main",
+          "callee": "RUN_ALL_TESTS",
+          "lineNumber": 22
+        },
+        {
+          "caller": "make_ws_request",
+          "callee": "std::string",
+          "lineNumber": 48
+        },
+        {
+          "caller": "make_ws_request",
+          "callee": "std::string",
+          "lineNumber": 52
+        },
+        {
+          "caller": "send_raw",
+          "callee": "connect_to_server",
+          "lineNumber": 59
+        },
+        {
+          "caller": "send_raw",
+          "callee": "send_message",
+          "lineNumber": 61
+        },
+        {
+          "caller": "send_raw",
+          "callee": "receive_message",
+          "lineNumber": 64
+        },
+        {
+          "caller": "make_masked_frame",
+          "callee": "push_back",
+          "lineNumber": 70
+        },
+        {
+          "caller": "make_masked_frame",
+          "callee": "static_cast<char>",
+          "lineNumber": 70
+        },
+        {
+          "caller": "make_masked_frame",
+          "callee": "static_cast<uint8_t>",
+          "lineNumber": 70
+        },
+        {
+          "caller": "make_masked_frame",
+          "callee": "size",
+          "lineNumber": 71
+        },
+        {
+          "caller": "make_masked_frame",
+          "callee": "push_back",
+          "lineNumber": 72
+        },
+        {
+          "caller": "make_masked_frame",
+          "callee": "static_cast<char>",
+          "lineNumber": 72
+        },
+        {
+          "caller": "make_masked_frame",
+          "callee": "static_cast<uint32_t>",
+          "lineNumber": 74
+        },
+        {
+          "caller": "make_masked_frame",
+          "callee": "push_back",
+          "lineNumber": 75
+        },
+        {
+          "caller": "make_masked_frame",
+          "callee": "static_cast<char>",
+          "lineNumber": 75
+        },
+        {
+          "caller": "make_masked_frame",
+          "callee": "push_back",
+          "lineNumber": 76
+        },
+        {
+          "caller": "make_masked_frame",
+          "callee": "static_cast<char>",
+          "lineNumber": 76
+        },
+        {
+          "caller": "make_masked_frame",
+          "callee": "push_back",
+          "lineNumber": 78
+        },
+        {
+          "caller": "make_masked_frame",
+          "callee": "static_cast<char>",
+          "lineNumber": 78
+        },
+        {
+          "caller": "make_masked_frame",
+          "callee": "push_back",
+          "lineNumber": 79
+        },
+        {
+          "caller": "make_masked_frame",
+          "callee": "static_cast<char>",
+          "lineNumber": 79
+        },
+        {
+          "caller": "make_masked_frame",
+          "callee": "push_back",
+          "lineNumber": 80
+        },
+        {
+          "caller": "make_masked_frame",
+          "callee": "static_cast<char>",
+          "lineNumber": 80
+        },
+        {
+          "caller": "make_masked_frame",
+          "callee": "push_back",
+          "lineNumber": 81
+        },
+        {
+          "caller": "make_masked_frame",
+          "callee": "static_cast<char>",
+          "lineNumber": 81
+        },
+        {
+          "caller": "make_masked_frame",
+          "callee": "static_cast<uint8_t>",
+          "lineNumber": 82
+        },
+        {
+          "caller": "make_masked_frame",
+          "callee": "static_cast<uint8_t>",
+          "lineNumber": 83
+        },
+        {
+          "caller": "make_masked_frame",
+          "callee": "static_cast<uint8_t>",
+          "lineNumber": 84
+        },
+        {
+          "caller": "make_masked_frame",
+          "callee": "static_cast<uint8_t>",
+          "lineNumber": 85
+        },
+        {
+          "caller": "make_masked_frame",
+          "callee": "push_back",
+          "lineNumber": 88
+        },
+        {
+          "caller": "make_masked_frame",
+          "callee": "static_cast<char>",
+          "lineNumber": 88
+        },
+        {
+          "caller": "make_masked_frame",
+          "callee": "static_cast<uint8_t>",
+          "lineNumber": 88
+        },
+        {
+          "caller": "TEST",
+          "callee": "make_ws_request",
+          "lineNumber": 97
+        },
+        {
+          "caller": "TEST",
+          "callee": "ASSERT_TRUE",
+          "lineNumber": 99
+        },
+        {
+          "caller": "TEST",
+          "callee": "ws_server_handshake",
+          "lineNumber": 99
+        },
+        {
+          "caller": "TEST",
+          "callee": "EXPECT_EQ",
+          "lineNumber": 100
+        },
+        {
+          "caller": "TEST",
+          "callee": "EXPECT_EQ",
+          "lineNumber": 101
+        },
+        {
+          "caller": "TEST",
+          "callee": "find",
+          "lineNumber": 102
+        },
+        {
+          "caller": "TEST",
+          "callee": "ASSERT_NE",
+          "lineNumber": 103
+        },
+        {
+          "caller": "TEST",
+          "callee": "end",
+          "lineNumber": 103
+        },
+        {
+          "caller": "TEST",
+          "callee": "EXPECT_EQ",
+          "lineNumber": 104
+        },
+        {
+          "caller": "TEST",
+          "callee": "find",
+          "lineNumber": 105
+        },
+        {
+          "caller": "TEST",
+          "callee": "ASSERT_NE",
+          "lineNumber": 106
+        },
+        {
+          "caller": "TEST",
+          "callee": "end",
+          "lineNumber": 106
+        },
+        {
+          "caller": "TEST",
+          "callee": "EXPECT_EQ",
+          "lineNumber": 107
+        },
+        {
+          "caller": "TEST",
+          "callee": "EXPECT_FALSE",
+          "lineNumber": 116
+        },
+        {
+          "caller": "TEST",
+          "callee": "ws_server_handshake",
+          "lineNumber": 116
+        },
+        {
+          "caller": "TEST",
+          "callee": "EXPECT_FALSE",
+          "lineNumber": 124
+        },
+        {
+          "caller": "TEST",
+          "callee": "ws_server_handshake",
+          "lineNumber": 124
+        },
+        {
+          "caller": "TEST",
+          "callee": "ws_encode_frame",
+          "lineNumber": 130
+        },
+        {
+          "caller": "TEST",
+          "callee": "ASSERT_GE",
+          "lineNumber": 131
+        },
+        {
+          "caller": "TEST",
+          "callee": "size",
+          "lineNumber": 131
+        },
+        {
+          "caller": "TEST",
+          "callee": "static_cast<uint8_t>",
+          "lineNumber": 132
+        },
+        {
+          "caller": "TEST",
+          "callee": "EXPECT_TRUE",
+          "lineNumber": 133
+        },
+        {
+          "caller": "TEST",
+          "callee": "EXPECT_EQ",
+          "lineNumber": 134
+        },
+        {
+          "caller": "TEST",
+          "callee": "static_cast<uint8_t>",
+          "lineNumber": 134
+        },
+        {
+          "caller": "TEST",
+          "callee": "static_cast<uint8_t>",
+          "lineNumber": 134
+        },
+        {
+          "caller": "TEST",
+          "callee": "static_cast<uint8_t>",
+          "lineNumber": 135
+        },
+        {
+          "caller": "TEST",
+          "callee": "EXPECT_FALSE",
+          "lineNumber": 136
+        },
+        {
+          "caller": "TEST",
+          "callee": "EXPECT_EQ",
+          "lineNumber": 137
+        },
+        {
+          "caller": "TEST",
+          "callee": "static_cast<size_t>",
+          "lineNumber": 137
+        },
+        {
+          "caller": "TEST",
+          "callee": "size",
+          "lineNumber": 137
+        },
+        {
+          "caller": "TEST",
+          "callee": "begin",
+          "lineNumber": 139
+        },
+        {
+          "caller": "TEST",
+          "callee": "end",
+          "lineNumber": 139
+        },
+        {
+          "caller": "TEST",
+          "callee": "EXPECT_EQ",
+          "lineNumber": 140
+        },
+        {
+          "caller": "TEST",
+          "callee": "static_cast<char>",
+          "lineNumber": 145
+        },
+        {
+          "caller": "TEST",
+          "callee": "static_cast<char>",
+          "lineNumber": 146
+        },
+        {
+          "caller": "TEST",
+          "callee": "static_cast<char>",
+          "lineNumber": 147
+        },
+        {
+          "caller": "TEST",
+          "callee": "static_cast<char>",
+          "lineNumber": 148
+        },
+        {
+          "caller": "TEST",
+          "callee": "ws_encode_frame",
+          "lineNumber": 149
+        },
+        {
+          "caller": "TEST",
+          "callee": "ASSERT_GE",
+          "lineNumber": 150
+        },
+        {
+          "caller": "TEST",
+          "callee": "size",
+          "lineNumber": 150
+        },
+        {
+          "caller": "TEST",
+          "callee": "static_cast<uint8_t>",
+          "lineNumber": 151
+        },
+        {
+          "caller": "TEST",
+          "callee": "EXPECT_TRUE",
+          "lineNumber": 152
+        },
+        {
+          "caller": "TEST",
+          "callee": "EXPECT_EQ",
+          "lineNumber": 153
+        },
+        {
+          "caller": "TEST",
+          "callee": "static_cast<uint8_t>",
+          "lineNumber": 153
+        },
+        {
+          "caller": "TEST",
+          "callee": "static_cast<uint8_t>",
+          "lineNumber": 153
+        },
+        {
+          "caller": "TEST",
+          "callee": "begin",
+          "lineNumber": 154
+        },
+        {
+          "caller": "TEST",
+          "callee": "end",
+          "lineNumber": 154
+        },
+        {
+          "caller": "TEST",
+          "callee": "ASSERT_EQ",
+          "lineNumber": 155
+        },
+        {
+          "caller": "TEST",
+          "callee": "size",
+          "lineNumber": 155
+        },
+        {
+          "caller": "TEST",
+          "callee": "size",
+          "lineNumber": 155
+        },
+        {
+          "caller": "TEST",
+          "callee": "size",
+          "lineNumber": 156
+        },
+        {
+          "caller": "TEST",
+          "callee": "EXPECT_EQ",
+          "lineNumber": 157
+        },
+        {
+          "caller": "TEST",
+          "callee": "static_cast<char>",
+          "lineNumber": 164
+        },
+        {
+          "caller": "TEST",
+          "callee": "static_cast<char>",
+          "lineNumber": 165
+        },
+        {
+          "caller": "TEST",
+          "callee": "ws_encode_frame",
+          "lineNumber": 166
+        },
+        {
+          "caller": "TEST",
+          "callee": "ws_decode_frame",
+          "lineNumber": 167
+        },
+        {
+          "caller": "TEST",
+          "callee": "std::string_view",
+          "lineNumber": 167
+        },
+        {
+          "caller": "TEST",
+          "callee": "data",
+          "lineNumber": 167
+        },
+        {
+          "caller": "TEST",
+          "callee": "size",
+          "lineNumber": 167
+        },
+        {
+          "caller": "TEST",
+          "callee": "ASSERT_TRUE",
+          "lineNumber": 168
+        },
+        {
+          "caller": "TEST",
+          "callee": "has_value",
+          "lineNumber": 168
+        },
+        {
+          "caller": "TEST",
+          "callee": "EXPECT_EQ",
+          "lineNumber": 169
+        },
+        {
+          "caller": "TEST",
+          "callee": "EXPECT_TRUE",
+          "lineNumber": 170
+        },
+        {
+          "caller": "TEST",
+          "callee": "ws_close_code",
+          "lineNumber": 171
+        },
+        {
+          "caller": "TEST",
+          "callee": "ASSERT_TRUE",
+          "lineNumber": 172
+        },
+        {
+          "caller": "TEST",
+          "callee": "has_value",
+          "lineNumber": 172
+        },
+        {
+          "caller": "TEST",
+          "callee": "EXPECT_EQ",
+          "lineNumber": 173
+        },
+        {
+          "caller": "TEST",
+          "callee": "make_masked_frame",
+          "lineNumber": 178
+        },
+        {
+          "caller": "TEST",
+          "callee": "ws_decode_frame",
+          "lineNumber": 179
+        },
+        {
+          "caller": "TEST",
+          "callee": "ASSERT_TRUE",
+          "lineNumber": 180
+        },
+        {
+          "caller": "TEST",
+          "callee": "has_value",
+          "lineNumber": 180
+        },
+        {
+          "caller": "TEST",
+          "callee": "EXPECT_EQ",
+          "lineNumber": 181
+        },
+        {
+          "caller": "TEST",
+          "callee": "EXPECT_TRUE",
+          "lineNumber": 182
+        },
+        {
+          "caller": "TEST",
+          "callee": "begin",
+          "lineNumber": 183
+        },
+        {
+          "caller": "TEST",
+          "callee": "end",
+          "lineNumber": 183
+        },
+        {
+          "caller": "TEST",
+          "callee": "EXPECT_EQ",
+          "lineNumber": 184
+        },
+        {
+          "caller": "TEST",
+          "callee": "ws_encode_frame",
+          "lineNumber": 189
+        },
+        {
+          "caller": "TEST",
+          "callee": "std::string_view",
+          "lineNumber": 189
+        },
+        {
+          "caller": "TEST",
+          "callee": "ws_decode_frame",
+          "lineNumber": 190
+        },
+        {
+          "caller": "TEST",
+          "callee": "std::string_view",
+          "lineNumber": 190
+        },
+        {
+          "caller": "TEST",
+          "callee": "data",
+          "lineNumber": 190
+        },
+        {
+          "caller": "TEST",
+          "callee": "size",
+          "lineNumber": 190
+        },
+        {
+          "caller": "TEST",
+          "callee": "ASSERT_TRUE",
+          "lineNumber": 191
+        },
+        {
+          "caller": "TEST",
+          "callee": "has_value",
+          "lineNumber": 191
+        },
+        {
+          "caller": "TEST",
+          "callee": "begin",
+          "lineNumber": 192
+        },
+        {
+          "caller": "TEST",
+          "callee": "end",
+          "lineNumber": 192
+        },
+        {
+          "caller": "TEST",
+          "callee": "EXPECT_EQ",
+          "lineNumber": 193
+        },
+        {
+          "caller": "TEST",
+          "callee": "ws_decode_frame",
+          "lineNumber": 199
+        },
+        {
+          "caller": "TEST",
+          "callee": "EXPECT_FALSE",
+          "lineNumber": 200
+        },
+        {
+          "caller": "TEST",
+          "callee": "has_value",
+          "lineNumber": 200
+        },
+        {
+          "caller": "TEST",
+          "callee": "push_back",
+          "lineNumber": 207
+        },
+        {
+          "caller": "TEST",
+          "callee": "static_cast<char>",
+          "lineNumber": 207
+        },
+        {
+          "caller": "TEST",
+          "callee": "push_back",
+          "lineNumber": 208
+        },
+        {
+          "caller": "TEST",
+          "callee": "static_cast<char>",
+          "lineNumber": 208
+        },
+        {
+          "caller": "TEST",
+          "callee": "push_back",
+          "lineNumber": 212
+        },
+        {
+          "caller": "TEST",
+          "callee": "static_cast<char>",
+          "lineNumber": 212
+        },
+        {
+          "caller": "TEST",
+          "callee": "push_back",
+          "lineNumber": 213
+        },
+        {
+          "caller": "TEST",
+          "callee": "static_cast<char>",
+          "lineNumber": 213
+        },
+        {
+          "caller": "TEST",
+          "callee": "ws_decode_frame",
+          "lineNumber": 217
+        },
+        {
+          "caller": "TEST",
+          "callee": "ASSERT_TRUE",
+          "lineNumber": 218
+        },
+        {
+          "caller": "TEST",
+          "callee": "has_value",
+          "lineNumber": 218
+        },
+        {
+          "caller": "TEST",
+          "callee": "EXPECT_FALSE",
+          "lineNumber": 219
+        },
+        {
+          "caller": "TEST",
+          "callee": "EXPECT_EQ",
+          "lineNumber": 220
+        },
+        {
+          "caller": "TEST",
+          "callee": "ws_decode_frame",
+          "lineNumber": 222
+        },
+        {
+          "caller": "TEST",
+          "callee": "ASSERT_TRUE",
+          "lineNumber": 223
+        },
+        {
+          "caller": "TEST",
+          "callee": "has_value",
+          "lineNumber": 223
+        },
+        {
+          "caller": "TEST",
+          "callee": "EXPECT_TRUE",
+          "lineNumber": 224
+        },
+        {
+          "caller": "TEST",
+          "callee": "EXPECT_EQ",
+          "lineNumber": 225
+        },
+        {
+          "caller": "TEST",
+          "callee": "begin",
+          "lineNumber": 228
+        },
+        {
+          "caller": "TEST",
+          "callee": "end",
+          "lineNumber": 228
+        },
+        {
+          "caller": "TEST",
+          "callee": "append",
+          "lineNumber": 229
+        },
+        {
+          "caller": "TEST",
+          "callee": "begin",
+          "lineNumber": 229
+        },
+        {
+          "caller": "TEST",
+          "callee": "end",
+          "lineNumber": 229
+        },
+        {
+          "caller": "TEST",
+          "callee": "EXPECT_EQ",
+          "lineNumber": 230
+        },
+        {
+          "caller": "TEST",
+          "callee": "std::vector<uint8_t>",
+          "lineNumber": 236
+        },
+        {
+          "caller": "TEST",
+          "callee": "begin",
+          "lineNumber": 236
+        },
+        {
+          "caller": "TEST",
+          "callee": "end",
+          "lineNumber": 236
+        },
+        {
+          "caller": "TEST",
+          "callee": "base64_encode",
+          "lineNumber": 237
+        },
+        {
+          "caller": "TEST",
+          "callee": "EXPECT_EQ",
+          "lineNumber": 238
+        },
+        {
+          "caller": "TEST",
+          "callee": "ws",
+          "lineNumber": 245
+        },
+        {
+          "caller": "TEST",
+          "callee": "ASSERT_TRUE",
+          "lineNumber": 250
+        },
+        {
+          "caller": "TEST",
+          "callee": "init",
+          "lineNumber": 250
+        },
+        {
+          "caller": "TEST",
+          "callee": "start",
+          "lineNumber": 251
+        },
+        {
+          "caller": "TEST",
+          "callee": "detach",
+          "lineNumber": 252
+        },
+        {
+          "caller": "TEST",
+          "callee": "std::this_thread::sleep_for",
+          "lineNumber": 253
+        },
+        {
+          "caller": "TEST",
+          "callee": "std::chrono::milliseconds",
+          "lineNumber": 253
+        },
+        {
+          "caller": "TEST",
+          "callee": "actual_port",
+          "lineNumber": 254
+        },
+        {
+          "caller": "TEST",
+          "callee": "send_raw",
+          "lineNumber": 265
+        },
+        {
+          "caller": "TEST",
+          "callee": "stop",
+          "lineNumber": 266
+        },
+        {
+          "caller": "TEST",
+          "callee": "std::this_thread::sleep_for",
+          "lineNumber": 267
+        },
+        {
+          "caller": "TEST",
+          "callee": "std::chrono::milliseconds",
+          "lineNumber": 267
+        },
+        {
+          "caller": "TEST",
+          "callee": "ASSERT_NE",
+          "lineNumber": 269
+        },
+        {
+          "caller": "TEST",
+          "callee": "find",
+          "lineNumber": 269
+        },
+        {
+          "caller": "TEST",
+          "callee": "ASSERT_NE",
+          "lineNumber": 270
+        },
+        {
+          "caller": "TEST",
+          "callee": "find",
+          "lineNumber": 270
+        },
+        {
+          "caller": "TEST",
+          "callee": "ASSERT_NE",
+          "lineNumber": 271
+        },
+        {
+          "caller": "TEST",
+          "callee": "find",
+          "lineNumber": 271
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 17,
+        "functionCount": 16,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "verification/README.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 333,
+      "nonEmptyLines": 245,
+      "sections": [
+        {
+          "heading": "功能验证报告",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "概述",
+          "level": 2,
+          "line": 3
+        },
+        {
+          "heading": "前置条件",
+          "level": 2,
+          "line": 7
+        },
+        {
+          "heading": "验证流程",
+          "level": 2,
+          "line": 24
+        },
+        {
+          "heading": "V1：编译与静态分析",
+          "level": 3,
+          "line": 26
+        },
+        {
+          "heading": "V2：单元测试",
+          "level": 3,
+          "line": 40
+        },
+        {
+          "heading": "V3：服务器启动",
+          "level": 3,
+          "line": 50
+        },
+        {
+          "heading": "V4：健康检查",
+          "level": 3,
+          "line": 64
+        },
+        {
+          "heading": "V5：REST API",
+          "level": 3,
+          "line": 76
+        },
+        {
+          "heading": "V6：HTTP 错误处理",
+          "level": 3,
+          "line": 102
+        },
+        {
+          "heading": "V7：Keep-Alive",
+          "level": 3,
+          "line": 117
+        },
+        {
+          "heading": "V8：WebSocket",
+          "level": 3,
+          "line": 147
+        },
+        {
+          "heading": "V9：信号停止",
+          "level": 3,
+          "line": 161
+        },
+        {
+          "heading": "V10：SSL/TLS",
+          "level": 3,
+          "line": 179
+        },
+        {
+          "heading": "V11：命令行参数",
+          "level": 3,
+          "line": 202
+        },
+        {
+          "heading": "V12：文件上传/下载/哈希",
+          "level": 3,
+          "line": 215
+        },
+        {
+          "heading": "V13：帮助信息",
+          "level": 3,
+          "line": 258
+        },
+        {
+          "heading": "V14：并发连接",
+          "level": 3,
+          "line": 268
+        },
+        {
+          "heading": "V15：边界条件",
+          "level": 3,
+          "line": 297
+        },
+        {
+          "heading": "已知问题",
+          "level": 2,
+          "line": 319
+        },
+        {
+          "heading": "快速运行",
+          "level": 2,
+          "line": 327
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 21
+      }
+    },
+    {
+      "path": "verification/verify.sh",
+      "language": "shell",
+      "fileCategory": "script",
+      "totalLines": 352,
+      "nonEmptyLines": 298,
+      "functions": [
+        {
+          "name": "red",
+          "startLine": 11,
+          "endLine": 11,
+          "params": []
+        },
+        {
+          "name": "green",
+          "startLine": 12,
+          "endLine": 12,
+          "params": []
+        },
+        {
+          "name": "yellow",
+          "startLine": 13,
+          "endLine": 13,
+          "params": []
+        },
+        {
+          "name": "blue",
+          "startLine": 14,
+          "endLine": 14,
+          "params": []
+        },
+        {
+          "name": "check",
+          "startLine": 16,
+          "endLine": 26,
+          "params": []
+        },
+        {
+          "name": "check_skip",
+          "startLine": 28,
+          "endLine": 33,
+          "params": []
+        },
+        {
+          "name": "cleanup",
+          "startLine": 39,
+          "endLine": 43,
+          "params": []
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 7,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "verification/ws_test.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 46,
+      "nonEmptyLines": 39,
+      "functions": [
+        {
+          "name": "test_ws_handshake",
+          "startLine": 13,
+          "endLine": 39,
+          "params": [
+            "host",
+            "port",
+            "path"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "test_ws_handshake",
+          "line": 13,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "test_ws_handshake",
+          "callee": "socket.socket",
+          "lineNumber": 14
+        },
+        {
+          "caller": "test_ws_handshake",
+          "callee": "s.settimeout",
+          "lineNumber": 15
+        },
+        {
+          "caller": "test_ws_handshake",
+          "callee": "s.connect",
+          "lineNumber": 16
+        },
+        {
+          "caller": "test_ws_handshake",
+          "callee": "base64.b64encode(os.urandom(16)).decode",
+          "lineNumber": 18
+        },
+        {
+          "caller": "test_ws_handshake",
+          "callee": "base64.b64encode",
+          "lineNumber": 18
+        },
+        {
+          "caller": "test_ws_handshake",
+          "callee": "os.urandom",
+          "lineNumber": 18
+        },
+        {
+          "caller": "test_ws_handshake",
+          "callee": "(\n        f\"GET {path} HTTP/1.1\\r\\n\"\n        f\"Host: {host}:{port}\\r\\n\"\n        f\"Upgrade: websocket\\r\\n\"\n        f\"Connection: Upgrade\\r\\n\"\n        f\"Sec-WebSocket-Key: {key}\\r\\n\"\n        f\"Sec-WebSocket-Version: 13\\r\\n\"\n        f\"\\r\\n\"\n    ).encode",
+          "lineNumber": 19
+        },
+        {
+          "caller": "test_ws_handshake",
+          "callee": "s.sendall",
+          "lineNumber": 29
+        },
+        {
+          "caller": "test_ws_handshake",
+          "callee": "s.recv(4096).decode",
+          "lineNumber": 30
+        },
+        {
+          "caller": "test_ws_handshake",
+          "callee": "s.recv",
+          "lineNumber": 30
+        },
+        {
+          "caller": "test_ws_handshake",
+          "callee": "print",
+          "lineNumber": 33
+        },
+        {
+          "caller": "test_ws_handshake",
+          "callee": "s.close",
+          "lineNumber": 34
+        },
+        {
+          "caller": "test_ws_handshake",
+          "callee": "print",
+          "lineNumber": 37
+        },
+        {
+          "caller": "test_ws_handshake",
+          "callee": "s.close",
+          "lineNumber": 38
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 1,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "xmake.lua",
+      "language": "lua",
+      "fileCategory": "code",
+      "totalLines": 41,
+      "nonEmptyLines": 36,
+      "metrics": {}
+    }
+  ]
+}

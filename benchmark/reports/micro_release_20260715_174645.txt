@@ -1,0 +1,87 @@
+=======================================================
+  微基准测试报告（Release 模式）
+  时间: 20260715_174645
+  Git:  f800f85
+  主机: jmjvm
+  CPU:  11th Gen Intel(R) Core(TM) i5-11400H @ 2.70GHz
+  核心: 8
+=======================================================
+
+--- bench_bench_chunk_header ---
+  BM_ChunkHeader_ToNetwork                      3.30 ns
+  BM_ChunkHeader_FromNetwork                    3.09 ns
+  BM_ChunkHeader_Serialize                      0.64 ns
+
+--- bench_bench_coroutine ---
+  BM_Coroutine_CreateAndRun                     13.54 ns
+
+--- bench_bench_database_pool ---
+  BM_DatabasePool_GetUser                       170.54 ns
+  BM_DatabasePool_CreateUser                    176.00 ns
+  BM_DatabasePool_GetFileMeta                   233.74 ns
+  BM_DatabasePool_StoreFileMeta                 191.13 ns
+  BM_DatabasePool_GetHistory                    101.31 ns
+
+--- bench_bench_file_system ---
+  BM_FileSystem_Sha256/1024                     5.237 µs  throughput=195.51MB/s
+  BM_FileSystem_Sha256/65536                    56.933 µs  throughput=1.1511GB/s
+  BM_FileSystem_Sha256/1048576                  829.068 µs  throughput=1.2648GB/s
+  BM_FileSystem_Sha256SmallData/16              687.26 ns  throughput=23.28MB/s
+  BM_FileSystem_Sha256SmallData/64              609.81 ns  throughput=104.95MB/s
+  BM_FileSystem_Sha256SmallData/256             683.01 ns  throughput=374.81MB/s
+  BM_FileSystem_Sha256SmallData/1024            1.202 µs  throughput=851.64MB/s
+  BM_FileSystem_Sha256SmallData/8192            7.152 µs  throughput=1.1454GB/s
+  BM_FileSystem_SplitFile/1048576               2.545 µs
+  BM_FileSystem_SplitFile/10485760              10.481 µs
+  BM_FileSystem_StoreRead/1024                  143.247 µs  throughput=14.30MB/s
+  BM_FileSystem_StoreRead/65536                 575.709 µs  throughput=227.67MB/s
+  BM_FileSystem_StoreRead/1048576               3718.333 µs  throughput=564.00MB/s
+
+--- bench_bench_http_parser ---
+  BM_HttpParser_GetShortPath                    986.52 ns
+  BM_HttpParser_GetLongPath                     1.103 µs
+  BM_HttpParser_PostSmallBody                   1.434 µs
+  BM_HttpParser_PostLargeBody/1024              6.066 µs  throughput=168.81MB/s
+  BM_HttpParser_PostLargeBody/4096              18.982 µs  throughput=215.78MB/s
+  BM_HttpParser_PostLargeBody/32768             152.754 µs  throughput=214.52MB/s
+  BM_HttpParser_PostLargeBody/65536             398.372 µs  throughput=164.51MB/s
+  BM_HttpParser_ResetReuse                      1.096 µs
+  BM_HttpParser_ManyHeaders                     2.674 µs
+
+--- bench_bench_lock_free_queue ---
+  BM_LockFreeQueue_SPSC_1k                      186.274 µs  items/sec=53.68M
+  BM_LockFreeQueue_SPSC_10k                     218.756 µs  items/sec=457.13M
+
+--- bench_bench_move_only_function ---
+  BM_MoveOnlyFunction_ConstructVoid             1.10 ns
+  BM_MoveOnlyFunction_ConstructWithCapture      1.41 ns
+  BM_MoveOnlyFunction_ConstructLargeCapture     41.59 ns
+  BM_MoveOnlyFunction_Invoke                    1.35 ns
+  BM_MoveOnlyFunction_MoveConstruct             1.38 ns
+  BM_StdFunction_Compare                        1.36 ns
+
+--- bench_bench_router ---
+  BM_Router_MatchStatic                         150.84 ns
+  BM_Router_MatchParam                          248.14 ns
+  BM_Router_MatchNotFound                       124.29 ns
+  BM_Router_PathExists                          155.33 ns
+  BM_Router_MatchLongPath                       251.55 ns
+  BM_Router_MatchLargeTable                     143.90 ns
+
+--- bench_bench_ssl ---
+  BM_SslContext_Create                          113.857 µs
+  BM_SslContext_NotEnabled                      132.280 µs
+
+--- bench_bench_websocket ---
+  BM_WebSocket_EncodeText/16                    44.40 ns  throughput=360.35MB/s
+  BM_WebSocket_EncodeText/64                    45.91 ns  throughput=1.3942GB/s
+  BM_WebSocket_EncodeText/256                   56.94 ns  throughput=4.4960GB/s
+  BM_WebSocket_EncodeText/1024                  62.65 ns  throughput=16.3455GB/s
+  BM_WebSocket_EncodeText/65536                 1.508 µs  throughput=43.4488GB/s
+  BM_WebSocket_DecodeFrame/16                   17.26 ns  throughput=926.77MB/s
+  BM_WebSocket_DecodeFrame/64                   17.46 ns  throughput=3.6665GB/s
+  BM_WebSocket_DecodeFrame/256                  18.09 ns  throughput=14.1479GB/s
+  BM_WebSocket_DecodeFrame/1024                 30.55 ns  throughput=33.5205GB/s
+  BM_WebSocket_DecodeFrame/65536                2.360 µs  throughput=27.7644GB/s
+  BM_WebSocket_EncodeBinary/1024                58.54 ns  throughput=17.4911GB/s
+  BM_WebSocket_DecodeWithMask/1024              30.28 ns  throughput=33.8186GB/s

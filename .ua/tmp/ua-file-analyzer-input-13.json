@@ -1,0 +1,70 @@
+{
+  "projectRoot": "/home/jmj/work-space/projects/high-performance-server",
+  "batchFiles": [
+    {
+      "path": "tests/test_tcp_client.cpp",
+      "language": "cpp",
+      "sizeLines": 248,
+      "fileCategory": "code"
+    },
+    {
+      "path": "tests/test_tcp_server_connection.cpp",
+      "language": "cpp",
+      "sizeLines": 157,
+      "fileCategory": "code"
+    },
+    {
+      "path": "tests/test_tcp_server.cpp",
+      "language": "cpp",
+      "sizeLines": 277,
+      "fileCategory": "code"
+    },
+    {
+      "path": "tests/test_url_decode.cpp",
+      "language": "cpp",
+      "sizeLines": 60,
+      "fileCategory": "code"
+    },
+    {
+      "path": "tests/test_websocket.cpp",
+      "language": "cpp",
+      "sizeLines": 272,
+      "fileCategory": "code"
+    },
+    {
+      "path": "verification/README.md",
+      "language": "markdown",
+      "sizeLines": 333,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "verification/verify.sh",
+      "language": "shell",
+      "sizeLines": 352,
+      "fileCategory": "script"
+    },
+    {
+      "path": "verification/ws_test.py",
+      "language": "python",
+      "sizeLines": 46,
+      "fileCategory": "code"
+    },
+    {
+      "path": "xmake.lua",
+      "language": "lua",
+      "sizeLines": 41,
+      "fileCategory": "code"
+    }
+  ],
+  "batchImportData": {
+    "tests/test_tcp_client.cpp": [],
+    "tests/test_tcp_server_connection.cpp": [],
+    "tests/test_tcp_server.cpp": [],
+    "tests/test_url_decode.cpp": [],
+    "tests/test_websocket.cpp": [],
+    "verification/README.md": [],
+    "verification/verify.sh": [],
+    "verification/ws_test.py": [],
+    "xmake.lua": []
+  }
+}

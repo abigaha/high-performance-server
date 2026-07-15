@@ -1,0 +1,129 @@
+{
+  "scriptCompleted": true,
+  "filesAnalyzed": 3,
+  "filesSkipped": [],
+  "results": [
+    {
+      "path": ".dockerignore",
+      "language": "unknown",
+      "fileCategory": "infra",
+      "totalLines": 52,
+      "nonEmptyLines": 44,
+      "metrics": {}
+    },
+    {
+      "path": "docker-compose.yml",
+      "language": "yaml",
+      "fileCategory": "infra",
+      "totalLines": 44,
+      "nonEmptyLines": 42,
+      "sections": [
+        {
+          "heading": "services",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "volumes",
+          "level": 1,
+          "line": 43
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 2
+      }
+    },
+    {
+      "path": "Dockerfile",
+      "language": "dockerfile",
+      "fileCategory": "infra",
+      "totalLines": 24,
+      "nonEmptyLines": 17,
+      "services": [
+        {
+          "name": "ubuntu",
+          "image": "ubuntu:24.04",
+          "ports": [
+            9090
+          ],
+          "startLine": 1,
+          "endLine": 25
+        }
+      ],
+      "steps": [
+        {
+          "name": "FROM ubuntu:24.04",
+          "startLine": 1,
+          "endLine": 1
+        },
+        {
+          "name": "RUN apt-get update && apt-get install -y --no-install-recommends",
+          "startLine": 3,
+          "endLine": 3
+        },
+        {
+          "name": "RUN mkdir -p /data",
+          "startLine": 9,
+          "endLine": 9
+        },
+        {
+          "name": "WORKDIR /app",
+          "startLine": 11,
+          "endLine": 11
+        },
+        {
+          "name": "COPY bin/high-performance-server .",
+          "startLine": 13,
+          "endLine": 13
+        },
+        {
+          "name": "COPY lib/ lib/",
+          "startLine": 14,
+          "endLine": 14
+        },
+        {
+          "name": "COPY config.json .",
+          "startLine": 15,
+          "endLine": 15
+        },
+        {
+          "name": "COPY build/certs build/certs/",
+          "startLine": 16,
+          "endLine": 16
+        },
+        {
+          "name": "COPY data/ data/",
+          "startLine": 17,
+          "endLine": 17
+        },
+        {
+          "name": "EXPOSE 9090",
+          "startLine": 19,
+          "endLine": 19
+        },
+        {
+          "name": "HEALTHCHECK --interval=10s --timeout=3s --retries=3 \\",
+          "startLine": 21,
+          "endLine": 21
+        },
+        {
+          "name": "CMD [\"./high-performance-server\", \"--config\", \"config.json\"]",
+          "startLine": 24,
+          "endLine": 24
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "serviceCount": 1,
+        "stepCount": 12
+      }
+    }
+  ]
+}

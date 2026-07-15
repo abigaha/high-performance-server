@@ -1,0 +1,903 @@
+{
+  "scriptCompleted": true,
+  "filesAnalyzed": 16,
+  "filesSkipped": [],
+  "results": [
+    {
+      "path": "plan/development_plan.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 35,
+      "nonEmptyLines": 28,
+      "sections": [
+        {
+          "heading": "开发计划",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "Step 进度总览",
+          "level": 2,
+          "line": 9
+        },
+        {
+          "heading": "质量门禁（每 Step 严格执行）",
+          "level": 2,
+          "line": 29
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 3
+      }
+    },
+    {
+      "path": "plan/docker-deployment.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 30,
+      "nonEmptyLines": 23,
+      "sections": [
+        {
+          "heading": "Docker 化部署计划",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "目标",
+          "level": 2,
+          "line": 3
+        },
+        {
+          "heading": "步骤",
+          "level": 2,
+          "line": 9
+        },
+        {
+          "heading": "1. Dockerfile 多阶段构建",
+          "level": 3,
+          "line": 11
+        },
+        {
+          "heading": "2. .dockerignore",
+          "level": 3,
+          "line": 15
+        },
+        {
+          "heading": "3. docker-compose.yml",
+          "level": 3,
+          "line": 18
+        },
+        {
+          "heading": "4. 验证",
+          "level": 3,
+          "line": 23
+        },
+        {
+          "heading": "5. CI 集成",
+          "level": 3,
+          "line": 28
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 8
+      }
+    },
+    {
+      "path": "plan/end-to-end-verification.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 74,
+      "nonEmptyLines": 55,
+      "sections": [
+        {
+          "heading": "端到端验证计划",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "变更清单",
+          "level": 2,
+          "line": 3
+        },
+        {
+          "heading": "1. core/src/main.cpp — 路由注册",
+          "level": 3,
+          "line": 5
+        },
+        {
+          "heading": "2. net/http/include/i_router.h",
+          "level": 3,
+          "line": 11
+        },
+        {
+          "heading": "3. net/http/include/router.h",
+          "level": 3,
+          "line": 14
+        },
+        {
+          "heading": "4. net/http/src/router.cpp",
+          "level": 3,
+          "line": 17
+        },
+        {
+          "heading": "5. net/http/src/http_server.cpp",
+          "level": 3,
+          "line": 20
+        },
+        {
+          "heading": "6. verification/verify.sh — 验证脚本增强",
+          "level": 3,
+          "line": 23
+        },
+        {
+          "heading": "7. verification/README.md — 同步文档",
+          "level": 3,
+          "line": 29
+        },
+        {
+          "heading": "接口定义",
+          "level": 2,
+          "line": 33
+        },
+        {
+          "heading": "验证用例",
+          "level": 2,
+          "line": 51
+        },
+        {
+          "heading": "质量门禁",
+          "level": 2,
+          "line": 70
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 12
+      }
+    },
+    {
+      "path": "plan/memory-pool-tiered-optimization.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 39,
+      "nonEmptyLines": 32,
+      "sections": [
+        {
+          "heading": "内存池三级缓存优化 — Plan",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "目标",
+          "level": 2,
+          "line": 3
+        },
+        {
+          "heading": "架构",
+          "level": 2,
+          "line": 6
+        },
+        {
+          "heading": "合并策略",
+          "level": 3,
+          "line": 17
+        },
+        {
+          "heading": "文件清单",
+          "level": 2,
+          "line": 22
+        },
+        {
+          "heading": "质量门禁",
+          "level": 2,
+          "line": 34
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 6
+      }
+    },
+    {
+      "path": "plan/step-0-2-infrastructure.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 117,
+      "nonEmptyLines": 94,
+      "sections": [
+        {
+          "heading": "Step 0–2：基础设施质量优化",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "背景",
+          "level": 2,
+          "line": 6
+        },
+        {
+          "heading": "功能点",
+          "level": 2,
+          "line": 10
+        },
+        {
+          "heading": "接口设计",
+          "level": 2,
+          "line": 22
+        },
+        {
+          "heading": "thread-pool",
+          "level": 3,
+          "line": 26
+        },
+        {
+          "heading": "HttpParser",
+          "level": 3,
+          "line": 42
+        },
+        {
+          "heading": "TcpClient",
+          "level": 3,
+          "line": 56
+        },
+        {
+          "heading": "TcpServer",
+          "level": 3,
+          "line": 70
+        },
+        {
+          "heading": "文件清单",
+          "level": 2,
+          "line": 85
+        },
+        {
+          "heading": "测试用例",
+          "level": 2,
+          "line": 101
+        },
+        {
+          "heading": "质量门禁",
+          "level": 2,
+          "line": 109
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 11
+      }
+    },
+    {
+      "path": "plan/step-10-locked-thread-pool.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 131,
+      "nonEmptyLines": 105,
+      "sections": [
+        {
+          "heading": "Step 10：LockedThreadPool 有锁通用线程池",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "背景",
+          "level": 2,
+          "line": 6
+        },
+        {
+          "heading": "实现方案",
+          "level": 2,
+          "line": 10
+        },
+        {
+          "heading": "类关系",
+          "level": 3,
+          "line": 12
+        },
+        {
+          "heading": "接口签名",
+          "level": 3,
+          "line": 20
+        },
+        {
+          "heading": "关键设计决策",
+          "level": 3,
+          "line": 49
+        },
+        {
+          "heading": "核心实现细节",
+          "level": 3,
+          "line": 60
+        },
+        {
+          "heading": "与 LockFreeThreadPool 对比",
+          "level": 3,
+          "line": 88
+        },
+        {
+          "heading": "文件清单",
+          "level": 2,
+          "line": 101
+        },
+        {
+          "heading": "测试用例",
+          "level": 2,
+          "line": 110
+        },
+        {
+          "heading": "质量门禁结果",
+          "level": 2,
+          "line": 123
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 11
+      }
+    },
+    {
+      "path": "plan/step-11-main-integration.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 86,
+      "nonEmptyLines": 67,
+      "sections": [
+        {
+          "heading": "Step 11：main.cpp 整合启动",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "背景",
+          "level": 2,
+          "line": 6
+        },
+        {
+          "heading": "功能点",
+          "level": 2,
+          "line": 10
+        },
+        {
+          "heading": "实现摘要",
+          "level": 2,
+          "line": 18
+        },
+        {
+          "heading": "F1: 服务器启动流程",
+          "level": 3,
+          "line": 20
+        },
+        {
+          "heading": "F2: 路由注册",
+          "level": 3,
+          "line": 43
+        },
+        {
+          "heading": "F3: 配置管理",
+          "level": 3,
+          "line": 58
+        },
+        {
+          "heading": "文件清单",
+          "level": 2,
+          "line": 68
+        },
+        {
+          "heading": "质量门禁",
+          "level": 2,
+          "line": 78
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 9
+      }
+    },
+    {
+      "path": "plan/step-2-routing.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 82,
+      "nonEmptyLines": 65,
+      "sections": [
+        {
+          "heading": "Step 2：路由注册 + 请求分发",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "背景",
+          "level": 2,
+          "line": 6
+        },
+        {
+          "heading": "功能点",
+          "level": 2,
+          "line": 10
+        },
+        {
+          "heading": "接口设计",
+          "level": 2,
+          "line": 20
+        },
+        {
+          "heading": "Router",
+          "level": 3,
+          "line": 22
+        },
+        {
+          "heading": "HttpServer",
+          "level": 3,
+          "line": 36
+        },
+        {
+          "heading": "文件清单",
+          "level": 2,
+          "line": 54
+        },
+        {
+          "heading": "测试用例",
+          "level": 2,
+          "line": 68
+        },
+        {
+          "heading": "质量门禁",
+          "level": 2,
+          "line": 75
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 9
+      }
+    },
+    {
+      "path": "plan/step-2.5-arch-refactor.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 36,
+      "nonEmptyLines": 27,
+      "sections": [
+        {
+          "heading": "Step 2.5：架构重构",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "背景",
+          "level": 2,
+          "line": 6
+        },
+        {
+          "heading": "功能点",
+          "level": 2,
+          "line": 10
+        },
+        {
+          "heading": "文件清单",
+          "level": 2,
+          "line": 18
+        },
+        {
+          "heading": "质量门禁",
+          "level": 2,
+          "line": 29
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 5
+      }
+    },
+    {
+      "path": "plan/step-3-interface-layer.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 105,
+      "nonEmptyLines": 86,
+      "sections": [
+        {
+          "heading": "Step 3：架构改造 — 接口层落地",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "背景",
+          "level": 2,
+          "line": 6
+        },
+        {
+          "heading": "功能点",
+          "level": 2,
+          "line": 10
+        },
+        {
+          "heading": "接口设计",
+          "level": 2,
+          "line": 21
+        },
+        {
+          "heading": "Logger",
+          "level": 3,
+          "line": 23
+        },
+        {
+          "heading": "ThreadPoolBase (CRTP)",
+          "level": 3,
+          "line": 38
+        },
+        {
+          "heading": "ITcpServer / ITcpClient",
+          "level": 3,
+          "line": 52
+        },
+        {
+          "heading": "文件清单",
+          "level": 2,
+          "line": 75
+        },
+        {
+          "heading": "测试用例",
+          "level": 2,
+          "line": 92
+        },
+        {
+          "heading": "质量门禁",
+          "level": 2,
+          "line": 98
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 10
+      }
+    },
+    {
+      "path": "plan/step-4-file-system.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 63,
+      "nonEmptyLines": 49,
+      "sections": [
+        {
+          "heading": "Step 4：file-system 文件读取 + 虚拟路径解析",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "背景",
+          "level": 2,
+          "line": 6
+        },
+        {
+          "heading": "功能点",
+          "level": 2,
+          "line": 10
+        },
+        {
+          "heading": "接口设计",
+          "level": 2,
+          "line": 19
+        },
+        {
+          "heading": "文件清单",
+          "level": 2,
+          "line": 41
+        },
+        {
+          "heading": "测试用例",
+          "level": 2,
+          "line": 50
+        },
+        {
+          "heading": "质量门禁",
+          "level": 2,
+          "line": 56
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 7
+      }
+    },
+    {
+      "path": "plan/step-5-range-streaming.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 61,
+      "nonEmptyLines": 46,
+      "sections": [
+        {
+          "heading": "Step 5：Range 流式传输",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "背景",
+          "level": 2,
+          "line": 6
+        },
+        {
+          "heading": "功能点",
+          "level": 2,
+          "line": 10
+        },
+        {
+          "heading": "接口设计",
+          "level": 2,
+          "line": 20
+        },
+        {
+          "heading": "文件清单",
+          "level": 2,
+          "line": 40
+        },
+        {
+          "heading": "测试用例",
+          "level": 2,
+          "line": 47
+        },
+        {
+          "heading": "质量门禁",
+          "level": 2,
+          "line": 53
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 7
+      }
+    },
+    {
+      "path": "plan/step-6-database.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 120,
+      "nonEmptyLines": 103,
+      "sections": [
+        {
+          "heading": "Step 6：database 数据库连接池",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "背景",
+          "level": 2,
+          "line": 6
+        },
+        {
+          "heading": "功能点",
+          "level": 2,
+          "line": 10
+        },
+        {
+          "heading": "接口设计",
+          "level": 2,
+          "line": 24
+        },
+        {
+          "heading": "连接池设计",
+          "level": 2,
+          "line": 75
+        },
+        {
+          "heading": "文件清单",
+          "level": 2,
+          "line": 86
+        },
+        {
+          "heading": "测试用例",
+          "level": 2,
+          "line": 103
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 7
+      }
+    },
+    {
+      "path": "plan/step-7-file-transfer.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 56,
+      "nonEmptyLines": 45,
+      "sections": [
+        {
+          "heading": "Step 7：file-transfer 文件传输模块",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "背景",
+          "level": 2,
+          "line": 6
+        },
+        {
+          "heading": "功能点",
+          "level": 2,
+          "line": 10
+        },
+        {
+          "heading": "接口设计（初步）",
+          "level": 2,
+          "line": 20
+        },
+        {
+          "heading": "文件清单（预估）",
+          "level": 2,
+          "line": 34
+        },
+        {
+          "heading": "测试用例（预估）",
+          "level": 2,
+          "line": 46
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 6
+      }
+    },
+    {
+      "path": "plan/step-8-https-tls.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 61,
+      "nonEmptyLines": 49,
+      "sections": [
+        {
+          "heading": "Step 8：HTTPS/TLS (OpenSSL)",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "背景",
+          "level": 2,
+          "line": 6
+        },
+        {
+          "heading": "功能点",
+          "level": 2,
+          "line": 10
+        },
+        {
+          "heading": "接口设计（最终）",
+          "level": 2,
+          "line": 19
+        },
+        {
+          "heading": "文件清单（预估）",
+          "level": 2,
+          "line": 39
+        },
+        {
+          "heading": "测试用例",
+          "level": 2,
+          "line": 49
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 6
+      }
+    },
+    {
+      "path": "plan/step-9-websocket.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 101,
+      "nonEmptyLines": 80,
+      "sections": [
+        {
+          "heading": "Step 9：WebSocket 握手 + 帧编解码",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "背景",
+          "level": 2,
+          "line": 6
+        },
+        {
+          "heading": "功能点",
+          "level": 2,
+          "line": 10
+        },
+        {
+          "heading": "实际实现",
+          "level": 2,
+          "line": 18
+        },
+        {
+          "heading": "接口",
+          "level": 3,
+          "line": 20
+        },
+        {
+          "heading": "设计决策",
+          "level": 3,
+          "line": 37
+        },
+        {
+          "heading": "核心文件",
+          "level": 3,
+          "line": 49
+        },
+        {
+          "heading": "修改的文件",
+          "level": 3,
+          "line": 58
+        },
+        {
+          "heading": "测试用例",
+          "level": 3,
+          "line": 69
+        },
+        {
+          "heading": "修复的 Bug",
+          "level": 3,
+          "line": 86
+        },
+        {
+          "heading": "质量门禁",
+          "level": 3,
+          "line": 93
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 11
+      }
+    }
+  ]
+}

@@ -1,0 +1,93 @@
+{
+  "projectRoot": "/home/jmj/work-space/projects/high-performance-server",
+  "batchFiles": [
+    {
+      "path": "net/http/include/case_insensitive.h",
+      "language": "c",
+      "sizeLines": 45,
+      "fileCategory": "code"
+    },
+    {
+      "path": "net/http/include/http_parser.h",
+      "language": "c",
+      "sizeLines": 104,
+      "fileCategory": "code"
+    },
+    {
+      "path": "net/http/include/http_request.h",
+      "language": "c",
+      "sizeLines": 45,
+      "fileCategory": "code"
+    },
+    {
+      "path": "net/http/include/http_response.h",
+      "language": "c",
+      "sizeLines": 45,
+      "fileCategory": "code"
+    },
+    {
+      "path": "net/http/include/http_server.h",
+      "language": "c",
+      "sizeLines": 62,
+      "fileCategory": "code"
+    },
+    {
+      "path": "net/http/include/i_http_server.h",
+      "language": "c",
+      "sizeLines": 41,
+      "fileCategory": "code"
+    },
+    {
+      "path": "net/http/include/i_router.h",
+      "language": "c",
+      "sizeLines": 31,
+      "fileCategory": "code"
+    },
+    {
+      "path": "net/http/include/range_parser.h",
+      "language": "c",
+      "sizeLines": 41,
+      "fileCategory": "code"
+    },
+    {
+      "path": "net/http/include/router.h",
+      "language": "c",
+      "sizeLines": 55,
+      "fileCategory": "code"
+    }
+  ],
+  "batchImportData": {
+    "net/http/include/case_insensitive.h": [],
+    "net/http/include/http_parser.h": [
+      "net/http/include/http_request.h"
+    ],
+    "net/http/include/http_request.h": [
+      "net/http/include/case_insensitive.h"
+    ],
+    "net/http/include/http_response.h": [
+      "net/http/include/case_insensitive.h"
+    ],
+    "net/http/include/http_server.h": [
+      "net/http/include/http_parser.h",
+      "net/http/include/http_request.h",
+      "net/http/include/http_response.h",
+      "net/http/include/i_http_server.h",
+      "net/http/include/router.h"
+    ],
+    "net/http/include/i_http_server.h": [
+      "net/http/include/i_router.h"
+    ],
+    "net/http/include/i_router.h": [
+      "net/http/include/http_request.h",
+      "net/http/include/http_response.h"
+    ],
+    "net/http/include/range_parser.h": [
+      "net/http/include/http_response.h"
+    ],
+    "net/http/include/router.h": [
+      "net/http/include/http_request.h",
+      "net/http/include/http_response.h",
+      "net/http/include/i_router.h"
+    ]
+  }
+}

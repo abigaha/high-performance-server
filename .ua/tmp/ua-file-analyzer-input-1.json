@@ -1,0 +1,69 @@
+{
+  "projectRoot": "/home/jmj/work-space/projects/high-performance-server",
+  "batchFiles": [
+    {
+      "path": "db/include/boost_mysql_connection.h",
+      "language": "c",
+      "sizeLines": 29,
+      "fileCategory": "code"
+    },
+    {
+      "path": "db/include/database_pool.h",
+      "language": "c",
+      "sizeLines": 53,
+      "fileCategory": "code"
+    },
+    {
+      "path": "db/include/db_config.h",
+      "language": "c",
+      "sizeLines": 19,
+      "fileCategory": "code"
+    },
+    {
+      "path": "db/include/iconnection.h",
+      "language": "c",
+      "sizeLines": 34,
+      "fileCategory": "code"
+    },
+    {
+      "path": "db/include/idatabase_pool.h",
+      "language": "c",
+      "sizeLines": 29,
+      "fileCategory": "code"
+    },
+    {
+      "path": "db/include/mock_connection.h",
+      "language": "c",
+      "sizeLines": 75,
+      "fileCategory": "code"
+    },
+    {
+      "path": "db/include/models.h",
+      "language": "c",
+      "sizeLines": 32,
+      "fileCategory": "code"
+    }
+  ],
+  "batchImportData": {
+    "db/include/boost_mysql_connection.h": [
+      "db/include/iconnection.h"
+    ],
+    "db/include/database_pool.h": [
+      "db/include/iconnection.h",
+      "db/include/idatabase_pool.h"
+    ],
+    "db/include/db_config.h": [],
+    "db/include/iconnection.h": [
+      "db/include/db_config.h"
+    ],
+    "db/include/idatabase_pool.h": [
+      "db/include/db_config.h",
+      "db/include/models.h"
+    ],
+    "db/include/mock_connection.h": [
+      "db/include/db_config.h",
+      "db/include/iconnection.h"
+    ],
+    "db/include/models.h": []
+  }
+}

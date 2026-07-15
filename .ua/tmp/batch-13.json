@@ -1,0 +1,1912 @@
+{
+  "batchIndex": 13,
+  "algorithm": "louvain",
+  "totalFiles": 9,
+  "nodes": [
+    {
+      "id": "file:tests/test_tcp_client.cpp",
+      "type": "file",
+      "label": "文件: tests/test_tcp_client.cpp",
+      "properties": {
+        "path": "tests/test_tcp_client.cpp",
+        "language": "cpp",
+        "category": "code",
+        "totalLines": 248,
+        "nonEmptyLines": 192
+      }
+    },
+    {
+      "id": "func:tests/test_tcp_client.cpp::create_echo_server",
+      "type": "function",
+      "label": "函数: create_echo_server",
+      "properties": {
+        "name": "create_echo_server",
+        "file": "tests/test_tcp_client.cpp",
+        "startLine": 17,
+        "endLine": 40,
+        "params": [],
+        "isMethod": false
+      }
+    },
+    {
+      "id": "func:tests/test_tcp_client.cpp::get_port",
+      "type": "function",
+      "label": "函数: get_port",
+      "properties": {
+        "name": "get_port",
+        "file": "tests/test_tcp_client.cpp",
+        "startLine": 42,
+        "endLine": 50,
+        "params": [
+          "fd"
+        ],
+        "isMethod": false
+      }
+    },
+    {
+      "id": "func:tests/test_tcp_client.cpp::run_echo_server",
+      "type": "function",
+      "label": "函数: run_echo_server",
+      "properties": {
+        "name": "run_echo_server",
+        "file": "tests/test_tcp_client.cpp",
+        "startLine": 52,
+        "endLine": 63,
+        "params": [
+          "listen_fd"
+        ],
+        "isMethod": false
+      }
+    },
+    {
+      "id": "func:tests/test_tcp_client.cpp::temp_file_path",
+      "type": "function",
+      "label": "函数: temp_file_path",
+      "properties": {
+        "name": "temp_file_path",
+        "file": "tests/test_tcp_client.cpp",
+        "startLine": 65,
+        "endLine": 70,
+        "params": [],
+        "isMethod": false
+      }
+    },
+    {
+      "id": "func:tests/test_tcp_client.cpp::TEST",
+      "type": "function",
+      "label": "函数: TEST",
+      "properties": {
+        "name": "TEST",
+        "file": "tests/test_tcp_client.cpp",
+        "startLine": 74,
+        "endLine": 78,
+        "params": [],
+        "isMethod": false
+      }
+    },
+    {
+      "id": "func:tests/test_tcp_client.cpp::main",
+      "type": "function",
+      "label": "函数: main",
+      "properties": {
+        "name": "main",
+        "file": "tests/test_tcp_client.cpp",
+        "startLine": 245,
+        "endLine": 248,
+        "params": [
+          "argc",
+          "argv"
+        ],
+        "isMethod": false
+      }
+    },
+    {
+      "id": "file:tests/test_tcp_server_connection.cpp",
+      "type": "file",
+      "label": "文件: tests/test_tcp_server_connection.cpp",
+      "properties": {
+        "path": "tests/test_tcp_server_connection.cpp",
+        "language": "cpp",
+        "category": "code",
+        "totalLines": 157,
+        "nonEmptyLines": 126
+      }
+    },
+    {
+      "id": "class:tests/test_tcp_server_connection.cpp::ConnectionTest",
+      "type": "class",
+      "label": "类: ConnectionTest",
+      "properties": {
+        "name": "ConnectionTest",
+        "startLine": 16,
+        "endLine": 43,
+        "methodCount": 2,
+        "propertyCount": 2
+      }
+    },
+    {
+      "id": "func:tests/test_tcp_server_connection.cpp::SetUp",
+      "type": "function",
+      "label": "函数: SetUp",
+      "properties": {
+        "name": "SetUp",
+        "file": "tests/test_tcp_server_connection.cpp",
+        "isMethod": true
+      }
+    },
+    {
+      "id": "func:tests/test_tcp_server_connection.cpp::TearDown",
+      "type": "function",
+      "label": "函数: TearDown",
+      "properties": {
+        "name": "TearDown",
+        "file": "tests/test_tcp_server_connection.cpp",
+        "isMethod": true
+      }
+    },
+    {
+      "id": "func:tests/test_tcp_server_connection.cpp::TEST_F",
+      "type": "function",
+      "label": "函数: TEST_F",
+      "properties": {
+        "name": "TEST_F",
+        "file": "tests/test_tcp_server_connection.cpp",
+        "startLine": 45,
+        "endLine": 50,
+        "params": [],
+        "isMethod": false
+      }
+    },
+    {
+      "id": "func:tests/test_tcp_server_connection.cpp::main",
+      "type": "function",
+      "label": "函数: main",
+      "properties": {
+        "name": "main",
+        "file": "tests/test_tcp_server_connection.cpp",
+        "startLine": 154,
+        "endLine": 157,
+        "params": [
+          "argc",
+          "argv"
+        ],
+        "isMethod": false
+      }
+    },
+    {
+      "id": "file:tests/test_tcp_server.cpp",
+      "type": "file",
+      "label": "文件: tests/test_tcp_server.cpp",
+      "properties": {
+        "path": "tests/test_tcp_server.cpp",
+        "language": "cpp",
+        "category": "code",
+        "totalLines": 277,
+        "nonEmptyLines": 228
+      }
+    },
+    {
+      "id": "class:tests/test_tcp_server.cpp::TcpServerTest",
+      "type": "class",
+      "label": "类: TcpServerTest",
+      "properties": {
+        "name": "TcpServerTest",
+        "startLine": 18,
+        "endLine": 72,
+        "methodCount": 4,
+        "propertyCount": 4
+      }
+    },
+    {
+      "id": "func:tests/test_tcp_server.cpp::SetUp",
+      "type": "function",
+      "label": "函数: SetUp",
+      "properties": {
+        "name": "SetUp",
+        "file": "tests/test_tcp_server.cpp",
+        "isMethod": true
+      }
+    },
+    {
+      "id": "func:tests/test_tcp_server.cpp::TearDown",
+      "type": "function",
+      "label": "函数: TearDown",
+      "properties": {
+        "name": "TearDown",
+        "file": "tests/test_tcp_server.cpp",
+        "isMethod": true
+      }
+    },
+    {
+      "id": "func:tests/test_tcp_server.cpp::start_server",
+      "type": "function",
+      "label": "函数: start_server",
+      "properties": {
+        "name": "start_server",
+        "file": "tests/test_tcp_server.cpp",
+        "isMethod": true
+      }
+    },
+    {
+      "id": "func:tests/test_tcp_server.cpp::connect_client",
+      "type": "function",
+      "label": "函数: connect_client",
+      "properties": {
+        "name": "connect_client",
+        "file": "tests/test_tcp_server.cpp",
+        "isMethod": true
+      }
+    },
+    {
+      "id": "func:tests/test_tcp_server.cpp::TEST_F",
+      "type": "function",
+      "label": "函数: TEST_F",
+      "properties": {
+        "name": "TEST_F",
+        "file": "tests/test_tcp_server.cpp",
+        "startLine": 74,
+        "endLine": 78,
+        "params": [],
+        "isMethod": false
+      }
+    },
+    {
+      "id": "func:tests/test_tcp_server.cpp::main",
+      "type": "function",
+      "label": "函数: main",
+      "properties": {
+        "name": "main",
+        "file": "tests/test_tcp_server.cpp",
+        "startLine": 274,
+        "endLine": 277,
+        "params": [
+          "argc",
+          "argv"
+        ],
+        "isMethod": false
+      }
+    },
+    {
+      "id": "file:tests/test_url_decode.cpp",
+      "type": "file",
+      "label": "文件: tests/test_url_decode.cpp",
+      "properties": {
+        "path": "tests/test_url_decode.cpp",
+        "language": "cpp",
+        "category": "code",
+        "totalLines": 60,
+        "nonEmptyLines": 49
+      }
+    },
+    {
+      "id": "func:tests/test_url_decode.cpp::TEST",
+      "type": "function",
+      "label": "函数: TEST",
+      "properties": {
+        "name": "TEST",
+        "file": "tests/test_url_decode.cpp",
+        "startLine": 7,
+        "endLine": 11,
+        "params": [],
+        "isMethod": false
+      }
+    },
+    {
+      "id": "func:tests/test_url_decode.cpp::main",
+      "type": "function",
+      "label": "函数: main",
+      "properties": {
+        "name": "main",
+        "file": "tests/test_url_decode.cpp",
+        "startLine": 57,
+        "endLine": 60,
+        "params": [
+          "argc",
+          "argv"
+        ],
+        "isMethod": false
+      }
+    },
+    {
+      "id": "file:tests/test_websocket.cpp",
+      "type": "file",
+      "label": "文件: tests/test_websocket.cpp",
+      "properties": {
+        "path": "tests/test_websocket.cpp",
+        "language": "cpp",
+        "category": "code",
+        "totalLines": 272,
+        "nonEmptyLines": 240
+      }
+    },
+    {
+      "id": "class:tests/test_websocket.cpp::B64TestCase",
+      "type": "class",
+      "label": "类: B64TestCase",
+      "properties": {
+        "name": "B64TestCase",
+        "startLine": 30,
+        "endLine": 33,
+        "methodCount": 0,
+        "propertyCount": 2
+      }
+    },
+    {
+      "id": "func:tests/test_websocket.cpp::main",
+      "type": "function",
+      "label": "函数: main",
+      "properties": {
+        "name": "main",
+        "file": "tests/test_websocket.cpp",
+        "startLine": 20,
+        "endLine": 23,
+        "params": [
+          "argc",
+          "argv"
+        ],
+        "isMethod": false
+      }
+    },
+    {
+      "id": "func:tests/test_websocket.cpp::make_ws_request",
+      "type": "function",
+      "label": "函数: make_ws_request",
+      "properties": {
+        "name": "make_ws_request",
+        "file": "tests/test_websocket.cpp",
+        "startLine": 45,
+        "endLine": 55,
+        "params": [
+          "key"
+        ],
+        "isMethod": false
+      }
+    },
+    {
+      "id": "func:tests/test_websocket.cpp::send_raw",
+      "type": "function",
+      "label": "函数: send_raw",
+      "properties": {
+        "name": "send_raw",
+        "file": "tests/test_websocket.cpp",
+        "startLine": 57,
+        "endLine": 66,
+        "params": [
+          "port",
+          "raw"
+        ],
+        "isMethod": false
+      }
+    },
+    {
+      "id": "func:tests/test_websocket.cpp::make_masked_frame",
+      "type": "function",
+      "label": "函数: make_masked_frame",
+      "properties": {
+        "name": "make_masked_frame",
+        "file": "tests/test_websocket.cpp",
+        "startLine": 68,
+        "endLine": 91,
+        "params": [
+          "opcode",
+          "payload",
+          "mask_key"
+        ],
+        "isMethod": false
+      }
+    },
+    {
+      "id": "func:tests/test_websocket.cpp::TEST",
+      "type": "function",
+      "label": "函数: TEST",
+      "properties": {
+        "name": "TEST",
+        "file": "tests/test_websocket.cpp",
+        "startLine": 96,
+        "endLine": 108,
+        "params": [],
+        "isMethod": false
+      }
+    },
+    {
+      "id": "file:verification/README.md",
+      "type": "file",
+      "label": "文件: verification/README.md",
+      "properties": {
+        "path": "verification/README.md",
+        "language": "markdown",
+        "category": "docs",
+        "totalLines": 333,
+        "nonEmptyLines": 245
+      }
+    },
+    {
+      "id": "file:verification/verify.sh",
+      "type": "file",
+      "label": "文件: verification/verify.sh",
+      "properties": {
+        "path": "verification/verify.sh",
+        "language": "shell",
+        "category": "script",
+        "totalLines": 352,
+        "nonEmptyLines": 298
+      }
+    },
+    {
+      "id": "func:verification/verify.sh::red",
+      "type": "function",
+      "label": "函数: red",
+      "properties": {
+        "name": "red",
+        "file": "verification/verify.sh",
+        "startLine": 11,
+        "endLine": 11,
+        "params": [],
+        "isMethod": false
+      }
+    },
+    {
+      "id": "func:verification/verify.sh::green",
+      "type": "function",
+      "label": "函数: green",
+      "properties": {
+        "name": "green",
+        "file": "verification/verify.sh",
+        "startLine": 12,
+        "endLine": 12,
+        "params": [],
+        "isMethod": false
+      }
+    },
+    {
+      "id": "func:verification/verify.sh::yellow",
+      "type": "function",
+      "label": "函数: yellow",
+      "properties": {
+        "name": "yellow",
+        "file": "verification/verify.sh",
+        "startLine": 13,
+        "endLine": 13,
+        "params": [],
+        "isMethod": false
+      }
+    },
+    {
+      "id": "func:verification/verify.sh::blue",
+      "type": "function",
+      "label": "函数: blue",
+      "properties": {
+        "name": "blue",
+        "file": "verification/verify.sh",
+        "startLine": 14,
+        "endLine": 14,
+        "params": [],
+        "isMethod": false
+      }
+    },
+    {
+      "id": "func:verification/verify.sh::check",
+      "type": "function",
+      "label": "函数: check",
+      "properties": {
+        "name": "check",
+        "file": "verification/verify.sh",
+        "startLine": 16,
+        "endLine": 26,
+        "params": [],
+        "isMethod": false
+      }
+    },
+    {
+      "id": "func:verification/verify.sh::check_skip",
+      "type": "function",
+      "label": "函数: check_skip",
+      "properties": {
+        "name": "check_skip",
+        "file": "verification/verify.sh",
+        "startLine": 28,
+        "endLine": 33,
+        "params": [],
+        "isMethod": false
+      }
+    },
+    {
+      "id": "func:verification/verify.sh::cleanup",
+      "type": "function",
+      "label": "函数: cleanup",
+      "properties": {
+        "name": "cleanup",
+        "file": "verification/verify.sh",
+        "startLine": 39,
+        "endLine": 43,
+        "params": [],
+        "isMethod": false
+      }
+    },
+    {
+      "id": "file:verification/ws_test.py",
+      "type": "file",
+      "label": "文件: verification/ws_test.py",
+      "properties": {
+        "path": "verification/ws_test.py",
+        "language": "python",
+        "category": "code",
+        "totalLines": 46,
+        "nonEmptyLines": 39
+      }
+    },
+    {
+      "id": "func:verification/ws_test.py::test_ws_handshake",
+      "type": "function",
+      "label": "函数: test_ws_handshake",
+      "properties": {
+        "name": "test_ws_handshake",
+        "file": "verification/ws_test.py",
+        "startLine": 13,
+        "endLine": 39,
+        "params": [
+          "host",
+          "port",
+          "path"
+        ],
+        "isMethod": false
+      }
+    },
+    {
+      "id": "file:xmake.lua",
+      "type": "file",
+      "label": "文件: xmake.lua",
+      "properties": {
+        "path": "xmake.lua",
+        "language": "lua",
+        "category": "code",
+        "totalLines": 41,
+        "nonEmptyLines": 36
+      }
+    }
+  ],
+  "edges": [
+    {
+      "source": "file:tests/test_tcp_client.cpp",
+      "target": "func:tests/test_tcp_client.cpp::create_echo_server",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:tests/test_tcp_client.cpp",
+      "target": "func:tests/test_tcp_client.cpp::get_port",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:tests/test_tcp_client.cpp",
+      "target": "func:tests/test_tcp_client.cpp::run_echo_server",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:tests/test_tcp_client.cpp",
+      "target": "func:tests/test_tcp_client.cpp::temp_file_path",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:tests/test_tcp_client.cpp",
+      "target": "func:tests/test_tcp_client.cpp::TEST",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:tests/test_tcp_client.cpp",
+      "target": "func:tests/test_tcp_client.cpp::TEST",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:tests/test_tcp_client.cpp",
+      "target": "func:tests/test_tcp_client.cpp::TEST",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:tests/test_tcp_client.cpp",
+      "target": "func:tests/test_tcp_client.cpp::TEST",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:tests/test_tcp_client.cpp",
+      "target": "func:tests/test_tcp_client.cpp::TEST",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:tests/test_tcp_client.cpp",
+      "target": "func:tests/test_tcp_client.cpp::TEST",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:tests/test_tcp_client.cpp",
+      "target": "func:tests/test_tcp_client.cpp::TEST",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:tests/test_tcp_client.cpp",
+      "target": "func:tests/test_tcp_client.cpp::TEST",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:tests/test_tcp_client.cpp",
+      "target": "func:tests/test_tcp_client.cpp::main",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "func:tests/test_tcp_client.cpp::TEST",
+      "target": "func:tests/test_tcp_client.cpp::create_echo_server",
+      "relation": "calls",
+      "properties": {
+        "lineNumber": 81
+      }
+    },
+    {
+      "source": "func:tests/test_tcp_client.cpp::TEST",
+      "target": "func:tests/test_tcp_client.cpp::get_port",
+      "relation": "calls",
+      "properties": {
+        "lineNumber": 83
+      }
+    },
+    {
+      "source": "func:tests/test_tcp_client.cpp::TEST",
+      "target": "func:tests/test_tcp_client.cpp::create_echo_server",
+      "relation": "calls",
+      "properties": {
+        "lineNumber": 103
+      }
+    },
+    {
+      "source": "func:tests/test_tcp_client.cpp::TEST",
+      "target": "func:tests/test_tcp_client.cpp::get_port",
+      "relation": "calls",
+      "properties": {
+        "lineNumber": 105
+      }
+    },
+    {
+      "source": "func:tests/test_tcp_client.cpp::TEST",
+      "target": "func:tests/test_tcp_client.cpp::create_echo_server",
+      "relation": "calls",
+      "properties": {
+        "lineNumber": 122
+      }
+    },
+    {
+      "source": "func:tests/test_tcp_client.cpp::TEST",
+      "target": "func:tests/test_tcp_client.cpp::get_port",
+      "relation": "calls",
+      "properties": {
+        "lineNumber": 124
+      }
+    },
+    {
+      "source": "func:tests/test_tcp_client.cpp::TEST",
+      "target": "func:tests/test_tcp_client.cpp::temp_file_path",
+      "relation": "calls",
+      "properties": {
+        "lineNumber": 129
+      }
+    },
+    {
+      "source": "func:tests/test_tcp_client.cpp::TEST",
+      "target": "func:tests/test_tcp_client.cpp::create_echo_server",
+      "relation": "calls",
+      "properties": {
+        "lineNumber": 151
+      }
+    },
+    {
+      "source": "func:tests/test_tcp_client.cpp::TEST",
+      "target": "func:tests/test_tcp_client.cpp::get_port",
+      "relation": "calls",
+      "properties": {
+        "lineNumber": 153
+      }
+    },
+    {
+      "source": "func:tests/test_tcp_client.cpp::TEST",
+      "target": "func:tests/test_tcp_client.cpp::create_echo_server",
+      "relation": "calls",
+      "properties": {
+        "lineNumber": 174
+      }
+    },
+    {
+      "source": "func:tests/test_tcp_client.cpp::TEST",
+      "target": "func:tests/test_tcp_client.cpp::get_port",
+      "relation": "calls",
+      "properties": {
+        "lineNumber": 176
+      }
+    },
+    {
+      "source": "func:tests/test_tcp_client.cpp::TEST",
+      "target": "func:tests/test_tcp_client.cpp::create_echo_server",
+      "relation": "calls",
+      "properties": {
+        "lineNumber": 197
+      }
+    },
+    {
+      "source": "func:tests/test_tcp_client.cpp::TEST",
+      "target": "func:tests/test_tcp_client.cpp::get_port",
+      "relation": "calls",
+      "properties": {
+        "lineNumber": 199
+      }
+    },
+    {
+      "source": "func:tests/test_tcp_client.cpp::TEST",
+      "target": "func:tests/test_tcp_client.cpp::create_echo_server",
+      "relation": "calls",
+      "properties": {
+        "lineNumber": 223
+      }
+    },
+    {
+      "source": "func:tests/test_tcp_client.cpp::TEST",
+      "target": "func:tests/test_tcp_client.cpp::get_port",
+      "relation": "calls",
+      "properties": {
+        "lineNumber": 225
+      }
+    },
+    {
+      "source": "file:tests/test_tcp_client.cpp",
+      "target": "func:tests/test_tcp_client.cpp::create_echo_server",
+      "relation": "declares",
+      "properties": {
+        "line": 17,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:tests/test_tcp_client.cpp",
+      "target": "func:tests/test_tcp_client.cpp::get_port",
+      "relation": "declares",
+      "properties": {
+        "line": 42,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:tests/test_tcp_client.cpp",
+      "target": "func:tests/test_tcp_client.cpp::run_echo_server",
+      "relation": "declares",
+      "properties": {
+        "line": 52,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:tests/test_tcp_client.cpp",
+      "target": "func:tests/test_tcp_client.cpp::temp_file_path",
+      "relation": "declares",
+      "properties": {
+        "line": 65,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:tests/test_tcp_client.cpp",
+      "target": "func:tests/test_tcp_client.cpp::TEST",
+      "relation": "declares",
+      "properties": {
+        "line": 74,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:tests/test_tcp_client.cpp",
+      "target": "func:tests/test_tcp_client.cpp::TEST",
+      "relation": "declares",
+      "properties": {
+        "line": 80,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:tests/test_tcp_client.cpp",
+      "target": "func:tests/test_tcp_client.cpp::TEST",
+      "relation": "declares",
+      "properties": {
+        "line": 102,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:tests/test_tcp_client.cpp",
+      "target": "func:tests/test_tcp_client.cpp::TEST",
+      "relation": "declares",
+      "properties": {
+        "line": 121,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:tests/test_tcp_client.cpp",
+      "target": "func:tests/test_tcp_client.cpp::TEST",
+      "relation": "declares",
+      "properties": {
+        "line": 150,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:tests/test_tcp_client.cpp",
+      "target": "func:tests/test_tcp_client.cpp::TEST",
+      "relation": "declares",
+      "properties": {
+        "line": 173,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:tests/test_tcp_client.cpp",
+      "target": "func:tests/test_tcp_client.cpp::TEST",
+      "relation": "declares",
+      "properties": {
+        "line": 196,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:tests/test_tcp_client.cpp",
+      "target": "func:tests/test_tcp_client.cpp::TEST",
+      "relation": "declares",
+      "properties": {
+        "line": 222,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:tests/test_tcp_client.cpp",
+      "target": "func:tests/test_tcp_client.cpp::main",
+      "relation": "declares",
+      "properties": {
+        "line": 245,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:tests/test_tcp_server_connection.cpp",
+      "target": "class:tests/test_tcp_server_connection.cpp::ConnectionTest",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_class"
+      }
+    },
+    {
+      "source": "class:tests/test_tcp_server_connection.cpp::ConnectionTest",
+      "target": "func:tests/test_tcp_server_connection.cpp::SetUp",
+      "relation": "contains",
+      "properties": {
+        "kind": "class_contains_method"
+      }
+    },
+    {
+      "source": "class:tests/test_tcp_server_connection.cpp::ConnectionTest",
+      "target": "func:tests/test_tcp_server_connection.cpp::TearDown",
+      "relation": "contains",
+      "properties": {
+        "kind": "class_contains_method"
+      }
+    },
+    {
+      "source": "file:tests/test_tcp_server_connection.cpp",
+      "target": "func:tests/test_tcp_server_connection.cpp::TEST_F",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:tests/test_tcp_server_connection.cpp",
+      "target": "func:tests/test_tcp_server_connection.cpp::TEST_F",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:tests/test_tcp_server_connection.cpp",
+      "target": "func:tests/test_tcp_server_connection.cpp::TEST_F",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:tests/test_tcp_server_connection.cpp",
+      "target": "func:tests/test_tcp_server_connection.cpp::TEST_F",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:tests/test_tcp_server_connection.cpp",
+      "target": "func:tests/test_tcp_server_connection.cpp::TEST_F",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:tests/test_tcp_server_connection.cpp",
+      "target": "func:tests/test_tcp_server_connection.cpp::TEST_F",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:tests/test_tcp_server_connection.cpp",
+      "target": "func:tests/test_tcp_server_connection.cpp::TEST_F",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:tests/test_tcp_server_connection.cpp",
+      "target": "func:tests/test_tcp_server_connection.cpp::TEST_F",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:tests/test_tcp_server_connection.cpp",
+      "target": "func:tests/test_tcp_server_connection.cpp::TEST_F",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:tests/test_tcp_server_connection.cpp",
+      "target": "func:tests/test_tcp_server_connection.cpp::TEST_F",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:tests/test_tcp_server_connection.cpp",
+      "target": "func:tests/test_tcp_server_connection.cpp::main",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:tests/test_tcp_server_connection.cpp",
+      "target": "class:tests/test_tcp_server_connection.cpp::ConnectionTest",
+      "relation": "declares",
+      "properties": {
+        "line": 16,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:tests/test_tcp_server_connection.cpp",
+      "target": "func:tests/test_tcp_server_connection.cpp::TEST_F",
+      "relation": "declares",
+      "properties": {
+        "line": 45,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:tests/test_tcp_server_connection.cpp",
+      "target": "func:tests/test_tcp_server_connection.cpp::TEST_F",
+      "relation": "declares",
+      "properties": {
+        "line": 52,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:tests/test_tcp_server_connection.cpp",
+      "target": "func:tests/test_tcp_server_connection.cpp::TEST_F",
+      "relation": "declares",
+      "properties": {
+        "line": 58,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:tests/test_tcp_server_connection.cpp",
+      "target": "func:tests/test_tcp_server_connection.cpp::TEST_F",
+      "relation": "declares",
+      "properties": {
+        "line": 73,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:tests/test_tcp_server_connection.cpp",
+      "target": "func:tests/test_tcp_server_connection.cpp::TEST_F",
+      "relation": "declares",
+      "properties": {
+        "line": 91,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:tests/test_tcp_server_connection.cpp",
+      "target": "func:tests/test_tcp_server_connection.cpp::TEST_F",
+      "relation": "declares",
+      "properties": {
+        "line": 106,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:tests/test_tcp_server_connection.cpp",
+      "target": "func:tests/test_tcp_server_connection.cpp::TEST_F",
+      "relation": "declares",
+      "properties": {
+        "line": 124,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:tests/test_tcp_server_connection.cpp",
+      "target": "func:tests/test_tcp_server_connection.cpp::TEST_F",
+      "relation": "declares",
+      "properties": {
+        "line": 132,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:tests/test_tcp_server_connection.cpp",
+      "target": "func:tests/test_tcp_server_connection.cpp::TEST_F",
+      "relation": "declares",
+      "properties": {
+        "line": 139,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:tests/test_tcp_server_connection.cpp",
+      "target": "func:tests/test_tcp_server_connection.cpp::TEST_F",
+      "relation": "declares",
+      "properties": {
+        "line": 145,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:tests/test_tcp_server_connection.cpp",
+      "target": "func:tests/test_tcp_server_connection.cpp::main",
+      "relation": "declares",
+      "properties": {
+        "line": 154,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:tests/test_tcp_server.cpp",
+      "target": "class:tests/test_tcp_server.cpp::TcpServerTest",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_class"
+      }
+    },
+    {
+      "source": "class:tests/test_tcp_server.cpp::TcpServerTest",
+      "target": "func:tests/test_tcp_server.cpp::SetUp",
+      "relation": "contains",
+      "properties": {
+        "kind": "class_contains_method"
+      }
+    },
+    {
+      "source": "class:tests/test_tcp_server.cpp::TcpServerTest",
+      "target": "func:tests/test_tcp_server.cpp::TearDown",
+      "relation": "contains",
+      "properties": {
+        "kind": "class_contains_method"
+      }
+    },
+    {
+      "source": "class:tests/test_tcp_server.cpp::TcpServerTest",
+      "target": "func:tests/test_tcp_server.cpp::start_server",
+      "relation": "contains",
+      "properties": {
+        "kind": "class_contains_method"
+      }
+    },
+    {
+      "source": "class:tests/test_tcp_server.cpp::TcpServerTest",
+      "target": "func:tests/test_tcp_server.cpp::connect_client",
+      "relation": "contains",
+      "properties": {
+        "kind": "class_contains_method"
+      }
+    },
+    {
+      "source": "file:tests/test_tcp_server.cpp",
+      "target": "func:tests/test_tcp_server.cpp::TEST_F",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:tests/test_tcp_server.cpp",
+      "target": "func:tests/test_tcp_server.cpp::TEST_F",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:tests/test_tcp_server.cpp",
+      "target": "func:tests/test_tcp_server.cpp::TEST_F",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:tests/test_tcp_server.cpp",
+      "target": "func:tests/test_tcp_server.cpp::TEST_F",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:tests/test_tcp_server.cpp",
+      "target": "func:tests/test_tcp_server.cpp::TEST_F",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:tests/test_tcp_server.cpp",
+      "target": "func:tests/test_tcp_server.cpp::TEST_F",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:tests/test_tcp_server.cpp",
+      "target": "func:tests/test_tcp_server.cpp::TEST_F",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:tests/test_tcp_server.cpp",
+      "target": "func:tests/test_tcp_server.cpp::TEST_F",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:tests/test_tcp_server.cpp",
+      "target": "func:tests/test_tcp_server.cpp::main",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "func:tests/test_tcp_server.cpp::TEST_F",
+      "target": "func:tests/test_tcp_server.cpp::start_server",
+      "relation": "calls",
+      "properties": {
+        "lineNumber": 92
+      }
+    },
+    {
+      "source": "func:tests/test_tcp_server.cpp::TEST_F",
+      "target": "func:tests/test_tcp_server.cpp::connect_client",
+      "relation": "calls",
+      "properties": {
+        "lineNumber": 121
+      }
+    },
+    {
+      "source": "func:tests/test_tcp_server.cpp::TEST_F",
+      "target": "func:tests/test_tcp_server.cpp::connect_client",
+      "relation": "calls",
+      "properties": {
+        "lineNumber": 173
+      }
+    },
+    {
+      "source": "func:tests/test_tcp_server.cpp::TEST_F",
+      "target": "func:tests/test_tcp_server.cpp::connect_client",
+      "relation": "calls",
+      "properties": {
+        "lineNumber": 203
+      }
+    },
+    {
+      "source": "func:tests/test_tcp_server.cpp::TEST_F",
+      "target": "func:tests/test_tcp_server.cpp::connect_client",
+      "relation": "calls",
+      "properties": {
+        "lineNumber": 233
+      }
+    },
+    {
+      "source": "file:tests/test_tcp_server.cpp",
+      "target": "class:tests/test_tcp_server.cpp::TcpServerTest",
+      "relation": "declares",
+      "properties": {
+        "line": 18,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:tests/test_tcp_server.cpp",
+      "target": "func:tests/test_tcp_server.cpp::TEST_F",
+      "relation": "declares",
+      "properties": {
+        "line": 74,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:tests/test_tcp_server.cpp",
+      "target": "func:tests/test_tcp_server.cpp::TEST_F",
+      "relation": "declares",
+      "properties": {
+        "line": 80,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:tests/test_tcp_server.cpp",
+      "target": "func:tests/test_tcp_server.cpp::TEST_F",
+      "relation": "declares",
+      "properties": {
+        "line": 91,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:tests/test_tcp_server.cpp",
+      "target": "func:tests/test_tcp_server.cpp::TEST_F",
+      "relation": "declares",
+      "properties": {
+        "line": 103,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:tests/test_tcp_server.cpp",
+      "target": "func:tests/test_tcp_server.cpp::TEST_F",
+      "relation": "declares",
+      "properties": {
+        "line": 155,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:tests/test_tcp_server.cpp",
+      "target": "func:tests/test_tcp_server.cpp::TEST_F",
+      "relation": "declares",
+      "properties": {
+        "line": 194,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:tests/test_tcp_server.cpp",
+      "target": "func:tests/test_tcp_server.cpp::TEST_F",
+      "relation": "declares",
+      "properties": {
+        "line": 216,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:tests/test_tcp_server.cpp",
+      "target": "func:tests/test_tcp_server.cpp::TEST_F",
+      "relation": "declares",
+      "properties": {
+        "line": 248,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:tests/test_tcp_server.cpp",
+      "target": "func:tests/test_tcp_server.cpp::main",
+      "relation": "declares",
+      "properties": {
+        "line": 274,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:tests/test_url_decode.cpp",
+      "target": "func:tests/test_url_decode.cpp::TEST",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:tests/test_url_decode.cpp",
+      "target": "func:tests/test_url_decode.cpp::TEST",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:tests/test_url_decode.cpp",
+      "target": "func:tests/test_url_decode.cpp::TEST",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:tests/test_url_decode.cpp",
+      "target": "func:tests/test_url_decode.cpp::TEST",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:tests/test_url_decode.cpp",
+      "target": "func:tests/test_url_decode.cpp::TEST",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:tests/test_url_decode.cpp",
+      "target": "func:tests/test_url_decode.cpp::TEST",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:tests/test_url_decode.cpp",
+      "target": "func:tests/test_url_decode.cpp::TEST",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:tests/test_url_decode.cpp",
+      "target": "func:tests/test_url_decode.cpp::TEST",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:tests/test_url_decode.cpp",
+      "target": "func:tests/test_url_decode.cpp::main",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:tests/test_url_decode.cpp",
+      "target": "func:tests/test_url_decode.cpp::TEST",
+      "relation": "declares",
+      "properties": {
+        "line": 7,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:tests/test_url_decode.cpp",
+      "target": "func:tests/test_url_decode.cpp::TEST",
+      "relation": "declares",
+      "properties": {
+        "line": 13,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:tests/test_url_decode.cpp",
+      "target": "func:tests/test_url_decode.cpp::TEST",
+      "relation": "declares",
+      "properties": {
+        "line": 19,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:tests/test_url_decode.cpp",
+      "target": "func:tests/test_url_decode.cpp::TEST",
+      "relation": "declares",
+      "properties": {
+        "line": 25,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:tests/test_url_decode.cpp",
+      "target": "func:tests/test_url_decode.cpp::TEST",
+      "relation": "declares",
+      "properties": {
+        "line": 31,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:tests/test_url_decode.cpp",
+      "target": "func:tests/test_url_decode.cpp::TEST",
+      "relation": "declares",
+      "properties": {
+        "line": 36,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:tests/test_url_decode.cpp",
+      "target": "func:tests/test_url_decode.cpp::TEST",
+      "relation": "declares",
+      "properties": {
+        "line": 42,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:tests/test_url_decode.cpp",
+      "target": "func:tests/test_url_decode.cpp::TEST",
+      "relation": "declares",
+      "properties": {
+        "line": 48,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:tests/test_url_decode.cpp",
+      "target": "func:tests/test_url_decode.cpp::main",
+      "relation": "declares",
+      "properties": {
+        "line": 57,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:tests/test_websocket.cpp",
+      "target": "class:tests/test_websocket.cpp::B64TestCase",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_class"
+      }
+    },
+    {
+      "source": "file:tests/test_websocket.cpp",
+      "target": "func:tests/test_websocket.cpp::main",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:tests/test_websocket.cpp",
+      "target": "func:tests/test_websocket.cpp::make_ws_request",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:tests/test_websocket.cpp",
+      "target": "func:tests/test_websocket.cpp::send_raw",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:tests/test_websocket.cpp",
+      "target": "func:tests/test_websocket.cpp::make_masked_frame",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:tests/test_websocket.cpp",
+      "target": "func:tests/test_websocket.cpp::TEST",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:tests/test_websocket.cpp",
+      "target": "func:tests/test_websocket.cpp::TEST",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:tests/test_websocket.cpp",
+      "target": "func:tests/test_websocket.cpp::TEST",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:tests/test_websocket.cpp",
+      "target": "func:tests/test_websocket.cpp::TEST",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:tests/test_websocket.cpp",
+      "target": "func:tests/test_websocket.cpp::TEST",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:tests/test_websocket.cpp",
+      "target": "func:tests/test_websocket.cpp::TEST",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:tests/test_websocket.cpp",
+      "target": "func:tests/test_websocket.cpp::TEST",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:tests/test_websocket.cpp",
+      "target": "func:tests/test_websocket.cpp::TEST",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:tests/test_websocket.cpp",
+      "target": "func:tests/test_websocket.cpp::TEST",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:tests/test_websocket.cpp",
+      "target": "func:tests/test_websocket.cpp::TEST",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:tests/test_websocket.cpp",
+      "target": "func:tests/test_websocket.cpp::TEST",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:tests/test_websocket.cpp",
+      "target": "func:tests/test_websocket.cpp::TEST",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "func:tests/test_websocket.cpp::TEST",
+      "target": "func:tests/test_websocket.cpp::make_ws_request",
+      "relation": "calls",
+      "properties": {
+        "lineNumber": 97
+      }
+    },
+    {
+      "source": "func:tests/test_websocket.cpp::TEST",
+      "target": "func:tests/test_websocket.cpp::make_masked_frame",
+      "relation": "calls",
+      "properties": {
+        "lineNumber": 178
+      }
+    },
+    {
+      "source": "func:tests/test_websocket.cpp::TEST",
+      "target": "func:tests/test_websocket.cpp::send_raw",
+      "relation": "calls",
+      "properties": {
+        "lineNumber": 265
+      }
+    },
+    {
+      "source": "file:tests/test_websocket.cpp",
+      "target": "func:tests/test_websocket.cpp::main",
+      "relation": "declares",
+      "properties": {
+        "line": 20,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:tests/test_websocket.cpp",
+      "target": "class:tests/test_websocket.cpp::B64TestCase",
+      "relation": "declares",
+      "properties": {
+        "line": 30,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:tests/test_websocket.cpp",
+      "target": "func:tests/test_websocket.cpp::make_ws_request",
+      "relation": "declares",
+      "properties": {
+        "line": 45,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:tests/test_websocket.cpp",
+      "target": "func:tests/test_websocket.cpp::send_raw",
+      "relation": "declares",
+      "properties": {
+        "line": 57,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:tests/test_websocket.cpp",
+      "target": "func:tests/test_websocket.cpp::make_masked_frame",
+      "relation": "declares",
+      "properties": {
+        "line": 68,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:tests/test_websocket.cpp",
+      "target": "func:tests/test_websocket.cpp::TEST",
+      "relation": "declares",
+      "properties": {
+        "line": 96,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:tests/test_websocket.cpp",
+      "target": "func:tests/test_websocket.cpp::TEST",
+      "relation": "declares",
+      "properties": {
+        "line": 111,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:tests/test_websocket.cpp",
+      "target": "func:tests/test_websocket.cpp::TEST",
+      "relation": "declares",
+      "properties": {
+        "line": 120,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:tests/test_websocket.cpp",
+      "target": "func:tests/test_websocket.cpp::TEST",
+      "relation": "declares",
+      "properties": {
+        "line": 128,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:tests/test_websocket.cpp",
+      "target": "func:tests/test_websocket.cpp::TEST",
+      "relation": "declares",
+      "properties": {
+        "line": 144,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:tests/test_websocket.cpp",
+      "target": "func:tests/test_websocket.cpp::TEST",
+      "relation": "declares",
+      "properties": {
+        "line": 162,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:tests/test_websocket.cpp",
+      "target": "func:tests/test_websocket.cpp::TEST",
+      "relation": "declares",
+      "properties": {
+        "line": 177,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:tests/test_websocket.cpp",
+      "target": "func:tests/test_websocket.cpp::TEST",
+      "relation": "declares",
+      "properties": {
+        "line": 188,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:tests/test_websocket.cpp",
+      "target": "func:tests/test_websocket.cpp::TEST",
+      "relation": "declares",
+      "properties": {
+        "line": 197,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:tests/test_websocket.cpp",
+      "target": "func:tests/test_websocket.cpp::TEST",
+      "relation": "declares",
+      "properties": {
+        "line": 204,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:tests/test_websocket.cpp",
+      "target": "func:tests/test_websocket.cpp::TEST",
+      "relation": "declares",
+      "properties": {
+        "line": 234,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:tests/test_websocket.cpp",
+      "target": "func:tests/test_websocket.cpp::TEST",
+      "relation": "declares",
+      "properties": {
+        "line": 243,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:verification/verify.sh",
+      "target": "func:verification/verify.sh::red",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:verification/verify.sh",
+      "target": "func:verification/verify.sh::green",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:verification/verify.sh",
+      "target": "func:verification/verify.sh::yellow",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:verification/verify.sh",
+      "target": "func:verification/verify.sh::blue",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:verification/verify.sh",
+      "target": "func:verification/verify.sh::check",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:verification/verify.sh",
+      "target": "func:verification/verify.sh::check_skip",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:verification/verify.sh",
+      "target": "func:verification/verify.sh::cleanup",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:verification/ws_test.py",
+      "target": "func:verification/ws_test.py::test_ws_handshake",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:verification/ws_test.py",
+      "target": "func:verification/ws_test.py::test_ws_handshake",
+      "relation": "declares",
+      "properties": {
+        "line": 13,
+        "isDefault": false
+      }
+    }
+  ]
+}

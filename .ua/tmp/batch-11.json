@@ -1,0 +1,6583 @@
+{
+  "batchIndex": 11,
+  "algorithm": "louvain",
+  "totalFiles": 25,
+  "nodes": [
+    {
+      "id": "file:net/file-transfer/include/chunk_header.h",
+      "type": "file",
+      "label": "文件: net/file-transfer/include/chunk_header.h",
+      "properties": {
+        "path": "net/file-transfer/include/chunk_header.h",
+        "language": "c",
+        "category": "code",
+        "totalLines": 26,
+        "nonEmptyLines": 18
+      }
+    },
+    {
+      "id": "class:net/file-transfer/include/chunk_header.h::ChunkHeader",
+      "type": "class",
+      "label": "类: ChunkHeader",
+      "properties": {
+        "name": "ChunkHeader",
+        "startLine": 13,
+        "endLine": 22,
+        "methodCount": 2,
+        "propertyCount": 5
+      }
+    },
+    {
+      "id": "func:net/file-transfer/include/chunk_header.h::to_network",
+      "type": "function",
+      "label": "函数: to_network",
+      "properties": {
+        "name": "to_network",
+        "file": "net/file-transfer/include/chunk_header.h",
+        "isMethod": true
+      }
+    },
+    {
+      "id": "func:net/file-transfer/include/chunk_header.h::from_network",
+      "type": "function",
+      "label": "函数: from_network",
+      "properties": {
+        "name": "from_network",
+        "file": "net/file-transfer/include/chunk_header.h",
+        "isMethod": true
+      }
+    },
+    {
+      "id": "file:net/file-transfer/include/file_transfer.h",
+      "type": "file",
+      "label": "文件: net/file-transfer/include/file_transfer.h",
+      "properties": {
+        "path": "net/file-transfer/include/file_transfer.h",
+        "language": "c",
+        "category": "code",
+        "totalLines": 32,
+        "nonEmptyLines": 20
+      }
+    },
+    {
+      "id": "class:net/file-transfer/include/file_transfer.h::IFileSystem",
+      "type": "class",
+      "label": "类: IFileSystem",
+      "properties": {
+        "name": "IFileSystem",
+        "startLine": 10,
+        "endLine": 10,
+        "methodCount": 0,
+        "propertyCount": 0
+      }
+    },
+    {
+      "id": "class:net/file-transfer/include/file_transfer.h::FileTransfer",
+      "type": "class",
+      "label": "类: FileTransfer",
+      "properties": {
+        "name": "FileTransfer",
+        "startLine": 12,
+        "endLine": 30,
+        "methodCount": 4,
+        "propertyCount": 4
+      }
+    },
+    {
+      "id": "func:net/file-transfer/include/file_transfer.h::transfer_small",
+      "type": "function",
+      "label": "函数: transfer_small",
+      "properties": {
+        "name": "transfer_small",
+        "file": "net/file-transfer/include/file_transfer.h",
+        "isMethod": true
+      }
+    },
+    {
+      "id": "func:net/file-transfer/include/file_transfer.h::transfer_large",
+      "type": "function",
+      "label": "函数: transfer_large",
+      "properties": {
+        "name": "transfer_large",
+        "file": "net/file-transfer/include/file_transfer.h",
+        "isMethod": true
+      }
+    },
+    {
+      "id": "func:net/file-transfer/include/file_transfer.h::receive_file",
+      "type": "function",
+      "label": "函数: receive_file",
+      "properties": {
+        "name": "receive_file",
+        "file": "net/file-transfer/include/file_transfer.h",
+        "isMethod": true
+      }
+    },
+    {
+      "id": "func:net/file-transfer/include/file_transfer.h::recv_all",
+      "type": "function",
+      "label": "函数: recv_all",
+      "properties": {
+        "name": "recv_all",
+        "file": "net/file-transfer/include/file_transfer.h",
+        "isMethod": true
+      }
+    },
+    {
+      "id": "file:net/file-transfer/include/i_file_transfer.h",
+      "type": "file",
+      "label": "文件: net/file-transfer/include/i_file_transfer.h",
+      "properties": {
+        "path": "net/file-transfer/include/i_file_transfer.h",
+        "language": "c",
+        "category": "code",
+        "totalLines": 22,
+        "nonEmptyLines": 14
+      }
+    },
+    {
+      "id": "class:net/file-transfer/include/i_file_transfer.h::ITcpClient",
+      "type": "class",
+      "label": "类: ITcpClient",
+      "properties": {
+        "name": "ITcpClient",
+        "startLine": 8,
+        "endLine": 8,
+        "methodCount": 0,
+        "propertyCount": 0
+      }
+    },
+    {
+      "id": "class:net/file-transfer/include/i_file_transfer.h::ITcpServer",
+      "type": "class",
+      "label": "类: ITcpServer",
+      "properties": {
+        "name": "ITcpServer",
+        "startLine": 9,
+        "endLine": 9,
+        "methodCount": 0,
+        "propertyCount": 0
+      }
+    },
+    {
+      "id": "class:net/file-transfer/include/i_file_transfer.h::IFileTransfer",
+      "type": "class",
+      "label": "类: IFileTransfer",
+      "properties": {
+        "name": "IFileTransfer",
+        "startLine": 11,
+        "endLine": 20,
+        "methodCount": 4,
+        "propertyCount": 0
+      }
+    },
+    {
+      "id": "func:net/file-transfer/include/i_file_transfer.h::~IFileTransfer",
+      "type": "function",
+      "label": "函数: ~IFileTransfer",
+      "properties": {
+        "name": "~IFileTransfer",
+        "file": "net/file-transfer/include/i_file_transfer.h",
+        "isMethod": true
+      }
+    },
+    {
+      "id": "func:net/file-transfer/include/i_file_transfer.h::transfer_small",
+      "type": "function",
+      "label": "函数: transfer_small",
+      "properties": {
+        "name": "transfer_small",
+        "file": "net/file-transfer/include/i_file_transfer.h",
+        "isMethod": true
+      }
+    },
+    {
+      "id": "func:net/file-transfer/include/i_file_transfer.h::transfer_large",
+      "type": "function",
+      "label": "函数: transfer_large",
+      "properties": {
+        "name": "transfer_large",
+        "file": "net/file-transfer/include/i_file_transfer.h",
+        "isMethod": true
+      }
+    },
+    {
+      "id": "func:net/file-transfer/include/i_file_transfer.h::receive_file",
+      "type": "function",
+      "label": "函数: receive_file",
+      "properties": {
+        "name": "receive_file",
+        "file": "net/file-transfer/include/i_file_transfer.h",
+        "isMethod": true
+      }
+    },
+    {
+      "id": "file:net/file-transfer/src/chunk_header.cpp",
+      "type": "file",
+      "label": "文件: net/file-transfer/src/chunk_header.cpp",
+      "properties": {
+        "path": "net/file-transfer/src/chunk_header.cpp",
+        "language": "cpp",
+        "category": "code",
+        "totalLines": 25,
+        "nonEmptyLines": 19
+      }
+    },
+    {
+      "id": "func:net/file-transfer/src/chunk_header.cpp::to_network",
+      "type": "function",
+      "label": "函数: to_network",
+      "properties": {
+        "name": "to_network",
+        "file": "net/file-transfer/src/chunk_header.cpp",
+        "startLine": 9,
+        "endLine": 15,
+        "params": [],
+        "isMethod": false
+      }
+    },
+    {
+      "id": "func:net/file-transfer/src/chunk_header.cpp::from_network",
+      "type": "function",
+      "label": "函数: from_network",
+      "properties": {
+        "name": "from_network",
+        "file": "net/file-transfer/src/chunk_header.cpp",
+        "startLine": 17,
+        "endLine": 23,
+        "params": [],
+        "isMethod": false
+      }
+    },
+    {
+      "id": "file:net/file-transfer/src/file_transfer.cpp",
+      "type": "file",
+      "label": "文件: net/file-transfer/src/file_transfer.cpp",
+      "properties": {
+        "path": "net/file-transfer/src/file_transfer.cpp",
+        "language": "cpp",
+        "category": "code",
+        "totalLines": 296,
+        "nonEmptyLines": 253
+      }
+    },
+    {
+      "id": "func:net/file-transfer/src/file_transfer.cpp::FileTransfer",
+      "type": "function",
+      "label": "函数: FileTransfer",
+      "properties": {
+        "name": "FileTransfer",
+        "file": "net/file-transfer/src/file_transfer.cpp",
+        "startLine": 23,
+        "endLine": 24,
+        "params": [
+          "fs",
+          "chunk_size"
+        ],
+        "isMethod": false
+      }
+    },
+    {
+      "id": "func:net/file-transfer/src/file_transfer.cpp::transfer_small",
+      "type": "function",
+      "label": "函数: transfer_small",
+      "properties": {
+        "name": "transfer_small",
+        "file": "net/file-transfer/src/file_transfer.cpp",
+        "startLine": 26,
+        "endLine": 37,
+        "params": [
+          "path",
+          "client"
+        ],
+        "isMethod": false
+      }
+    },
+    {
+      "id": "func:net/file-transfer/src/file_transfer.cpp::transfer_large",
+      "type": "function",
+      "label": "函数: transfer_large",
+      "properties": {
+        "name": "transfer_large",
+        "file": "net/file-transfer/src/file_transfer.cpp",
+        "startLine": 39,
+        "endLine": 109,
+        "params": [
+          "path",
+          "peer_ip",
+          "peer_port"
+        ],
+        "isMethod": false
+      }
+    },
+    {
+      "id": "func:net/file-transfer/src/file_transfer.cpp::setup_listen_socket",
+      "type": "function",
+      "label": "函数: setup_listen_socket",
+      "properties": {
+        "name": "setup_listen_socket",
+        "file": "net/file-transfer/src/file_transfer.cpp",
+        "startLine": 114,
+        "endLine": 147,
+        "params": [
+          "listen_fd",
+          "port"
+        ],
+        "isMethod": false
+      }
+    },
+    {
+      "id": "func:net/file-transfer/src/file_transfer.cpp::accept_and_receive_chunk",
+      "type": "function",
+      "label": "函数: accept_and_receive_chunk",
+      "properties": {
+        "name": "accept_and_receive_chunk",
+        "file": "net/file-transfer/src/file_transfer.cpp",
+        "startLine": 150,
+        "endLine": 231,
+        "params": [
+          "listen_fd",
+          "file_fd"
+        ],
+        "isMethod": false
+      }
+    },
+    {
+      "id": "func:net/file-transfer/src/file_transfer.cpp::receive_file",
+      "type": "function",
+      "label": "函数: receive_file",
+      "properties": {
+        "name": "receive_file",
+        "file": "net/file-transfer/src/file_transfer.cpp",
+        "startLine": 235,
+        "endLine": 270,
+        "params": [
+          "save_path"
+        ],
+        "isMethod": false
+      }
+    },
+    {
+      "id": "func:net/file-transfer/src/file_transfer.cpp::recv_all",
+      "type": "function",
+      "label": "函数: recv_all",
+      "properties": {
+        "name": "recv_all",
+        "file": "net/file-transfer/src/file_transfer.cpp",
+        "startLine": 272,
+        "endLine": 294,
+        "params": [
+          "fd",
+          "buf",
+          "size"
+        ],
+        "isMethod": false
+      }
+    },
+    {
+      "id": "file:net/file-transfer/xmake.lua",
+      "type": "file",
+      "label": "文件: net/file-transfer/xmake.lua",
+      "properties": {
+        "path": "net/file-transfer/xmake.lua",
+        "language": "lua",
+        "category": "code",
+        "totalLines": 7,
+        "nonEmptyLines": 7
+      }
+    },
+    {
+      "id": "file:net/http/include/url_decode.h",
+      "type": "file",
+      "label": "文件: net/http/include/url_decode.h",
+      "properties": {
+        "path": "net/http/include/url_decode.h",
+        "language": "c",
+        "category": "code",
+        "totalLines": 21,
+        "nonEmptyLines": 17
+      }
+    },
+    {
+      "id": "file:net/http/src/http_parser.cpp",
+      "type": "file",
+      "label": "文件: net/http/src/http_parser.cpp",
+      "properties": {
+        "path": "net/http/src/http_parser.cpp",
+        "language": "cpp",
+        "category": "code",
+        "totalLines": 268,
+        "nonEmptyLines": 246
+      }
+    },
+    {
+      "id": "func:net/http/src/http_parser.cpp::HttpParser",
+      "type": "function",
+      "label": "函数: HttpParser",
+      "properties": {
+        "name": "HttpParser",
+        "file": "net/http/src/http_parser.cpp",
+        "startLine": 7,
+        "endLine": 9,
+        "params": [],
+        "isMethod": false
+      }
+    },
+    {
+      "id": "func:net/http/src/http_parser.cpp::reset",
+      "type": "function",
+      "label": "函数: reset",
+      "properties": {
+        "name": "reset",
+        "file": "net/http/src/http_parser.cpp",
+        "startLine": 11,
+        "endLine": 21,
+        "params": [],
+        "isMethod": false
+      }
+    },
+    {
+      "id": "func:net/http/src/http_parser.cpp::reset_line_buf",
+      "type": "function",
+      "label": "函数: reset_line_buf",
+      "properties": {
+        "name": "reset_line_buf",
+        "file": "net/http/src/http_parser.cpp",
+        "startLine": 23,
+        "endLine": 25,
+        "params": [],
+        "isMethod": false
+      }
+    },
+    {
+      "id": "func:net/http/src/http_parser.cpp::feed",
+      "type": "function",
+      "label": "函数: feed",
+      "properties": {
+        "name": "feed",
+        "file": "net/http/src/http_parser.cpp",
+        "startLine": 27,
+        "endLine": 64,
+        "params": [
+          "data"
+        ],
+        "isMethod": false
+      }
+    },
+    {
+      "id": "func:net/http/src/http_parser.cpp::feed_request_line",
+      "type": "function",
+      "label": "函数: feed_request_line",
+      "properties": {
+        "name": "feed_request_line",
+        "file": "net/http/src/http_parser.cpp",
+        "startLine": 68,
+        "endLine": 103,
+        "params": [
+          "c"
+        ],
+        "isMethod": false
+      }
+    },
+    {
+      "id": "func:net/http/src/http_parser.cpp::handle_end_of_headers",
+      "type": "function",
+      "label": "函数: handle_end_of_headers",
+      "properties": {
+        "name": "handle_end_of_headers",
+        "file": "net/http/src/http_parser.cpp",
+        "startLine": 107,
+        "endLine": 137,
+        "params": [],
+        "isMethod": false
+      }
+    },
+    {
+      "id": "func:net/http/src/http_parser.cpp::parse_header_line",
+      "type": "function",
+      "label": "函数: parse_header_line",
+      "properties": {
+        "name": "parse_header_line",
+        "file": "net/http/src/http_parser.cpp",
+        "startLine": 139,
+        "endLine": 155,
+        "params": [],
+        "isMethod": false
+      }
+    },
+    {
+      "id": "func:net/http/src/http_parser.cpp::feed_headers",
+      "type": "function",
+      "label": "函数: feed_headers",
+      "properties": {
+        "name": "feed_headers",
+        "file": "net/http/src/http_parser.cpp",
+        "startLine": 157,
+        "endLine": 176,
+        "params": [
+          "c"
+        ],
+        "isMethod": false
+      }
+    },
+    {
+      "id": "func:net/http/src/http_parser.cpp::feed_body_identity",
+      "type": "function",
+      "label": "函数: feed_body_identity",
+      "properties": {
+        "name": "feed_body_identity",
+        "file": "net/http/src/http_parser.cpp",
+        "startLine": 180,
+        "endLine": 194,
+        "params": [
+          "c"
+        ],
+        "isMethod": false
+      }
+    },
+    {
+      "id": "func:net/http/src/http_parser.cpp::feed_chunk_size",
+      "type": "function",
+      "label": "函数: feed_chunk_size",
+      "properties": {
+        "name": "feed_chunk_size",
+        "file": "net/http/src/http_parser.cpp",
+        "startLine": 198,
+        "endLine": 227,
+        "params": [
+          "c"
+        ],
+        "isMethod": false
+      }
+    },
+    {
+      "id": "func:net/http/src/http_parser.cpp::feed_chunk_data",
+      "type": "function",
+      "label": "函数: feed_chunk_data",
+      "properties": {
+        "name": "feed_chunk_data",
+        "file": "net/http/src/http_parser.cpp",
+        "startLine": 229,
+        "endLine": 250,
+        "params": [
+          "c"
+        ],
+        "isMethod": false
+      }
+    },
+    {
+      "id": "func:net/http/src/http_parser.cpp::feed_chunk_trailer",
+      "type": "function",
+      "label": "函数: feed_chunk_trailer",
+      "properties": {
+        "name": "feed_chunk_trailer",
+        "file": "net/http/src/http_parser.cpp",
+        "startLine": 252,
+        "endLine": 266,
+        "params": [
+          "c"
+        ],
+        "isMethod": false
+      }
+    },
+    {
+      "id": "file:net/http/src/http_request.cpp",
+      "type": "file",
+      "label": "文件: net/http/src/http_request.cpp",
+      "properties": {
+        "path": "net/http/src/http_request.cpp",
+        "language": "cpp",
+        "category": "code",
+        "totalLines": 62,
+        "nonEmptyLines": 57
+      }
+    },
+    {
+      "id": "func:net/http/src/http_request.cpp::http_method_to_string",
+      "type": "function",
+      "label": "函数: http_method_to_string",
+      "properties": {
+        "name": "http_method_to_string",
+        "file": "net/http/src/http_request.cpp",
+        "startLine": 5,
+        "endLine": 28,
+        "params": [
+          "m"
+        ],
+        "isMethod": false
+      }
+    },
+    {
+      "id": "func:net/http/src/http_request.cpp::string_to_http_method",
+      "type": "function",
+      "label": "函数: string_to_http_method",
+      "properties": {
+        "name": "string_to_http_method",
+        "file": "net/http/src/http_request.cpp",
+        "startLine": 30,
+        "endLine": 50,
+        "params": [
+          "s"
+        ],
+        "isMethod": false
+      }
+    },
+    {
+      "id": "func:net/http/src/http_request.cpp::clear",
+      "type": "function",
+      "label": "函数: clear",
+      "properties": {
+        "name": "clear",
+        "file": "net/http/src/http_request.cpp",
+        "startLine": 52,
+        "endLine": 60,
+        "params": [],
+        "isMethod": false
+      }
+    },
+    {
+      "id": "file:net/http/src/http_response.cpp",
+      "type": "file",
+      "label": "文件: net/http/src/http_response.cpp",
+      "properties": {
+        "path": "net/http/src/http_response.cpp",
+        "language": "cpp",
+        "category": "code",
+        "totalLines": 42,
+        "nonEmptyLines": 33
+      }
+    },
+    {
+      "id": "func:net/http/src/http_response.cpp::set_status",
+      "type": "function",
+      "label": "函数: set_status",
+      "properties": {
+        "name": "set_status",
+        "file": "net/http/src/http_response.cpp",
+        "startLine": 7,
+        "endLine": 10,
+        "params": [
+          "code",
+          "text"
+        ],
+        "isMethod": false
+      }
+    },
+    {
+      "id": "func:net/http/src/http_response.cpp::set_header",
+      "type": "function",
+      "label": "函数: set_header",
+      "properties": {
+        "name": "set_header",
+        "file": "net/http/src/http_response.cpp",
+        "startLine": 12,
+        "endLine": 14,
+        "params": [
+          "key",
+          "value"
+        ],
+        "isMethod": false
+      }
+    },
+    {
+      "id": "func:net/http/src/http_response.cpp::set_content_type",
+      "type": "function",
+      "label": "函数: set_content_type",
+      "properties": {
+        "name": "set_content_type",
+        "file": "net/http/src/http_response.cpp",
+        "startLine": 16,
+        "endLine": 18,
+        "params": [
+          "type"
+        ],
+        "isMethod": false
+      }
+    },
+    {
+      "id": "func:net/http/src/http_response.cpp::set_content_length",
+      "type": "function",
+      "label": "函数: set_content_length",
+      "properties": {
+        "name": "set_content_length",
+        "file": "net/http/src/http_response.cpp",
+        "startLine": 20,
+        "endLine": 22,
+        "params": [
+          "len"
+        ],
+        "isMethod": false
+      }
+    },
+    {
+      "id": "func:net/http/src/http_response.cpp::serialize",
+      "type": "function",
+      "label": "函数: serialize",
+      "properties": {
+        "name": "serialize",
+        "file": "net/http/src/http_response.cpp",
+        "startLine": 24,
+        "endLine": 33,
+        "params": [],
+        "isMethod": false
+      }
+    },
+    {
+      "id": "func:net/http/src/http_response.cpp::clear",
+      "type": "function",
+      "label": "函数: clear",
+      "properties": {
+        "name": "clear",
+        "file": "net/http/src/http_response.cpp",
+        "startLine": 35,
+        "endLine": 40,
+        "params": [],
+        "isMethod": false
+      }
+    },
+    {
+      "id": "file:net/http/src/http_server.cpp",
+      "type": "file",
+      "label": "文件: net/http/src/http_server.cpp",
+      "properties": {
+        "path": "net/http/src/http_server.cpp",
+        "language": "cpp",
+        "category": "code",
+        "totalLines": 212,
+        "nonEmptyLines": 175
+      }
+    },
+    {
+      "id": "func:net/http/src/http_server.cpp::HttpServer",
+      "type": "function",
+      "label": "函数: HttpServer",
+      "properties": {
+        "name": "HttpServer",
+        "file": "net/http/src/http_server.cpp",
+        "startLine": 14,
+        "endLine": 14,
+        "params": [
+          "config"
+        ],
+        "isMethod": false
+      }
+    },
+    {
+      "id": "func:net/http/src/http_server.cpp::~HttpServer",
+      "type": "function",
+      "label": "函数: ~HttpServer",
+      "properties": {
+        "name": "~HttpServer",
+        "file": "net/http/src/http_server.cpp",
+        "startLine": 16,
+        "endLine": 16,
+        "params": [],
+        "isMethod": false
+      }
+    },
+    {
+      "id": "func:net/http/src/http_server.cpp::init",
+      "type": "function",
+      "label": "函数: init",
+      "properties": {
+        "name": "init",
+        "file": "net/http/src/http_server.cpp",
+        "startLine": 18,
+        "endLine": 25,
+        "params": [],
+        "isMethod": false
+      }
+    },
+    {
+      "id": "func:net/http/src/http_server.cpp::start",
+      "type": "function",
+      "label": "函数: start",
+      "properties": {
+        "name": "start",
+        "file": "net/http/src/http_server.cpp",
+        "startLine": 27,
+        "endLine": 29,
+        "params": [],
+        "isMethod": false
+      }
+    },
+    {
+      "id": "func:net/http/src/http_server.cpp::stop",
+      "type": "function",
+      "label": "函数: stop",
+      "properties": {
+        "name": "stop",
+        "file": "net/http/src/http_server.cpp",
+        "startLine": 31,
+        "endLine": 33,
+        "params": [],
+        "isMethod": false
+      }
+    },
+    {
+      "id": "func:net/http/src/http_server.cpp::get",
+      "type": "function",
+      "label": "函数: get",
+      "properties": {
+        "name": "get",
+        "file": "net/http/src/http_server.cpp",
+        "startLine": 35,
+        "endLine": 37,
+        "params": [
+          "path",
+          "handler"
+        ],
+        "isMethod": false
+      }
+    },
+    {
+      "id": "func:net/http/src/http_server.cpp::post",
+      "type": "function",
+      "label": "函数: post",
+      "properties": {
+        "name": "post",
+        "file": "net/http/src/http_server.cpp",
+        "startLine": 39,
+        "endLine": 41,
+        "params": [
+          "path",
+          "handler"
+        ],
+        "isMethod": false
+      }
+    },
+    {
+      "id": "func:net/http/src/http_server.cpp::put",
+      "type": "function",
+      "label": "函数: put",
+      "properties": {
+        "name": "put",
+        "file": "net/http/src/http_server.cpp",
+        "startLine": 43,
+        "endLine": 45,
+        "params": [
+          "path",
+          "handler"
+        ],
+        "isMethod": false
+      }
+    },
+    {
+      "id": "func:net/http/src/http_server.cpp::del",
+      "type": "function",
+      "label": "函数: del",
+      "properties": {
+        "name": "del",
+        "file": "net/http/src/http_server.cpp",
+        "startLine": 47,
+        "endLine": 49,
+        "params": [
+          "path",
+          "handler"
+        ],
+        "isMethod": false
+      }
+    },
+    {
+      "id": "func:net/http/src/http_server.cpp::ws",
+      "type": "function",
+      "label": "函数: ws",
+      "properties": {
+        "name": "ws",
+        "file": "net/http/src/http_server.cpp",
+        "startLine": 51,
+        "endLine": 53,
+        "params": [
+          "path",
+          "handler"
+        ],
+        "isMethod": false
+      }
+    },
+    {
+      "id": "func:net/http/src/http_server.cpp::get_conn_mutex",
+      "type": "function",
+      "label": "函数: get_conn_mutex",
+      "properties": {
+        "name": "get_conn_mutex",
+        "file": "net/http/src/http_server.cpp",
+        "startLine": 55,
+        "endLine": 62,
+        "params": [
+          "c"
+        ],
+        "isMethod": false
+      }
+    },
+    {
+      "id": "func:net/http/src/http_server.cpp::try_handle_ws_upgrade",
+      "type": "function",
+      "label": "函数: try_handle_ws_upgrade",
+      "properties": {
+        "name": "try_handle_ws_upgrade",
+        "file": "net/http/src/http_server.cpp",
+        "startLine": 64,
+        "endLine": 90,
+        "params": [
+          "conn",
+          "req",
+          "total_consumed"
+        ],
+        "isMethod": false
+      }
+    },
+    {
+      "id": "func:net/http/src/http_server.cpp::handle_connection",
+      "type": "function",
+      "label": "函数: handle_connection",
+      "properties": {
+        "name": "handle_connection",
+        "file": "net/http/src/http_server.cpp",
+        "startLine": 93,
+        "endLine": 198,
+        "params": [
+          "conn"
+        ],
+        "isMethod": false
+      }
+    },
+    {
+      "id": "func:net/http/src/http_server.cpp::send_error",
+      "type": "function",
+      "label": "函数: send_error",
+      "properties": {
+        "name": "send_error",
+        "file": "net/http/src/http_server.cpp",
+        "startLine": 200,
+        "endLine": 210,
+        "params": [
+          "conn",
+          "status",
+          "text",
+          "detail"
+        ],
+        "isMethod": false
+      }
+    },
+    {
+      "id": "file:net/http/src/range_parser.cpp",
+      "type": "file",
+      "label": "文件: net/http/src/range_parser.cpp",
+      "properties": {
+        "path": "net/http/src/range_parser.cpp",
+        "language": "cpp",
+        "category": "code",
+        "totalLines": 165,
+        "nonEmptyLines": 144
+      }
+    },
+    {
+      "id": "func:net/http/src/range_parser.cpp::consume_prefix",
+      "type": "function",
+      "label": "函数: consume_prefix",
+      "properties": {
+        "name": "consume_prefix",
+        "file": "net/http/src/range_parser.cpp",
+        "startLine": 11,
+        "endLine": 22,
+        "params": [
+          "header",
+          "prefix"
+        ],
+        "isMethod": false
+      }
+    },
+    {
+      "id": "func:net/http/src/range_parser.cpp::skip_spaces",
+      "type": "function",
+      "label": "函数: skip_spaces",
+      "properties": {
+        "name": "skip_spaces",
+        "file": "net/http/src/range_parser.cpp",
+        "startLine": 24,
+        "endLine": 28,
+        "params": [
+          "s"
+        ],
+        "isMethod": false
+      }
+    },
+    {
+      "id": "func:net/http/src/range_parser.cpp::parse_number",
+      "type": "function",
+      "label": "函数: parse_number",
+      "properties": {
+        "name": "parse_number",
+        "file": "net/http/src/range_parser.cpp",
+        "startLine": 30,
+        "endLine": 42,
+        "params": [
+          "s"
+        ],
+        "isMethod": false
+      }
+    },
+    {
+      "id": "func:net/http/src/range_parser.cpp::try_parse_suffix",
+      "type": "function",
+      "label": "函数: try_parse_suffix",
+      "properties": {
+        "name": "try_parse_suffix",
+        "file": "net/http/src/range_parser.cpp",
+        "startLine": 44,
+        "endLine": 56,
+        "params": [
+          "header",
+          "file_size",
+          "out"
+        ],
+        "isMethod": false
+      }
+    },
+    {
+      "id": "func:net/http/src/range_parser.cpp::try_parse_byte_range",
+      "type": "function",
+      "label": "函数: try_parse_byte_range",
+      "properties": {
+        "name": "try_parse_byte_range",
+        "file": "net/http/src/range_parser.cpp",
+        "startLine": 58,
+        "endLine": 78,
+        "params": [
+          "header",
+          "file_size",
+          "out"
+        ],
+        "isMethod": false
+      }
+    },
+    {
+      "id": "func:net/http/src/range_parser.cpp::parse_range_header",
+      "type": "function",
+      "label": "函数: parse_range_header",
+      "properties": {
+        "name": "parse_range_header",
+        "file": "net/http/src/range_parser.cpp",
+        "startLine": 82,
+        "endLine": 140,
+        "params": [
+          "header",
+          "file_size"
+        ],
+        "isMethod": false
+      }
+    },
+    {
+      "id": "func:net/http/src/range_parser.cpp::build_206_headers",
+      "type": "function",
+      "label": "函数: build_206_headers",
+      "properties": {
+        "name": "build_206_headers",
+        "file": "net/http/src/range_parser.cpp",
+        "startLine": 142,
+        "endLine": 155,
+        "params": [
+          "resp",
+          "range",
+          "file_size"
+        ],
+        "isMethod": false
+      }
+    },
+    {
+      "id": "func:net/http/src/range_parser.cpp::build_416_response",
+      "type": "function",
+      "label": "函数: build_416_response",
+      "properties": {
+        "name": "build_416_response",
+        "file": "net/http/src/range_parser.cpp",
+        "startLine": 157,
+        "endLine": 163,
+        "params": [
+          "resp",
+          "file_size"
+        ],
+        "isMethod": false
+      }
+    },
+    {
+      "id": "file:net/http/src/router.cpp",
+      "type": "file",
+      "label": "文件: net/http/src/router.cpp",
+      "properties": {
+        "path": "net/http/src/router.cpp",
+        "language": "cpp",
+        "category": "code",
+        "totalLines": 116,
+        "nonEmptyLines": 101
+      }
+    },
+    {
+      "id": "func:net/http/src/router.cpp::Router",
+      "type": "function",
+      "label": "函数: Router",
+      "properties": {
+        "name": "Router",
+        "file": "net/http/src/router.cpp",
+        "startLine": 5,
+        "endLine": 5,
+        "params": [],
+        "isMethod": false
+      }
+    },
+    {
+      "id": "func:net/http/src/router.cpp::~Router",
+      "type": "function",
+      "label": "函数: ~Router",
+      "properties": {
+        "name": "~Router",
+        "file": "net/http/src/router.cpp",
+        "startLine": 7,
+        "endLine": 7,
+        "params": [],
+        "isMethod": false
+      }
+    },
+    {
+      "id": "func:net/http/src/router.cpp::split_path",
+      "type": "function",
+      "label": "函数: split_path",
+      "properties": {
+        "name": "split_path",
+        "file": "net/http/src/router.cpp",
+        "startLine": 9,
+        "endLine": 21,
+        "params": [
+          "path"
+        ],
+        "isMethod": false
+      }
+    },
+    {
+      "id": "func:net/http/src/router.cpp::add",
+      "type": "function",
+      "label": "函数: add",
+      "properties": {
+        "name": "add",
+        "file": "net/http/src/router.cpp",
+        "startLine": 23,
+        "endLine": 26,
+        "params": [
+          "method",
+          "path",
+          "handler"
+        ],
+        "isMethod": false
+      }
+    },
+    {
+      "id": "func:net/http/src/router.cpp::insert",
+      "type": "function",
+      "label": "函数: insert",
+      "properties": {
+        "name": "insert",
+        "file": "net/http/src/router.cpp",
+        "startLine": 29,
+        "endLine": 58,
+        "params": [
+          "node",
+          "segments",
+          "idx",
+          "method",
+          "handler"
+        ],
+        "isMethod": false
+      }
+    },
+    {
+      "id": "func:net/http/src/router.cpp::match",
+      "type": "function",
+      "label": "函数: match",
+      "properties": {
+        "name": "match",
+        "file": "net/http/src/router.cpp",
+        "startLine": 60,
+        "endLine": 66,
+        "params": [
+          "method",
+          "path",
+          "outHandler",
+          "outParams"
+        ],
+        "isMethod": false
+      }
+    },
+    {
+      "id": "func:net/http/src/router.cpp::search",
+      "type": "function",
+      "label": "函数: search",
+      "properties": {
+        "name": "search",
+        "file": "net/http/src/router.cpp",
+        "startLine": 69,
+        "endLine": 107,
+        "params": [
+          "node",
+          "segments",
+          "idx",
+          "method",
+          "outHandler",
+          "outParams"
+        ],
+        "isMethod": false
+      }
+    },
+    {
+      "id": "func:net/http/src/router.cpp::path_exists",
+      "type": "function",
+      "label": "函数: path_exists",
+      "properties": {
+        "name": "path_exists",
+        "file": "net/http/src/router.cpp",
+        "startLine": 109,
+        "endLine": 114,
+        "params": [
+          "path"
+        ],
+        "isMethod": false
+      }
+    },
+    {
+      "id": "file:net/http/src/url_decode.cpp",
+      "type": "file",
+      "label": "文件: net/http/src/url_decode.cpp",
+      "properties": {
+        "path": "net/http/src/url_decode.cpp",
+        "language": "cpp",
+        "category": "code",
+        "totalLines": 42,
+        "nonEmptyLines": 35
+      }
+    },
+    {
+      "id": "func:net/http/src/url_decode.cpp::hex_value",
+      "type": "function",
+      "label": "函数: hex_value",
+      "properties": {
+        "name": "hex_value",
+        "file": "net/http/src/url_decode.cpp",
+        "startLine": 7,
+        "endLine": 15,
+        "params": [
+          "c"
+        ],
+        "isMethod": false
+      }
+    },
+    {
+      "id": "func:net/http/src/url_decode.cpp::url_decode",
+      "type": "function",
+      "label": "函数: url_decode",
+      "properties": {
+        "name": "url_decode",
+        "file": "net/http/src/url_decode.cpp",
+        "startLine": 19,
+        "endLine": 40,
+        "params": [
+          "src",
+          "dst"
+        ],
+        "isMethod": false
+      }
+    },
+    {
+      "id": "file:net/http/xmake.lua",
+      "type": "file",
+      "label": "文件: net/http/xmake.lua",
+      "properties": {
+        "path": "net/http/xmake.lua",
+        "language": "lua",
+        "category": "code",
+        "totalLines": 12,
+        "nonEmptyLines": 12
+      }
+    },
+    {
+      "id": "file:net/ssl/include/ssl_context.h",
+      "type": "file",
+      "label": "文件: net/ssl/include/ssl_context.h",
+      "properties": {
+        "path": "net/ssl/include/ssl_context.h",
+        "language": "c",
+        "category": "code",
+        "totalLines": 43,
+        "nonEmptyLines": 33
+      }
+    },
+    {
+      "id": "class:net/ssl/include/ssl_context.h::ssl_st",
+      "type": "class",
+      "label": "类: ssl_st",
+      "properties": {
+        "name": "ssl_st",
+        "startLine": 6,
+        "endLine": 6,
+        "methodCount": 0,
+        "propertyCount": 0
+      }
+    },
+    {
+      "id": "class:net/ssl/include/ssl_context.h::ssl_ctx_st",
+      "type": "class",
+      "label": "类: ssl_ctx_st",
+      "properties": {
+        "name": "ssl_ctx_st",
+        "startLine": 7,
+        "endLine": 7,
+        "methodCount": 0,
+        "propertyCount": 0
+      }
+    },
+    {
+      "id": "class:net/ssl/include/ssl_context.h::SslConfig",
+      "type": "class",
+      "label": "类: SslConfig",
+      "properties": {
+        "name": "SslConfig",
+        "startLine": 11,
+        "endLine": 17,
+        "methodCount": 0,
+        "propertyCount": 5
+      }
+    },
+    {
+      "id": "class:net/ssl/include/ssl_context.h::SslContext",
+      "type": "class",
+      "label": "类: SslContext",
+      "properties": {
+        "name": "SslContext",
+        "startLine": 19,
+        "endLine": 41,
+        "methodCount": 8,
+        "propertyCount": 3
+      }
+    },
+    {
+      "id": "func:net/ssl/include/ssl_context.h::SslContext",
+      "type": "function",
+      "label": "函数: SslContext",
+      "properties": {
+        "name": "SslContext",
+        "file": "net/ssl/include/ssl_context.h",
+        "isMethod": true
+      }
+    },
+    {
+      "id": "func:net/ssl/include/ssl_context.h::accept",
+      "type": "function",
+      "label": "函数: accept",
+      "properties": {
+        "name": "accept",
+        "file": "net/ssl/include/ssl_context.h",
+        "isMethod": true
+      }
+    },
+    {
+      "id": "func:net/ssl/include/ssl_context.h::shutdown_and_free",
+      "type": "function",
+      "label": "函数: shutdown_and_free",
+      "properties": {
+        "name": "shutdown_and_free",
+        "file": "net/ssl/include/ssl_context.h",
+        "isMethod": true
+      }
+    },
+    {
+      "id": "func:net/ssl/include/ssl_context.h::want_read",
+      "type": "function",
+      "label": "函数: want_read",
+      "properties": {
+        "name": "want_read",
+        "file": "net/ssl/include/ssl_context.h",
+        "isMethod": true
+      }
+    },
+    {
+      "id": "func:net/ssl/include/ssl_context.h::want_write",
+      "type": "function",
+      "label": "函数: want_write",
+      "properties": {
+        "name": "want_write",
+        "file": "net/ssl/include/ssl_context.h",
+        "isMethod": true
+      }
+    },
+    {
+      "id": "func:net/ssl/include/ssl_context.h::read",
+      "type": "function",
+      "label": "函数: read",
+      "properties": {
+        "name": "read",
+        "file": "net/ssl/include/ssl_context.h",
+        "isMethod": true
+      }
+    },
+    {
+      "id": "func:net/ssl/include/ssl_context.h::write",
+      "type": "function",
+      "label": "函数: write",
+      "properties": {
+        "name": "write",
+        "file": "net/ssl/include/ssl_context.h",
+        "isMethod": true
+      }
+    },
+    {
+      "id": "file:net/ssl/src/ssl_context.cpp",
+      "type": "file",
+      "label": "文件: net/ssl/src/ssl_context.cpp",
+      "properties": {
+        "path": "net/ssl/src/ssl_context.cpp",
+        "language": "cpp",
+        "category": "code",
+        "totalLines": 156,
+        "nonEmptyLines": 133
+      }
+    },
+    {
+      "id": "func:net/ssl/src/ssl_context.cpp::ensure_openssl",
+      "type": "function",
+      "label": "函数: ensure_openssl",
+      "properties": {
+        "name": "ensure_openssl",
+        "file": "net/ssl/src/ssl_context.cpp",
+        "startLine": 15,
+        "endLine": 25,
+        "params": [],
+        "isMethod": false
+      }
+    },
+    {
+      "id": "func:net/ssl/src/ssl_context.cpp::SslContext",
+      "type": "function",
+      "label": "函数: SslContext",
+      "properties": {
+        "name": "SslContext",
+        "file": "net/ssl/src/ssl_context.cpp",
+        "startLine": 29,
+        "endLine": 75,
+        "params": [
+          "config"
+        ],
+        "isMethod": false
+      }
+    },
+    {
+      "id": "func:net/ssl/src/ssl_context.cpp::~SslContext",
+      "type": "function",
+      "label": "函数: ~SslContext",
+      "properties": {
+        "name": "~SslContext",
+        "file": "net/ssl/src/ssl_context.cpp",
+        "startLine": 77,
+        "endLine": 81,
+        "params": [],
+        "isMethod": false
+      }
+    },
+    {
+      "id": "func:net/ssl/src/ssl_context.cpp::accept",
+      "type": "function",
+      "label": "函数: accept",
+      "properties": {
+        "name": "accept",
+        "file": "net/ssl/src/ssl_context.cpp",
+        "startLine": 95,
+        "endLine": 102,
+        "params": [
+          "ssl",
+          "fd"
+        ],
+        "isMethod": false
+      }
+    },
+    {
+      "id": "func:net/ssl/src/ssl_context.cpp::shutdown_and_free",
+      "type": "function",
+      "label": "函数: shutdown_and_free",
+      "properties": {
+        "name": "shutdown_and_free",
+        "file": "net/ssl/src/ssl_context.cpp",
+        "startLine": 104,
+        "endLine": 110,
+        "params": [
+          "ssl"
+        ],
+        "isMethod": false
+      }
+    },
+    {
+      "id": "func:net/ssl/src/ssl_context.cpp::want_read",
+      "type": "function",
+      "label": "函数: want_read",
+      "properties": {
+        "name": "want_read",
+        "file": "net/ssl/src/ssl_context.cpp",
+        "startLine": 112,
+        "endLine": 114,
+        "params": [
+          "ssl",
+          "ret"
+        ],
+        "isMethod": false
+      }
+    },
+    {
+      "id": "func:net/ssl/src/ssl_context.cpp::want_write",
+      "type": "function",
+      "label": "函数: want_write",
+      "properties": {
+        "name": "want_write",
+        "file": "net/ssl/src/ssl_context.cpp",
+        "startLine": 116,
+        "endLine": 118,
+        "params": [
+          "ssl",
+          "ret"
+        ],
+        "isMethod": false
+      }
+    },
+    {
+      "id": "func:net/ssl/src/ssl_context.cpp::read",
+      "type": "function",
+      "label": "函数: read",
+      "properties": {
+        "name": "read",
+        "file": "net/ssl/src/ssl_context.cpp",
+        "startLine": 120,
+        "endLine": 136,
+        "params": [
+          "ssl",
+          "buf",
+          "len"
+        ],
+        "isMethod": false
+      }
+    },
+    {
+      "id": "func:net/ssl/src/ssl_context.cpp::write",
+      "type": "function",
+      "label": "函数: write",
+      "properties": {
+        "name": "write",
+        "file": "net/ssl/src/ssl_context.cpp",
+        "startLine": 138,
+        "endLine": 154,
+        "params": [
+          "ssl",
+          "buf",
+          "len"
+        ],
+        "isMethod": false
+      }
+    },
+    {
+      "id": "file:net/ssl/xmake.lua",
+      "type": "file",
+      "label": "文件: net/ssl/xmake.lua",
+      "properties": {
+        "path": "net/ssl/xmake.lua",
+        "language": "lua",
+        "category": "code",
+        "totalLines": 23,
+        "nonEmptyLines": 22
+      }
+    },
+    {
+      "id": "file:net/tcp/tcp_client/include/i_tcp_client.h",
+      "type": "file",
+      "label": "文件: net/tcp/tcp_client/include/i_tcp_client.h",
+      "properties": {
+        "path": "net/tcp/tcp_client/include/i_tcp_client.h",
+        "language": "c",
+        "category": "code",
+        "totalLines": 27,
+        "nonEmptyLines": 21
+      }
+    },
+    {
+      "id": "class:net/tcp/tcp_client/include/i_tcp_client.h::ITcpClient",
+      "type": "class",
+      "label": "类: ITcpClient",
+      "properties": {
+        "name": "ITcpClient",
+        "startLine": 15,
+        "endLine": 25,
+        "methodCount": 6,
+        "propertyCount": 0
+      }
+    },
+    {
+      "id": "func:net/tcp/tcp_client/include/i_tcp_client.h::~ITcpClient",
+      "type": "function",
+      "label": "函数: ~ITcpClient",
+      "properties": {
+        "name": "~ITcpClient",
+        "file": "net/tcp/tcp_client/include/i_tcp_client.h",
+        "isMethod": true
+      }
+    },
+    {
+      "id": "func:net/tcp/tcp_client/include/i_tcp_client.h::connect_to_server",
+      "type": "function",
+      "label": "函数: connect_to_server",
+      "properties": {
+        "name": "connect_to_server",
+        "file": "net/tcp/tcp_client/include/i_tcp_client.h",
+        "isMethod": true
+      }
+    },
+    {
+      "id": "func:net/tcp/tcp_client/include/i_tcp_client.h::disconnect",
+      "type": "function",
+      "label": "函数: disconnect",
+      "properties": {
+        "name": "disconnect",
+        "file": "net/tcp/tcp_client/include/i_tcp_client.h",
+        "isMethod": true
+      }
+    },
+    {
+      "id": "func:net/tcp/tcp_client/include/i_tcp_client.h::send_message",
+      "type": "function",
+      "label": "函数: send_message",
+      "properties": {
+        "name": "send_message",
+        "file": "net/tcp/tcp_client/include/i_tcp_client.h",
+        "isMethod": true
+      }
+    },
+    {
+      "id": "func:net/tcp/tcp_client/include/i_tcp_client.h::receive_message",
+      "type": "function",
+      "label": "函数: receive_message",
+      "properties": {
+        "name": "receive_message",
+        "file": "net/tcp/tcp_client/include/i_tcp_client.h",
+        "isMethod": true
+      }
+    },
+    {
+      "id": "func:net/tcp/tcp_client/include/i_tcp_client.h::is_connected",
+      "type": "function",
+      "label": "函数: is_connected",
+      "properties": {
+        "name": "is_connected",
+        "file": "net/tcp/tcp_client/include/i_tcp_client.h",
+        "isMethod": true
+      }
+    },
+    {
+      "id": "file:net/tcp/tcp_client/include/tcp_client.h",
+      "type": "file",
+      "label": "文件: net/tcp/tcp_client/include/tcp_client.h",
+      "properties": {
+        "path": "net/tcp/tcp_client/include/tcp_client.h",
+        "language": "c",
+        "category": "code",
+        "totalLines": 60,
+        "nonEmptyLines": 46
+      }
+    },
+    {
+      "id": "class:net/tcp/tcp_client/include/tcp_client.h::TcpClient",
+      "type": "class",
+      "label": "类: TcpClient",
+      "properties": {
+        "name": "TcpClient",
+        "startLine": 16,
+        "endLine": 58,
+        "methodCount": 14,
+        "propertyCount": 6
+      }
+    },
+    {
+      "id": "func:net/tcp/tcp_client/include/tcp_client.h::TcpClient",
+      "type": "function",
+      "label": "函数: TcpClient",
+      "properties": {
+        "name": "TcpClient",
+        "file": "net/tcp/tcp_client/include/tcp_client.h",
+        "isMethod": true
+      }
+    },
+    {
+      "id": "func:net/tcp/tcp_client/include/tcp_client.h::connect_to_server",
+      "type": "function",
+      "label": "函数: connect_to_server",
+      "properties": {
+        "name": "connect_to_server",
+        "file": "net/tcp/tcp_client/include/tcp_client.h",
+        "isMethod": true
+      }
+    },
+    {
+      "id": "func:net/tcp/tcp_client/include/tcp_client.h::disconnect",
+      "type": "function",
+      "label": "函数: disconnect",
+      "properties": {
+        "name": "disconnect",
+        "file": "net/tcp/tcp_client/include/tcp_client.h",
+        "isMethod": true
+      }
+    },
+    {
+      "id": "func:net/tcp/tcp_client/include/tcp_client.h::send_message",
+      "type": "function",
+      "label": "函数: send_message",
+      "properties": {
+        "name": "send_message",
+        "file": "net/tcp/tcp_client/include/tcp_client.h",
+        "isMethod": true
+      }
+    },
+    {
+      "id": "func:net/tcp/tcp_client/include/tcp_client.h::receive_message",
+      "type": "function",
+      "label": "函数: receive_message",
+      "properties": {
+        "name": "receive_message",
+        "file": "net/tcp/tcp_client/include/tcp_client.h",
+        "isMethod": true
+      }
+    },
+    {
+      "id": "func:net/tcp/tcp_client/include/tcp_client.h::send_file",
+      "type": "function",
+      "label": "函数: send_file",
+      "properties": {
+        "name": "send_file",
+        "file": "net/tcp/tcp_client/include/tcp_client.h",
+        "isMethod": true
+      }
+    },
+    {
+      "id": "func:net/tcp/tcp_client/include/tcp_client.h::is_connected",
+      "type": "function",
+      "label": "函数: is_connected",
+      "properties": {
+        "name": "is_connected",
+        "file": "net/tcp/tcp_client/include/tcp_client.h",
+        "isMethod": true
+      }
+    },
+    {
+      "id": "func:net/tcp/tcp_client/include/tcp_client.h::send_all",
+      "type": "function",
+      "label": "函数: send_all",
+      "properties": {
+        "name": "send_all",
+        "file": "net/tcp/tcp_client/include/tcp_client.h",
+        "isMethod": true
+      }
+    },
+    {
+      "id": "func:net/tcp/tcp_client/include/tcp_client.h::wait_connected",
+      "type": "function",
+      "label": "函数: wait_connected",
+      "properties": {
+        "name": "wait_connected",
+        "file": "net/tcp/tcp_client/include/tcp_client.h",
+        "isMethod": true
+      }
+    },
+    {
+      "id": "func:net/tcp/tcp_client/include/tcp_client.h::wait_readable",
+      "type": "function",
+      "label": "函数: wait_readable",
+      "properties": {
+        "name": "wait_readable",
+        "file": "net/tcp/tcp_client/include/tcp_client.h",
+        "isMethod": true
+      }
+    },
+    {
+      "id": "func:net/tcp/tcp_client/include/tcp_client.h::recv_into_buffer",
+      "type": "function",
+      "label": "函数: recv_into_buffer",
+      "properties": {
+        "name": "recv_into_buffer",
+        "file": "net/tcp/tcp_client/include/tcp_client.h",
+        "isMethod": true
+      }
+    },
+    {
+      "id": "func:net/tcp/tcp_client/include/tcp_client.h::read_line",
+      "type": "function",
+      "label": "函数: read_line",
+      "properties": {
+        "name": "read_line",
+        "file": "net/tcp/tcp_client/include/tcp_client.h",
+        "isMethod": true
+      }
+    },
+    {
+      "id": "func:net/tcp/tcp_client/include/tcp_client.h::read_raw",
+      "type": "function",
+      "label": "函数: read_raw",
+      "properties": {
+        "name": "read_raw",
+        "file": "net/tcp/tcp_client/include/tcp_client.h",
+        "isMethod": true
+      }
+    },
+    {
+      "id": "file:net/tcp/tcp_client/src/tcp_client.cpp",
+      "type": "file",
+      "label": "文件: net/tcp/tcp_client/src/tcp_client.cpp",
+      "properties": {
+        "path": "net/tcp/tcp_client/src/tcp_client.cpp",
+        "language": "cpp",
+        "category": "code",
+        "totalLines": 300,
+        "nonEmptyLines": 251
+      }
+    },
+    {
+      "id": "func:net/tcp/tcp_client/src/tcp_client.cpp::TcpClient",
+      "type": "function",
+      "label": "函数: TcpClient",
+      "properties": {
+        "name": "TcpClient",
+        "file": "net/tcp/tcp_client/src/tcp_client.cpp",
+        "startLine": 20,
+        "endLine": 21,
+        "params": [
+          "server_ip",
+          "server_port"
+        ],
+        "isMethod": false
+      }
+    },
+    {
+      "id": "func:net/tcp/tcp_client/src/tcp_client.cpp::~TcpClient",
+      "type": "function",
+      "label": "函数: ~TcpClient",
+      "properties": {
+        "name": "~TcpClient",
+        "file": "net/tcp/tcp_client/src/tcp_client.cpp",
+        "startLine": 26,
+        "endLine": 28,
+        "params": [],
+        "isMethod": false
+      }
+    },
+    {
+      "id": "func:net/tcp/tcp_client/src/tcp_client.cpp::send_all",
+      "type": "function",
+      "label": "函数: send_all",
+      "properties": {
+        "name": "send_all",
+        "file": "net/tcp/tcp_client/src/tcp_client.cpp",
+        "startLine": 52,
+        "endLine": 80,
+        "params": [
+          "fd",
+          "data",
+          "size",
+          "timeout"
+        ],
+        "isMethod": false
+      }
+    },
+    {
+      "id": "func:net/tcp/tcp_client/src/tcp_client.cpp::wait_connected",
+      "type": "function",
+      "label": "函数: wait_connected",
+      "properties": {
+        "name": "wait_connected",
+        "file": "net/tcp/tcp_client/src/tcp_client.cpp",
+        "startLine": 82,
+        "endLine": 96,
+        "params": [
+          "fd",
+          "timeout"
+        ],
+        "isMethod": false
+      }
+    },
+    {
+      "id": "func:net/tcp/tcp_client/src/tcp_client.cpp::wait_readable",
+      "type": "function",
+      "label": "函数: wait_readable",
+      "properties": {
+        "name": "wait_readable",
+        "file": "net/tcp/tcp_client/src/tcp_client.cpp",
+        "startLine": 98,
+        "endLine": 106,
+        "params": [
+          "fd",
+          "timeout"
+        ],
+        "isMethod": false
+      }
+    },
+    {
+      "id": "func:net/tcp/tcp_client/src/tcp_client.cpp::connect_to_server",
+      "type": "function",
+      "label": "函数: connect_to_server",
+      "properties": {
+        "name": "connect_to_server",
+        "file": "net/tcp/tcp_client/src/tcp_client.cpp",
+        "startLine": 108,
+        "endLine": 152,
+        "params": [],
+        "isMethod": false
+      }
+    },
+    {
+      "id": "func:net/tcp/tcp_client/src/tcp_client.cpp::disconnect",
+      "type": "function",
+      "label": "函数: disconnect",
+      "properties": {
+        "name": "disconnect",
+        "file": "net/tcp/tcp_client/src/tcp_client.cpp",
+        "startLine": 154,
+        "endLine": 160,
+        "params": [],
+        "isMethod": false
+      }
+    },
+    {
+      "id": "func:net/tcp/tcp_client/src/tcp_client.cpp::send_message",
+      "type": "function",
+      "label": "函数: send_message",
+      "properties": {
+        "name": "send_message",
+        "file": "net/tcp/tcp_client/src/tcp_client.cpp",
+        "startLine": 162,
+        "endLine": 168,
+        "params": [
+          "message"
+        ],
+        "isMethod": false
+      }
+    },
+    {
+      "id": "func:net/tcp/tcp_client/src/tcp_client.cpp::receive_message",
+      "type": "function",
+      "label": "函数: receive_message",
+      "properties": {
+        "name": "receive_message",
+        "file": "net/tcp/tcp_client/src/tcp_client.cpp",
+        "startLine": 171,
+        "endLine": 179,
+        "params": [
+          "message",
+          "mode",
+          "read_timeout_ms"
+        ],
+        "isMethod": false
+      }
+    },
+    {
+      "id": "func:net/tcp/tcp_client/src/tcp_client.cpp::recv_into_buffer",
+      "type": "function",
+      "label": "函数: recv_into_buffer",
+      "properties": {
+        "name": "recv_into_buffer",
+        "file": "net/tcp/tcp_client/src/tcp_client.cpp",
+        "startLine": 181,
+        "endLine": 198,
+        "params": [
+          "timeout"
+        ],
+        "isMethod": false
+      }
+    },
+    {
+      "id": "func:net/tcp/tcp_client/src/tcp_client.cpp::read_line",
+      "type": "function",
+      "label": "函数: read_line",
+      "properties": {
+        "name": "read_line",
+        "file": "net/tcp/tcp_client/src/tcp_client.cpp",
+        "startLine": 200,
+        "endLine": 223,
+        "params": [
+          "line"
+        ],
+        "isMethod": false
+      }
+    },
+    {
+      "id": "func:net/tcp/tcp_client/src/tcp_client.cpp::read_raw",
+      "type": "function",
+      "label": "函数: read_raw",
+      "properties": {
+        "name": "read_raw",
+        "file": "net/tcp/tcp_client/src/tcp_client.cpp",
+        "startLine": 225,
+        "endLine": 260,
+        "params": [
+          "data",
+          "timeout_ms"
+        ],
+        "isMethod": false
+      }
+    },
+    {
+      "id": "func:net/tcp/tcp_client/src/tcp_client.cpp::send_file",
+      "type": "function",
+      "label": "函数: send_file",
+      "properties": {
+        "name": "send_file",
+        "file": "net/tcp/tcp_client/src/tcp_client.cpp",
+        "startLine": 262,
+        "endLine": 290,
+        "params": [
+          "file_path"
+        ],
+        "isMethod": false
+      }
+    },
+    {
+      "id": "file:net/tcp/tcp_client/xmake.lua",
+      "type": "file",
+      "label": "文件: net/tcp/tcp_client/xmake.lua",
+      "properties": {
+        "path": "net/tcp/tcp_client/xmake.lua",
+        "language": "lua",
+        "category": "code",
+        "totalLines": 7,
+        "nonEmptyLines": 7
+      }
+    },
+    {
+      "id": "file:net/tcp/tcp_server/src/connection.cpp",
+      "type": "file",
+      "label": "文件: net/tcp/tcp_server/src/connection.cpp",
+      "properties": {
+        "path": "net/tcp/tcp_server/src/connection.cpp",
+        "language": "cpp",
+        "category": "code",
+        "totalLines": 229,
+        "nonEmptyLines": 202
+      }
+    },
+    {
+      "id": "func:net/tcp/tcp_server/src/connection.cpp::Connection",
+      "type": "function",
+      "label": "函数: Connection",
+      "properties": {
+        "name": "Connection",
+        "file": "net/tcp/tcp_server/src/connection.cpp",
+        "startLine": 15,
+        "endLine": 15,
+        "params": [
+          "fd",
+          "addr"
+        ],
+        "isMethod": false
+      }
+    },
+    {
+      "id": "func:net/tcp/tcp_server/src/connection.cpp::~Connection",
+      "type": "function",
+      "label": "函数: ~Connection",
+      "properties": {
+        "name": "~Connection",
+        "file": "net/tcp/tcp_server/src/connection.cpp",
+        "startLine": 17,
+        "endLine": 21,
+        "params": [],
+        "isMethod": false
+      }
+    },
+    {
+      "id": "func:net/tcp/tcp_server/src/connection.cpp::client_ip",
+      "type": "function",
+      "label": "函数: client_ip",
+      "properties": {
+        "name": "client_ip",
+        "file": "net/tcp/tcp_server/src/connection.cpp",
+        "startLine": 23,
+        "endLine": 27,
+        "params": [],
+        "isMethod": false
+      }
+    },
+    {
+      "id": "func:net/tcp/tcp_server/src/connection.cpp::client_port",
+      "type": "function",
+      "label": "函数: client_port",
+      "properties": {
+        "name": "client_port",
+        "file": "net/tcp/tcp_server/src/connection.cpp",
+        "startLine": 29,
+        "endLine": 31,
+        "params": [],
+        "isMethod": false
+      }
+    },
+    {
+      "id": "func:net/tcp/tcp_server/src/connection.cpp::read_from_fd",
+      "type": "function",
+      "label": "函数: read_from_fd",
+      "properties": {
+        "name": "read_from_fd",
+        "file": "net/tcp/tcp_server/src/connection.cpp",
+        "startLine": 33,
+        "endLine": 43,
+        "params": [],
+        "isMethod": false
+      }
+    },
+    {
+      "id": "func:net/tcp/tcp_server/src/connection.cpp::ssl_read_from_fd",
+      "type": "function",
+      "label": "函数: ssl_read_from_fd",
+      "properties": {
+        "name": "ssl_read_from_fd",
+        "file": "net/tcp/tcp_server/src/connection.cpp",
+        "startLine": 45,
+        "endLine": 74,
+        "params": [],
+        "isMethod": false
+      }
+    },
+    {
+      "id": "func:net/tcp/tcp_server/src/connection.cpp::plain_read_from_fd",
+      "type": "function",
+      "label": "函数: plain_read_from_fd",
+      "properties": {
+        "name": "plain_read_from_fd",
+        "file": "net/tcp/tcp_server/src/connection.cpp",
+        "startLine": 76,
+        "endLine": 104,
+        "params": [],
+        "isMethod": false
+      }
+    },
+    {
+      "id": "func:net/tcp/tcp_server/src/connection.cpp::ssl_write_to_fd_locked",
+      "type": "function",
+      "label": "函数: ssl_write_to_fd_locked",
+      "properties": {
+        "name": "ssl_write_to_fd_locked",
+        "file": "net/tcp/tcp_server/src/connection.cpp",
+        "startLine": 106,
+        "endLine": 130,
+        "params": [],
+        "isMethod": false
+      }
+    },
+    {
+      "id": "func:net/tcp/tcp_server/src/connection.cpp::plain_write_to_fd_locked",
+      "type": "function",
+      "label": "函数: plain_write_to_fd_locked",
+      "properties": {
+        "name": "plain_write_to_fd_locked",
+        "file": "net/tcp/tcp_server/src/connection.cpp",
+        "startLine": 132,
+        "endLine": 153,
+        "params": [],
+        "isMethod": false
+      }
+    },
+    {
+      "id": "func:net/tcp/tcp_server/src/connection.cpp::write_to_fd",
+      "type": "function",
+      "label": "函数: write_to_fd",
+      "properties": {
+        "name": "write_to_fd",
+        "file": "net/tcp/tcp_server/src/connection.cpp",
+        "startLine": 155,
+        "endLine": 159,
+        "params": [],
+        "isMethod": false
+      }
+    },
+    {
+      "id": "func:net/tcp/tcp_server/src/connection.cpp::write_to_fd_locked",
+      "type": "function",
+      "label": "函数: write_to_fd_locked",
+      "properties": {
+        "name": "write_to_fd_locked",
+        "file": "net/tcp/tcp_server/src/connection.cpp",
+        "startLine": 161,
+        "endLine": 181,
+        "params": [],
+        "isMethod": false
+      }
+    },
+    {
+      "id": "func:net/tcp/tcp_server/src/connection.cpp::close",
+      "type": "function",
+      "label": "函数: close",
+      "properties": {
+        "name": "close",
+        "file": "net/tcp/tcp_server/src/connection.cpp",
+        "startLine": 183,
+        "endLine": 197,
+        "params": [],
+        "isMethod": false
+      }
+    },
+    {
+      "id": "func:net/tcp/tcp_server/src/connection.cpp::consume_read_buffer",
+      "type": "function",
+      "label": "函数: consume_read_buffer",
+      "properties": {
+        "name": "consume_read_buffer",
+        "file": "net/tcp/tcp_server/src/connection.cpp",
+        "startLine": 199,
+        "endLine": 206,
+        "params": [
+          "bytes"
+        ],
+        "isMethod": false
+      }
+    },
+    {
+      "id": "func:net/tcp/tcp_server/src/connection.cpp::await_read",
+      "type": "function",
+      "label": "函数: await_read",
+      "properties": {
+        "name": "await_read",
+        "file": "net/tcp/tcp_server/src/connection.cpp",
+        "startLine": 211,
+        "endLine": 213,
+        "params": [],
+        "isMethod": false
+      }
+    },
+    {
+      "id": "func:net/tcp/tcp_server/src/connection.cpp::await_write",
+      "type": "function",
+      "label": "函数: await_write",
+      "properties": {
+        "name": "await_write",
+        "file": "net/tcp/tcp_server/src/connection.cpp",
+        "startLine": 215,
+        "endLine": 217,
+        "params": [],
+        "isMethod": false
+      }
+    },
+    {
+      "id": "func:net/tcp/tcp_server/src/connection.cpp::await_suspend",
+      "type": "function",
+      "label": "函数: await_suspend",
+      "properties": {
+        "name": "await_suspend",
+        "file": "net/tcp/tcp_server/src/connection.cpp",
+        "startLine": 219,
+        "endLine": 222,
+        "params": [
+          "handle"
+        ],
+        "isMethod": false
+      }
+    },
+    {
+      "id": "file:net/tcp/tcp_server/src/tcp_server.cpp",
+      "type": "file",
+      "label": "文件: net/tcp/tcp_server/src/tcp_server.cpp",
+      "properties": {
+        "path": "net/tcp/tcp_server/src/tcp_server.cpp",
+        "language": "cpp",
+        "category": "code",
+        "totalLines": 524,
+        "nonEmptyLines": 439
+      }
+    },
+    {
+      "id": "class:net/tcp/tcp_server/src/tcp_server.cpp::EpollFd",
+      "type": "class",
+      "label": "类: EpollFd",
+      "properties": {
+        "name": "EpollFd",
+        "startLine": 27,
+        "endLine": 29,
+        "methodCount": 0,
+        "propertyCount": 1
+      }
+    },
+    {
+      "id": "class:net/tcp/tcp_server/src/tcp_server.cpp::EpollEvents",
+      "type": "class",
+      "label": "类: EpollEvents",
+      "properties": {
+        "name": "EpollEvents",
+        "startLine": 31,
+        "endLine": 33,
+        "methodCount": 0,
+        "propertyCount": 1
+      }
+    },
+    {
+      "id": "func:net/tcp/tcp_server/src/tcp_server.cpp::epoll_ctl_add",
+      "type": "function",
+      "label": "函数: epoll_ctl_add",
+      "properties": {
+        "name": "epoll_ctl_add",
+        "file": "net/tcp/tcp_server/src/tcp_server.cpp",
+        "startLine": 35,
+        "endLine": 41,
+        "params": [
+          "epoll_fd",
+          "target",
+          "ev_flags"
+        ],
+        "isMethod": false
+      }
+    },
+    {
+      "id": "func:net/tcp/tcp_server/src/tcp_server.cpp::epoll_ctl_mod",
+      "type": "function",
+      "label": "函数: epoll_ctl_mod",
+      "properties": {
+        "name": "epoll_ctl_mod",
+        "file": "net/tcp/tcp_server/src/tcp_server.cpp",
+        "startLine": 43,
+        "endLine": 49,
+        "params": [
+          "epoll_fd",
+          "target",
+          "ev_flags"
+        ],
+        "isMethod": false
+      }
+    },
+    {
+      "id": "func:net/tcp/tcp_server/src/tcp_server.cpp::signal_handler",
+      "type": "function",
+      "label": "函数: signal_handler",
+      "properties": {
+        "name": "signal_handler",
+        "file": "net/tcp/tcp_server/src/tcp_server.cpp",
+        "startLine": 55,
+        "endLine": 60,
+        "params": [
+          "sig"
+        ],
+        "isMethod": false
+      }
+    },
+    {
+      "id": "func:net/tcp/tcp_server/src/tcp_server.cpp::TcpServer",
+      "type": "function",
+      "label": "函数: TcpServer",
+      "properties": {
+        "name": "TcpServer",
+        "file": "net/tcp/tcp_server/src/tcp_server.cpp",
+        "startLine": 62,
+        "endLine": 62,
+        "params": [
+          "config"
+        ],
+        "isMethod": false
+      }
+    },
+    {
+      "id": "func:net/tcp/tcp_server/src/tcp_server.cpp::~TcpServer",
+      "type": "function",
+      "label": "函数: ~TcpServer",
+      "properties": {
+        "name": "~TcpServer",
+        "file": "net/tcp/tcp_server/src/tcp_server.cpp",
+        "startLine": 64,
+        "endLine": 69,
+        "params": [],
+        "isMethod": false
+      }
+    },
+    {
+      "id": "func:net/tcp/tcp_server/src/tcp_server.cpp::init",
+      "type": "function",
+      "label": "函数: init",
+      "properties": {
+        "name": "init",
+        "file": "net/tcp/tcp_server/src/tcp_server.cpp",
+        "startLine": 71,
+        "endLine": 193,
+        "params": [],
+        "isMethod": false
+      }
+    },
+    {
+      "id": "func:net/tcp/tcp_server/src/tcp_server.cpp::set_handler",
+      "type": "function",
+      "label": "函数: set_handler",
+      "properties": {
+        "name": "set_handler",
+        "file": "net/tcp/tcp_server/src/tcp_server.cpp",
+        "startLine": 195,
+        "endLine": 197,
+        "params": [
+          "handler"
+        ],
+        "isMethod": false
+      }
+    },
+    {
+      "id": "func:net/tcp/tcp_server/src/tcp_server.cpp::start",
+      "type": "function",
+      "label": "函数: start",
+      "properties": {
+        "name": "start",
+        "file": "net/tcp/tcp_server/src/tcp_server.cpp",
+        "startLine": 199,
+        "endLine": 204,
+        "params": [],
+        "isMethod": false
+      }
+    },
+    {
+      "id": "func:net/tcp/tcp_server/src/tcp_server.cpp::stop",
+      "type": "function",
+      "label": "函数: stop",
+      "properties": {
+        "name": "stop",
+        "file": "net/tcp/tcp_server/src/tcp_server.cpp",
+        "startLine": 206,
+        "endLine": 217,
+        "params": [],
+        "isMethod": false
+      }
+    },
+    {
+      "id": "func:net/tcp/tcp_server/src/tcp_server.cpp::event_loop",
+      "type": "function",
+      "label": "函数: event_loop",
+      "properties": {
+        "name": "event_loop",
+        "file": "net/tcp/tcp_server/src/tcp_server.cpp",
+        "startLine": 219,
+        "endLine": 239,
+        "params": [],
+        "isMethod": false
+      }
+    },
+    {
+      "id": "func:net/tcp/tcp_server/src/tcp_server.cpp::cleanup_resources",
+      "type": "function",
+      "label": "函数: cleanup_resources",
+      "properties": {
+        "name": "cleanup_resources",
+        "file": "net/tcp/tcp_server/src/tcp_server.cpp",
+        "startLine": 241,
+        "endLine": 263,
+        "params": [],
+        "isMethod": false
+      }
+    },
+    {
+      "id": "func:net/tcp/tcp_server/src/tcp_server.cpp::handle_event",
+      "type": "function",
+      "label": "函数: handle_event",
+      "properties": {
+        "name": "handle_event",
+        "file": "net/tcp/tcp_server/src/tcp_server.cpp",
+        "startLine": 265,
+        "endLine": 290,
+        "params": [
+          "evt"
+        ],
+        "isMethod": false
+      }
+    },
+    {
+      "id": "func:net/tcp/tcp_server/src/tcp_server.cpp::handle_accept",
+      "type": "function",
+      "label": "函数: handle_accept",
+      "properties": {
+        "name": "handle_accept",
+        "file": "net/tcp/tcp_server/src/tcp_server.cpp",
+        "startLine": 292,
+        "endLine": 322,
+        "params": [],
+        "isMethod": false
+      }
+    },
+    {
+      "id": "func:net/tcp/tcp_server/src/tcp_server.cpp::handle_read",
+      "type": "function",
+      "label": "函数: handle_read",
+      "properties": {
+        "name": "handle_read",
+        "file": "net/tcp/tcp_server/src/tcp_server.cpp",
+        "startLine": 324,
+        "endLine": 369,
+        "params": [
+          "fd"
+        ],
+        "isMethod": false
+      }
+    },
+    {
+      "id": "func:net/tcp/tcp_server/src/tcp_server.cpp::handle_write",
+      "type": "function",
+      "label": "函数: handle_write",
+      "properties": {
+        "name": "handle_write",
+        "file": "net/tcp/tcp_server/src/tcp_server.cpp",
+        "startLine": 371,
+        "endLine": 393,
+        "params": [
+          "fd"
+        ],
+        "isMethod": false
+      }
+    },
+    {
+      "id": "func:net/tcp/tcp_server/src/tcp_server.cpp::try_ssl_detection",
+      "type": "function",
+      "label": "函数: try_ssl_detection",
+      "properties": {
+        "name": "try_ssl_detection",
+        "file": "net/tcp/tcp_server/src/tcp_server.cpp",
+        "startLine": 395,
+        "endLine": 418,
+        "params": [
+          "conn",
+          "ev"
+        ],
+        "isMethod": false
+      }
+    },
+    {
+      "id": "func:net/tcp/tcp_server/src/tcp_server.cpp::try_ssl_handshake",
+      "type": "function",
+      "label": "函数: try_ssl_handshake",
+      "properties": {
+        "name": "try_ssl_handshake",
+        "file": "net/tcp/tcp_server/src/tcp_server.cpp",
+        "startLine": 420,
+        "endLine": 426,
+        "params": [
+          "conn",
+          "ev"
+        ],
+        "isMethod": false
+      }
+    },
+    {
+      "id": "func:net/tcp/tcp_server/src/tcp_server.cpp::handle_client_event",
+      "type": "function",
+      "label": "函数: handle_client_event",
+      "properties": {
+        "name": "handle_client_event",
+        "file": "net/tcp/tcp_server/src/tcp_server.cpp",
+        "startLine": 428,
+        "endLine": 447,
+        "params": [
+          "fd",
+          "evt"
+        ],
+        "isMethod": false
+      }
+    },
+    {
+      "id": "func:net/tcp/tcp_server/src/tcp_server.cpp::handle_ssl_handshake",
+      "type": "function",
+      "label": "函数: handle_ssl_handshake",
+      "properties": {
+        "name": "handle_ssl_handshake",
+        "file": "net/tcp/tcp_server/src/tcp_server.cpp",
+        "startLine": 449,
+        "endLine": 475,
+        "params": [
+          "conn",
+          "ev"
+        ],
+        "isMethod": false
+      }
+    },
+    {
+      "id": "func:net/tcp/tcp_server/src/tcp_server.cpp::close_connection",
+      "type": "function",
+      "label": "函数: close_connection",
+      "properties": {
+        "name": "close_connection",
+        "file": "net/tcp/tcp_server/src/tcp_server.cpp",
+        "startLine": 477,
+        "endLine": 488,
+        "params": [
+          "fd"
+        ],
+        "isMethod": false
+      }
+    },
+    {
+      "id": "func:net/tcp/tcp_server/src/tcp_server.cpp::notify_wake",
+      "type": "function",
+      "label": "函数: notify_wake",
+      "properties": {
+        "name": "notify_wake",
+        "file": "net/tcp/tcp_server/src/tcp_server.cpp",
+        "startLine": 490,
+        "endLine": 496,
+        "params": [
+          "wake_fd"
+        ],
+        "isMethod": false
+      }
+    },
+    {
+      "id": "func:net/tcp/tcp_server/src/tcp_server.cpp::process_dirty_connections",
+      "type": "function",
+      "label": "函数: process_dirty_connections",
+      "properties": {
+        "name": "process_dirty_connections",
+        "file": "net/tcp/tcp_server/src/tcp_server.cpp",
+        "startLine": 498,
+        "endLine": 522,
+        "params": [],
+        "isMethod": false
+      }
+    },
+    {
+      "id": "file:net/tcp/tcp_server/xmake.lua",
+      "type": "file",
+      "label": "文件: net/tcp/tcp_server/xmake.lua",
+      "properties": {
+        "path": "net/tcp/tcp_server/xmake.lua",
+        "language": "lua",
+        "category": "code",
+        "totalLines": 7,
+        "nonEmptyLines": 7
+      }
+    }
+  ],
+  "edges": [
+    {
+      "source": "file:net/file-transfer/include/chunk_header.h",
+      "target": "class:net/file-transfer/include/chunk_header.h::ChunkHeader",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_class"
+      }
+    },
+    {
+      "source": "class:net/file-transfer/include/chunk_header.h::ChunkHeader",
+      "target": "func:net/file-transfer/include/chunk_header.h::to_network",
+      "relation": "contains",
+      "properties": {
+        "kind": "class_contains_method"
+      }
+    },
+    {
+      "source": "class:net/file-transfer/include/chunk_header.h::ChunkHeader",
+      "target": "func:net/file-transfer/include/chunk_header.h::from_network",
+      "relation": "contains",
+      "properties": {
+        "kind": "class_contains_method"
+      }
+    },
+    {
+      "source": "file:net/file-transfer/include/chunk_header.h",
+      "target": "func:net/file-transfer/include/chunk_header.h::to_network",
+      "relation": "declares",
+      "properties": {
+        "line": 20,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:net/file-transfer/include/chunk_header.h",
+      "target": "func:net/file-transfer/include/chunk_header.h::from_network",
+      "relation": "declares",
+      "properties": {
+        "line": 21,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:net/file-transfer/include/chunk_header.h",
+      "target": "class:net/file-transfer/include/chunk_header.h::ChunkHeader",
+      "relation": "declares",
+      "properties": {
+        "line": 13,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:net/file-transfer/include/file_transfer.h",
+      "target": "class:net/file-transfer/include/file_transfer.h::IFileSystem",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_class"
+      }
+    },
+    {
+      "source": "file:net/file-transfer/include/file_transfer.h",
+      "target": "class:net/file-transfer/include/file_transfer.h::FileTransfer",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_class"
+      }
+    },
+    {
+      "source": "class:net/file-transfer/include/file_transfer.h::FileTransfer",
+      "target": "func:net/file-transfer/include/file_transfer.h::transfer_small",
+      "relation": "contains",
+      "properties": {
+        "kind": "class_contains_method"
+      }
+    },
+    {
+      "source": "class:net/file-transfer/include/file_transfer.h::FileTransfer",
+      "target": "func:net/file-transfer/include/file_transfer.h::transfer_large",
+      "relation": "contains",
+      "properties": {
+        "kind": "class_contains_method"
+      }
+    },
+    {
+      "source": "class:net/file-transfer/include/file_transfer.h::FileTransfer",
+      "target": "func:net/file-transfer/include/file_transfer.h::receive_file",
+      "relation": "contains",
+      "properties": {
+        "kind": "class_contains_method"
+      }
+    },
+    {
+      "source": "class:net/file-transfer/include/file_transfer.h::FileTransfer",
+      "target": "func:net/file-transfer/include/file_transfer.h::recv_all",
+      "relation": "contains",
+      "properties": {
+        "kind": "class_contains_method"
+      }
+    },
+    {
+      "source": "file:net/file-transfer/include/file_transfer.h",
+      "target": "file:net/file-transfer/include/i_file_transfer.h",
+      "relation": "include",
+      "properties": {
+        "kind": "file_include_file"
+      }
+    },
+    {
+      "source": "file:net/file-transfer/include/file_transfer.h",
+      "target": "class:net/file-transfer/include/file_transfer.h::IFileSystem",
+      "relation": "declares",
+      "properties": {
+        "line": 10,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:net/file-transfer/include/file_transfer.h",
+      "target": "func:net/file-transfer/include/file_transfer.h::transfer_small",
+      "relation": "declares",
+      "properties": {
+        "line": 16,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:net/file-transfer/include/file_transfer.h",
+      "target": "func:net/file-transfer/include/file_transfer.h::transfer_large",
+      "relation": "declares",
+      "properties": {
+        "line": 18,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:net/file-transfer/include/file_transfer.h",
+      "target": "func:net/file-transfer/include/file_transfer.h::receive_file",
+      "relation": "declares",
+      "properties": {
+        "line": 20,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:net/file-transfer/include/file_transfer.h",
+      "target": "class:net/file-transfer/include/file_transfer.h::FileTransfer",
+      "relation": "declares",
+      "properties": {
+        "line": 12,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:net/file-transfer/include/i_file_transfer.h",
+      "target": "class:net/file-transfer/include/i_file_transfer.h::ITcpClient",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_class"
+      }
+    },
+    {
+      "source": "file:net/file-transfer/include/i_file_transfer.h",
+      "target": "class:net/file-transfer/include/i_file_transfer.h::ITcpServer",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_class"
+      }
+    },
+    {
+      "source": "file:net/file-transfer/include/i_file_transfer.h",
+      "target": "class:net/file-transfer/include/i_file_transfer.h::IFileTransfer",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_class"
+      }
+    },
+    {
+      "source": "class:net/file-transfer/include/i_file_transfer.h::IFileTransfer",
+      "target": "func:net/file-transfer/include/i_file_transfer.h::~IFileTransfer",
+      "relation": "contains",
+      "properties": {
+        "kind": "class_contains_method"
+      }
+    },
+    {
+      "source": "class:net/file-transfer/include/i_file_transfer.h::IFileTransfer",
+      "target": "func:net/file-transfer/include/i_file_transfer.h::transfer_small",
+      "relation": "contains",
+      "properties": {
+        "kind": "class_contains_method"
+      }
+    },
+    {
+      "source": "class:net/file-transfer/include/i_file_transfer.h::IFileTransfer",
+      "target": "func:net/file-transfer/include/i_file_transfer.h::transfer_large",
+      "relation": "contains",
+      "properties": {
+        "kind": "class_contains_method"
+      }
+    },
+    {
+      "source": "class:net/file-transfer/include/i_file_transfer.h::IFileTransfer",
+      "target": "func:net/file-transfer/include/i_file_transfer.h::receive_file",
+      "relation": "contains",
+      "properties": {
+        "kind": "class_contains_method"
+      }
+    },
+    {
+      "source": "file:net/file-transfer/include/i_file_transfer.h",
+      "target": "class:net/file-transfer/include/i_file_transfer.h::ITcpClient",
+      "relation": "declares",
+      "properties": {
+        "line": 8,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:net/file-transfer/include/i_file_transfer.h",
+      "target": "class:net/file-transfer/include/i_file_transfer.h::ITcpServer",
+      "relation": "declares",
+      "properties": {
+        "line": 9,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:net/file-transfer/include/i_file_transfer.h",
+      "target": "func:net/file-transfer/include/i_file_transfer.h::~IFileTransfer",
+      "relation": "declares",
+      "properties": {
+        "line": 13,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:net/file-transfer/include/i_file_transfer.h",
+      "target": "func:net/file-transfer/include/i_file_transfer.h::transfer_small",
+      "relation": "declares",
+      "properties": {
+        "line": 15,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:net/file-transfer/include/i_file_transfer.h",
+      "target": "func:net/file-transfer/include/i_file_transfer.h::transfer_large",
+      "relation": "declares",
+      "properties": {
+        "line": 17,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:net/file-transfer/include/i_file_transfer.h",
+      "target": "func:net/file-transfer/include/i_file_transfer.h::receive_file",
+      "relation": "declares",
+      "properties": {
+        "line": 19,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:net/file-transfer/include/i_file_transfer.h",
+      "target": "class:net/file-transfer/include/i_file_transfer.h::IFileTransfer",
+      "relation": "declares",
+      "properties": {
+        "line": 11,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:net/file-transfer/src/chunk_header.cpp",
+      "target": "func:net/file-transfer/src/chunk_header.cpp::to_network",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:net/file-transfer/src/chunk_header.cpp",
+      "target": "func:net/file-transfer/src/chunk_header.cpp::from_network",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:net/file-transfer/src/chunk_header.cpp",
+      "target": "func:net/file-transfer/src/chunk_header.cpp::to_network",
+      "relation": "declares",
+      "properties": {
+        "line": 9,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:net/file-transfer/src/chunk_header.cpp",
+      "target": "func:net/file-transfer/src/chunk_header.cpp::from_network",
+      "relation": "declares",
+      "properties": {
+        "line": 17,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:net/file-transfer/src/file_transfer.cpp",
+      "target": "func:net/file-transfer/src/file_transfer.cpp::FileTransfer",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:net/file-transfer/src/file_transfer.cpp",
+      "target": "func:net/file-transfer/src/file_transfer.cpp::transfer_small",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:net/file-transfer/src/file_transfer.cpp",
+      "target": "func:net/file-transfer/src/file_transfer.cpp::transfer_large",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:net/file-transfer/src/file_transfer.cpp",
+      "target": "func:net/file-transfer/src/file_transfer.cpp::setup_listen_socket",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:net/file-transfer/src/file_transfer.cpp",
+      "target": "func:net/file-transfer/src/file_transfer.cpp::accept_and_receive_chunk",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:net/file-transfer/src/file_transfer.cpp",
+      "target": "func:net/file-transfer/src/file_transfer.cpp::receive_file",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:net/file-transfer/src/file_transfer.cpp",
+      "target": "func:net/file-transfer/src/file_transfer.cpp::recv_all",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "func:net/file-transfer/src/file_transfer.cpp::receive_file",
+      "target": "func:net/file-transfer/src/file_transfer.cpp::setup_listen_socket",
+      "relation": "calls",
+      "properties": {
+        "lineNumber": 238
+      }
+    },
+    {
+      "source": "func:net/file-transfer/src/file_transfer.cpp::receive_file",
+      "target": "func:net/file-transfer/src/file_transfer.cpp::accept_and_receive_chunk",
+      "relation": "calls",
+      "properties": {
+        "lineNumber": 256
+      }
+    },
+    {
+      "source": "file:net/file-transfer/src/file_transfer.cpp",
+      "target": "func:net/file-transfer/src/file_transfer.cpp::FileTransfer",
+      "relation": "declares",
+      "properties": {
+        "line": 23,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:net/file-transfer/src/file_transfer.cpp",
+      "target": "func:net/file-transfer/src/file_transfer.cpp::transfer_small",
+      "relation": "declares",
+      "properties": {
+        "line": 26,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:net/file-transfer/src/file_transfer.cpp",
+      "target": "func:net/file-transfer/src/file_transfer.cpp::transfer_large",
+      "relation": "declares",
+      "properties": {
+        "line": 39,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:net/file-transfer/src/file_transfer.cpp",
+      "target": "func:net/file-transfer/src/file_transfer.cpp::setup_listen_socket",
+      "relation": "declares",
+      "properties": {
+        "line": 114,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:net/file-transfer/src/file_transfer.cpp",
+      "target": "func:net/file-transfer/src/file_transfer.cpp::accept_and_receive_chunk",
+      "relation": "declares",
+      "properties": {
+        "line": 150,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:net/file-transfer/src/file_transfer.cpp",
+      "target": "func:net/file-transfer/src/file_transfer.cpp::receive_file",
+      "relation": "declares",
+      "properties": {
+        "line": 235,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:net/file-transfer/src/file_transfer.cpp",
+      "target": "func:net/file-transfer/src/file_transfer.cpp::recv_all",
+      "relation": "declares",
+      "properties": {
+        "line": 272,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:net/http/src/http_parser.cpp",
+      "target": "func:net/http/src/http_parser.cpp::HttpParser",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:net/http/src/http_parser.cpp",
+      "target": "func:net/http/src/http_parser.cpp::reset",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:net/http/src/http_parser.cpp",
+      "target": "func:net/http/src/http_parser.cpp::reset_line_buf",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:net/http/src/http_parser.cpp",
+      "target": "func:net/http/src/http_parser.cpp::feed",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:net/http/src/http_parser.cpp",
+      "target": "func:net/http/src/http_parser.cpp::feed_request_line",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:net/http/src/http_parser.cpp",
+      "target": "func:net/http/src/http_parser.cpp::handle_end_of_headers",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:net/http/src/http_parser.cpp",
+      "target": "func:net/http/src/http_parser.cpp::parse_header_line",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:net/http/src/http_parser.cpp",
+      "target": "func:net/http/src/http_parser.cpp::feed_headers",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:net/http/src/http_parser.cpp",
+      "target": "func:net/http/src/http_parser.cpp::feed_body_identity",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:net/http/src/http_parser.cpp",
+      "target": "func:net/http/src/http_parser.cpp::feed_chunk_size",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:net/http/src/http_parser.cpp",
+      "target": "func:net/http/src/http_parser.cpp::feed_chunk_data",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:net/http/src/http_parser.cpp",
+      "target": "func:net/http/src/http_parser.cpp::feed_chunk_trailer",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "func:net/http/src/http_parser.cpp::HttpParser",
+      "target": "func:net/http/src/http_parser.cpp::reset",
+      "relation": "calls",
+      "properties": {
+        "lineNumber": 8
+      }
+    },
+    {
+      "source": "func:net/http/src/http_parser.cpp::reset",
+      "target": "func:net/http/src/http_parser.cpp::reset_line_buf",
+      "relation": "calls",
+      "properties": {
+        "lineNumber": 15
+      }
+    },
+    {
+      "source": "func:net/http/src/http_parser.cpp::feed",
+      "target": "func:net/http/src/http_parser.cpp::feed_request_line",
+      "relation": "calls",
+      "properties": {
+        "lineNumber": 36
+      }
+    },
+    {
+      "source": "func:net/http/src/http_parser.cpp::feed",
+      "target": "func:net/http/src/http_parser.cpp::feed_headers",
+      "relation": "calls",
+      "properties": {
+        "lineNumber": 39
+      }
+    },
+    {
+      "source": "func:net/http/src/http_parser.cpp::feed",
+      "target": "func:net/http/src/http_parser.cpp::feed_body_identity",
+      "relation": "calls",
+      "properties": {
+        "lineNumber": 42
+      }
+    },
+    {
+      "source": "func:net/http/src/http_parser.cpp::feed",
+      "target": "func:net/http/src/http_parser.cpp::feed_chunk_size",
+      "relation": "calls",
+      "properties": {
+        "lineNumber": 45
+      }
+    },
+    {
+      "source": "func:net/http/src/http_parser.cpp::feed",
+      "target": "func:net/http/src/http_parser.cpp::feed_chunk_data",
+      "relation": "calls",
+      "properties": {
+        "lineNumber": 48
+      }
+    },
+    {
+      "source": "func:net/http/src/http_parser.cpp::feed",
+      "target": "func:net/http/src/http_parser.cpp::feed_chunk_trailer",
+      "relation": "calls",
+      "properties": {
+        "lineNumber": 51
+      }
+    },
+    {
+      "source": "func:net/http/src/http_parser.cpp::feed_request_line",
+      "target": "func:net/http/src/http_parser.cpp::reset_line_buf",
+      "relation": "calls",
+      "properties": {
+        "lineNumber": 98
+      }
+    },
+    {
+      "source": "func:net/http/src/http_parser.cpp::handle_end_of_headers",
+      "target": "func:net/http/src/http_parser.cpp::reset_line_buf",
+      "relation": "calls",
+      "properties": {
+        "lineNumber": 133
+      }
+    },
+    {
+      "source": "func:net/http/src/http_parser.cpp::feed_headers",
+      "target": "func:net/http/src/http_parser.cpp::handle_end_of_headers",
+      "relation": "calls",
+      "properties": {
+        "lineNumber": 163
+      }
+    },
+    {
+      "source": "func:net/http/src/http_parser.cpp::feed_headers",
+      "target": "func:net/http/src/http_parser.cpp::reset_line_buf",
+      "relation": "calls",
+      "properties": {
+        "lineNumber": 164
+      }
+    },
+    {
+      "source": "func:net/http/src/http_parser.cpp::feed_headers",
+      "target": "func:net/http/src/http_parser.cpp::parse_header_line",
+      "relation": "calls",
+      "properties": {
+        "lineNumber": 167
+      }
+    },
+    {
+      "source": "func:net/http/src/http_parser.cpp::feed_headers",
+      "target": "func:net/http/src/http_parser.cpp::reset_line_buf",
+      "relation": "calls",
+      "properties": {
+        "lineNumber": 168
+      }
+    },
+    {
+      "source": "func:net/http/src/http_parser.cpp::feed_chunk_size",
+      "target": "func:net/http/src/http_parser.cpp::reset_line_buf",
+      "relation": "calls",
+      "properties": {
+        "lineNumber": 222
+      }
+    },
+    {
+      "source": "func:net/http/src/http_parser.cpp::feed_chunk_data",
+      "target": "func:net/http/src/http_parser.cpp::reset_line_buf",
+      "relation": "calls",
+      "properties": {
+        "lineNumber": 246
+      }
+    },
+    {
+      "source": "func:net/http/src/http_parser.cpp::feed_chunk_trailer",
+      "target": "func:net/http/src/http_parser.cpp::reset_line_buf",
+      "relation": "calls",
+      "properties": {
+        "lineNumber": 260
+      }
+    },
+    {
+      "source": "file:net/http/src/http_parser.cpp",
+      "target": "func:net/http/src/http_parser.cpp::HttpParser",
+      "relation": "declares",
+      "properties": {
+        "line": 7,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:net/http/src/http_parser.cpp",
+      "target": "func:net/http/src/http_parser.cpp::reset",
+      "relation": "declares",
+      "properties": {
+        "line": 11,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:net/http/src/http_parser.cpp",
+      "target": "func:net/http/src/http_parser.cpp::reset_line_buf",
+      "relation": "declares",
+      "properties": {
+        "line": 23,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:net/http/src/http_parser.cpp",
+      "target": "func:net/http/src/http_parser.cpp::feed",
+      "relation": "declares",
+      "properties": {
+        "line": 27,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:net/http/src/http_parser.cpp",
+      "target": "func:net/http/src/http_parser.cpp::feed_request_line",
+      "relation": "declares",
+      "properties": {
+        "line": 68,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:net/http/src/http_parser.cpp",
+      "target": "func:net/http/src/http_parser.cpp::handle_end_of_headers",
+      "relation": "declares",
+      "properties": {
+        "line": 107,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:net/http/src/http_parser.cpp",
+      "target": "func:net/http/src/http_parser.cpp::parse_header_line",
+      "relation": "declares",
+      "properties": {
+        "line": 139,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:net/http/src/http_parser.cpp",
+      "target": "func:net/http/src/http_parser.cpp::feed_headers",
+      "relation": "declares",
+      "properties": {
+        "line": 157,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:net/http/src/http_parser.cpp",
+      "target": "func:net/http/src/http_parser.cpp::feed_body_identity",
+      "relation": "declares",
+      "properties": {
+        "line": 180,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:net/http/src/http_parser.cpp",
+      "target": "func:net/http/src/http_parser.cpp::feed_chunk_size",
+      "relation": "declares",
+      "properties": {
+        "line": 198,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:net/http/src/http_parser.cpp",
+      "target": "func:net/http/src/http_parser.cpp::feed_chunk_data",
+      "relation": "declares",
+      "properties": {
+        "line": 229,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:net/http/src/http_parser.cpp",
+      "target": "func:net/http/src/http_parser.cpp::feed_chunk_trailer",
+      "relation": "declares",
+      "properties": {
+        "line": 252,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:net/http/src/http_request.cpp",
+      "target": "func:net/http/src/http_request.cpp::http_method_to_string",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:net/http/src/http_request.cpp",
+      "target": "func:net/http/src/http_request.cpp::string_to_http_method",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:net/http/src/http_request.cpp",
+      "target": "func:net/http/src/http_request.cpp::clear",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "func:net/http/src/http_request.cpp::clear",
+      "target": "func:net/http/src/http_request.cpp::clear",
+      "relation": "calls",
+      "properties": {
+        "lineNumber": 54
+      }
+    },
+    {
+      "source": "func:net/http/src/http_request.cpp::clear",
+      "target": "func:net/http/src/http_request.cpp::clear",
+      "relation": "calls",
+      "properties": {
+        "lineNumber": 55
+      }
+    },
+    {
+      "source": "func:net/http/src/http_request.cpp::clear",
+      "target": "func:net/http/src/http_request.cpp::clear",
+      "relation": "calls",
+      "properties": {
+        "lineNumber": 57
+      }
+    },
+    {
+      "source": "func:net/http/src/http_request.cpp::clear",
+      "target": "func:net/http/src/http_request.cpp::clear",
+      "relation": "calls",
+      "properties": {
+        "lineNumber": 58
+      }
+    },
+    {
+      "source": "func:net/http/src/http_request.cpp::clear",
+      "target": "func:net/http/src/http_request.cpp::clear",
+      "relation": "calls",
+      "properties": {
+        "lineNumber": 59
+      }
+    },
+    {
+      "source": "file:net/http/src/http_request.cpp",
+      "target": "func:net/http/src/http_request.cpp::http_method_to_string",
+      "relation": "declares",
+      "properties": {
+        "line": 5,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:net/http/src/http_request.cpp",
+      "target": "func:net/http/src/http_request.cpp::string_to_http_method",
+      "relation": "declares",
+      "properties": {
+        "line": 30,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:net/http/src/http_request.cpp",
+      "target": "func:net/http/src/http_request.cpp::clear",
+      "relation": "declares",
+      "properties": {
+        "line": 52,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:net/http/src/http_response.cpp",
+      "target": "func:net/http/src/http_response.cpp::set_status",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:net/http/src/http_response.cpp",
+      "target": "func:net/http/src/http_response.cpp::set_header",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:net/http/src/http_response.cpp",
+      "target": "func:net/http/src/http_response.cpp::set_content_type",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:net/http/src/http_response.cpp",
+      "target": "func:net/http/src/http_response.cpp::set_content_length",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:net/http/src/http_response.cpp",
+      "target": "func:net/http/src/http_response.cpp::serialize",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:net/http/src/http_response.cpp",
+      "target": "func:net/http/src/http_response.cpp::clear",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "func:net/http/src/http_response.cpp::set_content_type",
+      "target": "func:net/http/src/http_response.cpp::set_header",
+      "relation": "calls",
+      "properties": {
+        "lineNumber": 17
+      }
+    },
+    {
+      "source": "func:net/http/src/http_response.cpp::clear",
+      "target": "func:net/http/src/http_response.cpp::clear",
+      "relation": "calls",
+      "properties": {
+        "lineNumber": 38
+      }
+    },
+    {
+      "source": "func:net/http/src/http_response.cpp::clear",
+      "target": "func:net/http/src/http_response.cpp::clear",
+      "relation": "calls",
+      "properties": {
+        "lineNumber": 39
+      }
+    },
+    {
+      "source": "file:net/http/src/http_response.cpp",
+      "target": "func:net/http/src/http_response.cpp::set_status",
+      "relation": "declares",
+      "properties": {
+        "line": 7,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:net/http/src/http_response.cpp",
+      "target": "func:net/http/src/http_response.cpp::set_header",
+      "relation": "declares",
+      "properties": {
+        "line": 12,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:net/http/src/http_response.cpp",
+      "target": "func:net/http/src/http_response.cpp::set_content_type",
+      "relation": "declares",
+      "properties": {
+        "line": 16,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:net/http/src/http_response.cpp",
+      "target": "func:net/http/src/http_response.cpp::set_content_length",
+      "relation": "declares",
+      "properties": {
+        "line": 20,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:net/http/src/http_response.cpp",
+      "target": "func:net/http/src/http_response.cpp::serialize",
+      "relation": "declares",
+      "properties": {
+        "line": 24,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:net/http/src/http_response.cpp",
+      "target": "func:net/http/src/http_response.cpp::clear",
+      "relation": "declares",
+      "properties": {
+        "line": 35,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:net/http/src/http_server.cpp",
+      "target": "func:net/http/src/http_server.cpp::HttpServer",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:net/http/src/http_server.cpp",
+      "target": "func:net/http/src/http_server.cpp::~HttpServer",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:net/http/src/http_server.cpp",
+      "target": "func:net/http/src/http_server.cpp::init",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:net/http/src/http_server.cpp",
+      "target": "func:net/http/src/http_server.cpp::start",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:net/http/src/http_server.cpp",
+      "target": "func:net/http/src/http_server.cpp::stop",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:net/http/src/http_server.cpp",
+      "target": "func:net/http/src/http_server.cpp::get",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:net/http/src/http_server.cpp",
+      "target": "func:net/http/src/http_server.cpp::post",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:net/http/src/http_server.cpp",
+      "target": "func:net/http/src/http_server.cpp::put",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:net/http/src/http_server.cpp",
+      "target": "func:net/http/src/http_server.cpp::del",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:net/http/src/http_server.cpp",
+      "target": "func:net/http/src/http_server.cpp::ws",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:net/http/src/http_server.cpp",
+      "target": "func:net/http/src/http_server.cpp::get_conn_mutex",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:net/http/src/http_server.cpp",
+      "target": "func:net/http/src/http_server.cpp::try_handle_ws_upgrade",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:net/http/src/http_server.cpp",
+      "target": "func:net/http/src/http_server.cpp::handle_connection",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:net/http/src/http_server.cpp",
+      "target": "func:net/http/src/http_server.cpp::send_error",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "func:net/http/src/http_server.cpp::init",
+      "target": "func:net/http/src/http_server.cpp::get_conn_mutex",
+      "relation": "calls",
+      "properties": {
+        "lineNumber": 20
+      }
+    },
+    {
+      "source": "func:net/http/src/http_server.cpp::init",
+      "target": "func:net/http/src/http_server.cpp::get",
+      "relation": "calls",
+      "properties": {
+        "lineNumber": 20
+      }
+    },
+    {
+      "source": "func:net/http/src/http_server.cpp::init",
+      "target": "func:net/http/src/http_server.cpp::handle_connection",
+      "relation": "calls",
+      "properties": {
+        "lineNumber": 22
+      }
+    },
+    {
+      "source": "func:net/http/src/http_server.cpp::init",
+      "target": "func:net/http/src/http_server.cpp::init",
+      "relation": "calls",
+      "properties": {
+        "lineNumber": 24
+      }
+    },
+    {
+      "source": "func:net/http/src/http_server.cpp::start",
+      "target": "func:net/http/src/http_server.cpp::start",
+      "relation": "calls",
+      "properties": {
+        "lineNumber": 28
+      }
+    },
+    {
+      "source": "func:net/http/src/http_server.cpp::stop",
+      "target": "func:net/http/src/http_server.cpp::stop",
+      "relation": "calls",
+      "properties": {
+        "lineNumber": 32
+      }
+    },
+    {
+      "source": "func:net/http/src/http_server.cpp::handle_connection",
+      "target": "func:net/http/src/http_server.cpp::send_error",
+      "relation": "calls",
+      "properties": {
+        "lineNumber": 121
+      }
+    },
+    {
+      "source": "func:net/http/src/http_server.cpp::handle_connection",
+      "target": "func:net/http/src/http_server.cpp::send_error",
+      "relation": "calls",
+      "properties": {
+        "lineNumber": 131
+      }
+    },
+    {
+      "source": "func:net/http/src/http_server.cpp::handle_connection",
+      "target": "func:net/http/src/http_server.cpp::try_handle_ws_upgrade",
+      "relation": "calls",
+      "properties": {
+        "lineNumber": 148
+      }
+    },
+    {
+      "source": "func:net/http/src/http_server.cpp::handle_connection",
+      "target": "func:net/http/src/http_server.cpp::send_error",
+      "relation": "calls",
+      "properties": {
+        "lineNumber": 150
+      }
+    },
+    {
+      "source": "func:net/http/src/http_server.cpp::handle_connection",
+      "target": "func:net/http/src/http_server.cpp::send_error",
+      "relation": "calls",
+      "properties": {
+        "lineNumber": 162
+      }
+    },
+    {
+      "source": "func:net/http/src/http_server.cpp::handle_connection",
+      "target": "func:net/http/src/http_server.cpp::send_error",
+      "relation": "calls",
+      "properties": {
+        "lineNumber": 164
+      }
+    },
+    {
+      "source": "func:net/http/src/http_server.cpp::handle_connection",
+      "target": "func:net/http/src/http_server.cpp::send_error",
+      "relation": "calls",
+      "properties": {
+        "lineNumber": 178
+      }
+    },
+    {
+      "source": "func:net/http/src/http_server.cpp::handle_connection",
+      "target": "func:net/http/src/http_server.cpp::send_error",
+      "relation": "calls",
+      "properties": {
+        "lineNumber": 183
+      }
+    },
+    {
+      "source": "file:net/http/src/http_server.cpp",
+      "target": "func:net/http/src/http_server.cpp::HttpServer",
+      "relation": "declares",
+      "properties": {
+        "line": 14,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:net/http/src/http_server.cpp",
+      "target": "func:net/http/src/http_server.cpp::~HttpServer",
+      "relation": "declares",
+      "properties": {
+        "line": 16,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:net/http/src/http_server.cpp",
+      "target": "func:net/http/src/http_server.cpp::init",
+      "relation": "declares",
+      "properties": {
+        "line": 18,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:net/http/src/http_server.cpp",
+      "target": "func:net/http/src/http_server.cpp::start",
+      "relation": "declares",
+      "properties": {
+        "line": 27,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:net/http/src/http_server.cpp",
+      "target": "func:net/http/src/http_server.cpp::stop",
+      "relation": "declares",
+      "properties": {
+        "line": 31,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:net/http/src/http_server.cpp",
+      "target": "func:net/http/src/http_server.cpp::get",
+      "relation": "declares",
+      "properties": {
+        "line": 35,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:net/http/src/http_server.cpp",
+      "target": "func:net/http/src/http_server.cpp::post",
+      "relation": "declares",
+      "properties": {
+        "line": 39,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:net/http/src/http_server.cpp",
+      "target": "func:net/http/src/http_server.cpp::put",
+      "relation": "declares",
+      "properties": {
+        "line": 43,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:net/http/src/http_server.cpp",
+      "target": "func:net/http/src/http_server.cpp::del",
+      "relation": "declares",
+      "properties": {
+        "line": 47,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:net/http/src/http_server.cpp",
+      "target": "func:net/http/src/http_server.cpp::ws",
+      "relation": "declares",
+      "properties": {
+        "line": 51,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:net/http/src/http_server.cpp",
+      "target": "func:net/http/src/http_server.cpp::get_conn_mutex",
+      "relation": "declares",
+      "properties": {
+        "line": 55,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:net/http/src/http_server.cpp",
+      "target": "func:net/http/src/http_server.cpp::try_handle_ws_upgrade",
+      "relation": "declares",
+      "properties": {
+        "line": 64,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:net/http/src/http_server.cpp",
+      "target": "func:net/http/src/http_server.cpp::handle_connection",
+      "relation": "declares",
+      "properties": {
+        "line": 93,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:net/http/src/http_server.cpp",
+      "target": "func:net/http/src/http_server.cpp::send_error",
+      "relation": "declares",
+      "properties": {
+        "line": 200,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:net/http/src/range_parser.cpp",
+      "target": "func:net/http/src/range_parser.cpp::consume_prefix",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:net/http/src/range_parser.cpp",
+      "target": "func:net/http/src/range_parser.cpp::skip_spaces",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:net/http/src/range_parser.cpp",
+      "target": "func:net/http/src/range_parser.cpp::parse_number",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:net/http/src/range_parser.cpp",
+      "target": "func:net/http/src/range_parser.cpp::try_parse_suffix",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:net/http/src/range_parser.cpp",
+      "target": "func:net/http/src/range_parser.cpp::try_parse_byte_range",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:net/http/src/range_parser.cpp",
+      "target": "func:net/http/src/range_parser.cpp::parse_range_header",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:net/http/src/range_parser.cpp",
+      "target": "func:net/http/src/range_parser.cpp::build_206_headers",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:net/http/src/range_parser.cpp",
+      "target": "func:net/http/src/range_parser.cpp::build_416_response",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "func:net/http/src/range_parser.cpp::try_parse_suffix",
+      "target": "func:net/http/src/range_parser.cpp::parse_number",
+      "relation": "calls",
+      "properties": {
+        "lineNumber": 49
+      }
+    },
+    {
+      "source": "func:net/http/src/range_parser.cpp::try_parse_byte_range",
+      "target": "func:net/http/src/range_parser.cpp::parse_number",
+      "relation": "calls",
+      "properties": {
+        "lineNumber": 59
+      }
+    },
+    {
+      "source": "func:net/http/src/range_parser.cpp::try_parse_byte_range",
+      "target": "func:net/http/src/range_parser.cpp::parse_number",
+      "relation": "calls",
+      "properties": {
+        "lineNumber": 71
+      }
+    },
+    {
+      "source": "func:net/http/src/range_parser.cpp::parse_range_header",
+      "target": "func:net/http/src/range_parser.cpp::consume_prefix",
+      "relation": "calls",
+      "properties": {
+        "lineNumber": 88
+      }
+    },
+    {
+      "source": "func:net/http/src/range_parser.cpp::parse_range_header",
+      "target": "func:net/http/src/range_parser.cpp::skip_spaces",
+      "relation": "calls",
+      "properties": {
+        "lineNumber": 96
+      }
+    },
+    {
+      "source": "func:net/http/src/range_parser.cpp::parse_range_header",
+      "target": "func:net/http/src/range_parser.cpp::try_parse_suffix",
+      "relation": "calls",
+      "properties": {
+        "lineNumber": 106
+      }
+    },
+    {
+      "source": "func:net/http/src/range_parser.cpp::parse_range_header",
+      "target": "func:net/http/src/range_parser.cpp::try_parse_byte_range",
+      "relation": "calls",
+      "properties": {
+        "lineNumber": 108
+      }
+    },
+    {
+      "source": "func:net/http/src/range_parser.cpp::parse_range_header",
+      "target": "func:net/http/src/range_parser.cpp::skip_spaces",
+      "relation": "calls",
+      "properties": {
+        "lineNumber": 124
+      }
+    },
+    {
+      "source": "func:net/http/src/range_parser.cpp::build_206_headers",
+      "target": "func:net/http/src/range_parser.cpp::build_416_response",
+      "relation": "calls",
+      "properties": {
+        "lineNumber": 145
+      }
+    },
+    {
+      "source": "file:net/http/src/range_parser.cpp",
+      "target": "func:net/http/src/range_parser.cpp::consume_prefix",
+      "relation": "declares",
+      "properties": {
+        "line": 11,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:net/http/src/range_parser.cpp",
+      "target": "func:net/http/src/range_parser.cpp::skip_spaces",
+      "relation": "declares",
+      "properties": {
+        "line": 24,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:net/http/src/range_parser.cpp",
+      "target": "func:net/http/src/range_parser.cpp::parse_number",
+      "relation": "declares",
+      "properties": {
+        "line": 30,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:net/http/src/range_parser.cpp",
+      "target": "func:net/http/src/range_parser.cpp::try_parse_suffix",
+      "relation": "declares",
+      "properties": {
+        "line": 44,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:net/http/src/range_parser.cpp",
+      "target": "func:net/http/src/range_parser.cpp::try_parse_byte_range",
+      "relation": "declares",
+      "properties": {
+        "line": 58,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:net/http/src/range_parser.cpp",
+      "target": "func:net/http/src/range_parser.cpp::parse_range_header",
+      "relation": "declares",
+      "properties": {
+        "line": 82,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:net/http/src/range_parser.cpp",
+      "target": "func:net/http/src/range_parser.cpp::build_206_headers",
+      "relation": "declares",
+      "properties": {
+        "line": 142,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:net/http/src/range_parser.cpp",
+      "target": "func:net/http/src/range_parser.cpp::build_416_response",
+      "relation": "declares",
+      "properties": {
+        "line": 157,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:net/http/src/router.cpp",
+      "target": "func:net/http/src/router.cpp::Router",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:net/http/src/router.cpp",
+      "target": "func:net/http/src/router.cpp::~Router",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:net/http/src/router.cpp",
+      "target": "func:net/http/src/router.cpp::split_path",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:net/http/src/router.cpp",
+      "target": "func:net/http/src/router.cpp::add",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:net/http/src/router.cpp",
+      "target": "func:net/http/src/router.cpp::insert",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:net/http/src/router.cpp",
+      "target": "func:net/http/src/router.cpp::match",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:net/http/src/router.cpp",
+      "target": "func:net/http/src/router.cpp::search",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:net/http/src/router.cpp",
+      "target": "func:net/http/src/router.cpp::path_exists",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "func:net/http/src/router.cpp::add",
+      "target": "func:net/http/src/router.cpp::split_path",
+      "relation": "calls",
+      "properties": {
+        "lineNumber": 24
+      }
+    },
+    {
+      "source": "func:net/http/src/router.cpp::add",
+      "target": "func:net/http/src/router.cpp::insert",
+      "relation": "calls",
+      "properties": {
+        "lineNumber": 25
+      }
+    },
+    {
+      "source": "func:net/http/src/router.cpp::insert",
+      "target": "func:net/http/src/router.cpp::insert",
+      "relation": "calls",
+      "properties": {
+        "lineNumber": 47
+      }
+    },
+    {
+      "source": "func:net/http/src/router.cpp::insert",
+      "target": "func:net/http/src/router.cpp::insert",
+      "relation": "calls",
+      "properties": {
+        "lineNumber": 56
+      }
+    },
+    {
+      "source": "func:net/http/src/router.cpp::match",
+      "target": "func:net/http/src/router.cpp::split_path",
+      "relation": "calls",
+      "properties": {
+        "lineNumber": 64
+      }
+    },
+    {
+      "source": "func:net/http/src/router.cpp::match",
+      "target": "func:net/http/src/router.cpp::search",
+      "relation": "calls",
+      "properties": {
+        "lineNumber": 65
+      }
+    },
+    {
+      "source": "func:net/http/src/router.cpp::search",
+      "target": "func:net/http/src/router.cpp::search",
+      "relation": "calls",
+      "properties": {
+        "lineNumber": 90
+      }
+    },
+    {
+      "source": "func:net/http/src/router.cpp::search",
+      "target": "func:net/http/src/router.cpp::search",
+      "relation": "calls",
+      "properties": {
+        "lineNumber": 100
+      }
+    },
+    {
+      "source": "func:net/http/src/router.cpp::path_exists",
+      "target": "func:net/http/src/router.cpp::split_path",
+      "relation": "calls",
+      "properties": {
+        "lineNumber": 110
+      }
+    },
+    {
+      "source": "func:net/http/src/router.cpp::path_exists",
+      "target": "func:net/http/src/router.cpp::search",
+      "relation": "calls",
+      "properties": {
+        "lineNumber": 113
+      }
+    },
+    {
+      "source": "file:net/http/src/router.cpp",
+      "target": "func:net/http/src/router.cpp::Router",
+      "relation": "declares",
+      "properties": {
+        "line": 5,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:net/http/src/router.cpp",
+      "target": "func:net/http/src/router.cpp::~Router",
+      "relation": "declares",
+      "properties": {
+        "line": 7,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:net/http/src/router.cpp",
+      "target": "func:net/http/src/router.cpp::split_path",
+      "relation": "declares",
+      "properties": {
+        "line": 9,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:net/http/src/router.cpp",
+      "target": "func:net/http/src/router.cpp::add",
+      "relation": "declares",
+      "properties": {
+        "line": 23,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:net/http/src/router.cpp",
+      "target": "func:net/http/src/router.cpp::insert",
+      "relation": "declares",
+      "properties": {
+        "line": 29,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:net/http/src/router.cpp",
+      "target": "func:net/http/src/router.cpp::match",
+      "relation": "declares",
+      "properties": {
+        "line": 60,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:net/http/src/router.cpp",
+      "target": "func:net/http/src/router.cpp::search",
+      "relation": "declares",
+      "properties": {
+        "line": 69,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:net/http/src/router.cpp",
+      "target": "func:net/http/src/router.cpp::path_exists",
+      "relation": "declares",
+      "properties": {
+        "line": 109,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:net/http/src/url_decode.cpp",
+      "target": "func:net/http/src/url_decode.cpp::hex_value",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:net/http/src/url_decode.cpp",
+      "target": "func:net/http/src/url_decode.cpp::url_decode",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "func:net/http/src/url_decode.cpp::url_decode",
+      "target": "func:net/http/src/url_decode.cpp::hex_value",
+      "relation": "calls",
+      "properties": {
+        "lineNumber": 27
+      }
+    },
+    {
+      "source": "func:net/http/src/url_decode.cpp::url_decode",
+      "target": "func:net/http/src/url_decode.cpp::hex_value",
+      "relation": "calls",
+      "properties": {
+        "lineNumber": 28
+      }
+    },
+    {
+      "source": "file:net/http/src/url_decode.cpp",
+      "target": "func:net/http/src/url_decode.cpp::hex_value",
+      "relation": "declares",
+      "properties": {
+        "line": 7,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:net/http/src/url_decode.cpp",
+      "target": "func:net/http/src/url_decode.cpp::url_decode",
+      "relation": "declares",
+      "properties": {
+        "line": 19,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:net/ssl/include/ssl_context.h",
+      "target": "class:net/ssl/include/ssl_context.h::ssl_st",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_class"
+      }
+    },
+    {
+      "source": "file:net/ssl/include/ssl_context.h",
+      "target": "class:net/ssl/include/ssl_context.h::ssl_ctx_st",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_class"
+      }
+    },
+    {
+      "source": "file:net/ssl/include/ssl_context.h",
+      "target": "class:net/ssl/include/ssl_context.h::SslConfig",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_class"
+      }
+    },
+    {
+      "source": "file:net/ssl/include/ssl_context.h",
+      "target": "class:net/ssl/include/ssl_context.h::SslContext",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_class"
+      }
+    },
+    {
+      "source": "class:net/ssl/include/ssl_context.h::SslContext",
+      "target": "func:net/ssl/include/ssl_context.h::SslContext",
+      "relation": "contains",
+      "properties": {
+        "kind": "class_contains_method"
+      }
+    },
+    {
+      "source": "class:net/ssl/include/ssl_context.h::SslContext",
+      "target": "func:net/ssl/include/ssl_context.h::SslContext",
+      "relation": "contains",
+      "properties": {
+        "kind": "class_contains_method"
+      }
+    },
+    {
+      "source": "class:net/ssl/include/ssl_context.h::SslContext",
+      "target": "func:net/ssl/include/ssl_context.h::accept",
+      "relation": "contains",
+      "properties": {
+        "kind": "class_contains_method"
+      }
+    },
+    {
+      "source": "class:net/ssl/include/ssl_context.h::SslContext",
+      "target": "func:net/ssl/include/ssl_context.h::shutdown_and_free",
+      "relation": "contains",
+      "properties": {
+        "kind": "class_contains_method"
+      }
+    },
+    {
+      "source": "class:net/ssl/include/ssl_context.h::SslContext",
+      "target": "func:net/ssl/include/ssl_context.h::want_read",
+      "relation": "contains",
+      "properties": {
+        "kind": "class_contains_method"
+      }
+    },
+    {
+      "source": "class:net/ssl/include/ssl_context.h::SslContext",
+      "target": "func:net/ssl/include/ssl_context.h::want_write",
+      "relation": "contains",
+      "properties": {
+        "kind": "class_contains_method"
+      }
+    },
+    {
+      "source": "class:net/ssl/include/ssl_context.h::SslContext",
+      "target": "func:net/ssl/include/ssl_context.h::read",
+      "relation": "contains",
+      "properties": {
+        "kind": "class_contains_method"
+      }
+    },
+    {
+      "source": "class:net/ssl/include/ssl_context.h::SslContext",
+      "target": "func:net/ssl/include/ssl_context.h::write",
+      "relation": "contains",
+      "properties": {
+        "kind": "class_contains_method"
+      }
+    },
+    {
+      "source": "file:net/ssl/include/ssl_context.h",
+      "target": "class:net/ssl/include/ssl_context.h::ssl_st",
+      "relation": "declares",
+      "properties": {
+        "line": 6,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:net/ssl/include/ssl_context.h",
+      "target": "class:net/ssl/include/ssl_context.h::ssl_ctx_st",
+      "relation": "declares",
+      "properties": {
+        "line": 7,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:net/ssl/include/ssl_context.h",
+      "target": "class:net/ssl/include/ssl_context.h::SslConfig",
+      "relation": "declares",
+      "properties": {
+        "line": 11,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:net/ssl/include/ssl_context.h",
+      "target": "class:net/ssl/include/ssl_context.h::SslContext",
+      "relation": "declares",
+      "properties": {
+        "line": 24,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:net/ssl/include/ssl_context.h",
+      "target": "class:net/ssl/include/ssl_context.h::SslContext",
+      "relation": "declares",
+      "properties": {
+        "line": 26,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:net/ssl/include/ssl_context.h",
+      "target": "func:net/ssl/include/ssl_context.h::accept",
+      "relation": "declares",
+      "properties": {
+        "line": 30,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:net/ssl/include/ssl_context.h",
+      "target": "func:net/ssl/include/ssl_context.h::shutdown_and_free",
+      "relation": "declares",
+      "properties": {
+        "line": 31,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:net/ssl/include/ssl_context.h",
+      "target": "func:net/ssl/include/ssl_context.h::want_read",
+      "relation": "declares",
+      "properties": {
+        "line": 33,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:net/ssl/include/ssl_context.h",
+      "target": "func:net/ssl/include/ssl_context.h::want_write",
+      "relation": "declares",
+      "properties": {
+        "line": 34,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:net/ssl/include/ssl_context.h",
+      "target": "func:net/ssl/include/ssl_context.h::read",
+      "relation": "declares",
+      "properties": {
+        "line": 35,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:net/ssl/include/ssl_context.h",
+      "target": "func:net/ssl/include/ssl_context.h::write",
+      "relation": "declares",
+      "properties": {
+        "line": 36,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:net/ssl/include/ssl_context.h",
+      "target": "class:net/ssl/include/ssl_context.h::SslContext",
+      "relation": "declares",
+      "properties": {
+        "line": 19,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:net/ssl/src/ssl_context.cpp",
+      "target": "func:net/ssl/src/ssl_context.cpp::ensure_openssl",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:net/ssl/src/ssl_context.cpp",
+      "target": "func:net/ssl/src/ssl_context.cpp::SslContext",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:net/ssl/src/ssl_context.cpp",
+      "target": "func:net/ssl/src/ssl_context.cpp::~SslContext",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:net/ssl/src/ssl_context.cpp",
+      "target": "func:net/ssl/src/ssl_context.cpp::accept",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:net/ssl/src/ssl_context.cpp",
+      "target": "func:net/ssl/src/ssl_context.cpp::shutdown_and_free",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:net/ssl/src/ssl_context.cpp",
+      "target": "func:net/ssl/src/ssl_context.cpp::want_read",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:net/ssl/src/ssl_context.cpp",
+      "target": "func:net/ssl/src/ssl_context.cpp::want_write",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:net/ssl/src/ssl_context.cpp",
+      "target": "func:net/ssl/src/ssl_context.cpp::read",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:net/ssl/src/ssl_context.cpp",
+      "target": "func:net/ssl/src/ssl_context.cpp::write",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "func:net/ssl/src/ssl_context.cpp::SslContext",
+      "target": "func:net/ssl/src/ssl_context.cpp::ensure_openssl",
+      "relation": "calls",
+      "properties": {
+        "lineNumber": 31
+      }
+    },
+    {
+      "source": "file:net/ssl/src/ssl_context.cpp",
+      "target": "func:net/ssl/src/ssl_context.cpp::ensure_openssl",
+      "relation": "declares",
+      "properties": {
+        "line": 15,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:net/ssl/src/ssl_context.cpp",
+      "target": "func:net/ssl/src/ssl_context.cpp::SslContext",
+      "relation": "declares",
+      "properties": {
+        "line": 29,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:net/ssl/src/ssl_context.cpp",
+      "target": "func:net/ssl/src/ssl_context.cpp::~SslContext",
+      "relation": "declares",
+      "properties": {
+        "line": 77,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:net/ssl/src/ssl_context.cpp",
+      "target": "func:net/ssl/src/ssl_context.cpp::accept",
+      "relation": "declares",
+      "properties": {
+        "line": 95,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:net/ssl/src/ssl_context.cpp",
+      "target": "func:net/ssl/src/ssl_context.cpp::shutdown_and_free",
+      "relation": "declares",
+      "properties": {
+        "line": 104,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:net/ssl/src/ssl_context.cpp",
+      "target": "func:net/ssl/src/ssl_context.cpp::want_read",
+      "relation": "declares",
+      "properties": {
+        "line": 112,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:net/ssl/src/ssl_context.cpp",
+      "target": "func:net/ssl/src/ssl_context.cpp::want_write",
+      "relation": "declares",
+      "properties": {
+        "line": 116,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:net/ssl/src/ssl_context.cpp",
+      "target": "func:net/ssl/src/ssl_context.cpp::read",
+      "relation": "declares",
+      "properties": {
+        "line": 120,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:net/ssl/src/ssl_context.cpp",
+      "target": "func:net/ssl/src/ssl_context.cpp::write",
+      "relation": "declares",
+      "properties": {
+        "line": 138,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:net/tcp/tcp_client/include/i_tcp_client.h",
+      "target": "class:net/tcp/tcp_client/include/i_tcp_client.h::ITcpClient",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_class"
+      }
+    },
+    {
+      "source": "class:net/tcp/tcp_client/include/i_tcp_client.h::ITcpClient",
+      "target": "func:net/tcp/tcp_client/include/i_tcp_client.h::~ITcpClient",
+      "relation": "contains",
+      "properties": {
+        "kind": "class_contains_method"
+      }
+    },
+    {
+      "source": "class:net/tcp/tcp_client/include/i_tcp_client.h::ITcpClient",
+      "target": "func:net/tcp/tcp_client/include/i_tcp_client.h::connect_to_server",
+      "relation": "contains",
+      "properties": {
+        "kind": "class_contains_method"
+      }
+    },
+    {
+      "source": "class:net/tcp/tcp_client/include/i_tcp_client.h::ITcpClient",
+      "target": "func:net/tcp/tcp_client/include/i_tcp_client.h::disconnect",
+      "relation": "contains",
+      "properties": {
+        "kind": "class_contains_method"
+      }
+    },
+    {
+      "source": "class:net/tcp/tcp_client/include/i_tcp_client.h::ITcpClient",
+      "target": "func:net/tcp/tcp_client/include/i_tcp_client.h::send_message",
+      "relation": "contains",
+      "properties": {
+        "kind": "class_contains_method"
+      }
+    },
+    {
+      "source": "class:net/tcp/tcp_client/include/i_tcp_client.h::ITcpClient",
+      "target": "func:net/tcp/tcp_client/include/i_tcp_client.h::receive_message",
+      "relation": "contains",
+      "properties": {
+        "kind": "class_contains_method"
+      }
+    },
+    {
+      "source": "class:net/tcp/tcp_client/include/i_tcp_client.h::ITcpClient",
+      "target": "func:net/tcp/tcp_client/include/i_tcp_client.h::is_connected",
+      "relation": "contains",
+      "properties": {
+        "kind": "class_contains_method"
+      }
+    },
+    {
+      "source": "file:net/tcp/tcp_client/include/i_tcp_client.h",
+      "target": "func:net/tcp/tcp_client/include/i_tcp_client.h::~ITcpClient",
+      "relation": "declares",
+      "properties": {
+        "line": 17,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:net/tcp/tcp_client/include/i_tcp_client.h",
+      "target": "func:net/tcp/tcp_client/include/i_tcp_client.h::connect_to_server",
+      "relation": "declares",
+      "properties": {
+        "line": 19,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:net/tcp/tcp_client/include/i_tcp_client.h",
+      "target": "func:net/tcp/tcp_client/include/i_tcp_client.h::disconnect",
+      "relation": "declares",
+      "properties": {
+        "line": 20,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:net/tcp/tcp_client/include/i_tcp_client.h",
+      "target": "func:net/tcp/tcp_client/include/i_tcp_client.h::send_message",
+      "relation": "declares",
+      "properties": {
+        "line": 21,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:net/tcp/tcp_client/include/i_tcp_client.h",
+      "target": "func:net/tcp/tcp_client/include/i_tcp_client.h::receive_message",
+      "relation": "declares",
+      "properties": {
+        "line": 23,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:net/tcp/tcp_client/include/i_tcp_client.h",
+      "target": "func:net/tcp/tcp_client/include/i_tcp_client.h::is_connected",
+      "relation": "declares",
+      "properties": {
+        "line": 24,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:net/tcp/tcp_client/include/i_tcp_client.h",
+      "target": "class:net/tcp/tcp_client/include/i_tcp_client.h::ITcpClient",
+      "relation": "declares",
+      "properties": {
+        "line": 15,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:net/tcp/tcp_client/include/tcp_client.h",
+      "target": "class:net/tcp/tcp_client/include/tcp_client.h::TcpClient",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_class"
+      }
+    },
+    {
+      "source": "class:net/tcp/tcp_client/include/tcp_client.h::TcpClient",
+      "target": "func:net/tcp/tcp_client/include/tcp_client.h::TcpClient",
+      "relation": "contains",
+      "properties": {
+        "kind": "class_contains_method"
+      }
+    },
+    {
+      "source": "class:net/tcp/tcp_client/include/tcp_client.h::TcpClient",
+      "target": "func:net/tcp/tcp_client/include/tcp_client.h::connect_to_server",
+      "relation": "contains",
+      "properties": {
+        "kind": "class_contains_method"
+      }
+    },
+    {
+      "source": "class:net/tcp/tcp_client/include/tcp_client.h::TcpClient",
+      "target": "func:net/tcp/tcp_client/include/tcp_client.h::disconnect",
+      "relation": "contains",
+      "properties": {
+        "kind": "class_contains_method"
+      }
+    },
+    {
+      "source": "class:net/tcp/tcp_client/include/tcp_client.h::TcpClient",
+      "target": "func:net/tcp/tcp_client/include/tcp_client.h::send_message",
+      "relation": "contains",
+      "properties": {
+        "kind": "class_contains_method"
+      }
+    },
+    {
+      "source": "class:net/tcp/tcp_client/include/tcp_client.h::TcpClient",
+      "target": "func:net/tcp/tcp_client/include/tcp_client.h::receive_message",
+      "relation": "contains",
+      "properties": {
+        "kind": "class_contains_method"
+      }
+    },
+    {
+      "source": "class:net/tcp/tcp_client/include/tcp_client.h::TcpClient",
+      "target": "func:net/tcp/tcp_client/include/tcp_client.h::send_file",
+      "relation": "contains",
+      "properties": {
+        "kind": "class_contains_method"
+      }
+    },
+    {
+      "source": "class:net/tcp/tcp_client/include/tcp_client.h::TcpClient",
+      "target": "func:net/tcp/tcp_client/include/tcp_client.h::send_file",
+      "relation": "contains",
+      "properties": {
+        "kind": "class_contains_method"
+      }
+    },
+    {
+      "source": "class:net/tcp/tcp_client/include/tcp_client.h::TcpClient",
+      "target": "func:net/tcp/tcp_client/include/tcp_client.h::is_connected",
+      "relation": "contains",
+      "properties": {
+        "kind": "class_contains_method"
+      }
+    },
+    {
+      "source": "class:net/tcp/tcp_client/include/tcp_client.h::TcpClient",
+      "target": "func:net/tcp/tcp_client/include/tcp_client.h::send_all",
+      "relation": "contains",
+      "properties": {
+        "kind": "class_contains_method"
+      }
+    },
+    {
+      "source": "class:net/tcp/tcp_client/include/tcp_client.h::TcpClient",
+      "target": "func:net/tcp/tcp_client/include/tcp_client.h::wait_connected",
+      "relation": "contains",
+      "properties": {
+        "kind": "class_contains_method"
+      }
+    },
+    {
+      "source": "class:net/tcp/tcp_client/include/tcp_client.h::TcpClient",
+      "target": "func:net/tcp/tcp_client/include/tcp_client.h::wait_readable",
+      "relation": "contains",
+      "properties": {
+        "kind": "class_contains_method"
+      }
+    },
+    {
+      "source": "class:net/tcp/tcp_client/include/tcp_client.h::TcpClient",
+      "target": "func:net/tcp/tcp_client/include/tcp_client.h::recv_into_buffer",
+      "relation": "contains",
+      "properties": {
+        "kind": "class_contains_method"
+      }
+    },
+    {
+      "source": "class:net/tcp/tcp_client/include/tcp_client.h::TcpClient",
+      "target": "func:net/tcp/tcp_client/include/tcp_client.h::read_line",
+      "relation": "contains",
+      "properties": {
+        "kind": "class_contains_method"
+      }
+    },
+    {
+      "source": "class:net/tcp/tcp_client/include/tcp_client.h::TcpClient",
+      "target": "func:net/tcp/tcp_client/include/tcp_client.h::read_raw",
+      "relation": "contains",
+      "properties": {
+        "kind": "class_contains_method"
+      }
+    },
+    {
+      "source": "file:net/tcp/tcp_client/include/tcp_client.h",
+      "target": "file:net/tcp/tcp_client/include/i_tcp_client.h",
+      "relation": "include",
+      "properties": {
+        "kind": "file_include_file"
+      }
+    },
+    {
+      "source": "file:net/tcp/tcp_client/include/tcp_client.h",
+      "target": "class:net/tcp/tcp_client/include/tcp_client.h::TcpClient",
+      "relation": "declares",
+      "properties": {
+        "line": 22,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:net/tcp/tcp_client/include/tcp_client.h",
+      "target": "func:net/tcp/tcp_client/include/tcp_client.h::connect_to_server",
+      "relation": "declares",
+      "properties": {
+        "line": 27,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:net/tcp/tcp_client/include/tcp_client.h",
+      "target": "func:net/tcp/tcp_client/include/tcp_client.h::disconnect",
+      "relation": "declares",
+      "properties": {
+        "line": 28,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:net/tcp/tcp_client/include/tcp_client.h",
+      "target": "func:net/tcp/tcp_client/include/tcp_client.h::send_message",
+      "relation": "declares",
+      "properties": {
+        "line": 30,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:net/tcp/tcp_client/include/tcp_client.h",
+      "target": "func:net/tcp/tcp_client/include/tcp_client.h::receive_message",
+      "relation": "declares",
+      "properties": {
+        "line": 32,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:net/tcp/tcp_client/include/tcp_client.h",
+      "target": "func:net/tcp/tcp_client/include/tcp_client.h::send_file",
+      "relation": "declares",
+      "properties": {
+        "line": 34,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:net/tcp/tcp_client/include/tcp_client.h",
+      "target": "func:net/tcp/tcp_client/include/tcp_client.h::send_file",
+      "relation": "declares",
+      "properties": {
+        "line": 35,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:net/tcp/tcp_client/include/tcp_client.h",
+      "target": "func:net/tcp/tcp_client/include/tcp_client.h::is_connected",
+      "relation": "declares",
+      "properties": {
+        "line": 37,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:net/tcp/tcp_client/include/tcp_client.h",
+      "target": "class:net/tcp/tcp_client/include/tcp_client.h::TcpClient",
+      "relation": "declares",
+      "properties": {
+        "line": 16,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:net/tcp/tcp_client/src/tcp_client.cpp",
+      "target": "func:net/tcp/tcp_client/src/tcp_client.cpp::TcpClient",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:net/tcp/tcp_client/src/tcp_client.cpp",
+      "target": "func:net/tcp/tcp_client/src/tcp_client.cpp::TcpClient",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:net/tcp/tcp_client/src/tcp_client.cpp",
+      "target": "func:net/tcp/tcp_client/src/tcp_client.cpp::~TcpClient",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:net/tcp/tcp_client/src/tcp_client.cpp",
+      "target": "func:net/tcp/tcp_client/src/tcp_client.cpp::TcpClient",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:net/tcp/tcp_client/src/tcp_client.cpp",
+      "target": "func:net/tcp/tcp_client/src/tcp_client.cpp::send_all",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:net/tcp/tcp_client/src/tcp_client.cpp",
+      "target": "func:net/tcp/tcp_client/src/tcp_client.cpp::wait_connected",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:net/tcp/tcp_client/src/tcp_client.cpp",
+      "target": "func:net/tcp/tcp_client/src/tcp_client.cpp::wait_readable",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:net/tcp/tcp_client/src/tcp_client.cpp",
+      "target": "func:net/tcp/tcp_client/src/tcp_client.cpp::connect_to_server",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:net/tcp/tcp_client/src/tcp_client.cpp",
+      "target": "func:net/tcp/tcp_client/src/tcp_client.cpp::disconnect",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:net/tcp/tcp_client/src/tcp_client.cpp",
+      "target": "func:net/tcp/tcp_client/src/tcp_client.cpp::send_message",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:net/tcp/tcp_client/src/tcp_client.cpp",
+      "target": "func:net/tcp/tcp_client/src/tcp_client.cpp::receive_message",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:net/tcp/tcp_client/src/tcp_client.cpp",
+      "target": "func:net/tcp/tcp_client/src/tcp_client.cpp::recv_into_buffer",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:net/tcp/tcp_client/src/tcp_client.cpp",
+      "target": "func:net/tcp/tcp_client/src/tcp_client.cpp::read_line",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:net/tcp/tcp_client/src/tcp_client.cpp",
+      "target": "func:net/tcp/tcp_client/src/tcp_client.cpp::read_raw",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:net/tcp/tcp_client/src/tcp_client.cpp",
+      "target": "func:net/tcp/tcp_client/src/tcp_client.cpp::send_file",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:net/tcp/tcp_client/src/tcp_client.cpp",
+      "target": "func:net/tcp/tcp_client/src/tcp_client.cpp::send_file",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "func:net/tcp/tcp_client/src/tcp_client.cpp::connect_to_server",
+      "target": "func:net/tcp/tcp_client/src/tcp_client.cpp::disconnect",
+      "relation": "calls",
+      "properties": {
+        "lineNumber": 109
+      }
+    },
+    {
+      "source": "func:net/tcp/tcp_client/src/tcp_client.cpp::connect_to_server",
+      "target": "func:net/tcp/tcp_client/src/tcp_client.cpp::disconnect",
+      "relation": "calls",
+      "properties": {
+        "lineNumber": 128
+      }
+    },
+    {
+      "source": "func:net/tcp/tcp_client/src/tcp_client.cpp::connect_to_server",
+      "target": "func:net/tcp/tcp_client/src/tcp_client.cpp::disconnect",
+      "relation": "calls",
+      "properties": {
+        "lineNumber": 141
+      }
+    },
+    {
+      "source": "func:net/tcp/tcp_client/src/tcp_client.cpp::connect_to_server",
+      "target": "func:net/tcp/tcp_client/src/tcp_client.cpp::wait_connected",
+      "relation": "calls",
+      "properties": {
+        "lineNumber": 145
+      }
+    },
+    {
+      "source": "func:net/tcp/tcp_client/src/tcp_client.cpp::connect_to_server",
+      "target": "func:net/tcp/tcp_client/src/tcp_client.cpp::disconnect",
+      "relation": "calls",
+      "properties": {
+        "lineNumber": 147
+      }
+    },
+    {
+      "source": "func:net/tcp/tcp_client/src/tcp_client.cpp::send_message",
+      "target": "func:net/tcp/tcp_client/src/tcp_client.cpp::send_all",
+      "relation": "calls",
+      "properties": {
+        "lineNumber": 167
+      }
+    },
+    {
+      "source": "func:net/tcp/tcp_client/src/tcp_client.cpp::receive_message",
+      "target": "func:net/tcp/tcp_client/src/tcp_client.cpp::read_line",
+      "relation": "calls",
+      "properties": {
+        "lineNumber": 176
+      }
+    },
+    {
+      "source": "func:net/tcp/tcp_client/src/tcp_client.cpp::receive_message",
+      "target": "func:net/tcp/tcp_client/src/tcp_client.cpp::read_raw",
+      "relation": "calls",
+      "properties": {
+        "lineNumber": 178
+      }
+    },
+    {
+      "source": "func:net/tcp/tcp_client/src/tcp_client.cpp::recv_into_buffer",
+      "target": "func:net/tcp/tcp_client/src/tcp_client.cpp::wait_readable",
+      "relation": "calls",
+      "properties": {
+        "lineNumber": 182
+      }
+    },
+    {
+      "source": "func:net/tcp/tcp_client/src/tcp_client.cpp::recv_into_buffer",
+      "target": "func:net/tcp/tcp_client/src/tcp_client.cpp::disconnect",
+      "relation": "calls",
+      "properties": {
+        "lineNumber": 195
+      }
+    },
+    {
+      "source": "func:net/tcp/tcp_client/src/tcp_client.cpp::read_line",
+      "target": "func:net/tcp/tcp_client/src/tcp_client.cpp::recv_into_buffer",
+      "relation": "calls",
+      "properties": {
+        "lineNumber": 211
+      }
+    },
+    {
+      "source": "func:net/tcp/tcp_client/src/tcp_client.cpp::read_raw",
+      "target": "func:net/tcp/tcp_client/src/tcp_client.cpp::wait_readable",
+      "relation": "calls",
+      "properties": {
+        "lineNumber": 229
+      }
+    },
+    {
+      "source": "func:net/tcp/tcp_client/src/tcp_client.cpp::read_raw",
+      "target": "func:net/tcp/tcp_client/src/tcp_client.cpp::disconnect",
+      "relation": "calls",
+      "properties": {
+        "lineNumber": 235
+      }
+    },
+    {
+      "source": "func:net/tcp/tcp_client/src/tcp_client.cpp::read_raw",
+      "target": "func:net/tcp/tcp_client/src/tcp_client.cpp::recv_into_buffer",
+      "relation": "calls",
+      "properties": {
+        "lineNumber": 242
+      }
+    },
+    {
+      "source": "func:net/tcp/tcp_client/src/tcp_client.cpp::read_raw",
+      "target": "func:net/tcp/tcp_client/src/tcp_client.cpp::wait_readable",
+      "relation": "calls",
+      "properties": {
+        "lineNumber": 252
+      }
+    },
+    {
+      "source": "func:net/tcp/tcp_client/src/tcp_client.cpp::read_raw",
+      "target": "func:net/tcp/tcp_client/src/tcp_client.cpp::recv_into_buffer",
+      "relation": "calls",
+      "properties": {
+        "lineNumber": 255
+      }
+    },
+    {
+      "source": "func:net/tcp/tcp_client/src/tcp_client.cpp::send_file",
+      "target": "func:net/tcp/tcp_client/src/tcp_client.cpp::send_all",
+      "relation": "calls",
+      "properties": {
+        "lineNumber": 276
+      }
+    },
+    {
+      "source": "func:net/tcp/tcp_client/src/tcp_client.cpp::send_file",
+      "target": "func:net/tcp/tcp_client/src/tcp_client.cpp::send_all",
+      "relation": "calls",
+      "properties": {
+        "lineNumber": 284
+      }
+    },
+    {
+      "source": "func:net/tcp/tcp_client/src/tcp_client.cpp::send_file",
+      "target": "func:net/tcp/tcp_client/src/tcp_client.cpp::send_all",
+      "relation": "calls",
+      "properties": {
+        "lineNumber": 297
+      }
+    },
+    {
+      "source": "file:net/tcp/tcp_client/src/tcp_client.cpp",
+      "target": "func:net/tcp/tcp_client/src/tcp_client.cpp::TcpClient",
+      "relation": "declares",
+      "properties": {
+        "line": 20,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:net/tcp/tcp_client/src/tcp_client.cpp",
+      "target": "func:net/tcp/tcp_client/src/tcp_client.cpp::TcpClient",
+      "relation": "declares",
+      "properties": {
+        "line": 23,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:net/tcp/tcp_client/src/tcp_client.cpp",
+      "target": "func:net/tcp/tcp_client/src/tcp_client.cpp::~TcpClient",
+      "relation": "declares",
+      "properties": {
+        "line": 26,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:net/tcp/tcp_client/src/tcp_client.cpp",
+      "target": "func:net/tcp/tcp_client/src/tcp_client.cpp::TcpClient",
+      "relation": "declares",
+      "properties": {
+        "line": 30,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:net/tcp/tcp_client/src/tcp_client.cpp",
+      "target": "func:net/tcp/tcp_client/src/tcp_client.cpp::send_all",
+      "relation": "declares",
+      "properties": {
+        "line": 52,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:net/tcp/tcp_client/src/tcp_client.cpp",
+      "target": "func:net/tcp/tcp_client/src/tcp_client.cpp::wait_connected",
+      "relation": "declares",
+      "properties": {
+        "line": 82,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:net/tcp/tcp_client/src/tcp_client.cpp",
+      "target": "func:net/tcp/tcp_client/src/tcp_client.cpp::wait_readable",
+      "relation": "declares",
+      "properties": {
+        "line": 98,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:net/tcp/tcp_client/src/tcp_client.cpp",
+      "target": "func:net/tcp/tcp_client/src/tcp_client.cpp::connect_to_server",
+      "relation": "declares",
+      "properties": {
+        "line": 108,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:net/tcp/tcp_client/src/tcp_client.cpp",
+      "target": "func:net/tcp/tcp_client/src/tcp_client.cpp::disconnect",
+      "relation": "declares",
+      "properties": {
+        "line": 154,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:net/tcp/tcp_client/src/tcp_client.cpp",
+      "target": "func:net/tcp/tcp_client/src/tcp_client.cpp::send_message",
+      "relation": "declares",
+      "properties": {
+        "line": 162,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:net/tcp/tcp_client/src/tcp_client.cpp",
+      "target": "func:net/tcp/tcp_client/src/tcp_client.cpp::receive_message",
+      "relation": "declares",
+      "properties": {
+        "line": 171,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:net/tcp/tcp_client/src/tcp_client.cpp",
+      "target": "func:net/tcp/tcp_client/src/tcp_client.cpp::recv_into_buffer",
+      "relation": "declares",
+      "properties": {
+        "line": 181,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:net/tcp/tcp_client/src/tcp_client.cpp",
+      "target": "func:net/tcp/tcp_client/src/tcp_client.cpp::read_line",
+      "relation": "declares",
+      "properties": {
+        "line": 200,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:net/tcp/tcp_client/src/tcp_client.cpp",
+      "target": "func:net/tcp/tcp_client/src/tcp_client.cpp::read_raw",
+      "relation": "declares",
+      "properties": {
+        "line": 225,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:net/tcp/tcp_client/src/tcp_client.cpp",
+      "target": "func:net/tcp/tcp_client/src/tcp_client.cpp::send_file",
+      "relation": "declares",
+      "properties": {
+        "line": 262,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:net/tcp/tcp_client/src/tcp_client.cpp",
+      "target": "func:net/tcp/tcp_client/src/tcp_client.cpp::send_file",
+      "relation": "declares",
+      "properties": {
+        "line": 292,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:net/tcp/tcp_server/src/connection.cpp",
+      "target": "func:net/tcp/tcp_server/src/connection.cpp::Connection",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:net/tcp/tcp_server/src/connection.cpp",
+      "target": "func:net/tcp/tcp_server/src/connection.cpp::~Connection",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:net/tcp/tcp_server/src/connection.cpp",
+      "target": "func:net/tcp/tcp_server/src/connection.cpp::client_ip",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:net/tcp/tcp_server/src/connection.cpp",
+      "target": "func:net/tcp/tcp_server/src/connection.cpp::client_port",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:net/tcp/tcp_server/src/connection.cpp",
+      "target": "func:net/tcp/tcp_server/src/connection.cpp::read_from_fd",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:net/tcp/tcp_server/src/connection.cpp",
+      "target": "func:net/tcp/tcp_server/src/connection.cpp::ssl_read_from_fd",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:net/tcp/tcp_server/src/connection.cpp",
+      "target": "func:net/tcp/tcp_server/src/connection.cpp::plain_read_from_fd",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:net/tcp/tcp_server/src/connection.cpp",
+      "target": "func:net/tcp/tcp_server/src/connection.cpp::ssl_write_to_fd_locked",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:net/tcp/tcp_server/src/connection.cpp",
+      "target": "func:net/tcp/tcp_server/src/connection.cpp::plain_write_to_fd_locked",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:net/tcp/tcp_server/src/connection.cpp",
+      "target": "func:net/tcp/tcp_server/src/connection.cpp::write_to_fd",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:net/tcp/tcp_server/src/connection.cpp",
+      "target": "func:net/tcp/tcp_server/src/connection.cpp::write_to_fd_locked",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:net/tcp/tcp_server/src/connection.cpp",
+      "target": "func:net/tcp/tcp_server/src/connection.cpp::close",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:net/tcp/tcp_server/src/connection.cpp",
+      "target": "func:net/tcp/tcp_server/src/connection.cpp::consume_read_buffer",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:net/tcp/tcp_server/src/connection.cpp",
+      "target": "func:net/tcp/tcp_server/src/connection.cpp::await_read",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:net/tcp/tcp_server/src/connection.cpp",
+      "target": "func:net/tcp/tcp_server/src/connection.cpp::await_write",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:net/tcp/tcp_server/src/connection.cpp",
+      "target": "func:net/tcp/tcp_server/src/connection.cpp::await_suspend",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:net/tcp/tcp_server/src/connection.cpp",
+      "target": "func:net/tcp/tcp_server/src/connection.cpp::await_suspend",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "func:net/tcp/tcp_server/src/connection.cpp::~Connection",
+      "target": "func:net/tcp/tcp_server/src/connection.cpp::close",
+      "relation": "calls",
+      "properties": {
+        "lineNumber": 19
+      }
+    },
+    {
+      "source": "func:net/tcp/tcp_server/src/connection.cpp::read_from_fd",
+      "target": "func:net/tcp/tcp_server/src/connection.cpp::ssl_read_from_fd",
+      "relation": "calls",
+      "properties": {
+        "lineNumber": 38
+      }
+    },
+    {
+      "source": "func:net/tcp/tcp_server/src/connection.cpp::read_from_fd",
+      "target": "func:net/tcp/tcp_server/src/connection.cpp::plain_read_from_fd",
+      "relation": "calls",
+      "properties": {
+        "lineNumber": 39
+      }
+    },
+    {
+      "source": "func:net/tcp/tcp_server/src/connection.cpp::write_to_fd",
+      "target": "func:net/tcp/tcp_server/src/connection.cpp::write_to_fd_locked",
+      "relation": "calls",
+      "properties": {
+        "lineNumber": 158
+      }
+    },
+    {
+      "source": "func:net/tcp/tcp_server/src/connection.cpp::write_to_fd_locked",
+      "target": "func:net/tcp/tcp_server/src/connection.cpp::ssl_write_to_fd_locked",
+      "relation": "calls",
+      "properties": {
+        "lineNumber": 166
+      }
+    },
+    {
+      "source": "func:net/tcp/tcp_server/src/connection.cpp::write_to_fd_locked",
+      "target": "func:net/tcp/tcp_server/src/connection.cpp::plain_write_to_fd_locked",
+      "relation": "calls",
+      "properties": {
+        "lineNumber": 167
+      }
+    },
+    {
+      "source": "func:net/tcp/tcp_server/src/connection.cpp::await_suspend",
+      "target": "func:net/tcp/tcp_server/src/connection.cpp::read_from_fd",
+      "relation": "calls",
+      "properties": {
+        "lineNumber": 220
+      }
+    },
+    {
+      "source": "func:net/tcp/tcp_server/src/connection.cpp::await_suspend",
+      "target": "func:net/tcp/tcp_server/src/connection.cpp::write_to_fd",
+      "relation": "calls",
+      "properties": {
+        "lineNumber": 225
+      }
+    },
+    {
+      "source": "file:net/tcp/tcp_server/src/connection.cpp",
+      "target": "func:net/tcp/tcp_server/src/connection.cpp::Connection",
+      "relation": "declares",
+      "properties": {
+        "line": 15,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:net/tcp/tcp_server/src/connection.cpp",
+      "target": "func:net/tcp/tcp_server/src/connection.cpp::~Connection",
+      "relation": "declares",
+      "properties": {
+        "line": 17,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:net/tcp/tcp_server/src/connection.cpp",
+      "target": "func:net/tcp/tcp_server/src/connection.cpp::client_ip",
+      "relation": "declares",
+      "properties": {
+        "line": 23,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:net/tcp/tcp_server/src/connection.cpp",
+      "target": "func:net/tcp/tcp_server/src/connection.cpp::client_port",
+      "relation": "declares",
+      "properties": {
+        "line": 29,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:net/tcp/tcp_server/src/connection.cpp",
+      "target": "func:net/tcp/tcp_server/src/connection.cpp::read_from_fd",
+      "relation": "declares",
+      "properties": {
+        "line": 33,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:net/tcp/tcp_server/src/connection.cpp",
+      "target": "func:net/tcp/tcp_server/src/connection.cpp::ssl_read_from_fd",
+      "relation": "declares",
+      "properties": {
+        "line": 45,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:net/tcp/tcp_server/src/connection.cpp",
+      "target": "func:net/tcp/tcp_server/src/connection.cpp::plain_read_from_fd",
+      "relation": "declares",
+      "properties": {
+        "line": 76,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:net/tcp/tcp_server/src/connection.cpp",
+      "target": "func:net/tcp/tcp_server/src/connection.cpp::ssl_write_to_fd_locked",
+      "relation": "declares",
+      "properties": {
+        "line": 106,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:net/tcp/tcp_server/src/connection.cpp",
+      "target": "func:net/tcp/tcp_server/src/connection.cpp::plain_write_to_fd_locked",
+      "relation": "declares",
+      "properties": {
+        "line": 132,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:net/tcp/tcp_server/src/connection.cpp",
+      "target": "func:net/tcp/tcp_server/src/connection.cpp::write_to_fd",
+      "relation": "declares",
+      "properties": {
+        "line": 155,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:net/tcp/tcp_server/src/connection.cpp",
+      "target": "func:net/tcp/tcp_server/src/connection.cpp::write_to_fd_locked",
+      "relation": "declares",
+      "properties": {
+        "line": 161,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:net/tcp/tcp_server/src/connection.cpp",
+      "target": "func:net/tcp/tcp_server/src/connection.cpp::close",
+      "relation": "declares",
+      "properties": {
+        "line": 183,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:net/tcp/tcp_server/src/connection.cpp",
+      "target": "func:net/tcp/tcp_server/src/connection.cpp::consume_read_buffer",
+      "relation": "declares",
+      "properties": {
+        "line": 199,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:net/tcp/tcp_server/src/connection.cpp",
+      "target": "func:net/tcp/tcp_server/src/connection.cpp::await_read",
+      "relation": "declares",
+      "properties": {
+        "line": 211,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:net/tcp/tcp_server/src/connection.cpp",
+      "target": "func:net/tcp/tcp_server/src/connection.cpp::await_write",
+      "relation": "declares",
+      "properties": {
+        "line": 215,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:net/tcp/tcp_server/src/connection.cpp",
+      "target": "func:net/tcp/tcp_server/src/connection.cpp::await_suspend",
+      "relation": "declares",
+      "properties": {
+        "line": 219,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:net/tcp/tcp_server/src/connection.cpp",
+      "target": "func:net/tcp/tcp_server/src/connection.cpp::await_suspend",
+      "relation": "declares",
+      "properties": {
+        "line": 224,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:net/tcp/tcp_server/src/tcp_server.cpp",
+      "target": "class:net/tcp/tcp_server/src/tcp_server.cpp::EpollFd",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_class"
+      }
+    },
+    {
+      "source": "file:net/tcp/tcp_server/src/tcp_server.cpp",
+      "target": "class:net/tcp/tcp_server/src/tcp_server.cpp::EpollEvents",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_class"
+      }
+    },
+    {
+      "source": "file:net/tcp/tcp_server/src/tcp_server.cpp",
+      "target": "func:net/tcp/tcp_server/src/tcp_server.cpp::epoll_ctl_add",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:net/tcp/tcp_server/src/tcp_server.cpp",
+      "target": "func:net/tcp/tcp_server/src/tcp_server.cpp::epoll_ctl_mod",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:net/tcp/tcp_server/src/tcp_server.cpp",
+      "target": "func:net/tcp/tcp_server/src/tcp_server.cpp::signal_handler",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:net/tcp/tcp_server/src/tcp_server.cpp",
+      "target": "func:net/tcp/tcp_server/src/tcp_server.cpp::TcpServer",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:net/tcp/tcp_server/src/tcp_server.cpp",
+      "target": "func:net/tcp/tcp_server/src/tcp_server.cpp::~TcpServer",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:net/tcp/tcp_server/src/tcp_server.cpp",
+      "target": "func:net/tcp/tcp_server/src/tcp_server.cpp::init",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:net/tcp/tcp_server/src/tcp_server.cpp",
+      "target": "func:net/tcp/tcp_server/src/tcp_server.cpp::set_handler",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:net/tcp/tcp_server/src/tcp_server.cpp",
+      "target": "func:net/tcp/tcp_server/src/tcp_server.cpp::start",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:net/tcp/tcp_server/src/tcp_server.cpp",
+      "target": "func:net/tcp/tcp_server/src/tcp_server.cpp::stop",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:net/tcp/tcp_server/src/tcp_server.cpp",
+      "target": "func:net/tcp/tcp_server/src/tcp_server.cpp::event_loop",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:net/tcp/tcp_server/src/tcp_server.cpp",
+      "target": "func:net/tcp/tcp_server/src/tcp_server.cpp::cleanup_resources",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:net/tcp/tcp_server/src/tcp_server.cpp",
+      "target": "func:net/tcp/tcp_server/src/tcp_server.cpp::handle_event",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:net/tcp/tcp_server/src/tcp_server.cpp",
+      "target": "func:net/tcp/tcp_server/src/tcp_server.cpp::handle_accept",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:net/tcp/tcp_server/src/tcp_server.cpp",
+      "target": "func:net/tcp/tcp_server/src/tcp_server.cpp::handle_read",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:net/tcp/tcp_server/src/tcp_server.cpp",
+      "target": "func:net/tcp/tcp_server/src/tcp_server.cpp::handle_write",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:net/tcp/tcp_server/src/tcp_server.cpp",
+      "target": "func:net/tcp/tcp_server/src/tcp_server.cpp::try_ssl_detection",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:net/tcp/tcp_server/src/tcp_server.cpp",
+      "target": "func:net/tcp/tcp_server/src/tcp_server.cpp::try_ssl_handshake",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:net/tcp/tcp_server/src/tcp_server.cpp",
+      "target": "func:net/tcp/tcp_server/src/tcp_server.cpp::handle_client_event",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:net/tcp/tcp_server/src/tcp_server.cpp",
+      "target": "func:net/tcp/tcp_server/src/tcp_server.cpp::handle_ssl_handshake",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:net/tcp/tcp_server/src/tcp_server.cpp",
+      "target": "func:net/tcp/tcp_server/src/tcp_server.cpp::close_connection",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:net/tcp/tcp_server/src/tcp_server.cpp",
+      "target": "func:net/tcp/tcp_server/src/tcp_server.cpp::notify_wake",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "file:net/tcp/tcp_server/src/tcp_server.cpp",
+      "target": "func:net/tcp/tcp_server/src/tcp_server.cpp::process_dirty_connections",
+      "relation": "contains",
+      "properties": {
+        "kind": "file_contains_function"
+      }
+    },
+    {
+      "source": "func:net/tcp/tcp_server/src/tcp_server.cpp::signal_handler",
+      "target": "func:net/tcp/tcp_server/src/tcp_server.cpp::stop",
+      "relation": "calls",
+      "properties": {
+        "lineNumber": 58
+      }
+    },
+    {
+      "source": "func:net/tcp/tcp_server/src/tcp_server.cpp::init",
+      "target": "func:net/tcp/tcp_server/src/tcp_server.cpp::epoll_ctl_add",
+      "relation": "calls",
+      "properties": {
+        "lineNumber": 146
+      }
+    },
+    {
+      "source": "func:net/tcp/tcp_server/src/tcp_server.cpp::init",
+      "target": "func:net/tcp/tcp_server/src/tcp_server.cpp::epoll_ctl_add",
+      "relation": "calls",
+      "properties": {
+        "lineNumber": 157
+      }
+    },
+    {
+      "source": "func:net/tcp/tcp_server/src/tcp_server.cpp::init",
+      "target": "func:net/tcp/tcp_server/src/tcp_server.cpp::cleanup_resources",
+      "relation": "calls",
+      "properties": {
+        "lineNumber": 183
+      }
+    },
+    {
+      "source": "func:net/tcp/tcp_server/src/tcp_server.cpp::start",
+      "target": "func:net/tcp/tcp_server/src/tcp_server.cpp::event_loop",
+      "relation": "calls",
+      "properties": {
+        "lineNumber": 202
+      }
+    },
+    {
+      "source": "func:net/tcp/tcp_server/src/tcp_server.cpp::event_loop",
+      "target": "func:net/tcp/tcp_server/src/tcp_server.cpp::handle_event",
+      "relation": "calls",
+      "properties": {
+        "lineNumber": 233
+      }
+    },
+    {
+      "source": "func:net/tcp/tcp_server/src/tcp_server.cpp::event_loop",
+      "target": "func:net/tcp/tcp_server/src/tcp_server.cpp::cleanup_resources",
+      "relation": "calls",
+      "properties": {
+        "lineNumber": 237
+      }
+    },
+    {
+      "source": "func:net/tcp/tcp_server/src/tcp_server.cpp::handle_event",
+      "target": "func:net/tcp/tcp_server/src/tcp_server.cpp::handle_accept",
+      "relation": "calls",
+      "properties": {
+        "lineNumber": 270
+      }
+    },
+    {
+      "source": "func:net/tcp/tcp_server/src/tcp_server.cpp::handle_event",
+      "target": "func:net/tcp/tcp_server/src/tcp_server.cpp::process_dirty_connections",
+      "relation": "calls",
+      "properties": {
+        "lineNumber": 277
+      }
+    },
+    {
+      "source": "func:net/tcp/tcp_server/src/tcp_server.cpp::handle_event",
+      "target": "func:net/tcp/tcp_server/src/tcp_server.cpp::try_ssl_detection",
+      "relation": "calls",
+      "properties": {
+        "lineNumber": 285
+      }
+    },
+    {
+      "source": "func:net/tcp/tcp_server/src/tcp_server.cpp::handle_event",
+      "target": "func:net/tcp/tcp_server/src/tcp_server.cpp::try_ssl_handshake",
+      "relation": "calls",
+      "properties": {
+        "lineNumber": 285
+      }
+    },
+    {
+      "source": "func:net/tcp/tcp_server/src/tcp_server.cpp::handle_event",
+      "target": "func:net/tcp/tcp_server/src/tcp_server.cpp::handle_client_event",
+      "relation": "calls",
+      "properties": {
+        "lineNumber": 288
+      }
+    },
+    {
+      "source": "func:net/tcp/tcp_server/src/tcp_server.cpp::handle_accept",
+      "target": "func:net/tcp/tcp_server/src/tcp_server.cpp::epoll_ctl_add",
+      "relation": "calls",
+      "properties": {
+        "lineNumber": 310
+      }
+    },
+    {
+      "source": "func:net/tcp/tcp_server/src/tcp_server.cpp::handle_read",
+      "target": "func:net/tcp/tcp_server/src/tcp_server.cpp::notify_wake",
+      "relation": "calls",
+      "properties": {
+        "lineNumber": 363
+      }
+    },
+    {
+      "source": "func:net/tcp/tcp_server/src/tcp_server.cpp::handle_write",
+      "target": "func:net/tcp/tcp_server/src/tcp_server.cpp::epoll_ctl_mod",
+      "relation": "calls",
+      "properties": {
+        "lineNumber": 386
+      }
+    },
+    {
+      "source": "func:net/tcp/tcp_server/src/tcp_server.cpp::try_ssl_detection",
+      "target": "func:net/tcp/tcp_server/src/tcp_server.cpp::handle_ssl_handshake",
+      "relation": "calls",
+      "properties": {
+        "lineNumber": 416
+      }
+    },
+    {
+      "source": "func:net/tcp/tcp_server/src/tcp_server.cpp::try_ssl_handshake",
+      "target": "func:net/tcp/tcp_server/src/tcp_server.cpp::handle_ssl_handshake",
+      "relation": "calls",
+      "properties": {
+        "lineNumber": 424
+      }
+    },
+    {
+      "source": "func:net/tcp/tcp_server/src/tcp_server.cpp::handle_client_event",
+      "target": "func:net/tcp/tcp_server/src/tcp_server.cpp::handle_read",
+      "relation": "calls",
+      "properties": {
+        "lineNumber": 432
+      }
+    },
+    {
+      "source": "func:net/tcp/tcp_server/src/tcp_server.cpp::handle_client_event",
+      "target": "func:net/tcp/tcp_server/src/tcp_server.cpp::close_connection",
+      "relation": "calls",
+      "properties": {
+        "lineNumber": 433
+      }
+    },
+    {
+      "source": "func:net/tcp/tcp_server/src/tcp_server.cpp::handle_client_event",
+      "target": "func:net/tcp/tcp_server/src/tcp_server.cpp::close_connection",
+      "relation": "calls",
+      "properties": {
+        "lineNumber": 437
+      }
+    },
+    {
+      "source": "func:net/tcp/tcp_server/src/tcp_server.cpp::handle_client_event",
+      "target": "func:net/tcp/tcp_server/src/tcp_server.cpp::handle_read",
+      "relation": "calls",
+      "properties": {
+        "lineNumber": 439
+      }
+    },
+    {
+      "source": "func:net/tcp/tcp_server/src/tcp_server.cpp::handle_client_event",
+      "target": "func:net/tcp/tcp_server/src/tcp_server.cpp::close_connection",
+      "relation": "calls",
+      "properties": {
+        "lineNumber": 440
+      }
+    },
+    {
+      "source": "func:net/tcp/tcp_server/src/tcp_server.cpp::handle_client_event",
+      "target": "func:net/tcp/tcp_server/src/tcp_server.cpp::handle_write",
+      "relation": "calls",
+      "properties": {
+        "lineNumber": 443
+      }
+    },
+    {
+      "source": "func:net/tcp/tcp_server/src/tcp_server.cpp::handle_client_event",
+      "target": "func:net/tcp/tcp_server/src/tcp_server.cpp::close_connection",
+      "relation": "calls",
+      "properties": {
+        "lineNumber": 444
+      }
+    },
+    {
+      "source": "func:net/tcp/tcp_server/src/tcp_server.cpp::handle_ssl_handshake",
+      "target": "func:net/tcp/tcp_server/src/tcp_server.cpp::epoll_ctl_mod",
+      "relation": "calls",
+      "properties": {
+        "lineNumber": 453
+      }
+    },
+    {
+      "source": "func:net/tcp/tcp_server/src/tcp_server.cpp::handle_ssl_handshake",
+      "target": "func:net/tcp/tcp_server/src/tcp_server.cpp::handle_read",
+      "relation": "calls",
+      "properties": {
+        "lineNumber": 456
+      }
+    },
+    {
+      "source": "func:net/tcp/tcp_server/src/tcp_server.cpp::handle_ssl_handshake",
+      "target": "func:net/tcp/tcp_server/src/tcp_server.cpp::epoll_ctl_mod",
+      "relation": "calls",
+      "properties": {
+        "lineNumber": 466
+      }
+    },
+    {
+      "source": "func:net/tcp/tcp_server/src/tcp_server.cpp::handle_ssl_handshake",
+      "target": "func:net/tcp/tcp_server/src/tcp_server.cpp::close_connection",
+      "relation": "calls",
+      "properties": {
+        "lineNumber": 474
+      }
+    },
+    {
+      "source": "func:net/tcp/tcp_server/src/tcp_server.cpp::process_dirty_connections",
+      "target": "func:net/tcp/tcp_server/src/tcp_server.cpp::epoll_ctl_mod",
+      "relation": "calls",
+      "properties": {
+        "lineNumber": 519
+      }
+    },
+    {
+      "source": "file:net/tcp/tcp_server/src/tcp_server.cpp",
+      "target": "class:net/tcp/tcp_server/src/tcp_server.cpp::EpollFd",
+      "relation": "declares",
+      "properties": {
+        "line": 27,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:net/tcp/tcp_server/src/tcp_server.cpp",
+      "target": "class:net/tcp/tcp_server/src/tcp_server.cpp::EpollEvents",
+      "relation": "declares",
+      "properties": {
+        "line": 31,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:net/tcp/tcp_server/src/tcp_server.cpp",
+      "target": "func:net/tcp/tcp_server/src/tcp_server.cpp::epoll_ctl_add",
+      "relation": "declares",
+      "properties": {
+        "line": 35,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:net/tcp/tcp_server/src/tcp_server.cpp",
+      "target": "func:net/tcp/tcp_server/src/tcp_server.cpp::epoll_ctl_mod",
+      "relation": "declares",
+      "properties": {
+        "line": 43,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:net/tcp/tcp_server/src/tcp_server.cpp",
+      "target": "func:net/tcp/tcp_server/src/tcp_server.cpp::signal_handler",
+      "relation": "declares",
+      "properties": {
+        "line": 55,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:net/tcp/tcp_server/src/tcp_server.cpp",
+      "target": "func:net/tcp/tcp_server/src/tcp_server.cpp::TcpServer",
+      "relation": "declares",
+      "properties": {
+        "line": 62,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:net/tcp/tcp_server/src/tcp_server.cpp",
+      "target": "func:net/tcp/tcp_server/src/tcp_server.cpp::~TcpServer",
+      "relation": "declares",
+      "properties": {
+        "line": 64,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:net/tcp/tcp_server/src/tcp_server.cpp",
+      "target": "func:net/tcp/tcp_server/src/tcp_server.cpp::init",
+      "relation": "declares",
+      "properties": {
+        "line": 71,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:net/tcp/tcp_server/src/tcp_server.cpp",
+      "target": "func:net/tcp/tcp_server/src/tcp_server.cpp::set_handler",
+      "relation": "declares",
+      "properties": {
+        "line": 195,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:net/tcp/tcp_server/src/tcp_server.cpp",
+      "target": "func:net/tcp/tcp_server/src/tcp_server.cpp::start",
+      "relation": "declares",
+      "properties": {
+        "line": 199,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:net/tcp/tcp_server/src/tcp_server.cpp",
+      "target": "func:net/tcp/tcp_server/src/tcp_server.cpp::stop",
+      "relation": "declares",
+      "properties": {
+        "line": 206,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:net/tcp/tcp_server/src/tcp_server.cpp",
+      "target": "func:net/tcp/tcp_server/src/tcp_server.cpp::event_loop",
+      "relation": "declares",
+      "properties": {
+        "line": 219,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:net/tcp/tcp_server/src/tcp_server.cpp",
+      "target": "func:net/tcp/tcp_server/src/tcp_server.cpp::cleanup_resources",
+      "relation": "declares",
+      "properties": {
+        "line": 241,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:net/tcp/tcp_server/src/tcp_server.cpp",
+      "target": "func:net/tcp/tcp_server/src/tcp_server.cpp::handle_event",
+      "relation": "declares",
+      "properties": {
+        "line": 265,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:net/tcp/tcp_server/src/tcp_server.cpp",
+      "target": "func:net/tcp/tcp_server/src/tcp_server.cpp::handle_accept",
+      "relation": "declares",
+      "properties": {
+        "line": 292,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:net/tcp/tcp_server/src/tcp_server.cpp",
+      "target": "func:net/tcp/tcp_server/src/tcp_server.cpp::handle_read",
+      "relation": "declares",
+      "properties": {
+        "line": 324,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:net/tcp/tcp_server/src/tcp_server.cpp",
+      "target": "func:net/tcp/tcp_server/src/tcp_server.cpp::handle_write",
+      "relation": "declares",
+      "properties": {
+        "line": 371,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:net/tcp/tcp_server/src/tcp_server.cpp",
+      "target": "func:net/tcp/tcp_server/src/tcp_server.cpp::try_ssl_detection",
+      "relation": "declares",
+      "properties": {
+        "line": 395,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:net/tcp/tcp_server/src/tcp_server.cpp",
+      "target": "func:net/tcp/tcp_server/src/tcp_server.cpp::try_ssl_handshake",
+      "relation": "declares",
+      "properties": {
+        "line": 420,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:net/tcp/tcp_server/src/tcp_server.cpp",
+      "target": "func:net/tcp/tcp_server/src/tcp_server.cpp::handle_client_event",
+      "relation": "declares",
+      "properties": {
+        "line": 428,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:net/tcp/tcp_server/src/tcp_server.cpp",
+      "target": "func:net/tcp/tcp_server/src/tcp_server.cpp::handle_ssl_handshake",
+      "relation": "declares",
+      "properties": {
+        "line": 449,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:net/tcp/tcp_server/src/tcp_server.cpp",
+      "target": "func:net/tcp/tcp_server/src/tcp_server.cpp::close_connection",
+      "relation": "declares",
+      "properties": {
+        "line": 477,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:net/tcp/tcp_server/src/tcp_server.cpp",
+      "target": "func:net/tcp/tcp_server/src/tcp_server.cpp::notify_wake",
+      "relation": "declares",
+      "properties": {
+        "line": 490,
+        "isDefault": false
+      }
+    },
+    {
+      "source": "file:net/tcp/tcp_server/src/tcp_server.cpp",
+      "target": "func:net/tcp/tcp_server/src/tcp_server.cpp::process_dirty_connections",
+      "relation": "declares",
+      "properties": {
+        "line": 498,
+        "isDefault": false
+      }
+    }
+  ]
+}

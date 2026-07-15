@@ -1,0 +1,35 @@
+{
+  "projectRoot": "/home/jmj/work-space/projects/high-performance-server",
+  "batchFiles": [
+    {
+      "path": "scripts/dev.sh",
+      "language": "shell",
+      "sizeLines": 213,
+      "fileCategory": "script"
+    },
+    {
+      "path": "scripts/docker.sh",
+      "language": "shell",
+      "sizeLines": 107,
+      "fileCategory": "script"
+    },
+    {
+      "path": "scripts/lint.sh",
+      "language": "shell",
+      "sizeLines": 191,
+      "fileCategory": "script"
+    },
+    {
+      "path": "scripts/test.sh",
+      "language": "shell",
+      "sizeLines": 36,
+      "fileCategory": "script"
+    }
+  ],
+  "batchImportData": {
+    "scripts/dev.sh": [],
+    "scripts/docker.sh": [],
+    "scripts/lint.sh": [],
+    "scripts/test.sh": []
+  }
+}

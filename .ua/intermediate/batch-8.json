@@ -1,0 +1,629 @@
+{
+  "nodes": [
+    {
+      "id": "file:plan/development_plan.md",
+      "type": "document",
+      "name": "development_plan.md",
+      "filePath": "plan/development_plan.md",
+      "summary": "Step \u8fdb\u5ea6\u603b\u89c8\u4e0e\u8d28\u91cf\u95e8\u7981\u8bf4\u660e",
+      "tags": [
+        "plan",
+        "overview"
+      ],
+      "complexity": 1
+    },
+    {
+      "id": "document:plan/development_plan.md:\u5f00\u53d1\u8ba1\u5212",
+      "type": "document",
+      "name": "\u5f00\u53d1\u8ba1\u5212",
+      "filePath": "plan/development_plan.md",
+      "summary": "\u5f00\u53d1\u8ba1\u5212\u603b\u89c8\u4e0e\u8fdb\u5ea6\u8ffd\u8e2a",
+      "tags": [
+        "\u5f00\u53d1\u8ba1\u5212"
+      ],
+      "complexity": 1
+    },
+    {
+      "id": "file:plan/docker-deployment.md",
+      "type": "document",
+      "name": "docker-deployment.md",
+      "filePath": "plan/docker-deployment.md",
+      "summary": "Dockerfile/.dockerignore/docker-compose/CI \u96c6\u6210\u6b65\u9aa4",
+      "tags": [
+        "docker",
+        "deploy",
+        "plan"
+      ],
+      "complexity": 1
+    },
+    {
+      "id": "document:plan/docker-deployment.md:Docker\u5316\u90e8\u7f72\u8ba1\u5212",
+      "type": "document",
+      "name": "Docker\u5316\u90e8\u7f72\u8ba1\u5212",
+      "filePath": "plan/docker-deployment.md",
+      "summary": "Docker \u591a\u9636\u6bb5\u6784\u5efa\u4e0e\u90e8\u7f72\u6b65\u9aa4",
+      "tags": [
+        "Docker\u5316\u90e8\u7f72\u8ba1\u5212"
+      ],
+      "complexity": 1
+    },
+    {
+      "id": "file:plan/end-to-end-verification.md",
+      "type": "document",
+      "name": "end-to-end-verification.md",
+      "filePath": "plan/end-to-end-verification.md",
+      "summary": "\u53d8\u66f4\u6e05\u5355\u3001\u63a5\u53e3\u5b9a\u4e49\u3001\u9a8c\u8bc1\u7528\u4f8b\u4e0e\u8d28\u91cf\u95e8\u7981",
+      "tags": [
+        "verification",
+        "e2e",
+        "plan"
+      ],
+      "complexity": 1
+    },
+    {
+      "id": "document:plan/end-to-end-verification.md:\u53d8\u66f4\u6e05\u5355",
+      "type": "document",
+      "name": "\u53d8\u66f4\u6e05\u5355",
+      "filePath": "plan/end-to-end-verification.md",
+      "summary": "\u6d89\u53ca\u6587\u4ef6\u4e0e\u63a5\u53e3\u53d8\u66f4",
+      "tags": [
+        "\u53d8\u66f4\u6e05\u5355"
+      ],
+      "complexity": 1
+    },
+    {
+      "id": "document:plan/end-to-end-verification.md:\u9a8c\u8bc1\u7528\u4f8b",
+      "type": "document",
+      "name": "\u9a8c\u8bc1\u7528\u4f8b",
+      "filePath": "plan/end-to-end-verification.md",
+      "summary": "\u7aef\u5230\u7aef\u9a8c\u8bc1\u6d4b\u8bd5\u7528\u4f8b",
+      "tags": [
+        "\u9a8c\u8bc1\u7528\u4f8b"
+      ],
+      "complexity": 1
+    },
+    {
+      "id": "file:plan/memory-pool-tiered-optimization.md",
+      "type": "document",
+      "name": "memory-pool-tiered-optimization.md",
+      "filePath": "plan/memory-pool-tiered-optimization.md",
+      "summary": "L1/L2/L3 \u4e09\u7ea7\u7f13\u5b58\u67b6\u6784\u4e0e\u5408\u5e76\u7b56\u7565",
+      "tags": [
+        "memory-pool",
+        "optimization",
+        "plan"
+      ],
+      "complexity": 1
+    },
+    {
+      "id": "document:plan/memory-pool-tiered-optimization.md:\u4e09\u7ea7\u7f13\u5b58\u67b6\u6784",
+      "type": "document",
+      "name": "\u4e09\u7ea7\u7f13\u5b58\u67b6\u6784",
+      "filePath": "plan/memory-pool-tiered-optimization.md",
+      "summary": "L1/L2/L3 \u7f13\u5b58\u4e0e\u5408\u5e76\u7b56\u7565",
+      "tags": [
+        "\u4e09\u7ea7\u7f13\u5b58\u67b6\u6784"
+      ],
+      "complexity": 1
+    },
+    {
+      "id": "file:plan/step-0-2-infrastructure.md",
+      "type": "document",
+      "name": "step-0-2-infrastructure.md",
+      "filePath": "plan/step-0-2-infrastructure.md",
+      "summary": "thread-pool/HttpParser/TcpClient/TcpServer \u63a5\u53e3\u4f18\u5316",
+      "tags": [
+        "infrastructure",
+        "refactor",
+        "plan"
+      ],
+      "complexity": 1
+    },
+    {
+      "id": "document:plan/step-0-2-infrastructure.md:thread-pool_\u63a5\u53e3",
+      "type": "document",
+      "name": "thread-pool \u63a5\u53e3",
+      "filePath": "plan/step-0-2-infrastructure.md",
+      "summary": "\u7ebf\u7a0b\u6c60\u63a5\u53e3\u4f18\u5316",
+      "tags": [
+        "thread-pool \u63a5\u53e3"
+      ],
+      "complexity": 1
+    },
+    {
+      "id": "document:plan/step-0-2-infrastructure.md:HttpParser",
+      "type": "document",
+      "name": "HttpParser",
+      "filePath": "plan/step-0-2-infrastructure.md",
+      "summary": "HTTP \u89e3\u6790\u5668\u4f18\u5316",
+      "tags": [
+        "HttpParser"
+      ],
+      "complexity": 1
+    },
+    {
+      "id": "file:plan/step-10-locked-thread-pool.md",
+      "type": "document",
+      "name": "step-10-locked-thread-pool.md",
+      "filePath": "plan/step-10-locked-thread-pool.md",
+      "summary": "\u6709\u9501\u901a\u7528\u7ebf\u7a0b\u6c60\u8bbe\u8ba1\u4e0e LockFree \u5bf9\u6bd4",
+      "tags": [
+        "thread-pool",
+        "locked",
+        "plan"
+      ],
+      "complexity": 1
+    },
+    {
+      "id": "document:plan/step-10-locked-thread-pool.md:\u7c7b\u5173\u7cfb",
+      "type": "document",
+      "name": "\u7c7b\u5173\u7cfb",
+      "filePath": "plan/step-10-locked-thread-pool.md",
+      "summary": "LockedThreadPool \u7c7b\u5c42\u6b21",
+      "tags": [
+        "\u7c7b\u5173\u7cfb"
+      ],
+      "complexity": 1
+    },
+    {
+      "id": "document:plan/step-10-locked-thread-pool.md:\u63a5\u53e3\u7b7e\u540d",
+      "type": "document",
+      "name": "\u63a5\u53e3\u7b7e\u540d",
+      "filePath": "plan/step-10-locked-thread-pool.md",
+      "summary": "\u5b8c\u6574\u63a5\u53e3\u7b7e\u540d",
+      "tags": [
+        "\u63a5\u53e3\u7b7e\u540d"
+      ],
+      "complexity": 1
+    },
+    {
+      "id": "file:plan/step-11-main-integration.md",
+      "type": "document",
+      "name": "step-11-main-integration.md",
+      "filePath": "plan/step-11-main-integration.md",
+      "summary": "\u670d\u52a1\u5668\u542f\u52a8\u6d41\u7a0b\u3001\u8def\u7531\u6ce8\u518c\u3001\u914d\u7f6e\u7ba1\u7406",
+      "tags": [
+        "main",
+        "integration",
+        "plan"
+      ],
+      "complexity": 1
+    },
+    {
+      "id": "document:plan/step-11-main-integration.md:\u670d\u52a1\u5668\u542f\u52a8\u6d41\u7a0b",
+      "type": "document",
+      "name": "\u670d\u52a1\u5668\u542f\u52a8\u6d41\u7a0b",
+      "filePath": "plan/step-11-main-integration.md",
+      "summary": "\u521d\u59cb\u5316\u4e0e\u542f\u52a8\u6d41\u7a0b",
+      "tags": [
+        "\u670d\u52a1\u5668\u542f\u52a8\u6d41\u7a0b"
+      ],
+      "complexity": 1
+    },
+    {
+      "id": "document:plan/step-11-main-integration.md:\u8def\u7531\u6ce8\u518c",
+      "type": "document",
+      "name": "\u8def\u7531\u6ce8\u518c",
+      "filePath": "plan/step-11-main-integration.md",
+      "summary": "HTTP \u8def\u7531\u6ce8\u518c",
+      "tags": [
+        "\u8def\u7531\u6ce8\u518c"
+      ],
+      "complexity": 1
+    },
+    {
+      "id": "file:plan/step-2-routing.md",
+      "type": "document",
+      "name": "step-2-routing.md",
+      "filePath": "plan/step-2-routing.md",
+      "summary": "Router/HttpServer \u8def\u7531\u5339\u914d\u4e0e\u8bf7\u6c42\u5206\u53d1\u8bbe\u8ba1",
+      "tags": [
+        "routing",
+        "router",
+        "plan"
+      ],
+      "complexity": 1
+    },
+    {
+      "id": "document:plan/step-2-routing.md:Router_\u8bbe\u8ba1",
+      "type": "document",
+      "name": "Router \u8bbe\u8ba1",
+      "filePath": "plan/step-2-routing.md",
+      "summary": "Trie \u8def\u7531\u5339\u914d",
+      "tags": [
+        "Router \u8bbe\u8ba1"
+      ],
+      "complexity": 1
+    },
+    {
+      "id": "document:plan/step-2-routing.md:HttpServer_\u96c6\u6210",
+      "type": "document",
+      "name": "HttpServer \u96c6\u6210",
+      "filePath": "plan/step-2-routing.md",
+      "summary": "\u8def\u7531\u5206\u53d1",
+      "tags": [
+        "HttpServer \u96c6\u6210"
+      ],
+      "complexity": 1
+    },
+    {
+      "id": "file:plan/step-2.5-arch-refactor.md",
+      "type": "document",
+      "name": "step-2.5-arch-refactor.md",
+      "filePath": "plan/step-2.5-arch-refactor.md",
+      "summary": "\u9879\u76ee\u67b6\u6784\u8c03\u6574\u4e0e\u63a5\u53e3\u62bd\u8c61\u91cd\u6784",
+      "tags": [
+        "architecture",
+        "refactor",
+        "plan"
+      ],
+      "complexity": 1
+    },
+    {
+      "id": "document:plan/step-2.5-arch-refactor.md:\u67b6\u6784\u8c03\u6574",
+      "type": "document",
+      "name": "\u67b6\u6784\u8c03\u6574",
+      "filePath": "plan/step-2.5-arch-refactor.md",
+      "summary": "\u6a21\u5757\u63a5\u53e3\u62bd\u8c61\u5316",
+      "tags": [
+        "\u67b6\u6784\u8c03\u6574"
+      ],
+      "complexity": 1
+    },
+    {
+      "id": "file:plan/step-3-interface-layer.md",
+      "type": "document",
+      "name": "step-3-interface-layer.md",
+      "filePath": "plan/step-3-interface-layer.md",
+      "summary": "Logger/ThreadPool/ITcpServer \u63a5\u53e3\u5c42\u5b9e\u73b0",
+      "tags": [
+        "interface",
+        "abstraction",
+        "plan"
+      ],
+      "complexity": 1
+    },
+    {
+      "id": "document:plan/step-3-interface-layer.md:Logger_\u63a5\u53e3",
+      "type": "document",
+      "name": "Logger \u63a5\u53e3",
+      "filePath": "plan/step-3-interface-layer.md",
+      "summary": "\u4e24\u9636\u6bb5\u5355\u4f8b",
+      "tags": [
+        "Logger \u63a5\u53e3"
+      ],
+      "complexity": 1
+    },
+    {
+      "id": "document:plan/step-3-interface-layer.md:ThreadPool_CRTP",
+      "type": "document",
+      "name": "ThreadPool CRTP",
+      "filePath": "plan/step-3-interface-layer.md",
+      "summary": "CRTP \u57fa\u7c7b",
+      "tags": [
+        "ThreadPool CRTP"
+      ],
+      "complexity": 1
+    },
+    {
+      "id": "file:plan/step-4-file-system.md",
+      "type": "document",
+      "name": "step-4-file-system.md",
+      "filePath": "plan/step-4-file-system.md",
+      "summary": "\u6587\u4ef6\u8bfb\u53d6\u4e0e\u865a\u62df\u8def\u5f84\u89e3\u6790\u6a21\u5757\u8bbe\u8ba1",
+      "tags": [
+        "filesystem",
+        "io",
+        "plan"
+      ],
+      "complexity": 1
+    },
+    {
+      "id": "document:plan/step-4-file-system.md:\u6587\u4ef6\u7cfb\u7edf\u63a5\u53e3",
+      "type": "document",
+      "name": "\u6587\u4ef6\u7cfb\u7edf\u63a5\u53e3",
+      "filePath": "plan/step-4-file-system.md",
+      "summary": "\u865a\u62df\u8def\u5f84\u4e0e\u6587\u4ef6\u64cd\u4f5c",
+      "tags": [
+        "\u6587\u4ef6\u7cfb\u7edf\u63a5\u53e3"
+      ],
+      "complexity": 1
+    },
+    {
+      "id": "file:plan/step-5-range-streaming.md",
+      "type": "document",
+      "name": "step-5-range-streaming.md",
+      "filePath": "plan/step-5-range-streaming.md",
+      "summary": "\u5206\u7247 Range \u8bf7\u6c42/\u54cd\u5e94\u4e0e\u6d41\u5f0f\u4f20\u8f93\u8bbe\u8ba1",
+      "tags": [
+        "range",
+        "streaming",
+        "plan"
+      ],
+      "complexity": 1
+    },
+    {
+      "id": "document:plan/step-5-range-streaming.md:Range_\u8bf7\u6c42/\u54cd\u5e94",
+      "type": "document",
+      "name": "Range \u8bf7\u6c42/\u54cd\u5e94",
+      "filePath": "plan/step-5-range-streaming.md",
+      "summary": "\u5206\u7247\u6d41\u5f0f\u534f\u8bae",
+      "tags": [
+        "Range \u8bf7\u6c42/\u54cd\u5e94"
+      ],
+      "complexity": 1
+    },
+    {
+      "id": "file:plan/step-6-database.md",
+      "type": "document",
+      "name": "step-6-database.md",
+      "filePath": "plan/step-6-database.md",
+      "summary": "MySQL \u8fde\u63a5\u6c60\u4e0e Boost.MySQL \u96c6\u6210\u8bbe\u8ba1",
+      "tags": [
+        "database",
+        "mysql",
+        "pool",
+        "plan"
+      ],
+      "complexity": 1
+    },
+    {
+      "id": "document:plan/step-6-database.md:\u8fde\u63a5\u6c60\u8bbe\u8ba1",
+      "type": "document",
+      "name": "\u8fde\u63a5\u6c60\u8bbe\u8ba1",
+      "filePath": "plan/step-6-database.md",
+      "summary": "MySQL \u8fde\u63a5\u6c60\u67b6\u6784",
+      "tags": [
+        "\u8fde\u63a5\u6c60\u8bbe\u8ba1"
+      ],
+      "complexity": 1
+    },
+    {
+      "id": "file:plan/step-7-file-transfer.md",
+      "type": "document",
+      "name": "step-7-file-transfer.md",
+      "filePath": "plan/step-7-file-transfer.md",
+      "summary": "\u8fdb\u7a0b\u95f4\u6587\u4ef6\u4f20\u8f93\u534f\u8bae\u4e0e ChunkHeader \u8bbe\u8ba1",
+      "tags": [
+        "file-transfer",
+        "protocol",
+        "plan"
+      ],
+      "complexity": 1
+    },
+    {
+      "id": "document:plan/step-7-file-transfer.md:\u6587\u4ef6\u4f20\u8f93\u534f\u8bae",
+      "type": "document",
+      "name": "\u6587\u4ef6\u4f20\u8f93\u534f\u8bae",
+      "filePath": "plan/step-7-file-transfer.md",
+      "summary": "ChunkHeader \u4e0e\u4f20\u8f93\u6d41\u7a0b",
+      "tags": [
+        "\u6587\u4ef6\u4f20\u8f93\u534f\u8bae"
+      ],
+      "complexity": 1
+    },
+    {
+      "id": "file:plan/step-8-https-tls.md",
+      "type": "document",
+      "name": "step-8-https-tls.md",
+      "filePath": "plan/step-8-https-tls.md",
+      "summary": "OpenSSL \u96c6\u6210\u4e0e SSL \u4e0a\u4e0b\u6587\u7ba1\u7406\u8bbe\u8ba1",
+      "tags": [
+        "ssl",
+        "tls",
+        "https",
+        "plan"
+      ],
+      "complexity": 1
+    },
+    {
+      "id": "document:plan/step-8-https-tls.md:SSL_\u96c6\u6210",
+      "type": "document",
+      "name": "SSL \u96c6\u6210",
+      "filePath": "plan/step-8-https-tls.md",
+      "summary": "OpenSSL \u4e0a\u4e0b\u6587\u7ba1\u7406",
+      "tags": [
+        "SSL \u96c6\u6210"
+      ],
+      "complexity": 1
+    },
+    {
+      "id": "file:plan/step-9-websocket.md",
+      "type": "document",
+      "name": "step-9-websocket.md",
+      "filePath": "plan/step-9-websocket.md",
+      "summary": "WebSocket \u63e1\u624b\u4e0e\u5e27\u7f16\u89e3\u7801\u8bbe\u8ba1",
+      "tags": [
+        "websocket",
+        "protocol",
+        "plan"
+      ],
+      "complexity": 1
+    },
+    {
+      "id": "document:plan/step-9-websocket.md:WebSocket_\u63e1\u624b",
+      "type": "document",
+      "name": "WebSocket \u63e1\u624b",
+      "filePath": "plan/step-9-websocket.md",
+      "summary": "RFC 6455 \u5b9e\u73b0",
+      "tags": [
+        "WebSocket \u63e1\u624b"
+      ],
+      "complexity": 1
+    },
+    {
+      "id": "document:plan/step-9-websocket.md:\u5e27\u7f16\u89e3\u7801",
+      "type": "document",
+      "name": "\u5e27\u7f16\u89e3\u7801",
+      "filePath": "plan/step-9-websocket.md",
+      "summary": "\u5e27\u683c\u5f0f\u4e0e\u7f16\u89e3\u7801",
+      "tags": [
+        "\u5e27\u7f16\u89e3\u7801"
+      ],
+      "complexity": 1
+    }
+  ],
+  "edges": [
+    {
+      "source": "file:plan/development_plan.md",
+      "target": "document:plan/development_plan.md:\u5f00\u53d1\u8ba1\u5212",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:plan/docker-deployment.md",
+      "target": "document:plan/docker-deployment.md:Docker\u5316\u90e8\u7f72\u8ba1\u5212",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:plan/end-to-end-verification.md",
+      "target": "document:plan/end-to-end-verification.md:\u53d8\u66f4\u6e05\u5355",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:plan/end-to-end-verification.md",
+      "target": "document:plan/end-to-end-verification.md:\u9a8c\u8bc1\u7528\u4f8b",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:plan/memory-pool-tiered-optimization.md",
+      "target": "document:plan/memory-pool-tiered-optimization.md:\u4e09\u7ea7\u7f13\u5b58\u67b6\u6784",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:plan/step-0-2-infrastructure.md",
+      "target": "document:plan/step-0-2-infrastructure.md:thread-pool_\u63a5\u53e3",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:plan/step-0-2-infrastructure.md",
+      "target": "document:plan/step-0-2-infrastructure.md:HttpParser",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:plan/step-10-locked-thread-pool.md",
+      "target": "document:plan/step-10-locked-thread-pool.md:\u7c7b\u5173\u7cfb",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:plan/step-10-locked-thread-pool.md",
+      "target": "document:plan/step-10-locked-thread-pool.md:\u63a5\u53e3\u7b7e\u540d",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:plan/step-11-main-integration.md",
+      "target": "document:plan/step-11-main-integration.md:\u670d\u52a1\u5668\u542f\u52a8\u6d41\u7a0b",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:plan/step-11-main-integration.md",
+      "target": "document:plan/step-11-main-integration.md:\u8def\u7531\u6ce8\u518c",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:plan/step-2-routing.md",
+      "target": "document:plan/step-2-routing.md:Router_\u8bbe\u8ba1",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:plan/step-2-routing.md",
+      "target": "document:plan/step-2-routing.md:HttpServer_\u96c6\u6210",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:plan/step-2.5-arch-refactor.md",
+      "target": "document:plan/step-2.5-arch-refactor.md:\u67b6\u6784\u8c03\u6574",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:plan/step-3-interface-layer.md",
+      "target": "document:plan/step-3-interface-layer.md:Logger_\u63a5\u53e3",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:plan/step-3-interface-layer.md",
+      "target": "document:plan/step-3-interface-layer.md:ThreadPool_CRTP",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:plan/step-4-file-system.md",
+      "target": "document:plan/step-4-file-system.md:\u6587\u4ef6\u7cfb\u7edf\u63a5\u53e3",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:plan/step-5-range-streaming.md",
+      "target": "document:plan/step-5-range-streaming.md:Range_\u8bf7\u6c42/\u54cd\u5e94",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:plan/step-6-database.md",
+      "target": "document:plan/step-6-database.md:\u8fde\u63a5\u6c60\u8bbe\u8ba1",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:plan/step-7-file-transfer.md",
+      "target": "document:plan/step-7-file-transfer.md:\u6587\u4ef6\u4f20\u8f93\u534f\u8bae",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:plan/step-8-https-tls.md",
+      "target": "document:plan/step-8-https-tls.md:SSL_\u96c6\u6210",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:plan/step-9-websocket.md",
+      "target": "document:plan/step-9-websocket.md:WebSocket_\u63e1\u624b",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:plan/step-9-websocket.md",
+      "target": "document:plan/step-9-websocket.md:\u5e27\u7f16\u89e3\u7801",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    }
+  ]
+}

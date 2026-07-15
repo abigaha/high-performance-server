@@ -428,7 +428,23 @@ Step 12 ─── 端到端验证 ✅ 已完成
   ├─ HttpParser 修复: Content-Length:0 直接 COMPLETE
   ├─ verification/verify.sh 增强: V12 文件全生命周期, V14 并发, V15 边界
   └─ 全量回归: lint 0/0 + test 20/20 + CodeQL 0/0 + verify 37/37
-```
+        │
+Bugfix ─── 基准测试 Bug 修复 🔧 进行中
+  ├─ Bug 1: MemoryPool_BatchAllocate 卡死
+  │   ├─ 根因: try_merge_in_list 链表成环 + try_merge_and_promote 递归无上限 + page_index_of O(n) 线性扫描
+  │   ├─ 改进: 快慢指针循环检测 → 迭代+上限(100) → 二分查找 O(log n) → 简化链表遍历
+  │   └─ 验证: BM_MemoryPool_BatchAllocate 全部参数正常完成
+  ├─ Bug 2: LockFreeThreadPool 高负载超时
+  │   ├─ 根因: state 自旋忙等无 yield + try_pop 无 empty 预检查 + worker 单次消费
+  │   ├─ 改进: state 自旋加 yield → try_pop 预检查 → worker 批量消费
+  │   └─ 验证: BM_LockFreeThreadPool_Tasks/10000 + HeavyTask 全通过
+  └─ 详情: [plan/bugfix-memory-pool-thread-pool.md](plan/bugfix-memory-pool-thread-pool.md)
+        │
+Step 14 ─── 文件上传功能改进 📋 待开始
+  ├─ 问题: 上传不保留原文件名，只能按 hash 下载；无分片存储无法去重
+  ├─ DB schema 扩展: files 表 + file_chunks 表
+  ├─ upload 改造: 保留原文件名，分片 hash 存储，支持原名查询下载
+  └─ 详情: [plan/step-14-file-upload-improvement.md](plan/step-14-file-upload-improvement.md)
 
 ---
 

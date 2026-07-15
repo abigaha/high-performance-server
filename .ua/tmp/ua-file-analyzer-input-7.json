@@ -1,0 +1,28 @@
+{
+  "projectRoot": "/home/jmj/work-space/projects/high-performance-server",
+  "batchFiles": [
+    {
+      "path": "README.md",
+      "language": "markdown",
+      "sizeLines": 736,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "config.json",
+      "language": "json",
+      "sizeLines": 27,
+      "fileCategory": "config"
+    },
+    {
+      "path": "goal.md",
+      "language": "markdown",
+      "sizeLines": 513,
+      "fileCategory": "docs"
+    }
+  ],
+  "batchImportData": {
+    "README.md": [],
+    "config.json": [],
+    "goal.md": []
+  }
+}
