@@ -26,6 +26,8 @@ public:
   inline bool full();
   inline void stop();
 
+  inline bool is_stopped() const { return stop_token_.stop_requested(); }
+
   template <typename... Args>
   auto emplace(Args&&... args) -> bool;
   bool push(const T& item);
@@ -116,6 +118,9 @@ template <typename T, std::size_t Capacity, typename Allocator>
 template <typename... Args>
 bool LockFreeQueue<T, Capacity, Allocator>::emplace(Args&&... args) {
   while (true) {
+    if (stop_token_.stop_requested()) {
+      return false;
+    }
     while (full()) {
       if (stop_token_.stop_requested()) {
         return false;
@@ -136,6 +141,8 @@ bool LockFreeQueue<T, Capacity, Allocator>::emplace(Args&&... args) {
       state_[tail_index].store(State::PUSHED, std::memory_order_release);
       return true;
     }
+    std::this_thread::yield();
+    // CAS 竞争失败，检查 stop 后重试
   }
 }
 
@@ -153,6 +160,9 @@ bool LockFreeQueue<T, Capacity, Allocator>::push(T&& item) {
 template <typename T, std::size_t Capacity, typename Allocator>
 bool LockFreeQueue<T, Capacity, Allocator>::pop(T& item) {
   while (true) {
+    if (stop_token_.stop_requested()) {
+      return false;
+    }
     while (empty()) {
       if (stop_token_.stop_requested()) {
         return false;
@@ -160,6 +170,9 @@ bool LockFreeQueue<T, Capacity, Allocator>::pop(T& item) {
       std::this_thread::yield();
     }
     std::uint64_t current_head = head_.load(std::memory_order_acquire);
+    if (get_index(current_head) == get_index(tail_.load(std::memory_order_acquire))) {
+      continue;
+    }
     std::uint64_t next_head = increment_index(current_head);
     if (head_.compare_exchange_weak(current_head, next_head, std::memory_order_release, std::memory_order_relaxed)) {
       std::uint32_t head_index = get_index(current_head);
@@ -168,9 +181,13 @@ bool LockFreeQueue<T, Capacity, Allocator>::pop(T& item) {
           state_[head_index].store(State::EMPTY, std::memory_order_release);
           return false;
         }
+        if (stop_token_.stop_requested()) {
+          state_[head_index].store(State::EMPTY, std::memory_order_release);
+          return false;
+        }
         std::this_thread::yield();
       }
-      static_assert(std::is_nothrow_move_assignable_v<T>, "T的移动构造赋值运算符必须是noexcept的");
+      static_assert(std::is_nothrow_move_assignable_v<T>);
       item = std::move(*std::next(buffer_, static_cast<std::ptrdiff_t>(head_index)));
       state_[head_index].store(State::POPPING, std::memory_order_release);
       std::allocator_traits<decltype(allocator_)>::destroy(allocator_,
@@ -178,6 +195,8 @@ bool LockFreeQueue<T, Capacity, Allocator>::pop(T& item) {
       state_[head_index].store(State::EMPTY, std::memory_order_release);
       return true;
     }
+    std::this_thread::yield();
+    // CAS 竞争失败，检查 stop 后重试
   }
 }
 
@@ -194,6 +213,11 @@ bool LockFreeQueue<T, Capacity, Allocator>::try_pop(T& item) {
         state_[head_index].store(State::EMPTY, std::memory_order_release);
         return false;
       }
+      if (stop_token_.stop_requested()) {
+        state_[head_index].store(State::EMPTY, std::memory_order_release);
+        return false;
+      }
+      std::this_thread::yield();
     }
     static_assert(std::is_nothrow_move_assignable_v<T>);
     item = std::move(*std::next(buffer_, static_cast<std::ptrdiff_t>(head_index)));

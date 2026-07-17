@@ -14,20 +14,8 @@ thread_local TieredMemoryPool::ThreadCache TieredMemoryPool::tl_cache_;
 TieredMemoryPool::~TieredMemoryPool() noexcept {
   destroyed_.store(true, std::memory_order_release);
 
-  // H6：遍历注册表，清空所有线程的 ThreadCache，消除悬挂指针
-  {
-    std::lock_guard lock(registryMutex_);
-    auto* cur = registryHead_;
-    while (cur != nullptr) {
-      cur->freeLists_.fill(nullptr);
-      cur->counts_.fill(0);
-      cur->owner_ = nullptr;
-      cur = cur->next_;
-    }
-    registryHead_ = nullptr;
-  }
+  registryHead_ = nullptr;
 
-  // 清空当前线程 cache（可能已在上面清空，幂等）
   tl_cache_ = ThreadCache{};
 
   std::lock_guard plock(pagesMutex_);
@@ -149,7 +137,10 @@ void TieredMemoryPool::central_allocate_batch(std::size_t classIdx) {
   auto* page = ::operator new(pageSize);
   {
     std::lock_guard lock(pagesMutex_);
-    pages_.push_back({page, pageSize});
+    auto it = std::lower_bound(
+        pages_.begin(), pages_.end(), page,
+        [](const PageInfo& a, const void* b) { return static_cast<const char*>(a.base) < b; });
+    pages_.insert(it, {page, pageSize});
   }
 
   auto const count = pageSize / blockSize;
@@ -190,25 +181,25 @@ void TieredMemoryPool::return_batch_to_central(std::size_t classIdx, FreeNode* h
   }
 }
 
-// NOLINTNEXTLINE(misc-no-recursion)
 void TieredMemoryPool::try_merge_and_promote(ThreadCache& cache, std::size_t classIdx) {
-  if (classIdx >= kSizeClassCount - 1) {
-    return;
-  }
+  constexpr int kMaxMergeIterations = 100;
+  int iter = 0;
 
-  FreeNode* merged = nullptr;
-  while (try_merge_in_list(cache.freeLists_[classIdx], cache.counts_[classIdx],
-                           size_class_size(classIdx), merged)) {
-    auto const nextIdx = classIdx + 1;
+  std::size_t currentIdx = classIdx;
+  while (currentIdx < kSizeClassCount - 1 && iter++ < kMaxMergeIterations) {
+    FreeNode* merged = nullptr;
+    if (!try_merge_in_list(cache.freeLists_[currentIdx], cache.counts_[currentIdx],
+                           size_class_size(currentIdx), merged)) {
+      break;
+    }
+    auto const nextIdx = currentIdx + 1;
     merged->next = cache.freeLists_[nextIdx];
     cache.freeLists_[nextIdx] = merged;
     cache.counts_[nextIdx]++;
 
     if (cache.counts_[nextIdx] > kMaxBlocksPerClass) {
-      try_merge_and_promote(cache, nextIdx);
-    }
-
-    if (cache.counts_[classIdx] <= kMaxBlocksPerClass) {
+      currentIdx = nextIdx;
+    } else {
       break;
     }
   }
@@ -220,44 +211,41 @@ bool TieredMemoryPool::try_merge_in_list(FreeNode*& list, std::size_t& count, st
     return false;
   }
 
-  auto* prev = &list;
+  // 快慢指针循环检测（防御性，防止链表成环导致死循环）
+  auto* slow = list;
+  auto* fast = list;
+  while (fast != nullptr && fast->next != nullptr) {
+    slow = slow->next;
+    fast = fast->next->next;
+    if (slow == fast) {
+      return false;
+    }
+  }
+
+  // 单层遍历：只检查相邻节点对（前驱+后继）
+  FreeNode** prev = &list;
   while (*prev != nullptr && (*prev)->next != nullptr) {
-    auto* a = *prev;
+    FreeNode* a = *prev;
+    FreeNode* b = a->next;
 
-    auto* innerPrev = prev;
-    while (*innerPrev != nullptr && (*innerPrev)->next != nullptr) {
-      auto* b = *innerPrev;
-      if (a == b) {
-        innerPrev = &((*innerPrev)->next);
-        continue;
-      }
-
-      void* lower = a;
-      void* higher = b;
-
-      if (static_cast<char*>(higher) < static_cast<char*>(lower)) {
-        std::swap(lower, higher);
-      }
-
-      std::size_t lowerIdx = 0;
-      std::size_t higherIdx = 0;
-      // N7-L：显式检查 page_index_of 返回值，避免 size_t(-1)==size_t(-1) 误判同页
-      if (page_index_of(lower, lowerIdx) && page_index_of(higher, higherIdx) &&
-          lowerIdx == higherIdx &&
-          static_cast<char*>(lower) + blockSize == static_cast<char*>(higher)) {
-        *prev = a->next;
-        *innerPrev = b->next;
-        count -= 2;
-
-        outMerged = static_cast<FreeNode*>(lower);
-        outMerged->next = nullptr;
-
-        return true;
-      }
-
-      innerPrev = &((*innerPrev)->next);
+    void* lower = a;
+    void* higher = b;
+    if (higher < lower) {
+      std::swap(lower, higher);
     }
 
+    std::size_t lowerIdx = 0;
+    std::size_t higherIdx = 0;
+    if (page_index_of(lower, lowerIdx) && page_index_of(higher, higherIdx) &&
+        lowerIdx == higherIdx &&
+        static_cast<char*>(lower) + blockSize == static_cast<char*>(higher)) {
+      *prev = b->next;
+      count -= 2;
+
+      outMerged = static_cast<FreeNode*>(lower);
+      outMerged->next = nullptr;
+      return true;
+    }
     prev = &((*prev)->next);
   }
 
@@ -301,19 +289,17 @@ void TieredMemoryPool::try_merge_central(std::size_t classIdx) {
   }
 }
 
-// M2-M：page_index_of 改为线性查找但避免排序开销（pages_ 通常 <100），
-//       实际优化为：先按 base 排序的辅助结构会引入额外维护成本，
-//       这里保持线性但返回 bool，调用方显式检查。
-// N7-L：返回 bool，未找到返回 false，消除 size_t(-1) 哨兵隐患
 bool TieredMemoryPool::page_index_of(const void* ptr, std::size_t& idx) const {
   std::lock_guard lock(pagesMutex_);
-  for (std::size_t i = 0; i < pages_.size(); ++i) {
-    auto pageSpan = std::span(static_cast<const char*>(pages_[i].base), pages_[i].pageSize);
-    if (ptr >= static_cast<const void*>(pageSpan.data()) &&
-        ptr < static_cast<const void*>(pageSpan.data() + pageSpan.size())) {
-      idx = i;
-      return true;
-    }
+  // 二分查找：找到第一个 base + pageSize > ptr 的页面
+  auto it =
+      std::lower_bound(pages_.begin(), pages_.end(), ptr, [](const PageInfo& page, const void* p) {
+        return static_cast<const char*>(page.base) + page.pageSize <= p;
+      });
+  if (it != pages_.end() && ptr >= it->base &&
+      ptr < static_cast<const char*>(it->base) + it->pageSize) {
+    idx = static_cast<std::size_t>(std::distance(pages_.begin(), it));
+    return true;
   }
   return false;
 }

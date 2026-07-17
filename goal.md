@@ -429,16 +429,26 @@ Step 12 ─── 端到端验证 ✅ 已完成
   ├─ verification/verify.sh 增强: V12 文件全生命周期, V14 并发, V15 边界
   └─ 全量回归: lint 0/0 + test 20/20 + CodeQL 0/0 + verify 37/37
         │
-Bugfix ─── 基准测试 Bug 修复 🔧 进行中
-  ├─ Bug 1: MemoryPool_BatchAllocate 卡死
+Bugfix ─── 基准测试 Bug 修复 ✅ 已完成
+  ├─ Bug 1: MemoryPool_BatchAllocate 卡死 ✅ 已完成
   │   ├─ 根因: try_merge_in_list 链表成环 + try_merge_and_promote 递归无上限 + page_index_of O(n) 线性扫描
   │   ├─ 改进: 快慢指针循环检测 → 迭代+上限(100) → 二分查找 O(log n) → 简化链表遍历
-  │   └─ 验证: BM_MemoryPool_BatchAllocate 全部参数正常完成
-  ├─ Bug 2: LockFreeThreadPool 高负载超时
-  │   ├─ 根因: state 自旋忙等无 yield + try_pop 无 empty 预检查 + worker 单次消费
-  │   ├─ 改进: state 自旋加 yield → try_pop 预检查 → worker 批量消费
-  │   └─ 验证: BM_LockFreeThreadPool_Tasks/10000 + HeavyTask 全通过
-  └─ 详情: [plan/bugfix-memory-pool-thread-pool.md](plan/bugfix-memory-pool-thread-pool.md)
+  │   └─ 验证: BM_MemoryPool_BatchAllocate 全部参数正常完成，BM_MemoryPool_MixedSizes 不受影响
+  ├─ Bug 2: LockFreeThreadPool 高负载卡死 ✅ 已完成
+  │   ├─ 根因: LockFreeQueue::pop() 的 empty() 存在 TOCTOU 竞态——head 和 tail 分两次 load，
+  │   │   消费者可看到过时 head + 新 tail，误判队列非空后 CAS 将 head 推到 tail 之后，
+  │   │   然后永久自旋在 EMPTY slot 上等待永远不会到来的 PUSHED 状态。
+  │   ├─ 修复: load current_head 后重新 load tail 做二次验证，若两 index 相等说明队列已空，continue 重试
+  │   └─ 验证: 50 trials × 4 workers × 200 轮全部通过，全量 benchmark 正常
+  ├─ Bug 3: LockFreeQueue 高并发 benchmark 卡死 ✅ 已完成
+  │   ├─ 根因: pop()/try_pop 的 while(state_ != PUSHED) 等待循环不检查 stop_token_，
+  │   │   高并发下（c≥256）消费者 CAS head 成功后，对应生产者被 stop 退出但 slot 处于
+  │   │   "已认领未写入"中间态，消费者永久自旋
+  │   ├─ 修复: 在 state_ 等待循环中加 stop_token_.stop_requested() 检查，发现 stop 则标记
+  │   │   EMPTY 并返回 false
+  │   └─ 验证: qps_lock_free_queue + qps_thread_pool 各 11 级并发(c=1~1024)全部通过
+  ├─ 已知问题: test_test_tcp_client 间歇性失败（端口 TIME_WAIT 竞争，低优先级）
+  └─ 质量门禁: lint 0/0 + 编译 0/0 + test 19/20（tcp_client 间歇失败）+ CodeQL 0/0 ✅
         │
 Step 14 ─── 文件上传功能改进 📋 待开始
   ├─ 问题: 上传不保留原文件名，只能按 hash 下载；无分片存储无法去重

@@ -59,7 +59,7 @@ print(f'过滤后保留 {len(filtered)}/{len(data)} 个编译条目')
 
   green "打包完成，发送到 CodeQL 服务器..."
   yellow "分析中（可能耗时 1-5 分钟，请耐心等待）..."
-  local resp; resp=$(curl -s --max-time 300 -X POST "$CODEQL_SERVER_URL/analyze" \
+  local resp; resp=$(curl -s --max-time 600 -X POST "$CODEQL_SERVER_URL/analyze" \
     -F "source=@$tmpdir/source.tar.gz;type=application/gzip" \
     -F "compile_commands=@$tmpdir/compile_commands_fixed.json;type=application/json") || {
     red "CodeQL 请求失败（curl 退出码 $?），可能原因："

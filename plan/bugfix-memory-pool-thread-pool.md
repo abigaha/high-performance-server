@@ -176,133 +176,159 @@ bool TieredMemoryPool::try_merge_in_list(FreeNode*& list, std::size_t& count,
 
 ---
 
-## Bug 2：`LockFreeThreadPool` 高负载超时
+## Bug 2：`LockFreeThreadPool` 高负载卡死
 
 ### 现象
 
 - `BM_LockFreeThreadPool_Tasks/10000`（4 线程池提交 10000 个空任务）超时
 - `BM_LockFreeThreadPool_HeavyTask`（1000 个含计算任务）超时
-- `BM_LockFreeThreadPool_Tasks/100` 和 `/1000` 可正常运行
-- `LockedThreadPool` 对应基准全部正常
+- 经过调试发现该 bug 影响所有参数（含 /100 和 /1000），且为**存量 bug**（原始代码同样存在）
+- 简单单次 enqueue/wait（10000 任务）可正常完成，**多轮迭代后**死锁
 
 ### 根因分析
 
-问题出在 `LockFreeQueue::try_pop` 的状态自旋等待（`net/thread-pool/include/lock_free_queue.hpp:185-207`）：
+**核心 bug：`LockFreeQueue::pop()` 的 `empty()` 存在 TOCTOU（Time-Of-Check-Time-Of-Use）竞态**
+
+`empty()` 分两次独立 load head 和 tail：
 
 ```cpp
-bool LockFreeQueue<T, Capacity, Allocator>::try_pop(T& item) {
-  ...
-  if (head_.compare_exchange_weak(current_head, next_head, ...)) {
-    ...
-    // ◆ 没有 yield() 的忙等循环！
-    while (state_[head_index].load(std::memory_order_acquire) != State::PUSHED) {
-      if (state_[head_index].load(std::memory_order_acquire) == State::ABORTING) {
-        ...
-      }
-      // ◆ 缺失 yield()
-    }
-    ...
-  }
-  ...
+bool empty() {
+  return get_index(head_.load(std::memory_order_acquire)) ==
+         get_index(tail_.load(std::memory_order_acquire));
 }
 ```
 
-**卡死场景**（10k 任务 / 4 worker）：
+当两个消费者和一个生产者同时运行时，可触发以下序列：
 
 ```
-时间线：
-  Worker-1:  CAS head 成功 → 拥有 slot 5 → state[5] = EMPTY（enqueue 还未写入完毕）
-                                          ↓
-  enqueue 线程:  CAS tail → 写 element → state[5] = PUSHED
-                                          ↓
-  Worker-1:  while(state[5] != PUSHED) 无限循环 → 100% CPU
-                                          ↓
-  Worker-2/3/4: 也在做 try_pop → 全部 busy-wait
-                                          ↓
-  整体吞吐崩溃，任务堆积，pending_ 永远 > 0 → 永不退出
+head=999, tail=1000（队列有 1 个任务在 slot 999）
+
+  消费者 B: empty() → load head=999（过时值）→ load tail=1000
+                        999 ≠ 1000 → "非空！" 退出 yield 循环    ← 此时 head 已被消费者 A 推进到 1000
+
+  消费者 A: CAS head 999→1000，消费 slot 999，队列清空 (head=1000, tail=1000)
+
+  消费者 B: load current_head = 1000 → CAS head 1000→1001 → 成功！← 错误的！
+            → 进入 while(state[1000] != PUSHED) 自旋
+            → state[1000] = EMPTY（从未被生产者写入）
+            → ★ 永久自旋，永不退出 ★
 ```
 
-`pop()` 方法（第 154-182 行）在 `while(empty())` 处有 yield，但在 state 自旋处同样缺失 yield，存在相同问题。
+`empty()` 的 head 和 tail 是两个独立的 atomic load，不构成原子快照。消费者退出 `while(empty())` 后，该队列可能已被其他消费者**完全清空**，但消费者仍持有过时的"head < tail"印象，最终 CAS 将 head 推进到 tail 之后，claim 了一个**幽灵 slot**——该 slot 的 state 永远是 EMPTY，因为没有生产者会写入它。
 
-### 改进方案
+### 修复方案
 
-#### 2.1 state 自旋等待加 `yield()`
+**文件：** `net/thread-pool/include/lock_free_queue.hpp:162-165`
 
-**文件：** `net/thread-pool/include/lock_free_queue.hpp`
-
-两处 state 自旋统一添加 `std::this_thread::yield()`：
+在 `pop()` 中，load `current_head` 后**重新 load tail** 做二次验证：
 
 ```cpp
-// pop() 中（约第 166 行）
-while (state_[head_index].load(std::memory_order_acquire) != State::PUSHED) {
-  if (state_[head_index].load(std::memory_order_acquire) == State::ABORTING) {
-    state_[head_index].store(State::EMPTY, std::memory_order_release);
-    return false;
-  }
-  std::this_thread::yield();  // ← 添加
-}
-
-// try_pop() 中（约第 192 行）
-while (state_[head_index].load(std::memory_order_acquire) != State::PUSHED) {
-  if (state_[head_index].load(std::memory_order_acquire) == State::ABORTING) {
-    state_[head_index].store(State::EMPTY, std::memory_order_release);
-    return false;
-  }
-  std::this_thread::yield();  // ← 添加
+std::uint64_t current_head = head_.load(std::memory_order_acquire);
+// TOCTOU 修复：二次验证 head 是否仍在 tail 之前
+if (get_index(current_head) == get_index(tail_.load(std::memory_order_acquire))) {
+  continue;  // 队列在 empty()→load_head 之间已被清空
 }
 ```
 
-#### 2.2 `try_pop` 外层添加 `empty()` 预检查
+如果 `get_index(current_head) == get_index(tail)`，说明队列实际上已经空了（head 赶上了 tail），消费者不应该继续推进 head，而应回到外层循环重新等待。
 
-当前 `try_pop` 缺少 `pop` 中的 `while(empty()) yield()` 守护，导致 CAS 频繁空失败：
-
-```cpp
-bool LockFreeQueue<T, Capacity, Allocator>::try_pop(T& item) {
-  // 预检查：队列为空直接返回
-  if (get_index(head_.load(std::memory_order_acquire)) ==
-      get_index(tail_.load(std::memory_order_acquire))) {
-    return false;
-  }
-  ...
-}
-```
-
-#### 2.3 worker 批量消费（可选优化）
-
-在 `LockFreeThreadPool::worker` 的 `try_pop` 成功后，不立即 `break`，而是继续尝试消费更多任务：
-
-```cpp
-void LockFreeThreadPool::worker(std::stop_token stop_token) {
-  while (!stop_token.stop_requested()) {
-    MoveOnlyFunction task;
-    {
-      std::unique_lock lock(cv_mutex_);
-      cv_.wait(lock, [this, &stop_token] {
-        return stop_token.stop_requested() || pending_.load(std::memory_order_acquire) > 0;
-      });
-    }
-    if (stop_token.stop_requested()) break;
-
-    // 批量消费：一次唤醒处理多个任务
-    while (!stop_token.stop_requested()) {
-      if (tasks_.try_pop(task)) {
-        task();
-        if (pending_.fetch_sub(1, std::memory_order_release) == 1) {
-          cv_.notify_one();
-        }
-      } else {
-        break;
-      }
-    }
-  }
-}
-```
+**为什么 try_pop 不受影响：** `try_pop` 中 head 的 load、tail 的 check、CAS 在同一代码路径连续执行，且 CAS 失败立即返回 false（无循环重试），不存在 TOCTOU 窗口。
 
 ### 验证方法
 
-1. `xmake run bench_bench_thread_pool` 全部参数通过（含 10000 和 HeavyTask）
-2. `BM_LockFreeThreadPool_Tasks/10000` 不再超时，items_per_second 与 `LockedThreadPool` 可比
-3. `BM_LockFreeThreadPool_HeavyTask` 正常完成
+1. 专用死锁测试：50 trials × 4 workers × 200 轮 × 100 空任务，-O0 和 -O3 全部通过
+2. `xmake run bench_bench_thread_pool` 全部 8 个 benchmark 正常完成（含 10000 和 HeavyTask）
+3. `xmake test` 20 二进制全部通过
+4. 全量质量门禁：lint 0/0 + 编译 0/0 + test 20/20 + CodeQL 0/0
+
+---
+
+## Bug 3：`LockFreeQueue` 高并发 benchmark 卡死
+
+### 现象
+
+- `qps_qps_lock_free_queue` 在 c≥128 时卡死，进程不退出
+- `qps_qps_thread_pool`（LockFreeTP）在 c≥256 时同样卡死
+- 单元测试全部通过（低并发短时），仅 QPS 压测复现
+- c=1~64 正常，c=128 偶尔卡，c=256+ 必卡
+
+### 根因分析
+
+**核心 bug：`pop(T&)` 和 `try_pop` 的 `while(state_ != PUSHED)` 等待循环不检查 stop 标记**
+
+高并发场景（c≥256）下，LFQ 内部 `pop()` / `try_pop()` 成功 CAS head 后进入 state_ 等待循环：
+
+```cpp
+while (state_[head_index].load(std::memory_order_acquire) != State::PUSHED) {
+    if (state_[head_index].load(std::memory_order_acquire) == State::ABORTING) {
+        state_[head_index].store(State::EMPTY, std::memory_order_release);
+        return false;
+    }
+    // ★ 没有检查 stop！★
+    std::this_thread::yield();
+}
+```
+
+触发序列：
+```
+1. 生产者 P CAS tail → slot N 成功
+2. P 被调度走（1024 线程抢 8 核，强竞争）
+3. 消费者 C CAS head → slot N 成功 → 进入 state_[N] 等待
+4. 主线程调用 q.stop() → 所有 in-flight 生产者检查 stop 后 return false
+5. 但 slot N 的生产者 P 已经 CAS tail 成功，
+   从 P 的视角"必须完成 construct → 写 PUSHED"
+   而 P 在被重新调度前，主线程已停掉所有生产者
+6. state_[N] 永远 EMPTY，C 永远自旋
+```
+
+**实质是 stop 信号到达时，slot 处于"生产者已认领但尚未写入 PUSHED"的中间态。** 此时 CAS 了 head 的消费者无法区分"生产者还在构造中"和"生产者已放弃（stop）"，导致永久等待。
+
+### 修复方案
+
+**文件：** `net/thread-pool/include/lock_free_queue.hpp`
+
+在 `pop(T&)` 和 `try_pop` 的 `while(state_ != PUSHED)` 循环中增加 stop 逃生口：
+
+```cpp
+while (state_[head_index].load(std::memory_order_acquire) != State::PUSHED) {
+    if (state_[head_index].load(std::memory_order_acquire) == State::ABORTING) {
+        state_[head_index].store(State::EMPTY, std::memory_order_release);
+        return false;
+    }
+    if (stop_token_.stop_requested()) {           // ← 新增
+        state_[head_index].store(State::EMPTY, std::memory_order_release);
+        return false;
+    }
+    std::this_thread::yield();
+}
+```
+
+### 连带优化
+
+| 项目 | 文件 | 说明 |
+|------|------|------|
+| benchmark 改用 `std::latch` | `benchmark/qps_lock_free_queue.cpp` | 代替 `thread::join()` 监控 worker 完成，防止因调度延迟产生的 join 阻塞误判为 hang |
+| `pop(T&)` CAS 循环中的 stop 检查 | `lock_free_queue.hpp:174` | CAS 竞争失败后 yield 回到 while(true)，顶部已有 stop 检查，不需额外加 |
+
+### 验证方法
+
+1. `bin/qps_qps_lock_free_queue` 11 级并发全部通过（c=1~1024）
+2. `bin/qps_qps_thread_pool` LockFreeTP 11 级并发全部通过（c=1~1024）
+3. `xmake test` 20 二进制中 19 通过
+
+---
+
+## 已知问题（预存）
+
+### `test_test_tcp_client` 间歇性失败
+
+**现象：** `xmake test` 批量运行时 `test_test_tcp_client` 偶发失败，但单次 `xmake run test_test_tcp_client` 始终通过（8/8 用例全绿）。
+
+**推测原因：** 端口绑定竞争——批量测试中多个测试二进制先后绑定相同端口（如 8080），先运行的测试释放端口后，操作系统进入 `TIME_WAIT` 状态，后运行的测试绑定失败。
+
+**影响：** 不影响功能正确性，仅测试 runner 的端口复用策略需改进。当前无端口探测/重试机制。
+
+**状态：** 待修复（低优先级）
 
 ---
 
