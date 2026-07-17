@@ -64,7 +64,6 @@ save_text_report() {
     echo "$content"
   } > "$report_file"
   green "报告已保存: $report_file"
-  ln -sf "$report_file" "$REPORT_DIR/${name}_latest.txt"
 }
 
 save_baseline() {
@@ -118,86 +117,18 @@ cmd_build() {
 }
 
 cmd_micro() {
-  ensure_binaries
   cmd_build "$@"
 
   blue "=== 微基准测试 ==="
   local bench_bins
-  bench_bins=$(find "$PROJECT_ROOT/bin" -name 'bench_*' -type f 2>/dev/null | sort || true)
+  bench_bins=$(find "$PROJECT_ROOT/bin" -name 'bench_bench_*' -type f 2>/dev/null | sort || true)
 
   if [ -z "$bench_bins" ]; then
     red "未找到 benchmark 二进制（bin/bench_bench_*），请先编译"
     exit 1
   fi
 
-  local all_results="{}"
-  local first=1
-  for bin in $bench_bins; do
-    local name; name=$(basename "$bin")
-    yellow "  运行: $name"
-    local output
-    output=$("$bin" --benchmark_format=json 2>/dev/null || "$bin" 2>/dev/null || true)
-    if [ -n "$output" ]; then
-      if [ "$first" -eq 1 ]; then
-        all_results=$(echo "$output" | python3 -c "
-import json,sys
-try:
-    d = json.load(sys.stdin)
-    d['benchmark_name'] = '$name'
-    print(json.dumps(d))
-except:
-    print('{}')
-" 2>/dev/null || echo "{}")
-        first=0
-      else
-        all_results=$(echo "$all_results" | python3 -c "
-import json,sys
-d = json.load(sys.stdin)
-try:
-    import subprocess
-    result = subprocess.run(['python3', '-c', '''
-import json,sys
-cur = json.load(sys.stdin)
-cur['benchmark_name'] = \"'\"'\"'$name'\"'\"'\"
-print(json.dumps(cur))
-'''], input='$output', capture_output=True, text=True)
-    if result.stdout:
-        d['benchmarks'] = d.get('benchmarks', []) + json.loads(result.stdout).get('benchmarks', [])
-except:
-    pass
-print(json.dumps(d))
-" 2>/dev/null || echo "{}")
-      fi
-    fi
-  done
-
-  echo ""
-  blue "=== 微基准测试结果 ==="
-  printf "%-40s %15s %15s %15s\n" "测试名" "均值" "中位数" "标准差"
-  printf "%-40s %15s %15s %15s\n" "$(printf '=%.0s' {1..40})" "$(printf '=%.0s' {1..15})" "$(printf '=%.0s' {1..15})" "$(printf '=%.0s' {1..15})"
-  for bin in $bench_bins; do
-    local name; name=$(basename "$bin")
-    "$bin" 2>/dev/null | while IFS= read -r line; do
-      if echo "$line" | grep -qE '^[-_A-Za-z0-9/]+\s+'; then
-        echo "$line"
-      fi
-    done
-  done
-
-  local env; env=$(env_info)
-  local full_data
-  full_data=$(echo "{}" | python3 -c "
-import json,sys
-d = json.load(sys.stdin)
-d['type'] = 'micro'
-d['environment'] = json.loads('$env')
-d['results'] = {}
-print(json.dumps(d, indent=2))
-")
-  save_baseline "micro_latest" "$full_data"
-  green "微基准测试完成，结果已保存到 $BASELINE_DIR/micro_latest.json"
-
-  # 生成文本报告
+  # 生成文本报告头
   local report_file="$REPORT_DIR/micro_${TIMESTAMP}.txt"
   mkdir -p "$REPORT_DIR"
   {
@@ -210,19 +141,63 @@ print(json.dumps(d, indent=2))
     echo "  核心: $(nproc 2>/dev/null || echo 'unknown')"
     echo "=========================================="
     echo ""
-    for bin in $bench_bins; do
-      local name; name=$(basename "$bin")
+  } > "$report_file"
+
+  for bin in $bench_bins; do
+    local name; name=$(basename "$bin")
+    yellow "  运行: $name"
+    local raw_out; raw_out=$("$bin" 2>/dev/null || true)
+    echo "$raw_out"
+    echo ""
+    # 追加到报告（仅结果行）
+    {
       echo "--- $name ---"
-      "$bin" 2>/dev/null | while IFS= read -r line; do
+      while IFS= read -r line; do
         if echo "$line" | grep -qE '^[-_A-Za-z0-9/]+\s+'; then
           echo "  $line"
         fi
-      done
+      done <<< "$raw_out"
       echo ""
-    done
-  } > "$report_file"
+    } >> "$report_file"
+  done
+
   green "报告已保存: $report_file"
-  ln -sf "$report_file" "$REPORT_DIR/micro_latest.txt"
+}
+
+cmd_qps() {
+  cmd_build "$@"
+
+  blue "=== QPS + 压力测试 ==="
+  local qps_bins
+  qps_bins=$(find "$PROJECT_ROOT/bin" -name 'qps_*' -type f 2>/dev/null | sort || true)
+
+  if [ -z "$qps_bins" ]; then
+    red "未找到 QPS benchmark 二进制（bin/qps_*），请先编译"
+    exit 1
+  fi
+
+  local report_file="$REPORT_DIR/qps_${TIMESTAMP}.txt"
+  mkdir -p "$REPORT_DIR"
+  {
+    echo "=========================================="
+    echo "  QPS + 压力测试报告"
+    echo "  时间: $TIMESTAMP"
+    echo "  Git:  $GIT_HASH"
+    echo "  主机: $HOSTNAME"
+    echo "  CPU:  $(grep -m1 'model name' /proc/cpuinfo 2>/dev/null | sed 's/.*: //' || echo 'unknown')"
+    echo "  核心: $(nproc 2>/dev/null || echo 'unknown')"
+    echo "=========================================="
+    echo ""
+  } > "$report_file"
+
+  for bin in $qps_bins; do
+    local name; name=$(basename "$bin")
+    yellow "  运行: $name"
+    "$bin" 2>&1 | tee -a "$report_file"
+    echo "" | tee -a "$report_file"
+  done
+
+  green "报告已保存: $report_file"
 }
 
 cmd_load() {
@@ -260,7 +235,7 @@ cmd_load() {
     "http://127.0.0.1:$port/api/users/1"
   )
 
-  local concurrency_levels=(1 10 50 100 500 1000)
+  local concurrency_levels=(1 10 50 100 500 1000 2000)
   local payloads=("1KB" "1MB" "10MB")
 
   blue "=== 负载测试 ==="
@@ -269,14 +244,14 @@ cmd_load() {
   for url in "${urls[@]}"; do
     for conn in "${concurrency_levels[@]}"; do
       local path_part; path_part=$(echo "$url" | sed 's|.*/api/|/api/|')
-      for duration in 15; do
+      for duration in 20; do
         yellow "  $path_part  并发=$conn  持续时间=${duration}s"
         local output
         local wrk_threads=$(( conn < $(nproc) ? conn : $(nproc) ))
         output=$(wrk -t"$wrk_threads" -c"$conn" -d"${duration}s" --latency "$url" 2>/dev/null || true)
         if [ -n "$output" ]; then
           local rps; rps=$(echo "$output" | grep 'Requests/sec' | awk '{print $2}')
-          local avg_lat; avg_lat=$(echo "$output" | grep 'Latency' | head -1 | awk '{print $2}' | sed 's/ms//')
+          local avg_lat; avg_lat=$(echo "$output" | grep 'Latency' | head -1 | awk '{print $2}')
           local p50; p50=$(echo "$output" | grep '50%' | awk '{print $2}')
           local p90; p90=$(echo "$output" | grep '90%' | awk '{print $2}')
           local p99; p99=$(echo "$output" | grep '99%' | awk '{print $2}')
@@ -291,7 +266,7 @@ d.append({
     'concurrency': $conn,
     'duration': '${duration}s',
     'rps': ${rps:-0},
-    'avg_latency_ms': '${avg_lat:-0}',
+    'avg_latency': '${avg_lat:-0}',
     'p50': '$p50',
     'p90': '$p90',
     'p99': '$p99'
@@ -330,18 +305,20 @@ print(json.dumps(d, indent=2))
     echo "  核心: $(nproc 2>/dev/null || echo 'unknown')"
     echo "=========================================="
     echo ""
-    printf "%-25s %10s %10s %12s %12s %12s\n" "端点" "并发" "RPS" "平均延迟" "p50" "p90" "p99"
+    printf "%-25s %10s %10s %12s %12s %12s %12s\n" "端点" "并发" "RPS" "平均延迟" "p50" "p90" "p99"
     echo "$(printf '=%.0s' {1..95})"
     echo "$load_results" | python3 -c "
 import json,sys
 results = json.load(sys.stdin)
 for r in sorted(results, key=lambda x: (x.get('url',''), x.get('concurrency',0))):
     url = r.get('url','').split('/api/')[-1] if '/api/' in r.get('url','') else r.get('url','')
-    print(f\"{url:25s} {r.get('concurrency',0):10d} {r.get('rps',0):10.1f} {str(r.get('avg_latency_ms','N/A')):>10s}ms {str(r.get('p50','N/A')):>10s} {str(r.get('p90','N/A')):>10s} {str(r.get('p99','N/A')):>10s}\")
+    lat = str(r.get('avg_latency','N/A'))
+    if lat.replace('.','').lstrip('-').isdigit():
+        lat += 'ms'
+    print(f\"{url:25s} {r.get('concurrency',0):10d} {r.get('rps',0):10.1f} {lat:>10s} {str(r.get('p50','N/A')):>10s} {str(r.get('p90','N/A')):>10s} {str(r.get('p99','N/A')):>10s}\")
 "
   } > "$report_file"
   green "报告已保存: $report_file"
-  ln -sf "$report_file" "$REPORT_DIR/load_latest.txt"
 }
 
 cmd_diff() {
@@ -406,6 +383,7 @@ usage() {
 
 子命令:
   micro      运行微基准测试（Google Benchmark）
+  qps        运行模块 QPS + 压力测试（全模块并发阶梯测试）
   load       运行负载测试（wrk HTTP 压测）
   diff       查看基线对比（默认 micro）
   gen-data   生成测试数据文件
@@ -420,10 +398,11 @@ EOF
 handle_menu_choice() {
   case "$1" in
     1) cmd_micro ;;
-    2) cmd_load ;;
-    3) cmd_diff ;;
-    4) cmd_gen_data ;;
-    5) cmd_build ;;
+    2) cmd_qps ;;
+    3) cmd_load ;;
+    4) cmd_diff ;;
+    5) cmd_gen_data ;;
+    6) cmd_build ;;
     *) red "无效选择" ;;
   esac
 }
@@ -431,6 +410,7 @@ handle_menu_choice() {
 menu() {
   local items=(
     "micro:微基准测试"
+    "qps:模块 QPS + 压力测试"
     "load:负载测试"
     "diff:基线对比"
     "gen-data:生成测试数据"
@@ -442,6 +422,7 @@ menu() {
 if [ $# -gt 0 ]; then
   case "$1" in
     micro) shift; cmd_micro "$@" ;;
+    qps) shift; cmd_qps "$@" ;;
     load) shift; cmd_load "$@" ;;
     diff) shift; cmd_diff "${1:-}" ;;
     gen-data) cmd_gen_data ;;

@@ -39,13 +39,20 @@ void LockedThreadPool::worker(std::stop_token stop_token) {
     } catch (...) {
       Logger::_error("Unhandled unknown exception in worker");
     }
-    pending_.fetch_sub(1, std::memory_order_release);
-    cv_.notify_all();
+    int prev = pending_.fetch_sub(1, std::memory_order_release);
+    if (prev == 1) {
+      cv_.notify_all();
+    } else {
+      cv_.notify_one();
+    }
   }
 }
 
 void LockedThreadPool::wait_impl() {
   std::unique_lock lock(queue_mutex_);
+  if (stop_) {
+    return;
+  }
   cv_.wait(lock, [this] { return pending_.load(std::memory_order_acquire) == 0; });
 }
 

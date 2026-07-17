@@ -54,8 +54,8 @@ void LockedThreadPool::enqueue_impl(F&& f, Args&&... args) {
       return;
     }
     tasks_.emplace(std::move(bound));
+    pending_.fetch_add(1, std::memory_order_release);
   }
-  pending_.fetch_add(1, std::memory_order_release);
   cv_.notify_one();
 }
 

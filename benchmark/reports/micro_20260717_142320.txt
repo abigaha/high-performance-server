@@ -1,0 +1,126 @@
+==========================================
+  微基准测试报告
+  时间: 20260717_142320
+  Git:  fbdf859
+  主机: jmjvm
+  CPU:  11th Gen Intel(R) Core(TM) i5-11400H @ 2.70GHz
+  核心: 8
+==========================================
+
+--- bench_bench_chunk_header ---
+  Benchmark                           Time             CPU   Iterations
+  BM_ChunkHeader_ToNetwork         20.6 ns         20.5 ns     27726692
+  BM_ChunkHeader_FromNetwork       15.9 ns         15.8 ns     44747714
+  BM_ChunkHeader_Serialize        0.687 ns        0.684 ns   1000000000
+
+--- bench_bench_coroutine ---
+  Benchmark                          Time             CPU   Iterations
+  BM_Coroutine_CreateAndRun       14.0 ns         13.9 ns     51705958
+
+--- bench_bench_database_pool ---
+  Benchmark                              Time             CPU   Iterations
+  BM_DatabasePool_GetUser              983 ns          981 ns       690398
+  BM_DatabasePool_CreateUser          1151 ns         1141 ns       686818
+  BM_DatabasePool_GetFileMeta          987 ns          985 ns       703441
+  BM_DatabasePool_StoreFileMeta       1512 ns         1506 ns       471934
+  BM_DatabasePool_GetHistory           973 ns          971 ns       537348
+
+--- bench_bench_file_system ---
+  Benchmark                                   Time             CPU   Iterations UserCounters...
+  BM_FileSystem_Sha256/1024                5953 ns         5931 ns       115604 bytes_per_second=164.665Mi/s
+  BM_FileSystem_Sha256/65536              55190 ns        54861 ns        10000 bytes_per_second=1.11254Gi/s
+  BM_FileSystem_Sha256/1048576           934612 ns       930616 ns          875 bytes_per_second=1.04937Gi/s
+  BM_FileSystem_Sha256SmallData/16         1249 ns         1244 ns       737666 bytes_per_second=12.2692Mi/s
+  BM_FileSystem_Sha256SmallData/64         1023 ns         1019 ns       653071 bytes_per_second=59.8847Mi/s
+  BM_FileSystem_Sha256SmallData/256        1049 ns         1044 ns       679765 bytes_per_second=233.759Mi/s
+  BM_FileSystem_Sha256SmallData/1024       1666 ns         1656 ns       323610 bytes_per_second=589.866Mi/s
+  BM_FileSystem_Sha256SmallData/8192       6484 ns         6459 ns        97875 bytes_per_second=1.18125Gi/s
+  BM_FileSystem_SplitFile/1048576          8005 ns         7973 ns        87680
+  BM_FileSystem_SplitFile/10485760        55840 ns        55379 ns        13081
+  BM_FileSystem_StoreRead/1024           263408 ns       233656 ns         2806 bytes_per_second=8.35896Mi/s
+  BM_FileSystem_StoreRead/65536         4989328 ns      4953290 ns          149 bytes_per_second=25.2358Mi/s
+  BM_FileSystem_StoreRead/1048576      70168323 ns     69865960 ns           10 bytes_per_second=28.6262Mi/s
+
+--- bench_bench_http_parser ---
+  Benchmark                                  Time             CPU   Iterations
+  BM_HttpParser_GetShortPath               904 ns          901 ns       726672
+  BM_HttpParser_GetLongPath               1087 ns         1084 ns       622738
+  BM_HttpParser_PostSmallBody             1270 ns         1267 ns       503073
+  BM_HttpParser_PostLargeBody/1024        6281 ns         6266 ns       130834 bytes_per_second=155.861Mi/s
+  BM_HttpParser_PostLargeBody/4096       19083 ns        19035 ns        36956 bytes_per_second=205.215Mi/s
+  BM_HttpParser_PostLargeBody/32768     144651 ns       144140 ns         5240 bytes_per_second=216.803Mi/s
+  BM_HttpParser_PostLargeBody/65536     353797 ns       352184 ns         1913 bytes_per_second=177.464Mi/s
+  BM_HttpParser_ResetReuse                1131 ns         1125 ns       898201
+  BM_HttpParser_ManyHeaders               2540 ns         2530 ns       279999
+
+--- bench_bench_lock_free_queue ---
+  Benchmark                          Time             CPU   Iterations UserCounters...
+  BM_LockFreeQueue_SPSC_1k     3360498 ns       242175 ns         1000 items_per_second=41.2925M/s
+  BM_LockFreeQueue_SPSC_10k   18447393 ns       206813 ns         1000 items_per_second=483.529M/s
+
+--- bench_bench_memory_pool ---
+  Benchmark                                      Time             CPU   Iterations
+  BM_MemoryPool_AllocateDeallocate/32         21.9 ns         21.8 ns     43613268
+  BM_MemoryPool_AllocateDeallocate/64         22.0 ns         22.0 ns     47641820
+  BM_MemoryPool_AllocateDeallocate/128        20.2 ns         20.0 ns     25127803
+  BM_MemoryPool_AllocateDeallocate/512        28.3 ns         28.2 ns     35006517
+  BM_MemoryPool_AllocateDeallocate/4096       33.0 ns         32.8 ns     37720638
+  BM_MemoryPool_BatchAllocate/32/100         92868 ns        92611 ns         6673 items_per_second=1.07978M/s
+  BM_MemoryPool_BatchAllocate/512/100       122964 ns       122534 ns         5927 items_per_second=816.099k/s
+  BM_MemoryPool_BatchAllocate/4096/100       38302 ns        38138 ns        19432 items_per_second=2.62204M/s
+  BM_MemoryPool_MixedSizes                    95.4 ns         95.0 ns      6324751 items_per_second=63.1252M/s
+  BM_MemoryPool_CompareMalloc/32              8.56 ns         8.51 ns     78048603
+  BM_MemoryPool_CompareMalloc/64              9.89 ns         9.87 ns     79862762
+  BM_MemoryPool_CompareMalloc/128             13.1 ns         13.0 ns     50775821
+  BM_MemoryPool_CompareMalloc/512             11.6 ns         11.5 ns     53830842
+  BM_MemoryPool_CompareMalloc/4096            28.6 ns         28.5 ns     22872623
+
+--- bench_bench_move_only_function ---
+  Benchmark                                          Time             CPU   Iterations
+  BM_MoveOnlyFunction_ConstructVoid               1.07 ns         1.06 ns    654929880
+  BM_MoveOnlyFunction_ConstructWithCapture        1.38 ns         1.38 ns    514465283
+  BM_MoveOnlyFunction_ConstructLargeCapture       43.1 ns         43.0 ns     16188000
+  BM_MoveOnlyFunction_Invoke                      1.37 ns         1.37 ns    523879098
+  BM_MoveOnlyFunction_MoveConstruct               1.39 ns         1.38 ns    512967018
+  BM_StdFunction_Compare                          1.47 ns         1.47 ns    518430796
+
+--- bench_bench_router ---
+  Benchmark                          Time             CPU   Iterations
+  BM_Router_MatchStatic            126 ns          124 ns      5668019
+  BM_Router_MatchParam             234 ns          232 ns      3090550
+  BM_Router_MatchNotFound         94.6 ns         93.5 ns      6873484
+  BM_Router_PathExists             139 ns          137 ns      5786817
+  BM_Router_MatchLongPath          221 ns          219 ns      3050316
+  BM_Router_MatchLargeTable        137 ns          136 ns      4834736
+
+--- bench_bench_ssl ---
+  Benchmark                         Time             CPU   Iterations
+  BM_SslContext_Create         120700 ns       120439 ns         6001
+  BM_SslContext_NotEnabled     130290 ns       129649 ns         5327
+
+--- bench_bench_thread_pool ---
+  Benchmark                                  Time             CPU   Iterations UserCounters...
+  BM_LockFreeThreadPool_Tasks/100        29624 ns        29561 ns        23281 items_per_second=3.38285M/s
+  BM_LockFreeThreadPool_Tasks/1000      276949 ns       276344 ns         2754 items_per_second=3.61868M/s
+  BM_LockFreeThreadPool_Tasks/10000    2755381 ns      2742437 ns          263 items_per_second=3.64639M/s
+  BM_LockedThreadPool_Tasks/100         330284 ns       109087 ns         8258 items_per_second=916.7k/s
+  BM_LockedThreadPool_Tasks/1000       1349926 ns       593974 ns         1000 items_per_second=1.68357M/s
+  BM_LockedThreadPool_Tasks/10000      8478474 ns      4271620 ns          176 items_per_second=2.34103M/s
+  BM_LockFreeThreadPool_HeavyTask       262207 ns       259215 ns         2762
+  BM_LockedThreadPool_HeavyTask        1046797 ns       514007 ns         1000
+
+--- bench_bench_websocket ---
+  Benchmark                                 Time             CPU   Iterations UserCounters...
+  BM_WebSocket_EncodeText/16             38.4 ns         38.2 ns     17360561 bytes_per_second=399.755Mi/s
+  BM_WebSocket_EncodeText/64             39.9 ns         39.6 ns     18297938 bytes_per_second=1.50474Gi/s
+  BM_WebSocket_EncodeText/256            54.4 ns         54.1 ns     10612218 bytes_per_second=4.40809Gi/s
+  BM_WebSocket_EncodeText/1024           56.6 ns         56.4 ns     12669296 bytes_per_second=16.9021Gi/s
+  BM_WebSocket_EncodeText/65536          1620 ns         1617 ns       450276 bytes_per_second=37.7455Gi/s
+  BM_WebSocket_DecodeFrame/16            17.6 ns         17.6 ns     40185377 bytes_per_second=868.318Mi/s
+  BM_WebSocket_DecodeFrame/64            16.5 ns         16.4 ns     43909624 bytes_per_second=3.63302Gi/s
+  BM_WebSocket_DecodeFrame/256           18.5 ns         18.5 ns     39667470 bytes_per_second=12.9116Gi/s
+  BM_WebSocket_DecodeFrame/1024          30.9 ns         30.8 ns     24439484 bytes_per_second=30.9177Gi/s
+  BM_WebSocket_DecodeFrame/65536         2466 ns         2457 ns       289213 bytes_per_second=24.8415Gi/s
+  BM_WebSocket_EncodeBinary/1024         65.8 ns         65.6 ns     10934545 bytes_per_second=14.5272Gi/s
+  BM_WebSocket_DecodeWithMask/1024       27.5 ns         27.4 ns     23148072 bytes_per_second=34.762Gi/s
+
