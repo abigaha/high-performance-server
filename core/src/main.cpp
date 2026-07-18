@@ -1,12 +1,12 @@
 #include "auth_middleware.h"
 #include "auth_service.h"
+#include "boost_mysql_connection.h"
 #include "database_pool.h"
 #include "file_system.h"
 #include "http_server.h"
 #include "logappender.h"
 #include "logformatter.h"
 #include "logger.h"
-#include "mock_connection.h"
 #include "ssl_context.h"
 #include "ws_connection.h"
 
@@ -564,7 +564,7 @@ int main(int argc, char* argv[]) {
                      ", 线程数: " + std::to_string(cfg.thread_count));
 
   auto db = std::make_unique<hps::DatabasePool>(
-    []() -> std::unique_ptr<hps::IConnection> { return std::make_unique<hps::MockConnection>(); });
+    []() -> std::unique_ptr<hps::IConnection> { return std::make_unique<hps::BoostMySqlConnection>(); });
   if (!db->init(cfg.db)) {
     hps::Logger::_error("数据库连接池初始化失败");
     hps::Logger::shutdown();
@@ -590,6 +590,7 @@ int main(int argc, char* argv[]) {
   tcp_cfg.ssl_config = cfg.ssl;
 
   hps::HttpServer server(tcp_cfg);
+  server.set_auth_service(*auth);
   hps::register_routes(server, *db, *fs, *auth, cfg);
 
   if (!server.init()) {

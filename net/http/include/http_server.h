@@ -1,5 +1,6 @@
 #pragma once
 
+#include "auth_middleware.h"
 #include "auth_service.h"
 #include "http_parser.h"
 #include "http_request.h"
@@ -59,6 +60,8 @@ public:
   void ws(std::string_view path, WsHandler handler) override;
   void upload(std::string_view path, UploadHandler handler, UploadStreamSetup setup = nullptr);
 
+  void set_auth_service(IAuthService& auth) { auth_service_ = &auth; }
+
   uint16_t actual_port() const override { return server_.actual_port(); }
 
 private:
@@ -76,6 +79,8 @@ private:
 
   std::mutex conn_map_mutex_;
   std::unordered_map<Connection*, std::shared_ptr<std::mutex>> conn_mutexes_;
+
+  IAuthService* auth_service_{nullptr};
 
   std::mutex parsers_mutex_;
   std::unordered_map<Connection*, HttpParser> parsers_;

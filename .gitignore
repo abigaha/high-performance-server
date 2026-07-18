@@ -24,6 +24,7 @@ compile_commands.json
 # Compiled Static libraries
 core.*
 *.d
+data/
 data/uploads/
 data/bench/
 benchmark/baseline/

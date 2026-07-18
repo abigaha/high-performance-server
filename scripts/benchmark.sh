@@ -226,6 +226,28 @@ cmd_load() {
     sleep 0.5
   done
 
+  local g_bench_token=""
+  local login_resp
+  login_resp=$(curl -sf -X POST -H "Content-Type: application/json" \
+    -d '{"username":"admin","password":"dummy_hash"}' \
+    "http://127.0.0.1:$port/api/auth/login" 2>/dev/null || true)
+  if [ -n "$login_resp" ]; then
+    g_bench_token=$(echo "$login_resp" | python3 -c "import json,sys; print(json.load(sys.stdin)['token'])" 2>/dev/null || true)
+    if [ -n "$g_bench_token" ]; then
+      green "认证 Token 已获取"
+    else
+      yellow "解析 Token 失败，后续上传/下载测试将返回 401"
+    fi
+  else
+    yellow "登录失败，后续上传/下载测试将返回 401"
+  fi
+
+  local auth_header=""
+  local bearer_prefix="Authorization: Bearer $g_bench_token"
+  if [ -n "$g_bench_token" ]; then
+    auth_header="-H \"$bearer_prefix\""
+  fi
+
   cleanup() {
     kill "${g_bench_server_pid:-}" 2>/dev/null || true
     wait "${g_bench_server_pid:-}" 2>/dev/null || true
@@ -237,6 +259,11 @@ cmd_load() {
     "http://127.0.0.1:$port/api/users/1"
   )
 
+  # 需要认证的端点额外准备带 token 的测试
+  local auth_urls=(
+    "http://127.0.0.1:$port/api/users/1"
+  )
+
   local concurrency_levels=(1 10 50 100 500 1000 2000 5000 10000)
 
   blue "=== 负载测试 ==="
@@ -245,11 +272,18 @@ cmd_load() {
   for url in "${urls[@]}"; do
     for conn in "${concurrency_levels[@]}"; do
       local path_part; path_part=$(echo "$url" | sed 's|.*/api/|/api/|')
+      local extra_headers=""
+      for aurl in "${auth_urls[@]}"; do
+        if [ "$aurl" = "$url" ]; then
+          extra_headers="-H \"$bearer_prefix\""
+          break
+        fi
+      done
       for duration in 20; do
         yellow "  $path_part  并发=$conn  持续时间=${duration}s"
         local output
         local wrk_threads=$(( conn < $(nproc) ? conn : $(nproc) ))
-        output=$(wrk -t"$wrk_threads" -c"$conn" -d"${duration}s" --latency "$url" 2>/dev/null || true)
+        output=$(wrk -t"$wrk_threads" -c"$conn" -d"${duration}s" --latency $extra_headers "$url" 2>/dev/null || true)
         if [ -n "$output" ]; then
           local rps; rps=$(echo "$output" | awk '/Requests\/sec/{print $2}')
           local avg_lat; avg_lat=$(echo "$output" | awk '/Latency/{print $2; exit}')
@@ -304,6 +338,7 @@ print(json.dumps(d))
     local resp
     resp=$(curl -sf -X POST \
       -H "Content-Type: application/octet-stream" \
+      -H "$bearer_prefix" \
       --data-binary "@${payload_dir}/payload_${size}.bin" \
       "http://127.0.0.1:$port/api/files/upload" 2>/dev/null || true)
     if [ -n "$resp" ]; then
@@ -343,7 +378,7 @@ print(json.dumps(d))
         yellow "  下载 ${hsize}  并发=$conn  持续时间=${duration}s"
         local output
         local wrk_threads=$(( conn < $(nproc) ? conn : $(nproc) ))
-        output=$(wrk -t"$wrk_threads" -c"$conn" -d"${duration}s" --latency "$url" 2>/dev/null || true)
+        output=$(wrk -t"$wrk_threads" -c"$conn" -d"${duration}s" --latency -H "$bearer_prefix" "$url" 2>/dev/null || true)
         if [ -n "$output" ]; then
           local rps; rps=$(echo "$output" | awk '/Requests\/sec/{print $2}')
           local avg_lat; avg_lat=$(echo "$output" | awk '/Latency/{print $2; exit}')
@@ -382,10 +417,12 @@ print(json.dumps(d))
     local hsize
     [ "$size" -ge 1048576 ] && hsize="$((size / 1048576))MB" || hsize="${size}B"
     local lua_script="/tmp/wrk_upload_${size}.lua"
+    local escaped_token; escaped_token=$(printf '%s' "$g_bench_token" | sed 's/["\\]/\\&/g')
     cat > "$lua_script" << LUA
 wrk.method = "POST"
 wrk.body = io.open("${payload_dir}/payload_${size}.bin"):read("*all")
 wrk.headers["Content-Type"] = "application/octet-stream"
+wrk.headers["Authorization"] = "Bearer ${escaped_token}"
 LUA
     local url="http://127.0.0.1:$port/api/files/upload?ephemeral=1"
     for conn in "${concurrency_levels[@]}"; do

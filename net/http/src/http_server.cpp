@@ -60,6 +60,8 @@ void HttpServer::upload(std::string_view path, UploadHandler handler, UploadStre
   if (setup) {
     upload_setups_[std::string(path)] = std::move(setup);
   }
+  // 注册 POST 路由确保请求能通过路由器匹配，进入 upload handler 调用路径
+  router_.add(HttpMethod::POST, path, [](const HttpRequest&, HttpResponse&) {});
 }
 
 std::shared_ptr<std::mutex> HttpServer::get_conn_mutex(Connection* c) {
@@ -104,6 +106,7 @@ void HttpServer::on_headers_done(HttpParser& parser, const HttpRequest& req, std
     return;
   }
 
+  // 先解析 Content-Disposition，确保 handler（非流式路径）能拿到 file_name
   auto cd_it = req.headers.find("Content-Disposition");
   if (cd_it != req.headers.end()) {
     auto fpos = cd_it->second.find("filename=\"");
@@ -117,6 +120,24 @@ void HttpServer::on_headers_done(HttpParser& parser, const HttpRequest& req, std
   }
   if (ctx->file_name.empty()) {
     ctx->file_name = "unnamed";
+  }
+
+  // 鉴权：未登录或权限不足时不开流式，body 走内存缓冲，handler 返回 401
+  if (auth_service_) {
+    auto auth_it = req.headers.find("Authorization");
+    bool authorized = false;
+    if (auth_it != req.headers.end()) {
+      const auto& header = auth_it->second;
+      constexpr std::string_view kBearer = "Bearer ";
+      if (header.size() > kBearer.size() && header.substr(0, kBearer.size()) == kBearer) {
+        auto token = header.substr(kBearer.size());
+        auto auth_user = auth_service_->validate_token(token);
+        authorized = (auth_user.role >= UserRole::NORMAL);
+      }
+    }
+    if (!authorized) {
+      return;
+    }
   }
 
   auto cl_it = req.headers.find("Content-Length");

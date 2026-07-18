@@ -1,15 +1,32 @@
+#include "auth_service.h"
 #include "http_server.h"
 #include "tcp_client.h"
 #include "thread_pool.h"
 
 #include <gtest/gtest.h>
 
+#include <atomic>
 #include <chrono>
 #include <stdexcept>
 #include <string>
 #include <thread>
 
 using namespace hps;
+
+// 模拟认证服务：已知 token "valid-token" → NORMAL，其余 → GUEST
+class MockAuthService : public IAuthService {
+public:
+  AuthUser validate_token(const std::string& token) override {
+    if (token == "valid-token") {
+      return AuthUser{1, "test", UserRole::NORMAL};
+    }
+    return AuthUser{};
+  }
+
+  std::string generate_token(const AuthUser&) override { return "mock-token"; }
+
+  std::optional<AuthUser> authenticate(const std::string&, const std::string&) override { return std::nullopt; }
+};
 
 int main(int argc, char** argv) {
   ::testing::InitGoogleTest(&argc, argv);
@@ -175,7 +192,88 @@ TEST(HttpServerTest, Malformed) {
   ASSERT_NE(resp.find("400 Bad Request"), std::string::npos) << "响应: " << resp;
 }
 
-// TH7: handler 异常返回 500
+// TH8: upload 未鉴权 → handler 仍被调用（因 file_name 已设置），但不触发流式 setup
+TEST(HttpServerTest, UploadNoAuth) {
+  MockAuthService mock_auth;
+  HttpServer server(TcpServer::Config{0, 128, 2, 50});
+  server.set_auth_service(mock_auth);
+
+  std::atomic<bool> setup_called{false};
+  server.upload(
+    "/upload",
+    [](const HttpRequest& req, UploadStreamContext& ctx, HttpResponse& resp) {
+      EXPECT_FALSE(ctx.file_name.empty());
+      resp.set_status(401, "Unauthorized");
+      resp.body = "auth required";
+      resp.set_content_length(resp.body.size());
+    },
+    [&setup_called](const HttpRequest&, UploadStreamContext&, HttpParser&) { setup_called.store(true); });
+
+  ASSERT_TRUE(server.init());
+  std::thread t([&server]() { server.start(); });
+  t.detach();
+  std::this_thread::sleep_for(std::chrono::milliseconds(100));
+  uint16_t port = server.actual_port();
+
+  auto resp = send_raw(port,
+                       "POST /upload HTTP/1.1\r\n"
+                       "Host: localhost\r\n"
+                       "Content-Type: application/octet-stream\r\n"
+                       "Content-Disposition: attachment; filename=\"test.bin\"\r\n"
+                       "Content-Length: 5\r\n"
+                       "Connection: close\r\n\r\n"
+                       "hello");
+
+  server.stop();
+  std::this_thread::sleep_for(std::chrono::milliseconds(50));
+
+  EXPECT_FALSE(setup_called.load()) << "未鉴权不应触发流式 setup";
+  ASSERT_NE(resp.find("401 Unauthorized"), std::string::npos) << "响应: " << resp;
+  ASSERT_NE(resp.find("auth required"), std::string::npos) << "响应: " << resp;
+}
+
+// TH9: upload 已鉴权 → 流式 setup 被触发，handler 正常处理
+TEST(HttpServerTest, UploadWithAuth) {
+  MockAuthService mock_auth;
+  HttpServer server(TcpServer::Config{0, 128, 2, 50});
+  server.set_auth_service(mock_auth);
+
+  std::atomic<bool> setup_called{false};
+  server.upload(
+    "/upload",
+    [](const HttpRequest& req, UploadStreamContext& ctx, HttpResponse& resp) {
+      EXPECT_FALSE(ctx.file_name.empty());
+      resp.set_status(200, "OK");
+      resp.body = "uploaded";
+      resp.set_content_length(resp.body.size());
+    },
+    [&setup_called](const HttpRequest&, UploadStreamContext&, HttpParser&) { setup_called.store(true); });
+
+  ASSERT_TRUE(server.init());
+  std::thread t([&server]() { server.start(); });
+  t.detach();
+  std::this_thread::sleep_for(std::chrono::milliseconds(100));
+  uint16_t port = server.actual_port();
+
+  auto resp = send_raw(port,
+                       "POST /upload HTTP/1.1\r\n"
+                       "Host: localhost\r\n"
+                       "Authorization: Bearer valid-token\r\n"
+                       "Content-Type: application/octet-stream\r\n"
+                       "Content-Disposition: attachment; filename=\"test.bin\"\r\n"
+                       "Content-Length: 5\r\n"
+                       "Connection: close\r\n\r\n"
+                       "hello");
+
+  server.stop();
+  std::this_thread::sleep_for(std::chrono::milliseconds(50));
+
+  EXPECT_TRUE(setup_called.load()) << "已鉴权应触发流式 setup";
+  ASSERT_NE(resp.find("200 OK"), std::string::npos) << "响应: " << resp;
+  ASSERT_NE(resp.find("uploaded"), std::string::npos) << "响应: " << resp;
+}
+
+// TH10: handler 异常返回 500
 TEST(HttpServerTest, HandlerException) {
   HttpServer server(TcpServer::Config{0, 128, 2, 50});
   server.get("/boom", [](const HttpRequest&, HttpResponse&) { throw std::runtime_error("boom!"); });
