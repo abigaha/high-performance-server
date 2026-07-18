@@ -292,6 +292,31 @@ public:
 
 ---
 
+## Step 15 — 配套前端 Web 界面（规划中）
+
+### 目标
+1. 在 `frontend/` 目录下构建 TypeScript + React + Vite SPA
+2. 实现以下 MVP 页面：登录/注册、文件浏览、文件上传/下载、音乐播放、用户管理
+3. 对接后端 RESTful API 和 WebSocket
+4. 前后端分离，通过 Nginx 容器反向代理
+5. 质量门禁：Vite 构建 0 error、Vitest + Playwright 测试覆盖核心功能
+
+### API 端点清单（前端消费）
+
+| 方法 | 路径 | 说明 |
+|------|------|------|
+| POST | `/api/auth/login` | 用户登录，返回 token |
+| GET | `/api/health` | 健康检查 |
+| GET | `/api/files?name=&offset=&limit=` | 文件列表（分页搜索） |
+| GET | `/api/files/:id` | 文件元信息 |
+| GET | `/api/files/:id/download` | 下载文件（by ID） |
+| POST | `/api/files/upload` | 上传文件（流式） |
+| GET | `/api/files/:hash/download` | 下载文件（by hash） |
+| GET | `/api/users/:id` | 用户信息 |
+| WS | `/ws` | WebSocket 实时通信 |
+
+---
+
 ## 单例与生命周期
 
 ```
@@ -513,6 +538,7 @@ Bugfix ─── 并发上传 Bug 修复 ✅ 已完成
 | net/ssl | 3 | 100% | ✅ 就绪（SslContext + Connection SSL 集成 + 双模式检测） |
 | net/websocket | 5 | 100% | ✅ 就绪（帧编解码 + 握手 + WsConnection 事件循环） |
 | tests | 20 | 100% | ✅ 就绪（~167 用例全通过）|
+| **frontend** | — | **0%** | 🔜 **规划中**（React + Vite + TypeScript SPA）|
 
 ---
 

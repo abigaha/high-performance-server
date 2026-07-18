@@ -27,6 +27,7 @@
 | Step 13 | Docker 化部署 | ✅ 已完成 | 参见 goal.md |
 | Step 14 | 文件上传功能改进 | ✅ 已完成 | [step-14-file-upload-improvement.md](step-14-file-upload-improvement.md) |
 | — | 并发上传 Bug 修复 | ✅ 已完成 | [bugfix-concurrent-uploads.md](bugfix-concurrent-uploads.md) |
+| **Step 15** | **配套前端 Web 界面** | 🔜 **规划中** | [step-15-frontend.md](step-15-frontend.md) |
 
 ---
 
