@@ -1,13 +1,11 @@
 #pragma once
 
-#include <stdint.h>
-
 #include <atomic>
+#include <cstdint>
 #include <list>
 #include <memory>
 #include <mutex>
 #include <source_location>
-#include <stdexcept>
 #include <string>
 
 namespace hps {

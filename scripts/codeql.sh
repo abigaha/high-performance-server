@@ -57,29 +57,75 @@ print(f'过滤后保留 {len(filtered)}/{len(data)} 个编译条目')
     --exclude='__pycache__' --exclude='.xmake' --exclude='build' \
     tests/ xmake.lua core/ logger/ file-system/ memory-pool/ net/ db/
 
+  local resp_file; resp_file="$tmpdir/post_resp.json"
+
   green "打包完成，发送到 CodeQL 服务器..."
   yellow "分析中（可能耗时 1-5 分钟，请耐心等待）..."
-  local resp; resp=$(curl -s --max-time 600 -X POST "$CODEQL_SERVER_URL/analyze" \
-    -F "source=@$tmpdir/source.tar.gz;type=application/gzip" \
-    -F "compile_commands=@$tmpdir/compile_commands_fixed.json;type=application/json") || {
-    red "CodeQL 请求失败（curl 退出码 $?），可能原因："
-    red "  - 服务器地址 $CODEQL_SERVER_URL 无法访问"
-    red "  - 分析超时（>300 秒）"
-    red "  - 服务器内部错误"
-    return 1
-  }
 
-  if [ -z "$resp" ]; then
-    red "CodeQL 返回空响应"
-    return 1
+  # 提交分析，--max-time 30 仅等待请求被接受，不等待分析完成
+  set +e
+  curl -s --max-time 30 -X POST "$CODEQL_SERVER_URL/analyze" \
+    -F "source=@$tmpdir/source.tar.gz;type=application/gzip" \
+    -F "compile_commands=@$tmpdir/compile_commands_fixed.json;type=application/json" \
+    -o "$resp_file"
+  local curl_exit=$?
+  set -e
+
+  local task_id=""
+  if [ "$curl_exit" -eq 0 ] && [ -s "$resp_file" ]; then
+    task_id=$(python3 -c "
+import json
+r=json.load(open('$resp_file'))
+print(r.get('task_id',''))
+" 2>/dev/null || echo "")
   fi
 
-  local result_file; result_file="$tmpdir/codeql_result.txt"
-  echo "$resp" | python3 -c "
+  if [ -z "$task_id" ]; then
+    yellow "从 Docker 容器获取最新任务 ID..."
+    task_id=$(docker exec codeql-server ls -1t /data/uploads/ 2>/dev/null | head -1 || echo "")
+    if [ -z "$task_id" ]; then
+      red "无法获取任务 ID"
+      return 1
+    fi
+  fi
+
+  green "任务 ID: $task_id"
+
+  # 轮询 /result/<task_id> 直到就绪
+  yellow "轮询分析结果..."
+  for i in $(seq 1 120); do
+    sleep 5
+    if curl -s --max-time 10 -o "$resp_file" "$CODEQL_SERVER_URL/result/$task_id" 2>/dev/null && [ -s "$resp_file" ]; then
+      if python3 -c "
+import json
+r=json.load(open('$resp_file'))
+if 'result' in r: r=r['result']
+ok=r.get('runs',[{}])[0].get('invocations',[{}])[0].get('executionSuccessful',False)
+exit(0 if ok else 1)
+" 2>/dev/null; then
+        green "结果就绪"
+        parse_sarif "$resp_file"
+        return $?
+      fi
+    fi
+    if [ "$i" -eq 120 ]; then
+      red "轮询超时（600 秒）"
+      return 1
+    fi
+  done
+}
+
+parse_sarif() {
+  local input="$1"
+  local result_file="$tmpdir/codeql_result.txt"
+
+  python3 -c "
 import json,sys
 try:
-    r=json.load(sys.stdin)
-    runs=r.get('result',{}).get('runs',[])
+    r=json.load(open('$input'))
+    if 'result' in r:
+        r = r['result']
+    runs=r.get('runs',[])
     inv=runs[0].get('invocations',[{}])[0] if runs else {}
     ok=inv.get('executionSuccessful',False)
     if not ok:
@@ -114,22 +160,13 @@ except Exception as e:
   fi
   if grep -q '^PARSE_ERR' "$result_file"; then
     yellow "解析 CodeQL 响应失败: $(grep '^PARSE_ERR' "$result_file" | sed 's/^PARSE_ERR://')"
-    yellow "原始响应（前 2000 字符）:"
-    echo "$resp" | head -c 2000
-    echo ""
     return 1
   fi
 
   local critical; critical=$(grep -oP '__CRITICAL__=\K\d+' "$result_file" 2>/dev/null || echo 0)
   local high; high=$(grep -oP '__HIGH__=\K\d+' "$result_file" 2>/dev/null || echo 0)
 
-  grep -v '^__' "$result_file" | while IFS= read -r line; do
-    case "$line" in
-      error:*) red "$line" ;;
-      warning:*) yellow "$line" ;;
-      *) echo "$line" ;;
-    esac
-  done
+  grep -v '^__' "$result_file" 2>/dev/null || true
 
   if [ "$critical" -gt 0 ] || [ "$high" -gt 0 ]; then
     red "CodeQL 门禁未通过: critical=$critical, high=$high"

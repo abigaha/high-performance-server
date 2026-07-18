@@ -450,11 +450,26 @@ Bugfix ─── 基准测试 Bug 修复 ✅ 已完成
   ├─ 已知问题: test_test_tcp_client 间歇性失败（端口 TIME_WAIT 竞争，低优先级）
   └─ 质量门禁: lint 0/0 + 编译 0/0 + test 19/20（tcp_client 间歇失败）+ CodeQL 0/0 ✅
         │
-Step 14 ─── 文件上传功能改进 📋 待开始
-  ├─ 问题: 上传不保留原文件名，只能按 hash 下载；无分片存储无法去重
-  ├─ DB schema 扩展: files 表 + file_chunks 表
-  ├─ upload 改造: 保留原文件名，分片 hash 存储，支持原名查询下载
-  └─ 详情: [plan/step-14-file-upload-improvement.md](plan/step-14-file-upload-improvement.md)
+Step 14 ─── 文件上传功能改进 ✅ 已完成
+  ├─ 流式分片存储: 2MB 每片，`HttpParser` 流式模式 + chunk_handler 回调
+  ├─ 原文件名保留: `Content-Disposition` 提取
+  ├─ 认证 & RBAC: GUEST/NORMAL/VIP 三级权限，HMAC-SHA256 Token
+  ├─ Bug 修复:
+  │   ├─ Bug 1: read_buffer_ 无锁跨线程访问 → malloc 堆损坏（新增 read_mutex_ 保护）
+  │   └─ Bug 2: Keep-Alive upload_ctx 复用污染 → 移入 while 循环
+  ├─ 质量门禁: lint 0/0 + test 20/20 + 编译 0/0 + CodeQL 0/0
+  └─ 详情: [plan/step-14-file-upload-improvement.md](plan/step-14-file-upload-improvement.md) |
+        │
+Bugfix ─── 并发上传 Bug 修复 ✅ 已完成
+  ├─ Bug 1: read_buffer_ data race → malloc 堆损坏
+  │   ├─ 根因: 事件循环 `read_from_fd()` 与 handler `handle_connection()` 无锁并发访问 `read_buffer_`
+  │   ├─ 修复: Connection 新增 `read_mutex_`，所有读写路径加锁；handler 改用拷贝模式避免持锁跨阻塞操作
+  │   └─ 涉及: connection.h/cpp, http_server.cpp, ws_connection.cpp
+  ├─ Bug 2: Keep-Alive upload_ctx 复用污染
+  │   ├─ 根因: upload_ctx 在 while 循环外创建，parser.reset() 后残留 chunks/hash_ctx 污染下一请求
+  │   ├─ 修复: upload_ctx 移入 while 循环 + set_headers_done_callback 重注册，每请求独立上下文
+  │   └─ 涉及: http_server.cpp
+  └─ 详情: [plan/bugfix-concurrent-uploads.md](plan/bugfix-concurrent-uploads.md)
 
 ---
 

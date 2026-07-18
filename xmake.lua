@@ -39,7 +39,7 @@ local common_deps = {
 
 for _, file in ipairs(os.files("tests/*.cpp")) do
     local name = path.basename(file)
-    target("test_" .. name)
+    target(name)
         set_kind("binary")
         set_rundir("$(projectdir)")
         add_packages("gtest")
@@ -56,7 +56,7 @@ end
 if os.host() == "linux" and os.isfile("/usr/lib/x86_64-linux-gnu/libbenchmark.so") then
     for _, file in ipairs(os.files("benchmark/bench_*.cpp")) do
         local name = path.basename(file)
-        target("bench_" .. name)
+        target(name)
             set_kind("binary")
             set_targetdir(path.join(os.projectdir(), "bin"))
             set_rundir("$(projectdir)")
@@ -71,7 +71,6 @@ if os.host() == "linux" and os.isfile("/usr/lib/x86_64-linux-gnu/libbenchmark.so
                         "-Wl,-rpath," .. path.join(os.projectdir(), "lib"),
                         "-Wl,--disable-new-dtags",
                         {force = true})
-            -- benchmark 使用 release 模式才准确
             if is_mode("debug") then
                 add_cxflags("-UNDEBUG")
             end

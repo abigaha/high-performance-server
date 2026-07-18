@@ -35,13 +35,9 @@ static constexpr size_t kSampleInterval = 32;
 inline std::vector<QpsLevel> default_qps_levels() {
   return {
     {1, 5},
-    {2, 5},
     {4, 5},
-    {8, 5},
     {16, 5},
-    {32, 5},
     {64, 5},
-    {128, 5},
     {256, 15},
     {512, 15},
     {1024, 15},

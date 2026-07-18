@@ -33,7 +33,7 @@ static void BM_LockFreeThreadPool_Tasks(benchmark::State& state) {
   pool.stop();
 }
 
-BENCHMARK(BM_LockFreeThreadPool_Tasks)->Arg(100)->Arg(1000)->Arg(10000);
+BENCHMARK(BM_LockFreeThreadPool_Tasks)->Arg(100)->Arg(1000);
 
 static void BM_LockedThreadPool_Tasks(benchmark::State& state) {
   hps::LockedThreadPool pool(4);
@@ -41,7 +41,7 @@ static void BM_LockedThreadPool_Tasks(benchmark::State& state) {
   pool.stop();
 }
 
-BENCHMARK(BM_LockedThreadPool_Tasks)->Arg(100)->Arg(1000)->Arg(10000);
+BENCHMARK(BM_LockedThreadPool_Tasks)->Arg(100)->Arg(1000);
 
 static void BM_LockFreeThreadPool_HeavyTask(benchmark::State& state) {
   hps::LockFreeThreadPool pool(4);

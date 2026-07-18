@@ -77,48 +77,69 @@ TEST(DatabaseModelTest, UserModelFields) {
 }
 
 // ============================================================
-// T3: DownloadLog 模型字段
+// T3: User 模型 role 字段
 // ============================================================
-TEST(DatabaseModelTest, DownloadLogModelFields) {
-  DownloadLog dl;
-  EXPECT_EQ(dl.log_id, 0);
-  EXPECT_EQ(dl.user_id, 0);
-  EXPECT_TRUE(dl.file_hash.empty());
-  EXPECT_TRUE(dl.downloaded_at.empty());
+TEST(DatabaseModelTest, UserModelRole) {
+  User u;
+  EXPECT_EQ(u.role, UserRole::GUEST);
 
-  dl.log_id = 100;
-  dl.user_id = 42;
-  dl.file_hash = "abcdef";
-  dl.downloaded_at = "2024-06-15";
+  u.role = UserRole::NORMAL;
+  EXPECT_EQ(u.role, UserRole::NORMAL);
 
-  EXPECT_EQ(dl.log_id, 100);
-  EXPECT_EQ(dl.user_id, 42);
-  EXPECT_EQ(dl.file_hash, "abcdef");
-  EXPECT_EQ(dl.downloaded_at, "2024-06-15");
+  u.role = UserRole::VIP;
+  EXPECT_EQ(u.role, UserRole::VIP);
 }
 
 // ============================================================
-// T4: FileMeta 模型字段
+// T4: FileRecord 模型字段
 // ============================================================
-TEST(DatabaseModelTest, FileMetaModelFields) {
-  FileMeta fm;
-  EXPECT_TRUE(fm.file_hash.empty());
-  EXPECT_TRUE(fm.file_path.empty());
-  EXPECT_EQ(fm.file_size, 0U);
-  EXPECT_TRUE(fm.content_type.empty());
-  EXPECT_TRUE(fm.created_at.empty());
+TEST(DatabaseModelTest, FileRecordModelFields) {
+  FileRecord r;
+  EXPECT_EQ(r.file_id, 0);
+  EXPECT_TRUE(r.file_name.empty());
+  EXPECT_TRUE(r.file_hash.empty());
+  EXPECT_EQ(r.file_size, 0U);
+  EXPECT_TRUE(r.content_type.empty());
+  EXPECT_EQ(r.chunk_size, 2097152);
+  EXPECT_TRUE(r.created_at.empty());
 
-  fm.file_hash = "deadbeef";
-  fm.file_path = "/music/song.mp3";
-  fm.file_size = 1024000;
-  fm.content_type = "audio/mpeg";
-  fm.created_at = "2024-07-01";
+  r.file_id = 42;
+  r.file_name = "song.mp3";
+  r.file_hash = "abcdef";
+  r.file_size = 2048000;
+  r.content_type = "audio/mpeg";
+  r.chunk_size = 1048576;
 
-  EXPECT_EQ(fm.file_hash, "deadbeef");
-  EXPECT_EQ(fm.file_path, "/music/song.mp3");
-  EXPECT_EQ(fm.file_size, 1024000U);
-  EXPECT_EQ(fm.content_type, "audio/mpeg");
-  EXPECT_EQ(fm.created_at, "2024-07-01");
+  EXPECT_EQ(r.file_id, 42);
+  EXPECT_EQ(r.file_name, "song.mp3");
+  EXPECT_EQ(r.file_hash, "abcdef");
+  EXPECT_EQ(r.file_size, 2048000U);
+  EXPECT_EQ(r.content_type, "audio/mpeg");
+  EXPECT_EQ(r.chunk_size, 1048576);
+}
+
+// ============================================================
+// T5: FileChunkRecord 模型字段
+// ============================================================
+TEST(DatabaseModelTest, FileChunkRecordModelFields) {
+  FileChunkRecord c;
+  EXPECT_TRUE(c.file_hash.empty());
+  EXPECT_EQ(c.chunk_index, 0);
+  EXPECT_TRUE(c.chunk_hash.empty());
+  EXPECT_EQ(c.chunk_offset, 0U);
+  EXPECT_EQ(c.chunk_size, 0);
+
+  c.file_hash = "abcdef";
+  c.chunk_index = 3;
+  c.chunk_hash = "chunkhash123";
+  c.chunk_offset = 6291456;
+  c.chunk_size = 2097152;
+
+  EXPECT_EQ(c.file_hash, "abcdef");
+  EXPECT_EQ(c.chunk_index, 3);
+  EXPECT_EQ(c.chunk_hash, "chunkhash123");
+  EXPECT_EQ(c.chunk_offset, 6291456U);
+  EXPECT_EQ(c.chunk_size, 2097152);
 }
 
 // ============================================================
@@ -167,7 +188,6 @@ TEST(DatabasePoolTest, ConnectionAcquireRelease) {
 // T7: 连接超时
 // ============================================================
 TEST(DatabasePoolTest, ConnectionTimeout) {
-  // 在 query 中阻塞以持有连接
   std::promise<void> hold_started;
   std::promise<void> release_hold;
 
@@ -184,16 +204,13 @@ TEST(DatabasePoolTest, ConnectionTimeout) {
   DatabasePool pool(factory);
   DbConfig cfg;
   cfg.pool_size = 1;
-  cfg.connect_timeout_ms = 200; // 200ms 超时
+  cfg.connect_timeout_ms = 200;
   ASSERT_TRUE(pool.init(cfg));
 
-  // 线程 1：占用唯一连接
   auto fut1 = std::async(std::launch::async, [&]() { return pool.get_user(1); });
 
-  // 等待线程 1 进入 query hook
   hold_started.get_future().wait();
 
-  // 线程 2：应超时
   auto fut2 = std::async(std::launch::async, [&]() { return pool.get_user(2); });
 
   auto start = std::chrono::steady_clock::now();
@@ -204,10 +221,9 @@ TEST(DatabasePoolTest, ConnectionTimeout) {
   EXPECT_GE(elapsed.count(), 150);
   EXPECT_LE(elapsed.count(), 1000);
 
-  // 释放线程 1
   release_hold.set_value();
   auto result1 = fut1.get();
-  EXPECT_FALSE(result1.has_value()); // 空结果
+  EXPECT_FALSE(result1.has_value());
 }
 
 // ============================================================
@@ -217,8 +233,8 @@ TEST(DatabasePoolTest, GetUser) {
   MockPool mp(1);
 
   QueryResult qr;
-  qr.columns = {"user_id", "username", "password_hash", "email", "created_at"};
-  qr.rows.push_back({"42", "bob", "hash123", "bob@test.com", "2024-01-15"});
+  qr.columns = {"user_id", "username", "password_hash", "role", "email", "created_at"};
+  qr.rows.push_back({"42", "bob", "hash123", "1", "bob@test.com", "2024-01-15"});
   mp.connections[0]->query_result = std::move(qr);
 
   auto user = mp.pool->get_user(42);
@@ -228,6 +244,7 @@ TEST(DatabasePoolTest, GetUser) {
   EXPECT_EQ(user->password_hash, "hash123");
   EXPECT_EQ(user->email, "bob@test.com");
   EXPECT_EQ(user->created_at, "2024-01-15");
+  EXPECT_EQ(user->role, UserRole::NORMAL);
 }
 
 // ============================================================
@@ -246,10 +263,11 @@ TEST(DatabasePoolTest, CreateUser) {
 
   // 验证 SQL 中含有参数化占位符
   EXPECT_NE(mp.connections[0]->last_sql.find('?'), std::string::npos);
-  ASSERT_EQ(mp.connections[0]->last_params.size(), 3U);
+  ASSERT_EQ(mp.connections[0]->last_params.size(), 4U);
   EXPECT_EQ(mp.connections[0]->last_params[0], "carol");
   EXPECT_EQ(mp.connections[0]->last_params[1], "secure_hash");
-  EXPECT_EQ(mp.connections[0]->last_params[2], "carol@test.com");
+  EXPECT_EQ(mp.connections[0]->last_params[2], "0");
+  EXPECT_EQ(mp.connections[0]->last_params[3], "carol@test.com");
 }
 
 TEST(DatabasePoolTest, CreateUserFails) {
@@ -265,83 +283,146 @@ TEST(DatabasePoolTest, CreateUserFails) {
 }
 
 // ============================================================
-// T10: log_download + get_download_history
+// T10: StoreAndGetFileRecord
 // ============================================================
-TEST(DatabasePoolTest, DownloadLogLifecycle) {
+TEST(DatabasePoolTest, StoreAndGetFileRecord) {
   MockPool mp(1);
 
-  // log_download
   mp.connections[0]->execute_result = 1;
 
-  DownloadLog dl;
-  dl.user_id = 42;
-  dl.file_hash = "songhash123";
-  EXPECT_TRUE(mp.pool->log_download(dl));
-
-  // get_download_history
-  QueryResult qr;
-  qr.columns = {"log_id", "user_id", "file_hash", "downloaded_at"};
-  qr.rows.push_back({"1", "42", "songhash123", "2024-06-15 10:00:00"});
-  mp.connections[0]->query_result = std::move(qr);
-
-  auto history = mp.pool->get_download_history(42);
-  ASSERT_EQ(history.size(), 1U);
-  EXPECT_EQ(history[0].log_id, 1);
-  EXPECT_EQ(history[0].user_id, 42);
-  EXPECT_EQ(history[0].file_hash, "songhash123");
-  EXPECT_EQ(history[0].downloaded_at, "2024-06-15 10:00:00");
-}
-
-TEST(DatabasePoolTest, DownloadHistoryEmpty) {
-  MockPool mp(1);
+  FileRecord r;
+  r.file_name = "record_test.bin";
+  r.file_hash = "testhash123";
+  r.file_size = 512000;
+  r.content_type = "application/octet-stream";
+  EXPECT_TRUE(mp.pool->store_file_record(r));
 
   QueryResult qr;
-  qr.columns = {"log_id", "user_id", "file_hash", "downloaded_at"};
-  // 空行
+  qr.columns = {"file_id", "file_name", "file_hash", "file_size", "content_type", "chunk_size", "created_at"};
+  qr.rows.push_back(
+    {"1", "record_test.bin", "testhash123", "512000", "application/octet-stream", "2097152", "2024-07-01"});
   mp.connections[0]->query_result = std::move(qr);
 
-  auto history = mp.pool->get_download_history(999);
-  EXPECT_TRUE(history.empty());
-}
-
-// ============================================================
-// T11: store_file_meta + get_file_meta
-// ============================================================
-TEST(DatabasePoolTest, FileMetaLifecycle) {
-  MockPool mp(1);
-
-  // store_file_meta
-  mp.connections[0]->execute_result = 1;
-
-  FileMeta fm;
-  fm.file_hash = "abcdef123";
-  fm.file_path = "/music/track.mp3";
-  fm.file_size = 2048000;
-  fm.content_type = "audio/mpeg";
-  EXPECT_TRUE(mp.pool->store_file_meta(fm));
-
-  // get_file_meta
-  QueryResult qr;
-  qr.columns = {"file_hash", "file_path", "file_size", "content_type", "created_at"};
-  qr.rows.push_back({"abcdef123", "/music/track.mp3", "2048000", "audio/mpeg", "2024-07-01 12:00:00"});
-  mp.connections[0]->query_result = std::move(qr);
-
-  auto result = mp.pool->get_file_meta("abcdef123");
+  auto result = mp.pool->get_file_record(1);
   ASSERT_TRUE(result.has_value());
-  EXPECT_EQ(result->file_hash, "abcdef123");
-  EXPECT_EQ(result->file_path, "/music/track.mp3");
-  EXPECT_EQ(result->file_size, 2048000U);
-  EXPECT_EQ(result->content_type, "audio/mpeg");
-  EXPECT_EQ(result->created_at, "2024-07-01 12:00:00");
+  EXPECT_EQ(result->file_name, "record_test.bin");
+  EXPECT_EQ(result->file_hash, "testhash123");
+  EXPECT_EQ(result->file_size, 512000U);
 }
 
-TEST(DatabasePoolTest, FileMetaNotFound) {
+TEST(DatabasePoolTest, GetFileRecordByHash) {
   MockPool mp(1);
+
+  QueryResult qr;
+  qr.columns = {"file_id", "file_name", "file_hash", "file_size", "content_type", "chunk_size", "created_at"};
+  qr.rows.push_back(
+    {"2", "hash_lookup.bin", "byhash789", "256000", "application/octet-stream", "2097152", "2024-07-02"});
+  mp.connections[0]->query_result = std::move(qr);
+
+  auto result = mp.pool->get_file_record_by_hash("byhash789");
+  ASSERT_TRUE(result.has_value());
+  EXPECT_EQ(result->file_id, 2);
+  EXPECT_EQ(result->file_name, "hash_lookup.bin");
+  EXPECT_EQ(result->file_hash, "byhash789");
+}
+
+// ============================================================
+// T11: SearchFiles
+// ============================================================
+TEST(DatabasePoolTest, SearchFiles) {
+  MockPool mp(1);
+
+  QueryResult qr;
+  qr.columns = {"file_id", "file_name", "file_hash", "file_size", "content_type", "chunk_size", "created_at"};
+  qr.rows.push_back({"3", "song1.mp3", "hash1", "1000", "audio/mpeg", "2097152", "2024-07-01"});
+  qr.rows.push_back({"4", "song2.mp3", "hash2", "2000", "audio/mpeg", "2097152", "2024-07-02"});
+  mp.connections[0]->query_result = std::move(qr);
+
+  auto results = mp.pool->search_files("song", 0, 10);
+  ASSERT_EQ(results.size(), 2U);
+  EXPECT_EQ(results[0].file_name, "song1.mp3");
+  EXPECT_EQ(results[1].file_name, "song2.mp3");
+}
+
+// ============================================================
+// T12: StoreAndGetFileChunks + ChunkExists
+// ============================================================
+TEST(DatabasePoolTest, StoreAndGetFileChunks) {
+  MockPool mp(1);
+
+  mp.connections[0]->execute_result = 1;
+
+  FileChunkRecord c1, c2;
+  c1.file_hash = "filehash1";
+  c1.chunk_index = 0;
+  c1.chunk_hash = "chunkhash_a";
+  c1.chunk_offset = 0;
+  c1.chunk_size = 2097152;
+
+  c2.file_hash = "filehash1";
+  c2.chunk_index = 1;
+  c2.chunk_hash = "chunkhash_b";
+  c2.chunk_offset = 2097152;
+  c2.chunk_size = 1048576;
+
+  EXPECT_TRUE(mp.pool->store_file_chunks({c1, c2}));
+
+  QueryResult qr;
+  qr.columns = {"file_hash", "chunk_index", "chunk_hash", "chunk_offset", "chunk_size"};
+  qr.rows.push_back({"filehash1", "0", "chunkhash_a", "0", "2097152"});
+  qr.rows.push_back({"filehash1", "1", "chunkhash_b", "2097152", "1048576"});
+  mp.connections[0]->query_result = std::move(qr);
+
+  auto chunks = mp.pool->get_file_chunks("filehash1");
+  ASSERT_EQ(chunks.size(), 2U);
+  EXPECT_EQ(chunks[0].chunk_index, 0);
+  EXPECT_EQ(chunks[0].chunk_hash, "chunkhash_a");
+  EXPECT_EQ(chunks[1].chunk_index, 1);
+  EXPECT_EQ(chunks[1].chunk_hash, "chunkhash_b");
+}
+
+TEST(DatabasePoolTest, ChunkExists) {
+  MockPool mp(1);
+
+  QueryResult qr;
+  qr.columns = {"1"};
+  qr.rows.push_back({"1"});
+  mp.connections[0]->query_result = std::move(qr);
+
+  EXPECT_TRUE(mp.pool->chunk_exists("chunkhash_a"));
 
   mp.connections[0]->query_result = std::nullopt;
+  EXPECT_FALSE(mp.pool->chunk_exists("nonexistent"));
+}
 
-  auto result = mp.pool->get_file_meta("nonexistent");
-  EXPECT_FALSE(result.has_value());
+// ============================================================
+// T13: AuthUser + VerifyPassword
+// ============================================================
+TEST(DatabasePoolTest, AuthUserQuery) {
+  MockPool mp(1);
+
+  QueryResult qr;
+  qr.columns = {"user_id", "username", "role"};
+  qr.rows.push_back({"10", "testuser", "1"});
+  mp.connections[0]->query_result = std::move(qr);
+
+  auto user = mp.pool->get_auth_user("testuser");
+  ASSERT_TRUE(user.has_value());
+  EXPECT_EQ(user->user_id, 10);
+  EXPECT_EQ(user->username, "testuser");
+  EXPECT_EQ(user->role, UserRole::NORMAL);
+}
+
+TEST(DatabasePoolTest, VerifyPassword) {
+  MockPool mp(1);
+
+  QueryResult qr;
+  qr.columns = {"password_hash"};
+  qr.rows.push_back({"correct_hash"});
+  mp.connections[0]->query_result = std::move(qr);
+
+  EXPECT_TRUE(mp.pool->verify_password("testuser", "correct_hash"));
+  EXPECT_FALSE(mp.pool->verify_password("testuser", "wrong_hash"));
 }
 
 } // namespace hps

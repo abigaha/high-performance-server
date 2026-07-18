@@ -720,7 +720,7 @@ project/
 │   ├── README.md          # 验证步骤说明
 │   └── ws_test.py         # WebSocket 测试
 ├── setup.sh               # Ubuntu 环境初始化（g++/xmake/clang-tidy）
-├── plan/                  # 开发计划
+├── plan/                  # 开发计划（含 Bug 修复文档）
 └── lib/                   # 动态库输出目录
 ```
 

@@ -51,7 +51,10 @@ ssize_t Connection::ssl_read_from_fd() {
   while (true) {
     ssize_t n = SSL_read(static_cast<SSL*>(ssl_), t_buf.data(), static_cast<int>(t_buf.size()));
     if (n > 0) {
-      read_buffer_.append(t_buf.data(), static_cast<size_t>(n));
+      {
+        std::lock_guard<std::mutex> lock(read_mutex_);
+        read_buffer_.append(t_buf.data(), static_cast<size_t>(n));
+      }
       total_read += n;
     } else {
       int err = SSL_get_error(static_cast<SSL*>(ssl_), static_cast<int>(n));
@@ -83,7 +86,10 @@ ssize_t Connection::plain_read_from_fd() {
   while (true) {
     ssize_t n = ::read(fd_, t_buf.data(), t_buf.size());
     if (n > 0) {
-      read_buffer_.append(t_buf.data(), static_cast<size_t>(n));
+      {
+        std::lock_guard<std::mutex> lock(read_mutex_);
+        read_buffer_.append(t_buf.data(), static_cast<size_t>(n));
+      }
       total_read += n;
     } else if (n == 0) {
       if (total_read == 0) {
@@ -197,6 +203,11 @@ void Connection::close() {
 }
 
 void Connection::consume_read_buffer(size_t bytes) {
+  std::lock_guard<std::mutex> lock(read_mutex_);
+  consume_read_buffer_locked(bytes);
+}
+
+void Connection::consume_read_buffer_locked(size_t bytes) {
   if (bytes >= read_buffer_.size()) {
     read_buffer_.clear();
   } else {

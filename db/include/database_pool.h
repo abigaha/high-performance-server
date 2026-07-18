@@ -29,10 +29,18 @@ public:
 
   std::optional<User> get_user(int64_t user_id) override;
   bool create_user(const User& user) override;
-  bool log_download(const DownloadLog& log) override;
-  std::vector<DownloadLog> get_download_history(int64_t user_id) override;
-  bool store_file_meta(const FileMeta& meta) override;
-  std::optional<FileMeta> get_file_meta(const std::string& hash) override;
+
+  bool store_file_record(const FileRecord& record) override;
+  std::optional<FileRecord> get_file_record(int64_t file_id) override;
+  std::optional<FileRecord> get_file_record_by_hash(const std::string& hash) override;
+  std::vector<FileRecord> search_files(const std::string& name_pattern, int offset, int limit) override;
+
+  bool store_file_chunks(const std::vector<FileChunkRecord>& chunks) override;
+  std::vector<FileChunkRecord> get_file_chunks(const std::string& file_hash) override;
+  bool chunk_exists(const std::string& chunk_hash) override;
+
+  std::optional<AuthUser> get_auth_user(const std::string& username) override;
+  bool verify_password(const std::string& username, const std::string& password) override;
 
 protected:
   std::unique_ptr<IConnection> get_connection();

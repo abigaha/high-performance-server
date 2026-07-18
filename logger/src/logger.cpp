@@ -119,7 +119,7 @@ void Logger::addAppender(const std::shared_ptr<LogAppender>& appender) {
 
 void Logger::delAppender(const std::shared_ptr<LogAppender>& appender) {
   std::lock_guard<std::mutex> lock(mutex_);
-  auto it = std::find(appenders_.begin(), appenders_.end(), appender);
+  auto it = std::ranges::find(appenders_, appender);
   if (it != appenders_.end()) {
     appenders_.erase(it);
   }

@@ -121,10 +121,10 @@ cmd_micro() {
 
   blue "=== 微基准测试 ==="
   local bench_bins
-  bench_bins=$(find "$PROJECT_ROOT/bin" -name 'bench_bench_*' -type f 2>/dev/null | sort || true)
+  bench_bins=$(find "$PROJECT_ROOT/bin" -name 'bench_*' -type f ! -name 'qps_*' 2>/dev/null | sort || true)
 
   if [ -z "$bench_bins" ]; then
-    red "未找到 benchmark 二进制（bin/bench_bench_*），请先编译"
+    red "未找到 benchmark 二进制（bin/bench_*），请先编译"
     exit 1
   fi
 
@@ -143,10 +143,12 @@ cmd_micro() {
     echo ""
   } > "$report_file"
 
+  local bench_flags="${BENCH_FLAGS:---benchmark_min_time=0.1s}"
+
   for bin in $bench_bins; do
     local name; name=$(basename "$bin")
     yellow "  运行: $name"
-    local raw_out; raw_out=$("$bin" 2>/dev/null || true)
+    local raw_out; raw_out=$("$bin" $bench_flags 2>/dev/null || true)
     echo "$raw_out"
     echo ""
     # 追加到报告（仅结果行）
@@ -235,8 +237,7 @@ cmd_load() {
     "http://127.0.0.1:$port/api/users/1"
   )
 
-  local concurrency_levels=(1 10 50 100 500 1000 2000)
-  local payloads=("1KB" "1MB" "10MB")
+  local concurrency_levels=(1 10 50 100 500 1000 2000 5000 10000)
 
   blue "=== 负载测试 ==="
   local load_results="[]"
@@ -250,11 +251,11 @@ cmd_load() {
         local wrk_threads=$(( conn < $(nproc) ? conn : $(nproc) ))
         output=$(wrk -t"$wrk_threads" -c"$conn" -d"${duration}s" --latency "$url" 2>/dev/null || true)
         if [ -n "$output" ]; then
-          local rps; rps=$(echo "$output" | grep 'Requests/sec' | awk '{print $2}')
-          local avg_lat; avg_lat=$(echo "$output" | grep 'Latency' | head -1 | awk '{print $2}')
-          local p50; p50=$(echo "$output" | grep '50%' | awk '{print $2}')
-          local p90; p90=$(echo "$output" | grep '90%' | awk '{print $2}')
-          local p99; p99=$(echo "$output" | grep '99%' | awk '{print $2}')
+          local rps; rps=$(echo "$output" | awk '/Requests\/sec/{print $2}')
+          local avg_lat; avg_lat=$(echo "$output" | awk '/Latency/{print $2; exit}')
+          local p50; p50=$(echo "$output" | awk '/^\s+50%/{print $2; exit}')
+          local p90; p90=$(echo "$output" | awk '/^\s+90%/{print $2; exit}')
+          local p99; p99=$(echo "$output" | awk '/^\s+99%/{print $2; exit}')
           printf "    RPS: %10s  Lat(avg): %8s  p50: %8s  p90: %8s  p99: %8s\n" \
             "${rps:-N/A}" "${avg_lat:-N/A}" "${p50:-N/A}" "${p90:-N/A}" "${p99:-N/A}"
 
@@ -262,7 +263,9 @@ cmd_load() {
 import json,sys
 d = json.load(sys.stdin)
 d.append({
-    'url': '$url',
+    'method': 'GET',
+    'url': '/api/$(echo "$url" | sed 's|.*/api/||')',
+    'payload': '-',
     'concurrency': $conn,
     'duration': '${duration}s',
     'rps': ${rps:-0},
@@ -277,6 +280,153 @@ print(json.dumps(d))
       done
     done
   done
+
+  # ==================== 预生成测试载荷文件 ====================
+  local payload_dir="/tmp/hps_bench_payloads"
+  mkdir -p "$payload_dir"
+  local file_sizes=(1024 1048576 10485760)
+  for size in "${file_sizes[@]}"; do
+    local pf="$payload_dir/payload_${size}.bin"
+    if [ ! -f "$pf" ]; then
+      dd if=/dev/urandom of="$pf" bs="$size" count=1 2>/dev/null
+    fi
+  done
+
+  # ==================== 预上传测试文件到服务器 ====================
+  blue "=== 预上传测试文件 ==="
+  local hash_1024=""
+  local hash_1048576=""
+  local hash_10485760=""
+  for size in "${file_sizes[@]}"; do
+    local hsize
+    [ "$size" -ge 1048576 ] && hsize="$((size / 1048576))MB" || hsize="${size}B"
+    yellow "  上传 ${hsize}..."
+    local resp
+    resp=$(curl -sf -X POST \
+      -H "Content-Type: application/octet-stream" \
+      --data-binary "@${payload_dir}/payload_${size}.bin" \
+      "http://127.0.0.1:$port/api/files/upload" 2>/dev/null || true)
+    if [ -n "$resp" ]; then
+      local h
+      h=$(echo "$resp" | python3 -c "import json,sys; print(json.load(sys.stdin)['hash'])" 2>/dev/null || true)
+      if [ -n "$h" ]; then
+        case $size in
+          1024)    hash_1024=$h ;;
+          1048576) hash_1048576=$h ;;
+          10485760) hash_10485760=$h ;;
+        esac
+        green "    hash=$h"
+      else
+        yellow "    解析 hash 失败"
+      fi
+    else
+      yellow "    上传失败"
+    fi
+  done
+
+  # ==================== 文件下载测试 ====================
+  blue "=== 文件下载测试 ==="
+  local dl_sizes=(1024 1048576 10485760)
+  for size in "${dl_sizes[@]}"; do
+    local h=""
+    case $size in
+      1024)    h=$hash_1024 ;;
+      1048576) h=$hash_1048576 ;;
+      10485760) h=$hash_10485760 ;;
+    esac
+    [ -z "$h" ] && yellow "  跳过 ${size}B（无 hash）" && continue
+    local hsize
+    [ "$size" -ge 1048576 ] && hsize="$((size / 1048576))MB" || hsize="${size}B"
+    local url="http://127.0.0.1:$port/api/files/${h}/download"
+    for conn in "${concurrency_levels[@]}"; do
+      for duration in 20; do
+        yellow "  下载 ${hsize}  并发=$conn  持续时间=${duration}s"
+        local output
+        local wrk_threads=$(( conn < $(nproc) ? conn : $(nproc) ))
+        output=$(wrk -t"$wrk_threads" -c"$conn" -d"${duration}s" --latency "$url" 2>/dev/null || true)
+        if [ -n "$output" ]; then
+          local rps; rps=$(echo "$output" | awk '/Requests\/sec/{print $2}')
+          local avg_lat; avg_lat=$(echo "$output" | awk '/Latency/{print $2; exit}')
+          local p50; p50=$(echo "$output" | awk '/^\s+50%/{print $2; exit}')
+          local p90; p90=$(echo "$output" | awk '/^\s+90%/{print $2; exit}')
+          local p99; p99=$(echo "$output" | awk '/^\s+99%/{print $2; exit}')
+          printf "    RPS: %10s  Lat(avg): %8s  p50: %8s  p90: %8s  p99: %8s\n" \
+            "${rps:-N/A}" "${avg_lat:-N/A}" "${p50:-N/A}" "${p90:-N/A}" "${p99:-N/A}"
+
+          load_results=$(echo "$load_results" | python3 -c "
+import json,sys
+d = json.load(sys.stdin)
+d.append({
+    'method': 'GET',
+    'url': '/api/files/download',
+    'payload': '${hsize}',
+    'concurrency': $conn,
+    'duration': '${duration}s',
+    'rps': ${rps:-0},
+    'avg_latency': '${avg_lat:-0}',
+    'p50': '$p50',
+    'p90': '$p90',
+    'p99': '$p99'
+})
+print(json.dumps(d))
+")
+        fi
+      done
+    done
+  done
+
+  # ==================== 文件上传测试 ====================
+  blue "=== 文件上传测试 ==="
+  local ul_sizes=(1024 1048576 10485760)
+  for size in "${ul_sizes[@]}"; do
+    local hsize
+    [ "$size" -ge 1048576 ] && hsize="$((size / 1048576))MB" || hsize="${size}B"
+    local lua_script="/tmp/wrk_upload_${size}.lua"
+    cat > "$lua_script" << LUA
+wrk.method = "POST"
+wrk.body = io.open("${payload_dir}/payload_${size}.bin"):read("*all")
+wrk.headers["Content-Type"] = "application/octet-stream"
+LUA
+    local url="http://127.0.0.1:$port/api/files/upload?ephemeral=1"
+    for conn in "${concurrency_levels[@]}"; do
+      for duration in 20; do
+        yellow "  上传 ${hsize}  并发=$conn  持续时间=${duration}s"
+        local output
+        local wrk_threads=$(( conn < $(nproc) ? conn : $(nproc) ))
+        output=$(wrk -t"$wrk_threads" -c"$conn" -d"${duration}s" --latency -s "$lua_script" "$url" 2>/dev/null || true)
+        if [ -n "$output" ]; then
+          local rps; rps=$(echo "$output" | awk '/Requests\/sec/{print $2}')
+          local avg_lat; avg_lat=$(echo "$output" | awk '/Latency/{print $2; exit}')
+          local p50; p50=$(echo "$output" | awk '/^\s+50%/{print $2; exit}')
+          local p90; p90=$(echo "$output" | awk '/^\s+90%/{print $2; exit}')
+          local p99; p99=$(echo "$output" | awk '/^\s+99%/{print $2; exit}')
+          printf "    RPS: %10s  Lat(avg): %8s  p50: %8s  p90: %8s  p99: %8s\n" \
+            "${rps:-N/A}" "${avg_lat:-N/A}" "${p50:-N/A}" "${p90:-N/A}" "${p99:-N/A}"
+
+          load_results=$(echo "$load_results" | python3 -c "
+import json,sys
+d = json.load(sys.stdin)
+d.append({
+    'method': 'POST',
+    'url': '/api/files/upload',
+    'payload': '${hsize}',
+    'concurrency': $conn,
+    'duration': '${duration}s',
+    'rps': ${rps:-0},
+    'avg_latency': '${avg_lat:-0}',
+    'p50': '$p50',
+    'p90': '$p90',
+    'p99': '$p99'
+})
+print(json.dumps(d))
+")
+        fi
+      done
+    done
+  done
+
+  # 清理临时 Lua 脚本
+  rm -f /tmp/wrk_upload_*.lua
 
   local env_json; env_json=$(env_info)
   export BENCH_ENV_JSON="$env_json"
@@ -305,17 +455,19 @@ print(json.dumps(d, indent=2))
     echo "  核心: $(nproc 2>/dev/null || echo 'unknown')"
     echo "=========================================="
     echo ""
-    printf "%-25s %10s %10s %12s %12s %12s %12s\n" "端点" "并发" "RPS" "平均延迟" "p50" "p90" "p99"
-    echo "$(printf '=%.0s' {1..95})"
+    printf "%-30s %-5s %6s %8s %10s %10s %10s %10s %10s\n" "端点" "方法" "载荷" "并发" "RPS" "平均延迟" "p50" "p90" "p99"
+    echo "$(printf '=%.0s' {1..110})"
     echo "$load_results" | python3 -c "
 import json,sys
 results = json.load(sys.stdin)
-for r in sorted(results, key=lambda x: (x.get('url',''), x.get('concurrency',0))):
-    url = r.get('url','').split('/api/')[-1] if '/api/' in r.get('url','') else r.get('url','')
+for r in sorted(results, key=lambda x: (x.get('method',''), x.get('url',''), x.get('payload',''), x.get('concurrency',0))):
+    url = r.get('url','')
+    method = r.get('method','GET')
+    payload = r.get('payload','-')
     lat = str(r.get('avg_latency','N/A'))
     if lat.replace('.','').lstrip('-').isdigit():
         lat += 'ms'
-    print(f\"{url:25s} {r.get('concurrency',0):10d} {r.get('rps',0):10.1f} {lat:>10s} {str(r.get('p50','N/A')):>10s} {str(r.get('p90','N/A')):>10s} {str(r.get('p99','N/A')):>10s}\")
+    print(f\"{url:30s} {method:5s} {payload:>6s} {r.get('concurrency',0):8d} {r.get('rps',0):10.1f} {lat:>10s} {str(r.get('p50','N/A')):>10s} {str(r.get('p90','N/A')):>10s} {str(r.get('p99','N/A')):>10s}\")
 "
   } > "$report_file"
   green "报告已保存: $report_file"
@@ -347,8 +499,12 @@ if isinstance(results, dict):
             print(f'  {key}: {val}')
 elif isinstance(results, list):
     for r in results:
-        print(f'{r.get(\"url\", \"?\")} 并发={r.get(\"concurrency\", \"?\")}  RPS={r.get(\"rps\", \"?\")}  '
-              f'p50={r.get(\"p50\", \"?\")}  p90={r.get(\"p90\", \"?\")}  p99={r.get(\"p99\", \"?\")}')
+        method = r.get('method', '?')
+        payload = r.get('payload', '')
+        pstr = f' {payload}' if payload not in ('', '-') else ''
+        print(f'{method:5s}{pstr:>8s} {r.get(\"url\", \"?\")} 并发={r.get(\"concurrency\", \"?\")}  '
+              f'RPS={r.get(\"rps\", \"?\")}  p50={r.get(\"p50\", \"?\")}  '
+              f'p90={r.get(\"p90\", \"?\")}  p99={r.get(\"p99\", \"?\")}')
 "
 }
 

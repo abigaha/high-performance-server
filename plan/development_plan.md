@@ -2,7 +2,7 @@
 
 > 基于 `goal.md` 的 Step 进度体系，分阶段实现音乐软件 HTTP 服务器。
 > 各步骤详情见独立文件 `plan/step-*.md`。
-> **开发阶段完成 → 修复基准测试 Bug（进行中）→ 文件上传功能改进（待开始）**
+> **开发阶段完成 → 基准测试 Bug 修复 → 文件上传功能改进 → 并发上传 Bug 修复**
 
 ---
 
@@ -25,7 +25,8 @@
 | Step 12 | 端到端验证 | ✅ 已完成 | [end-to-end-verification.md](end-to-end-verification.md) |
 | — | 基准测试 Bug 修复 | ✅ 已完成 | [bugfix-memory-pool-thread-pool.md](bugfix-memory-pool-thread-pool.md) |
 | Step 13 | Docker 化部署 | ✅ 已完成 | 参见 goal.md |
-| Step 14 | 文件上传功能改进 | 📋 待开始 | [step-14-file-upload-improvement.md](step-14-file-upload-improvement.md) |
+| Step 14 | 文件上传功能改进 | ✅ 已完成 | [step-14-file-upload-improvement.md](step-14-file-upload-improvement.md) |
+| — | 并发上传 Bug 修复 | ✅ 已完成 | [bugfix-concurrent-uploads.md](bugfix-concurrent-uploads.md) |
 
 ---
 

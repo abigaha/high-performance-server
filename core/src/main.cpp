@@ -1,3 +1,5 @@
+#include "auth_middleware.h"
+#include "auth_service.h"
 #include "database_pool.h"
 #include "file_system.h"
 #include "http_server.h"
@@ -8,6 +10,9 @@
 #include "ssl_context.h"
 #include "ws_connection.h"
 
+#include <openssl/evp.h>
+
+#include <algorithm>
 #include <chrono>
 #include <cstdlib>
 #include <fstream>
@@ -35,6 +40,9 @@ struct ServerConfig {
   DbConfig db;
   SslConfig ssl;
   std::string fs_root_dir = "./data";
+  std::string auth_secret = "hps-server-secret-2024";
+  int normal_max_size = 10 * 1024 * 1024;
+  int vip_max_size = 100 * 1024 * 1024;
 };
 
 void parse_server_section(const nlohmann::json& json, ServerConfig& cfg) {
@@ -53,6 +61,15 @@ void parse_server_section(const nlohmann::json& json, ServerConfig& cfg) {
   }
   if (s.contains("epoll_timeout_ms")) {
     cfg.epoll_timeout_ms = s["epoll_timeout_ms"].get<int>();
+  }
+  if (s.contains("auth_secret")) {
+    cfg.auth_secret = s["auth_secret"].get<std::string>();
+  }
+  if (s.contains("normal_max_size")) {
+    cfg.normal_max_size = s["normal_max_size"].get<int>();
+  }
+  if (s.contains("vip_max_size")) {
+    cfg.vip_max_size = s["vip_max_size"].get<int>();
   }
 }
 
@@ -200,113 +217,295 @@ ServerConfig load_config(int argc, char** argv) {
   return cfg;
 }
 
-// NOLINTNEXTLINE(readability-function-cognitive-complexity): 路由注册函数，每个 handler lambda 的复杂度独立，整体偏高是注册模式固有特性
-void register_routes(HttpServer& server, DatabasePool& db, FileSystem& fs) {
-  static std::unordered_map<std::string, FileMeta> s_file_meta;
-  static std::mutex s_file_meta_mutex;
+HttpResponse auth_error(int code, const std::string& msg) {
+  HttpResponse resp;
+  resp.set_status(code, code == 401 ? "Unauthorized" : "Forbidden");
+  resp.set_content_type("application/json");
+  resp.body = R"({"error":")" + msg + R"("})";
+  resp.set_content_length(resp.body.size());
+  return resp;
+}
 
-  auto handle_upload = [&fs, &db](const HttpRequest& req, HttpResponse& resp) {
-    if (req.body.empty()) {
-      resp.set_status(400, "Bad Request");
-      resp.set_content_type("application/json");
-      resp.body = R"({"error":"empty body"})";
-      resp.set_content_length(resp.body.size());
-      return;
-    }
-    auto hash = FileSystem::sha256_hex(req.body.data(), req.body.size());
-    {
-      std::lock_guard lock(s_file_meta_mutex);
-      auto it = s_file_meta.find(hash);
-      if (it != s_file_meta.end()) {
-        resp.set_status(200, "OK");
-        resp.set_content_type("application/json");
-        resp.body = R"({"hash":")" + hash + R"(","size":)" + std::to_string(req.body.size()) + R"(,"exists":true})";
-        resp.set_content_length(resp.body.size());
+bool check_auth(const HttpRequest& req, HttpResponse& resp, UserRole min_role) {
+  if (req.auth_user.role == UserRole::GUEST) {
+    resp = auth_error(401, "需要登录");
+    return false;
+  }
+  if (req.auth_user.role < min_role) {
+    resp = auth_error(403, "权限不足");
+    return false;
+  }
+  return true;
+}
+
+bool check_size_limit(const HttpRequest& req, const ServerConfig& cfg, std::size_t file_size, HttpResponse& resp) {
+  int limit = 0;
+  if (req.auth_user.role == UserRole::NORMAL) {
+    limit = cfg.normal_max_size;
+  } else if (req.auth_user.role == UserRole::VIP) {
+    limit = cfg.vip_max_size;
+  }
+  if (limit > 0 && file_size > static_cast<std::size_t>(limit)) {
+    resp.set_status(413, "Payload Too Large");
+    resp.set_content_type("application/json");
+    resp.body = R"({"error":"文件大小超过限制 ")" + std::to_string(limit / (1024 * 1024)) + R"(MB"})";
+    resp.set_content_length(resp.body.size());
+    return false;
+  }
+  return true;
+}
+
+// NOLINTNEXTLINE(readability-function-cognitive-complexity)
+void register_routes(HttpServer& server,
+                     DatabasePool& db,
+                     FileSystem& fs,
+                     IAuthService& auth,
+                     const ServerConfig& cfg) {
+  server.post("/api/auth/login", [&auth](const HttpRequest& req, HttpResponse& resp) {
+    try {
+      auto json = nlohmann::json::parse(req.body);
+      auto username = json["username"].get<std::string>();
+      auto password = json["password"].get<std::string>();
+      auto user = auth.authenticate(username, password);
+      if (!user) {
+        resp = auth_error(401, "用户名或密码错误");
         return;
       }
-    }
-    auto existing = db.get_file_meta(hash);
-    if (existing) {
-      {
-        std::lock_guard lock(s_file_meta_mutex);
-        s_file_meta[hash] = *existing;
-      }
+      auto token = auth.generate_token(*user);
       resp.set_status(200, "OK");
       resp.set_content_type("application/json");
-      resp.body = R"({"hash":")" + hash + R"(,"size":)" + std::to_string(req.body.size()) + R"(,"exists":true})";
+      resp.body = R"({"token":")" + token + R"(","user_id":)" + std::to_string(user->user_id) + R"(,"role":)" +
+                  std::to_string(static_cast<int>(user->role)) + R"(})";
       resp.set_content_length(resp.body.size());
-      return;
+    } catch (...) {
+      resp = auth_error(400, "请求格式错误");
     }
-    std::string path = "uploads/" + hash;
-    std::vector<char> file_data(req.body.begin(), req.body.end());
-    if (!fs.store_file(path, file_data)) {
-      resp.set_status(500, "Internal Server Error");
-      resp.set_content_type("application/json");
-      resp.body = R"({"error":"store failed"})";
-      resp.set_content_length(resp.body.size());
-      return;
-    }
-    FileMeta meta;
-    meta.file_hash = hash;
-    meta.file_path = path;
-    meta.file_size = req.body.size();
-    meta.content_type = "application/octet-stream";
-    db.store_file_meta(meta);
-    {
-      std::lock_guard lock(s_file_meta_mutex);
-      s_file_meta[hash] = meta;
-    }
-    resp.set_status(201, "Created");
-    resp.set_content_type("application/json");
-    resp.body = R"({"hash":")" + hash + R"(","size":)" + std::to_string(req.body.size()) + R"(})";
-    resp.set_content_length(resp.body.size());
-  };
+  });
 
-  auto handle_download = [&fs, &db](const HttpRequest& req, HttpResponse& resp) {
-    auto it = req.path_params.find("hash");
-    if (it == req.path_params.end()) {
-      resp.set_status(400, "Bad Request");
-      resp.set_content_type("application/json");
-      resp.body = R"({"error":"missing hash"})";
-      resp.set_content_length(resp.body.size());
+  server.get("/api/health", [](const HttpRequest&, HttpResponse& resp) {
+    auto uptime =
+      std::chrono::duration_cast<std::chrono::seconds>(std::chrono::steady_clock::now() - g_start_time).count();
+    resp.set_status(200, "OK");
+    resp.set_content_type("application/json");
+    resp.body = R"({"status":"ok","uptime":)" + std::to_string(uptime) + R"(})";
+    resp.set_content_length(resp.body.size());
+  });
+
+  server.get("/api/files", [&db](const HttpRequest& req, HttpResponse& resp) {
+    if (!check_auth(req, resp, UserRole::NORMAL)) {
       return;
     }
-    const auto& hash = it->second;
-    auto meta = db.get_file_meta(hash);
-    if (!meta) {
-      std::lock_guard lock(s_file_meta_mutex);
-      auto local_it = s_file_meta.find(hash);
-      if (local_it != s_file_meta.end()) {
-        meta = local_it->second;
-      }
+    std::string name_pattern;
+    int offset = 0;
+    int limit = 20;
+    auto q = req.query_string;
+    auto npos = q.find("name=");
+    if (npos != std::string::npos) {
+      auto end = q.find('&', npos);
+      name_pattern = q.substr(npos + 5, end == std::string::npos ? end : end - npos - 5);
     }
-    if (!meta) {
+    auto opos = q.find("offset=");
+    if (opos != std::string::npos) {
+      auto end = q.find('&', opos);
+      offset = std::stoi(q.substr(opos + 7, end == std::string::npos ? end : end - opos - 7));
+    }
+    auto lpos = q.find("limit=");
+    if (lpos != std::string::npos) {
+      auto end = q.find('&', lpos);
+      limit = std::stoi(q.substr(lpos + 6, end == std::string::npos ? end : end - lpos - 6));
+    }
+    auto records = db.search_files(name_pattern, offset, limit);
+    resp.set_status(200, "OK");
+    resp.set_content_type("application/json");
+    std::string body = R"({"files":[)";
+    for (size_t i = 0; i < records.size(); ++i) {
+      if (i > 0) {
+        body += ",";
+      }
+      body += R"({"file_id":)" + std::to_string(records[i].file_id) + R"(,"file_name":")" + records[i].file_name +
+              R"(","file_hash":")" + records[i].file_hash + R"(","file_size":)" + std::to_string(records[i].file_size) +
+              R"(})";
+    }
+    body += R"(],"offset":)" + std::to_string(offset) + R"(,"limit":)" + std::to_string(limit) + R"(})";
+    resp.body = body;
+    resp.set_content_length(resp.body.size());
+  });
+
+  server.get("/api/files/:id", [&db](const HttpRequest& req, HttpResponse& resp) {
+    if (!check_auth(req, resp, UserRole::NORMAL)) {
+      return;
+    }
+    auto it = req.path_params.find("id");
+    if (it == req.path_params.end()) {
+      resp = auth_error(400, "missing id");
+      return;
+    }
+    auto record = db.get_file_record(std::stoll(it->second));
+    if (!record) {
       resp.set_status(404, "Not Found");
       resp.set_content_type("application/json");
       resp.body = R"({"error":"file not found"})";
       resp.set_content_length(resp.body.size());
       return;
     }
-    auto data = fs.read_file(meta->file_path);
-    if (!data) {
-      resp.set_status(500, "Internal Server Error");
+    resp.set_status(200, "OK");
+    resp.set_content_type("application/json");
+    resp.body = R"({"file_id":)" + std::to_string(record->file_id) + R"(,"file_name":")" + record->file_name +
+                R"(","file_hash":")" + record->file_hash + R"(","file_size":)" + std::to_string(record->file_size) +
+                R"(,"content_type":")" + record->content_type + R"("})";
+    resp.set_content_length(resp.body.size());
+  });
+
+  server.get("/api/files/:id/download", [&db, &fs](const HttpRequest& req, HttpResponse& resp) {
+    if (!check_auth(req, resp, UserRole::NORMAL)) {
+      return;
+    }
+    auto it = req.path_params.find("id");
+    if (it == req.path_params.end()) {
+      resp = auth_error(400, "missing id");
+      return;
+    }
+    auto record = db.get_file_record(std::stoll(it->second));
+    if (!record) {
+      resp.set_status(404, "Not Found");
       resp.set_content_type("application/json");
-      resp.body = R"({"error":"file read failed"})";
+      resp.body = R"({"error":"file not found"})";
       resp.set_content_length(resp.body.size());
       return;
     }
+    auto chunks = db.get_file_chunks(record->file_hash);
+    if (chunks.empty()) {
+      resp.set_status(500, "Internal Server Error");
+      resp.set_content_type("application/json");
+      resp.body = R"({"error":"no chunks"})";
+      resp.set_content_length(resp.body.size());
+      return;
+    }
+    std::string body_data;
+    body_data.reserve(record->file_size);
+    for (const auto& c : chunks) {
+      auto data = fs.read_file("chunks/" + c.chunk_hash);
+      if (!data) {
+        resp.set_status(500, "Internal Server Error");
+        resp.set_content_type("application/json");
+        resp.body = R"({"error":"chunk read failed"})";
+        resp.set_content_length(resp.body.size());
+        return;
+      }
+      body_data.append(data->data(), data->size());
+    }
     resp.set_status(200, "OK");
-    resp.set_content_type("application/octet-stream");
-    resp.body.assign(data->data(), data->size());
+    resp.set_content_type(record->content_type.empty() ? "application/octet-stream" : record->content_type);
+    resp.body = std::move(body_data);
     resp.set_content_length(resp.body.size());
+    resp.set_header("Content-Disposition", "attachment; filename=\"" + record->file_name + "\"");
+  });
+
+  auto upload_setup = [&fs](const HttpRequest&, UploadStreamContext& ctx, HttpParser&) -> void {
+    (void)fs;
+    ctx.store_chunk_data = [&fs](std::string_view data, const std::string& chunk_hash) -> bool {
+      std::vector<char> buf(data.begin(), data.end());
+      return fs.store_file("chunks/" + chunk_hash, buf);
+    };
   };
 
-  server.get("/api/health", [](const HttpRequest& /*req*/, HttpResponse& resp) {
-    auto uptime =
-      std::chrono::duration_cast<std::chrono::seconds>(std::chrono::steady_clock::now() - g_start_time).count();
+  server.upload(
+    "/api/files/upload",
+    [&db, &cfg](const HttpRequest& req, UploadStreamContext& ctx, HttpResponse& resp) {
+      if (!check_auth(req, resp, UserRole::NORMAL)) {
+        EVP_MD_CTX_free(static_cast<EVP_MD_CTX*>(ctx.hash_ctx));
+        return;
+      }
+      if (!check_size_limit(req, cfg, ctx.total_size, resp)) {
+        EVP_MD_CTX_free(static_cast<EVP_MD_CTX*>(ctx.hash_ctx));
+        return;
+      }
+
+      auto* md_ctx = static_cast<EVP_MD_CTX*>(ctx.hash_ctx);
+      std::array<unsigned char, EVP_MAX_MD_SIZE> final_hash{};
+      unsigned int hash_len = 0;
+      EVP_DigestFinal_ex(md_ctx, final_hash.data(), &hash_len);
+      EVP_MD_CTX_free(md_ctx);
+      ctx.hash_ctx = nullptr;
+
+      auto overall_hash = FileSystem::sha256_hex(reinterpret_cast<const char*>(final_hash.data()), hash_len);
+      ctx.file_hash = overall_hash;
+
+      for (auto& c : ctx.chunks) {
+        c.file_hash = overall_hash;
+      }
+
+      auto existing = db.get_file_record_by_hash(overall_hash);
+      if (existing) {
+        resp.set_status(200, "OK");
+        resp.set_content_type("application/json");
+        resp.body = R"({"file_id":)" + std::to_string(existing->file_id) + R"(,"file_name":")" + existing->file_name +
+                    R"(","file_hash":")" + overall_hash + R"(","size":)" + std::to_string(ctx.total_size) +
+                    R"(,"exists":true})";
+        resp.set_content_length(resp.body.size());
+        return;
+      }
+
+      FileRecord record;
+      record.file_name = ctx.file_name;
+      record.file_hash = overall_hash;
+      record.file_size = ctx.total_size;
+      record.content_type = req.headers.contains("Content-Type") ? req.headers.at("Content-Type")
+                                                                 : "application/octet-stream";
+      record.chunk_size = 2097152;
+      db.store_file_record(record);
+      db.store_file_chunks(ctx.chunks);
+
+      resp.set_status(201, "Created");
+      resp.set_content_type("application/json");
+      resp.body = R"({"file_id":)" + std::to_string(record.file_id) + R"(,"file_name":")" + record.file_name +
+                  R"(","file_hash":")" + overall_hash + R"(","size":)" + std::to_string(ctx.total_size) +
+                  R"(,"chunks":)" + std::to_string(ctx.chunks.size()) + R"(})";
+      resp.set_content_length(resp.body.size());
+    },
+    upload_setup);
+
+  server.get("/api/files/:hash/download", [&db, &fs](const HttpRequest& req, HttpResponse& resp) {
+    if (!check_auth(req, resp, UserRole::NORMAL)) {
+      return;
+    }
+    auto it = req.path_params.find("hash");
+    if (it == req.path_params.end()) {
+      resp = auth_error(400, "missing hash");
+      return;
+    }
+    auto record = db.get_file_record_by_hash(it->second);
+    if (!record) {
+      resp.set_status(404, "Not Found");
+      resp.set_content_type("application/json");
+      resp.body = R"({"error":"file not found"})";
+      resp.set_content_length(resp.body.size());
+      return;
+    }
+    auto chunks = db.get_file_chunks(record->file_hash);
+    if (chunks.empty()) {
+      resp.set_status(500, "Internal Server Error");
+      resp.set_content_type("application/json");
+      resp.body = R"({"error":"no chunks"})";
+      resp.set_content_length(resp.body.size());
+      return;
+    }
+    std::string body_data;
+    body_data.reserve(record->file_size);
+    for (const auto& c : chunks) {
+      auto data = fs.read_file("chunks/" + c.chunk_hash);
+      if (!data) {
+        resp.set_status(500, "Internal Server Error");
+        resp.set_content_type("application/json");
+        resp.body = R"({"error":"chunk read failed"})";
+        resp.set_content_length(resp.body.size());
+        return;
+      }
+      body_data.append(data->data(), data->size());
+    }
     resp.set_status(200, "OK");
-    resp.set_content_type("application/json");
-    resp.body = R"({"status":"ok","uptime":)" + std::to_string(uptime) + R"(})";
+    resp.set_content_type("application/octet-stream");
+    resp.body = std::move(body_data);
     resp.set_content_length(resp.body.size());
   });
 
@@ -332,82 +531,6 @@ void register_routes(HttpServer& server, DatabasePool& db, FileSystem& fs) {
     resp.body = R"({"user_id":)" + std::to_string(user->user_id) + R"(,"username":")" + user->username + R"("})";
     resp.set_content_length(resp.body.size());
   });
-
-  server.post("/api/users", [&db](const HttpRequest& /*req*/, HttpResponse& resp) {
-    User u;
-    u.username = "mock_user";
-    u.password_hash = "mock_hash";
-    u.email = "mock@example.com";
-    if (db.create_user(u)) {
-      resp.set_status(201, "Created");
-      resp.body = R"({"status":"created"})";
-    } else {
-      resp.set_status(500, "Internal Server Error");
-      resp.body = R"({"error":"create failed"})";
-    }
-    resp.set_content_type("application/json");
-    resp.set_content_length(resp.body.size());
-  });
-
-  server.get("/api/users/:id/history", [&db](const HttpRequest& req, HttpResponse& resp) {
-    auto it = req.path_params.find("id");
-    if (it == req.path_params.end()) {
-      resp.set_status(400, "Bad Request");
-      resp.body = R"({"error":"missing id"})";
-      resp.set_content_length(resp.body.size());
-      resp.set_content_type("application/json");
-      return;
-    }
-    auto logs = db.get_download_history(std::stoll(it->second));
-    resp.set_status(200, "OK");
-    resp.set_content_type("application/json");
-    std::string body = R"({"downloads":[)";
-    for (size_t i = 0; i < logs.size(); ++i) {
-      if (i > 0) {
-        body += ",";
-      }
-      body += R"({"log_id":)" + std::to_string(logs[i].log_id) + R"(,"file_hash":")" + logs[i].file_hash + R"("})";
-    }
-    body += "]}";
-    resp.body = body;
-    resp.set_content_length(resp.body.size());
-  });
-
-  server.get("/api/files/:hash", [&db](const HttpRequest& req, HttpResponse& resp) {
-    auto it = req.path_params.find("hash");
-    if (it == req.path_params.end()) {
-      resp.set_status(400, "Bad Request");
-      resp.body = R"({"error":"missing hash"})";
-      resp.set_content_length(resp.body.size());
-      resp.set_content_type("application/json");
-      return;
-    }
-    const auto& hash = it->second;
-    auto meta = db.get_file_meta(hash);
-    if (!meta) {
-      std::lock_guard lock(s_file_meta_mutex);
-      auto local_it = s_file_meta.find(hash);
-      if (local_it != s_file_meta.end()) {
-        meta = local_it->second;
-      }
-    }
-    if (!meta) {
-      resp.set_status(404, "Not Found");
-      resp.body = R"({"error":"file not found"})";
-      resp.set_content_length(resp.body.size());
-      resp.set_content_type("application/json");
-      return;
-    }
-    resp.set_status(200, "OK");
-    resp.set_content_type("application/json");
-    resp.body = R"({"file_hash":")" + meta->file_hash + R"(,"file_path":")" + meta->file_path + R"(,"file_size":)" +
-                std::to_string(meta->file_size) + R"(})";
-    resp.set_content_length(resp.body.size());
-  });
-
-  server.post("/api/files/upload", handle_upload);
-
-  server.get("/api/files/:hash/download", handle_download);
 
   server.ws("/ws", [](const HttpRequest& req, std::shared_ptr<WsConnection> ws_conn) {
     Logger::_info("WebSocket 连接已建立: " + req.path);
@@ -449,8 +572,15 @@ int main(int argc, char* argv[]) {
   }
   hps::Logger::_info("数据库连接池已初始化");
 
+  auto auth = hps::create_auth_service(*db, cfg.auth_secret);
+  hps::Logger::_info("认证服务已初始化");
+
   auto fs = std::make_unique<hps::FileSystem>(cfg.fs_root_dir);
   hps::Logger::_info("文件系统已初始化，根目录: " + cfg.fs_root_dir);
+
+  if (!fs->store_file("chunks/.keep", {})) {
+    hps::Logger::_warn("无法创建 chunks 目录");
+  }
 
   hps::TcpServer::Config tcp_cfg;
   tcp_cfg.port = cfg.port;
@@ -460,7 +590,7 @@ int main(int argc, char* argv[]) {
   tcp_cfg.ssl_config = cfg.ssl;
 
   hps::HttpServer server(tcp_cfg);
-  hps::register_routes(server, *db, *fs);
+  hps::register_routes(server, *db, *fs, *auth, cfg);
 
   if (!server.init()) {
     hps::Logger::_error("HTTP 服务器初始化失败");
@@ -472,8 +602,6 @@ int main(int argc, char* argv[]) {
 
   hps::Logger::_info("HTTP 服务器启动，监听端口: " + std::to_string(server.actual_port()));
 
-  // 信号处理由 TcpServer::init() 中的 sigaction 完成，
-  // SIGINT/SIGTERM → TcpServer::signal_handler → stop() → event_loop 退出
   server.start();
 
   hps::Logger::_info("正在关闭数据库连接池...");

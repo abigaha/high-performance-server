@@ -57,6 +57,7 @@ void HttpRequest::clear() noexcept {
   headers.clear();
   body.clear();
   path_params.clear();
+  auth_user = AuthUser{};
 }
 
 } // namespace hps

@@ -25,6 +25,9 @@ public:
   std::function<void()> connect_hook;
   std::function<void()> close_hook;
 
+  int execute_with_last_id_count = 0;
+  int64_t last_insert_id = 0;
+
   int connect_count = 0;
   int ping_count = 0;
   int close_count = 0;

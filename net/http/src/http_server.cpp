@@ -1,9 +1,12 @@
 #include "http_server.h"
 
+#include "file_system.h"
 #include "logger.h"
 #include "thread_pool.h"
 #include "websocket.h"
 #include "ws_connection.h"
+
+#include <openssl/evp.h>
 
 #include <memory>
 #include <string>
@@ -52,6 +55,13 @@ void HttpServer::ws(std::string_view path, WsHandler handler) {
   ws_handlers_[std::string(path)] = std::move(handler);
 }
 
+void HttpServer::upload(std::string_view path, UploadHandler handler, UploadStreamSetup setup) {
+  upload_handlers_[std::string(path)] = std::move(handler);
+  if (setup) {
+    upload_setups_[std::string(path)] = std::move(setup);
+  }
+}
+
 std::shared_ptr<std::mutex> HttpServer::get_conn_mutex(Connection* c) {
   std::lock_guard<std::mutex> lock(conn_map_mutex_);
   auto& m = conn_mutexes_[c];
@@ -89,7 +99,66 @@ bool HttpServer::try_handle_ws_upgrade(Connection& conn, const HttpRequest& req,
   return true;
 }
 
-// NOLINTNEXTLINE(readability-function-cognitive-complexity): 连接处理器，多种协议路径 + 分片状态管理，多分支嵌套是固有复杂度
+void HttpServer::on_headers_done(HttpParser& parser, const HttpRequest& req, std::shared_ptr<UploadStreamContext> ctx) {
+  if (upload_handlers_.find(req.path) == upload_handlers_.end()) {
+    return;
+  }
+
+  auto cd_it = req.headers.find("Content-Disposition");
+  if (cd_it != req.headers.end()) {
+    auto fpos = cd_it->second.find("filename=\"");
+    if (fpos != std::string::npos) {
+      auto start = fpos + 10;
+      auto end = cd_it->second.find('"', start);
+      if (end != std::string::npos) {
+        ctx->file_name = cd_it->second.substr(start, end - start);
+      }
+    }
+  }
+  if (ctx->file_name.empty()) {
+    ctx->file_name = "unnamed";
+  }
+
+  auto cl_it = req.headers.find("Content-Length");
+  if (cl_it != req.headers.end()) {
+    ctx->total_size = std::stoull(cl_it->second);
+  }
+
+  auto* md_ctx = EVP_MD_CTX_new();
+  EVP_DigestInit_ex(md_ctx, EVP_sha256(), nullptr);
+  ctx->hash_ctx = md_ctx;
+
+  parser.set_streaming_mode(true);
+  parser.set_chunk_handler([ctx](std::string_view chunk) -> bool {
+    auto* hctx = static_cast<EVP_MD_CTX*>(ctx->hash_ctx);
+    EVP_DigestUpdate(hctx, chunk.data(), chunk.size());
+
+    auto chunk_hash = FileSystem::sha256_hex(chunk.data(), chunk.size());
+
+    if (ctx->store_chunk_data) {
+      if (!ctx->store_chunk_data(chunk, chunk_hash)) {
+        ctx->failed = true;
+        return false;
+      }
+    }
+
+    FileChunkRecord rec;
+    rec.chunk_index = static_cast<int>(ctx->chunks.size());
+    rec.chunk_hash = std::move(chunk_hash);
+    rec.chunk_offset = ctx->current_offset;
+    rec.chunk_size = static_cast<int>(chunk.size());
+    ctx->current_offset += chunk.size();
+    ctx->chunks.push_back(std::move(rec));
+    return true;
+  });
+
+  auto setup_it = upload_setups_.find(req.path);
+  if (setup_it != upload_setups_.end()) {
+    setup_it->second(req, *ctx, parser);
+  }
+}
+
+// NOLINTNEXTLINE(readability-function-cognitive-complexity)
 void HttpServer::handle_connection(Connection& conn) {
   HttpParser* parser_ptr = nullptr;
   {
@@ -105,10 +174,20 @@ void HttpServer::handle_connection(Connection& conn) {
     parser_ptr = &it->second;
   }
   auto& parser = *parser_ptr;
-  const auto& buf = conn.read_buffer();
   std::size_t total_consumed = 0;
 
+  std::string buf;
+  {
+    std::lock_guard<std::mutex> rlock(conn.read_mutex());
+    buf = conn.read_buffer();
+  }
+
   while (total_consumed < buf.size()) {
+    auto upload_ctx = std::make_shared<UploadStreamContext>();
+
+    parser.set_headers_done_callback(
+      [this, &parser, upload_ctx](const HttpRequest& req) { on_headers_done(parser, req, upload_ctx); });
+
     auto remaining = std::string_view(buf.data() + total_consumed, buf.size() - total_consumed);
     auto result = parser.feed(remaining);
     total_consumed += result.consumed;
@@ -118,7 +197,11 @@ void HttpServer::handle_connection(Connection& conn) {
     }
 
     if (result.err == ParserError::BAD_REQUEST) {
-      send_error(conn, 400, "Bad Request", "请求格式错误");
+      if (upload_ctx->failed) {
+        send_error(conn, 400, "Bad Request", "上传失败");
+      } else {
+        send_error(conn, 400, "Bad Request", "请求格式错误");
+      }
       conn.consume_read_buffer(total_consumed);
       {
         std::lock_guard lock(parsers_mutex_);
@@ -171,6 +254,33 @@ void HttpServer::handle_connection(Connection& conn) {
     req_with_params.path_params = std::move(params);
 
     HttpResponse resp;
+
+    if (!upload_ctx->chunks.empty() || !upload_ctx->file_name.empty()) {
+      auto uit = upload_handlers_.find(req_with_params.path);
+      if (uit != upload_handlers_.end()) {
+        try {
+          uit->second(req_with_params, *upload_ctx, resp);
+        } catch (const std::exception& e) {
+          Logger::_error("upload handler 异常: " + std::string(e.what()));
+          send_error(conn, 500, "Internal Server Error", e.what());
+          parser.reset();
+          continue;
+        } catch (...) {
+          Logger::_error("upload handler 未知异常");
+          send_error(conn, 500, "Internal Server Error", "unknown error");
+          parser.reset();
+          continue;
+        }
+        {
+          auto serialized = resp.serialize();
+          std::lock_guard<std::mutex> wlock(conn.write_mutex());
+          conn.write_buffer().append(serialized);
+        }
+        parser.reset();
+        continue;
+      }
+    }
+
     try {
       handler(req_with_params, resp);
     } catch (const std::exception& e) {

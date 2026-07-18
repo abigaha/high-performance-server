@@ -40,6 +40,7 @@ int main() {
   }
 
   // Store + Read small file (per-thread path, 避免竞态)
+  // 磁盘 I/O 瓶颈明显，限制并发 ≤256 且缩短时长
   {
     std::vector<char> data(1024, 'x');
     hps::FileSystem fs("/tmp");

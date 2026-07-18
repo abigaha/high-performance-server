@@ -71,6 +71,9 @@ public:
   /** 关闭连接 */
   void close();
 
+  /** 读取缓冲区锁（N11-H：事件循环与 handler 跨线程保护 read_buffer_） */
+  std::mutex& read_mutex() { return read_mutex_; }
+
   /** 写入缓冲区访问锁（N1-H：保护 write_buffer_ 跨线程并发写） */
   std::mutex& write_mutex() { return write_mutex_; }
 
@@ -88,6 +91,12 @@ public:
 
   /** 消费 read_buffer_ 前 bytes 字节 */
   void consume_read_buffer(size_t bytes);
+
+  /**
+   * 消费 read_buffer 前 bytes 字节（调用方须持有 read_mutex_）
+   * N11-H：由 handle_connection 等已持锁的上下文使用，避免递归锁
+   */
+  void consume_read_buffer_locked(size_t bytes);
 
   /** 当前连接状态 */
   State state() const { return state_; }
@@ -128,6 +137,7 @@ private:
   struct sockaddr_in addr_ {}; ///< 客户端地址信息
 
   std::string read_buffer_;        ///< 读取缓冲区
+  mutable std::mutex read_mutex_;  ///< 读缓冲区锁（N11-H：事件循环与 handler 跨线程安全）
   std::string write_buffer_;       ///< 写入缓冲区
   std::size_t write_offset_{0};    ///< 已发送偏移（N5-M：避免 erase O(n) 移动）
   mutable std::mutex write_mutex_; ///< 写缓冲区锁（N1-H：跨线程并发写保护）

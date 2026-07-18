@@ -116,11 +116,15 @@ void WsConnection::start_event_loop() {
       break;
     }
 
-    const auto& buf = conn_->read_buffer();
+    std::string local_buf;
+    {
+      std::lock_guard<std::mutex> rlock(conn_->read_mutex());
+      local_buf = conn_->read_buffer();
+      conn_->consume_read_buffer_locked(local_buf.size());
+    }
     std::string feed;
     feed.swap(leftover);
-    feed.append(buf.data(), buf.size());
-    conn_->consume_read_buffer(buf.size());
+    feed.append(local_buf.data(), local_buf.size());
 
     while (!feed.empty()) {
       auto frame_opt = ws_decode_frame(feed);

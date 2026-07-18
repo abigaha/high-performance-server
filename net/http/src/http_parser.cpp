@@ -18,6 +18,9 @@ void HttpParser::reset() {
   chunk_bytes_read_ = 0;
   chunk_need_crlf_ = false;
   total_body_bytes_ = 0;
+  streaming_mode_ = false;
+  chunk_handler_ = nullptr;
+  chunk_buf_.clear();
 }
 
 void HttpParser::reset_line_buf() {
@@ -105,6 +108,10 @@ ParserResult HttpParser::feed_request_line(char c) {
 // ==================== 请求头解析 ====================
 
 void HttpParser::handle_end_of_headers() {
+  if (headers_done_cb_) {
+    headers_done_cb_(request_);
+    headers_done_cb_ = nullptr;
+  }
   auto it = request_.headers.find("Content-Length");
   if (it != request_.headers.end()) {
     uint64_t cl = 0;
@@ -177,9 +184,29 @@ ParserResult HttpParser::feed_headers(char c) {
 
 // ==================== Body（Content-Length）解析 ====================
 
+void HttpParser::flush_chunk_buf() {
+  if (!chunk_handler_ || chunk_buf_.empty()) {
+    return;
+  }
+  if (!chunk_handler_(chunk_buf_)) {
+    error_ = ParserError::BAD_REQUEST;
+  }
+  chunk_buf_.clear();
+}
+
 ParserResult HttpParser::feed_body_identity(char c) {
   if (body_bytes_remaining_ > 0) {
-    request_.body.push_back(c);
+    if (streaming_mode_) {
+      chunk_buf_.push_back(c);
+      if (chunk_buf_.size() >= kStreamChunkSize) {
+        flush_chunk_buf();
+        if (error_ != ParserError::OK) {
+          return {.err = error_, .consumed = 1};
+        }
+      }
+    } else {
+      request_.body.push_back(c);
+    }
     --body_bytes_remaining_;
     ++total_body_bytes_;
     if (total_body_bytes_ > kMaxBodySize) {
@@ -188,6 +215,12 @@ ParserResult HttpParser::feed_body_identity(char c) {
     }
   }
   if (body_bytes_remaining_ == 0) {
+    if (streaming_mode_) {
+      flush_chunk_buf();
+      if (error_ != ParserError::OK) {
+        return {.err = error_, .consumed = 1};
+      }
+    }
     state_ = ParserState::COMPLETE;
   }
   return {.err = ParserError::OK, .consumed = 1};

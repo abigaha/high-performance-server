@@ -1,13 +1,13 @@
 #pragma once
 
 #include "case_insensitive.h"
+#include "models.h"
 
 #include <string>
 #include <string_view>
 #include <unordered_map>
 
 namespace hps {
-
 /** HTTP 请求方法 */
 enum class HttpMethod {
   UNKNOWN = 0, ///< 未知/无效方法
@@ -37,6 +37,7 @@ struct HttpRequest {
   HeaderMap headers;                                        ///< 请求头（大小写不敏感）
   std::string body;                                         ///< 请求体
   std::unordered_map<std::string, std::string> path_params; ///< 路由参数（如 {"id":"42"}）
+  AuthUser auth_user;                                       ///< 认证用户信息
 
   /** 重置为默认状态 */
   void clear() noexcept;

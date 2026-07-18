@@ -55,38 +55,28 @@ static void BM_DatabasePool_CreateUser(benchmark::State& state) {
 
 BENCHMARK(BM_DatabasePool_CreateUser);
 
-static void BM_DatabasePool_GetFileMeta(benchmark::State& state) {
+static void BM_DatabasePool_GetFileRecord(benchmark::State& state) {
   DbBenchFixture f;
   for (auto _ : state) {
-    auto meta = f.pool.get_file_meta("abcdef1234567890abcdef1234567890");
+    auto meta = f.pool.get_file_record_by_hash("abcdef1234567890abcdef1234567890");
     benchmark::DoNotOptimize(meta);
   }
 }
 
-BENCHMARK(BM_DatabasePool_GetFileMeta);
+BENCHMARK(BM_DatabasePool_GetFileRecord);
 
-static void BM_DatabasePool_StoreFileMeta(benchmark::State& state) {
+static void BM_DatabasePool_StoreFileRecord(benchmark::State& state) {
   DbBenchFixture f;
-  hps::FileMeta meta;
-  meta.file_hash = "abcdef1234567890abcdef1234567890";
-  meta.file_path = "/data/uploads/test.bin";
-  meta.file_size = 1048576;
+  hps::FileRecord record;
+  record.file_name = "test.bin";
+  record.file_hash = "abcdef1234567890abcdef1234567890";
+  record.file_size = 1048576;
   for (auto _ : state) {
-    auto ok = f.pool.store_file_meta(meta);
+    auto ok = f.pool.store_file_record(record);
     benchmark::DoNotOptimize(ok);
   }
 }
 
-BENCHMARK(BM_DatabasePool_StoreFileMeta);
-
-static void BM_DatabasePool_GetHistory(benchmark::State& state) {
-  DbBenchFixture f;
-  for (auto _ : state) {
-    auto logs = f.pool.get_download_history(1);
-    benchmark::DoNotOptimize(logs);
-  }
-}
-
-BENCHMARK(BM_DatabasePool_GetHistory);
+BENCHMARK(BM_DatabasePool_StoreFileRecord);
 
 BENCHMARK_MAIN();
