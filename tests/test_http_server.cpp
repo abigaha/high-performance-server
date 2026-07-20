@@ -7,6 +7,7 @@
 
 #include <atomic>
 #include <chrono>
+#include <cstdint>
 #include <stdexcept>
 #include <string>
 #include <thread>
@@ -23,9 +24,16 @@ public:
     return AuthUser{};
   }
 
-  std::string generate_token(const AuthUser&) override { return "mock-token"; }
+  std::string generate_token(const AuthUser& user) override {
+    static_cast<void>(user);
+    return "mock-token";
+  }
 
-  std::optional<AuthUser> authenticate(const std::string&, const std::string&) override { return std::nullopt; }
+  std::optional<AuthUser> authenticate(const std::string& username, const std::string& password) override {
+    static_cast<void>(username);
+    static_cast<void>(password);
+    return std::nullopt;
+  }
 };
 
 int main(int argc, char** argv) {
@@ -201,7 +209,7 @@ TEST(HttpServerTest, UploadNoAuth) {
   std::atomic<bool> setup_called{false};
   server.upload(
     "/upload",
-    [](const HttpRequest& req, UploadStreamContext& ctx, HttpResponse& resp) {
+    [](const HttpRequest&, UploadStreamContext& ctx, HttpResponse& resp) {
       EXPECT_FALSE(ctx.file_name.empty());
       resp.set_status(401, "Unauthorized");
       resp.body = "auth required";
@@ -241,7 +249,7 @@ TEST(HttpServerTest, UploadWithAuth) {
   std::atomic<bool> setup_called{false};
   server.upload(
     "/upload",
-    [](const HttpRequest& req, UploadStreamContext& ctx, HttpResponse& resp) {
+    [](const HttpRequest&, UploadStreamContext& ctx, HttpResponse& resp) {
       EXPECT_FALSE(ctx.file_name.empty());
       resp.set_status(200, "OK");
       resp.body = "uploaded";
@@ -289,4 +297,74 @@ TEST(HttpServerTest, HandlerException) {
   std::this_thread::sleep_for(std::chrono::milliseconds(50));
 
   ASSERT_NE(resp.find("500 Internal Server Error"), std::string::npos) << "响应: " << resp;
+}
+
+// TH11: 普通路由接收有效 Bearer token 对应的认证用户
+TEST(HttpServerTest, AuthenticatedRouteReceivesAuthUser) {
+  MockAuthService mock_auth;
+  HttpServer server(TcpServer::Config{0, 128, 2, 50});
+  server.set_auth_service(mock_auth);
+
+  std::atomic<int64_t> received_user_id{0};
+  std::atomic<int> received_role{static_cast<int>(UserRole::GUEST)};
+  server.get("/me", [&received_user_id, &received_role](const HttpRequest& req, HttpResponse& resp) {
+    received_user_id.store(req.auth_user.user_id);
+    received_role.store(static_cast<int>(req.auth_user.role));
+    resp.set_status(200, "OK");
+    resp.body = "authenticated";
+    resp.set_content_length(resp.body.size());
+  });
+
+  ASSERT_TRUE(server.init());
+  std::thread t([&server]() { server.start(); });
+  t.detach();
+  std::this_thread::sleep_for(std::chrono::milliseconds(100));
+  uint16_t port = server.actual_port();
+
+  auto resp = send_raw(port,
+                       "GET /me HTTP/1.1\r\n"
+                       "Host: localhost\r\n"
+                       "Authorization: Bearer valid-token\r\n"
+                       "Connection: close\r\n\r\n");
+  server.stop();
+  std::this_thread::sleep_for(std::chrono::milliseconds(50));
+
+  ASSERT_NE(resp.find("200 OK"), std::string::npos) << "响应: " << resp;
+  EXPECT_EQ(received_user_id.load(), 1);
+  EXPECT_EQ(received_role.load(), static_cast<int>(UserRole::NORMAL));
+}
+
+// TH12: 普通路由将无效 Bearer token 视为访客
+TEST(HttpServerTest, InvalidTokenRouteReceivesGuestUser) {
+  MockAuthService mock_auth;
+  HttpServer server(TcpServer::Config{0, 128, 2, 50});
+  server.set_auth_service(mock_auth);
+
+  std::atomic<int64_t> received_user_id{-1};
+  std::atomic<int> received_role{static_cast<int>(UserRole::NORMAL)};
+  server.get("/me", [&received_user_id, &received_role](const HttpRequest& req, HttpResponse& resp) {
+    received_user_id.store(req.auth_user.user_id);
+    received_role.store(static_cast<int>(req.auth_user.role));
+    resp.set_status(200, "OK");
+    resp.body = "guest";
+    resp.set_content_length(resp.body.size());
+  });
+
+  ASSERT_TRUE(server.init());
+  std::thread t([&server]() { server.start(); });
+  t.detach();
+  std::this_thread::sleep_for(std::chrono::milliseconds(100));
+  uint16_t port = server.actual_port();
+
+  auto resp = send_raw(port,
+                       "GET /me HTTP/1.1\r\n"
+                       "Host: localhost\r\n"
+                       "Authorization: Bearer invalid-token\r\n"
+                       "Connection: close\r\n\r\n");
+  server.stop();
+  std::this_thread::sleep_for(std::chrono::milliseconds(50));
+
+  ASSERT_NE(resp.find("200 OK"), std::string::npos) << "响应: " << resp;
+  EXPECT_EQ(received_user_id.load(), 0);
+  EXPECT_EQ(received_role.load(), static_cast<int>(UserRole::GUEST));
 }

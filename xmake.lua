@@ -27,6 +27,7 @@ local common_includedirs = {
     "logger/include",
     "memory-pool/include",
     "file-system/include",
+    "core/include",
     "db/include",
 }
 
@@ -39,13 +40,23 @@ local common_deps = {
 
 for _, file in ipairs(os.files("tests/*.cpp")) do
     local name = path.basename(file)
+    local extra_files = {}
+    if name == "test_step16_api" or name == "test_auth_service" then
+        extra_files = {"core/src/auth_service.cpp"}
+    elseif name == "test_config" then
+        extra_files = {"core/src/config.cpp"}
+    end
     target(name)
         set_kind("binary")
         set_rundir("$(projectdir)")
-        add_packages("gtest")
+        add_packages("gtest", "nlohmann_json")
         add_files(file)
+        add_files(extra_files)
         add_includedirs(common_includedirs)
         add_deps(common_deps)
+        if name == "test_config" then
+            add_deps("logger")
+        end
         -- 为 test binary 设置 RPATH（传递性），而非 RUNPATH
         add_ldflags("-Wl,-rpath," .. path.join(os.projectdir(), "lib"), "-Wl,--disable-new-dtags", {force = true})
         add_tests("default")
@@ -56,12 +67,17 @@ end
 if os.host() == "linux" and os.isfile("/usr/lib/x86_64-linux-gnu/libbenchmark.so") then
     for _, file in ipairs(os.files("benchmark/bench_*.cpp")) do
         local name = path.basename(file)
+        local extra_files = {}
+        if name == "bench_auth_service" then
+            extra_files = {"core/src/auth_service.cpp"}
+        end
         target(name)
             set_kind("binary")
             set_targetdir(path.join(os.projectdir(), "bin"))
             set_rundir("$(projectdir)")
             set_group("benchmark")
             add_files(file)
+            add_files(extra_files)
             add_includedirs(common_includedirs)
             add_includedirs("/usr/include")
             add_deps(common_deps)
@@ -80,12 +96,17 @@ if os.host() == "linux" and os.isfile("/usr/lib/x86_64-linux-gnu/libbenchmark.so
 
     for _, file in ipairs(os.files("benchmark/qps_*.cpp")) do
         local name = path.basename(file) -- e.g. "qps_chunk_header"
+        local extra_files = {}
+        if name == "qps_auth_service" then
+            extra_files = {"core/src/auth_service.cpp"}
+        end
         target(name)
             set_kind("binary")
             set_targetdir(path.join(os.projectdir(), "bin"))
             set_rundir("$(projectdir)")
             set_group("benchmark")
             add_files(file)
+            add_files(extra_files)
             add_includedirs(common_includedirs)
             add_deps(common_deps)
             add_syslinks("pthread", "rt")

@@ -5,6 +5,7 @@
 #include <cstddef>
 #include <cstdlib>
 #include <memory>
+#include <thread>
 #include <vector>
 
 namespace {
@@ -73,5 +74,54 @@ static void BM_MemoryPool_CompareMalloc(benchmark::State& state) {
 }
 
 BENCHMARK(BM_MemoryPool_CompareMalloc)->Arg(32)->Arg(64)->Arg(128)->Arg(kMediumPool)->Arg(kLargePool);
+
+static void BM_MemoryPool_MultiThreadAlloc(benchmark::State& state) {
+  auto pool = hps::CreateMemoryPool();
+  std::size_t size = static_cast<std::size_t>(state.range(0));
+  int thread_count = static_cast<int>(state.range(1));
+  int ops_per_thread = static_cast<int>(state.range(2));
+  for (auto _ : state) {
+    std::vector<std::thread> threads;
+    threads.reserve(static_cast<std::size_t>(thread_count));
+    for (int t = 0; t < thread_count; ++t) {
+      threads.emplace_back([&pool, size, ops_per_thread] {
+        for (int i = 0; i < ops_per_thread; ++i) {
+          void* p = pool->allocate(size);
+          pool->deallocate(p, size);
+        }
+      });
+    }
+    for (auto& t : threads) t.join();
+    benchmark::ClobberMemory();
+  }
+  state.SetItemsProcessed(state.iterations() * thread_count * ops_per_thread);
+}
+
+BENCHMARK(BM_MemoryPool_MultiThreadAlloc)->Args({32, 8, 1000})->Args({kMediumPool, 8, 500})->Args({kLargePool, 8, 200});
+
+static void BM_MemoryPool_CrossThreadReturn(benchmark::State& state) {
+  auto pool = hps::CreateMemoryPool();
+  std::size_t size = static_cast<std::size_t>(state.range(0));
+  int count = state.range(1);
+  for (auto _ : state) {
+    std::vector<void*> ptrs(static_cast<std::size_t>(count));
+    std::thread allocator([&] {
+      for (int i = 0; i < count; ++i) {
+        ptrs[static_cast<std::size_t>(i)] = pool->allocate(size);
+      }
+    });
+    allocator.join();
+    std::thread deallocator([&] {
+      for (int i = 0; i < count; ++i) {
+        pool->deallocate(ptrs[static_cast<std::size_t>(i)], size);
+      }
+    });
+    deallocator.join();
+    benchmark::ClobberMemory();
+  }
+  state.SetItemsProcessed(state.iterations() * count);
+}
+
+BENCHMARK(BM_MemoryPool_CrossThreadReturn)->Args({32, 100})->Args({kMediumPool, 100});
 
 BENCHMARK_MAIN();

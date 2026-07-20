@@ -114,6 +114,10 @@ bool TcpClient::connect_to_server() {
     return false;
   }
 
+  int reuse = 1;
+  setsockopt(client_sockfd_, SOL_SOCKET, SO_REUSEADDR, &reuse, sizeof(reuse));
+  setsockopt(client_sockfd_, SOL_SOCKET, SO_REUSEPORT, &reuse, sizeof(reuse));
+
   std::string port_str = std::to_string(server_port_);
 
   struct addrinfo hints {};

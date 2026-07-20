@@ -110,6 +110,21 @@ xmake run
 
 服务器启动时读取 `config.json`，命令行参数优先级高于配置文件（JSON 先加载，CLI 后覆盖）。
 
+### 认证密钥
+
+服务端签发和校验认证令牌需要认证密钥。启动时按以下优先级读取：
+
+1. 环境变量 `AUTH_SECRET`。
+2. `config.json` 中的 `server.auth_secret`。
+
+环境变量存在时会覆盖配置文件中的值，适合由部署平台或密钥管理服务注入。两者均未设置时，服务会拒绝启动，避免使用可预测或内置的认证密钥。
+
+请使用足够长的随机值，并将其保存在部署平台的密钥管理机制中，不要提交到仓库、镜像或日志。可使用以下命令生成高熵密钥：
+
+```bash
+openssl rand -base64 48
+```
+
 ### 完整示例
 
 ```json
@@ -153,6 +168,7 @@ xmake run
 | `backlog` | size_t | 128 | listen 队列长度 |
 | `thread_count` | size_t | 4 | LockFreeThreadPool 工作线程数 |
 | `epoll_timeout_ms` | int | 100 | epoll_wait 超时（毫秒）|
+| `auth_secret` | string | 无 | 认证密钥；仅当 `AUTH_SECRET` 未设置时使用，缺失时服务拒绝启动 |
 
 #### database 节
 
@@ -283,7 +299,7 @@ bash setup.sh
 | GET | `/api/users/:id/history` | 获取用户下载历史 |
 | GET | `/api/files/:hash` | 获取文件元信息 |
 | POST | `/api/files/upload` | 上传文件（body 即文件内容） |
-| GET | `/api/files/:hash/download` | 下载文件（支持 Range） |
+| GET | `/api/files/by-hash/:hash/download` | 下载文件（支持 Range） |
 
 #### 请求 / 响应格式
 
@@ -330,7 +346,7 @@ bash setup.sh
 // ← 500 {"error":"store failed"}
 ```
 
-**GET /api/files/:hash/download**
+**GET /api/files/by-hash/:hash/download**
 ```
 // → 200 application/octet-stream（完整文件）
 // → 206 Partial Content（Range 请求）
@@ -394,7 +410,7 @@ Sec-WebSocket-Version: 13
 #### 请求
 
 ```
-GET /api/files/:hash/download HTTP/1.1
+GET /api/files/by-hash/:hash/download HTTP/1.1
 Range: bytes=0-1023
 ```
 

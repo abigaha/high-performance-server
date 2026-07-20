@@ -2,7 +2,7 @@
 
 > 基于 `goal.md` 的 Step 进度体系，分阶段实现音乐软件 HTTP 服务器。
 > 各步骤详情见独立文件 `plan/step-*.md`。
-> **开发阶段完成 → 基准测试 Bug 修复 → 文件上传功能改进 → 并发上传 Bug 修复**
+> **开发阶段完成 → 基准测试 Bug 修复 → 文件上传功能改进 → 并发上传 Bug 修复 → 前端界面 + 后端音乐库重构**
 
 ---
 
@@ -27,7 +27,12 @@
 | Step 13 | Docker 化部署 | ✅ 已完成 | 参见 goal.md |
 | Step 14 | 文件上传功能改进 | ✅ 已完成 | [step-14-file-upload-improvement.md](step-14-file-upload-improvement.md) |
 | — | 并发上传 Bug 修复 | ✅ 已完成 | [bugfix-concurrent-uploads.md](bugfix-concurrent-uploads.md) |
-| **Step 15** | **配套前端 Web 界面** | 🔜 **规划中** | [step-15-frontend.md](step-15-frontend.md) |
+| Step 15 | 前端 Web 界面 (Crystal Music) | ✅ 已完成 | [step-15-frontend.md](step-15-frontend.md) |
+| Step 16 | 后端数据库重构 + 音乐库/歌单 API | ✅ 已完成 | [step-16-backend-music.md](step-16-backend-music.md) |
+| — | **全方位测试 + 微基准覆盖** | ✅ **已完成** | 详见 goal.md |
+| — | Fix: Prepared Statement 查询失败 | ✅ 已完成 | [fix-prepared-statement.md](fix-prepared-statement.md) |
+| — | Fix: TcpClient 端口竞争 (SO_REUSEADDR) | ✅ 已完成 | 详见 goal.md |
+| — | Fix: main.cpp 拆分为可测函数 | ✅ 已完成 | 详见 goal.md |
 
 ---
 
@@ -36,5 +41,5 @@
 - [x] clang-tidy: 0 error + 0 warning + 0 style
 - [x] cppcheck --enable=all: 0 error + 0 warning + 0 style + 0 performance
 - [x] 编译: 0 error + 0 warning
-- [x] xmake test: 100% 通过 (20 二进制, ~167 用例)
+- [x] xmake test: 100% 通过 (37 二进制, 39+ 测试套)
 - [x] CodeQL: 0 critical + 0 high severity

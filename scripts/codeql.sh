@@ -16,16 +16,51 @@ usage() {
 EOF
 }
 
+probe_server() {
+  local server_url="$1"
+  local connect_timeout="$2"
+  local request_timeout="$3"
+  local http_code
+
+  http_code=$(curl -sS --connect-timeout "$connect_timeout" --max-time "$request_timeout" \
+    -o /dev/null -w '%{http_code}' "${server_url}/" 2>/dev/null) || return 1
+  [[ "$http_code" =~ ^[1-5][0-9][0-9]$ ]]
+}
+
 discover_server() {
+  local connect_timeout="${CODEQL_CONNECT_TIMEOUT:-3}"
+  local request_timeout="${CODEQL_DISCOVERY_TIMEOUT:-5}"
+
   if [ -n "${CODEQL_SERVER_URL:-}" ]; then
+    green "CodeQL 服务器: $CODEQL_SERVER_URL"
     return 0
   fi
   yellow "CODEQL_SERVER_URL 未设置，尝试 http://localhost:8080"
-  if curl -s --connect-timeout 5 -o /dev/null "http://localhost:8080/" 2>/dev/null; then
+  if probe_server "http://localhost:8080" "$connect_timeout" "$request_timeout"; then
     export CODEQL_SERVER_URL="http://localhost:8080"
   else
-    read -r -p "请输入 CodeQL 服务器 IP（端口固定 8080）: " ip
-    export CODEQL_SERVER_URL="http://${ip}:8080"
+    if [ ! -t 0 ]; then
+      red "错误: CodeQL 服务不可达，非交互环境请设置 CODEQL_SERVER_URL"
+      return 1
+    fi
+
+    while true; do
+      if ! read -r -p "请输入 CodeQL 服务器 IP（端口固定 8080，直接回车取消）: " ip; then
+        red "已取消 CodeQL 服务器输入"
+        return 1
+      fi
+      if [ -z "$ip" ]; then
+        yellow "已取消 CodeQL 分析"
+        return 1
+      fi
+
+      export CODEQL_SERVER_URL="http://${ip}:8080"
+      yellow "尝试连接 $CODEQL_SERVER_URL"
+      if probe_server "$CODEQL_SERVER_URL" "$connect_timeout" "$request_timeout"; then
+        break
+      fi
+      red "无法连接 $CODEQL_SERVER_URL，请重试"
+    done
   fi
   green "CodeQL 服务器: $CODEQL_SERVER_URL"
 }
@@ -55,7 +90,7 @@ print(f'过滤后保留 {len(filtered)}/{len(data)} 个编译条目')
   tar czf "$tmpdir/source.tar.gz" \
     --exclude='*.o' --exclude='*.obj' --exclude='*.exe' \
     --exclude='__pycache__' --exclude='.xmake' --exclude='build' \
-    tests/ xmake.lua core/ logger/ file-system/ memory-pool/ net/ db/
+    tests/ xmake.lua core/ logger/ file-system/ memory-pool/ net/ db/ benchmark/
 
   local resp_file; resp_file="$tmpdir/post_resp.json"
 
@@ -139,14 +174,24 @@ try:
     high=0
     for res in results:
         rid=res.get('ruleId','?')
-        sev=res.get('level','?')
+        level=str(res.get('level','')).lower()
+        props=res.get('properties') or {}
+        if not isinstance(props, dict):
+            props={}
+        severity=str(props.get('severity','')).lower()
+        gate_severity=''
+        if level == 'error' or severity in ('critical', 'error'):
+            gate_severity='critical'
+            crit+=1
+        elif level == 'warning' or severity in ('high', 'warning'):
+            gate_severity='high'
+            high+=1
+        sev=gate_severity or severity or level or '?'
         msg=res.get('message',{}).get('text','')
         loc=res.get('locations',[{}])[0].get('physicalLocation',{})
         art=loc.get('artifactLocation',{}).get('uri','?')
         rgn=loc.get('region',{}).get('startLine','?')
         print(f'{sev}:{rid} {art}:{rgn} {msg}')
-        if sev == 'error': crit+=1
-        elif sev == 'warning': high+=1
     print(f'__CRITICAL__={crit}')
     print(f'__HIGH__={high}')
 except Exception as e:

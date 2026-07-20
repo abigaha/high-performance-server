@@ -1,16 +1,29 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-ROOT="$(cd "$(dirname "$0")/.." && pwd)"
-cd "$ROOT"
+source "$(cd "$(dirname "$0")" && pwd)/lib/common.sh"
+cd "$PROJECT_ROOT"
 
-red()    { printf "\033[31m%s\033[0m\n" "$*"; }
-green()  { printf "\033[32m%s\033[0m\n" "$*"; }
-yellow() { printf "\033[33m%s\033[0m\n" "$*"; }
+run_frontend_tests() {
+  yellow "=== 前端 Vitest ==="
+  if [ ! -d "$FRONTEND_DIR" ]; then
+    yellow "未发现 frontend 目录，跳过前端 Vitest"
+    return 0
+  fi
+
+  ensure_frontend_dependencies
+  (
+    cd "$FRONTEND_DIR"
+    npm run test
+  )
+  green "前端 Vitest 通过"
+}
+
 
 if [ -n "${1:-}" ]; then
   yellow "运行测试: $1"
-  xmake test -f "$1" 2>&1
+  xmake test "$1" 2>&1
+  run_frontend_tests
   echo ""
   green "测试完成"
   exit 0
@@ -34,3 +47,7 @@ else
   green "所有测试通过"
 fi
 rm -f "$OUT"
+
+run_frontend_tests
+echo ""
+green "测试完成"

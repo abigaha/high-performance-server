@@ -2,6 +2,7 @@
 
 #include <boost/asio.hpp>
 #include <boost/mysql.hpp>
+#include <iostream>
 #include <sstream>
 #include <string>
 #include <thread>
@@ -28,9 +29,12 @@ public:
       temp.connect(*endpoints.begin(), params);
       conn_ = std::move(temp);
       return true;
-    } catch (const mysql::error_with_diagnostics&) {
+    } catch (const mysql::error_with_diagnostics& e) {
+      std::cerr << "[mysql] connect error: " << e.what() << " | server: " << e.get_diagnostics().server_message()
+                << std::endl;
       return false;
-    } catch (const std::exception&) {
+    } catch (const std::exception& e) {
+      std::cerr << "[mysql] connect exception: " << e.what() << std::endl;
       return false;
     }
   }
@@ -42,9 +46,12 @@ public:
       mysql::results result;
       conn_.execute("SELECT 1", result);
       return !result.rows().empty();
-    } catch (const mysql::error_with_diagnostics&) {
+    } catch (const mysql::error_with_diagnostics& e) {
+      std::cerr << "[mysql] ping error: " << e.what() << " | server: " << e.get_diagnostics().server_message()
+                << std::endl;
       return false;
-    } catch (const std::exception&) {
+    } catch (const std::exception& e) {
+      std::cerr << "[mysql] ping exception: " << e.what() << std::endl;
       return false;
     }
   }
@@ -58,6 +65,8 @@ public:
         auto stmt = conn_.prepare_statement(sql);
         execute_stmt(stmt, params, result);
       }
+
+      last_id_ = static_cast<int64_t>(result.last_insert_id());
 
       QueryResult qr;
       for (const auto& col : result.meta()) {
@@ -76,9 +85,12 @@ public:
         qr.rows.push_back(std::move(row_str));
       }
       return qr;
-    } catch (const mysql::error_with_diagnostics&) {
+    } catch (const mysql::error_with_diagnostics& e) {
+      std::cerr << "[mysql] query error: " << e.what() << " | server: " << e.get_diagnostics().server_message()
+                << std::endl;
       return std::nullopt;
-    } catch (const std::exception&) {
+    } catch (const std::exception& e) {
+      std::cerr << "[mysql] query exception: " << e.what() << std::endl;
       return std::nullopt;
     }
   }
@@ -92,13 +104,19 @@ public:
         auto stmt = conn_.prepare_statement(sql);
         execute_stmt(stmt, params, result);
       }
+      last_id_ = static_cast<int64_t>(result.last_insert_id());
       return static_cast<int64_t>(result.affected_rows());
-    } catch (const mysql::error_with_diagnostics&) {
+    } catch (const mysql::error_with_diagnostics& e) {
+      std::cerr << "[mysql] execute error: " << e.what() << " | server: " << e.get_diagnostics().server_message()
+                << std::endl;
       return std::nullopt;
-    } catch (const std::exception&) {
+    } catch (const std::exception& e) {
+      std::cerr << "[mysql] execute exception: " << e.what() << std::endl;
       return std::nullopt;
     }
   }
+
+  int64_t last_insert_id() const { return last_id_; }
 
   void close_socket() {
     boost::system::error_code ec;
@@ -111,6 +129,7 @@ public:
 private:
   asio::io_context ctx_;
   mysql::tcp_connection conn_;
+  int64_t last_id_{0};
 
   void execute_stmt(const mysql::statement& stmt, const std::vector<std::string>& params, mysql::results& result) {
     // field_view has reference semantics; source strings (params) must stay alive
@@ -148,6 +167,10 @@ std::optional<QueryResult> BoostMySqlConnection::query(const std::string& sql, c
 
 std::optional<int64_t> BoostMySqlConnection::execute(const std::string& sql, const std::vector<std::string>& params) {
   return impl_->execute(sql, params);
+}
+
+int64_t BoostMySqlConnection::last_insert_id() const {
+  return impl_->last_insert_id();
 }
 
 void BoostMySqlConnection::close() {

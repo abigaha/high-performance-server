@@ -21,4 +21,8 @@ public:
 
 std::unique_ptr<IAuthService> create_auth_service(IDatabasePool& db, const std::string& secret);
 
+// 加盐哈希工具
+std::string generate_salt();
+std::string hash_password(const std::string& password, const std::string& salt);
+
 } // namespace hps

@@ -25,8 +25,8 @@ public:
   std::function<void()> connect_hook;
   std::function<void()> close_hook;
 
-  int execute_with_last_id_count = 0;
-  int64_t last_insert_id = 0;
+  mutable int last_insert_id_count = 0;
+  int64_t last_insert_id_value = 0;
 
   int connect_count = 0;
   int ping_count = 0;
@@ -65,6 +65,11 @@ public:
       return execute_hook(sql, params);
     }
     return execute_result;
+  }
+
+  int64_t last_insert_id() const override {
+    ++last_insert_id_count;
+    return last_insert_id_value;
   }
 
   void close() override {

@@ -14,6 +14,18 @@
 
 namespace hps {
 
+namespace {
+
+void add_cors_headers(HttpResponse& resp) {
+  resp.set_header("Access-Control-Allow-Origin", "*");
+  resp.set_header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
+  resp.set_header("Access-Control-Allow-Headers", "Authorization, Content-Type, Range");
+  resp.set_header("Access-Control-Expose-Headers", "Content-Range, Accept-Ranges, Content-Disposition");
+  resp.set_header("Access-Control-Max-Age", "86400");
+}
+
+} // namespace
+
 HttpServer::HttpServer(const TcpServer::Config& config) : server_(config) {}
 
 HttpServer::~HttpServer() = default;
@@ -123,7 +135,7 @@ void HttpServer::on_headers_done(HttpParser& parser, const HttpRequest& req, std
   }
 
   // 鉴权：未登录或权限不足时不开流式，body 走内存缓冲，handler 返回 401
-  if (auth_service_) {
+  if (auth_service_ != nullptr) {
     auto auth_it = req.headers.find("Authorization");
     bool authorized = false;
     if (auth_it != req.headers.end()) {
@@ -247,6 +259,19 @@ void HttpServer::handle_connection(Connection& conn) {
 
     const auto& req = parser.request();
 
+    if (req.method == HttpMethod::OPTIONS) {
+      HttpResponse resp;
+      resp.set_status(204, "No Content");
+      add_cors_headers(resp);
+      {
+        auto serialized = resp.serialize();
+        std::lock_guard<std::mutex> wlock(conn.write_mutex());
+        conn.write_buffer().append(serialized);
+      }
+      parser.reset();
+      continue;
+    }
+
     auto up_it = req.headers.find("Upgrade");
     if (up_it != req.headers.end() && up_it->second == "websocket") {
       bool upgraded = try_handle_ws_upgrade(conn, req, total_consumed);
@@ -273,6 +298,9 @@ void HttpServer::handle_connection(Connection& conn) {
 
     HttpRequest req_with_params = req;
     req_with_params.path_params = std::move(params);
+    if (auth_service_ != nullptr) {
+      AuthMiddleware::apply(*auth_service_, req_with_params);
+    }
 
     HttpResponse resp;
 
@@ -293,6 +321,7 @@ void HttpServer::handle_connection(Connection& conn) {
           continue;
         }
         {
+          add_cors_headers(resp);
           auto serialized = resp.serialize();
           std::lock_guard<std::mutex> wlock(conn.write_mutex());
           conn.write_buffer().append(serialized);
@@ -317,6 +346,7 @@ void HttpServer::handle_connection(Connection& conn) {
     }
 
     {
+      add_cors_headers(resp);
       auto serialized = resp.serialize();
       std::lock_guard<std::mutex> wlock(conn.write_mutex());
       conn.write_buffer().append(serialized);
@@ -334,6 +364,7 @@ void HttpServer::send_error(Connection& conn, int status, std::string_view text,
   resp.set_content_type("text/plain; charset=utf-8");
   resp.body = std::to_string(status) + " " + std::string(text) + ": " + std::string(detail);
   resp.set_content_length(resp.body.size());
+  add_cors_headers(resp);
 
   auto serialized = resp.serialize();
   std::lock_guard<std::mutex> wlock(conn.write_mutex());

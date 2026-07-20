@@ -4,10 +4,12 @@
 
 #include <openssl/evp.h>
 #include <openssl/hmac.h>
+#include <openssl/rand.h>
 
 #include <array>
 #include <chrono>
 #include <cstdlib>
+#include <iomanip>
 #include <sstream>
 #include <vector>
 
@@ -77,6 +79,20 @@ std::string base64_encode(const std::string& in) {
 
 } // namespace
 
+std::string generate_salt() {
+  std::array<unsigned char, 16> salt{};
+  RAND_bytes(salt.data(), static_cast<int>(salt.size()));
+  return to_hex(salt.data(), salt.size());
+}
+
+std::string hash_password(const std::string& password, const std::string& salt) {
+  auto salted = salt + password;
+  std::array<unsigned char, EVP_MAX_MD_SIZE> hash{};
+  unsigned int hash_len = 0;
+  EVP_Digest(salted.data(), salted.size(), hash.data(), &hash_len, EVP_sha256(), nullptr);
+  return to_hex(hash.data(), hash_len);
+}
+
 class SimpleAuthService : public IAuthService {
 public:
   explicit SimpleAuthService(IDatabasePool& db, std::string secret) : db_(db), secret_(std::move(secret)) {}
@@ -104,7 +120,6 @@ public:
       return AuthUser{};
     }
     payload = std::move(*decoded);
-
     auto uid_pos = payload.find("uid");
     auto role_pos = payload.find("role");
     auto exp_pos = payload.find("exp");
@@ -112,14 +127,14 @@ public:
       return AuthUser{};
     }
 
-    auto uid = std::stoll(payload.substr(uid_pos + 4));
-    auto exp = std::stoll(payload.substr(exp_pos + 4));
+    auto uid = std::stoll(payload.substr(uid_pos + 3));
+    auto exp = std::stoll(payload.substr(exp_pos + 3));
     auto now = std::chrono::system_clock::to_time_t(std::chrono::system_clock::now());
     if (now > exp) {
       return AuthUser{};
     }
 
-    int role_val = std::stoi(payload.substr(role_pos + 5));
+    int role_val = std::stoi(payload.substr(role_pos + 4));
     UserRole role = UserRole::GUEST;
     if (role_val >= 2) {
       role = UserRole::VIP;
@@ -143,11 +158,21 @@ public:
     return payload_b64 + "." + sig;
   }
 
+  // NOLINTNEXTLINE(bugprone-easily-swappable-parameters)
   std::optional<AuthUser> authenticate(const std::string& username, const std::string& password) override {
-    if (!db_.verify_password(username, password)) {
+    auto auth_user = db_.get_auth_user(username);
+    if (!auth_user) {
       return std::nullopt;
     }
-    return db_.get_auth_user(username);
+    auto user = db_.get_user(auth_user->user_id);
+    if (!user) {
+      return std::nullopt;
+    }
+    auto hashed = hash_password(password, user->salt);
+    if (hashed != user->password_hash) {
+      return std::nullopt;
+    }
+    return auth_user;
   }
 
 private:

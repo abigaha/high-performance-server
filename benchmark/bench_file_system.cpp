@@ -6,6 +6,7 @@
 #include <cstdio>
 #include <fstream>
 #include <string>
+#include <thread>
 #include <vector>
 
 namespace {
@@ -90,5 +91,50 @@ static void BM_FileSystem_StoreRead(benchmark::State& state) {
 }
 
 BENCHMARK(BM_FileSystem_StoreRead)->Arg(1024)->Arg(65536)->Arg(1048576);
+
+static void BM_FileSystem_ConcurrentStoreRead(benchmark::State& state) {
+  std::size_t size = static_cast<std::size_t>(state.range(0));
+  int thread_count = state.range(1);
+  std::vector<char> data(size, 'y');
+  hps::FileSystem fs("/tmp");
+  for (auto _ : state) {
+    std::vector<std::thread> threads;
+    threads.reserve(static_cast<std::size_t>(thread_count));
+    for (int t = 0; t < thread_count; ++t) {
+      threads.emplace_back([&, t] {
+        std::string vpath = "bench_concurrent_" + std::to_string(t);
+        fs.store_file(vpath, data);
+        auto read_back = fs.read_file(vpath);
+        fs.delete_file(vpath);
+        benchmark::DoNotOptimize(read_back);
+      });
+    }
+    for (auto& t : threads) t.join();
+  }
+  state.SetBytesProcessed(state.iterations() * size * 2 * thread_count);
+}
+
+BENCHMARK(BM_FileSystem_ConcurrentStoreRead)->Args({1024, 4})->Args({65536, 4});
+
+static void BM_FileSystem_ResolvePath(benchmark::State& state) {
+  hps::FileSystem fs("/tmp");
+  std::vector<std::string> vpaths = {
+    "file.txt",
+    "a/b/c/d/file.txt",
+    "a/b/c/d/e/f/g/h/i/j/k/l/m/file.txt",
+  };
+  std::vector<char> data(16, 'x');
+  for (auto _ : state) {
+    for (auto& vp : vpaths) {
+      fs.store_file(vp, data);
+      auto read_back = fs.read_file(vp);
+      fs.delete_file(vp);
+      benchmark::DoNotOptimize(read_back);
+    }
+  }
+  state.SetItemsProcessed(state.iterations() * static_cast<int64_t>(vpaths.size()));
+}
+
+BENCHMARK(BM_FileSystem_ResolvePath);
 
 BENCHMARK_MAIN();

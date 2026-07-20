@@ -25,6 +25,48 @@ fi
 # 项目根目录
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[1]:-$0}")" && pwd)"
 PROJECT_ROOT="$(cd "$SCRIPT_DIR/.." && pwd)"
+FRONTEND_DIR="$PROJECT_ROOT/frontend"
+
+# 依据前端清单判断 node_modules 是否由当前锁文件生成。
+frontend_dependency_stamp() {
+  (
+    cd "$FRONTEND_DIR"
+    sha256sum package.json package-lock.json
+  )
+}
+
+# 准备可重复的前端依赖；npm ci 不会改写 package-lock.json。
+ensure_frontend_dependencies() {
+  if [ ! -d "$FRONTEND_DIR" ]; then
+    yellow "未发现 frontend 目录，跳过前端步骤"
+    return 0
+  fi
+  if [ ! -f "$FRONTEND_DIR/package.json" ]; then
+    red "错误: frontend/package.json 不存在"
+    return 1
+  fi
+  if [ ! -f "$FRONTEND_DIR/package-lock.json" ]; then
+    red "错误: frontend/package-lock.json 不存在，无法执行可重复的依赖安装"
+    return 1
+  fi
+
+  require_cmd npm
+  require_cmd sha256sum
+
+  local stamp_file="$FRONTEND_DIR/node_modules/.quality-dependencies.sha256"
+  local expected_stamp
+  expected_stamp="$(frontend_dependency_stamp)"
+
+  if [ ! -d "$FRONTEND_DIR/node_modules" ] || [ ! -f "$stamp_file" ] || \
+     [ "$(cat "$stamp_file" 2>/dev/null || true)" != "$expected_stamp" ]; then
+    yellow "安装前端依赖（npm ci，不改写 package-lock.json）..."
+    (
+      cd "$FRONTEND_DIR"
+      npm ci --no-audit --no-fund
+    )
+    printf '%s\n' "$expected_stamp" > "$stamp_file"
+  fi
+}
 
 # 通用菜单渲染
 # 用法: show_menu "标题" "选项1" "描述1" "选项2" "描述2" ...

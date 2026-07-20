@@ -57,4 +57,32 @@ static void BM_WebSocket_DecodeWithMask(benchmark::State& state) {
 
 BENCHMARK(BM_WebSocket_DecodeWithMask)->Arg(1024);
 
+static void BM_WebSocket_ContinuousFrames(benchmark::State& state) {
+  int num_frames = state.range(0);
+  std::string payload(64, 'x');
+  for (auto _ : state) {
+    for (int i = 0; i < num_frames; ++i) {
+      auto frame = hps::ws_encode_frame(hps::WsOpcode::TEXT, payload, false);
+      auto decoded = hps::ws_decode_frame(std::string_view(frame.data(), frame.size()));
+      benchmark::DoNotOptimize(decoded);
+    }
+  }
+  state.SetItemsProcessed(state.iterations() * num_frames);
+}
+
+BENCHMARK(BM_WebSocket_ContinuousFrames)->Arg(100)->Arg(1000)->Arg(10000);
+
+static void BM_WebSocket_LargePayload(benchmark::State& state) {
+  std::size_t size = static_cast<std::size_t>(state.range(0));
+  std::string payload(size, 'x');
+  for (auto _ : state) {
+    auto frame = hps::ws_encode_frame(hps::WsOpcode::BINARY, payload, false);
+    auto decoded = hps::ws_decode_frame(std::string_view(frame.data(), frame.size()));
+    benchmark::DoNotOptimize(decoded);
+  }
+  state.SetBytesProcessed(state.iterations() * size);
+}
+
+BENCHMARK(BM_WebSocket_LargePayload)->Arg(65536)->Arg(262144)->Arg(1048576);
+
 BENCHMARK_MAIN();

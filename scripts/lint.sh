@@ -1,12 +1,9 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-ROOT="$(cd "$(dirname "$0")/.." && pwd)"
-cd "$ROOT"
-
-red()    { printf "\033[31m%s\033[0m\n" "$*"; }
-green()  { printf "\033[32m%s\033[0m\n" "$*"; }
-yellow() { printf "\033[33m%s\033[0m\n" "$*"; }
+source "$(cd "$(dirname "$0")" && pwd)/lib/common.sh"
+ROOT="$PROJECT_ROOT"
+cd "$PROJECT_ROOT"
 
 HAS_ERROR=0
 DEFAULT_JOBS="$(nproc 2>/dev/null || echo 4)"
@@ -25,6 +22,19 @@ usage() {
   无参数时全量检查所有源文件（向后兼容）
   指定文件/目录时仅检查对应范围
 EOF
+}
+
+run_frontend_lint() {
+  yellow "=== 前端 Lint ==="
+  if [ ! -d "$FRONTEND_DIR" ]; then
+    yellow "未发现 frontend 目录，跳过前端 Lint"
+    return 0
+  elif ensure_frontend_dependencies && (cd "$FRONTEND_DIR" && npm run lint -- --deny-warnings); then
+    green "前端 Lint 通过"
+  else
+    red "前端 Lint 失败"
+    HAS_ERROR=1
+  fi
 }
 
 while [ $# -gt 0 ]; do
@@ -96,9 +106,15 @@ case "$MODE" in
 esac
 
 if [ -z "$SOURCES" ]; then
-  green "无需检查的源文件"
-  green "=== Lint 全部通过 ==="
-  exit 0
+  green "无需检查的 C++ 源文件"
+  run_frontend_lint
+  echo ""
+  if [ "$HAS_ERROR" -eq 0 ]; then
+    green "=== Lint 全部通过 ==="
+  else
+    red "=== Lint 发现问题，请修复 ==="
+  fi
+  exit "$HAS_ERROR"
 fi
 
 CPP_FILES=$(echo "$SOURCES" | grep '\.cpp$' || true)
@@ -184,6 +200,7 @@ else
 fi
 rm -f "$CPP_OUT"
 
+run_frontend_lint
 echo ""
 if [ "$HAS_ERROR" -eq 0 ]; then
   green "=== Lint 全部通过 ==="

@@ -122,3 +122,36 @@ TEST(RouterTest, SamePathDiffMethod) {
   ASSERT_TRUE(r.match(HttpMethod::DELETE, "/song/1", h, params));
   EXPECT_FALSE(r.match(HttpMethod::POST, "/song/1", h, params));
 }
+
+// TR10: 文件 ID 下载路由与按哈希下载路由不冲突
+TEST(RouterTest, FileDownloadRoutesDoNotConflict) {
+  Router r;
+  std::string matched_route;
+  r.add(HttpMethod::GET, "/api/files/:id/download", [&matched_route](const HttpRequest&, HttpResponse&) {
+    matched_route = "id";
+  });
+  r.add(HttpMethod::GET, "/api/files/by-hash/:hash/download", [&matched_route](const HttpRequest&, HttpResponse&) {
+    matched_route = "hash";
+  });
+
+  Router::Handler h;
+  std::unordered_map<std::string, std::string> params;
+  HttpRequest request;
+  HttpResponse response;
+
+  ASSERT_TRUE(r.match(HttpMethod::GET, "/api/files/42/download", h, params));
+  ASSERT_EQ(params.size(), 1U);
+  EXPECT_EQ(params.at("id"), "42");
+  EXPECT_EQ(params.count("hash"), 0U);
+  h(request, response);
+  EXPECT_EQ(matched_route, "id");
+
+  params.clear();
+  matched_route.clear();
+  ASSERT_TRUE(r.match(HttpMethod::GET, "/api/files/by-hash/3a7bd3e2360a/download", h, params));
+  ASSERT_EQ(params.size(), 1U);
+  EXPECT_EQ(params.count("id"), 0U);
+  EXPECT_EQ(params.at("hash"), "3a7bd3e2360a");
+  h(request, response);
+  EXPECT_EQ(matched_route, "hash");
+}

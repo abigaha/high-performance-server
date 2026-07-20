@@ -5,7 +5,7 @@
 ### 1. core/src/main.cpp — 路由注册
 - [x] B2 修复: `load_config` 交换 parse_json_file / parse_cmd_args 顺序
 - [x] 新增 POST `/api/files/upload` handler
-- [x] 新增 GET `/api/files/:hash/download` handler
+- [x] 新增 GET `/api/files/by-hash/:hash/download` handler
 - [x] `register_routes` 使用 `fs` 参数（移除 `/*fs*/`）
 
 ### 2. net/http/include/i_router.h
@@ -42,7 +42,7 @@ POST /api/files/upload → 201 {"hash":"<sha256>","size":N}
                        → 400 {"error":"empty body"}
 
 // download handler
-GET /api/files/:hash/download → 200 + octet-stream body
+GET /api/files/by-hash/:hash/download → 200 + octet-stream body
                               → 404 {"error":"file not found"}
 ```
 

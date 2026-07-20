@@ -15,4 +15,5 @@ end
 
 add_ldflags("-Wl,-rpath,$ORIGIN/lib", "-Wl,--disable-new-dtags", {force = true})
 
+add_includedirs("include")
 set_pcxxheader("pch.h")

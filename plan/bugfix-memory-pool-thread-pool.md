@@ -318,17 +318,22 @@ while (state_[head_index].load(std::memory_order_acquire) != State::PUSHED) {
 
 ---
 
-## 已知问题（预存）
+## 已知问题（已修复）
 
-### `test_test_tcp_client` 间歇性失败
+### `test_test_tcp_client` 间歇性失败 ✅ 已修复
 
 **现象：** `xmake test` 批量运行时 `test_test_tcp_client` 偶发失败，但单次 `xmake run test_test_tcp_client` 始终通过（8/8 用例全绿）。
 
-**推测原因：** 端口绑定竞争——批量测试中多个测试二进制先后绑定相同端口（如 8080），先运行的测试释放端口后，操作系统进入 `TIME_WAIT` 状态，后运行的测试绑定失败。
+**根因：** `TcpClient::connect_to_server()` 创建 socket 后未设置 `SO_REUSEADDR` / `SO_REUSEPORT`，服务器端 `TIME_WAIT` 状态下客户端无法重用端口。
 
-**影响：** 不影响功能正确性，仅测试 runner 的端口复用策略需改进。当前无端口探测/重试机制。
+**修复：** `net/tcp/tcp_client/src/tcp_client.cpp` 的 `connect_to_server()` 中 socket 创建后添加：
+```cpp
+int reuse = 1;
+setsockopt(client_sockfd_, SOL_SOCKET, SO_REUSEADDR, &reuse, sizeof(reuse));
+setsockopt(client_sockfd_, SOL_SOCKET, SO_REUSEPORT, &reuse, sizeof(reuse));
+```
 
-**状态：** 待修复（低优先级）
+**验证：** `xmake test` 37/37 全部通过（含 `test_tcp_client`），连续运行无间歇失败。
 
 ---
 

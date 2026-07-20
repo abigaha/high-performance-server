@@ -1,0 +1,120 @@
+@import "tailwindcss";
+
+@theme {
+  --color-primary: #059669;
+  --color-primary-50: #ecfdf5;
+  --color-primary-100: #d1fae5;
+  --color-primary-200: #a7f3d0;
+  --color-primary-300: #6ee7b7;
+  --color-primary-400: #34d399;
+  --color-primary-500: #10b981;
+  --color-primary-600: #059669;
+  --color-primary-700: #047857;
+  --color-primary-800: #065f46;
+  --color-primary-900: #064e3b;
+  --color-accent: #10b981;
+  --color-secondary: #34d399;
+  --color-destructive: #ef4444;
+  --color-text: #0f172a;
+  --color-text-muted: #64748b;
+  --font-display: 'Righteous', cursive;
+  --font-body: 'Inter', system-ui, sans-serif;
+  --shadow-glass: 0 8px 32px rgba(5, 150, 105, 0.06);
+  --radius-glass: 16px;
+}
+
+:root {
+  --color-bg: #f0fdf4;
+  --color-bg-end: #ecfdf5;
+  --glass-bg: rgba(255, 255, 255, 0.18);
+  --glass-blur: 12px;
+  --glass-border: rgba(255, 255, 255, 0.25);
+  --frosted-bg: rgba(255, 255, 255, 0.08);
+  --frosted-blur: 20px;
+  --frosted-border: rgba(255, 255, 255, 0.12);
+}
+
+.dark {
+  --color-bg: #0a0f0d;
+  --color-bg-end: #0f1a14;
+  --color-text: #d1fae5;
+  --color-text-muted: #6ee7b7;
+  --glass-bg: rgba(10, 15, 13, 0.55);
+  --glass-blur: 16px;
+  --glass-border: rgba(255, 255, 255, 0.06);
+  --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  --frosted-bg: rgba(10, 15, 13, 0.4);
+  --frosted-blur: 24px;
+  --frosted-border: rgba(255, 255, 255, 0.04);
+}
+
+body {
+  font-family: var(--font-body);
+  background: linear-gradient(135deg, var(--color-bg), var(--color-bg-end));
+  color: var(--color-text);
+  min-height: 100vh;
+}
+
+.glass-card {
+  background: var(--glass-bg);
+  backdrop-filter: blur(var(--glass-blur));
+  -webkit-backdrop-filter: blur(var(--glass-blur));
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--glass-shadow);
+  border-radius: var(--radius-glass);
+}
+
+.frosted-bar {
+  background: var(--frosted-bg);
+  backdrop-filter: blur(var(--frosted-blur));
+  -webkit-backdrop-filter: blur(var(--frosted-blur));
+  border-bottom: 1px solid var(--frosted-border);
+}
+
+.glass-input {
+  background: rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 12px;
+  padding: 12px 16px;
+  color: var(--color-text);
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.glass-input:focus {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px rgba(5, 150, 105, 0.15);
+}
+
+.glass-input::placeholder {
+  color: var(--color-text-muted);
+  opacity: 0.6;
+}
+
+.glass-button {
+  background: var(--color-primary);
+  color: white;
+  border: none;
+  border-radius: 12px;
+  padding: 10px 24px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: opacity 0.2s, transform 0.15s;
+  backdrop-filter: blur(4px);
+}
+
+.glass-button:hover {
+  opacity: 0.9;
+  transform: translateY(-1px);
+}
+
+.glass-button:active {
+  transform: translateY(0);
+}
+
+.glass-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+}

@@ -17,6 +17,21 @@ usage() {
 EOF
 }
 
+build_frontend() {
+  if [ ! -d "$FRONTEND_DIR" ]; then
+    yellow "未发现 frontend 目录，跳过前端构建"
+    return 0
+  fi
+
+  blue "=== 前端构建 ==="
+  ensure_frontend_dependencies
+  (
+    cd "$FRONTEND_DIR"
+    npm run build
+  )
+  green "前端构建成功"
+}
+
 cmd_build() {
   blue "=== 编译 ==="
   if [ "${1:-}" = "--clean" ]; then
@@ -25,6 +40,7 @@ cmd_build() {
     xmake -j"$(nproc)"
   fi
   green "编译成功"
+  build_frontend
 }
 
 handle_menu_choice() {

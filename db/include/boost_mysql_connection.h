@@ -19,6 +19,7 @@ public:
   bool ping() override;
   std::optional<QueryResult> query(const std::string& sql, const std::vector<std::string>& params) override;
   std::optional<int64_t> execute(const std::string& sql, const std::vector<std::string>& params) override;
+  int64_t last_insert_id() const override;
   void close() override;
 
 private:

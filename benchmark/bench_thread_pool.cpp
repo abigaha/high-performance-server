@@ -83,4 +83,59 @@ static void BM_LockedThreadPool_HeavyTask(benchmark::State& state) {
 
 BENCHMARK(BM_LockedThreadPool_HeavyTask);
 
+static void BM_LockedThreadPool_EnqueueDelay(benchmark::State& state) {
+  int total = state.range(0);
+  hps::LockedThreadPool pool(4);
+  std::vector<int64_t> latencies;
+  latencies.reserve(static_cast<std::size_t>(total));
+  for (auto _ : state) {
+    latencies.clear();
+    for (int i = 0; i < total; ++i) {
+      auto t0 = std::chrono::steady_clock::now();
+      pool.enqueue([] {});
+      auto t1 = std::chrono::steady_clock::now();
+      latencies.push_back(std::chrono::duration_cast<std::chrono::nanoseconds>(t1 - t0).count());
+    }
+    pool.wait_for_all_tasks();
+    std::sort(latencies.begin(), latencies.end());
+    benchmark::DoNotOptimize(latencies[latencies.size() / 2]);
+  }
+  pool.stop();
+  state.SetItemsProcessed(state.iterations() * total);
+}
+
+BENCHMARK(BM_LockedThreadPool_EnqueueDelay)->Arg(1000)->Arg(10000);
+
+static void BM_LockFree_vs_Locked_Compare(benchmark::State& state) {
+  int total = state.range(0);
+  bool use_lockfree = static_cast<bool>(state.range(1));
+  std::atomic<int> counter{0};
+  if (use_lockfree) {
+    hps::LockFreeThreadPool pool(4);
+    for (auto _ : state) {
+      counter.store(0);
+      for (int i = 0; i < total; ++i) {
+        pool.enqueue([&counter] { counter.fetch_add(1, std::memory_order_relaxed); });
+      }
+      pool.wait_for_all_tasks();
+      benchmark::DoNotOptimize(counter.load());
+    }
+    pool.stop();
+  } else {
+    hps::LockedThreadPool pool(4);
+    for (auto _ : state) {
+      counter.store(0);
+      for (int i = 0; i < total; ++i) {
+        pool.enqueue([&counter] { counter.fetch_add(1, std::memory_order_relaxed); });
+      }
+      pool.wait_for_all_tasks();
+      benchmark::DoNotOptimize(counter.load());
+    }
+    pool.stop();
+  }
+  state.SetItemsProcessed(state.iterations() * total);
+}
+
+BENCHMARK(BM_LockFree_vs_Locked_Compare)->Args({1000, 1})->Args({1000, 0});
+
 BENCHMARK_MAIN();

@@ -292,28 +292,32 @@ public:
 
 ---
 
-## Step 15 — 配套前端 Web 界面（规划中）
+## Step 15 — 配套前端 Web 界面（已定稿）
+
+### 概述
+> 设计体系: Crystal Music — 青绿翡翠 × Glassmorphism × Frosted Glass
+> 文档: [plan/step-15-frontend.md](plan/step-15-frontend.md)
 
 ### 目标
 1. 在 `frontend/` 目录下构建 TypeScript + React + Vite SPA
-2. 实现以下 MVP 页面：登录/注册、文件浏览、文件上传/下载、音乐播放、用户管理
-3. 对接后端 RESTful API 和 WebSocket
-4. 前后端分离，通过 Nginx 容器反向代理
-5. 质量门禁：Vite 构建 0 error、Vitest + Playwright 测试覆盖核心功能
+2. 设计体系: Crystal Music（青绿翡翠色 + 玻璃态 + 毛玻璃）
+3. 9 个页面：登录/注册/文件列表/文件详情/上传/音乐库/歌单/播放器/用户管理
+4. 状态管理: Zustand（auth / player / toast / music）
+5. 对接后端 RESTful API 和 WebSocket
+6. 前后端分离，通过 Nginx 容器反向代理
+7. 质量门禁：Vite build 0 error、TypeScript strict 0 error、Vitest + Playwright 100%
 
-### API 端点清单（前端消费）
+## Step 16 — 后端数据库重构 + 音乐库/歌单 API（已完成）
 
-| 方法 | 路径 | 说明 |
-|------|------|------|
-| POST | `/api/auth/login` | 用户登录，返回 token |
-| GET | `/api/health` | 健康检查 |
-| GET | `/api/files?name=&offset=&limit=` | 文件列表（分页搜索） |
-| GET | `/api/files/:id` | 文件元信息 |
-| GET | `/api/files/:id/download` | 下载文件（by ID） |
-| POST | `/api/files/upload` | 上传文件（流式） |
-| GET | `/api/files/:hash/download` | 下载文件（by hash） |
-| GET | `/api/users/:id` | 用户信息 |
-| WS | `/ws` | WebSocket 实时通信 |
+### 概述
+> 文档: [plan/step-16-backend-music.md](plan/step-16-backend-music.md)
+
+### 目标
+1. 数据库 3NF 范式化: `music_meta` 独立表, `file_records` 关联 `music_id`
+2. AST 查询优化: 索引设计、谓词下推、标准 JOIN
+3. 补齐 11 项后端 API（认证/文件/用户）
+4. 新增 8 项音乐库/歌单 API（浏览/创建/添加/移除/排序）
+5. CORS 跨域支持: 后端全局注入 / Nginx 生产处理
 
 ---
 
@@ -444,7 +448,7 @@ Step 11 ─── main.cpp 整合启动 ✅ 已完成
   └─ 测试: 手动启动验证 + 全量回归测试 20二进制全部通过
         │
 Step 12 ─── 端到端验证 ✅ 已完成
-  ├─ main.cpp 路由注册: POST /api/files/upload + GET /api/files/:hash/download
+  ├─ main.cpp 路由注册: POST /api/files/upload + GET /api/files/by-hash/:hash/download
   ├─ B2 修复: CLI 参数覆盖 JSON (parse_json_file → parse_cmd_args 交换)
   ├─ B5 修复: Router path_exists 接口 (405 vs 404 区分)
   ├─ B6/B7 修复: 静态 map 元信息持久化 + 双写 (绕开 MockConnection)
@@ -472,8 +476,9 @@ Bugfix ─── 基准测试 Bug 修复 ✅ 已完成
   │   ├─ 修复: 在 state_ 等待循环中加 stop_token_.stop_requested() 检查，发现 stop 则标记
   │   │   EMPTY 并返回 false
   │   └─ 验证: qps_lock_free_queue + qps_thread_pool 各 11 级并发(c=1~1024)全部通过
-  ├─ 已知问题: test_test_tcp_client 间歇性失败（端口 TIME_WAIT 竞争，低优先级）
   └─ 质量门禁: lint 0/0 + 编译 0/0 + test 19/20（tcp_client 间歇失败）+ CodeQL 0/0 ✅
+  │
+  ├─ 遗留修复: SO_REUSEADDR + SO_REUSEPORT 已解决 tcp_client 端口竞争，test 37/37 全通过
         │
 Step 14 ─── 文件上传功能改进 ✅ 已完成
   ├─ 流式分片存储: 2MB 每片，`HttpParser` 流式模式 + chunk_handler 回调
@@ -495,6 +500,52 @@ Bugfix ─── 并发上传 Bug 修复 ✅ 已完成
   │   ├─ 修复: upload_ctx 移入 while 循环 + set_headers_done_callback 重注册，每请求独立上下文
   │   └─ 涉及: http_server.cpp
   └─ 详情: [plan/bugfix-concurrent-uploads.md](plan/bugfix-concurrent-uploads.md)
+        │
+Step 15 ─── 配套前端 Web 界面 Crystal Music ✅ 已完成
+  ├─ React 19 + Vite 8 + TypeScript 6 + Tailwind CSS 4 SPA
+  ├─ 设计体系: 青绿翡翠 × Glassmorphism × Frosted Glass
+  ├─ 9 页面: 登录/注册/文件列表/文件详情/上传/音乐库/歌单/播放器/用户管理
+  ├─ 状态管理: Zustand (auth/player/toast/music)
+  ├─ 测试: Vitest 10/10 通过
+  ├─ 质量门禁: build 0 error + tsc 0 error
+  └─ 详情: [plan/step-15-frontend.md](plan/step-15-frontend.md)
+        │
+Step 16 ─── 后端数据库重构 + 音乐库/歌单 API ✅ 已完成
+  ├─ 数据库 3NF 范式化: music_meta + file_records 解耦, users 加 salt
+  ├─ AST 查询优化: 索引设计 + 标准 JOIN
+  ├─ 新增 11 后端接口: register/me/logout/stream/search/delete/update_user
+  ├─ 新增 8 音乐/歌单接口 (M1–M8): 音乐库浏览 + 歌单 CRUD + 排序
+  ├─ 测试修复: validate_token 偏移量 Bug（uid_pos+4 → uid_pos+3）
+  └─ 质量门禁: lint 0/0 + test 21/21 + 编译 0/0
+        │
+Comprehensive-Test ─── 全方位测试 + 微基准覆盖 ✅ 已完成
+  ├─ Bug 修复: Prepared Statement catch 静默吞异常 → 诊断增强（e.what + server_message）
+  │             bind API 调整适配 Boost 1.83+，fix-prepared-statement.md 落地
+  ├─ Bug 修复: test_tcp_client 间歇性失败 → SO_REUSEADDR + SO_REUSEPORT
+  ├─ Bug 修复: main.cpp 拆分可测函数（load_config/add_routes 抽出）
+  ├─ 测试增强: 新增 16 个测试文件，112 用例覆盖边界/压力/异常路径
+  │   ├─ test_logger(10) — 生命周期/并发/双重 init/未 init 抛异常
+  │   ├─ test_memory_pool_extreme(8) — 零大小/超大/跨线程/碎片/批量
+  │   ├─ test_thread_pool_stress(8) — stop/异常/并发/超时/promise
+  │   ├─ test_http_parser_extreme(10) — 超长路径/多头/管线/重置循环
+  │   ├─ test_http_server_stress(6) — 并发/Keep-Alive/Connection:close/启停
+  │   ├─ test_websocket_extreme(8) — 大帧/16bit 长/分片/全 opcode/掩码
+  │   ├─ test_coroutine_extreme(6) — 异常/move-only/大数据/批量
+  │   ├─ test_auth_service(8) — 注册/登录/token 验证/过期/篡改/并发
+  │   ├─ test_ssl_extreme(6) — 无效证书/预初始化/裸上下文/清理
+  │   ├─ test_file_system_stress(6) — 并发/大文件/不存在/覆盖
+  │   ├─ test_file_transfer_stress(6) — ChunkHeader 序列化/并发/断连
+  │   ├─ test_database_pool_stress(8) — 池耗尽/超时/损坏连接/关闭后获取
+  │   ├─ test_tcp_server_stress(6) — 多客户端/断连/大流量/启停
+  │   ├─ test_config(4) — 有效/缺失/无效 JSON/默认值
+  │   ├─ test_range_parser_extreme(6) — 开区间/多段/越界
+  │   └─ test_url_decode_extreme(6) — 混合编码/无效 %XX/空输入
+  ├─ 微基准增强: 新增 8 个 bench_* + 8 个 qps_*，8 个已有追加操作维度
+  │   ├─ 新增: bench_logger/bench_auth_service/bench_tcp_server/bench_http_server
+  │   ├─ 新增: qps_logger/qps_auth_service/qps_tcp_server/qps_http_server
+  │   ├─ 追加: 内存池多线程/线程池延迟分布队列MPMC/文件系统并发/连接池耗尽
+  │   │        WebSocket 连续帧/SSL 读写吞吐/协程切换开销
+  └─ 质量门禁: lint 0/0 + 编译 0/0 + test 37/37 + CodeQL 0/0
 
 ---
 
@@ -537,8 +588,9 @@ Bugfix ─── 并发上传 Bug 修复 ✅ 已完成
 | database | 8 | 100% | ✅ 就绪（IDatabasePool + DatabasePool + boost::mysql 已落地） |
 | net/ssl | 3 | 100% | ✅ 就绪（SslContext + Connection SSL 集成 + 双模式检测） |
 | net/websocket | 5 | 100% | ✅ 就绪（帧编解码 + 握手 + WsConnection 事件循环） |
-| tests | 20 | 100% | ✅ 就绪（~167 用例全通过）|
-| **frontend** | — | **0%** | 🔜 **规划中**（React + Vite + TypeScript SPA）|
+| tests | 37 | 100% | ✅ 就绪（37 二进制，共 39+ 测试套全通过）|
+| **frontend** | ~40 | **100%** | ✅ **已完成**（Crystal Music 设计体系 + 9 页面 + Zustand + Vitest，详见 `plan/step-15-frontend.md`）|
+| backend-music | ~15 | **100%** | ✅ **已完成**（数据库范式重构 + AST 优化 + 19 路由 + 8 音乐/歌单接口，详见 `plan/step-16-backend-music.md`）|
 
 ---
 
@@ -558,23 +610,28 @@ Bugfix ─── 并发上传 Bug 修复 ✅ 已完成
 
 | 模块 | 测试文件 | 覆盖情况 |
 |------|---------|----------|
-| TcpClient | `test_tcp_client.cpp` | ✅ 有 |
+| TcpClient | `test_tcp_client.cpp` | ✅ 有（8 用例，含动态端口修复）|
 | TcpServer | `test_tcp_server.cpp`, `test_tcp_server_connection.cpp` | ✅ 有 |
-| HttpParser | `test_http_parser.cpp` | ✅ 有 |
+| TcpServer 压力 | `test_tcp_server_stress.cpp` | ✅ 新增（6 用例：并发/断连/大流量/启停）|
+| HttpParser | `test_http_parser.cpp`, `test_http_parser_extreme.cpp` | ✅ 有（10+10=20 用例，含边界/管线/重置）|
 | HttpRequest | `test_http_request.cpp` | ✅ 有 |
 | HttpResponse | `test_http_response.cpp` | ✅ 有 |
-| UrlDecode | `test_url_decode.cpp` | ✅ 有 |
-| MemoryPool | `test_memory_pool.cpp` | ✅ 有 |
+| UrlDecode | `test_url_decode.cpp`, `test_url_decode_extreme.cpp` | ✅ 有（+6 边界用例）|
+| MemoryPool | `test_memory_pool.cpp`, `test_memory_pool_extreme.cpp` | ✅ 有（+8 极端用例：跨线程/碎片/批量）|
 | thread-pool (LockFree) | `test_lock_free_queue.cpp` | ✅ 有 |
 | thread-pool (Locked) | `test_locked_thread_pool.cpp` | ✅ 有（8 用例）|
+| thread-pool 压力 | `test_thread_pool_stress.cpp` | ✅ 新增（8 用例：stop/异常/并发/promise）|
 | MoveOnlyFunction | `test_move_only_function.cpp` | ✅ 有 |
-| coroutine | `test_coroutine.cpp` | ✅ 有（5 用例：异常传播/正常完成/await_read 读/await_read EAGAIN/await_write）|
+| coroutine | `test_coroutine.cpp`, `test_coroutine_extreme.cpp` | ✅ 有（5+6=11 用例，含批量/move-only）|
 | Router | `test_router.cpp` | ✅ 有（9 用例）|
-| HttpServer | `test_http_server.cpp` | ✅ 有（7 用例端到端）|
-| range-parser | `test_range_parser.cpp` | ✅ 有（10 用例）|
-| logger | — | ❌ 无 |
-| file-system | `test_file_system.cpp` | ✅ 有（14 用例：split/hash/store/delete/路径穿越）|
-| database | `test_database_pool.cpp` | ✅ 有（14 用例：模型/连接池/超时/CRUD）|
-| file-transfer | `test_file_transfer.cpp` | ✅ 有（7 用例：小文件传输/ChunkHeader/串行化/接收重组）|
-| SSL/TLS | `test_ssl.cpp` | ✅ 有（9 用例：SslContext/TLS握手/加密通信/双模式/清理）|
-| WebSocket | `test_websocket.cpp` | ✅ 有（12 用例：握手/帧编解码/Base64/集成）|
+| HttpServer | `test_http_server.cpp`, `test_http_server_stress.cpp` | ✅ 有（7+6=13 用例端到端+压力）|
+| range-parser | `test_range_parser.cpp`, `test_range_parser_extreme.cpp` | ✅ 有（10+6=16 用例）|
+| logger | `test_logger.cpp` | ✅ **新增**（10 用例：生命周期/并发/双重 init）|
+| file-system | `test_file_system.cpp`, `test_file_system_stress.cpp` | ✅ 有（14+6=20 用例，含并发/大文件）|
+| database | `test_database_pool.cpp`, `test_database_pool_stress.cpp` | ✅ 有（34+8=42 用例：含连接池耗尽/超时/并发）|
+| Step16 API | `test_step16_api.cpp` | ✅ 有（5 用例）|
+| file-transfer | `test_file_transfer.cpp`, `test_file_transfer_stress.cpp` | ✅ 有（7+6=13 用例，含并发/断连）|
+| SSL/TLS | `test_ssl.cpp`, `test_ssl_extreme.cpp` | ✅ 有（9+6=15 用例，含无效证书/预初始化）|
+| WebSocket | `test_websocket.cpp`, `test_websocket_extreme.cpp` | ✅ 有（12+8=20 用例，含大帧/全 opcode）|
+| AuthService | `test_auth_service.cpp` | ✅ **新增**（8 用例：注册/登录/token/并发）|
+| Config | `test_config.cpp` | ✅ **新增**（4 用例：加载/缺失/无效 JSON）|
