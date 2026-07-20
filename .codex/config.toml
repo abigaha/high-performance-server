@@ -1,0 +1,32 @@
+# 仓库级 Codex 配置。项目需被标记为受信任后，此文件才会加载。
+
+# 允许在工作区内自主读写；低、中风险越界操作交由自动审查处理，
+# 高风险、不可逆或缺少明确授权的操作仍保留拦截。
+approval_policy = "on-request"
+approvals_reviewer = "auto_review"
+sandbox_mode = "workspace-write"
+
+# 禁止 Web 搜索，避免项目会话默认访问外部内容。
+web_search = "disabled"
+
+# 为仓库规则预留 64 KiB，避免 AGENTS.md 增长后被默认上限截断。
+project_doc_max_bytes = 65536
+
+[sandbox_workspace_write]
+# 构建与测试默认不允许出站网络；确有需要时通过审批临时放行。
+network_access = false
+
+[tui]
+# 保留 OpenCode 的终端主题和任务完成/审批通知体验。
+theme = "catppuccin-mocha"
+notifications = true
+
+[features]
+# 仓库规则要求将可独立任务交给子代理并行处理。
+multi_agent = true
+
+[agents]
+# 与当前工作区并发容量一致，避免过度并发争抢编译和分析资源。
+max_threads = 4
+# 仅允许主代理派生直接子代理，防止递归扩散。
+max_depth = 1
