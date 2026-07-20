@@ -22,3 +22,7 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Local visual-check helpers
+_screenshot.mjs
+_shot.cjs

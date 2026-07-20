@@ -15,6 +15,9 @@ Build/
 # .clang-tidy 已追踪
 .codebuddy/
 # CodeBuddy 工作流配置（本地，不入库）
+# AI 编程助手配置（本地，不入库）
+/.agents/
+/.codex/
 .codegraph
 .codegraph/
 compile_commands_fixed.json

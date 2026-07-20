@@ -1,4 +1,0 @@
-interface:
-  display_name: "项目开发闭环"
-  short_description: "从功能需求实施代码，并完成静态分析、编译、安全分析与测试闭环"
-  default_prompt: "使用 $project-development 完成这个功能需求并通过全部项目质量门禁。"
