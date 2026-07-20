@@ -1,0 +1,4 @@
+interface:
+  display_name: "项目质量门禁"
+  short_description: "统一执行测试、格式化、静态分析、CodeQL 与只读审查"
+  default_prompt: "使用 $project-quality 对当前项目执行指定质量检查并按门禁闭环修复。"

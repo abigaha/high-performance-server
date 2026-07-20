@@ -1,0 +1,4 @@
+interface:
+  display_name: "项目操作"
+  short_description: "统一执行项目构建、运行、清理、调试、目标创建与环境检查"
+  default_prompt: "使用 $project-operations 检查目标后构建并运行这个 C++ 项目。"
