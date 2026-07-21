@@ -2,10 +2,10 @@
 .git
 .gitignore
 .gitattributes
+.env*
 
-# Build (允许 certs 子目录)
-build/*
-!build/certs/
+# Build
+build/
 .xmake/
 compile_commands*
 
@@ -27,8 +27,13 @@ compile_commands*
 *.obj
 *.exe
 *.so
+!lib/*.so
 *.a
 *.tmp
+
+# Runtime data and frontend dependencies
+data/
+frontend/
 
 # Test
 tests/

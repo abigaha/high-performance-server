@@ -1,4 +1,4 @@
-import { request } from './client';
+import { API_BASE, request } from './client';
 import type { FileRecord, PaginatedResponse, FileQuery, FileSearchQuery } from '../types/api';
 
 export async function getFiles(query?: FileQuery): Promise<PaginatedResponse<FileRecord>> {
@@ -16,12 +16,10 @@ export async function getFile(id: number): Promise<FileRecord> {
 }
 
 export async function getFileDownloadUrl(id: number): Promise<string> {
-  const API_BASE = import.meta.env.VITE_API_URL || 'http://127.0.0.1:9090';
   return `${API_BASE}/api/files/${id}/download`;
 }
 
 export async function getFileStreamUrl(id: number): Promise<string> {
-  const API_BASE = import.meta.env.VITE_API_URL || 'http://127.0.0.1:9090';
   return `${API_BASE}/api/files/${id}/stream`;
 }
 
@@ -29,7 +27,6 @@ export async function uploadFile(
   file: File,
   onProgress?: (pct: number) => void,
 ): Promise<FileRecord> {
-  const API_BASE = import.meta.env.VITE_API_URL || 'http://127.0.0.1:9090';
   const token = localStorage.getItem('token');
   return new Promise((resolve, reject) => {
     const xhr = new XMLHttpRequest();

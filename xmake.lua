@@ -29,6 +29,7 @@ local common_includedirs = {
     "file-system/include",
     "core/include",
     "db/include",
+    "benchmark",
 }
 
 local common_deps = {
@@ -92,29 +93,30 @@ if os.host() == "linux" and os.isfile("/usr/lib/x86_64-linux-gnu/libbenchmark.so
             end
     end
 
-    -- ===== QPS 基准测试（自动发现 benchmark/qps_*.cpp，不依赖 libbenchmark）=====
+end
 
-    for _, file in ipairs(os.files("benchmark/qps_*.cpp")) do
-        local name = path.basename(file) -- e.g. "qps_chunk_header"
-        local extra_files = {}
-        if name == "qps_auth_service" then
-            extra_files = {"core/src/auth_service.cpp"}
-        end
-        target(name)
-            set_kind("binary")
-            set_targetdir(path.join(os.projectdir(), "bin"))
-            set_rundir("$(projectdir)")
-            set_group("benchmark")
-            add_files(file)
-            add_files(extra_files)
-            add_includedirs(common_includedirs)
-            add_deps(common_deps)
-            add_syslinks("pthread", "rt")
-            add_ldflags("-Wl,-rpath," .. path.join(os.projectdir(), "lib"),
-                        "-Wl,--allow-shlib-undefined",
-                        "-Wl,--disable-new-dtags", {force = true})
-            if is_mode("debug") then
-                add_cxflags("-UNDEBUG")
-            end
+-- ===== QPS 基准测试（自动发现 benchmark/qps_*.cpp，不依赖 libbenchmark）=====
+
+for _, file in ipairs(os.files("benchmark/qps_*.cpp")) do
+    local name = path.basename(file) -- e.g. "qps_chunk_header"
+    local extra_files = {}
+    if name == "qps_auth_service" then
+        extra_files = {"core/src/auth_service.cpp"}
     end
+    target(name)
+        set_kind("binary")
+        set_targetdir(path.join(os.projectdir(), "bin"))
+        set_rundir("$(projectdir)")
+        set_group("benchmark")
+        add_files(file)
+        add_files(extra_files)
+        add_includedirs(common_includedirs)
+        add_deps(common_deps)
+        add_syslinks("pthread", "rt")
+        add_ldflags("-Wl,-rpath," .. path.join(os.projectdir(), "lib"),
+                    "-Wl,--allow-shlib-undefined",
+                    "-Wl,--disable-new-dtags", {force = true})
+        if is_mode("debug") then
+            add_cxflags("-UNDEBUG")
+        end
 end

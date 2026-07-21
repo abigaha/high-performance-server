@@ -21,8 +21,13 @@ run_frontend_tests() {
 
 
 if [ -n "${1:-}" ]; then
-  yellow "运行测试: $1"
-  xmake test "$1" 2>&1
+  test_selector="$1"
+  if [[ "$test_selector" != */* ]]; then
+    test_selector="${test_selector}/default"
+  fi
+
+  yellow "运行测试: $test_selector"
+  xmake test "$test_selector" 2>&1
   run_frontend_tests
   echo ""
   green "测试完成"

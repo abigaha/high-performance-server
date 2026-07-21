@@ -53,6 +53,7 @@ benchmark/baseline/
 *.mod
 *.o
 *.obj
+/.env
 .opencode
 .opencode/
 opencode.jsonc

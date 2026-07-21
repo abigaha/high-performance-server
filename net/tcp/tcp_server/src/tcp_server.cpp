@@ -239,6 +239,10 @@ void TcpServer::event_loop() {
 }
 
 void TcpServer::cleanup_resources() {
+  if (thread_pool_ != nullptr) {
+    thread_pool_->stop();
+  }
+
   for (auto& [fd, conn] : connections_) {
     conn->close();
     epoll_ctl(epoll_fd_, EPOLL_CTL_DEL, fd, nullptr);

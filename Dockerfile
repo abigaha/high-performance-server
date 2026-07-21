@@ -6,19 +6,28 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     curl \
     && rm -rf /var/lib/apt/lists/*
 
-RUN mkdir -p /data
+RUN groupadd --system --gid 10001 hps \
+    && useradd --system --uid 10001 --gid hps --home-dir /app --shell /usr/sbin/nologin hps
 
 WORKDIR /app
 
-COPY bin/high-performance-server .
-COPY lib/ lib/
-COPY config.json .
-COPY build/certs build/certs/
-COPY data/ data/
+RUN mkdir -p /app/data && chown -R hps:hps /app
+
+COPY --chown=hps:hps bin/high-performance-server \
+    bin/file-send-process \
+    bin/file-receive-process \
+    ./
+COPY --chown=hps:hps lib/ ./lib/
+
+ENV PATH="/app:${PATH}" \
+    SERVER_PORT=9090
 
 EXPOSE 9090
 
 HEALTHCHECK --interval=10s --timeout=3s --retries=3 \
-  CMD curl -f http://localhost:9090/api/health || exit 1
+  CMD curl -fsS http://127.0.0.1:9090/api/health || exit 1
 
-CMD ["./high-performance-server", "--config", "config.json"]
+STOPSIGNAL SIGTERM
+USER hps
+
+CMD ["./high-performance-server"]

@@ -8,9 +8,12 @@
 #include <sys/socket.h>
 #include <unistd.h>
 
+#include <algorithm>
+#include <array>
 #include <atomic>
 #include <chrono>
 #include <cstring>
+#include <mutex>
 #include <string>
 #include <thread>
 #include <vector>
@@ -140,14 +143,41 @@ TEST_F(TcpServerStressTest, ClientDisconnectUnexpectedly) {
 TEST_F(TcpServerStressTest, LargeDataFromMultipleClients) {
   constexpr int kNumClients = 5;
   constexpr int kDataSize = 65536;
-  std::atomic<int> handler_count{0};
-  std::atomic<int> total_bytes{0};
+  std::array<std::atomic<bool>, kNumClients> processed_clients;
+  std::atomic<int> processed_client_count{0};
+  std::atomic<bool> invalid_payload{false};
+
+  for (auto& processed : processed_clients) {
+    processed.store(false, std::memory_order_relaxed);
+  }
 
   config_.port = 0;
   server_ = std::make_unique<TcpServer>(config_);
   server_->set_handler([&](std::shared_ptr<Connection> conn) {
-    handler_count.fetch_add(1, std::memory_order_relaxed);
-    total_bytes.fetch_add(static_cast<int>(conn->read_buffer().size()), std::memory_order_relaxed);
+    std::string payload;
+    {
+      std::lock_guard<std::mutex> read_lock(conn->read_mutex());
+      payload = conn->read_buffer();
+    }
+
+    if (payload.size() < kDataSize) {
+      return;
+    }
+
+    const char marker = payload.front();
+    if (payload.size() != kDataSize || marker < 'A' || marker >= 'A' + kNumClients ||
+        !std::all_of(payload.begin(), payload.end(),
+                     [marker](char byte) { return byte == marker; })) {
+      invalid_payload.store(true, std::memory_order_relaxed);
+      return;
+    }
+
+    const auto client_index = static_cast<size_t>(marker - 'A');
+    if (!processed_clients.at(client_index).exchange(true, std::memory_order_relaxed)) {
+      processed_client_count.fetch_add(1, std::memory_order_relaxed);
+    }
+
+    std::lock_guard<std::mutex> write_lock(conn->write_mutex());
     conn->write_buffer() = "OK";
   });
   ASSERT_TRUE(server_->init());
@@ -162,13 +192,27 @@ TEST_F(TcpServerStressTest, LargeDataFromMultipleClients) {
     if (fd >= 0) {
       clients.push_back(fd);
       std::string data(kDataSize, static_cast<char>('A' + i));
-      send(fd, data.data(), data.size(), 0);
+      size_t bytes_sent = 0;
+      while (bytes_sent < data.size()) {
+        const ssize_t sent = send(fd, data.data() + bytes_sent, data.size() - bytes_sent, 0);
+        ASSERT_GT(sent, 0);
+        bytes_sent += static_cast<size_t>(sent);
+      }
     }
   }
 
-  std::this_thread::sleep_for(std::chrono::milliseconds(1000));
-  EXPECT_EQ(handler_count.load(), kNumClients);
-  EXPECT_GE(total_bytes.load(), kDataSize * kNumClients);
+  const auto deadline = std::chrono::steady_clock::now() + std::chrono::seconds(2);
+  while (processed_client_count.load(std::memory_order_relaxed) < kNumClients &&
+         std::chrono::steady_clock::now() < deadline) {
+    std::this_thread::sleep_for(std::chrono::milliseconds(10));
+  }
+
+  EXPECT_FALSE(invalid_payload.load(std::memory_order_relaxed));
+  EXPECT_EQ(processed_client_count.load(std::memory_order_relaxed), kNumClients);
+  for (int client_index = 0; client_index < kNumClients; ++client_index) {
+    EXPECT_TRUE(processed_clients.at(static_cast<size_t>(client_index))
+                    .load(std::memory_order_relaxed));
+  }
 
   for (int fd : clients) {
     close(fd);

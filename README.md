@@ -213,8 +213,8 @@ openssl rand -base64 48
 | `format.sh` | `all`, `<路径...>` | clang-format 格式化 `.cpp/.hpp/.h`|
 | `codeql.sh` | `run` | 提交 CodeQL 分析（自动探测服务器地址）|
 | `pipeline.sh` | `all`, `format`, `lint`, `compile`, `test` | 一键流水线 |
-| `benchmark.sh` | `micro`, `load`, `diff`, `gen-data`, `build` | 性能基准测试 |
-| `docker.sh` | `build`, `image`, `run`, `stop`, `up`, `down`, `all` | Docker 部署 |
+| `benchmark.sh` | `micro`, `qps`, `rps`, `load`, `diff`, `gen-data`, `build` | 性能基准测试（`load` 是 `rps` 的兼容别名） |
+| `docker.sh` | `deploy`, `status`, `health`, `stop`, `logs` | Docker 一键部署与运维 |
 
 ### `bash scripts/lint.sh [选项] [文件/目录...]` — Lint 检查
 
@@ -259,13 +259,13 @@ bash scripts/lint.sh net/http/src/http_parser.cpp
 
 | 子命令 | 说明 |
 |--------|------|
-| `build` | Release 编译 |
-| `image` | 构建 Docker 镜像 `hps-server` |
-| `run` | 运行容器（端口 9090）+ 健康检查 |
-| `stop` | 停止并删除容器 |
-| `up` | `docker compose up -d`（含 MySQL）|
-| `down` | `docker compose down` |
-| `all` | 依次执行 build → image → stop → run |
+| `deploy` | 构建后端与前端，启动 MySQL、后端和 nginx，并等待健康检查通过 |
+| `status` | 显示全部服务状态并验证公共健康接口 |
+| `health` | 通过 nginx 公共入口检查后端健康状态 |
+| `stop` | 停止服务并保留数据库和文件数据卷 |
+| `logs` | 输出全部服务日志 |
+| `all` / `up` / `run` | `deploy` 的兼容别名 |
+| `down` | `stop` 的兼容别名 |
 
 无参数时进入交互菜单。
 
@@ -621,8 +621,8 @@ bash scripts/benchmark.sh micro
 # 生成测试数据（1KB ~ 100MB）
 bash scripts/benchmark.sh gen-data
 
-# HTTP 负载测试（需服务器运行）
-bash scripts/benchmark.sh load
+# HTTP RPS 压力测试（需先完成 Docker 部署）
+RPS_BASE_URL=http://127.0.0.1:18080 bash scripts/benchmark.sh rps full
 
 # 微基准测试清单见 benchmark/README.md
 ```
@@ -632,52 +632,36 @@ bash scripts/benchmark.sh load
 ### 前置条件
 
 - Docker Engine 24+
-- 已编译的 release 二进制（`xmake f -m release -y && xmake`）
+- Docker Compose 插件
+- xmake、Node.js/npm、OpenSSL 和 curl
+- 本机已有 `nginx:latest` 镜像；MySQL 固定使用 `mysql:8.0`，本机缺少时首次部署会自动拉取
 
-### 一键构建运行
+### 一键部署
 
 ```bash
-bash scripts/docker.sh
+bash scripts/docker.sh deploy
 ```
 
-### 手动构建镜像
+首次部署会创建根目录 `.env`，自动生成认证密钥和两组不同的 MySQL 随机密码，并将文件权限设置为 `0600`。已有 `.env` 也会校验密钥强度、非占位值和端口范围。脚本随后构建 Release 后端和前端，通过 Compose 启动 MySQL、后端和 nginx，等待三项健康检查全部通过。
+
+只有 nginx 公共端口会绑定到宿主机回环地址，默认应用入口为 `http://127.0.0.1:18080`，健康检查地址为 `http://127.0.0.1:18080/api/health`。宿主机 `8080` 保留给 CodeQL 服务，Docker 部署不会使用该端口。已有 `.env` 可通过 `HPS_HTTP_PORT` 覆盖应用端口，例如 `HPS_HTTP_PORT=19080`；部署脚本会在构建前检查该宿主机端口，若已被占用则直接失败，不会开始构建。
+
+MySQL schema 在空数据卷首次启动时由 `db/schema.sql` 自动初始化。停止服务不会删除数据库或文件数据卷。
+
+### 日常运维
 
 ```bash
-docker build -t hps-server .
-```
+# 查看 Compose 状态并验证公共入口
+bash scripts/docker.sh status
 
-### 运行容器
+# 仅执行公共健康检查
+bash scripts/docker.sh health
 
-```bash
-# 基本运行
-docker run -d --name hps-server -p 9090:9090 hps-server
+# 查看完整服务日志
+bash scripts/docker.sh logs
 
-# 挂载配置文件和 SSL 证书
-docker run -d --name hps-server -p 9090:9090 \
-  -v ./config.json:/app/config.json:ro \
-  -v ./build/certs:/app/build/certs:ro \
-  -v ./data:/app/data \
-  hps-server
-```
-
-### docker-compose 编排（含 MySQL）
-
-```bash
-docker compose up -d
-```
-
-### 验证运行
-
-```bash
-curl http://localhost:9090/api/health
-# {"status":"ok","uptime":42}
-```
-
-### 停止
-
-```bash
-docker stop hps-server            # 单容器
-docker compose down               # 编排停止
+# 停止服务，保留数据卷
+bash scripts/docker.sh stop
 ```
 
 ## 质量门禁
@@ -727,8 +711,7 @@ project/
 │   ├── lint.sh            # 静态检查（clang-tidy + cppcheck）
 │   ├── test.sh            # 测试
 │   ├── benchmark.sh       # 性能基准测试
-│   ├── docker.sh          # Docker 部署
-│   ├── docker.sh          # Docker 部署（子命令：build/image/run/stop/up/down/all）
+│   ├── docker.sh          # Docker 一键部署与运维
 │   ├── lint.sh            # Lint 检查（clang-tidy + cppcheck，支持 --changed/-j/路径）
 │   └── test.sh            # 测试运行器（支持指定测试名）
 ├── verification/          # 端到端验证

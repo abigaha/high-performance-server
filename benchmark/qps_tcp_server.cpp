@@ -4,13 +4,21 @@
 #include "tcp_server.h"
 
 #include <atomic>
+#include <chrono>
 #include <cstdint>
+#include <cstdlib>
+#include <exception>
+#include <iostream>
 #include <memory>
+#include <stdexcept>
 #include <string>
 #include <thread>
 #include <vector>
 
 namespace {
+
+constexpr auto kServerStartTimeout = std::chrono::seconds{3};
+constexpr auto kServerStartPollInterval = std::chrono::milliseconds{10};
 
 struct ServerFixture {
   hps::TcpServer::Config config;
@@ -20,6 +28,7 @@ struct ServerFixture {
 
   ServerFixture() {
     config.port = 0;
+    config.backlog = 4096;
     config.thread_count = 2;
     server = std::make_unique<hps::TcpServer>(config);
     server->set_handler([](std::shared_ptr<hps::Connection> conn) {
@@ -31,12 +40,25 @@ struct ServerFixture {
         conn->write_to_fd();
       }
     });
-    server->init();
-    server_thread = std::thread([this] { server->start(); });
-    while (server->actual_port() == 0) {
-      std::this_thread::yield();
+    if (!server->init()) {
+      throw std::runtime_error("TCP QPS 服务初始化失败");
     }
     port = server->actual_port();
+    if (port == 0) {
+      throw std::runtime_error("TCP QPS 服务未获得监听端口");
+    }
+    server_thread = std::thread([this] { server->start(); });
+    const auto deadline = std::chrono::steady_clock::now() + kServerStartTimeout;
+    while (!server->is_running() && std::chrono::steady_clock::now() < deadline) {
+      std::this_thread::sleep_for(kServerStartPollInterval);
+    }
+    if (!server->is_running()) {
+      server->stop();
+      if (server_thread.joinable()) {
+        server_thread.join();
+      }
+      throw std::runtime_error("TCP QPS 服务启动超时");
+    }
   }
 
   ~ServerFixture() {
@@ -46,39 +68,51 @@ struct ServerFixture {
   }
 };
 
-thread_local hps::TcpClient* tls_client = nullptr;
+thread_local std::unique_ptr<hps::TcpClient> g_tcp_client;
+
+bool exchange_tcp_payload(uint16_t port, const std::string& payload) {
+  if (!g_tcp_client || !g_tcp_client->is_connected()) {
+    g_tcp_client = std::make_unique<hps::TcpClient>("127.0.0.1", port);
+    if (!g_tcp_client->connect_to_server()) {
+      g_tcp_client.reset();
+      return false;
+    }
+  }
+  if (!g_tcp_client->send_message(payload)) {
+    g_tcp_client.reset();
+    return false;
+  }
+
+  std::string reply;
+  if (!g_tcp_client->receive_message(reply, hps::ReadMode::RAW, 2000)) {
+    g_tcp_client.reset();
+    return false;
+  }
+  return reply == payload;
+}
 
 } // namespace
 
 int main() {
-  ServerFixture sfx;
-  auto levels = hps::bench::default_qps_levels();
+  try {
+    ServerFixture sfx;
+    auto levels = hps::bench::default_qps_levels();
 
-  hps::bench::run_qps_steps("TCP Connect", levels, [&sfx](int) {
-    hps::TcpClient client("127.0.0.1", sfx.port);
-    if (client.connect_to_server()) {
-      client.disconnect();
-    }
-  });
+    hps::bench::run_qps_steps("TCP Connect", levels, [&sfx](int) {
+      hps::TcpClient client("127.0.0.1", sfx.port);
+      return client.connect_to_server();
+    });
 
-  hps::bench::run_qps_steps("TCP Send/Receive 1KB", levels, [&sfx](int /*tid*/) {
-    if (tls_client == nullptr || !tls_client->is_connected()) {
-      delete tls_client;
-      tls_client = new hps::TcpClient("127.0.0.1", sfx.port);
-      tls_client->connect_to_server();
-    }
-    std::string payload(1024, 'x');
-    tls_client->send_message(payload);
-    std::string reply;
-    tls_client->receive_message(reply, hps::ReadMode::RAW, 2000);
-  });
+    const std::string payload(1024, 'x');
+    hps::bench::run_qps_steps("TCP Send/Receive 1KB", levels, [&sfx, &payload](int) {
+      return exchange_tcp_payload(sfx.port, payload);
+    });
 
-  // Clean up thread-local clients after the test
-  if (tls_client != nullptr) {
-    tls_client->disconnect();
-    delete tls_client;
-    tls_client = nullptr;
+    return EXIT_SUCCESS;
+  } catch (const std::exception& error) {
+    std::cerr << "TCP QPS 测试异常：" << error.what() << '\n';
+  } catch (...) {
+    std::cerr << "TCP QPS 测试发生未知异常\n";
   }
-
-  return 0;
+  return EXIT_FAILURE;
 }

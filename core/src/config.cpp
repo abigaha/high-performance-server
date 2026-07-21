@@ -180,6 +180,15 @@ void apply_env_overrides(ServerConfig& cfg) {
   if (const char* env = std::getenv("DB_PORT")) {
     cfg.db.port = static_cast<uint16_t>(std::stoul(env));
   }
+  if (const char* env = std::getenv("DB_USER")) {
+    cfg.db.username = env;
+  }
+  if (const char* env = std::getenv("DB_PASSWORD")) {
+    cfg.db.password = env;
+  }
+  if (const char* env = std::getenv("DB_NAME")) {
+    cfg.db.database = env;
+  }
   if (const char* env = std::getenv("SERVER_PORT")) {
     cfg.port = static_cast<uint16_t>(std::stoul(env));
   }

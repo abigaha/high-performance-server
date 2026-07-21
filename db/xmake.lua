@@ -6,4 +6,4 @@ target("db")
   add_includedirs("include", { public = true })
   -- 系统 Boost（boost::mysql header-only 模式）
   add_defines("BOOST_MYSQL_HEADER_ONLY")
-  add_syslinks("boost_system", "pthread")
+  add_syslinks("boost_system", "ssl", "crypto", "pthread")

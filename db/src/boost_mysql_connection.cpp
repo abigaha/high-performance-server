@@ -1,6 +1,7 @@
 #include "boost_mysql_connection.h"
 
 #include <boost/asio.hpp>
+#include <boost/asio/ssl/context.hpp>
 #include <boost/mysql.hpp>
 #include <iostream>
 #include <sstream>
@@ -16,16 +17,20 @@ namespace mysql = boost::mysql;
 
 class BoostMySqlConnection::Impl {
 public:
-  Impl() : conn_(ctx_.get_executor()) {}
+  Impl() : ssl_ctx_(asio::ssl::context::tls_client), conn_(ctx_.get_executor(), ssl_ctx_) {}
 
   bool connect(const DbConfig& config) {
     try {
-      mysql::handshake_params params(config.username, config.password, config.database);
+      mysql::handshake_params params(config.username,
+                                     config.password,
+                                     config.database,
+                                     mysql::handshake_params::default_collation,
+                                     mysql::ssl_mode::require);
 
       asio::ip::tcp::resolver resolver(ctx_.get_executor());
       auto endpoints = resolver.resolve(config.host, std::to_string(config.port));
 
-      mysql::tcp_connection temp(ctx_.get_executor());
+      mysql::tcp_ssl_connection temp(ctx_.get_executor(), ssl_ctx_);
       temp.connect(*endpoints.begin(), params);
       conn_ = std::move(temp);
       return true;
@@ -39,7 +44,7 @@ public:
     }
   }
 
-  bool is_open() const { return conn_.stream().is_open(); }
+  bool is_open() const { return conn_.stream().lowest_layer().is_open(); }
 
   bool ping() {
     try {
@@ -120,19 +125,20 @@ public:
 
   void close_socket() {
     boost::system::error_code ec;
-    if (conn_.stream().is_open()) {
+    if (conn_.stream().lowest_layer().is_open()) {
       // NOLINTNEXTLINE(bugprone-unused-return-value): asio 宏展开 false positive
-      conn_.stream().close(ec);
+      conn_.stream().lowest_layer().close(ec);
     }
   }
 
 private:
   asio::io_context ctx_;
-  mysql::tcp_connection conn_;
+  asio::ssl::context ssl_ctx_;
+  mysql::tcp_ssl_connection conn_;
   int64_t last_id_{0};
 
   void execute_stmt(const mysql::statement& stmt, const std::vector<std::string>& params, mysql::results& result) {
-    // field_view has reference semantics; source strings (params) must stay alive
+    // field_view 使用引用语义，执行期间参数字符串必须保持有效
     std::vector<mysql::field_view> fvs;
     fvs.reserve(params.size());
     for (const auto& p : params) {
