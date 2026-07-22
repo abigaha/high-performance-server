@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { getFile, deleteFile, getFileDownloadUrl } from '../api/files';
 import { useAuthStore } from '../stores/auth';
@@ -15,56 +15,127 @@ export default function FileDetailPage() {
   const { id } = useParams<{ id: string }>();
   const [file, setFile] = useState<FileRecord | null>(null);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+  const [actionError, setActionError] = useState<string | null>(null);
+  const [downloading, setDownloading] = useState(false);
+  const [deleting, setDeleting] = useState(false);
+  const requestIdRef = useRef(0);
   const user = useAuthStore((s) => s.user);
-  const toast = useToastStore();
+  const showSuccess = useToastStore((state) => state.success);
   const navigate = useNavigate();
 
-  useEffect(() => {
-    if (!id) return;
+  const loadFile = useCallback(async () => {
+    const fileId = Number(id);
+    if (!Number.isSafeInteger(fileId) || fileId <= 0) {
+      setFile(null);
+      setError('文件编号无效');
+      setLoading(false);
+      return;
+    }
+
+    const requestId = ++requestIdRef.current;
     setLoading(true);
-    getFile(Number(id))
-      .then(setFile)
-      .catch(() => toast.error('加载文件详情失败'))
-      .finally(() => setLoading(false));
-  }, [id, toast]);
-
-  const handleDownload = () => {
-    if (!file) return;
-    getFileDownloadUrl(file.file_id).then((url) => window.open(url, '_blank'));
-  };
-
-  const handleDelete = async () => {
-    if (!file) return;
+    setError(null);
     try {
-      await deleteFile(file.file_id);
-      toast.success('文件已删除');
-      navigate('/files');
-    } catch {
-      toast.error('删除失败');
+      const record = await getFile(fileId);
+      if (requestId === requestIdRef.current) setFile(record);
+    } catch (loadError) {
+      if (requestId === requestIdRef.current) {
+        setFile(null);
+        setError(errorMessage(loadError, '文件详情加载失败，请稍后重试'));
+      }
+    } finally {
+      if (requestId === requestIdRef.current) setLoading(false);
+    }
+  }, [id]);
+
+  useEffect(() => {
+    void loadFile();
+    return () => {
+      requestIdRef.current += 1;
+    };
+  }, [loadFile]);
+
+  const handleDownload = async () => {
+    if (!file || downloading) return;
+    setActionError(null);
+    setDownloading(true);
+    try {
+      const url = await getFileDownloadUrl(file.file_id);
+      triggerDownload(url, file.file_name);
+    } catch (downloadError) {
+      setActionError(errorMessage(downloadError, '文件下载失败，请稍后重试'));
+    } finally {
+      setDownloading(false);
     }
   };
 
-  if (loading) return <div className="text-center text-text-muted py-12">加载中...</div>;
-  if (!file) return <div className="text-center text-text-muted py-12">文件不存在</div>;
+  const handleDelete = async () => {
+    if (!file || deleting) return;
+    if (!window.confirm(`确定删除“${file.file_name}”吗？此操作无法撤销。`)) return;
+
+    setActionError(null);
+    setDeleting(true);
+    try {
+      await deleteFile(file.file_id);
+      showSuccess('文件已删除');
+      navigate('/files');
+    } catch (deleteError) {
+      setActionError(errorMessage(deleteError, '文件删除失败，请稍后重试'));
+      setDeleting(false);
+    }
+  };
+
+  if (loading) return <div role="status" className="text-center text-text-muted py-12">正在加载文件详情...</div>;
+  if (error || !file) {
+    return (
+      <div role="alert" className="text-center py-12">
+        <p className="text-sm text-destructive mb-4">{error ?? '文件不存在'}</p>
+        <div className="flex flex-wrap justify-center gap-3">
+          <button type="button" onClick={() => void loadFile()} className="glass-button text-sm">重试</button>
+          <button type="button" onClick={() => navigate('/files')} className="glass-button text-sm !bg-transparent !text-text">返回列表</button>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="max-w-lg mx-auto">
-      <div className="glass-card p-6 flex flex-col gap-4">
+      <div className="glass-card p-4 sm:p-6 flex flex-col gap-4">
         <h1 className="text-lg font-display text-primary">文件详情</h1>
-        <div className="grid grid-cols-2 gap-3 text-sm">
-          <span className="text-text-muted">文件名</span><span>{file.file_name}</span>
-          <span className="text-text-muted">大小</span><span>{formatSize(file.file_size)}</span>
-          <span className="text-text-muted">类型</span><span>{file.content_type}</span>
-          <span className="text-text-muted">哈希</span><span className="font-mono text-xs truncate">{file.file_hash}</span>
-          <span className="text-text-muted">上传时间</span><span>{new Date(file.created_at).toLocaleString('zh-CN')}</span>
-        </div>
-        <div className="flex gap-3 pt-2">
-          <button onClick={handleDownload} className="glass-button flex-1">下载</button>
+        <dl className="grid grid-cols-[minmax(0,7rem)_minmax(0,1fr)] gap-3 text-sm">
+          <dt className="text-text-muted">文件名</dt><dd className="break-words">{file.file_name}</dd>
+          <dt className="text-text-muted">大小</dt><dd>{formatSize(file.file_size)}</dd>
+          <dt className="text-text-muted">类型</dt><dd className="break-words">{file.content_type}</dd>
+          <dt className="text-text-muted">哈希</dt><dd className="font-mono text-xs break-all">{file.file_hash}</dd>
+          <dt className="text-text-muted">上传时间</dt><dd>{new Date(file.created_at).toLocaleString('zh-CN')}</dd>
+        </dl>
+        {actionError && <p role="alert" className="text-sm text-destructive">{actionError}</p>}
+        <div className="flex flex-col sm:flex-row gap-3 pt-2">
+          <button type="button" disabled={downloading || deleting} onClick={() => void handleDownload()} className="glass-button flex-1">
+            {downloading ? '准备下载...' : '下载'}
+          </button>
           {user?.role === 'VIP' && (
-            <button onClick={handleDelete} className="glass-button flex-1 !bg-red-500/80">删除</button>
+            <button type="button" disabled={deleting || downloading} onClick={() => void handleDelete()} className="glass-button flex-1 !bg-red-500/80">
+              {deleting ? '删除中...' : '删除'}
+            </button>
           )}
         </div>
       </div>
     </div>
   );
+}
+
+function errorMessage(error: unknown, fallback: string): string {
+  return error instanceof Error && error.message ? error.message : fallback;
+}
+
+function triggerDownload(url: string, fileName: string): void {
+  const anchor = document.createElement('a');
+  anchor.href = url;
+  anchor.download = fileName;
+  anchor.rel = 'noopener';
+  document.body.append(anchor);
+  anchor.click();
+  anchor.remove();
 }

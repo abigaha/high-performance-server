@@ -1,33 +1,30 @@
-import { useEffect, useState } from 'react';
-import { getFiles } from '../api/files';
-import { useToastStore } from '../stores/toast';
-import { Shield } from '@phosphor-icons/react';
-import type { FileRecord } from '../types/api';
+import { ArrowRight, Shield } from '@phosphor-icons/react';
+import { useNavigate } from 'react-router-dom';
 
 export default function UserManagePage() {
-  const [files, setFiles] = useState<FileRecord[]>([]);
-  const toast = useToastStore();
-
-  useEffect(() => {
-    getFiles({ limit: 50 })
-      .then((res) => setFiles(res.items))
-      .catch(() => toast.error('加载数据失败'));
-  }, [toast]);
+  const navigate = useNavigate();
 
   return (
-    <div>
-      <div className="flex items-center gap-2 mb-6">
+    <div className="mx-auto max-w-2xl">
+      <div className="mb-6 flex flex-wrap items-center gap-2">
         <Shield size={24} className="text-primary" />
         <h1 className="text-xl font-display text-primary">用户管理</h1>
-        <span className="text-xs bg-amber-500/20 text-amber-400 px-2 py-0.5 rounded-full">VIP 专属</span>
+        <span className="rounded-full bg-amber-500/20 px-2 py-0.5 text-xs text-amber-700 dark:text-amber-300">VIP 专属</span>
       </div>
 
-      <div className="glass-card p-6">
-        <p className="text-sm text-text-muted mb-4">用户管理功能开发中...</p>
-        <div className="text-sm">
-          <p className="text-text-muted mb-2">系统文件总数: <span className="text-text font-medium">{files.length}</span></p>
-        </div>
-      </div>
+      <section className="glass-card p-5 sm:p-6" aria-labelledby="user-management-status">
+        <h2 id="user-management-status" className="mb-2 text-base font-medium">暂无用户目录</h2>
+        <p className="text-sm leading-6 text-text-muted">
+          服务端当前未开放用户列表和管理接口，此页面不会使用文件数据推断用户状态。
+        </p>
+        <button
+          type="button"
+          onClick={() => navigate('/files')}
+          className="glass-button mt-5 flex items-center gap-2 text-sm"
+        >
+          返回文件列表 <ArrowRight size={16} />
+        </button>
+      </section>
     </div>
   );
 }

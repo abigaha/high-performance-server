@@ -1,5 +1,15 @@
+import { useEffect, useState } from 'react';
+import type { RefObject } from 'react';
 import { NavLink } from 'react-router-dom';
-import { File, MusicNote, Playlist, Upload, User, MusicNotes } from '@phosphor-icons/react';
+import {
+  File,
+  MusicNote,
+  MusicNotes,
+  Playlist,
+  Upload,
+  User,
+  X,
+} from '@phosphor-icons/react';
 import { useAuthStore } from '../stores/auth';
 import ThemeToggle from './ThemeToggle';
 
@@ -10,47 +20,85 @@ const links = [
   { to: '/upload', label: '上传', icon: Upload },
 ];
 
-export default function Sidebar() {
-  const user = useAuthStore((s) => s.user);
+interface SidebarProps {
+  open: boolean;
+  onClose: () => void;
+  sidebarRef: RefObject<HTMLElement | null>;
+}
+
+function useDesktopLayout(): boolean {
+  const [desktop, setDesktop] = useState(() => (
+    typeof window.matchMedia === 'function'
+      ? window.matchMedia('(min-width: 1024px)').matches
+      : false
+  ));
+
+  useEffect(() => {
+    if (typeof window.matchMedia !== 'function') return;
+
+    const media = window.matchMedia('(min-width: 1024px)');
+    const handleChange = (event: MediaQueryListEvent) => setDesktop(event.matches);
+    media.addEventListener('change', handleChange);
+    return () => media.removeEventListener('change', handleChange);
+  }, []);
+
+  return desktop;
+}
+
+export default function Sidebar({ open, onClose, sidebarRef }: SidebarProps) {
+  const user = useAuthStore((state) => state.user);
+  const desktop = useDesktopLayout();
+  const hidden = !desktop && !open;
+  const linkClassName = ({ isActive }: { isActive: boolean }) => (
+    `sidebar-link ${isActive ? 'is-active' : ''}`
+  );
 
   return (
-    <aside className="frosted-bar fixed left-0 top-0 h-full w-60 flex flex-col py-6 px-4 z-40">
-      <div className="flex items-center gap-2 mb-8 px-2">
-        <MusicNote size={28} className="text-primary" weight="fill" />
-        <span className="font-display text-xl text-primary">Crystal</span>
+    <aside
+      id="app-sidebar"
+      ref={sidebarRef}
+      role={desktop ? undefined : 'dialog'}
+      aria-modal={desktop ? undefined : true}
+      aria-label="主导航"
+      aria-hidden={hidden}
+      inert={hidden}
+      className={`app-sidebar fixed inset-y-0 left-0 z-50 flex w-60 flex-col px-4 py-5 transition-transform duration-200 lg:translate-x-0 ${
+        open ? 'translate-x-0' : '-translate-x-full'
+      }`}
+    >
+      <div className="mb-7 flex min-h-11 items-center justify-between gap-2 px-2">
+        <NavLink to="/files" onClick={onClose} className="flex min-w-0 items-center gap-2" aria-label="Crystal 首页">
+          <MusicNote size={26} className="shrink-0 text-primary" weight="fill" aria-hidden="true" />
+          <span className="truncate font-display text-lg text-text">Crystal</span>
+        </NavLink>
+        <button
+          type="button"
+          onClick={onClose}
+          className="icon-button lg:hidden"
+          aria-label="关闭导航菜单"
+          title="关闭导航菜单"
+          data-drawer-close
+        >
+          <X size={20} aria-hidden="true" />
+        </button>
       </div>
 
-      <nav className="flex-1 flex flex-col gap-1">
-        {links.map((l) => (
-          <NavLink
-            key={l.to}
-            to={l.to}
-            className={({ isActive }) =>
-              `flex items-center gap-3 px-3 py-2.5 rounded-xl transition-all text-sm ${
-                isActive ? 'bg-primary/20 text-primary font-medium' : 'text-text-muted hover:text-text hover:bg-white/10'
-              }`
-            }
-          >
-            <l.icon size={20} />
-            {l.label}
+      <nav className="flex flex-1 flex-col gap-1" aria-label="功能导航">
+        {links.map((link) => (
+          <NavLink key={link.to} to={link.to} onClick={onClose} className={linkClassName}>
+            <link.icon size={20} aria-hidden="true" />
+            <span>{link.label}</span>
           </NavLink>
         ))}
         {user?.role === 'VIP' && (
-          <NavLink
-            to="/users"
-            className={({ isActive }) =>
-              `flex items-center gap-3 px-3 py-2.5 rounded-xl transition-all text-sm ${
-                isActive ? 'bg-primary/20 text-primary font-medium' : 'text-text-muted hover:text-text hover:bg-white/10'
-              }`
-            }
-          >
-            <User size={20} />
-            用户管理
+          <NavLink to="/users" onClick={onClose} className={linkClassName}>
+            <User size={20} aria-hidden="true" />
+            <span>用户管理</span>
           </NavLink>
         )}
       </nav>
 
-      <div className="px-2">
+      <div className="border-t border-[var(--surface-border)] px-1 pt-4">
         <ThemeToggle />
       </div>
     </aside>

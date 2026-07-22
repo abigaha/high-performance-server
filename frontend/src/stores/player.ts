@@ -18,6 +18,7 @@ interface PlayerState {
   setVolume: (vol: number) => void;
   setCurrentTime: (t: number) => void;
   setDuration: (d: number) => void;
+  hydrateTrack: (track: MusicMeta) => void;
 }
 
 export const usePlayerStore = create<PlayerState>((set, get) => ({
@@ -46,17 +47,47 @@ export const usePlayerStore = create<PlayerState>((set, get) => ({
     const { playlist, playlistIndex } = get();
     if (playlistIndex < playlist.length - 1) {
       const nextIdx = playlistIndex + 1;
-      set({ currentTrack: playlist[nextIdx], playlistIndex: nextIdx, currentTime: 0, playing: true });
+      const track = playlist[nextIdx];
+      set({
+        currentTrack: track,
+        playlistIndex: nextIdx,
+        currentTime: 0,
+        duration: track.duration_sec || 0,
+        playing: true,
+      });
     }
   },
   prev: () => {
     const { playlist, playlistIndex } = get();
     if (playlistIndex > 0) {
       const prevIdx = playlistIndex - 1;
-      set({ currentTrack: playlist[prevIdx], playlistIndex: prevIdx, currentTime: 0, playing: true });
+      const track = playlist[prevIdx];
+      set({
+        currentTrack: track,
+        playlistIndex: prevIdx,
+        currentTime: 0,
+        duration: track.duration_sec || 0,
+        playing: true,
+      });
     }
   },
   setVolume: (vol) => set({ volume: Math.max(0, Math.min(1, vol)) }),
-  setCurrentTime: (t) => set({ currentTime: t }),
-  setDuration: (d) => set({ duration: d }),
+  setCurrentTime: (t) => set({ currentTime: Number.isFinite(t) ? Math.max(0, t) : 0 }),
+  setDuration: (d) => set({ duration: Number.isFinite(d) ? Math.max(0, d) : 0 }),
+  hydrateTrack: (track) => set((state) => {
+    const isCurrentTrack = state.currentTrack?.music_id === track.music_id;
+    const existingIndex = state.playlist.findIndex((item) => item.music_id === track.music_id);
+    const playlist = existingIndex >= 0
+      ? state.playlist.map((item, index) => (index === existingIndex ? track : item))
+      : [track];
+
+    return {
+      currentTrack: track,
+      playlist,
+      playlistIndex: existingIndex >= 0 ? existingIndex : 0,
+      playing: isCurrentTrack ? state.playing : false,
+      currentTime: isCurrentTrack ? state.currentTime : 0,
+      duration: track.duration_sec || (isCurrentTrack ? state.duration : 0),
+    };
+  }),
 }));

@@ -209,7 +209,7 @@ TEST(HttpServerTest, UploadNoAuth) {
   std::atomic<bool> setup_called{false};
   server.upload(
     "/upload",
-    [](const HttpRequest&, UploadStreamContext& ctx, HttpResponse& resp) {
+    [](const HttpRequest&, const UploadStreamContext& ctx, HttpResponse& resp) {
       EXPECT_FALSE(ctx.file_name.empty());
       resp.set_status(401, "Unauthorized");
       resp.body = "auth required";
@@ -249,7 +249,7 @@ TEST(HttpServerTest, UploadWithAuth) {
   std::atomic<bool> setup_called{false};
   server.upload(
     "/upload",
-    [](const HttpRequest&, UploadStreamContext& ctx, HttpResponse& resp) {
+    [](const HttpRequest&, const UploadStreamContext& ctx, HttpResponse& resp) {
       EXPECT_FALSE(ctx.file_name.empty());
       resp.set_status(200, "OK");
       resp.body = "uploaded";
@@ -279,6 +279,90 @@ TEST(HttpServerTest, UploadWithAuth) {
   EXPECT_TRUE(setup_called.load()) << "已鉴权应触发流式 setup";
   ASSERT_NE(resp.find("200 OK"), std::string::npos) << "响应: " << resp;
   ASSERT_NE(resp.find("uploaded"), std::string::npos) << "响应: " << resp;
+}
+
+// TH9-A: Content-Disposition 优先使用 RFC 5987 文件名，并安全回退普通文件名
+TEST(HttpServerTest, ParsesContentDispositionFilenameVariants) {
+  const auto extended = parse_content_disposition_filename(
+    "attachment; filename=\"fallback.mp3\"; filename*=UTF-8''%E4%B8%AD%E6%96%87%20%22demo%22.MP3");
+  ASSERT_TRUE(extended.has_value());
+  EXPECT_EQ(*extended, "中文 \"demo\".MP3");
+
+  const auto fallback =
+    parse_content_disposition_filename("attachment; filename=\"fallback.mp3\"; filename*=UTF-8''bad%ZZname.mp3");
+  ASSERT_TRUE(fallback.has_value());
+  EXPECT_EQ(*fallback, "fallback.mp3");
+
+  const auto sanitized = parse_content_disposition_filename("attachment; filename=\"../../safe.ogg\"");
+  ASSERT_TRUE(sanitized.has_value());
+  EXPECT_EQ(*sanitized, "safe.ogg");
+
+  EXPECT_FALSE(parse_content_disposition_filename("attachment; filename*=UTF-8''bad%2").has_value());
+}
+
+// TH9-B: 上传头与 body 跨两次 socket 读取时保持同一上传上下文
+TEST(HttpServerTest, UploadContextSurvivesSplitSocketReads) {
+  MockAuthService mock_auth;
+  HttpServer server(TcpServer::Config{0, 128, 2, 50});
+  server.set_auth_service(mock_auth);
+
+  server.upload(
+    "/upload",
+    [](const HttpRequest&, const UploadStreamContext& context, HttpResponse& response) {
+      response.set_status(200, "OK");
+      response.body =
+        context.file_name + "|" + std::to_string(context.chunks.size()) + "|" + std::to_string(context.total_size);
+      response.set_content_length(response.body.size());
+    },
+    [](const HttpRequest&, UploadStreamContext& context, HttpParser&) {
+      context.store_chunk_data = [](std::string_view, const std::string&) { return true; };
+    });
+
+  ASSERT_TRUE(server.init());
+  std::thread server_thread([&server]() { server.start(); });
+  server_thread.detach();
+  std::this_thread::sleep_for(std::chrono::milliseconds(100));
+
+  TcpClient client("127.0.0.1", server.actual_port());
+  ASSERT_TRUE(client.connect_to_server());
+  ASSERT_TRUE(client.send_message("POST /upload HTTP/1.1\r\n"
+                                  "Host: localhost\r\n"
+                                  "Authorization: Bearer valid-token\r\n"
+                                  "Content-Disposition: attachment; filename=\"fallback.mp3\"; "
+                                  "filename*=UTF-8''%E4%B8%AD%E6%96%87.mp3\r\n"
+                                  "Content-Length: 5\r\n"
+                                  "Connection: close\r\n\r\n"));
+  std::this_thread::sleep_for(std::chrono::milliseconds(100));
+  ASSERT_TRUE(client.send_message("hello"));
+
+  std::string response;
+  client.receive_message(response, ReadMode::RAW, 3000);
+  server.stop();
+  std::this_thread::sleep_for(std::chrono::milliseconds(50));
+
+  EXPECT_NE(response.find("200 OK"), std::string::npos) << response;
+  EXPECT_NE(response.find("中文.mp3|1|5"), std::string::npos) << response;
+}
+
+// TH9-C: 跨域预检允许浏览器发送 Content-Disposition
+TEST(HttpServerTest, CorsAllowsContentDispositionRequestHeader) {
+  HttpServer server(TcpServer::Config{0, 128, 2, 50});
+  ASSERT_TRUE(server.init());
+  std::thread server_thread([&server]() { server.start(); });
+  server_thread.detach();
+  std::this_thread::sleep_for(std::chrono::milliseconds(100));
+
+  const auto response = send_raw(server.actual_port(),
+                                 "OPTIONS /api/files/upload HTTP/1.1\r\n"
+                                 "Host: localhost\r\n"
+                                 "Access-Control-Request-Method: POST\r\n"
+                                 "Access-Control-Request-Headers: Content-Disposition\r\n"
+                                 "Connection: close\r\n\r\n");
+  server.stop();
+  std::this_thread::sleep_for(std::chrono::milliseconds(50));
+
+  EXPECT_NE(response.find("204 No Content"), std::string::npos) << response;
+  EXPECT_NE(response.find("Content-Disposition"), std::string::npos) << response;
 }
 
 // TH10: handler 异常返回 500

@@ -20,6 +20,7 @@ void HttpParser::reset() {
   total_body_bytes_ = 0;
   streaming_mode_ = false;
   chunk_handler_ = nullptr;
+  headers_done_cb_ = nullptr;
   chunk_buf_.clear();
 }
 

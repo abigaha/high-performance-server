@@ -514,6 +514,7 @@ Response 200:
 
 ```
 Request:  GET /api/files/:id/stream
+          Authorization: Bearer <token>  (NORMAL 或 VIP)
           Range: bytes=0-4095           (可选，支持拖拽 seek)
 Response 200 (无 Range):
   Content-Type: audio/mpeg
@@ -529,18 +530,20 @@ Response 206 (有 Range):
   Accept-Ranges: bytes
   <范围二进制>
 
+Error 401: { "error": "需要登录" }
 Error 404: { "error": "file not found" }
 Error 416: { "error": "Range Not Satisfiable" }
 
 逻辑:
-  1. 查 file_records + music_meta
-  2. 检测 content_type（根据扩展名或 DB 存储值）
-  3. 如果请求头有 Range:
+  1. check_auth(req, resp, NORMAL)，未认证直接返回 401
+  2. 查 file_records + music_meta
+  3. 检测 content_type（根据扩展名或 DB 存储值）
+  4. 如果请求头有 Range:
      a. parse_range_header(req.headers["Range"], file_size)
      b. 只读取范围内的 chunk 数据（分块读取，避免全量加载到内存）
      c. 返回 206 + Content-Range
-  4. 如果无 Range: 返回 200 + 完整内容（但不设 Content-Disposition: attachment）
-  5. 响应头加 Accept-Ranges: bytes
+  5. 如果无 Range: 返回 200 + 完整内容（但不设 Content-Disposition: attachment）
+  6. 响应头加 Accept-Ranges: bytes
 ```
 
 #### N10 — DELETE /api/files/:id
@@ -771,6 +774,11 @@ static std::string detect_content_type(const std::string& filename) {
 
 ```cpp
 server.get("/api/files/:id/stream", [&db, &fs](const HttpRequest& req, HttpResponse& resp) {
+  // NORMAL 是最低权限；Bearer Token 缺失或无效时返回 401。
+  if (!check_auth(req, resp, UserRole::NORMAL)) {
+    return;
+  }
+
   // 1. 查文件 + 音乐信息
   auto it = req.path_params.find("id");
   auto record = db.get_file_record(std::stoll(it->second));
@@ -857,7 +865,7 @@ server.get("/api/files/:id/stream", [&db, &fs](const HttpRequest& req, HttpRespo
 
 | 任务 | 涉及文件 | 说明 |
 |------|---------|------|
-| N3 音频流 | `main.cpp` | GET /api/files/:id/stream + Range |
+| N3 音频流 | `main.cpp` | NORMAL + Bearer Token；GET /api/files/:id/stream + Range |
 | N6 Accept-Ranges | `main.cpp` | 所有文件响应加 Accept-Ranges |
 | N7+N9 文件扩展 | `main.cpp` + `database_pool.cpp` | type 过滤 + total 总数 + content_type 检测 |
 | N4 搜索增强 | `main.cpp` | GET /api/files/search |

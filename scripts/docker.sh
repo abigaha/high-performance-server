@@ -10,7 +10,7 @@ DEPLOY_WAIT_TIMEOUT="${DEPLOY_WAIT_TIMEOUT:-180}"
 
 usage() {
   cat <<EOF
-用法: $(basename "$0") <子命令>
+用法: $(basename "$0") <子命令> [参数]
 
 子命令:
   deploy   编译、构建镜像、启动全部服务并验证公共入口
@@ -19,10 +19,20 @@ usage() {
   stop     停止服务并保留数据卷
   build    编译 Release 后端和前端
   image    编译并构建后端镜像
-  logs     输出全部服务日志
+  logs [--since <时长或时间戳>]
+           输出全部服务日志，或输出指定时间范围内的日志
   all      deploy 的兼容别名
   up/run   deploy 的兼容别名
   down     stop 的兼容别名
+EOF
+}
+
+logs_usage() {
+  cat <<EOF
+用法: $(basename "$0") logs [--since <时长或时间戳>]
+
+不带参数时输出全部历史日志。--since 的值由 Docker 解析，可使用 10m 等时长，
+也可使用 Docker 支持的时间戳。
 EOF
 }
 
@@ -377,8 +387,45 @@ cmd_stop() {
 }
 
 cmd_logs() {
+  local since=""
+
+  case "$#" in
+    0) ;;
+    1)
+      if [ "$1" = "-h" ] || [ "$1" = "--help" ]; then
+        logs_usage
+        return 0
+      fi
+      red "错误: logs 只接受 --since <时长或时间戳>"
+      logs_usage
+      return 1
+      ;;
+    2)
+      if [ "$1" != "--since" ]; then
+        red "错误: logs 未知参数: $1"
+        logs_usage
+        return 1
+      fi
+      if [ -z "$2" ] || [[ "$2" == -* ]]; then
+        red "错误: --since 需要有效的 Docker 时长或时间戳"
+        logs_usage
+        return 1
+      fi
+      since="$2"
+      ;;
+    *)
+      red "错误: logs 参数过多"
+      logs_usage
+      return 1
+      ;;
+  esac
+
   require_docker || return 1
-  compose_control logs --no-color
+  if [ -n "$since" ]; then
+    compose_control logs --no-color --since "$since"
+  else
+    compose_control logs --no-color
+  fi
 }
 
 handle_menu_choice() {
@@ -413,7 +460,10 @@ if [ $# -gt 0 ]; then
     stop|down) cmd_stop ;;
     build) cmd_build ;;
     image) cmd_image ;;
-    logs) cmd_logs ;;
+    logs)
+      shift
+      cmd_logs "$@"
+      ;;
     -h|--help) usage ;;
     *) red "未知子命令: $1"; usage; exit 1 ;;
   esac

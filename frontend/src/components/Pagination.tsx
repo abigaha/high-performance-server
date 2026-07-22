@@ -17,19 +17,24 @@ export default function Pagination({ current, total, pageSize, onChange }: Props
   }
 
   return (
-    <div className="flex items-center justify-center gap-2 mt-6">
+    <nav aria-label="分页导航" className="flex flex-wrap items-center justify-center gap-2 mt-6">
       <button
+        type="button"
+        aria-label="上一页"
         disabled={current <= 1}
         onClick={() => onChange(current - 1)}
-        className="glass-button !py-1.5 !px-3 !bg-transparent !text-text disabled:opacity-30"
+        className="glass-button !p-0 !bg-transparent !text-text disabled:opacity-30 h-9 w-9"
       >
         <CaretLeft size={16} />
       </button>
       {pages.map((p) => (
         <button
           key={p}
+          type="button"
+          aria-label={`第 ${p} 页`}
+          aria-current={p === current ? 'page' : undefined}
           onClick={() => onChange(p)}
-          className={`glass-button !py-1.5 !px-3 !text-sm ${
+          className={`glass-button !p-0 !text-sm h-9 min-w-9 ${
             p === current ? '!bg-primary !text-white' : '!bg-transparent !text-text'
           }`}
         >
@@ -37,12 +42,14 @@ export default function Pagination({ current, total, pageSize, onChange }: Props
         </button>
       ))}
       <button
+        type="button"
+        aria-label="下一页"
         disabled={current >= totalPages}
         onClick={() => onChange(current + 1)}
-        className="glass-button !py-1.5 !px-3 !bg-transparent !text-text disabled:opacity-30"
+        className="glass-button !p-0 !bg-transparent !text-text disabled:opacity-30 h-9 w-9"
       >
         <CaretRight size={16} />
       </button>
-    </div>
+    </nav>
   );
 }

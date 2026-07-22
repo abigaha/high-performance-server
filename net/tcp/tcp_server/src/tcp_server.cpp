@@ -245,6 +245,9 @@ void TcpServer::cleanup_resources() {
 
   for (auto& [fd, conn] : connections_) {
     conn->close();
+    if (close_handler_) {
+      close_handler_(conn.get());
+    }
     epoll_ctl(epoll_fd_, EPOLL_CTL_DEL, fd, nullptr);
   }
   connections_.clear();
@@ -487,6 +490,9 @@ void TcpServer::close_connection(int fd) {
   Logger::_info("关闭连接 (fd=" + std::to_string(fd) + ")");
 
   it->second->close();
+  if (close_handler_) {
+    close_handler_(it->second.get());
+  }
   epoll_ctl(epoll_fd_, EPOLL_CTL_DEL, fd, nullptr);
   connections_.erase(it);
 }

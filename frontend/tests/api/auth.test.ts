@@ -12,7 +12,7 @@ describe('auth API', () => {
   it('login calls POST /api/auth/login', async () => {
     mockFetch.mockResolvedValueOnce({
       ok: true,
-      json: async () => ({ token: 'abc', user_id: 1, role: 'NORMAL' }),
+      json: async () => ({ token: 'abc', user_id: 1, role: 1 }),
     });
 
     const { login } = await import('../../src/api/auth');
@@ -32,7 +32,7 @@ describe('auth API', () => {
   it('register calls POST /api/auth/register', async () => {
     mockFetch.mockResolvedValueOnce({
       ok: true,
-      json: async () => ({ token: 'def', user_id: 2, role: 'VIP' }),
+      json: async () => ({ token: 'def', user_id: 2, role: '2' }),
     });
 
     const { register } = await import('../../src/api/auth');
@@ -46,5 +46,19 @@ describe('auth API', () => {
       }),
     );
     expect(res.token).toBe('def');
+    expect(res.role).toBe('VIP');
+  });
+
+  it('getMe 也归一化数字角色', async () => {
+    mockFetch.mockResolvedValueOnce({
+      ok: true,
+      json: async () => ({ user_id: 3, username: 'music', email: '', role: 2 }),
+    });
+
+    const { getMe } = await import('../../src/api/auth');
+
+    await expect(getMe()).resolves.toEqual(
+      expect.objectContaining({ user_id: 3, role: 'VIP' }),
+    );
   });
 });

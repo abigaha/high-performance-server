@@ -1,8 +1,18 @@
+export type UserRole = 'GUEST' | 'NORMAL' | 'VIP';
+
+export type UserRoleValue = UserRole | 0 | 1 | 2 | '0' | '1' | '2';
+
+export function normalizeUserRole(role: unknown): UserRole {
+  if (role === 'VIP' || role === 2 || role === '2') return 'VIP';
+  if (role === 'NORMAL' || role === 1 || role === '1') return 'NORMAL';
+  return 'GUEST';
+}
+
 export interface AuthUser {
   user_id: number;
   username: string;
   email: string;
-  role: 'GUEST' | 'NORMAL' | 'VIP';
+  role: UserRole;
 }
 
 export interface FileRecord {

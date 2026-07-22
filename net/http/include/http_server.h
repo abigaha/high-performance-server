@@ -14,6 +14,8 @@
 #include <functional>
 #include <memory>
 #include <mutex>
+#include <optional>
+#include <string>
 #include <string_view>
 #include <unordered_map>
 
@@ -31,9 +33,20 @@ struct UploadStreamContext {
   std::vector<FileChunkRecord> chunks;
   void* hash_ctx{nullptr};
   ChunkStoreFunc store_chunk_data;
+  std::optional<std::size_t> content_length;
+  std::optional<HttpResponse> rejection_response;
   bool failed{false};
   bool size_exceeded{false};
+
+  UploadStreamContext() = default;
+  ~UploadStreamContext();
+  UploadStreamContext(const UploadStreamContext&) = delete;
+  UploadStreamContext& operator=(const UploadStreamContext&) = delete;
+
+  void reset_hash_context() noexcept;
 };
+
+std::optional<std::string> parse_content_disposition_filename(std::string_view header_value);
 
 class HttpServer : public IHttpServer {
 public:
@@ -41,6 +54,7 @@ public:
   using WsHandler = IHttpServer::WsHandler;
   using UploadHandler = std::function<void(const HttpRequest&, UploadStreamContext&, HttpResponse&)>;
   using UploadStreamSetup = std::function<void(const HttpRequest&, UploadStreamContext&, HttpParser&)>;
+  using UploadPreflight = std::function<std::optional<HttpResponse>(const HttpRequest&, const UploadStreamContext&)>;
 
   explicit HttpServer(const TcpServer::Config& config = {});
   ~HttpServer() override;
@@ -58,7 +72,10 @@ public:
   void del(std::string_view path, Handler handler) override;
 
   void ws(std::string_view path, WsHandler handler) override;
-  void upload(std::string_view path, UploadHandler handler, UploadStreamSetup setup = nullptr);
+  void upload(std::string_view path,
+              UploadHandler handler,
+              UploadStreamSetup setup = nullptr,
+              UploadPreflight preflight = nullptr);
 
   void set_auth_service(IAuthService& auth) { auth_service_ = &auth; }
 
@@ -66,6 +83,7 @@ public:
 
 private:
   void handle_connection(Connection& conn);
+  void cleanup_connection(Connection* conn);
   void on_headers_done(HttpParser& parser, const HttpRequest& req, std::shared_ptr<UploadStreamContext> ctx);
   bool try_handle_ws_upgrade(Connection& conn, const HttpRequest& req, std::size_t total_consumed);
   static void send_error(Connection& conn, int status, std::string_view text, std::string_view detail);
@@ -76,6 +94,7 @@ private:
   std::unordered_map<std::string, WsHandler> ws_handlers_;
   std::unordered_map<std::string, UploadHandler> upload_handlers_;
   std::unordered_map<std::string, UploadStreamSetup> upload_setups_;
+  std::unordered_map<std::string, UploadPreflight> upload_preflights_;
 
   std::mutex conn_map_mutex_;
   std::unordered_map<Connection*, std::shared_ptr<std::mutex>> conn_mutexes_;
@@ -83,7 +102,8 @@ private:
   IAuthService* auth_service_{nullptr};
 
   std::mutex parsers_mutex_;
-  std::unordered_map<Connection*, HttpParser> parsers_;
+  std::unordered_map<Connection*, std::shared_ptr<HttpParser>> parsers_;
+  std::unordered_map<Connection*, std::shared_ptr<UploadStreamContext>> upload_contexts_;
 };
 
 } // namespace hps

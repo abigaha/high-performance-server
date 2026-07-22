@@ -1,162 +1,270 @@
 import { useEffect, useRef, useState } from 'react';
-import { Play, Pause, SkipBack, SkipForward, SpeakerHigh } from '@phosphor-icons/react';
-import { usePlayerStore } from '../stores/player';
+import { useLocation } from 'react-router-dom';
+import { Pause, Play, SkipBack, SkipForward, SpeakerHigh } from '@phosphor-icons/react';
 import { getFileStreamUrl } from '../api/files';
+import { usePlayerStore } from '../stores/player';
+import type { MusicMeta } from '../types/api';
 
 interface Props {
   mode: 'mini' | 'fullscreen';
 }
 
+interface StreamableTrack extends MusicMeta {
+  file_id?: number;
+}
+
 export default function AudioPlayer({ mode }: Props) {
+  const location = useLocation();
   const audioRef = useRef<HTMLAudioElement>(null);
+  const ownedStreamUrlRef = useRef<string | null>(null);
   const [streamUrl, setStreamUrl] = useState('');
+  const [playbackError, setPlaybackError] = useState<string | null>(null);
   const {
-    currentTrack, playing, currentTime, duration, volume,
-    pause, resume, seek, next, prev, setVolume, setCurrentTime, setDuration,
+    currentTrack,
+    playlist,
+    playlistIndex,
+    playing,
+    currentTime,
+    duration,
+    volume,
+    pause,
+    resume,
+    seek,
+    next,
+    prev,
+    setVolume,
+    setCurrentTime,
+    setDuration,
   } = usePlayerStore();
 
+  const visible = mode === 'fullscreen' || !location.pathname.startsWith('/player/');
+  const streamFileId = (currentTrack as StreamableTrack | null)?.file_id;
+
   useEffect(() => {
-    if (currentTrack) {
-      getFileStreamUrl(currentTrack.music_id).then(setStreamUrl);
-    } else {
-      setStreamUrl('');
+    let active = true;
+    const releaseOwnedUrl = () => {
+      const ownedUrl = ownedStreamUrlRef.current;
+      if (!ownedUrl) return;
+      ownedStreamUrlRef.current = null;
+      URL.revokeObjectURL(ownedUrl);
+    };
+
+    releaseOwnedUrl();
+    setStreamUrl('');
+    setPlaybackError(null);
+
+    if (!visible || !currentTrack) {
+      return () => {
+        active = false;
+        releaseOwnedUrl();
+      };
     }
-  }, [currentTrack]);
+    if (!streamFileId) {
+      setPlaybackError('缺少可播放文件信息，请重新打开该音乐');
+      return () => {
+        active = false;
+        releaseOwnedUrl();
+      };
+    }
+
+    void getFileStreamUrl(streamFileId)
+      .then((url) => {
+        if (!active) {
+          URL.revokeObjectURL(url);
+          return;
+        }
+        releaseOwnedUrl();
+        ownedStreamUrlRef.current = url;
+        setStreamUrl(url);
+      })
+      .catch((error: unknown) => {
+        if (active) setPlaybackError(errorMessage(error, '无法生成音频地址'));
+      });
+
+    return () => {
+      active = false;
+      releaseOwnedUrl();
+    };
+  }, [currentTrack, streamFileId, visible]);
 
   useEffect(() => {
     const audio = audioRef.current;
-    if (!audio || !currentTrack) return;
+    if (!visible || !audio || !currentTrack || !streamUrl) return;
 
     if (playing) {
-      audio.play().catch(() => {});
+      void audio.play().catch((error: unknown) => {
+        setPlaybackError(`播放失败：${errorMessage(error, '浏览器拒绝了播放请求')}`);
+        pause();
+      });
     } else {
       audio.pause();
     }
-  }, [playing, currentTrack]);
+  }, [playing, currentTrack, pause, streamUrl, visible]);
 
   useEffect(() => {
+    if (audioRef.current) audioRef.current.volume = volume;
+  }, [volume, streamUrl]);
+
+  if (!visible || !currentTrack) return null;
+
+  const effectiveDuration = duration > 0 ? duration : Math.max(0, currentTrack.duration_sec);
+  const seekMaximum = Math.max(effectiveDuration, 1);
+  const seekValue = Math.min(Math.max(currentTime, 0), seekMaximum);
+  const canGoPrevious = playlistIndex > 0;
+  const canGoNext = playlistIndex >= 0 && playlistIndex < playlist.length - 1;
+
+  const handleSeek = (value: number) => {
+    const bounded = Math.min(Math.max(value, 0), effectiveDuration);
+    const audio = audioRef.current;
+    if (audio) audio.currentTime = bounded;
+    seek(bounded);
+  };
+
+  const handleLoadedMetadata = () => {
     const audio = audioRef.current;
     if (!audio) return;
-
-    const onTimeUpdate = () => setCurrentTime(audio.currentTime);
-    const onDurationChange = () => setDuration(audio.duration || 0);
-    const onEnded = () => next();
-
-    audio.addEventListener('timeupdate', onTimeUpdate);
-    audio.addEventListener('durationchange', onDurationChange);
-    audio.addEventListener('ended', onEnded);
-
-    return () => {
-      audio.removeEventListener('timeupdate', onTimeUpdate);
-      audio.removeEventListener('durationchange', onDurationChange);
-      audio.removeEventListener('ended', onEnded);
-    };
-  }, [currentTrack, next, setCurrentTime, setDuration]);
-
-  useEffect(() => {
-    if (audioRef.current) {
-      audioRef.current.volume = volume;
-    }
-  }, [volume]);
-
-  if (!currentTrack) return null;
-
-  const fmt = (t: number) => {
-    const m = Math.floor(t / 60);
-    const s = Math.floor(t % 60);
-    return `${m}:${s.toString().padStart(2, '0')}`;
+    const mediaDuration = Number.isFinite(audio.duration) ? audio.duration : 0;
+    setDuration(mediaDuration);
+    if (currentTime > 0 && currentTime < mediaDuration) audio.currentTime = currentTime;
   };
 
-  const handleSeek = (e: React.MouseEvent<HTMLDivElement>) => {
-    const rect = e.currentTarget.getBoundingClientRect();
-    const pct = (e.clientX - rect.left) / rect.width;
-    const audio = audioRef.current;
-    if (audio) {
-      const t = pct * (audio.duration || 0);
-      audio.currentTime = t;
-      seek(t);
-    }
-  };
+  const media = (
+    <audio
+      ref={audioRef}
+      src={streamUrl}
+      preload="metadata"
+      onLoadedMetadata={handleLoadedMetadata}
+      onTimeUpdate={(event) => setCurrentTime(event.currentTarget.currentTime)}
+      onEnded={next}
+      onError={() => {
+        setPlaybackError('音频加载失败，请检查文件是否仍然可用');
+        pause();
+      }}
+    />
+  );
 
-  const bar = (
-    <div className="flex items-center gap-3 flex-1">
-      <div className="text-xs text-text-muted w-10 text-right">{fmt(currentTime)}</div>
-      <div className="flex-1 h-1.5 bg-white/20 rounded-full cursor-pointer relative" onClick={handleSeek}>
-        <div
-          className="absolute left-0 top-0 h-full bg-primary rounded-full"
-          style={{ width: `${duration > 0 ? (currentTime / duration) * 100 : 0}%` }}
-        />
-      </div>
-      <div className="text-xs text-text-muted w-10">{fmt(currentTime > 0 ? duration : currentTrack.duration_sec)}</div>
+  const timeline = (
+    <div className="flex min-w-0 flex-1 items-center gap-2 sm:gap-3">
+      <span className="w-10 shrink-0 text-right text-xs text-text-muted">{formatTime(currentTime)}</span>
+      <input
+        type="range"
+        aria-label="播放进度"
+        aria-valuetext={`${formatTime(currentTime)} / ${formatTime(effectiveDuration)}`}
+        min={0}
+        max={seekMaximum}
+        step={0.1}
+        value={seekValue}
+        disabled={effectiveDuration <= 0}
+        onChange={(event) => handleSeek(Number(event.target.value))}
+        className="min-w-20 flex-1 accent-primary disabled:opacity-50"
+      />
+      <span className="w-10 shrink-0 text-xs text-text-muted">{formatTime(effectiveDuration)}</span>
+    </div>
+  );
+
+  const transport = (
+    <div className="flex shrink-0 items-center gap-2 sm:gap-3">
+      <button
+        type="button"
+        aria-label="上一首"
+        disabled={!canGoPrevious}
+        onClick={prev}
+        className="icon-button text-text-muted hover:text-text disabled:opacity-30"
+      >
+        <SkipBack size={mode === 'mini' ? 18 : 24} />
+      </button>
+      <button
+        type="button"
+        aria-label={playing ? '暂停' : '播放'}
+        disabled={!streamUrl || Boolean(playbackError)}
+        onClick={() => (playing ? pause() : resume())}
+        className={mode === 'mini'
+          ? 'icon-button text-primary hover:opacity-80 disabled:opacity-30'
+          : 'h-14 w-14 rounded-full bg-primary flex items-center justify-center hover:opacity-90 disabled:opacity-30'}
+      >
+        {playing ? <Pause size={mode === 'mini' ? 24 : 28} weight="fill" /> : <Play size={mode === 'mini' ? 24 : 28} weight="fill" />}
+      </button>
+      <button
+        type="button"
+        aria-label="下一首"
+        disabled={!canGoNext}
+        onClick={next}
+        className="icon-button text-text-muted hover:text-text disabled:opacity-30"
+      >
+        <SkipForward size={mode === 'mini' ? 18 : 24} />
+      </button>
     </div>
   );
 
   if (mode === 'mini') {
     return (
-      <>
-        <audio ref={audioRef} src={streamUrl} preload="metadata" />
-        <div className="frosted-bar fixed bottom-0 left-60 right-0 h-16 flex items-center px-6 gap-4 z-40">
-          <div className="flex items-center gap-3 min-w-0 w-48">
-            <div className="w-8 h-8 rounded-lg bg-primary/20 flex items-center justify-center shrink-0">
-              <div className="w-4 h-4 rounded bg-primary/40" />
-            </div>
-            <div className="min-w-0">
-              <p className="text-xs font-medium truncate">{currentTrack.title}</p>
-              <p className="text-[10px] text-text-muted truncate">{currentTrack.artist}</p>
-            </div>
+      <div className="frosted-bar fixed bottom-0 left-0 right-0 z-40 min-h-16 px-3 py-2 sm:px-5 lg:left-60" aria-label="迷你播放器">
+        {media}
+        <div className="flex min-w-0 items-center gap-3">
+          <div className="min-w-0 flex-1 sm:w-40 sm:flex-none">
+            <p className="truncate text-xs font-medium">{currentTrack.title}</p>
+            <p className="truncate text-[11px] text-text-muted">{currentTrack.artist || '未知艺术家'}</p>
           </div>
-          {bar}
-          <div className="flex items-center gap-3">
-            <button onClick={prev} className="text-text-muted hover:text-text transition-colors">
-              <SkipBack size={18} />
-            </button>
-            <button onClick={() => (playing ? pause() : resume())} className="text-primary hover:opacity-80 transition-opacity">
-              {playing ? <Pause size={24} weight="fill" /> : <Play size={24} weight="fill" />}
-            </button>
-            <button onClick={next} className="text-text-muted hover:text-text transition-colors">
-              <SkipForward size={18} />
-            </button>
-          </div>
-          <div className="flex items-center gap-2 w-24">
+          <div className="hidden min-w-0 flex-1 md:flex">{timeline}</div>
+          {transport}
+          <label className="hidden w-28 shrink-0 items-center gap-2 lg:flex">
             <SpeakerHigh size={16} className="text-text-muted" />
+            <span className="sr-only">音量</span>
             <input
               type="range"
+              aria-label="音量"
+              aria-valuetext={`${Math.round(volume * 100)}%`}
               min={0}
               max={1}
               step={0.05}
               value={volume}
-              onChange={(e) => setVolume(Number(e.target.value))}
+              onChange={(event) => setVolume(Number(event.target.value))}
               className="w-full accent-primary"
             />
-          </div>
+          </label>
         </div>
-      </>
+        {playbackError && <p role="alert" className="mt-1 truncate text-xs text-destructive">{playbackError}</p>}
+      </div>
     );
   }
 
   return (
-    <div className="glass-card p-8 max-w-lg mx-auto mt-8">
-      <audio ref={audioRef} src={streamUrl} preload="metadata" />
-      <div className="w-48 h-48 mx-auto rounded-2xl bg-gradient-to-br from-primary/40 to-primary/10 flex items-center justify-center mb-6">
-        <div className="w-16 h-16 rounded-full bg-primary/30" />
+    <section className="glass-card mx-auto mt-4 max-w-lg p-5 sm:p-8" aria-label="音乐播放器">
+      {media}
+      <div className="mx-auto mb-6 flex aspect-square w-40 items-center justify-center rounded-lg border border-primary/20 bg-primary/10 sm:w-48" aria-hidden="true">
+        <div className="h-16 w-16 rounded-full border-2 border-primary/30" />
       </div>
-      <h2 className="text-lg font-display text-center">{currentTrack.title}</h2>
-      <p className="text-sm text-text-muted text-center mb-6">{currentTrack.artist}</p>
-      {bar}
-      <div className="flex items-center justify-center gap-6 mt-6">
-        <button onClick={prev} className="text-text-muted hover:text-text">
-          <SkipBack size={24} />
-        </button>
-        <button
-          onClick={() => (playing ? pause() : resume())}
-          className="w-14 h-14 rounded-full bg-primary flex items-center justify-center hover:opacity-90 transition-opacity"
-        >
-          {playing ? <Pause size={28} weight="fill" /> : <Play size={28} weight="fill" />}
-        </button>
-        <button onClick={next} className="text-text-muted hover:text-text">
-          <SkipForward size={24} />
-        </button>
-      </div>
-    </div>
+      <h2 className="break-words text-center text-lg font-display">{currentTrack.title}</h2>
+      <p className="mb-6 break-words text-center text-sm text-text-muted">{currentTrack.artist || '未知艺术家'}</p>
+      {timeline}
+      <div className="mt-6 flex items-center justify-center">{transport}</div>
+      <label className="mx-auto mt-6 flex max-w-xs items-center gap-3">
+        <SpeakerHigh size={18} className="shrink-0 text-text-muted" />
+        <span className="sr-only">音量</span>
+        <input
+          type="range"
+          aria-label="音量"
+          aria-valuetext={`${Math.round(volume * 100)}%`}
+          min={0}
+          max={1}
+          step={0.05}
+          value={volume}
+          onChange={(event) => setVolume(Number(event.target.value))}
+          className="w-full accent-primary"
+        />
+      </label>
+      {playbackError && <p role="alert" className="mt-5 text-center text-sm text-destructive">{playbackError}</p>}
+    </section>
   );
+}
+
+function formatTime(value: number): string {
+  const safeValue = Number.isFinite(value) ? Math.max(0, value) : 0;
+  const minutes = Math.floor(safeValue / 60);
+  const seconds = Math.floor(safeValue % 60);
+  return `${minutes}:${seconds.toString().padStart(2, '0')}`;
+}
+
+function errorMessage(error: unknown, fallback: string): string {
+  return error instanceof Error && error.message ? error.message : fallback;
 }

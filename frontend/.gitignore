@@ -26,3 +26,7 @@ dist-ssr
 # Local visual-check helpers
 _screenshot.mjs
 _shot.cjs
+
+# Playwright artifacts
+playwright-report/
+test-results/

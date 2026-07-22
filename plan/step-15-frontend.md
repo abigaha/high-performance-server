@@ -1,712 +1,188 @@
-# Step 15 — 配套前端 Web 界面（Crystal Music）
+# Step 15：配套前端 Web 界面（第一版历史计划）
 
-> 基于 **React 19 + Vite 6 + TypeScript 5** 构建 SPA，对接后端 RESTful API 和 WebSocket。
-> 设计体系：**Crystal Music** — 青绿翡翠色调 × Glassmorphism 玻璃态 × Frosted Glass 毛玻璃
+> 状态：历史基线，不再作为当前开发与验收入口。
+>
+> 说明：本计划记录 Crystal Music 前端第一版的建设范围。第一版已完成基础页面和接口封装，但在上传协议、权限归一化、认证下载、播放器、响应式布局和真实浏览器验收方面存在缺口。当前实现与后续验收以 [Step 17：前端体验与上传链路优化](step-17-frontend-optimization.md) 为准。
+>
+> 当前技术基线：React 19、Vite 8、TypeScript 6、React Router 7、Zustand 5、Tailwind CSS 4、Vitest 4、Playwright 1.61。
 
----
+## 一、历史目标
 
-## 技术栈
+Step 15 的目标是在 C++ 后端之上提供一个可直接操作的 SPA，覆盖以下第一版工作流：
 
-| 层 | 选型 | 说明 |
+- 注册、登录、退出和会话恢复；
+- 文件列表、文件详情、下载、删除和音频上传；
+- 音乐库浏览、个人歌单和播放控制；
+- VIP 路由保护；
+- 深浅主题、桌面侧栏和基础通知；
+- Vitest 单元测试基础设施。
+
+这些页面和路由已经建立，但“页面存在”不等于端到端契约已经正确。第一版完成后发现的问题及其补充实现均记录在 Step 17，后续修改不得继续按本文件中的历史假设扩展。
+
+## 二、当前技术栈
+
+以下内容以 `frontend/package.json` 和实际配置为准：
+
+| 层 | 当前选型 | 当前用途 |
 |---|---|---|
-| 框架 | React 19 | 函数组件 + Hooks |
-| 构建 | Vite 6 | 秒级 HMR，原生 TS/JSX |
-| 语言 | TypeScript 5 | strict 模式 |
-| 路由 | React Router v7 | SPA 路由 |
-| 状态管理 | Zustand | 轻量，TS 友好 |
-| HTTP 客户端 | fetch（原生） | 无额外依赖 |
-| 音频播放 | Web Audio API | 浏览器原生 |
-| 样式 | Tailwind CSS 4 | 原子化 CSS + 自定义设计 Token |
-| 图标 | Phosphor Icons (`@phosphor-icons/react`) | 矢量图标，风格统一 |
-| Toast | 自建轻量 Toast 组件 | Zustand 全局通知 store |
-| 测试 (单元) | Vitest | 与 Vite 同生态 |
-| 测试 (E2E) | Playwright | CI 友好 |
+| UI 框架 | React 19.2 | 函数组件与 Hooks |
+| 构建工具 | Vite 8.1 | 开发服务器、生产构建和插件入口 |
+| 类型系统 | TypeScript 6.0 | `tsc -b` 构建检查 |
+| 路由 | React Router 7.18 | SPA 路由、嵌套布局和权限守卫 |
+| 状态管理 | Zustand 5.0 | 认证、音乐、播放器和 Toast 状态 |
+| 样式 | Tailwind CSS 4.3 | 通过 Vite 插件加载，设计 Token 位于 `src/index.css` |
+| 图标 | Phosphor Icons 2.1 | 界面操作图标 |
+| HTTP | 原生 `fetch` 与 `XMLHttpRequest` | 普通请求使用 `fetch`，上传使用 XHR 进度事件 |
+| 单元测试 | Vitest 4.1 + Testing Library | 测试配置合并在 `vite.config.ts` |
+| 浏览器验收 | Playwright 1.61 | 验证真实部署和四种视口 |
+| 前端静态检查 | Oxlint 1.71 | 由前端命令和仓库质量脚本调用 |
 
----
+前端目前通过 REST API 完成上述业务工作流；仓库中的 `/ws` 反向代理属于后端通道，并不是本轮前端功能的依赖。
 
-## 设计体系：Crystal Music（翠澄·雨璃）
+## 三、当前目录结构
 
-### 设计理念
-
-- **主题**：雨后清晨，青绿澄澈
-- **核心手法**：大面积玻璃态（Glassmorphism）卡片叠加，关键导航/页脚用毛玻璃（Frosted Glass）
-- **模式**：Light Mode（主）+ Dark Mode（辅），通过 Tailwind `dark:` 切换
-
-### CSS 设计 Token
-
-```css
-:root {
-  /* ── Light Mode ── */
-  --color-bg: #F0FDF4;
-  --color-bg-end: #ECFDF5;
-  --color-primary: #059669;      /* emerald-600 */
-  --color-on-primary: #FFFFFF;
-  --color-accent: #10B981;       /* emerald-500 */
-  --color-secondary: #34D399;    /* emerald-400 */
-  --color-text: #0F172A;
-  --color-text-muted: #64748B;
-  --color-destructive: #EF4444;
-
-  /* ── Glassmorphism Tokens ── */
-  --glass-bg: rgba(255, 255, 255, 0.18);
-  --glass-blur: 12px;
-  --glass-border: rgba(255, 255, 255, 0.25);
-  --glass-shadow: 0 8px 32px rgba(5, 150, 105, 0.06);
-
-  /* ── Frosted Glass Tokens ── */
-  --frosted-bg: rgba(255, 255, 255, 0.08);
-  --frosted-blur: 20px;
-  --frosted-border: rgba(255, 255, 255, 0.12);
-
-  /* ── Typography ── */
-  --font-display: 'Righteous', cursive;
-  --font-body: 'Inter', system-ui, sans-serif;
-}
-
-.dark {
-  --color-bg: #0A0F0D;
-  --color-bg-end: #0F1A14;
-  --color-text: #D1FAE5;
-  --color-text-muted: #6EE7B7;
-  --glass-bg: rgba(10, 15, 13, 0.55);
-  --glass-blur: 16px;
-  --glass-border: rgba(255, 255, 255, 0.06);
-  --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-  --frosted-bg: rgba(10, 15, 13, 0.4);
-  --frosted-blur: 24px;
-  --frosted-border: rgba(255, 255, 255, 0.04);
-}
-```
-
-### Tailwind CSS 扩展
-
-```javascript
-// tailwind.config.ts
-export default {
-  theme: {
-    extend: {
-      colors: {
-        primary: { DEFAULT: '#059669', ... },
-        accent:  { DEFAULT: '#10B981', ... },
-      },
-      fontFamily: {
-        display: ['Righteous', 'cursive'],
-        body: ['Inter', 'system-ui'],
-      },
-      backdropBlur: {
-        glass: '12px',
-        frosted: '20px',
-      },
-      boxShadow: {
-        glass: '0 8px 32px rgba(5,150,105,0.06)',
-      },
-    },
-  },
-};
-```
-
-### 公共 CSS 工具类
-
-```css
-.glass-card {
-  background: var(--glass-bg);
-  backdrop-filter: blur(var(--glass-blur));
-  -webkit-backdrop-filter: blur(var(--glass-blur));
-  border: 1px solid var(--glass-border);
-  box-shadow: var(--glass-shadow);
-  border-radius: 16px;
-}
-
-.frosted-bar {
-  background: var(--frosted-bg);
-  backdrop-filter: blur(var(--frosted-blur));
-  -webkit-backdrop-filter: blur(var(--frosted-blur));
-  border-bottom: 1px solid var(--frosted-border);
-}
-
-.glass-input {
-  background: rgba(255, 255, 255, 0.12);
-  backdrop-filter: blur(8px);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  border-radius: 12px;
-  padding: 12px 16px;
-  color: var(--color-text);
-  outline: none;
-  transition: border-color 0.2s, box-shadow 0.2s;
-}
-.glass-input:focus {
-  border-color: var(--color-primary);
-  box-shadow: 0 0 0 3px rgba(5, 150, 105, 0.15);
-}
-
-.glass-button {
-  background: var(--color-primary);
-  color: white;
-  border: none;
-  border-radius: 12px;
-  padding: 10px 24px;
-  font-weight: 500;
-  cursor: pointer;
-  transition: opacity 0.2s, transform 0.15s;
-  backdrop-filter: blur(4px);
-}
-.glass-button:hover { opacity: 0.9; transform: translateY(-1px); }
-.glass-button:active { transform: translateY(0); }
-```
-
----
-
-## 目录结构
-
-```
+```text
 frontend/
+├── public/                    # 静态资源
+├── src/
+│   ├── api/                   # 认证、文件、音乐和用户请求
+│   ├── components/            # 布局、导航、播放器、卡片和通知
+│   ├── lib/                   # 上传策略等可独立测试的规则
+│   ├── pages/                 # 路由页面
+│   ├── stores/                # Zustand 状态
+│   ├── types/                 # API 与领域类型
+│   ├── App.tsx
+│   ├── index.css
+│   ├── main.tsx
+│   └── router.tsx
+├── tests/
+│   ├── api/                   # API 单元测试
+│   ├── components/            # 组件与壳层测试
+│   ├── e2e/                   # 已部署环境 Playwright 用例
+│   ├── lib/                   # 上传规则测试
+│   ├── pages/                 # 页面工作流测试
+│   ├── stores/                # 状态测试
+│   └── setup.ts
 ├── index.html
 ├── package.json
+├── package-lock.json
+├── playwright.config.ts
+├── tsconfig.app.json
 ├── tsconfig.json
-├── vite.config.ts
-├── vitest.config.ts
-├── tailwind.config.ts
-├── postcss.config.js
-├── public/
-│   └── favicon.ico
-├── src/
-│   ├── main.tsx                # 入口
-│   ├── App.tsx                 # 根组件
-│   ├── router.tsx              # 路由配置
-│   ├── index.css               # 全局样式 + 设计 Token + glass 工具类
-│   ├── api/                    # API 请求封装
-│   │   ├── client.ts           # fetch 封装 + token 注入 + 401 自动跳转 + Toast 错误
-│   │   ├── auth.ts             # 认证相关（login / register / me / logout）
-│   │   ├── files.ts            # 文件 CRUD + 上传下载
-│   │   ├── music.ts            # 音乐库 + 歌单相关
-│   │   └── users.ts            # 用户信息
-│   ├── stores/                 # Zustand 状态
-│   │   ├── auth.ts             # token / user / role / login / logout / restore
-│   │   ├── player.ts           # 播放器状态（currentFile / playing / volume / seek）
-│   │   ├── toast.ts            # 全局 Toast 消息（error / success / info）
-│   │   └── music.ts            # 音乐库 + 当前歌单状态
-│   ├── pages/
-│   │   ├── LoginPage.tsx       # 登录（玻璃卡片表单）
-│   │   ├── RegisterPage.tsx    # 注册
-│   │   ├── FileListPage.tsx    # 文件列表（glass-card 网格）
-│   │   ├── FileDetailPage.tsx  # 文件详情 + 下载
-│   │   ├── UploadPage.tsx      # 拖拽上传 + 进度显示
-│   │   ├── PlayerPage.tsx      # 音乐播放器页面
-│   │   ├── MusicLibraryPage.tsx # 全局音乐库浏览
-│   │   ├── UserPlaylistPage.tsx # 用户个人歌单管理
-│   │   └── UserManagePage.tsx  # 用户管理（VIP）
-│   ├── components/
-│   │   ├── Layout.tsx          # 侧边栏 + 顶栏 + Outlet
-│   │   ├── GuestLayout.tsx     # 未登录布局
-│   │   ├── ProtectedRoute.tsx  # 认证守卫 + 角色检查
-│   │   ├── Sidebar.tsx         # 侧边导航（文件/音乐库/歌单/上传/用户）
-│   │   ├── Header.tsx          # 顶栏（用户信息 + 搜索 + 主题切换 + 登出）
-│   │   ├── AudioPlayer.tsx     # 底部迷你播放栏 + 全屏模式
-│   │   ├── FileCard.tsx        # 文件卡片（glass-card 样式）
-│   │   ├── MusicCard.tsx       # 音乐卡片（封面占位 + 标题 + 艺术家 + 添加到歌单按钮）
-│   │   ├── Pagination.tsx      # 分页组件
-│   │   ├── Toast.tsx           # 全局 Toast 浮层
-│   │   └── ThemeToggle.tsx     # Light/Dark 切换
-│   └── types/
-│       ├── api.ts              # 请求/响应类型
-│       └── models.ts           # 领域模型（User, AuthUser, FileRecord, MusicMeta, Playlist...）
-├── tests/
-│   ├── setup.ts
-│   ├── api/
-│   │   ├── auth.test.ts        # login/register/me 测试
-│   │   ├── files.test.ts       # 文件 API 测试
-│   │   └── music.test.ts       # 音乐库/歌单 API 测试
-│   ├── stores/
-│   │   ├── auth.test.ts        # auth store 测试
-│   │   └── player.test.ts      # player store 测试
-│   └── e2e/
-│       ├── login.spec.ts       # 登录 E2E
-│       └── music.spec.ts       # 音乐库 E2E
-└── Dockerfile                  # Nginx 托管静态文件
+├── tsconfig.node.json
+└── vite.config.ts             # Vite、React、Tailwind 与 Vitest 配置
 ```
 
----
+生产包由 `npm run build` 生成到 `frontend/dist/`。仓库根目录的 Docker 编排将该目录只读挂载给 nginx，前端目录本身不维护独立容器构建文件。
 
-## 组件树
+## 四、当前路由与能力
 
-```
-App
-├── <Toast />                         (全局浮层，独立于布局)
-├── GuestLayout (未登录)
-│   ├── Header (仅 Logo)
-│   └── <Outlet>
-│       ├── LoginPage
-│       │   └── glass-card 表单
-│       └── RegisterPage
-│           └── glass-card 表单
-└── AppLayout (已登录)
-    ├── Sidebar (frosted-bar)
-    │   ├── 导航链接: 文件 / 音乐库 / 我的歌单 / 上传 / 用户管理(VIP)
-    │   └── 主题切换 ThemeToggle
-    ├── Header (frosted-bar)
-    │   ├── 搜索栏 (音乐库/文件搜索)
-    │   ├── 用户头像 + 用户名 + 角色标签
-    │   └── 登出按钮
-    ├── <Outlet>
-    │   ├── FileListPage
-    │   │   ├── FileCard[] (glass-card 网格)
-    │   │   └── Pagination
-    │   ├── FileDetailPage
-    │   │   └── 元信息 + 下载/删除按钮
-    │   ├── MusicLibraryPage
-    │   │   ├── MusicCard[] (glass-card 网格)
-    │   │   └── Pagination
-    │   ├── UserPlaylistPage
-    │   │   ├── 歌单列表 (glass-card)
-    │   │   ├── MusicCard[] (歌单内歌曲)
-    │   │   └── 移除按钮
-    │   ├── UploadPage
-    │   │   ├── 拖拽区域 (glass-card)
-    │   │   ├── 文件选择 + 进度条 (多条)
-    │   │   └── 上传结果
-    │   ├── PlayerPage
-    │   │   └── AudioPlayer (全屏模式)
-    │   │       ├── 封面占位
-    │   │       ├── 标题 / 艺术家
-    │   │       ├── 进度条 (+ 拖拽 seek)
-    │   │       ├── 播放/暂停 + 上一首/下一首
-    │   │       └── 音量控制
-    │   └── UserManagePage (VIP)
-    │       └── 用户列表 (glass-card 表格)
-    └── AudioPlayer (底部迷你栏, frosted-bar 固定)
+| 页面 | 路由 | 认证 | 当前行为 |
+|---|---|---|---|
+| 登录 | `/login` | 否 | 登录、保留后端详细错误、提交期间锁定表单 |
+| 注册 | `/register` | 否 | 用户名至少 2 字符、密码至少 6 字符、邮箱浏览器校验 |
+| 文件列表 | `/files` | NORMAL+ | 加载、空数据、错误重试、认证下载和 VIP 删除 |
+| 文件详情 | `/files/:id` | NORMAL+ | 元信息、认证下载、VIP 删除和失败重试 |
+| 上传 | `/upload` | NORMAL+ | 音频预检、两路并发、上传中追加、取消、重试和结果汇总 |
+| 音乐库 | `/music/library` | NORMAL+ | 搜索、防旧响应覆盖、分页、播放和加入歌单 |
+| 我的歌单 | `/my/music` | NORMAL+ | 创建歌单、查看条目、播放和确认移除 |
+| 播放器 | `/player/:id` | NORMAL+ | 深链恢复、单一媒体元素、进度、音量和前后曲控制 |
+| 用户管理 | `/users` | VIP | 如实说明服务端尚未开放用户目录，不伪造管理数据 |
+
+`ProtectedRoute` 会等待令牌恢复完成后再判断用户和角色。服务端可能返回数字或字符串角色，API 层统一归一化为 `GUEST | NORMAL | VIP`，避免刷新 VIP 深链时被提前重定向。
+
+## 五、当前接口契约
+
+### 5.1 认证与错误
+
+- `POST /api/auth/login`、`POST /api/auth/register` 返回令牌、用户 ID 和角色；前端兼容数字与字符串角色。
+- `GET /api/auth/me` 用于刷新后的会话恢复。
+- 普通受保护请求收到 `401` 时会清理失效会话；登录接口自身的 `401` 保留输入和服务端原因。
+- API 客户端优先保留 JSON `error`、JSON `message`、纯文本或 HTML 网关正文中的可读错误，不用统一文案覆盖后端细节。
+
+### 5.2 上传
+
+当前上传不是 multipart 表单。XHR 直接发送 `File` 的原始字节，并设置：
+
+```http
+POST /api/files/upload
+Authorization: Bearer <token>
+Content-Type: <audio MIME>
+Content-Disposition: attachment; filename="fallback"; filename*=UTF-8''<encoded-name>
 ```
 
----
+前端和后端共同限制九种扩展名：`.mp3`、`.ogg`、`.wav`、`.flac`、`.aac`、`.m4a`、`.wma`、`.ape`、`.opus`。前端预检扩展名、明显 MIME 冲突、零字节和角色大小上限；NORMAL 默认 `10 MiB`，VIP 默认 `100 MiB`。后端在分片落盘前重复校验并拥有最终裁决权。
 
-## 页面清单
+上传项使用稳定 ID 和两路并发调度器。进行中的批次不会锁住文件入口，用户可以继续追加文件；新增合法项进入等待队列并在有空闲槽位时自动开始。非法项不发请求，但会留在队列中展示原因。
 
-| 页面 | 路由 | 说明 | 认证 | 角色 |
-|------|------|------|------|------|
-| 登录 | `/login` | 用户名+密码 → token 存入 localStorage → 跳转 `redirect` | 否 | — |
-| 注册 | `/register` | 用户名+密码+邮箱 → 注册成功跳转登录或直接登录 | 否 | — |
-| 文件列表 | `/files` | 分页显示所有文件，搜索 name，切换视图 | 是 | NORMAL+ |
-| 文件详情 | `/files/:id` | 文件元信息 + 下载按钮 + (VIP: 删除按钮) | 是 | NORMAL+ |
-| 上传 | `/upload` | 拖拽/选择文件 → 流式上传 → 进度条 → 结果 | 是 | NORMAL+ |
-| 音乐库 | `/music/library` | 全局音乐库（音频文件过滤），搜索/分页，添加到歌单 | 是 | NORMAL+ |
-| 我的歌单 | `/my/music` | 个人歌单内的歌曲，可移除、排序 | 是 | NORMAL+ |
-| 播放器 | `/player/:id` | 全屏播放器，Web Audio API，进度seek | 是 | NORMAL+ |
-| 用户管理 | `/users` | 用户列表查看（VIP 独有） | 是 | VIP+ |
+当前类型安全边界是扩展名白名单与长度限制，尚未验证音频魔数或执行完整编解码。文件扩展名合法并不等于内容一定可播放。
 
----
+### 5.3 下载与播放
 
-## 路由配置
+下载和播放接口均需要 Bearer Token，不能把受保护地址直接交给浏览器导航或媒体元素。当前实现先通过认证 `fetch` 获取 Blob：
 
-```typescript
-// src/router.tsx
-const router = createBrowserRouter([
-  {
-    element: <GuestLayout />,
-    children: [
-      { path: "/login",    element: <LoginPage /> },
-      { path: "/register", element: <RegisterPage /> },
-    ],
-  },
-  {
-    element: <ProtectedRoute />,
-    children: [
-      {
-        element: <AppLayout />,
-        children: [
-          { path: "/files",          element: <FileListPage /> },
-          { path: "/files/:id",      element: <FileDetailPage /> },
-          { path: "/upload",         element: <UploadPage /> },
-          { path: "/music/library",  element: <MusicLibraryPage /> },
-          { path: "/my/music",       element: <UserPlaylistPage /> },
-          { path: "/player/:id",     element: <PlayerPage /> },
-        ],
-      },
-    ],
-  },
-  {
-    element: <ProtectedRoute requiredRole="VIP" />,
-    children: [
-      {
-        element: <AppLayout />,
-        children: [
-          { path: "/users", element: <UserManagePage /> },
-        ],
-      },
-    ],
-  },
-]);
+- 下载创建临时 object URL，触发浏览器保存后按时释放；
+- 播放创建完整音频 Blob 的 object URL，切歌、卸载和迟到响应时释放；
+- `/player/:id` 会恢复对应音乐详情；布局与全屏页不会同时挂载两个媒体元素；
+- 播放器使用浏览器原生 `<audio>`，由 Zustand 同步播放、进度、音量和队列状态。
+
+由于媒体内容需要先完整下载，当前实现不能利用 Range 实现边下载边播放。若要支持大文件流播，需要后端提供适合媒体元素的认证方式，例如短期签名 URL 或安全 Cookie。
+
+## 六、设计与响应式现状
+
+“Crystal Music”作为第一版产品名称保留，视觉实现已从大面积单色玻璃态收敛为中性双主题、清晰边框和品牌绿色操作强调：
+
+- 卡片圆角不超过 `8px`，避免层层嵌套装饰卡片；
+- 桌面在 `1024px` 及以上显示固定侧栏，小屏使用导航抽屉；
+- 抽屉支持菜单、遮罩、Escape 和导航后关闭，并恢复触发按钮焦点；
+- 正文、Toast、上传队列和迷你播放器使用响应式偏移；
+- 全局提供 `focus-visible`、降低动画偏好和移动触控尺寸；
+- 核心数据页区分加载、空数据、错误、重试和进行中状态。
+
+## 七、第一版里程碑结果
+
+| 第一版里程碑 | 历史结果 | 后续纠偏 |
+|---|---|---|
+| 脚手架、认证、主题 | 页面与状态已建立 | 修复角色归一化、恢复时序、错误保留和表单校验 |
+| 文件管理 | 列表、详情、上传和删除已建立 | 修复原始字节上传、认证下载、前后端预检和队列控制 |
+| 音乐库与歌单 | 浏览和歌单操作已建立 | 补充竞态保护、移动布局、忙碌状态和详细错误 |
+| 音乐播放器 | 播放界面和状态已建立 | 改为认证 Blob、深链恢复、单实例和 URL 生命周期管理 |
+| 响应式与验收 | 第一版覆盖不足 | 新增移动抽屉、四视口 Playwright 配置和部署验收用例 |
+
+第一版计划中的勾选项只表示当时的开发范围，不应被引用为当前质量门禁证据。实际阶段性测试和未执行项统一记录在 Step 17。
+
+## 八、构建、测试与部署入口
+
+前端局部命令在 `frontend/` 下执行：
+
+```bash
+npm run dev
+npm run lint
+npm run build
+npm run test
+npm run test:e2e
 ```
 
----
+正式质量流程必须从仓库根目录调用：
 
-## API 对接清单（前端消费的后端接口）
-
-### 认证
-
-| 方法 | 路径 | 前端文件 | 说明 |
-|------|------|---------|------|
-| POST | `/api/auth/login` | `api/auth.ts` | 登录 → token + user_id + role |
-| POST | `/api/auth/register` | `api/auth.ts` | 注册 → token + user_id + role（同 login 响应） |
-| POST | `/api/auth/logout` | `api/auth.ts` | 登出（可选，可仅前端清除 token） |
-| GET | `/api/auth/me` | `api/auth.ts` | 从 token 反查当前用户完整信息 |
-
-### 文件
-
-| 方法 | 路径 | 前端文件 | 说明 |
-|------|------|---------|------|
-| GET | `/api/files?name=&type=&offset=&limit=` | `api/files.ts` | 文件列表（加 `type=audio` 过滤音乐，加 `total` 字段） |
-| GET | `/api/files/:id` | `api/files.ts` | 文件元信息 |
-| GET | `/api/files/:id/download` | `api/files.ts` | 下载（by ID，浏览器直接打开） |
-| GET | `/api/files/by-hash/:hash/download` | `api/files.ts` | 下载（by hash） |
-| POST | `/api/files/upload` | `api/files.ts` | 流式上传 |
-| GET | `/api/files/:id/stream` | `api/files.ts` | 音频流（支持 Range 206，用于播放器 seek） |
-| DELETE | `/api/files/:id` | `api/files.ts` | 删除文件 |
-| GET | `/api/files/search?q=&sort=&offset=&limit=` | `api/files.ts` | 增强搜索 |
-
-### 音乐库 / 歌单
-
-| 方法 | 路径 | 前端文件 | 说明 |
-|------|------|---------|------|
-| GET | `/api/music/library?offset=&limit=&search=` | `api/music.ts` | 全局音乐库列表 |
-| GET | `/api/music/library/:id` | `api/music.ts` | 音乐详情 |
-| GET | `/api/users/:id/playlists` | `api/music.ts` | 用户歌单列表 |
-| POST | `/api/users/:id/playlists` | `api/music.ts` | 创建歌单 |
-| GET | `/api/playlists/:id/items` | `api/music.ts` | 歌单内歌曲 |
-| POST | `/api/playlists/:id/items` | `api/music.ts` | 添加歌曲 `{ music_id }` |
-| DELETE | `/api/playlists/:id/items/:music_id` | `api/music.ts` | 从歌单移除 |
-| PUT | `/api/playlists/:id/items/reorder` | `api/music.ts` | 排序 `{ ids: [3,1,2] }` |
-
-### 用户
-
-| 方法 | 路径 | 前端文件 | 说明 |
-|------|------|---------|------|
-| GET | `/api/users/:id` | `api/users.ts` | 用户信息 |
-| PUT | `/api/users/:id` | `api/users.ts` | 编辑用户（邮箱/密码） |
-
-### 其他
-
-| 方法 | 路径 | 说明 |
-|------|------|------|
-| GET | `/api/health` | 健康检查 |
-| WS | `/ws` | WebSocket 实时通信 |
-
----
-
-## API 客户端设计
-
-```typescript
-// src/api/client.ts
-const API_BASE = import.meta.env.VITE_API_URL || "http://127.0.0.1:9090";
-
-class ApiError extends Error {
-  constructor(public status: number, message: string) {
-    super(message);
-  }
-}
-
-// 全局 toast 引用（在 main.tsx 注入）
-let globalToast: { error: (msg: string) => void; success: (msg: string) => void };
-
-export function injectToast(toast: typeof globalToast) {
-  globalToast = toast;
-}
-
-async function request<T>(
-  path: string,
-  options: RequestInit = {},
-  raw?: boolean   // true = 返回 Response 对象（用于流/下载）
-): Promise<T> {
-  const token = localStorage.getItem("token");
-  const headers: Record<string, string> = {
-    ...(options.body && !(options.body instanceof FormData)
-      ? { "Content-Type": "application/json" }
-      : {}),
-    ...(token ? { Authorization: `Bearer ${token}` } : {}),
-    ...(options.headers as Record<string, string> || {}),
-  };
-  const res = await fetch(`${API_BASE}${path}`, { ...options, headers });
-  if (res.status === 401) {
-    localStorage.removeItem("token");
-    window.location.href = "/login";
-    throw new ApiError(401, "未登录");
-  }
-  if (!res.ok) {
-    const msg = `请求失败 (${res.status})`;
-    globalToast?.error(msg);
-    throw new ApiError(res.status, msg);
-  }
-  if (raw) return res as unknown as T;
-  return res.json();
-}
+```bash
+bash scripts/pipeline.sh all
 ```
 
----
+该脚本依次执行格式化、全量 Lint、后端与前端构建、CodeQL 和全部 Google Test/Vitest。Playwright 依赖真实部署，不加入普通单元测试；部署和浏览器验收使用：
 
-## Zustand Store 设计
-
-### auth store
-
-```typescript
-interface AuthState {
-  token: string | null;
-  user: {
-    user_id: number;
-    username: string;
-    email: string;
-    role: 'GUEST' | 'NORMAL' | 'VIP';
-  } | null;
-  loading: boolean;
-  login: (username: string, password: string) => Promise<void>;
-  register: (username: string, password: string, email: string) => Promise<void>;
-  logout: () => void;
-  restore: () => Promise<void>;   // 页面刷新后从 token 恢复用户信息
-}
+```bash
+bash scripts/docker.sh deploy
+cd frontend
+PLAYWRIGHT_BASE_URL=http://127.0.0.1:18080 npm run test:e2e
 ```
 
-### player store
+应用公共入口默认是 `http://127.0.0.1:18080`。`http://localhost:8080` 是 CodeQL 服务，不是前端访问地址。
 
-```typescript
-interface PlayerState {
-  currentTrack: MusicMeta | null;
-  playlist: MusicMeta[];          // 当前播放列表
-  playlistIndex: number;
-  playing: boolean;
-  currentTime: number;
-  duration: number;
-  volume: number;
-  play: (track: MusicMeta, list?: MusicMeta[]) => void;
-  pause: () => void;
-  resume: () => void;
-  seek: (time: number) => void;
-  next: () => void;
-  prev: () => void;
-  setVolume: (vol: number) => void;
-}
-```
+## 九、后续依据
 
-### toast store
+后续开发、验收和文档维护按以下优先级读取：
 
-```typescript
-interface ToastState {
-  messages: { id: number; type: 'success' | 'error' | 'info'; text: string }[];
-  success: (text: string) => void;
-  error: (text: string) => void;
-  info: (text: string) => void;
-}
-```
-
-### music store
-
-```typescript
-interface MusicState {
-  library: MusicMeta[];           // 当前浏览的音乐库
-  libraryTotal: number;
-  currentPlaylist: { id: number; name: string; items: MusicMeta[] } | null;
-  userPlaylists: { id: number; name: string; itemCount: number }[];
-  fetchLibrary: (offset: number, limit: number, search?: string) => Promise<void>;
-  fetchPlaylists: (userId: number) => Promise<void>;
-  addToPlaylist: (playlistId: number, musicId: number) => Promise<void>;
-  removeFromPlaylist: (playlistId: number, musicId: number) => Promise<void>;
-  reorderPlaylist: (playlistId: number, ids: number[]) => Promise<void>;
-}
-```
-
----
-
-## TypeScript 类型定义
-
-```typescript
-// src/types/models.ts
-interface AuthUser {
-  user_id: number;
-  username: string;
-  email: string;
-  role: 'GUEST' | 'NORMAL' | 'VIP';
-}
-
-interface FileRecord {
-  file_id: number;
-  file_name: string;
-  file_hash: string;
-  file_size: number;
-  content_type: string;
-  created_at: string;
-}
-
-interface MusicMeta {
-  music_id: number;
-  title: string;
-  artist: string;
-  album: string;
-  genre: string;
-  duration_sec: number;
-  file_hash: string;
-  file_size: number;
-  content_type: string;
-}
-
-interface Playlist {
-  id: number;
-  user_id: number;
-  name: string;
-  description: string;
-  item_count: number;
-  created_at: string;
-}
-
-interface PlaylistItem {
-  id: number;
-  playlist_id: number;
-  music_id: number;
-  title: string;
-  artist: string;
-  file_hash: string;
-  sort_order: number;
-  added_at: string;
-}
-
-interface PaginatedResponse<T> {
-  items: T[];
-  total: number;
-  offset: number;
-  limit: number;
-}
-
-interface ApiError {
-  error: string;
-}
-```
-
----
-
-## 组件 Props 接口
-
-```typescript
-// FileCard
-interface FileCardProps {
-  file: FileRecord;
-  onDownload?: (id: number) => void;
-  onDelete?: (id: number) => void;
-}
-
-// MusicCard
-interface MusicCardProps {
-  music: MusicMeta;
-  inPlaylist?: boolean;
-  onPlay: (music: MusicMeta) => void;
-  onAddToPlaylist?: (musicId: number) => void;
-  onRemove?: (musicId: number) => void;
-}
-
-// Pagination
-interface PaginationProps {
-  current: number;
-  total: number;
-  pageSize: number;
-  onChange: (page: number) => void;
-}
-
-// AudioPlayer
-interface AudioPlayerProps {
-  mode: 'mini' | 'fullscreen';
-}
-
-// ProtectedRoute
-interface ProtectedRouteProps {
-  requiredRole?: 'NORMAL' | 'VIP';
-  children?: React.ReactNode;
-}
-```
-
----
-
-## 开发阶段（MVPs）
-
-### MVP 1 — 脚手架 + 认证 + 设计体系（2–3 天）
-
-- [ ] Vite + React 19 + TypeScript 5 项目初始化
-- [ ] Tailwind CSS 4 集成 + PostCSS 配置
-- [ ] 设计 Token CSS 变量 + glass-card / frosted-bar 工具类
-- [ ] Inter + Righteous 字体加载（Google Fonts）
-- [ ] React Router v7 路由配置（GuestLayout / AppLayout / ProtectedRoute）
-- [ ] Phosphor Icons 集成
-- [ ] LoginPage（玻璃卡片表单，调用 POST /api/auth/login）
-- [ ] RegisterPage（调用 POST /api/auth/register）
-- [ ] Zustand auth store + token localStorage 持久化 + `restore()` 流程
-- [ ] API client.ts 封装（token 注入 + 401 跳转 + Toast 错误）
-- [ ] Zustand toast store + Toast 组件
-- [ ] ThemeToggle 组件（Light/Dark 切换）
-- [ ] Vitest 测试框架接入
-- [ ] 测试：auth.test.ts（login/register/me/logout）
-
-### MVP 2 — 文件管理（2–3 天）
-
-- [ ] FileListPage（glass-card 网格 + 分页 Pagination）
-- [ ] FileCard 组件
-- [ ] FileDetailPage（元信息 + 下载按钮 + VIP 删除按钮）
-- [ ] UploadPage（拖拽区域 + 多文件进度条 + 流式上传）
-- [ ] api/files.ts 全部方法
-- [ ] 测试：files.test.ts
-
-### MVP 3 — 音乐库 + 歌单（2–3 天）
-
-- [ ] MusicLibraryPage（全局音乐库浏览 + 搜索 + 分页）
-- [ ] MusicCard 组件（封面占位色块 + 标题 + 艺术家 + 添加到歌单按钮）
-- [ ] UserPlaylistPage（用户歌单列表 + 歌单内歌曲管理）
-- [ ] Zustand music store
-- [ ] api/music.ts 全部方法
-- [ ] 测试：music.test.ts
-
-### MVP 4 — 音乐播放器（2–3 天）
-
-- [ ] AudioPlayer 组件（Web Audio API）
-  - [ ] 底部迷你栏（frosted-bar 固定底部）：封面缩略 + 标题 + 播放/暂停 + 进度条 + 音量
-  - [ ] 全屏模式（PlayerPage）：大封面占位 + 进度拖拽 seek + 上一首/下一首
-- [ ] PlayerPage 路由
-- [ ] Zustand player store（播放/暂停/seek/音量/播放列表）
-- [ ] 音频流对接：GET /api/files/:id/stream（Range header 206）
-- [ ] 测试：player.test.ts
-
-### MVP 5 — 用户管理 + 打磨（1–2 天）
-
-- [ ] UserManagePage（VIP 权限，用户列表）
-- [ ] api/users.ts
-- [ ] Playwright E2E 测试：login → 音乐库浏览 → 添加到歌单 → 播放
-- [ ] 全量 UI 走查（玻璃态一致性、Dark Mode 切换流畅度）
-- [ ] 响应式适配（375px / 768px / 1024px / 1440px）
-
----
-
-## 质量门禁
-
-- [ ] Vite build: 0 error
-- [ ] TypeScript strict: 0 error
-- [ ] Vitest 单元测试: 100% 通过
-- [ ] Playwright E2E 核心流程通过
-- [ ] 对接后端 API 端到端验证
-
----
-
-## 部署方案
-
-```
-请求流程:
-  浏览器 → Nginx (frontend/) → /api/* → 后端容器 (9090)
-                            → /ws   → 后端 WebSocket
-```
-
-- Nginx 容器托管静态文件（由 Vite build 生成）
-- 通过 `location /api/` 和 `location /ws` 反向代理到后端
-- 生产环境 CORS 由 Nginx 统一注入
-- 开发环境使用 Vite proxy 或后端直接返回 CORS 头
-
----
-
-## 依赖的外部资源
-
-| 资源 | 来源 | 说明 |
-|------|------|------|
-| Inter 字体 | Google Fonts | 正文字体 |
-| Righteous 字体 | Google Fonts | 标题/Logo 字体 |
-| Phosphor Icons | npm `@phosphor-icons/react` | 矢量图标 |
-| Nginx 镜像 | 用户自行下载 | 生产部署 |
-| 后端全部 API | 见 plan/step-16-backend-music.md | 后端已实现，可端到端对接 |
+1. `frontend/README.md`：当前前端安装、命令、接口和限制；
+2. [Step 17：前端体验与上传链路优化](step-17-frontend-optimization.md)：第一版补充实现、测试矩阵和交付状态；
+3. 本文件：仅用于追溯第一版范围与演进原因。

@@ -1,5 +1,12 @@
-import { API_BASE, request } from './client';
-import type { FileRecord, PaginatedResponse, FileQuery, FileSearchQuery } from '../types/api';
+import { API_BASE, ApiError, handleUnauthorized, request } from './client';
+import { getContentType } from '../lib/uploadPolicy';
+import type {
+  FileRecord,
+  PaginatedResponse,
+  FileQuery,
+  FileSearchQuery,
+  UploadResult,
+} from '../types/api';
 
 export async function getFiles(query?: FileQuery): Promise<PaginatedResponse<FileRecord>> {
   const params = new URLSearchParams();
@@ -16,22 +23,55 @@ export async function getFile(id: number): Promise<FileRecord> {
 }
 
 export async function getFileDownloadUrl(id: number): Promise<string> {
-  return `${API_BASE}/api/files/${id}/download`;
+  const response = await request<Response>(`/api/files/${id}/download`, {}, true);
+  const url = URL.createObjectURL(await response.blob());
+  window.setTimeout(() => URL.revokeObjectURL(url), 60_000);
+  return url;
 }
 
 export async function getFileStreamUrl(id: number): Promise<string> {
-  return `${API_BASE}/api/files/${id}/stream`;
+  const response = await request<Response>(
+    `/api/files/${id}/stream`,
+    { headers: { Accept: 'audio/*' } },
+    true,
+  );
+  return URL.createObjectURL(await response.blob());
 }
 
 export async function uploadFile(
   file: File,
   onProgress?: (pct: number) => void,
-): Promise<FileRecord> {
+  signal?: AbortSignal,
+): Promise<UploadResult> {
+  if (signal?.aborted) {
+    throw new DOMException('上传已取消', 'AbortError');
+  }
+
   const token = localStorage.getItem('token');
   return new Promise((resolve, reject) => {
     const xhr = new XMLHttpRequest();
-    xhr.open('POST', `${API_BASE}/api/files/upload`);
+    const path = '/api/files/upload';
+    let settled = false;
+
+    const cleanup = () => signal?.removeEventListener('abort', abortUpload);
+    const resolveOnce = (result: UploadResult) => {
+      if (settled) return;
+      settled = true;
+      cleanup();
+      resolve(result);
+    };
+    const rejectOnce = (error: Error) => {
+      if (settled) return;
+      settled = true;
+      cleanup();
+      reject(error);
+    };
+    const abortUpload = () => xhr.abort();
+
+    xhr.open('POST', `${API_BASE}${path}`);
     if (token) xhr.setRequestHeader('Authorization', `Bearer ${token}`);
+    xhr.setRequestHeader('Content-Type', getContentType(file));
+    xhr.setRequestHeader('Content-Disposition', buildContentDisposition(file.name));
     xhr.upload.onprogress = (e) => {
       if (e.lengthComputable && onProgress) {
         onProgress(Math.round((e.loaded / e.total) * 100));
@@ -39,16 +79,67 @@ export async function uploadFile(
     };
     xhr.onload = () => {
       if (xhr.status >= 200 && xhr.status < 300) {
-        resolve(JSON.parse(xhr.responseText));
-      } else {
-        reject(new Error(`上传失败 (${xhr.status})`));
+        try {
+          resolveOnce(JSON.parse(xhr.responseText) as UploadResult);
+        } catch {
+          rejectOnce(new ApiError(xhr.status, '服务器返回了无法解析的上传结果'));
+        }
+        return;
       }
+
+      const fallback = xhr.status === 401
+        ? '未登录'
+        : xhr.status === 403
+          ? '权限不足'
+          : `上传失败 (${xhr.status})`;
+      const message = parseUploadError(xhr.responseText, fallback);
+      if (xhr.status === 401) handleUnauthorized(path);
+      rejectOnce(new ApiError(xhr.status, message));
     };
-    xhr.onerror = () => reject(new Error('网络错误'));
-    const fd = new FormData();
-    fd.append('file', file);
-    xhr.send(fd);
+    xhr.onerror = () => rejectOnce(new ApiError(0, '网络错误，请检查连接后重试'));
+    xhr.onabort = () => rejectOnce(new DOMException('上传已取消', 'AbortError'));
+
+    signal?.addEventListener('abort', abortUpload, { once: true });
+    xhr.send(file);
   });
+}
+
+function parseUploadError(responseText: string, fallback: string): string {
+  const text = responseText.trim();
+  if (!text) return fallback;
+
+  try {
+    const payload: unknown = JSON.parse(text);
+    if (payload && typeof payload === 'object') {
+      const { error, message } = payload as Record<string, unknown>;
+      const detail = [error, message].find(
+        (value): value is string => typeof value === 'string' && value.trim().length > 0,
+      );
+      if (detail) return detail.trim();
+    }
+    if (typeof payload === 'string' && payload.trim()) return payload.trim();
+  } catch {
+    // 非 JSON 响应继续按纯文本或 HTML 提取可读信息。
+  }
+
+  if (/<(?:!doctype|html|body|head|title|h\d|p|div)\b/i.test(text)) {
+    const document = new DOMParser().parseFromString(text, 'text/html');
+    const htmlMessage = document.body.textContent?.replace(/\s+/g, ' ').trim();
+    if (htmlMessage) return htmlMessage;
+  }
+
+  return text;
+}
+
+function buildContentDisposition(fileName: string): string {
+  const fallback = fileName
+    .replace(/[^\x20-\x7E]/g, '_')
+    .replace(/["\\/\r\n]/g, '_') || 'upload';
+  const encoded = encodeURIComponent(fileName).replace(
+    /['()*]/g,
+    (character) => `%${character.charCodeAt(0).toString(16).toUpperCase()}`,
+  );
+  return `attachment; filename="${fallback}"; filename*=UTF-8''${encoded}`;
 }
 
 export async function deleteFile(id: number): Promise<void> {

@@ -198,7 +198,7 @@ std::optional<int64_t> DatabasePool::store_file_record(const FileRecord& record)
 
   auto affected = conn->execute("INSERT INTO file_records "
                                 "(file_name, file_hash, file_size, content_type, chunk_size, music_id, uploaded_by) "
-                                "VALUES (?, ?, ?, ?, ?, ?, ?) "
+                                "VALUES (?, ?, ?, ?, ?, NULLIF(?, '0'), ?) "
                                 "ON DUPLICATE KEY UPDATE file_id=LAST_INSERT_ID(file_id), "
                                 "file_name=VALUES(file_name), "
                                 "file_size=VALUES(file_size), content_type=VALUES(content_type), "
@@ -570,7 +570,7 @@ bool DatabasePool::update_file_record(const FileRecord& record) {
   }
 
   auto affected = conn->execute("UPDATE file_records SET file_name = ?, content_type = ?, "
-                                "music_id = ?, uploaded_by = ? WHERE file_id = ?",
+                                "music_id = NULLIF(?, '0'), uploaded_by = ? WHERE file_id = ?",
                                 {record.file_name,
                                  record.content_type,
                                  std::to_string(record.music_id),

@@ -43,6 +43,54 @@ describe('music API', () => {
     expect(res[0].name).toBe('My Playlist');
   });
 
+  it('getMusicDetail selects the playable file returned by the server', async () => {
+    mockFetch.mockResolvedValueOnce({
+      ok: true,
+      json: async () => ({
+        music_id: 7,
+        title: 'Song C',
+        artist: 'Artist 3',
+        album: 'Album 3',
+        genre: 'Rock',
+        duration_sec: 180,
+        files: [
+          { file_id: 19, file_hash: 'hash-19', file_size: 2048, content_type: 'audio/flac' },
+        ],
+      }),
+    });
+
+    const { getMusicDetail } = await import('../../src/api/music');
+
+    await expect(getMusicDetail(7)).resolves.toEqual(expect.objectContaining({
+      music_id: 7,
+      file_id: 19,
+      file_hash: 'hash-19',
+      content_type: 'audio/flac',
+    }));
+  });
+
+  it('getMusicDetail reports an explicit error when no file is playable', async () => {
+    mockFetch.mockResolvedValueOnce({
+      ok: true,
+      json: async () => ({
+        music_id: 8,
+        title: 'Missing',
+        artist: '',
+        album: '',
+        genre: '',
+        duration_sec: 0,
+        files: [],
+      }),
+    });
+
+    const { getMusicDetail } = await import('../../src/api/music');
+
+    await expect(getMusicDetail(8)).rejects.toEqual(expect.objectContaining({
+      status: 422,
+      message: '该音乐没有可播放的音频文件',
+    }));
+  });
+
   it('getPlaylistItems returns items from the response wrapper', async () => {
     const items = [{
       id: 10,

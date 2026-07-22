@@ -26,10 +26,14 @@
 ## 验证
 
 - [x] 诊断日志可输出到 stderr
-- [x] 全量回归: lint 0/0 + 编译 0/0 + test 37/37 + CodeQL 0/0
-- [x] 质量门禁全部通过
+- [x] Step 交付时全量回归：lint 0/0 + 编译 0/0 + test 37/37 + CodeQL 0/0
+- [x] Step 交付时质量门禁全部通过
 
-## 根因排查（优先级排序）
+> 上述 37/37 是本问题修复交付时的历史快照，不代表当前测试规模。2026-07-22 执行 `bash scripts/test.sh` 的当前快照为：后端 Google Test 41/41、前端 Vitest 18 个测试文件与 71 个用例全部通过。当前完整门禁与部署验收见 [Step 17：前端体验与上传链路优化](step-17-frontend-optimization.md)。
+
+## 历史根因排查（按当时优先级排序）
+
+以下内容保留当时的候选原因与排查依据，用于解释修复过程，不是当前仍待执行的任务清单。
 
 ### 可能性 A：`field_view` 生命周期（最可能）
 
@@ -55,9 +59,9 @@ Boost MySQL 的 `statement::bind()` 在旧版本接受迭代器对，但 1.83 �
 
 `caching_sha2_password`（MySQL 8+ 默认）需要 SSL 或 `CLIENT_PLUGIN_AUTH` 标志，Boost MySQL 连接时未协商导致 prepared statement 失败。
 
-## 排查步骤
+## 历史排查过程与已验证结果
 
-### 1. 添加临时诊断（定位到底在哪步抛异常）
+### 1. 添加详细诊断（定位到底在哪步抛异常）
 
 最小侵入地在 `boost_mysql_connection.cpp` 的 catch 块打印 `e.what()` 和 `e.get_diagnostics().server_message()`，stderr 输出：
 
@@ -72,9 +76,9 @@ Boost MySQL 的 `statement::bind()` 在旧版本接受迭代器对，但 1.83 �
 }
 ```
 
-编译运行登录一次，看具体报什么。
+当时通过编译并执行登录请求获取具体数据库错误。该详细诊断不是一次性日志：`error_with_diagnostics` 的 `what()` 与服务端 `server_message()` 输出后续继续保留，便于定位真实 MySQL 环境中的失败原因。
 
-### 2. 根据错误选择修复方向
+### 2. 当时根据错误选择修复方向
 
 | 错误信息 | 根因 | 修复 |
 |---------|------|------|
@@ -82,14 +86,14 @@ Boost MySQL 的 `statement::bind()` 在旧版本接受迭代器对，但 1.83 �
 | `caching_sha2_password` 或认证错误 | 认证插件不兼容 | 连接时指定 `mysql_native_password` 或在 MySQL 侧改用户认证 |
 | `Column count mismatch` / 语法错误 | statement 参数绑定错位 | 检查 `execute_stmt` 中 `fvs` 构造方式 |
 
-### 3. 修复后验证
+### 3. 修复后的历史验证结果
 
-- [ ] 注册新用户 → 返回 token
-- [ ] 用返回的 token 登录 → 返回 token
-- [ ] 获取用户信息 `/api/auth/me`
-- [ ] 全量回归：`bash scripts/test.sh`
-- [ ] 去除诊断日志，重新编译
+- [x] 当时验证：注册新用户可返回 token
+- [x] 当时验证：使用用户凭据登录可返回 token
+- [x] 当时验证：获取用户信息 `/api/auth/me` 成功
+- [x] 当时执行全量回归；交付快照为 37/37，当前测试快照见上文
+- [x] 保留详细数据库失败诊断并重新编译；诊断能力没有从后端移除
 
 ## 回退方案
 
-如果 prepared statement 短期内无法修复，降级方案：对简单 SQL 改用字符串拼接 + `conn_.execute(sql, result)` 不带参数（需防 SQL 注入的项目单独加固）。**不推荐，仅作为最后手段。**
+当时准备的降级方案是：对简单 SQL 改用字符串拼接 + `conn_.execute(sql, result)` 不带参数（需防 SQL 注入的项目单独加固）。该方案未采用，保留在此仅供历史追溯；**不推荐用于当前实现。**

@@ -46,6 +46,8 @@ for _, file in ipairs(os.files("tests/*.cpp")) do
         extra_files = {"core/src/auth_service.cpp"}
     elseif name == "test_config" then
         extra_files = {"core/src/config.cpp"}
+    elseif name == "test_upload_policy" then
+        extra_files = {"core/src/upload_policy.cpp"}
     end
     target(name)
         set_kind("binary")

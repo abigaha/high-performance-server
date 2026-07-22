@@ -1,142 +1,146 @@
 # Step 14：文件上传功能改进
 
-> **状态**：✅ 已完成
-> **前置**：Bugfix 基准测试 Bug 修复完成后启动
+> **状态**：分片上传、文件元数据、查询下载等主体能力已落地；上传类型与大小防护在后续前端优化中补强。
+>
+> 本文同时保留 Step 14 的设计背景并描述当前实现。早期 `verification/` 脚本已经删除，不能再作为现行验证入口。
 
-## 问题
+## 原始问题与目标
 
-当前 `POST /api/files/upload` 两个核心缺陷：
+早期 `POST /api/files/upload` 只按整体哈希保存文件，既不保留原文件名，也没有接入已有的分片能力。Step 14 的目标是：
 
-| 缺陷 | 表现 |
-|------|------|
-| **不保留原文件名** | 上传内容存为 `uploads/<hash>`，`file_meta` 表无 `file_name`，无法按名查询 |
-| **无分片存储** | 整个文件整体存为一个文件，`FileSystem::split_file()` / `compute_chunk_hash()` 存在但未使用，无法去重 |
+- 保留并查询原文件名；
+- 流式接收请求体并按 `2 MiB` 分片；
+- 对分片和完整文件计算 SHA-256，以内容哈希去重；
+- 在数据库中记录文件和分片关系；
+- 提供列表、详情、下载、搜索和流式读取接口；
+- 通过认证与角色限制控制访问和上传大小。
 
-导致：客户端只能通过预先知道的 hash 下载文件，无法搜索、无法列表、不可用。
+## 当前存储模型
 
-## 方案
-
-### 存储模型
-
-```
-请求: POST /api/files/upload  song.mp3 (20MB)
-  → 流式分片: 边收边切，每分片 2MB
-  → 计算每个 Chunk 的 SHA256
-  → 存为 data/chunks/<chunk_hash>（hash 即文件名，天然去重）
-  → DB 写两条记录:
-       files:        (file_name="song.mp3", file_hash=<整体SHA256>, size, content_type)
-       file_chunks:  (file_hash, chunk_index, chunk_hash, chunk_offset, chunk_size)
-```
-
-### DB schema 变更
-
-```sql
-CREATE TABLE IF NOT EXISTS files (
-  file_id      BIGINT AUTO_INCREMENT PRIMARY KEY,
-  file_name    VARCHAR(256) NOT NULL,
-  file_hash    VARCHAR(64) NOT NULL,
-  file_size    BIGINT NOT NULL DEFAULT 0,
-  content_type VARCHAR(128),
-  chunk_size   INT NOT NULL DEFAULT 2097152,
-  created_at   TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-  UNIQUE KEY uk_file_hash (file_hash),
-  INDEX idx_file_name (file_name)
-) ENGINE=InnoDB;
-
-CREATE TABLE IF NOT EXISTS file_chunks (
-  file_hash    VARCHAR(64) NOT NULL,
-  chunk_index  INT NOT NULL,
-  chunk_hash   VARCHAR(64) NOT NULL,
-  chunk_offset BIGINT NOT NULL,
-  chunk_size   INT NOT NULL,
-  PRIMARY KEY (file_hash, chunk_index),
-  INDEX idx_chunk_hash (chunk_hash)
-) ENGINE=InnoDB;
+```text
+POST /api/files/upload + 原始文件请求体
+  -> 从 Content-Disposition 解析文件名
+  -> 在读取请求体前完成认证、类型、零字节和大小预检
+  -> 边接收边切分为 2 MiB 分片
+  -> 分片写入 data/chunks/<chunk_hash>
+  -> 计算完整文件 SHA-256
+  -> 写入 files 与 file_chunks
 ```
 
-旧 `file_meta` 表保留做迁移过渡，新上传只写新表。
+相同内容再次上传时按完整文件哈希命中已有记录，返回 `200` 和 `exists: true`；新文件创建成功返回 `201`。文件记录包含原文件名、完整哈希、大小、映射后的音频 Content-Type、分片大小和上传用户。
 
-### API 变更
+## 上传请求契约
 
-| 端点 | 变更 |
+前端直接以原始 `File` 作为请求体，不使用 `multipart/form-data`。请求至少需要：
+
+```http
+POST /api/files/upload HTTP/1.1
+Authorization: Bearer <token>
+Content-Disposition: attachment; filename="song.mp3"
+Content-Length: <bytes>
+
+<原始文件字节>
+```
+
+- 支持普通 `filename=`，也优先支持 RFC 5987 的 `filename*=UTF-8''...`，用于传递 UTF-8 文件名。
+- 文件名会去除路径部分，避免把客户端路径当作服务端存储路径。
+- CORS 允许浏览器发送 `Content-Disposition`，并向前端暴露下载响应中的该头。
+- 缺少可解析的 `Content-Length` 时拒绝请求，避免在不知道请求体大小的情况下开始上传。
+
+## 当前上传策略
+
+### 扩展名白名单
+
+后端只接受以下九种扩展名，匹配时不区分大小写：
+
+| 扩展名 | 保存的 Content-Type |
+|--------|---------------------|
+| `.mp3` | `audio/mpeg` |
+| `.ogg` | `audio/ogg` |
+| `.wav` | `audio/wav` |
+| `.flac` | `audio/flac` |
+| `.aac` | `audio/aac` |
+| `.m4a` | `audio/mp4` |
+| `.wma` | `audio/x-ms-wma` |
+| `.ape` | `audio/x-monkeys-audio` |
+| `.opus` | `audio/opus` |
+
+例如 `track.MP3` 和 `track.OpUs` 可以通过；无扩展名、`.txt`、`.bin` 或 `track.mp3.exe` 会在分片存储初始化前被拒绝。
+
+### 认证、零字节和大小限制
+
+| 条件 | 当前行为 |
+|------|----------|
+| 未登录或 GUEST | 不允许上传 |
+| NORMAL | 默认最大 `10 MiB`，等于上限时允许 |
+| VIP | 默认最大 `100 MiB`，等于上限时允许 |
+| `Content-Length: 0` | 拒绝零字节文件 |
+| 缺少有效文件名或 Content-Length | 拒绝请求 |
+
+默认值来自 `ServerConfig`，当前 `config.json` 分别设置为 `10485760` 和 `104857600` 字节。部署入口 nginx 允许的请求体上限为 `110m`，但账号角色的最终上限由后端预检决定。
+
+预检在分片目录写入、哈希上下文初始化和业务上传处理器之前执行。被拒绝的类型、零字节文件和超限文件不会进入分片落盘流程。
+
+### 错误响应
+
+上传策略返回结构化 JSON，前端应保留其中的详细后端错误：
+
+| HTTP 状态 | `code` | 含义 |
+|-----------|--------|------|
+| `400` | `INVALID_FILE_NAME` | 缺少有效文件名 |
+| `400` | `INVALID_CONTENT_LENGTH` | 缺少有效 Content-Length |
+| `400` | `EMPTY_FILE` | 零字节文件 |
+| `413` | `FILE_TOO_LARGE` | 超过当前角色上限，并返回实际大小和上限 |
+| `415` | `UNSUPPORTED_FILE_TYPE` | 扩展名不在白名单，并返回允许的扩展名 |
+
+## 重要安全边界
+
+当前“文件类型校验”只检查文件名扩展名，并据此映射 Content-Type；不会检查音频魔数，也不会完整解码文件来确认其确实是可播放音频。因此：
+
+- 白名单能拦截明显无关的文件名，但不能阻止攻击者把任意内容改成 `.mp3` 等允许后缀；
+- 单文件大小限制能控制一次请求的最大体积，但不能替代总存储配额、恶意内容扫描和上传速率限制；
+- 若业务需要把“可播放音频”作为强保证，应在后续引入经过验证的媒体探测或解码库，并在持久化前或隔离区内校验，不能把扩展名判断当作内容真实性证明。
+
+前端也会做扩展名、MIME 冲突、零字节和角色大小预检，以便尽早提示用户；后端校验仍是不可绕过的最终边界。
+
+## 相关接口
+
+| 端点 | 作用 |
 |------|------|
-| `POST /api/files/upload` | 流式上传，保留原文件名（`Content-Disposition`），返回 `file_id` + `file_name` + `file_hash` |
-| `GET /api/files` | 新增，列出所有文件（支持 `?name=` 模糊搜索 + 分页） |
-| `GET /api/files/<id>` | 新增，按 ID 查询单个文件元信息 |
-| `GET /api/files/<id>/download` | 新增，按 ID 下载 |
-| `GET /api/files/by-hash/<hash>/download` | 保留，旧接口兼容 |
+| `POST /api/files/upload` | 上传原始文件体，保留文件名并返回文件 ID、哈希、大小和分片数 |
+| `GET /api/files` | 文件列表、名称和类型筛选、分页 |
+| `GET /api/files/:id` | 按 ID 查询文件元数据 |
+| `GET /api/files/:id/download` | 按 ID 下载并返回原文件名 |
+| `GET /api/files/:id/stream` | 支持 Range 的音频读取 |
+| `GET /api/files/by-hash/:hash/download` | 兼容按完整哈希下载 |
 
-### 认证与权限
+## 关键实现与测试
 
-| 角色 | 权限 |
+| 文件 | 职责 |
 |------|------|
-| GUEST | 无任何访问权限 |
-| NORMAL | 上传 ≤10MB，文件浏览/下载 |
-| VIP | 上传 ≤100MB，文件浏览/下载 |
+| `core/include/upload_policy.h`、`core/src/upload_policy.cpp` | 扩展名映射、角色大小策略和结构化错误 |
+| `net/http/include/http_server.h`、`net/http/src/http_server.cpp` | 上传元数据解析、预检、流式分片和连接上下文 |
+| `core/src/main.cpp` | 上传落库、去重、查询、下载及认证路由 |
+| `db/schema.sql` 与数据库实现 | `files`、`file_chunks` 及相关读写 |
+| `tests/test_upload_policy.cpp` | 九种扩展名、大小边界、零字节和落盘前拒绝 |
+| `tests/test_http_server.cpp` | RFC 5987 文件名、路径清理、CORS 和上传连接行为 |
+| `frontend/tests/` | 前端预检、错误保留和上传状态测试 |
 
-Token 格式：`base64(payload).hmac_sha256_hex`，payload = `uid:role:exp`。
+## 现行验证入口
 
-### 实现步骤
+早期文档中的 `verification/verify.sh`、`verification/README.md` 和 `verification/ws_test.py` 已删除，只能作为历史记录理解，禁止继续引用为可执行入口。当前验证使用：
 
-1. **DB 层**（`db/schema.sql` + `db/include/models.h` + `db/src/database_pool.cpp`）
-   - 新增 `FileRecord` / `FileChunkRecord` 模型 + `AuthUser`
-   - 新增 `store_file_record` / `get_file_record` / `search_files` / `store_file_chunks` / `get_file_chunks` / `chunk_exists` / `get_auth_user` / `verify_password`
-   - 测试 +6 用例
+```bash
+# 后端 Google Test 与前端 Vitest
+bash scripts/test.sh
 
-2. **流式分片存储**（`net/http/src/http_server.cpp` + `core/src/main.cpp`）
-   - HttpParser 流式模式：`kStreamChunkSize = 2097152`
-   - `on_headers_done` 设置 chunk_handler，每 2MB 回调一次
-   - 回调中：计算分片 SHA256 + `store_chunk_data(data, hash)` → `data/chunks/<chunk_hash>`
-   - 最终 `EVP_DigestFinal_ex` 计算整体文件 SHA256
-   - 双写 `files` + `file_chunks` 表
+# 正式全量质量流水线
+bash scripts/pipeline.sh all
 
-3. **查询/下载改造**（`core/src/main.cpp`）
-   - `handle_download` 支持按 `file_id` / `file_name` / `file_hash` 查询
-   - 从 `file_chunks` 逐块读取重组返回
-   - 新增文件列表/搜索路由
+# 部署后真实浏览器上传流程
+bash scripts/docker.sh deploy
+cd frontend
+PLAYWRIGHT_BASE_URL=http://127.0.0.1:18080 npm run test:e2e
+```
 
-4. **验证**（`verification/verify.sh` + 负载测试）
-   - 上传带原名 → 响应含 `file_name`
-   - 按名模糊搜索 → 命中
-   - 按名下栽 → sha256sum 校验一致
-   - 分片去重验证
-   - 负载测试：7 级并发（1~1024），3 种载荷（1KB/1MB/5MB/10MB）
-
-5. **Bug 修复**（详见 `bugfix-concurrent-uploads.md`）
-   - Bug 1：`read_buffer_` 无锁跨线程访问 → malloc 堆损坏（`read_mutex_` 保护）
-   - Bug 2：Keep-Alive 下 `upload_ctx` 复用污染（移至 while 循环内）
-
-## 涉及文件
-
-| 文件 | 变更 |
-|------|------|
-| `db/schema.sql` | 追加 `files` + `file_chunks` + `users` DDL |
-| `db/include/models.h` | 新增 `FileRecord` / `FileChunkRecord` / `AuthUser` / `UserRole` |
-| `db/include/idatabase_pool.h` | 新增 6 个纯虚方法 + 认证接口 |
-| `db/include/database_pool.h` | override 声明 |
-| `db/src/database_pool.cpp` | 实现新增方法 |
-| `db/include/mock_connection.h` | 扩展 mock |
-| `core/src/main.cpp` | upload/download/query 路由改造 + auth + RBAC |
-| `net/http/include/http_server.h` | 新增 `UploadStreamContext` / `upload()` 方法 |
-| `net/http/src/http_server.cpp` | 流式上传处理 (`on_headers_done`, `handle_connection`) |
-| `net/http/include/http_parser.h` | 流式模式 + chunk_handler |
-| `net/http/src/http_parser.cpp` | `feed_body_identity` 流式分片回调 |
-| `net/tcp/tcp_server/include/connection.h` | 新增 `read_mutex_` |
-| `net/tcp/tcp_server/include/connection.cpp` | `read_from_fd` / `consume_read_buffer` 加锁 |
-| `net/websocket/src/ws_connection.cpp` | `read_buffer_` 加锁保护 |
-| `net/http/include/auth_service.h` | 新增认证服务 |
-| `net/http/include/auth_middleware.h` | RBAC Token 校验中间件 |
-| `config.json` | 密码修正 + 数据库配置 |
-| `tests/test_database_pool.cpp` | +6 用例 |
-| `verification/verify.sh` | 新增分片上传验证 |
-| `plan/development_plan.md` | 更新进度 |
-| `plan/bugfix-concurrent-uploads.md` | 并发上传 Bug 修复文档 |
-| `goal.md` | 更新续写进度 |
-
-## 质量门禁
-
-- [x] clang-tidy: 0 error + 0 warning + 0 style
-- [x] cppcheck --enable=all: 0 error + 0 warning + 0 style + 0 performance
-- [x] 编译: 0 error + 0 warning
-- [x] xmake test: 100% 通过 (20 二进制)
-- [x] CodeQL: 0 critical + 0 high severity
+以上是执行方式，不代表本轮命令已经运行。具体通过情况必须以本次实际输出为准，不沿用 Step 14 早期的固定测试数量或旧质量门禁结论。

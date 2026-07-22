@@ -1,4 +1,4 @@
-import { request } from './client';
+import { ApiError, request } from './client';
 import type { MusicMeta, Playlist, PlaylistItem, PaginatedResponse } from '../types/api';
 
 interface PlaylistListResponse {
@@ -10,14 +10,58 @@ interface PlaylistItemsResponse {
   items: PlaylistItem[];
 }
 
-export async function getLibrary(offset = 0, limit = 20, search?: string): Promise<PaginatedResponse<MusicMeta>> {
-  const params = new URLSearchParams({ offset: String(offset), limit: String(limit) });
-  if (search) params.set('search', search);
-  return request<PaginatedResponse<MusicMeta>>(`/api/music/library?${params}`);
+interface MusicFileResponse {
+  file_id: number;
+  file_hash: string;
+  file_size: number;
+  content_type: string;
 }
 
-export async function getMusicDetail(id: number): Promise<MusicMeta> {
-  return request<MusicMeta>(`/api/music/library/${id}`);
+interface MusicDetailResponse {
+  music_id: number;
+  title: string;
+  artist: string;
+  album: string;
+  genre: string;
+  duration_sec: number;
+  files?: MusicFileResponse[];
+}
+
+export interface PlayableMusic extends MusicMeta {
+  file_id: number;
+}
+
+export async function getLibrary(
+  offset = 0,
+  limit = 20,
+  search?: string,
+  signal?: AbortSignal,
+): Promise<PaginatedResponse<MusicMeta>> {
+  const params = new URLSearchParams({ offset: String(offset), limit: String(limit) });
+  if (search) params.set('search', search);
+  return request<PaginatedResponse<MusicMeta>>(`/api/music/library?${params}`, { signal });
+}
+
+export async function getMusicDetail(id: number): Promise<PlayableMusic> {
+  const detail = await request<MusicDetailResponse>(`/api/music/library/${id}`);
+  const file = detail.files?.find((candidate) => candidate.content_type.startsWith('audio/'))
+    ?? detail.files?.[0];
+  if (!file) {
+    throw new ApiError(422, '该音乐没有可播放的音频文件');
+  }
+
+  return {
+    music_id: detail.music_id,
+    title: detail.title,
+    artist: detail.artist,
+    album: detail.album,
+    genre: detail.genre,
+    duration_sec: detail.duration_sec,
+    file_id: file.file_id,
+    file_hash: file.file_hash,
+    file_size: file.file_size,
+    content_type: file.content_type,
+  };
 }
 
 export async function getUserPlaylists(userId: number): Promise<Playlist[]> {

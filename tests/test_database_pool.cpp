@@ -312,7 +312,16 @@ TEST(DatabasePoolTest, StoreAndGetFileRecord) {
   ASSERT_TRUE(file_id.has_value());
   EXPECT_EQ(*file_id, 42);
   EXPECT_EQ(mp.connections[0]->last_insert_id_count, 1);
+  EXPECT_NE(mp.connections[0]->last_sql.find("VALUES (?, ?, ?, ?, ?, NULLIF(?, '0'), ?)"), std::string::npos);
   EXPECT_NE(mp.connections[0]->last_sql.find("LAST_INSERT_ID(file_id)"), std::string::npos);
+  ASSERT_EQ(mp.connections[0]->last_params.size(), 7U);
+  EXPECT_EQ(mp.connections[0]->last_params[0], "record_test.bin");
+  EXPECT_EQ(mp.connections[0]->last_params[1], "testhash123");
+  EXPECT_EQ(mp.connections[0]->last_params[2], "512000");
+  EXPECT_EQ(mp.connections[0]->last_params[3], "application/octet-stream");
+  EXPECT_EQ(mp.connections[0]->last_params[4], "2097152");
+  EXPECT_EQ(mp.connections[0]->last_params[5], "0");
+  EXPECT_EQ(mp.connections[0]->last_params[6], "0");
 
   QueryResult qr;
   qr.columns = {"file_id",
@@ -372,6 +381,11 @@ TEST(DatabasePoolTest, StoreFileRecordReturnsExistingIdWhenUpsertDoesNotChangeDa
 
   ASSERT_TRUE(file_id.has_value());
   EXPECT_EQ(*file_id, 24);
+  EXPECT_EQ(mp.connections[0]->last_insert_id_count, 1);
+  EXPECT_NE(mp.connections[0]->last_sql.find("ON DUPLICATE KEY UPDATE file_id=LAST_INSERT_ID(file_id)"),
+            std::string::npos);
+  ASSERT_EQ(mp.connections[0]->last_params.size(), 7U);
+  EXPECT_EQ(mp.connections[0]->last_params[1], "existing_hash");
 }
 
 TEST(DatabasePoolTest, StoreFileRecordFailsWithoutDatabaseResultOrId) {
@@ -654,6 +668,13 @@ TEST(DatabasePoolTest, UpdateFileRecord) {
 
   EXPECT_TRUE(mp.pool->update_file_record(r));
   EXPECT_NE(mp.connections[0]->last_sql.find("UPDATE file_records"), std::string::npos);
+  EXPECT_NE(mp.connections[0]->last_sql.find("music_id = NULLIF(?, '0')"), std::string::npos);
+  ASSERT_EQ(mp.connections[0]->last_params.size(), 5U);
+  EXPECT_EQ(mp.connections[0]->last_params[0], "updated.mp3");
+  EXPECT_EQ(mp.connections[0]->last_params[1], "audio/mpeg");
+  EXPECT_EQ(mp.connections[0]->last_params[2], "5");
+  EXPECT_EQ(mp.connections[0]->last_params[3], "1");
+  EXPECT_EQ(mp.connections[0]->last_params[4], "1");
 }
 
 // ============================================================

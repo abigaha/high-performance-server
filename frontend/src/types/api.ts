@@ -1,6 +1,24 @@
-import type { AuthUser, FileRecord, MusicMeta, Playlist, PlaylistItem, PaginatedResponse } from './models';
+import type {
+  AuthUser,
+  FileRecord,
+  MusicMeta,
+  Playlist,
+  PlaylistItem,
+  PaginatedResponse,
+  UserRole,
+  UserRoleValue,
+} from './models';
 
-export type { AuthUser, FileRecord, MusicMeta, Playlist, PlaylistItem, PaginatedResponse };
+export type {
+  AuthUser,
+  FileRecord,
+  MusicMeta,
+  Playlist,
+  PlaylistItem,
+  PaginatedResponse,
+  UserRole,
+  UserRoleValue,
+};
 
 export interface LoginRequest {
   username: string;
@@ -16,7 +34,16 @@ export interface RegisterRequest {
 export interface AuthResponse {
   token: string;
   user_id: number;
-  role: 'GUEST' | 'NORMAL' | 'VIP';
+  role: UserRole;
+}
+
+export interface UploadResult {
+  file_id: number;
+  file_name: string;
+  file_hash: string;
+  size: number;
+  chunks?: number;
+  exists?: boolean;
 }
 
 export interface FileQuery {

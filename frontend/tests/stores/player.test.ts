@@ -63,4 +63,30 @@ describe('player store', () => {
     usePlayerStore.getState().setVolume(-1);
     expect(usePlayerStore.getState().volume).toBe(0);
   });
+
+  it('hydrateTrack enriches the current track without stopping active playback', () => {
+    usePlayerStore.getState().play(mockTrack);
+    usePlayerStore.getState().setCurrentTime(12);
+
+    usePlayerStore.getState().hydrateTrack({
+      ...mockTrack,
+      title: 'Hydrated Song',
+      file_hash: 'hydrated-hash',
+    });
+
+    const state = usePlayerStore.getState();
+    expect(state.currentTrack?.title).toBe('Hydrated Song');
+    expect(state.playlist[0].file_hash).toBe('hydrated-hash');
+    expect(state.playing).toBe(true);
+    expect(state.currentTime).toBe(12);
+  });
+
+  it('hydrateTrack loads a deep-linked track in paused state', () => {
+    usePlayerStore.getState().hydrateTrack({ ...mockTrack, music_id: 9 });
+
+    const state = usePlayerStore.getState();
+    expect(state.currentTrack?.music_id).toBe(9);
+    expect(state.playlistIndex).toBe(0);
+    expect(state.playing).toBe(false);
+  });
 });

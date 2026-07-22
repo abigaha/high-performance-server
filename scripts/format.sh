@@ -8,12 +8,13 @@ usage() {
 用法: $(basename "$0") [文件/目录...]
 
 说明:
-  对指定 C/C++ 源文件执行 clang-format 格式化
-  省略参数时格式化所有源文件（排除 build/ .xmake/ compile_commands*）
+  对 .cpp/.hpp/.h/.cc/.cxx 文件执行 clang-format 格式化
+  无参数时进入交互菜单
+  全量格式化排除 build/ .xmake/ compile_commands*
   -h, --help    显示帮助
 
 子命令:
-  all           格式化所有源文件（默认）
+  all           格式化所有源文件
   <路径...>     格式化指定文件/目录
 EOF
 }
@@ -30,25 +31,32 @@ detect_clang_format() {
 
 cmd_format() {
   local fmt; fmt=$(detect_clang_format) || {
-    yellow "clang-format 未安装，跳过"
-    return
+    red "错误: clang-format 未安装，无法执行格式化门禁"
+    return 1
   }
   local targets=("$@")
   if [ ${#targets[@]} -eq 0 ]; then
     blue "=== 格式化全部源文件 ==="
-    find "$PROJECT_ROOT" \( -name '*.cpp' -o -name '*.hpp' -o -name '*.h' \) \
+    find "$PROJECT_ROOT" \( -name '*.cpp' -o -name '*.hpp' -o -name '*.h' \
+      -o -name '*.cc' -o -name '*.cxx' \) \
       ! -path '*/build/*' ! -path '*/.xmake/*' ! -path '*/compile_commands*' \
+      ! -path '*/.git/*' ! -path '*/.opencode/*' ! -path '*/node_modules/*' \
       -exec "$fmt" -i {} + 2>&1
   else
     blue "=== 格式化指定文件 ==="
     local files=()
     for target in "${targets[@]}"; do
       if [ -f "$target" ]; then
-        files+=("$target")
+        case "$target" in
+          *.cpp|*.hpp|*.h|*.cc|*.cxx) files+=("$target") ;;
+          *) yellow "警告: 跳过不支持的文件: $target" ;;
+        esac
       elif [ -d "$target" ]; then
         while IFS= read -r f; do files+=("$f"); done < <(
-          find "$target" \( -name '*.cpp' -o -name '*.hpp' -o -name '*.h' \) \
-            ! -path '*/build/*' ! -path '*/.xmake/*'
+          find "$target" \( -name '*.cpp' -o -name '*.hpp' -o -name '*.h' \
+            -o -name '*.cc' -o -name '*.cxx' \) \
+            ! -path '*/build/*' ! -path '*/.xmake/*' \
+            ! -path '*/.git/*' ! -path '*/.opencode/*' ! -path '*/node_modules/*'
         )
       else
         yellow "警告: 路径不存在: $target"

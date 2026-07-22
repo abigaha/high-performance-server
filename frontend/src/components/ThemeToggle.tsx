@@ -1,24 +1,42 @@
-import { Sun, Moon } from '@phosphor-icons/react';
+import { Moon, Sun } from '@phosphor-icons/react';
 import { useEffect, useState } from 'react';
 
+type Theme = 'light' | 'dark';
+
+function getInitialTheme(): Theme {
+  const stored = localStorage.getItem('theme');
+  if (stored === 'light' || stored === 'dark') return stored;
+  if (document.documentElement.classList.contains('dark')) return 'dark';
+  if (typeof window.matchMedia === 'function' && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+    return 'dark';
+  }
+  return 'light';
+}
+
 export default function ThemeToggle() {
-  const [dark, setDark] = useState(() => document.documentElement.classList.contains('dark'));
+  const [theme, setTheme] = useState<Theme>(getInitialTheme);
+  const dark = theme === 'dark';
 
   useEffect(() => {
-    if (dark) {
-      document.documentElement.classList.add('dark');
-    } else {
-      document.documentElement.classList.remove('dark');
-    }
-  }, [dark]);
+    document.documentElement.classList.toggle('dark', dark);
+    document.documentElement.style.colorScheme = theme;
+    localStorage.setItem('theme', theme);
+  }, [dark, theme]);
+
+  const label = dark ? '切换到浅色主题' : '切换到深色主题';
 
   return (
     <button
-      onClick={() => setDark(!dark)}
-      className="glass-button !p-2 !rounded-full !bg-transparent !text-text hover:!bg-white/10"
-      aria-label="主题切换"
+      type="button"
+      onClick={() => setTheme(dark ? 'light' : 'dark')}
+      className="theme-toggle"
+      aria-label={label}
+      aria-pressed={dark}
+      title={label}
     >
-      {dark ? <Sun size={20} /> : <Moon size={20} />}
+      {dark ? <Sun size={20} aria-hidden="true" /> : <Moon size={20} aria-hidden="true" />}
+      <span>外观</span>
+      <span className="ml-auto text-xs text-text-muted">{dark ? '深色' : '浅色'}</span>
     </button>
   );
 }

@@ -26,6 +26,8 @@ namespace hps {
  */
 class TcpServer : public ITcpServer {
 public:
+  using CloseHandler = std::function<void(Connection*)>;
+
   /** 服务器配置 */
   struct Config {
     uint16_t port{8080};       ///< 监听端口（0 表示由内核自动分配）
@@ -55,6 +57,8 @@ public:
   void start() override;
   void stop() override;
   void set_handler(Handler handler) override;
+
+  void set_close_handler(CloseHandler handler) { close_handler_ = std::move(handler); }
 
   uint16_t actual_port() const override { return actual_port_; }
 
@@ -115,6 +119,7 @@ private:
   std::unique_ptr<LockFreeThreadPool> thread_pool_;                  ///< 工作线程池
   std::unordered_map<int, std::shared_ptr<Connection>> connections_; ///< 活跃连接表
   Handler handler_;                                                  ///< 连接处理器
+  CloseHandler close_handler_;                                       ///< 连接关闭通知
 
   // 跨线程通知：handler (LockFreeThreadPool) → event loop
   std::mutex dirty_mutex_;     ///< dirty_fds_ 保护锁

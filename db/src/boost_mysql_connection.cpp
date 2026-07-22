@@ -1,11 +1,22 @@
 #include "boost_mysql_connection.h"
 
+#include "detail/mysql_field_to_string.h"
+
+#include <algorithm>
+#include <array>
 #include <boost/asio.hpp>
 #include <boost/asio/ssl/context.hpp>
 #include <boost/mysql.hpp>
+#include <charconv>
+#include <cstdint>
+#include <iomanip>
 #include <iostream>
+#include <iterator>
+#include <locale>
 #include <sstream>
+#include <stdexcept>
 #include <string>
+#include <system_error>
 #include <thread>
 #include <utility>
 #include <vector>
@@ -14,6 +25,89 @@ namespace hps {
 
 namespace asio = boost::asio;
 namespace mysql = boost::mysql;
+
+namespace {
+
+template <typename Value>
+std::string floating_to_string(Value value) {
+  std::array<char, 64> buffer{};
+  const auto [end, error] = std::to_chars(buffer.begin(), buffer.end(), value);
+  if (error != std::errc{}) {
+    throw std::runtime_error("MySQL 浮点字段转换失败");
+  }
+  return std::string(buffer.data(), end);
+}
+
+template <typename Value>
+std::string stream_to_string(const Value& value) {
+  std::ostringstream output;
+  output.imbue(std::locale::classic());
+  output << value;
+  return output.str();
+}
+
+std::string blob_to_string(mysql::blob_view value) {
+  if (value.empty()) {
+    return {};
+  }
+  return {reinterpret_cast<const char*>(value.data()), value.size()};
+}
+
+std::string time_to_string(mysql::time value) {
+  constexpr std::uint64_t kMicrosecondsPerSecond = 1'000'000;
+  constexpr std::uint64_t kSecondsPerMinute = 60;
+  constexpr std::uint64_t kMinutesPerHour = 60;
+
+  const auto count = value.count();
+  const bool is_negative = count < 0;
+  const auto magnitude = is_negative ? static_cast<std::uint64_t>(-(count + 1)) + 1U
+                                     : static_cast<std::uint64_t>(count);
+  const auto total_seconds = magnitude / kMicrosecondsPerSecond;
+  const auto microseconds = magnitude % kMicrosecondsPerSecond;
+  const auto total_minutes = total_seconds / kSecondsPerMinute;
+  const auto seconds = total_seconds % kSecondsPerMinute;
+  const auto hours = total_minutes / kMinutesPerHour;
+  const auto minutes = total_minutes % kMinutesPerHour;
+
+  std::ostringstream output;
+  output.imbue(std::locale::classic());
+  if (is_negative) {
+    output << '-';
+  }
+  output << std::setfill('0') << std::setw(2) << hours << ':' << std::setw(2) << minutes << ':' << std::setw(2)
+         << seconds << '.' << std::setw(6) << microseconds;
+  return output.str();
+}
+
+} // namespace
+
+std::string detail::mysql_field_to_string(const mysql::field_view& field) {
+  switch (field.kind()) {
+    case mysql::field_kind::null:
+      return {};
+    case mysql::field_kind::int64:
+      return std::to_string(field.as_int64());
+    case mysql::field_kind::uint64:
+      return std::to_string(field.as_uint64());
+    case mysql::field_kind::string: {
+      const auto value = field.as_string();
+      return value.empty() ? std::string{} : std::string(value.data(), value.size());
+    }
+    case mysql::field_kind::blob:
+      return blob_to_string(field.as_blob());
+    case mysql::field_kind::float_:
+      return floating_to_string(field.as_float());
+    case mysql::field_kind::double_:
+      return floating_to_string(field.as_double());
+    case mysql::field_kind::date:
+      return stream_to_string(field.as_date());
+    case mysql::field_kind::datetime:
+      return stream_to_string(field.as_datetime());
+    case mysql::field_kind::time:
+      return time_to_string(field.as_time());
+  }
+  throw std::logic_error("不支持的 MySQL 字段类型");
+}
 
 class BoostMySqlConnection::Impl {
 public:
@@ -80,13 +174,9 @@ public:
       for (const auto& row : result.rows()) {
         std::vector<std::string> row_str;
         row_str.reserve(row.size());
-        for (const auto& fv : row) {
-          if (fv.is_null()) {
-            row_str.emplace_back();
-          } else {
-            row_str.emplace_back(fv.as_string());
-          }
-        }
+        std::transform(row.begin(), row.end(), std::back_inserter(row_str), [](const mysql::field_view& field) {
+          return detail::mysql_field_to_string(field);
+        });
         qr.rows.push_back(std::move(row_str));
       }
       return qr;
@@ -141,9 +231,9 @@ private:
     // field_view 使用引用语义，执行期间参数字符串必须保持有效
     std::vector<mysql::field_view> fvs;
     fvs.reserve(params.size());
-    for (const auto& p : params) {
-      fvs.emplace_back(mysql::string_view(p));
-    }
+    std::transform(params.begin(), params.end(), std::back_inserter(fvs), [](const std::string& param) {
+      return mysql::field_view(mysql::string_view(param));
+    });
     conn_.execute(stmt.bind(fvs.begin(), fvs.end()), result);
   }
 };

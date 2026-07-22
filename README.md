@@ -1,131 +1,189 @@
 # High-Performance Server
 
-基于 epoll ET（边缘触发）+ 线程池 + C++20 协程的高性能 TCP/HTTP 服务器框架，支持 HTTPS、WebSocket、Range 流式传输、文件传输、数据库连接池。
+这是一个基于 C++20 的高性能文件与音乐服务。后端使用 epoll ET、线程池和协程处理 TCP/HTTP 连接，提供认证、文件分片存储、下载与 Range 流播、音乐库、歌单、WebSocket、TLS 和 MySQL 数据访问；前端使用 React、TypeScript 和 Vite。
 
-## 技术栈
+## 系统组成
 
-| 类别 | 选择 | 版本 | 说明 |
-|------|------|------|------|
-| 语言 | C++ | C++20 | jthread、stop_token、span、coroutine |
-| 编译器 | g++ | 14.x | Linux 原生编译 |
-| 构建系统 | xmake | 3.0.9+ | Lua 脚本化构建 |
-| 网络模型 | epoll ET | - | 边缘触发 + eventfd 跨线程唤醒 |
-| 测试框架 | Google Test | 1.17 | 单元测试 |
-| TLS | OpenSSL | 3.x | 双模式检测（明文/TLS 自动识别）|
-| 数据库 | boost::mysql | - | 连接池 + 预处理查询 |
-| 静态分析 | clang-tidy + cppcheck | - | 代码风格 + 深度检查 |
-| 语义分析 | CodeQL | Docker | 安全漏洞 + 质量门禁 |
+生产部署的请求链路如下：
 
-## 快速开始
+```text
+浏览器
+  -> nginx（默认 http://127.0.0.1:18080）
+     -> / 与前端静态资源：frontend/dist/
+     -> /api/*：C++ 后端容器的 9090 端口
+     -> /ws：C++ 后端 WebSocket
+        -> MySQL：用户、文件元数据、音乐和歌单
+        -> data/：文件分片
+```
 
-### 前置条件
+本地开发时可以不启动 nginx，直接访问 C++ 后端。仓库中的 `config.json` 将后端端口设置为 `9090`。
+
+主要技术栈：
+
+| 类别 | 技术 |
+|---|---|
+| 后端 | C++20、g++、xmake v3 |
+| 网络 | epoll ET、eventfd、C++20 协程、线程池 |
+| 协议 | HTTP/1.1、HTTPS、WebSocket、Range |
+| 数据 | boost::mysql、MySQL 8、分片文件系统 |
+| 前端 | React 19、TypeScript 6、Vite 8、Tailwind CSS 4、Zustand |
+| 测试 | Google Test、Vitest、Playwright、Google Benchmark、wrk |
+| 质量 | clang-format、clang-tidy、cppcheck、CodeQL |
+| 部署 | Docker Compose、nginx |
+
+## 项目结构
+
+```text
+.
+├── core/                       # 主程序、配置解析和认证服务
+├── db/                         # MySQL 连接池、模型和初始化 schema
+├── file-system/                # 文件分片存储
+├── logger/                     # 日志模块
+├── memory-pool/                # 分层内存池
+├── net/
+│   ├── coroutine/              # C++20 协程
+│   ├── file-transfer/          # 文件传输协议
+│   ├── http/                   # HTTP 解析、路由和服务器
+│   ├── ssl/                    # OpenSSL 封装
+│   ├── tcp/                    # TCP 客户端和服务端
+│   ├── thread-pool/            # 无锁与有锁线程池
+│   └── websocket/              # WebSocket 帧与连接
+├── frontend/                   # React 前端
+├── tests/                      # xmake 动态发现的 Google Test 源文件
+├── benchmark/                  # 微基准、模块 QPS 和 RPS 说明
+├── scripts/                    # 构建、质量、部署和压测脚本
+├── deploy/nginx.conf           # nginx 反向代理配置
+├── db/schema.sql               # MySQL 初始化脚本
+├── Dockerfile
+├── docker-compose.yml
+├── config.json                 # 本地运行配置
+├── setup.sh                    # Ubuntu/Debian 开发环境初始化
+└── xmake.lua                   # 顶层构建及动态测试/基准目标
+```
+
+`plan/` 和 `goal.md` 记录规划、历史实施过程与当前阶段状态；了解运行行为时应以源码、脚本帮助和本 README 为准。
+
+## 首次使用
+
+### 1. 初始化开发环境
+
+在 Ubuntu 或 Debian 上执行：
 
 ```bash
-# 1. 安装 xmake
-curl -fsSL https://xmake.io/shget.text | bash
-# 确保 ~/.local/bin 在 PATH 中
-export PATH="$HOME/.local/bin:$PATH"
-
-# 2. 安装系统依赖（Ubuntu 22.04）
-sudo apt install -y build-essential libssl-dev libstdc++-11-dev
-
-# 3. 安装项目依赖（gtest, nlohmann_json 自动下载）
-xmake require
+bash setup.sh
 ```
 
-### 编译
+脚本可以重复运行，会自动选择 root 或 `sudo`，安装 C++ 工具链、Git、curl、OpenSSL/Boost 开发包、Node.js/npm、Python 3、tar、bc、clang-format、clang-tidy 和 cppcheck。前端要求 Node.js 20.19+ 或 22.12+；版本不满足时脚本安装 Node.js 22。未检测到 xmake 时会通过官方安装器安装，最后执行 `xmake require` 获取 xmake 包依赖。
+
+以下能力按需另行安装，`setup.sh` 只提示、不自动安装：
+
+- Docker Engine 与 Docker Compose 插件：容器化部署。
+- `wrk`：端到端 RPS 压测。
+- `libbenchmark-dev`：Google Benchmark 微基准。
+- MySQL 8 服务：不使用 Docker 时的本地后端运行。
+
+### 2. 准备数据库和认证密钥
+
+本地运行需要可访问的 MySQL，并初始化表结构：
 
 ```bash
-# Debug 模式（默认，含 AddressSanitizer + UndefinedBehaviorSanitizer）
-xmake
-
-# Release 模式（-O2 优化）
-xmake f -m release -y && xmake
-
-# 重新配置并编译
-xmake f -c -y && xmake
-
-# 多核编译
-xmake -j$(nproc)
+mysql -u root -p < db/schema.sql
+export AUTH_SECRET="$(openssl rand -hex 48)"
 ```
 
-### 运行
+根据实际数据库修改 `config.json`，或使用环境变量覆盖。认证密钥必须来自 `AUTH_SECRET` 或 `config.json` 的 `server.auth_secret`，两者都为空时服务器会拒绝启动。
+
+### 3. 编译
 
 ```bash
-# 使用默认配置（config.json, 端口 9090）
-xmake run
-
-# 或直接运行二进制
-./bin/high-performance-server
-
-# 指定端口
-./bin/high-performance-server --port 9090
-
-# 指定配置文件
-./bin/high-performance-server --config /path/to/config.json
+bash scripts/compile.sh build
 ```
 
-### 停止服务器
+该命令构建全部 C++ 目标以及前端生产包。主要产物为：
 
-按 `Ctrl-C` 发送 SIGINT 信号，服务器会优雅关闭：
+- `bin/high-performance-server`：主服务。
+- `bin/qps_*`、`bin/bench_*`：已满足依赖条件时生成的性能目标。
+- `lib/`：项目动态库。
+- `frontend/dist/`：前端静态文件。
 
-```
-^C
-[2026-07-05 12:00:00] [WARN] [00000] tcp_server.cpp:57 收到信号 2，正在关闭服务器...
-[2026-07-05 12:00:00] [INFO] [00000] tcp_server.cpp:237 TcpServer 已停止
-[2026-07-05 12:00:00] [INFO] [00000] main.cpp:348 正在关闭数据库连接池...
-[2026-07-05 12:00:00] [INFO] [00000] main.cpp:351 服务器已停止
-```
-
-**信号处理机制**：`TcpServer::init()` 通过 `sigaction` 注册 SIGINT/SIGTERM 处理函数。收到信号时，静态方法 `TcpServer::signal_handler` 调用 `s_instance_->stop()`，设置 `running_ = false` 并通过 eventfd 唤醒 epoll_wait，使事件循环自然退出。
-
-## 命令行选项
-
-| 参数 | 类型 | 默认值 | 说明 |
-|------|------|--------|------|
-| `--port <port>` | uint16 | 8080 | 监听端口（0 = 内核自动分配）|
-| `--config <path>` | string | config.json | 配置文件路径 |
-| `--threads <n>` | size_t | 4 | 工作线程数 |
-| `--db-host <host>` | string | 127.0.0.1 | 数据库主机 |
-| `--db-port <port>` | uint16 | 3306 | 数据库端口 |
-| `--data-dir <dir>` | string | ./data | 数据存储目录 |
-| `--ssl-cert <path>` | string | - | SSL 证书路径（同时启用 SSL）|
-| `--ssl-key <path>` | string | - | SSL 密钥路径（同时启用 SSL）|
-| `--ssl-ca <path>` | string | - | SSL CA 证书路径 |
-| `--ssl-verify` | flag | false | 启用客户端证书验证 |
-| `--help` | flag | - | 显示帮助信息 |
+需要清除 xmake 配置缓存并重新编译时执行：
 
 ```bash
-# 完整示例
-./high-performance-server \
-  --port 443 \
-  --threads 8 \
-  --ssl-cert ./build/certs/cert.pem \
-  --ssl-key ./build/certs/key.pem \
-  --db-host 10.0.0.1 \
-  --data-dir /mnt/data
+bash scripts/compile.sh --clean
 ```
 
-## 配置文件
-
-服务器启动时读取 `config.json`，命令行参数优先级高于配置文件（JSON 先加载，CLI 后覆盖）。
-
-### 认证密钥
-
-服务端签发和校验认证令牌需要认证密钥。启动时按以下优先级读取：
-
-1. 环境变量 `AUTH_SECRET`。
-2. `config.json` 中的 `server.auth_secret`。
-
-环境变量存在时会覆盖配置文件中的值，适合由部署平台或密钥管理服务注入。两者均未设置时，服务会拒绝启动，避免使用可预测或内置的认证密钥。
-
-请使用足够长的随机值，并将其保存在部署平台的密钥管理机制中，不要提交到仓库、镜像或日志。可使用以下命令生成高熵密钥：
+### 4. 运行后端
 
 ```bash
-openssl rand -base64 48
+export AUTH_SECRET="$(openssl rand -hex 48)"
+xmake run high-performance-server
 ```
 
-### 完整示例
+也可以直接运行：
+
+```bash
+./bin/high-performance-server --config config.json
+```
+
+健康检查：
+
+```bash
+curl http://127.0.0.1:9090/api/health
+```
+
+按 `Ctrl-C` 或发送 `SIGTERM` 后，服务器会唤醒事件循环，停止接收连接并关闭数据库、线程和日志资源。
+
+### 5. 运行前端开发服务器
+
+另开终端执行：
+
+```bash
+cd frontend
+npm ci
+VITE_API_URL=http://127.0.0.1:9090 npm run dev
+```
+
+Vite 当前没有开发代理。前后端分开运行时必须将 `VITE_API_URL` 指向后端；经 nginx 同源部署时保持该变量为空。更多说明见 `frontend/README.md`。
+
+## 配置
+
+配置覆盖顺序由低到高为：
+
+```text
+代码内置默认值 < JSON 配置文件 < 环境变量 < 命令行参数
+```
+
+默认读取根目录 `config.json`，可通过 `--config <path>` 选择其他文件。程序仍保留内置回退端口 `8080`，但仓库配置将后端端口覆盖为 `9090`；项目部署不应使用 `8080`，该宿主机端口保留给 CodeQL。
+
+### 环境变量
+
+| 环境变量 | 作用 |
+|---|---|
+| `DB_HOST` | MySQL 主机 |
+| `DB_PORT` | MySQL 端口 |
+| `DB_USER` | MySQL 用户 |
+| `DB_PASSWORD` | MySQL 密码 |
+| `DB_NAME` | MySQL 数据库名 |
+| `SERVER_PORT` | 后端监听端口 |
+| `AUTH_SECRET` | 认证令牌签名密钥，优先于 JSON |
+
+### 命令行参数
+
+| 参数 | 说明 |
+|---|---|
+| `--config <path>` | JSON 配置路径，默认 `config.json` |
+| `--port <port>` | 监听端口，`0` 表示由内核分配 |
+| `--threads <n>` | 工作线程数 |
+| `--db-host <host>` | MySQL 主机 |
+| `--db-port <port>` | MySQL 端口 |
+| `--data-dir <dir>` | 文件数据根目录 |
+| `--ssl-cert <path>` | 证书路径并启用 TLS |
+| `--ssl-key <path>` | 私钥路径并启用 TLS |
+| `--ssl-ca <path>` | CA 证书路径 |
+| `--ssl-verify` | 验证客户端证书 |
+| `--help` | 显示程序帮助 |
+
+### JSON 配置
 
 ```json
 {
@@ -133,7 +191,10 @@ openssl rand -base64 48
     "port": 9090,
     "backlog": 128,
     "thread_count": 4,
-    "epoll_timeout_ms": 100
+    "epoll_timeout_ms": 100,
+    "auth_secret": "",
+    "normal_max_size": 10485760,
+    "vip_max_size": 104857600
   },
   "database": {
     "host": "127.0.0.1",
@@ -158,605 +219,304 @@ openssl rand -base64 48
 }
 ```
 
-### 字段说明
+`normal_max_size` 和 `vip_max_size` 分别限制普通用户和 VIP 用户的单文件上传大小，仓库默认值为 `10 MiB` 和 `100 MiB`。上传请求必须携带可解析的 `Content-Length`；服务端会在分片落盘前按角色检查该长度，缺失或无效时直接拒绝。敏感值应通过部署环境注入，不应提交真实密钥和生产密码。
 
-#### server 节
+## HTTP 与 WebSocket 接口
 
-| 字段 | 类型 | 默认值 | 说明 |
-|------|------|--------|------|
-| `port` | uint16 | 9000 | 监听端口 |
-| `backlog` | size_t | 128 | listen 队列长度 |
-| `thread_count` | size_t | 4 | LockFreeThreadPool 工作线程数 |
-| `epoll_timeout_ms` | int | 100 | epoll_wait 超时（毫秒）|
-| `auth_secret` | string | 无 | 认证密钥；仅当 `AUTH_SECRET` 未设置时使用，缺失时服务拒绝启动 |
+除公开接口外，请在请求中携带登录或注册返回的令牌：
 
-#### database 节
+```http
+Authorization: Bearer <token>
+```
 
-| 字段 | 类型 | 默认值 | 说明 |
-|------|------|--------|------|
-| `host` | string | 127.0.0.1 | 数据库主机 |
-| `port` | uint16 | 3306 | 数据库端口 |
-| `username` | string | root | 用户名 |
-| `password` | string | "" | 密码 |
-| `database` | string | music_server | 数据库名 |
-| `pool_size` | size_t | 10 | 连接池大小 |
-| `connect_timeout_ms` | uint32 | 3000 | 连接超时 |
-| `read_timeout_ms` | uint32 | 5000 | 读取超时 |
+角色从低到高为 `GUEST`、`NORMAL`、`VIP`。当前 `core/src/main.cpp` 注册的接口如下：
 
-#### ssl 节
+| 方法 | 路径 | 权限 | 说明 |
+|---|---|---|---|
+| `POST` | `/api/auth/register` | 公开 | 注册并返回令牌 |
+| `POST` | `/api/auth/login` | 公开 | 登录并返回令牌 |
+| `POST` | `/api/auth/logout` | 公开 | 客户端登出确认 |
+| `GET` | `/api/auth/me` | 登录 | 当前用户信息 |
+| `GET` | `/api/health` | 公开 | 服务状态与运行时间 |
+| `GET` | `/api/files` | NORMAL | 文件分页与类型筛选 |
+| `GET` | `/api/files/search` | NORMAL | 文件搜索与排序 |
+| `GET` | `/api/files/:id` | NORMAL | 文件元数据 |
+| `GET` | `/api/files/:id/download` | NORMAL | 按文件 ID 下载 |
+| `GET` | `/api/files/:id/stream` | NORMAL | 文件流播，支持单区间 Range |
+| `DELETE` | `/api/files/:id` | VIP | 删除文件及关联元数据 |
+| `POST` | `/api/files/upload` | NORMAL | 上传允许的音频原始文件体 |
+| `GET` | `/api/files/by-hash/:hash/download` | NORMAL | 按哈希下载完整文件 |
+| `GET` | `/api/users/:id` | 公开 | 查询基本用户信息 |
+| `PUT` | `/api/users/:id` | 本人登录 | 修改邮箱或密码 |
+| `GET` | `/api/music/library` | NORMAL | 搜索音乐库 |
+| `GET` | `/api/music/library/:id` | NORMAL | 音乐详情及关联文件 |
+| `GET` | `/api/users/:id/playlists` | 登录 | 用户歌单列表 |
+| `POST` | `/api/users/:id/playlists` | 本人登录 | 创建歌单 |
+| `GET` | `/api/playlists/:id/items` | NORMAL | 歌单项列表 |
+| `POST` | `/api/playlists/:id/items` | NORMAL | 添加音乐到歌单 |
+| `DELETE` | `/api/playlists/:id/items/:music_id` | NORMAL | 从歌单移除音乐 |
+| `PUT` | `/api/playlists/:id/items/reorder` | NORMAL | 按 `music_ids` 重排歌单 |
+| WebSocket | `/ws` | 公开 | WebSocket 连接与帧处理 |
 
-| 字段 | 类型 | 默认值 | 说明 |
-|------|------|--------|------|
-| `enabled` | bool | false | 是否启用 TLS |
-| `cert_file` | string | ./build/cert.pem | 服务器证书路径 |
-| `key_file` | string | ./build/key.pem | 私钥路径 |
-| `ca_file` | string | ./build/ca.pem | CA 证书路径 |
-| `verify_peer` | bool | false | 是否验证客户端证书 |
-
-#### filesystem 节
-
-| 字段 | 类型 | 默认值 | 说明 |
-|------|------|--------|------|
-| `root_dir` | string | ./data | 文件存储根目录 |
-
-## 脚本工具
-
-项目提供以下脚本，均从项目根目录执行：
-
-### `bash scripts/<脚本名>` — 独立脚本工具
-
-所有脚本支持无参交互菜单模式和 `-h/--help` 参数：
-
-| 脚本 | 子命令 | 说明 |
-|------|--------|------|
-| `compile.sh` | `build`, `--clean` | 编译项目（多核）|
-| `format.sh` | `all`, `<路径...>` | clang-format 格式化 `.cpp/.hpp/.h`|
-| `codeql.sh` | `run` | 提交 CodeQL 分析（自动探测服务器地址）|
-| `pipeline.sh` | `all`, `format`, `lint`, `compile`, `test` | 一键流水线 |
-| `benchmark.sh` | `micro`, `qps`, `rps`, `load`, `diff`, `gen-data`, `build` | 性能基准测试（`load` 是 `rps` 的兼容别名） |
-| `docker.sh` | `deploy`, `status`, `health`, `stop`, `logs` | Docker 一键部署与运维 |
-
-### `bash scripts/lint.sh [选项] [文件/目录...]` — Lint 检查
-
-同时运行 clang-tidy 和 cppcheck，自动生成 `compile_commands.json`（若不存在或 xmake.lua 更新）。
-
-| 选项 | 说明 |
-|------|------|
-| `--changed` | 仅检查 Git 已变更文件（相对 HEAD，含未跟踪）|
-| `-j, --jobs N` | 并发数（默认 CPU 核数）|
-| `-h, --help` | 显示帮助 |
-| `文件/目录...` | 指定检查范围（非 `--changed` 时）|
-
-示例：
+注册示例：
 
 ```bash
-# 全量检查
-bash scripts/lint.sh
-
-# 增量检查
-bash scripts/lint.sh --changed
-
-# 并发 8 线程
-bash scripts/lint.sh -j 8
-
-# 检查指定目录
-bash scripts/lint.sh net/http/ tests/
-
-# 检查指定文件
-bash scripts/lint.sh net/http/src/http_parser.cpp
+curl -X POST http://127.0.0.1:9090/api/auth/register \
+  -H 'Content-Type: application/json' \
+  -d '{"username":"alice","password":"secret123","email":"alice@example.com"}'
 ```
 
-### `bash scripts/test.sh [测试名]` — 测试运行
+### 文件上传约束
 
-| 参数 | 说明 |
-|------|------|
-| 无参数 | 运行全部测试（20 个测试二进制）|
-| `测试名` | 仅运行指定测试文件（如 `test_tcp_server`）|
-
-### `bash scripts/docker.sh <子命令>` — Docker 部署
-
-子命令：
-
-| 子命令 | 说明 |
-|--------|------|
-| `deploy` | 构建后端与前端，启动 MySQL、后端和 nginx，并等待健康检查通过 |
-| `status` | 显示全部服务状态并验证公共健康接口 |
-| `health` | 通过 nginx 公共入口检查后端健康状态 |
-| `stop` | 停止服务并保留数据库和文件数据卷 |
-| `logs` | 输出全部服务日志 |
-| `all` / `up` / `run` | `deploy` 的兼容别名 |
-| `down` | `stop` 的兼容别名 |
-
-无参数时进入交互菜单。
-
-### `bash verification/verify.sh` — 端到端验证
-
-一键执行 15 个维度（V1~V15）、37 项验证，覆盖编译、单元测试、REST API、错误处理、Keep-Alive、WebSocket、信号停止、SSL/TLS、CLI 参数、文件上传/下载/哈希、并发连接、边界条件。输出 PASS/FAIL 报告。
-
-详细验证步骤见 `verification/README.md`。
-
-### `bash setup.sh` — 环境初始化
-
-在 Ubuntu 22.04 上安装：g++/gdb/make、xmake、clang-tidy/cppcheck/clang-format。
+文件上传的请求体是单个文件的原始二进制内容，不是 `multipart/form-data`。文件名从 `Content-Disposition` 读取；后端同时支持普通 `filename` 和 RFC 5987 UTF-8 `filename*`：
 
 ```bash
-bash setup.sh
+curl -X POST http://127.0.0.1:9090/api/files/upload \
+  -H "Authorization: Bearer ${TOKEN}" \
+  -H 'Content-Type: audio/mpeg' \
+  -H "Content-Disposition: attachment; filename*=UTF-8''sample.mp3" \
+  --data-binary @sample.mp3
 ```
 
-## 外部接口
+允许的扩展名为 `.mp3`、`.ogg`、`.wav`、`.flac`、`.aac`、`.m4a`、`.wma`、`.ape`、`.opus`，匹配时不区分大小写。服务端拒绝未知扩展名、无效文件名、零字节文件和超过角色上限的文件，并返回带 `error` 与稳定 `code` 的 JSON；校验失败时不会启动哈希、分片写入或数据库 handler。当前类型边界是扩展名白名单，不等同于完整音频解码或内容安全扫描。
 
-### REST API
+前端在选择或拖放时同步执行扩展名、浏览器 MIME 冲突、零字节和角色大小预检，用稳定 ID 管理队列，并将并发限制为 2。上传期间可以继续安全追加文件，支持逐项取消、重试、移除和部分成功汇总。客户端预检用于及时反馈，不能替代后端最终校验；后端的 JSON、纯文本或网关错误会保留原始可读原因。
 
-基于 HTTP/1.1，请求体为 JSON，响应体为 JSON 或二进制流。路径参数以 `:name` 格式声明，匹配时自动注入 `req.path_params`。
+Range 流播示例：
 
-#### 端点
-
-| 方法 | 路径 | 说明 |
-|------|------|------|
-| GET | `/api/health` | 健康检查 |
-| GET | `/api/users/:id` | 获取用户信息 |
-| POST | `/api/users` | 创建用户 |
-| GET | `/api/users/:id/history` | 获取用户下载历史 |
-| GET | `/api/files/:hash` | 获取文件元信息 |
-| POST | `/api/files/upload` | 上传文件（body 即文件内容） |
-| GET | `/api/files/by-hash/:hash/download` | 下载文件（支持 Range） |
-
-#### 请求 / 响应格式
-
-**GET /api/health**
-```json
-// → 200
-{"status":"ok","uptime":42}
+```bash
+curl http://127.0.0.1:9090/api/files/1/stream \
+  -H "Authorization: Bearer ${TOKEN}" \
+  -H 'Range: bytes=0-1023' \
+  --output part.bin
 ```
 
-**GET /api/users/:id**
-```json
-// ← {"id": 1}
-// → 200 {"user_id":1,"username":"alice"}
-// → 404 {"error":"user not found"}
-```
+当前后端流播实现处理一个字节区间，合法 Range 返回 `206 Partial Content`，不可满足的区间返回 `416`。普通下载接口返回完整文件。浏览器 `<audio>` 不能自行附加 Bearer Header，因此当前前端会先通过认证请求取得完整音频 Blob，再生成临时 object URL 播放并在切歌时释放；它以等待完整响应和内存占用换取可靠鉴权。若要在前端恢复真正的 Range 边播边下，应改为 HttpOnly Cookie 或短期签名 URL 等媒体元素可以安全使用的认证方式。
 
-**POST /api/users**
-```json
-// → {"username":"alice","email":"alice@example.com"}
-// ← 201 {"status":"created"}
-// ← 500 {"error":"create failed"}
-```
+WebSocket 遵循 RFC 6455，支持文本、二进制、关闭、Ping/Pong 和分片帧。握手入口为：
 
-**GET /api/users/:id/history**
-```json
-// ← {"id": 1}
-// → 200 {"downloads":[{"log_id":1,"file_hash":"abc123"}]}
-// → 400 {"error":"missing id"}
-```
-
-**GET /api/files/:hash**
-```json
-// ← {"hash": "sha256hex"}
-// → 200 {"file_hash":"abc","file_path":"uploads/abc","file_size":1024}
-// → 404 {"error":"file not found"}
-```
-
-**POST /api/files/upload**
-```
-// → body: 原始二进制（文件内容）
-// ← 201 {"hash":"sha256hex","size":1024}
-// ← 200 {"hash":"sha256hex","size":1024,"exists":true}
-// ← 400 {"error":"empty body"}
-// ← 500 {"error":"store failed"}
-```
-
-**GET /api/files/by-hash/:hash/download**
-```
-// → 200 application/octet-stream（完整文件）
-// → 206 Partial Content（Range 请求）
-// → 404 {"error":"file not found"}
-```
-
-#### 统一错误响应
-
-```
-// HTTP 400 / 404 / 500
-{"error":"描述信息"}
-```
-
-### WebSocket
-
-#### 握手
-
-```
+```http
 GET /ws HTTP/1.1
-Host: server
 Upgrade: websocket
 Connection: Upgrade
-Sec-WebSocket-Key: dGhlIHNhbXBsZSBub25jZQ==
+Sec-WebSocket-Key: <随机 Base64 值>
 Sec-WebSocket-Version: 13
 ```
 
-成功 → `101 Switching Protocols`
+## 脚本总览
 
-#### 帧格式（RFC 6455）
+所有项目脚本都应从仓库根目录执行。带交互菜单的脚本适合人工探索，自动化和文档示例应使用明确子命令。
 
-每个数据帧包含 opcode（操作类型）和 payload（载荷）：
+| 脚本 | 无参数行为 | 推荐显式命令 | 作用 |
+|---|---|---|---|
+| `setup.sh` | 直接初始化环境 | `bash setup.sh` | 安装开发依赖并执行 `xmake require` |
+| `scripts/compile.sh` | 交互菜单 | `bash scripts/compile.sh build` | 构建 C++ 与前端 |
+| `scripts/format.sh` | 交互菜单 | `bash scripts/format.sh all` | clang-format 格式化 |
+| `scripts/lint.sh` | 直接全量检查 | `bash scripts/lint.sh --all` | clang-tidy、cppcheck、前端 Oxlint |
+| `scripts/test.sh` | 直接运行全部测试 | `bash scripts/test.sh` | Google Test 与前端 Vitest |
+| `scripts/codeql.sh` | 交互菜单 | `bash scripts/codeql.sh run` | 远程 CodeQL 分析 |
+| `scripts/pipeline.sh` | 交互菜单 | `bash scripts/pipeline.sh all` | 执行完整质量流水线 |
+| `scripts/benchmark.sh` | 交互菜单 | `bash scripts/benchmark.sh check` | 微基准、QPS、RPS 与报告对比 |
+| `scripts/docker.sh` | 交互菜单 | `bash scripts/docker.sh deploy` | 构建、部署和运维 Compose 服务 |
+| `scripts/lib/common.sh` | 不应直接运行 | 由其他脚本加载 | 公共菜单、依赖和前端安装函数 |
 
-| Opcode | 名称 | 说明 |
-|--------|------|------|
-| `0x0` | CONTINUATION | 分片续帧 |
-| `0x1` | TEXT | UTF-8 文本 |
-| `0x2` | BINARY | 二进制 |
-| `0x8` | CLOSE | 关闭连接 |
-| `0x9` | PING | 心跳 |
-| `0xA` | PONG | 心跳回复 |
+除无选项的 `scripts/test.sh` 外，用户入口脚本都可通过 `bash <脚本> --help` 查看参数说明；测试脚本的可选位置参数是 xmake 测试目标名。
 
-关闭帧附带 2 字节大端关闭码：
-
-| 码值 | 含义 |
-|------|------|
-| 1000 | 正常关闭 |
-| 1001 | 端点离开 |
-| 1002 | 协议错误 |
-| 1003 | 不支持的数据类型 |
-| 1007 | 无效 payload |
-| 1008 | 策略违规 |
-| 1009 | 消息过大 |
-
-服务端通过 `ws_encode_frame(opcode, payload)` 编码发送；
-客户端数据通过 `ws_decode_frame(data)` 解码为 `WsFrame{fin, opcode, payload}`。
-
-### Range 流式传输
-
-支持 HTTP Range 请求头，用于部分下载和断点续传。
-
-#### 请求
-
-```
-GET /api/files/by-hash/:hash/download HTTP/1.1
-Range: bytes=0-1023
-```
-
-Range 格式：
-
-| 格式 | 示例 | 含义 |
-|------|------|------|
-| `bytes=start-end` | `bytes=0-1023` | 指定区间 |
-| `bytes=start-` | `bytes=1024-` | 从指定位置到末尾 |
-| `bytes=-suffix` | `bytes=-1024` | 最后 N 字节 |
-| 多区间 | `bytes=0-99,200-299` | 多个区间 |
-
-#### 响应
-
-| 情况 | 状态码 | Content-Type |
-|------|--------|-------------|
-| 单区间 | 206 | `application/octet-stream` |
-| 多区间 | 206 | `multipart/byteranges; boundary=HPS_<random>` |
-| 无效区间 | 416 | `application/json` |
-
-单区间响应头：
-```
-Content-Range: bytes 0-1023/1048576
-```
-
-多区间响应体：
-```
---HPS_abc123
-Content-Type: application/octet-stream
-Content-Range: bytes 0-99/1000
-
-[数据]
---HPS_abc123
-Content-Type: application/octet-stream
-Content-Range: bytes 200-299/1000
-
-[数据]
---HPS_abc123--
-```
-
-### 文件传输（进程间协议）
-
-大文件传输 fork 出 `file-send-process` 独立进程，通过管道传递以下元数据（纯文本）：
-
-```
-第一行: <total_size> <path> <peer_ip> <peer_port> <chunk_count>
-后续行: <chunk_index> <offset> <size>
-```
-
-示例：
-```
-1048576 /data/video.mp4 10.0.0.2 9001 4
-0 0 262144
-1 262144 262144
-2 524288 262144
-3 786432 262144
-```
-
-| 字段 | 类型 | 说明 |
-|------|------|------|
-| total_size | uint64 | 文件总字节数 |
-| path | string | 源文件路径 |
-| peer_ip | string | 目标 IP |
-| peer_port | uint16 | 目标端口 |
-| chunk_count | uint32 | 分片数 |
-| chunk_index | uint32 | 分片序号 |
-| offset | uint64 | 分片在文件中的偏移 |
-| size | uint64 | 分片字节数 |
-
-#### ChunkHeader（线路二进制协议）
-
-每片数据前附加 28 字节固定头（所有多字节字段为大端序）：
-
-```
-偏移  大小  字段         说明
-0     4    magic        魔数 "HPSF" (0x48505346)
-4     4    chunk_index  分片序号
-8     8    offset       文件偏移
-16    8    chunk_size   分片数据大小
-24    4    total_chunks 总分片数
-```
-
-## 测试指南
-
-### 运行测试
+### 编译脚本
 
 ```bash
-# 全部测试（推荐）
-bash scripts/test.sh
+# 日常增量编译
+bash scripts/compile.sh build
 
-# 全部测试（xmake 直接调用）
-xmake test
-
-# 单个测试文件
-bash scripts/test.sh test_tcp_server
-xmake test -f test_tcp_server
-
-# 单个用例
-xmake run test_tcp_server --gtest_filter="*SignalStopServer*"
+# 清除 xmake 配置缓存后编译
+bash scripts/compile.sh --clean
 ```
 
-### 端到端验证
+两个命令都会构建后端和 `frontend/dist/`。前端依赖不存在或锁文件发生变化时，公共脚本会使用 `npm ci` 重新安装。
+
+基准和 Docker 构建会切换 xmake 的构建模式；从 Release 返回日常 Debug 环境时，使用 `bash scripts/compile.sh --clean` 重新配置。
+
+### 格式化脚本
 
 ```bash
-bash verification/verify.sh
+# 全部 C/C++ 文件
+bash scripts/format.sh all
+
+# 指定文件或目录
+bash scripts/format.sh core/src/main.cpp net/http tests
 ```
 
-一键执行 15 维度、37 项验证，输出 PASS/FAIL 报告（详见 `verification/README.md`）。
+脚本依次探测 `clang-format-18`、`clang-format-17`、`clang-format-16`、`clang-format`，处理 `.cpp`、`.hpp`、`.h`、`.cc`、`.cxx`，排除 `build/`、`.xmake/` 和编译数据库。工具缺失会失败，不会把跳过当成成功。
 
-### 测试覆盖
-
-| 模块 | 测试数 | 覆盖内容 |
-|------|--------|----------|
-| TcpServer | ~8 | 初始化/启动/停止/信号停止/echo/并发/无Handler/断连 |
-| TcpServer Connection | 10 | 构造/读/写/关闭/状态/大缓冲/空操作 |
-| HttpParser | 19 | GET/POST/chunked/分片feed/过大/重置/错误 |
-| HttpRequest | 4 | 默认状态/clear/方法转换 |
-| HttpResponse | 8 | 状态/header/serialize/clear/大小写忽略 |
-| UrlDecode | 8 | 普通/plus/百分号/混合/非法/空/大小写 |
-| Router | 9 | 注册/匹配/参数/404/405/冲突/通配 |
-| HttpServer | 7 | 端到端请求/响应/keep-alive/错误码 |
-| MemoryPool | - | 分配/释放/碎片 |
-| ThreadPool (LockFree) | - | 无锁队列/任务调度 |
-| ThreadPool (Locked) | 8 | 有锁队列/超时/优雅停止 |
-| Coroutine | 5 | 异常/完成/await_read/write |
-| FileSystem | 14 | 分片/hash/存储/删除/路径遍历防护 |
-| DatabasePool | 14 | 连接池/CRUD/超时/健康检查 |
-| FileTransfer | 7 | 小文件/ChunkHeader/接收重组 |
-| SSL/TLS | 9 | SslContext/握手/加密通信/双模式 |
-| WebSocket | 12 | 握手/帧编解码/Base64/集成 |
-| Range Parser | 10 | 单区间/多区间/非法/边界 |
-| **合计** | **~167** | |
-| **性能基准测试** | **12 个二进制** | 12 个模块微基准测试 + HTTP 负载测试（详见 benchmark/README.md）|
-
-## 信号处理与优雅停止
-
-服务器通过以下机制确保优雅关闭：
-
-```
-用户按 Ctrl-C (SIGINT) 或 kill 发送 SIGTERM
-        │
-        ▼
-sigaction 触发 TcpServer::signal_handler(int sig)
-        │
-        ▼
-s_instance_->stop()
-  ├─ running_ = false
-  └─ eventfd 写入 1 字节（epoll_wait 立即返回）
-        │
-        ▼
-event_loop 检测到 running_ == false，退出循环
-        │
-        ▼
-cleanup_resources()
-  ├─ 关闭所有客户端连接
-  ├─ 关闭 eventfd / epoll_fd / server socket
-  └─ signal(SIGINT, SIG_DFL), signal(SIGTERM, SIG_DFL)
-        │
-        ▼
-main() 继续执行：
-  ├─ 关闭数据库连接池
-  └─ Logger::shutdown()
-```
-
-关键点：
-- `TcpServer::init()` 通过 `sigaction()` 注册信号处理（非 `std::signal()`，避免竞态）
-- `epoll_wait` 超时 100ms 确保及时响应停止信号
-- 所有资源通过 RAII + 显式 `close` 双重保障
-- 线程池 `jthread` 自动 join
-
-## 开发工作流
+### Lint 脚本
 
 ```bash
-# 1. 格式化代码
-bash scripts/format.sh
+# 全量 C/C++ 检查和前端 Lint
+bash scripts/lint.sh --all
 
-# 2. Lint 检查（clang-tidy + cppcheck）
-bash scripts/lint.sh
-# 增量检查（仅 Git 变更文件）
+# 仅检查相对 HEAD 的 C/C++ 变更，前端仍执行完整 Lint
 bash scripts/lint.sh --changed
 
-# 3. 编译
-bash scripts/compile.sh
-
-# 4. 运行测试
-bash scripts/test.sh
-
-# 5. 性能基准测试
-bash scripts/benchmark.sh micro    # 微基准测试
-bash scripts/benchmark.sh load    # HTTP 负载测试
-bash scripts/benchmark.sh diff    # 基线对比
-
-# 6. CodeQL 分析
-bash scripts/codeql.sh
-
-# 7. 全流程
-bash scripts/pipeline.sh
+# 指定范围和并发数
+bash scripts/lint.sh -j 8 core net/http tests
 ```
 
-### 性能基准测试详细说明
+脚本对 `.cpp`、`.hpp`、`.h`、`.cc`、`.cxx` 执行 clang-tidy 和 cppcheck。缺少或过期的 `compile_commands.json` 会按 xmake 配置自动生成。门禁要求 clang-tidy 的 error/warning/style 和 cppcheck 的 error/warning/style/performance 均为零。
 
-包含 12 个模块的微基准测试和 HTTP 负载测试：
+### 测试脚本
 
 ```bash
-# 编译 + 运行微基准测试（Release 模式）
+# 全部后端与前端测试
+bash scripts/test.sh
+
+# 一个后端测试目标；前端 Vitest 仍会完整运行
+bash scripts/test.sh test_tcp_server
+```
+
+顶层 `xmake.lua` 从 `tests/*.cpp` 动态创建测试目标，不维护手写目标清单。目标数和用例数会随源码变化，应以当前工作树执行 `bash scripts/test.sh` 的完整输出为准。
+
+前端单元测试由 `scripts/test.sh` 统一执行。真实浏览器验收需要已经部署的 nginx、后端和 MySQL，因此使用独立命令，不会隐式加入普通测试脚本：
+
+```bash
+cd frontend
+npm run test:e2e
+
+# 可覆盖部署地址和系统 Chromium；产物目录自动带时间戳
+PLAYWRIGHT_BASE_URL=http://127.0.0.1:18080 \
+PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH=/snap/bin/chromium \
+  npm run test:e2e
+```
+
+Playwright 固化四个视口：`1440x900`、`1280x800`、`768x1024`、`390x844`。用例覆盖注册、退出、登录、会话恢复、桌面侧栏、移动抽屉、SPA 深链、无效类型前端拦截、上传期间安全追加两个有效 WAV、水平溢出和浏览器控制台错误。报告与截图写入带 `_YYYYMMDD_HHMMSS` 的目录，不创建无时间戳的“最新”别名。
+
+### CodeQL 脚本
+
+```bash
+CODEQL_SERVER_URL=http://192.168.1.10:8080 \
+  bash scripts/codeql.sh run
+```
+
+规定的探测顺序是已设置的 `CODEQL_SERVER_URL`、`http://localhost:8080`、交互输入 IP。当前脚本在已配置地址失效时会跳过 localhost，这是已确认、待修复的 P1 问题，详见 [Step 17 运行时回归 Bug 修复计划](plan/bugfix-step17-runtime-regressions.md)。脚本负责生成和预处理编译数据库、打包源码、提交任务、轮询 SARIF，并以 `0 critical + 0 high` 为通过标准。`analyze` 是 `run` 的兼容别名。
+
+### 完整流水线
+
+```bash
+bash scripts/pipeline.sh all
+```
+
+`all` 严格按以下顺序执行，任一步失败即停止：
+
+```text
+格式化 -> Lint -> 编译 -> CodeQL -> 测试
+```
+
+也可单独执行 `format`、`lint`、`compile`、`codeql`、`test` 子命令。流水线包含远程 CodeQL，因此运行前应确保服务可达。
+
+日常开发可先使用以下局部预检缩短反馈时间，但它不替代正式流水线：
+
+```bash
+bash scripts/format.sh <修改的文件或目录>
+bash scripts/lint.sh --changed
+```
+
+正式验收必须执行 `bash scripts/pipeline.sh all`。脚本报告问题时修复业务代码，然后从流水线起点重新执行，确保格式化、全量 Lint、编译、CodeQL 和测试验证的是同一份最终代码。
+
+### 性能脚本
+
+顶层 `xmake.lua` 动态发现 `benchmark/bench_*.cpp` 和 `benchmark/qps_*.cpp`，`scripts/benchmark.sh` 会校验源码与构建目标是否一致。文档不维护易失真的固定目标数量，实时结果以 `bash scripts/benchmark.sh check` 输出为准。
+
+```bash
+# 本机依赖和目标发现检查
+bash scripts/benchmark.sh check
+
+# 构建性能目标
+bash scripts/benchmark.sh build
+bash scripts/benchmark.sh build --debug
+
+# 微基准
 bash scripts/benchmark.sh micro
 
-# 生成测试数据（1KB ~ 100MB）
+# 模块 QPS
+bash scripts/benchmark.sh qps smoke
+bash scripts/benchmark.sh qps full
+
+# 已部署服务的端到端 RPS
+bash scripts/benchmark.sh rps smoke
+bash scripts/benchmark.sh rps full
+bash scripts/benchmark.sh rps overload
+
+# 对比最近两个同类时间戳报告
+bash scripts/benchmark.sh diff micro
+bash scripts/benchmark.sh diff qps
+bash scripts/benchmark.sh diff rps
+
+# 生成 1KB 到 100MB 的通用测试数据
 bash scripts/benchmark.sh gen-data
-
-# HTTP RPS 压力测试（需先完成 Docker 部署）
-RPS_BASE_URL=http://127.0.0.1:18080 bash scripts/benchmark.sh rps full
-
-# 微基准测试清单见 benchmark/README.md
 ```
+
+`rps` 不启动服务，执行前应先部署，并通过 `RPS_BASE_URL` 指向同源入口；`load` 是 `rps` 的兼容别名。报告写入 `benchmark/reports/`，文件名均包含 `_YYYYMMDD_HHMMSS` 时间戳，不创建“最新”别名。完整矩阵、环境变量与报告格式见 `benchmark/README.md`。
 
 ## Docker 部署
 
-### 前置条件
-
-- Docker Engine 24+
-- Docker Compose 插件
-- xmake、Node.js/npm、OpenSSL 和 curl
-- 本机已有 `nginx:latest` 镜像；MySQL 固定使用 `mysql:8.0`，本机缺少时首次部署会自动拉取
-
-### 一键部署
+前置条件为 Docker Engine、Docker Compose 插件、OpenSSL、curl、xmake、npm，以及本地已有的 `nginx:latest` 镜像。
 
 ```bash
+# 构建并启动 MySQL、后端和 nginx，等待健康检查
 bash scripts/docker.sh deploy
-```
 
-首次部署会创建根目录 `.env`，自动生成认证密钥和两组不同的 MySQL 随机密码，并将文件权限设置为 `0600`。已有 `.env` 也会校验密钥强度、非占位值和端口范围。脚本随后构建 Release 后端和前端，通过 Compose 启动 MySQL、后端和 nginx，等待三项健康检查全部通过。
-
-只有 nginx 公共端口会绑定到宿主机回环地址，默认应用入口为 `http://127.0.0.1:18080`，健康检查地址为 `http://127.0.0.1:18080/api/health`。宿主机 `8080` 保留给 CodeQL 服务，Docker 部署不会使用该端口。已有 `.env` 可通过 `HPS_HTTP_PORT` 覆盖应用端口，例如 `HPS_HTTP_PORT=19080`；部署脚本会在构建前检查该宿主机端口，若已被占用则直接失败，不会开始构建。
-
-MySQL schema 在空数据卷首次启动时由 `db/schema.sql` 自动初始化。停止服务不会删除数据库或文件数据卷。
-
-### 日常运维
-
-```bash
-# 查看 Compose 状态并验证公共入口
+# 状态与公共入口验证
 bash scripts/docker.sh status
-
-# 仅执行公共健康检查
 bash scripts/docker.sh health
 
-# 查看完整服务日志
+# 输出全部历史日志
 bash scripts/docker.sh logs
 
-# 停止服务，保留数据卷
+# 仅输出最近 10 分钟的日志
+bash scripts/docker.sh logs --since 10m
+
+# 停止容器，保留 MySQL 和文件数据卷
 bash scripts/docker.sh stop
 ```
 
-## 质量门禁
+`logs --since` 接受 Docker 支持的时长（如 `10m`）或时间戳。脚本不对日志做行级过滤，时间范围由 Docker 解析；不带 `--since` 时仍输出全部历史日志。
 
-| 检查项 | 标准 | 命令 |
-|--------|------|------|
-| 编译 | 0 error + 0 warning | `xmake` |
-| clang-tidy | 0 error + 0 warning + 0 style | `bash scripts/lint.sh` |
-| cppcheck | 0 error + 0 warning + 0 style + 0 performance | `bash scripts/lint.sh` |
-| CodeQL | 0 critical + 0 high | `bash scripts/codeql.sh` |
-| 测试 | 100% 通过 | `bash scripts/test.sh` |
+首次部署会创建权限为 `0600` 的 `.env`，生成认证密钥、MySQL root 密码和独立应用密码。MySQL 空数据卷通过 `db/schema.sql` 初始化。默认公共入口是：
 
-## 项目结构
-
-```
-project/
-├── AGENTS.md              # AI 辅助开发指南
-├── xmake.lua              # 顶层构建配置
-├── README.md              # 本文件
-├── goal.md                # 项目目标文档
-├── Dockerfile             # Docker 运行时镜像（从本机 COPY 产物）
-├── config.json            # 服务器配置
-├── core/                  # 主程序入口
-│   └── src/main.cpp
-├── logger/                # 日志模块（两阶段单例）
-├── memory-pool/           # 内存池（CRTP 静态多态）
-├── file-system/           # 文件系统
-├── db/                    # 数据库连接池（boost::mysql）
-├── net/                   # 网络层
-│   ├── coroutine/         # 协程（C++20 std::coroutine）
-│   ├── thread-pool/       # 线程池（LockFree + Locked 双实现）
-│   ├── tcp/
-│   │   ├── tcp_client/    # TCP 客户端
-│   │   └── tcp_server/    # TCP 服务器（epoll ET + SSL + 优雅关闭）
-│   ├── http/              # HTTP 协议实现
-│   ├── ssl/               # OpenSSL 封装
-│   ├── websocket/         # WebSocket 帧编解码
-│   ├── file-transfer/     # 文件传输（小文件单连接 + 大文件多进程）
-│   ├── file-send-process/ # 文件发送独立进程
-│   └── file-receive-process/ # 文件接收独立进程
-├── tests/                 # 单元测试（~167 用例）
-├── scripts/               # 运维脚本
-│   ├── compile.sh         # 编译
-│   ├── format.sh          # 格式化
-│   ├── codeql.sh          # CodeQL 安全分析
-│   ├── pipeline.sh        # 一键流水线
-│   ├── lint.sh            # 静态检查（clang-tidy + cppcheck）
-│   ├── test.sh            # 测试
-│   ├── benchmark.sh       # 性能基准测试
-│   ├── docker.sh          # Docker 一键部署与运维
-│   ├── lint.sh            # Lint 检查（clang-tidy + cppcheck，支持 --changed/-j/路径）
-│   └── test.sh            # 测试运行器（支持指定测试名）
-├── verification/          # 端到端验证
-│   ├── verify.sh          # 15 维度 37 项功能验证
-│   ├── README.md          # 验证步骤说明
-│   └── ws_test.py         # WebSocket 测试
-├── setup.sh               # Ubuntu 环境初始化（g++/xmake/clang-tidy）
-├── plan/                  # 开发计划（含 Bug 修复文档）
-└── lib/                   # 动态库输出目录
+```text
+http://127.0.0.1:18080
 ```
 
-## 编码规范
+可在 `.env` 中设置 `HPS_HTTP_PORT` 修改端口。宿主机 `8080` 专用于 CodeQL，部署脚本会拒绝把应用绑定到该端口。`stop` 不删除数据；若确实需要删除数据卷，应单独确认影响后再执行相应 Docker 操作。
 
-### 命名规约
+`docker.sh build` 只构建本机 Release 后端和前端，`docker.sh image` 还会构建后端镜像但不启动服务。`all`、`up`、`run` 是 `deploy` 的兼容别名，`down` 是 `stop` 的兼容别名。
 
-| 类别 | 风格 | 示例 |
-|------|------|------|
-| 类/类型 | PascalCase | `ThreadPool`, `TcpServer`, `HttpParser` |
-| 函数/变量 | snake_case | `init_pool`, `connection_count`, `read_from_fd` |
-| 成员变量 | snake_case + `_` 后缀 | `config_`, `running_`, `fd_` |
-| 常量 | `k` + PascalCase | `kMaxEpollEvents`, `kMaxBodySize` |
-| 枚举值 | UPPER_SNAKE_CASE | `REQUEST_LINE`, `HEADERS`, `BODY` |
-| 全局变量 | `g_` 前缀 | `g_start_time` |
-| 命名空间 | snake_case | `hps` |
+部署后的完整前端验收应检查根页面、静态资源、`/files` 等 SPA 深链和四个响应式视口。2026-07-22 的修复前版本曾通过 `docker.sh health` 开头公共入口健康检查和真实用户流程 Playwright 验收，有效报告为 `frontend/playwright-report/e2e_20260722_214738/index.html`；该历史结果未覆盖已认证流播，不能代表当前 Step 17 已完成。
 
-### 头文件
+## 质量标准
 
-- `#pragma once` 代替宏保护
-- 包含顺序：本模块 → 标准库 → 系统头文件
-- 优先前置声明
+| 检查项 | 通过标准 | 命令 |
+|---|---|---|
+| 格式化 | clang-format 后无待格式化差异 | `bash scripts/format.sh all` |
+| clang-tidy | 0 error、0 warning、0 style | `bash scripts/lint.sh --all` |
+| cppcheck | 0 error、0 warning、0 style、0 performance | `bash scripts/lint.sh --all` |
+| 编译 | 0 error、0 warning | `bash scripts/compile.sh build` |
+| CodeQL | 0 critical、0 high | `bash scripts/codeql.sh run` |
+| 测试 | 要求后端与前端全部通过 | `bash scripts/test.sh` |
+| 浏览器验收 | 要求四个视口核心流程全部通过 | `cd frontend && npm run test:e2e` |
 
-### 内存管理
+### 2026-07-22 验证快照
 
-- RAII 优先（unique_ptr, shared_ptr, jthread）
-- 禁止裸 new/delete
-- 网络 fd 在析构或 close_connection 中释放
+- `bash scripts/lint.sh --changed`：Lint 结果为 `0/0`。
+- `bash scripts/compile.sh build`：后端 Release 构建和前端构建均通过。
+- `bash scripts/codeql.sh run`：任务 `fa999293-4980-4356-83b3-a2307e87ff18` 完成，`critical=0`、`high=0`。
+- `bash scripts/test.sh`：后端 Google Test `41/41` 通过，前端 Vitest `18` 个测试文件、`71` 个用例全部通过。
+- Docker 公共入口 `http://127.0.0.1:18080` 健康检查通过。
+- 真实部署 Playwright 的 `desktop`、`desktop-compact`、`tablet`、`mobile` 四个项目 `4/4` 通过；最新有效报告为 `frontend/playwright-report/e2e_20260722_214738/index.html`。
+- `bash scripts/docker.sh logs --since 5m` 记录到已认证上传返回 HTTP `201`，匿名 stream 请求返回预期的 HTTP `401`。
+- 上述 `4/4` 是已执行的历史事实，但用例只覆盖匿名 stream `401`，没有覆盖已认证 stream `200/206`，且只在流程开头检查健康状态。后续复测发现授权流播可触发后端重启并由 nginx 返回 `502`；Step 17 因此被 P0 阻塞，根因和修复验收见 [Step 17 运行时回归 Bug 修复计划](plan/bugfix-step17-runtime-regressions.md)。
 
-### C++20 特性
+这些数字只记录本次工作树曾实际执行的结果，不是永久固定的测试数量或验收门槛；后续仍以测试动态发现结果和脚本原始输出为准。P0 修复前不得把旧报告解释为 Step 17 已完成；修复后必须重新执行全量质量门禁、部署健康检查、授权流播和浏览器验收。
 
-- `std::jthread` + `std::stop_token`：自动 join
-- `std::span` / `std::string_view`：零拷贝视图
-- `std::atomic`：无锁状态标志
-- `std::coroutine`：协程实现异步 IO
-- `std::format`（若可用）：类型安全格式化
+## 许可证
 
-## License
-
-MIT
+本项目使用 MIT 许可证，见 `LICENSE`。

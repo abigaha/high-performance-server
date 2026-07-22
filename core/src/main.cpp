@@ -12,6 +12,7 @@
 #include "main_functions.h"
 #include "range_parser.h"
 #include "ssl_context.h"
+#include "upload_policy.h"
 #include "ws_connection.h"
 
 #include <openssl/evp.h>
@@ -21,6 +22,7 @@
 #include <cstdlib>
 #include <fstream>
 #include <iostream>
+#include <iterator>
 #include <memory>
 #include <mutex>
 #include <nlohmann/json.hpp>
@@ -58,56 +60,12 @@ bool check_auth(const HttpRequest& req, HttpResponse& resp, UserRole min_role) {
   return true;
 }
 
-bool check_size_limit(const HttpRequest& req, const ServerConfig& cfg, std::size_t file_size, HttpResponse& resp) {
-  int limit = 0;
-  if (req.auth_user.role == UserRole::NORMAL) {
-    limit = cfg.normal_max_size;
-  } else if (req.auth_user.role == UserRole::VIP) {
-    limit = cfg.vip_max_size;
-  }
-  if (limit > 0 && file_size > static_cast<std::size_t>(limit)) {
-    resp.set_status(413, "Payload Too Large");
-    resp.set_content_type("application/json");
-    resp.body = R"({"error":"文件大小超过限制 ")" + std::to_string(limit / (1024 * 1024)) + R"(MB"})";
-    resp.set_content_length(resp.body.size());
-    return false;
-  }
-  return true;
-}
-
 std::string stem(const std::string& filename) {
   auto dot = filename.rfind('.');
   if (dot == std::string::npos) {
     return filename;
   }
   return filename.substr(0, dot);
-}
-
-std::string detect_content_type(const std::string& filename) {
-  auto dot = filename.rfind('.');
-  if (dot == std::string::npos) {
-    return "application/octet-stream";
-  }
-  auto ext = filename.substr(dot);
-  if (ext == ".mp3")
-    return "audio/mpeg";
-  if (ext == ".ogg")
-    return "audio/ogg";
-  if (ext == ".wav")
-    return "audio/wav";
-  if (ext == ".flac")
-    return "audio/flac";
-  if (ext == ".aac")
-    return "audio/aac";
-  if (ext == ".m4a")
-    return "audio/mp4";
-  if (ext == ".wma")
-    return "audio/x-ms-wma";
-  if (ext == ".ape")
-    return "audio/x-monkeys-audio";
-  if (ext == ".opus")
-    return "audio/opus";
-  return "application/octet-stream";
 }
 
 } // anonymous namespace
@@ -259,19 +217,16 @@ void register_routes(HttpServer& server,
     auto records = db.search_files_ext(name_pattern, type_filter, offset, limit, total);
     resp.set_status(200, "OK");
     resp.set_content_type("application/json");
-    std::string body = R"({"items":[)";
-    for (size_t i = 0; i < records.size(); ++i) {
-      if (i > 0) {
-        body += ",";
-      }
-      body += R"({"file_id":)" + std::to_string(records[i].file_id) + R"(,"file_name":")" + records[i].file_name +
-              R"(","file_hash":")" + records[i].file_hash + R"(","file_size":)" + std::to_string(records[i].file_size) +
-              R"(,"content_type":")" + records[i].content_type + R"(","music_id":)" +
-              std::to_string(records[i].music_id) + R"(})";
-    }
-    body += R"(],"total":)" + std::to_string(total) + R"(,"offset":)" + std::to_string(offset) + R"(,"limit":)" +
-            std::to_string(limit) + R"(})";
-    resp.body = body;
+    nlohmann::json items = nlohmann::json::array();
+    std::ranges::transform(records, std::back_inserter(items), [](const FileRecord& record) {
+      return nlohmann::json{{"file_id", record.file_id},
+                            {"file_name", record.file_name},
+                            {"file_hash", record.file_hash},
+                            {"file_size", record.file_size},
+                            {"content_type", record.content_type},
+                            {"music_id", record.music_id}};
+    });
+    resp.body = nlohmann::json{{"items", std::move(items)}, {"total", total}, {"offset", offset}, {"limit", limit}}.dump();
     resp.set_content_length(resp.body.size());
   });
 
@@ -294,9 +249,12 @@ void register_routes(HttpServer& server,
     }
     resp.set_status(200, "OK");
     resp.set_content_type("application/json");
-    resp.body = R"({"file_id":)" + std::to_string(record->file_id) + R"(,"file_name":")" + record->file_name +
-                R"(","file_hash":")" + record->file_hash + R"(","file_size":)" + std::to_string(record->file_size) +
-                R"(,"content_type":")" + record->content_type + R"("})";
+    resp.body = nlohmann::json{{"file_id", record->file_id},
+                               {"file_name", record->file_name},
+                               {"file_hash", record->file_hash},
+                               {"file_size", record->file_size},
+                               {"content_type", record->content_type}}
+                  .dump();
     resp.set_content_length(resp.body.size());
   });
 
@@ -388,6 +346,9 @@ void register_routes(HttpServer& server,
 
   server.get("/api/files/:id/stream",
              [&db, &handle_stream_file, &handle_stream_range](const HttpRequest& req, HttpResponse& resp) {
+               if (!check_auth(req, resp, UserRole::NORMAL)) {
+                 return;
+               }
                auto it = req.path_params.find("id");
                if (it == req.path_params.end()) {
                  resp = auth_error(400, "missing id");
@@ -405,7 +366,7 @@ void register_routes(HttpServer& server,
                }
                auto content_type = record->content_type;
                if (content_type == "application/octet-stream") {
-                 content_type = detect_content_type(record->file_name);
+                 content_type = std::string(audio_content_type(record->file_name).value_or("application/octet-stream"));
                }
                resp.set_header("Accept-Ranges", "bytes");
                resp.set_content_type(content_type);
@@ -443,7 +404,6 @@ void register_routes(HttpServer& server,
       return;
     }
     std::string q;
-    std::string sort = "date_desc";
     int offset = 0;
     int limit = 20;
     auto qs = req.query_string;
@@ -451,11 +411,6 @@ void register_routes(HttpServer& server,
     if (qpos != std::string::npos) {
       auto end = qs.find('&', qpos);
       q = qs.substr(qpos + 2, end == std::string::npos ? end : end - qpos - 2);
-    }
-    auto spos = qs.find("sort=");
-    if (spos != std::string::npos) {
-      auto end = qs.find('&', spos);
-      sort = qs.substr(spos + 5, end == std::string::npos ? end : end - spos - 5);
     }
     auto opos = qs.find("offset=");
     if (opos != std::string::npos) {
@@ -479,17 +434,15 @@ void register_routes(HttpServer& server,
     }
     resp.set_status(200, "OK");
     resp.set_content_type("application/json");
-    std::string body = R"({"items":[)";
-    for (size_t i = 0; i < records.size(); ++i) {
-      if (i > 0)
-        body += ",";
-      body += R"({"file_id":)" + std::to_string(records[i].file_id) + R"(,"file_name":")" + records[i].file_name +
-              R"(","file_hash":")" + records[i].file_hash + R"(","file_size":)" + std::to_string(records[i].file_size) +
-              R"(,"content_type":")" + records[i].content_type + R"("})";
-    }
-    body += R"(],"total":)" + std::to_string(total) + R"(,"offset":)" + std::to_string(offset) + R"(,"limit":)" +
-            std::to_string(limit) + R"(})";
-    resp.body = body;
+    nlohmann::json items = nlohmann::json::array();
+    std::ranges::transform(records, std::back_inserter(items), [](const FileRecord& record) {
+      return nlohmann::json{{"file_id", record.file_id},
+                            {"file_name", record.file_name},
+                            {"file_hash", record.file_hash},
+                            {"file_size", record.file_size},
+                            {"content_type", record.content_type}};
+    });
+    resp.body = nlohmann::json{{"items", std::move(items)}, {"total", total}, {"offset", offset}, {"limit", limit}}.dump();
     resp.set_content_length(resp.body.size());
   });
 
@@ -831,31 +784,46 @@ void register_routes(HttpServer& server,
   });
 
   auto upload_setup = [&fs](const HttpRequest&, UploadStreamContext& ctx, HttpParser&) -> void {
-    (void)fs;
     ctx.store_chunk_data = [&fs](std::string_view data, const std::string& chunk_hash) -> bool {
       std::vector<char> buf(data.begin(), data.end());
       return fs.store_file("chunks/" + chunk_hash, buf);
     };
   };
 
+  auto upload_preflight = [&cfg](const HttpRequest& req,
+                                 const UploadStreamContext& ctx) -> std::optional<HttpResponse> {
+    const auto validation = validate_audio_upload(ctx.file_name, ctx.content_length, req.auth_user.role, cfg);
+    if (validation.accepted) {
+      return std::nullopt;
+    }
+    return make_upload_validation_response(validation);
+  };
+
   server.upload(
     "/api/files/upload",
     [&db, &cfg](const HttpRequest& req, UploadStreamContext& ctx, HttpResponse& resp) {
       if (!check_auth(req, resp, UserRole::NORMAL)) {
-        EVP_MD_CTX_free(static_cast<EVP_MD_CTX*>(ctx.hash_ctx));
         return;
       }
-      if (!check_size_limit(req, cfg, ctx.total_size, resp)) {
-        EVP_MD_CTX_free(static_cast<EVP_MD_CTX*>(ctx.hash_ctx));
+      const auto validation = validate_audio_upload(ctx.file_name, ctx.content_length, req.auth_user.role, cfg);
+      if (!validation.accepted) {
+        resp = make_upload_validation_response(validation);
         return;
       }
 
       auto* md_ctx = static_cast<EVP_MD_CTX*>(ctx.hash_ctx);
+      if (md_ctx == nullptr) {
+        resp = auth_error(500, "文件哈希初始化失败");
+        return;
+      }
       std::array<unsigned char, EVP_MAX_MD_SIZE> final_hash{};
       unsigned int hash_len = 0;
-      EVP_DigestFinal_ex(md_ctx, final_hash.data(), &hash_len);
-      EVP_MD_CTX_free(md_ctx);
-      ctx.hash_ctx = nullptr;
+      if (EVP_DigestFinal_ex(md_ctx, final_hash.data(), &hash_len) != 1) {
+        ctx.reset_hash_context();
+        resp = auth_error(500, "文件哈希计算失败");
+        return;
+      }
+      ctx.reset_hash_context();
 
       auto overall_hash = FileSystem::sha256_hex(reinterpret_cast<const char*>(final_hash.data()), hash_len);
       ctx.file_hash = overall_hash;
@@ -868,9 +836,12 @@ void register_routes(HttpServer& server,
       if (existing) {
         resp.set_status(200, "OK");
         resp.set_content_type("application/json");
-        resp.body = R"({"file_id":)" + std::to_string(existing->file_id) + R"(,"file_name":")" + existing->file_name +
-                    R"(","file_hash":")" + overall_hash + R"(","size":)" + std::to_string(ctx.total_size) +
-                    R"(,"exists":true})";
+        resp.body = nlohmann::json{{"file_id", existing->file_id},
+                                   {"file_name", existing->file_name},
+                                   {"file_hash", overall_hash},
+                                   {"size", ctx.total_size},
+                                   {"exists", true}}
+                      .dump();
         resp.set_content_length(resp.body.size());
         return;
       }
@@ -879,7 +850,7 @@ void register_routes(HttpServer& server,
       record.file_name = ctx.file_name;
       record.file_hash = overall_hash;
       record.file_size = ctx.total_size;
-      record.content_type = detect_content_type(ctx.file_name);
+      record.content_type = validation.content_type;
       record.chunk_size = 2097152;
       record.uploaded_by = req.auth_user.user_id;
       auto file_id = db.store_file_record(record);
@@ -914,12 +885,16 @@ void register_routes(HttpServer& server,
 
       resp.set_status(201, "Created");
       resp.set_content_type("application/json");
-      resp.body = R"({"file_id":)" + std::to_string(record.file_id) + R"(,"file_name":")" + record.file_name +
-                  R"(","file_hash":")" + overall_hash + R"(","size":)" + std::to_string(ctx.total_size) +
-                  R"(,"chunks":)" + std::to_string(ctx.chunks.size()) + R"(})";
+      resp.body = nlohmann::json{{"file_id", record.file_id},
+                                 {"file_name", record.file_name},
+                                 {"file_hash", overall_hash},
+                                 {"size", ctx.total_size},
+                                 {"chunks", ctx.chunks.size()}}
+                    .dump();
       resp.set_content_length(resp.body.size());
     },
-    upload_setup);
+    upload_setup,
+    upload_preflight);
 
   server.get("/api/files/by-hash/:hash/download", [&db, &fs](const HttpRequest& req, HttpResponse& resp) {
     if (!check_auth(req, resp, UserRole::NORMAL)) {
@@ -990,7 +965,7 @@ void register_routes(HttpServer& server,
 
   server.ws("/ws", [](const HttpRequest& req, std::shared_ptr<WsConnection> ws_conn) {
     Logger::_info("WebSocket 连接已建立: " + req.path);
-    ws_conn->set_message_handler([](WsFrame frame) {
+    ws_conn->set_message_handler([](const WsFrame& frame) {
       Logger::_info("WebSocket 收到帧: opcode=" + std::to_string(static_cast<int>(frame.opcode)) +
                     ", payload_size=" + std::to_string(frame.payload.size()));
     });
