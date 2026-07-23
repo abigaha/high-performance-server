@@ -28,10 +28,8 @@ TEST(MySqlFieldToStringTest, ConvertsSupportedFields) {
   const boost::mysql::field_view blob_field{boost::mysql::blob_view{blob}};
   const boost::mysql::field_view float_field{1.5F};
   const boost::mysql::field_view double_field{-0.125};
-  const auto time = -std::chrono::duration_cast<boost::mysql::time>(std::chrono::hours{123} +
-                                                                   std::chrono::minutes{45} +
-                                                                   std::chrono::seconds{6} +
-                                                                   std::chrono::microseconds{7});
+  const auto time = -std::chrono::duration_cast<boost::mysql::time>(
+    std::chrono::hours{123} + std::chrono::minutes{45} + std::chrono::seconds{6} + std::chrono::microseconds{7});
   const boost::mysql::field_view date_field{boost::mysql::date{2026, 7, 22}};
   const boost::mysql::field_view datetime_field{boost::mysql::datetime{2026, 7, 22, 14, 33, 21, 42}};
   const boost::mysql::field_view time_field{time};

@@ -39,9 +39,7 @@ void append_uint32(std::vector<std::uint8_t>& bytes, std::uint32_t value) {
 }
 
 void append_bytes(std::vector<std::uint8_t>& bytes, std::string_view value) {
-  for (const auto character : value) {
-    bytes.push_back(static_cast<std::uint8_t>(character));
-  }
+  bytes.insert(bytes.end(), value.begin(), value.end());
 }
 
 std::vector<std::uint8_t> make_server_greeting() {

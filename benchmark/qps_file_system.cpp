@@ -3,6 +3,9 @@
 
 #include <cstddef>
 #include <cstdio>
+#include <cstdlib>
+#include <exception>
+#include <iostream>
 #include <string>
 #include <vector>
 
@@ -27,36 +30,43 @@ std::string create_temp_file(std::size_t size) {
 
 } // namespace
 
-int main() {
-  auto levels = hps::bench::default_qps_levels();
+int main() noexcept {
+  try {
+    auto levels = hps::bench::default_qps_levels();
 
-  // SHA256 on 1KB data (in-memory)
-  {
-    std::string data(1024, 'x');
-    hps::bench::run_qps_steps("FileSystem sha256_hex 1KB", levels, [&data](int) {
-      auto hash = hps::FileSystem::sha256_hex(data.data(), data.size());
-      (void)hash;
-    });
-  }
-
-  // Store + Read small file (per-thread path, 避免竞态)
-  // 磁盘 I/O 瓶颈明显，限制并发 ≤256 且缩短时长
-  {
-    std::vector<char> data(1024, 'x');
-    hps::FileSystem fs("/tmp");
-    for (int i = 0; i < 100; ++i) {
-      std::string vpath = "qps_bench_file_" + std::to_string(i);
-      fs.store_file(vpath, data);
-      fs.delete_file(vpath);
+    // SHA256 on 1KB data (in-memory)
+    {
+      std::string data(1024, 'x');
+      hps::bench::run_qps_steps("FileSystem sha256_hex 1KB", levels, [&data](int) {
+        auto hash = hps::FileSystem::sha256_hex(data.data(), data.size());
+        (void)hash;
+      });
     }
-    hps::bench::run_qps_steps("FileSystem store+read 1KB", levels, [&fs, &data](int tid) {
-      std::string vpath = "qps_bench_rw_" + std::to_string(tid);
-      fs.store_file(vpath, data);
-      auto read_back = fs.read_file(vpath);
-      (void)read_back;
-      fs.delete_file(vpath);
-    });
-  }
 
-  return 0;
+    // Store + Read small file (per-thread path, 避免竞态)
+    // 磁盘 I/O 瓶颈明显，限制并发 ≤256 且缩短时长
+    {
+      std::vector<char> data(1024, 'x');
+      hps::FileSystem fs("/tmp");
+      for (int i = 0; i < 100; ++i) {
+        std::string vpath = "qps_bench_file_" + std::to_string(i);
+        fs.store_file(vpath, data);
+        fs.delete_file(vpath);
+      }
+      hps::bench::run_qps_steps("FileSystem store+read 1KB", levels, [&fs, &data](int tid) {
+        std::string vpath = "qps_bench_rw_" + std::to_string(tid);
+        fs.store_file(vpath, data);
+        auto read_back = fs.read_file(vpath);
+        (void)read_back;
+        fs.delete_file(vpath);
+      });
+    }
+
+    return EXIT_SUCCESS;
+  } catch (const std::exception& error) {
+    std::cerr << "文件系统 QPS 基准失败: " << error.what() << '\n';
+  } catch (...) {
+    std::cerr << "文件系统 QPS 基准失败: 未知异常\n";
+  }
+  return EXIT_FAILURE;
 }

@@ -2,9 +2,11 @@
 
 #include "http_request.h"
 
+#include <cstddef>
 #include <cstdint>
 #include <functional>
 #include <string>
+#include <string_view>
 
 namespace hps {
 
@@ -46,6 +48,7 @@ public:
 
   using ChunkHandler = std::function<bool(std::string_view chunk)>;
   using HeadersDoneCallback = std::function<void(const HttpRequest&)>;
+  using BodyDoneCallback = std::function<bool()>;
 
   HttpParser();
 
@@ -65,6 +68,12 @@ public:
 
   void set_chunk_handler(ChunkHandler cb) { chunk_handler_ = std::move(cb); }
 
+  void set_stream_chunk_size(std::size_t size) noexcept {
+    stream_chunk_size_ = size == 0 ? static_cast<std::size_t>(kStreamChunkSize) : size;
+  }
+
+  void set_body_done_callback(BodyDoneCallback cb) { body_done_cb_ = std::move(cb); }
+
   void set_headers_done_callback(HeadersDoneCallback cb) { headers_done_cb_ = std::move(cb); }
 
   void reset();
@@ -72,6 +81,8 @@ public:
 private:
   void reset_line_buf();
   void flush_chunk_buf();
+  void finish_body();
+  void append_body_byte(char c);
   ParserResult feed_request_line(char c);
   ParserResult feed_headers(char c);
   void handle_end_of_headers();
@@ -93,8 +104,10 @@ private:
 
   bool streaming_mode_{false};
   ChunkHandler chunk_handler_;
+  BodyDoneCallback body_done_cb_;
   HeadersDoneCallback headers_done_cb_;
   std::string chunk_buf_;
+  std::size_t stream_chunk_size_{static_cast<std::size_t>(kStreamChunkSize)};
 };
 
 } // namespace hps

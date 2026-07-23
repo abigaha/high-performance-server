@@ -12,6 +12,8 @@ namespace hps {
 
 namespace {
 
+constexpr int kMinimumEpollTimeoutMs = 1;
+
 void parse_server_section(const nlohmann::json& json, ServerConfig& cfg) {
   if (!json.contains("server")) {
     return;
@@ -27,7 +29,13 @@ void parse_server_section(const nlohmann::json& json, ServerConfig& cfg) {
     cfg.backlog = server["backlog"].get<size_t>();
   }
   if (server.contains("epoll_timeout_ms")) {
-    cfg.epoll_timeout_ms = server["epoll_timeout_ms"].get<int>();
+    const int epoll_timeout_ms = server["epoll_timeout_ms"].get<int>();
+    if (epoll_timeout_ms <= 0) {
+      Logger::_warn("epoll_timeout_ms 必须大于 0，已调整为 " + std::to_string(kMinimumEpollTimeoutMs) + " 毫秒");
+      cfg.epoll_timeout_ms = kMinimumEpollTimeoutMs;
+    } else {
+      cfg.epoll_timeout_ms = epoll_timeout_ms;
+    }
   }
   if (server.contains("auth_secret")) {
     cfg.auth_secret = server["auth_secret"].get<std::string>();

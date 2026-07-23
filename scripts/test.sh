@@ -19,6 +19,12 @@ run_frontend_tests() {
   green "前端 Vitest 通过"
 }
 
+run_script_regression_tests() {
+  yellow "=== 脚本回归测试 ==="
+  bash "$PROJECT_ROOT/tests/test_codeql_discovery.sh"
+  green "脚本回归测试通过"
+}
+
 
 if [ -n "${1:-}" ]; then
   test_selector="$1"
@@ -28,6 +34,7 @@ if [ -n "${1:-}" ]; then
 
   yellow "运行测试: $test_selector"
   xmake test "$test_selector" 2>&1
+  run_script_regression_tests
   run_frontend_tests
   echo ""
   green "测试完成"
@@ -53,6 +60,7 @@ else
 fi
 rm -f "$OUT"
 
+run_script_regression_tests
 run_frontend_tests
 echo ""
 green "测试完成"

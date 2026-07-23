@@ -11,6 +11,7 @@
 #include <iostream>
 #include <latch>
 #include <mutex>
+#include <numeric>
 #include <stdexcept>
 #include <string>
 #include <string_view>
@@ -232,7 +233,7 @@ QpsSample run_qps(int concurrency, int duration_sec, Func&& op) {
 
   std::vector<int64_t> all_latencies;
   all_latencies.reserve(total_samples);
-  for (auto& result : results) {
+  for (const auto& result : results) {
     all_latencies.insert(all_latencies.end(), result.latencies.begin(), result.latencies.end());
   }
   std::sort(all_latencies.begin(), all_latencies.end());
@@ -248,10 +249,7 @@ QpsSample run_qps(int concurrency, int duration_sec, Func&& op) {
   sample.qps = wall_sec > 0.0 ? static_cast<double>(total_ops) / wall_sec : 0.0;
   sample.error_rate = total_attempts > 0 ? static_cast<double>(total_errors) * 100.0 / total_attempts : 0.0;
   if (!all_latencies.empty()) {
-    double sum = 0.0;
-    for (const auto latency : all_latencies) {
-      sum += static_cast<double>(latency);
-    }
+    const double sum = std::accumulate(all_latencies.begin(), all_latencies.end(), 0.0);
     sample.avg_latency_ns = sum / static_cast<double>(all_latencies.size());
     sample.p50_ns = static_cast<double>(all_latencies[detail::percentile_index(all_latencies.size(), 0.50)]);
     sample.p90_ns = static_cast<double>(all_latencies[detail::percentile_index(all_latencies.size(), 0.90)]);
@@ -319,7 +317,7 @@ inline void print_qps_report(const std::string& bench_name, const std::vector<Qp
   }
   if (has_latency) {
     print_qps_header();
-    for (auto& s : results) {
+    for (const auto& s : results) {
       print_qps_row(s);
     }
   } else {
@@ -332,7 +330,7 @@ inline void print_qps_report(const std::string& bench_name, const std::vector<Qp
                              "----------",
                              "----------",
                              "---");
-    for (auto& s : results) {
+    for (const auto& s : results) {
       const auto attempts = s.total_attempts > 0 ? s.total_attempts : s.total_ops;
       std::cout << std::format("{:<8} {:>12} {:>12} {:>12} {:>10.4f} {:>12.0f}\n",
                                s.concurrency,

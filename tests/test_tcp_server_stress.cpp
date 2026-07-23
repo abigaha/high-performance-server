@@ -166,8 +166,7 @@ TEST_F(TcpServerStressTest, LargeDataFromMultipleClients) {
 
     const char marker = payload.front();
     if (payload.size() != kDataSize || marker < 'A' || marker >= 'A' + kNumClients ||
-        !std::all_of(payload.begin(), payload.end(),
-                     [marker](char byte) { return byte == marker; })) {
+        !std::all_of(payload.begin(), payload.end(), [marker](char byte) { return byte == marker; })) {
       invalid_payload.store(true, std::memory_order_relaxed);
       return;
     }
@@ -210,8 +209,7 @@ TEST_F(TcpServerStressTest, LargeDataFromMultipleClients) {
   EXPECT_FALSE(invalid_payload.load(std::memory_order_relaxed));
   EXPECT_EQ(processed_client_count.load(std::memory_order_relaxed), kNumClients);
   for (int client_index = 0; client_index < kNumClients; ++client_index) {
-    EXPECT_TRUE(processed_clients.at(static_cast<size_t>(client_index))
-                    .load(std::memory_order_relaxed));
+    EXPECT_TRUE(processed_clients.at(static_cast<size_t>(client_index)).load(std::memory_order_relaxed));
   }
 
   for (int fd : clients) {

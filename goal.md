@@ -319,23 +319,39 @@ public:
 4. 新增 8 项音乐库/歌单 API（浏览/创建/添加/移除/排序）
 5. CORS 跨域支持: 后端全局注入 / Nginx 生产处理
 
-## Step 17 — 前端体验与上传链路优化（P0 运行时回归阻塞）
+## Step 17 — 前端体验与上传链路优化 ✅ 已正式完成
 
 ### 概述
 
-> 当前计划与历史执行记录见 [plan/step-17-frontend-optimization.md](plan/step-17-frontend-optimization.md)。代码、单元测试和 Playwright 配置已经进入当前工作树，分项质量门禁与四视口 E2E `4/4` 均曾实际通过；但原用例未覆盖已认证 stream `200/206`，后续复测确认该路径会触发后端重启和 nginx `502`。Step 17 的正式完成状态被 P0 阻塞，修复计划见 [plan/bugfix-step17-runtime-regressions.md](plan/bugfix-step17-runtime-regressions.md)。
+> [plan/step-17-frontend-optimization.md](plan/step-17-frontend-optimization.md) 记录原始功能范围；[plan/bugfix-step17-runtime-regressions.md](plan/bugfix-step17-runtime-regressions.md) 记录 A-F 运行时回归的诊断、修复与最终验收。2026-07-22 的验收结果保留为修复前历史快照：当时用例未覆盖已认证流播 `200/206`，后续复测发现该路径会触发后端重启和 nginx `502`。2026-07-23 已完成 A-F 修复、质量门禁和部署验收，Step 17 正式完成。
 
 ### 已落地目标
 
 1. 前端上传改为直接发送原始 `File` 字节，通过 RFC 5987 `filename*` 保留 UTF-8 文件名，并完整呈现后端 JSON、纯文本和 HTML 错误。
 2. 前后端统一音频扩展名白名单，拒绝零字节、无效文件名、未知扩展名和超过角色上限的文件；NORMAL 与 VIP 默认单文件上限分别为 `10 MiB` 和 `100 MiB`。
-3. 类型校验当前基于扩展名和前端 MIME 冲突预检，不声称已经完成音频魔数或完整解码验证。
+3. 服务端在首个分片落盘前执行九种白名单音频格式的有界签名预检；扩展名与签名不匹配、随机数据和截断头均在落盘前以结构化 `415` 拒绝。该预检不等同于完整解码、恶意媒体检测或内容合规扫描。
 4. 上传队列支持稳定标识、受控并发、上传期间继续追加、取消、重试、移除和分项汇总。
 5. 修复数字/字符串角色归一化、认证恢复时序、受保护下载与播放、播放器 Blob URL 回收和单实例播放问题。
 6. 补齐桌面侧栏、移动抽屉、页面加载/空/错误状态、危险操作确认、表单最小长度、提交锁、焦点样式和移动触控尺寸。
 7. 增加部署环境 Playwright 配置，覆盖认证、导航、SPA 深链、上传拦截与追加、响应式布局和浏览器控制台错误；它独立于普通 `scripts/test.sh`。
 
-### 验收结果（2026-07-22）
+### 运行时回归修复（2026-07-23）
+
+1. **A：授权流播生命周期**。消除了长期路由处理器引用 `register_routes` 局部闭包导致的悬空引用；已认证完整流播 `200`、Range 流播 `206`、匿名 `401` 与非法 Range `416` 均有自动化响应头和正文断言。
+2. **B：chunked 上传内存**。统一普通与 chunked 正文的流式分发，流式/丢弃模式不再累计 `request.body`，终止块会刷新剩余有界缓冲；无有效 `Content-Length` 的上传继续按契约被拒绝。
+3. **C：CodeQL 服务探测**。已修复已配置地址不可达时跳过本机服务的问题，探测顺序为已配置地址、`http://localhost:8080`、交互询问地址，并补充脚本回归测试。
+4. **D：音频内容签名**。上传在写入分片和数据库前完成有界签名预检，九种允许格式的真实签名才可通过，错误、截断或错配内容不会落盘。
+5. **E：下载文件名响应头**。下载响应统一使用安全的 `filename=` 回退名和 RFC 5987 `filename*=`，避免引号、反斜杠、路径分隔符或控制字符造成畸形响应头。
+6. **F：空闲 CPU 忙等待**。根因是默认四个 `LockFreeThreadPool` worker 在空队列中以 `std::this_thread::yield()` 反复轮询，且 `epoll_timeout_ms=0` 会使空闲 `epoll_wait` 立即返回并形成热循环。现已改为可由投递和停止唤醒的阻塞等待，并将零超时规范为有界正超时；线程池与 TCP 空闲回归测试覆盖投递、停止、连接处理和唤醒路径。
+
+### 最终验收（2026-07-23）
+
+- `bash scripts/format.sh all`、`bash scripts/lint.sh --all` 和 `bash scripts/compile.sh build` 均以退出码 `0` 完成；clang-tidy、cppcheck 与前端检查均无问题。
+- `CODEQL_SUBMIT_TIMEOUT=900 bash scripts/codeql.sh run` 成功完成，任务 `ff62db5b-e741-4d78-ac00-33100da6ce8a` 的 SARIF 结果为 `critical=0`、`high=0`。
+- `bash scripts/test.sh` 全部通过：后端 Google Test `42/42`，前端 Vitest `18` 个测试文件、`71` 个用例全部通过。
+- Docker 部署、健康检查、日志和容器状态复核通过；真实部署 Playwright 的 `desktop`、`desktop-compact`、`tablet`、`mobile` 四个项目 `4/4` 通过。验收前后后端容器 `RestartCount=0`、`OOMKilled=false`，且没有新增 `502`、`upstream prematurely closed` 或 `connection refused`。
+
+### 历史验收快照（2026-07-22，修复前）
 
 - `bash scripts/lint.sh --changed`：Lint 结果为 `0/0`。
 - `bash scripts/compile.sh build`：后端 Release 构建和前端构建均通过。
@@ -344,9 +360,9 @@ public:
 - Docker 公共入口 `http://127.0.0.1:18080` 健康检查通过。
 - 真实部署 Playwright 的 `desktop`、`desktop-compact`、`tablet`、`mobile` 四个项目 `4/4` 通过；最新有效报告为 `frontend/playwright-report/e2e_20260722_214738/index.html`。
 - `bash scripts/docker.sh logs --since 5m` 记录到已认证上传返回 HTTP `201`，匿名 stream 请求返回预期的 HTTP `401`。
-- 以上为修复前历史快照：E2E 只在开头检查健康状态并只验证匿名 stream `401`，没有覆盖已认证 stream `200/206`。授权流播 P0、chunked 内存风险及其余待修项必须按新 Bug 修复计划实施并重新验收。
+- 以上为修复前历史快照：E2E 只在开头检查健康状态并只验证匿名 stream `401`，没有覆盖已认证 stream `200/206`。该覆盖缺口随后暴露出授权流播崩溃、chunked 内存风险及其余 A-F 问题；这些问题已在 2026-07-23 修复并重新验收。
 
-以上数量是 2026-07-22 修复前工作树的执行快照，不是永久固定数量；测试目标和用例继续由源码与测试配置动态发现。P0 修复后仍需重新执行正式质量流水线、部署健康检查和浏览器验收。
+以上数量是 2026-07-22 修复前工作树的执行快照，不是永久固定数量，也不能替代本节的最终验收。测试目标和用例继续由源码与测试配置动态发现。
 
 ---
 
@@ -393,7 +409,7 @@ main() {
 - 后端 Google Test 与前端 Vitest：要求全部通过。测试目标与用例从源码动态发现，不在本文维护固定数量。
 - Playwright：部署后单独执行，要求配置的桌面与移动视口全部通过，且浏览器控制台无未处理错误。
 
-截至 2026-07-22，Step 17 修复前工作树曾完成分项质量门禁、Docker 开头健康检查和真实部署 Playwright `4/4`，具体证据见上文快照；因其未覆盖已认证流播，P0 已阻塞正式完成。以下历史进度中的门禁数字只代表对应阶段的当时版本，不能替代修复后重新验收。
+截至 2026-07-23，Step 17 已完成 A-F 修复及正式验收：最终 CodeQL 任务 `ff62db5b-e741-4d78-ac00-33100da6ce8a` 为 `0 critical + 0 high`，测试为后端 `42/42` 与前端 `18/71`，Docker 四视口 Playwright 为 `4/4`，后端容器 `RestartCount=0`、`OOMKilled=false`。2026-07-22 的分项门禁与 Playwright `4/4` 仍是有效的修复前历史快照，但因未覆盖已认证流播，不能替代 2026-07-23 的最终验收。
 
 ---
 
@@ -563,14 +579,14 @@ Comprehensive-Test ─── 全方位测试 + 微基准覆盖 ✅ 已完成
   ├─ 微基准增强: logger、认证、TCP、HTTP、内存池、线程池、文件系统等模块
   └─ 当时的门禁结果属于历史快照；当前结果以 scripts/ 正式入口为准
         │
-Step 17 ─── 前端体验、上传契约与浏览器验收补强 ⚠ P0 阻塞
+Step 17 ─── 前端体验、上传契约与浏览器验收补强 ✅ 已正式完成
   ├─ 上传: 原始 File body、UTF-8 filename*、前后端策略校验、并发队列与详细错误
   ├─ 认证与媒体: 角色归一化、恢复时序、Bearer 下载/播放、Blob URL 生命周期
   ├─ 交互: 响应式导航、页面状态、确认与忙碌态、表单约束、无障碍补强
-  ├─ 自动化: Google Test、Vitest 与部署环境 Playwright 曾通过修复前门禁
-  ├─ 历史验收: http://127.0.0.1:18080 开头健康检查和四视口 Playwright 4/4 通过
-  ├─ 覆盖缺口: 未执行已认证 stream 200/206，未在末尾检查健康和 RestartCount
-  └─ 当前状态: 授权流播可触发后端重启与 nginx 502，按运行时回归计划修复待执行
+  ├─ A-F 修复: 授权流播生命周期、chunked 有界分发、CodeQL 回退探测、签名预检、安全下载名与空闲忙等待均已修复
+  ├─ 自动化: 已覆盖已认证 stream `200/206`、匿名 `401`、非法 Range `416`、末尾健康检查和容器重启计数
+  ├─ 最终验收: CodeQL `0 critical + 0 high`、Google Test `42/42`、Vitest `18/71`、Docker 四视口 Playwright `4/4`
+  └─ 运行状态: 后端容器 `RestartCount=0`、`OOMKilled=false`；2026-07-22 未覆盖授权流播的结果仅保留为历史快照
 ```
 
 ---
@@ -613,8 +629,8 @@ Step 17 ─── 前端体验、上传契约与浏览器验收补强 ⚠ P0 阻
 | db | boost::mysql 连接池、认证数据与音乐数据访问 | 已实现 |
 | net/ssl | TLS 上下文、连接集成与双模式检测 | 已实现 |
 | net/websocket | 握手、帧编解码与连接事件循环 | 已实现 |
-| frontend | 认证、文件、上传、音乐库、歌单、播放器和响应式交互 | 已实现；Step 17 因授权流播 P0 运行时回归阻塞正式完成 |
-| tests | Google Test、Vitest 与部署后 Playwright | 2026-07-22 历史快照为后端 `41/41`、Vitest `18` 文件/`71` 用例、Playwright `4/4`；授权流播覆盖待补，数量动态发现 |
+| frontend | 认证、文件、上传、音乐库、歌单、播放器和响应式交互 | 已实现；Step 17 的 A-F 运行时回归修复与正式验收均已完成 |
+| tests | Google Test、Vitest 与部署后 Playwright | 2026-07-23 最终验收为后端 `42/42`、Vitest `18` 文件/`71` 用例、Playwright `4/4`，并覆盖授权流播；2026-07-22 的后端 `41/41` 等数据仅为历史快照，数量动态发现 |
 
 ---
 

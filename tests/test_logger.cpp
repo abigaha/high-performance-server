@@ -35,7 +35,7 @@ TEST(LoggerTest, InitShutdownLifecycle) {
 
 TEST(LoggerTest, InstanceAfterInit) {
   EXPECT_NO_THROW({
-    auto& inst = Logger::getInstance();
+    const auto& inst = Logger::getInstance();
     (void)inst;
   });
 }

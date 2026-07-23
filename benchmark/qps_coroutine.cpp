@@ -2,6 +2,9 @@
 
 #include <coroutine>
 #include <cstddef>
+#include <cstdlib>
+#include <exception>
+#include <iostream>
 
 namespace {
 
@@ -49,13 +52,20 @@ CoroBench bench_coro_impl() {
 
 } // namespace
 
-int main() {
-  auto levels = hps::bench::default_qps_levels();
+int main() noexcept {
+  try {
+    auto levels = hps::bench::default_qps_levels();
 
-  hps::bench::run_qps_steps("Coroutine Create+Run", levels, [](int) {
-    auto c = bench_coro_impl();
-    (void)c;
-  });
+    hps::bench::run_qps_steps("Coroutine Create+Run", levels, [](int) {
+      auto c = bench_coro_impl();
+      (void)c;
+    });
 
-  return 0;
+    return EXIT_SUCCESS;
+  } catch (const std::exception& error) {
+    std::cerr << "协程 QPS 基准失败: " << error.what() << '\n';
+  } catch (...) {
+    std::cerr << "协程 QPS 基准失败: 未知异常\n";
+  }
+  return EXIT_FAILURE;
 }

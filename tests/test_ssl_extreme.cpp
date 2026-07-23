@@ -84,7 +84,7 @@ TEST(SslExtremeTest, CleanupAfterInit) {
   cfg.key_file = cert_path("key.pem");
   cfg.enabled = true;
 
-  ssl_st* ssl = nullptr;
+  const ssl_st* ssl = nullptr;
   {
     SslContext ctx(cfg);
     ssl = ctx.create_ssl();

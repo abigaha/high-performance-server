@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-source "$(cd "$(dirname "$0")" && pwd)/lib/common.sh"
+source "$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)/lib/common.sh"
 
 COMPILE_DATABASE="$PROJECT_ROOT/compile_commands.json"
 CODEQL_TASK_ID=""
@@ -47,11 +47,15 @@ discover_server() {
   local request_timeout="${CODEQL_DISCOVERY_TIMEOUT:-5}"
   local configured_url="${CODEQL_SERVER_URL:-}"
   local localhost_url="http://localhost:8080"
+  local attempted_addresses=()
+  local attempted_summary=""
+  local attempted_address
   local ip
 
   if [ -n "$configured_url" ]; then
     configured_url="${configured_url%/}"
     yellow "探测已配置的 CodeQL 服务器: $configured_url"
+    attempted_addresses+=("$configured_url")
     if probe_server "$configured_url" "$connect_timeout" "$request_timeout"; then
       export CODEQL_SERVER_URL="$configured_url"
       green "CodeQL 服务器: $CODEQL_SERVER_URL"
@@ -60,21 +64,23 @@ discover_server() {
     red "已配置的 CodeQL 服务器不可达: $configured_url"
   fi
 
-  if [ -z "$configured_url" ]; then
-    yellow "尝试 $localhost_url"
-    if probe_server "$localhost_url" "$connect_timeout" "$request_timeout"; then
-      export CODEQL_SERVER_URL="$localhost_url"
-      green "CodeQL 服务器: $CODEQL_SERVER_URL"
-      return 0
-    fi
+  yellow "尝试 $localhost_url"
+  attempted_addresses+=("$localhost_url")
+  if probe_server "$localhost_url" "$connect_timeout" "$request_timeout"; then
+    export CODEQL_SERVER_URL="$localhost_url"
+    green "CodeQL 服务器: $CODEQL_SERVER_URL"
+    return 0
   fi
 
-  if [ ! -t 0 ]; then
-    if [ -n "$configured_url" ]; then
-      red "错误: 已配置的 CodeQL 服务不可达，非交互环境无法重试"
-    else
-      red "错误: CodeQL 服务不可达，非交互环境请设置 CODEQL_SERVER_URL"
+  for attempted_address in "${attempted_addresses[@]}"; do
+    if [ -n "$attempted_summary" ]; then
+      attempted_summary+=", "
     fi
+    attempted_summary+="$attempted_address"
+  done
+
+  if [ ! -t 0 ]; then
+    red "错误: CodeQL 服务不可达，非交互环境无法重试；已尝试地址: $attempted_summary"
     return 1
   fi
 
@@ -475,12 +481,18 @@ menu() {
   menu_loop "CodeQL 工具（$PROJECT_ROOT）" "${items[@]}"
 }
 
-if [ $# -gt 0 ]; then
-  case "$1" in
-    run|analyze) cmd_run ;;
-    -h|--help) usage; exit 0 ;;
-    *) red "未知选项: $1"; usage; exit 1 ;;
-  esac
-else
-  menu
+main() {
+  if [ $# -gt 0 ]; then
+    case "$1" in
+      run|analyze) cmd_run ;;
+      -h|--help) usage; exit 0 ;;
+      *) red "未知选项: $1"; usage; exit 1 ;;
+    esac
+  else
+    menu
+  fi
+}
+
+if [[ "${BASH_SOURCE[0]}" == "$0" ]]; then
+  main "$@"
 fi

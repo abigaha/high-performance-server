@@ -71,7 +71,6 @@ static void BM_AuthRegister(benchmark::State& state) {
   AuthBenchFixture f;
   int count = state.range(0);
   hps::User u;
-  u.username = "new_user";
   u.password_hash = "hash";
   u.salt = "salt";
   u.email = "new@test.com";

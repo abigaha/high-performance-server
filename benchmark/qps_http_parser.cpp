@@ -1,6 +1,9 @@
 #include "http_parser.h"
 #include "qps_runner.hpp"
 
+#include <cstdlib>
+#include <exception>
+#include <iostream>
 #include <string>
 #include <string_view>
 
@@ -33,49 +36,56 @@ std::string make_post_request(std::string_view path, std::string_view body) {
 
 } // namespace
 
-int main() {
-  auto levels = hps::bench::default_qps_levels();
+int main() noexcept {
+  try {
+    auto levels = hps::bench::default_qps_levels();
 
-  // GET short path
-  {
-    std::string req = make_get_request("/api/health");
-    hps::bench::run_qps_steps("HttpParser GET /api/health", levels, [&req](int) {
-      thread_local hps::HttpParser parser;
-      parser.feed(req);
-      parser.reset();
-    });
+    // GET short path
+    {
+      std::string req = make_get_request("/api/health");
+      hps::bench::run_qps_steps("HttpParser GET /api/health", levels, [&req](int) {
+        thread_local hps::HttpParser parser;
+        parser.feed(req);
+        parser.reset();
+      });
+    }
+
+    // POST small body
+    {
+      std::string req = make_post_request("/api/users", R"({"key":"value","count":42})");
+      hps::bench::run_qps_steps("HttpParser POST small body", levels, [&req](int) {
+        thread_local hps::HttpParser parser;
+        parser.feed(req);
+        parser.reset();
+      });
+    }
+
+    // Many headers
+    {
+      std::string req = "GET /api/data HTTP/1.1\r\n"
+                        "Host: localhost\r\n"
+                        "User-Agent: benchmark-test/1.0\r\n"
+                        "Accept: text/html,application/json\r\n"
+                        "Accept-Language: en-US,en;q=0.9\r\n"
+                        "Accept-Encoding: gzip, deflate\r\n"
+                        "Connection: keep-alive\r\n"
+                        "Cache-Control: no-cache\r\n"
+                        "X-Custom-Header: some-value-here\r\n"
+                        "X-Request-ID: abcdef-123456-7890\r\n"
+                        "Authorization: Bearer token123\r\n"
+                        "\r\n";
+      hps::bench::run_qps_steps("HttpParser Many Headers", levels, [&req](int) {
+        thread_local hps::HttpParser parser;
+        parser.feed(req);
+        parser.reset();
+      });
+    }
+
+    return EXIT_SUCCESS;
+  } catch (const std::exception& error) {
+    std::cerr << "HTTP 解析器 QPS 基准失败: " << error.what() << '\n';
+  } catch (...) {
+    std::cerr << "HTTP 解析器 QPS 基准失败: 未知异常\n";
   }
-
-  // POST small body
-  {
-    std::string req = make_post_request("/api/users", R"({"key":"value","count":42})");
-    hps::bench::run_qps_steps("HttpParser POST small body", levels, [&req](int) {
-      thread_local hps::HttpParser parser;
-      parser.feed(req);
-      parser.reset();
-    });
-  }
-
-  // Many headers
-  {
-    std::string req = "GET /api/data HTTP/1.1\r\n"
-                      "Host: localhost\r\n"
-                      "User-Agent: benchmark-test/1.0\r\n"
-                      "Accept: text/html,application/json\r\n"
-                      "Accept-Language: en-US,en;q=0.9\r\n"
-                      "Accept-Encoding: gzip, deflate\r\n"
-                      "Connection: keep-alive\r\n"
-                      "Cache-Control: no-cache\r\n"
-                      "X-Custom-Header: some-value-here\r\n"
-                      "X-Request-ID: abcdef-123456-7890\r\n"
-                      "Authorization: Bearer token123\r\n"
-                      "\r\n";
-    hps::bench::run_qps_steps("HttpParser Many Headers", levels, [&req](int) {
-      thread_local hps::HttpParser parser;
-      parser.feed(req);
-      parser.reset();
-    });
-  }
-
-  return 0;
+  return EXIT_FAILURE;
 }

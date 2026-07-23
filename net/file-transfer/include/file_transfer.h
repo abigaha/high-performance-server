@@ -23,8 +23,6 @@ private:
   static constexpr std::size_t kDefaultChunkSize = 2 * 1024 * 1024;
   static constexpr int kMaxConcurrency = 16;
 
-  bool recv_all(int fd, void* buf, std::size_t size);
-
   std::shared_ptr<IFileSystem> fs_;
   std::size_t chunk_size_;
 };

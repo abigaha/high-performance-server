@@ -203,7 +203,12 @@ test('真实部署核心流程与响应式界面', async ({ page, request }, tes
   ));
   await page.getByRole('button', { name: '登录', exact: true }).click();
   const loginResponse = await loginResponsePromise;
-  expect(loginResponse.status(), `登录接口响应异常：${await loginResponse.text()}`).toBe(200);
+  const loginResponseBody = await loginResponse.text();
+  expect(loginResponse.status(), `登录接口响应异常：${loginResponseBody}`).toBe(200);
+  const loginResult = JSON.parse(loginResponseBody) as { token: string };
+  expect(loginResult).toEqual(expect.objectContaining({ token: expect.any(String) }));
+  const bearerToken = loginResult.token;
+  expect(bearerToken, '登录响应未返回有效 Bearer Token').not.toBe('');
   await expect(page).toHaveURL(/\/files$/);
   await expect(page.getByText('正在加载文件...', { exact: true })).toBeHidden();
 
@@ -240,6 +245,7 @@ test('真实部署核心流程与响应式界面', async ({ page, request }, tes
 
   const firstValidFileName = `e2e_audio_${identity.key}_1.wav`;
   const secondValidFileName = `e2e_audio_${identity.key}_2.wav`;
+  const firstWavBytes = createWavFixture();
   let markFirstUploadIntercepted: (() => void) | undefined;
   let releaseFirstUpload: (() => void) | undefined;
   const firstUploadIntercepted = new Promise<void>((resolve) => {
@@ -268,7 +274,7 @@ test('真实部署核心流程与响应式界面', async ({ page, request }, tes
   await fileInput.setInputFiles({
     name: firstValidFileName,
     mimeType: 'audio/wav',
-    buffer: createWavFixture(),
+    buffer: firstWavBytes,
   });
   await firstUploadIntercepted;
   const firstUploadItem = page.getByRole('listitem').filter({ hasText: firstValidFileName });
@@ -318,8 +324,67 @@ test('真实部署核心流程与响应式界面', async ({ page, request }, tes
     file_name: secondValidFileName,
     size: expect.any(Number),
   }));
+  expect(firstUploadResult.size).toBe(firstWavBytes.length);
   await expect(firstUploadItem).toContainText('上传成功');
   await expect(secondUploadItem).toContainText('上传成功');
+
+  const authenticatedHeaders = { Authorization: `Bearer ${bearerToken}` };
+  const fullStreamResponse = await request.get(`/api/files/${firstUploadResult.file_id}/stream`, {
+    headers: authenticatedHeaders,
+  });
+  const fullStreamBody = await fullStreamResponse.body();
+  expect(
+    fullStreamResponse.status(),
+    `已认证完整流播请求失败：${fullStreamBody.toString('utf8')}`,
+  ).toBe(200);
+  const fullStreamHeaders = fullStreamResponse.headers();
+  expect(fullStreamHeaders['content-length']).toBe(String(firstWavBytes.length));
+  expect(fullStreamHeaders['accept-ranges']).toBe('bytes');
+  expect(fullStreamBody).toEqual(firstWavBytes);
+
+  const rangeStart = 44;
+  const rangeEnd = 127;
+  const expectedRangeBody = firstWavBytes.subarray(rangeStart, rangeEnd + 1);
+  const rangeStreamResponse = await request.get(`/api/files/${firstUploadResult.file_id}/stream`, {
+    headers: {
+      ...authenticatedHeaders,
+      Range: `bytes=${rangeStart}-${rangeEnd}`,
+    },
+  });
+  const rangeStreamBody = await rangeStreamResponse.body();
+  expect(
+    rangeStreamResponse.status(),
+    `已认证区间流播请求失败：${rangeStreamBody.toString('utf8')}`,
+  ).toBe(206);
+  const rangeStreamHeaders = rangeStreamResponse.headers();
+  expect(rangeStreamHeaders['content-range']).toBe(
+    `bytes ${rangeStart}-${rangeEnd}/${firstWavBytes.length}`,
+  );
+  expect(rangeStreamHeaders['content-length']).toBe(String(expectedRangeBody.length));
+  expect(rangeStreamBody).toEqual(expectedRangeBody);
+
+  const unsatisfiableRangeResponse = await request.get(`/api/files/${firstUploadResult.file_id}/stream`, {
+    headers: {
+      ...authenticatedHeaders,
+      Range: `bytes=${firstWavBytes.length}-`,
+    },
+  });
+  const unsatisfiableRangeBody = await unsatisfiableRangeResponse.text();
+  expect(
+    unsatisfiableRangeResponse.status(),
+    `不可满足的区间流播请求未返回 416：${unsatisfiableRangeBody}`,
+  ).toBe(416);
+  expect(unsatisfiableRangeResponse.headers()['content-range']).toBe(`bytes */${firstWavBytes.length}`);
+
+  const downloadResponse = await request.get(`/api/files/${firstUploadResult.file_id}/download`, {
+    headers: authenticatedHeaders,
+  });
+  const downloadBody = await downloadResponse.body();
+  expect(downloadResponse.status(), `已认证下载请求失败：${downloadBody.toString('utf8')}`).toBe(200);
+  const contentDisposition = downloadResponse.headers()['content-disposition'];
+  expect(contentDisposition).toContain(`filename="${firstValidFileName}"`);
+  expect(contentDisposition).toContain(`filename*=UTF-8''${encodeURIComponent(firstValidFileName)}`);
+  expect(downloadBody).toEqual(firstWavBytes);
 
   // Playwright request 不共享页面 localStorage 中的 Bearer Token，此请求应保持匿名。
   const anonymousStreamResponse = await request.get(`/api/files/${firstUploadResult.file_id}/stream`);
@@ -337,4 +402,11 @@ test('真实部署核心流程与响应式界面', async ({ page, request }, tes
   ]));
   await expectNoHorizontalOverflow(page, `${testInfo.project.name} 上传完成页`);
   await capture(page, testInfo, screenshotTimestamp, 'upload-success');
+
+  const finalHealthResponse = await request.get('/api/health');
+  expect(finalHealthResponse, `流程结束时健康检查失败：${await finalHealthResponse.text()}`).toBeOK();
+  expect(await finalHealthResponse.json()).toEqual(expect.objectContaining({
+    status: 'ok',
+    uptime: expect.any(Number),
+  }));
 });

@@ -396,7 +396,7 @@ CODEQL_SERVER_URL=http://192.168.1.10:8080 \
   bash scripts/codeql.sh run
 ```
 
-规定的探测顺序是已设置的 `CODEQL_SERVER_URL`、`http://localhost:8080`、交互输入 IP。当前脚本在已配置地址失效时会跳过 localhost，这是已确认、待修复的 P1 问题，详见 [Step 17 运行时回归 Bug 修复计划](plan/bugfix-step17-runtime-regressions.md)。脚本负责生成和预处理编译数据库、打包源码、提交任务、轮询 SARIF，并以 `0 critical + 0 high` 为通过标准。`analyze` 是 `run` 的兼容别名。
+探测顺序是已设置的 `CODEQL_SERVER_URL`、`http://localhost:8080`、交互输入 IP。已配置地址不可达时，脚本仍会继续探测 localhost；两者在非交互环境均不可达时，错误会列出全部已尝试地址。脚本负责生成和预处理编译数据库、打包源码、提交任务、轮询 SARIF，并以 `0 critical + 0 high` 为通过标准。`analyze` 是 `run` 的兼容别名。
 
 ### 完整流水线
 
@@ -504,7 +504,7 @@ http://127.0.0.1:18080
 | 测试 | 要求后端与前端全部通过 | `bash scripts/test.sh` |
 | 浏览器验收 | 要求四个视口核心流程全部通过 | `cd frontend && npm run test:e2e` |
 
-### 2026-07-22 验证快照
+### 2026-07-22 修复前历史验证快照
 
 - `bash scripts/lint.sh --changed`：Lint 结果为 `0/0`。
 - `bash scripts/compile.sh build`：后端 Release 构建和前端构建均通过。
@@ -513,9 +513,30 @@ http://127.0.0.1:18080
 - Docker 公共入口 `http://127.0.0.1:18080` 健康检查通过。
 - 真实部署 Playwright 的 `desktop`、`desktop-compact`、`tablet`、`mobile` 四个项目 `4/4` 通过；最新有效报告为 `frontend/playwright-report/e2e_20260722_214738/index.html`。
 - `bash scripts/docker.sh logs --since 5m` 记录到已认证上传返回 HTTP `201`，匿名 stream 请求返回预期的 HTTP `401`。
-- 上述 `4/4` 是已执行的历史事实，但用例只覆盖匿名 stream `401`，没有覆盖已认证 stream `200/206`，且只在流程开头检查健康状态。后续复测发现授权流播可触发后端重启并由 nginx 返回 `502`；Step 17 因此被 P0 阻塞，根因和修复验收见 [Step 17 运行时回归 Bug 修复计划](plan/bugfix-step17-runtime-regressions.md)。
+- 上述 `4/4` 是已执行的历史事实，但用例只覆盖匿名 stream `401`，没有覆盖已认证 stream `200/206`，且只在流程开头检查健康状态。后续复测曾发现授权流播可触发后端重启并由 nginx 返回 `502`；这是 Step 17 修复前的 P0 阻塞背景，根因和修复过程见 [Step 17 运行时回归 Bug 修复计划](plan/bugfix-step17-runtime-regressions.md)。
 
-这些数字只记录本次工作树曾实际执行的结果，不是永久固定的测试数量或验收门槛；后续仍以测试动态发现结果和脚本原始输出为准。P0 修复前不得把旧报告解释为 Step 17 已完成；修复后必须重新执行全量质量门禁、部署健康检查、授权流播和浏览器验收。
+这些数字只记录修复前工作树曾实际执行的结果，不是永久固定的测试数量或验收门槛；后续仍以测试动态发现结果和脚本原始输出为准。旧报告不能单独解释为 Step 17 已完成，最终状态以以下同一份修复后工作树的完整验证为准。
+
+### 2026-07-23 Step 17 最终验证
+
+Step 17 的 A-F 运行时修复和最终验收均已完成，已不再存在当前阻塞：
+
+- A：已修复已认证流播处理器的生命周期问题，并覆盖授权 `200/206`、匿名 `401` 与不可满足 Range `416`。
+- B：已修复 chunked 上传在 streaming/discard 模式下累计请求体的问题，拒绝路径保持有界内存。
+- C：已修复 CodeQL 服务探测顺序，已配置地址不可达时会继续探测 localhost。
+- D：已在服务端加入有界音频签名预检，随机、截断或扩展名不匹配的数据会在落盘前拒绝。
+- E：已统一生成安全的下载 `Content-Disposition`，同时提供 ASCII 回退名和 RFC 5987 `filename*`。
+- F：已消除空闲线程池和零超时 epoll 的忙等待风险，线程池与 TCP 回归测试通过。
+
+最终质量门禁和部署验收结果如下：
+
+- 格式化、全量 Lint 和构建均通过。
+- `bash scripts/codeql.sh run`：任务 `ff62db5b-e741-4d78-ac00-33100da6ce8a` 成功完成，SARIF 为 `0 critical + 0 high`。
+- `bash scripts/test.sh`：测试汇总为 `42/42 + 18/71`；后端 Google Test `42/42` 通过，前端 Vitest `18` 个测试文件、`71` 个用例全部通过。
+- Docker 部署、健康检查、日志和状态复核通过；四个 Playwright 视口 `4/4` 通过。
+- 授权流播前后后端容器 `RestartCount=0`、`OOMKilled=false`，没有新增 `502`、`upstream prematurely closed` 或 `connection refused`，结论为本轮验收期间服务未重启。
+
+因此 Step 17 已完成 A-F 修复、全部质量门禁和 Docker/浏览器验收。历史快照保留用于追溯覆盖缺口，不表示当前存在 P0 阻塞。
 
 ## 许可证
 

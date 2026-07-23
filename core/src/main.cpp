@@ -12,6 +12,7 @@
 #include "main_functions.h"
 #include "range_parser.h"
 #include "ssl_context.h"
+#include "stream_download_utils.h"
 #include "upload_policy.h"
 #include "ws_connection.h"
 
@@ -226,7 +227,8 @@ void register_routes(HttpServer& server,
                             {"content_type", record.content_type},
                             {"music_id", record.music_id}};
     });
-    resp.body = nlohmann::json{{"items", std::move(items)}, {"total", total}, {"offset", offset}, {"limit", limit}}.dump();
+    resp.body =
+      nlohmann::json{{"items", std::move(items)}, {"total", total}, {"offset", offset}, {"limit", limit}}.dump();
     resp.set_content_length(resp.body.size());
   });
 
@@ -300,103 +302,61 @@ void register_routes(HttpServer& server,
     resp.set_content_type(record->content_type.empty() ? "application/octet-stream" : record->content_type);
     resp.body = std::move(body_data);
     resp.set_content_length(resp.body.size());
-    resp.set_header("Content-Disposition", "attachment; filename=\"" + record->file_name + "\"");
+    resp.set_header("Content-Disposition", build_attachment_content_disposition(record->file_name));
   });
 
-  // N3 — 音频流播
-  auto handle_stream_file =
-    [&fs](const std::vector<FileChunkRecord>& chunks, std::size_t file_size, std::string& out_body) -> bool {
-    out_body.reserve(file_size);
-    for (const auto& c : chunks) {
-      auto data = fs.read_file("chunks/" + c.chunk_hash);
-      if (!data) {
-        return false;
-      }
-      out_body.append(data->data(), data->size());
+  server.get("/api/files/:id/stream", [&db, &fs](const HttpRequest& req, HttpResponse& resp) {
+    if (!check_auth(req, resp, UserRole::NORMAL)) {
+      return;
     }
-    return true;
-  };
-
-  auto handle_stream_range = [&fs](const std::vector<FileChunkRecord>& chunks,
-                                   std::size_t range_start,
-                                   std::size_t range_end,
-                                   std::string& out_body) -> bool {
-    out_body.reserve(range_end - range_start);
-    auto remain = range_end - range_start;
-    auto chunk_offset = range_start;
-    for (const auto& c : chunks) {
-      if (remain == 0)
-        break;
-      if (chunk_offset >= static_cast<std::size_t>(c.chunk_size)) {
-        chunk_offset -= c.chunk_size;
-        continue;
-      }
-      auto data = fs.read_file("chunks/" + c.chunk_hash);
-      if (!data) {
-        return false;
-      }
-      auto start = chunk_offset;
-      auto count = std::min<std::size_t>(data->size() - start, remain);
-      out_body.append(data->data() + start, count);
-      remain -= count;
-      chunk_offset = 0;
+    auto it = req.path_params.find("id");
+    if (it == req.path_params.end()) {
+      resp = auth_error(400, "missing id");
+      return;
     }
-    return true;
-  };
-
-  server.get("/api/files/:id/stream",
-             [&db, &handle_stream_file, &handle_stream_range](const HttpRequest& req, HttpResponse& resp) {
-               if (!check_auth(req, resp, UserRole::NORMAL)) {
-                 return;
-               }
-               auto it = req.path_params.find("id");
-               if (it == req.path_params.end()) {
-                 resp = auth_error(400, "missing id");
-                 return;
-               }
-               auto record = db.get_file_record(std::stoll(it->second));
-               if (!record) {
-                 resp = auth_error(404, "file not found");
-                 return;
-               }
-               auto chunks = db.get_file_chunks(record->file_hash);
-               if (chunks.empty()) {
-                 resp = auth_error(500, "no chunks");
-                 return;
-               }
-               auto content_type = record->content_type;
-               if (content_type == "application/octet-stream") {
-                 content_type = std::string(audio_content_type(record->file_name).value_or("application/octet-stream"));
-               }
-               resp.set_header("Accept-Ranges", "bytes");
-               resp.set_content_type(content_type);
-               auto range_it = req.headers.find("Range");
-               if (range_it != req.headers.end()) {
-                 auto range_req = parse_range_header(range_it->second, record->file_size);
-                 if (!range_req.valid || !range_req.satisfiable || range_req.ranges.empty()) {
-                   build_416_response(resp, record->file_size);
-                   return;
-                 }
-                 build_206_headers(resp, range_req, record->file_size);
-                 resp.set_content_type(content_type);
-                 std::string body_data;
-                 if (!handle_stream_range(chunks, range_req.ranges[0].start, range_req.ranges[0].end, body_data)) {
-                   resp = auth_error(500, "chunk read failed");
-                   return;
-                 }
-                 resp.body = std::move(body_data);
-                 resp.set_content_length(range_req.ranges[0].end - range_req.ranges[0].start);
-               } else {
-                 resp.set_status(200, "OK");
-                 std::string body_data;
-                 if (!handle_stream_file(chunks, record->file_size, body_data)) {
-                   resp = auth_error(500, "chunk read failed");
-                   return;
-                 }
-                 resp.body = std::move(body_data);
-                 resp.set_content_length(record->file_size);
-               }
-             });
+    auto record = db.get_file_record(std::stoll(it->second));
+    if (!record) {
+      resp = auth_error(404, "file not found");
+      return;
+    }
+    auto chunks = db.get_file_chunks(record->file_hash);
+    if (chunks.empty()) {
+      resp = auth_error(500, "no chunks");
+      return;
+    }
+    auto content_type = record->content_type;
+    if (content_type == "application/octet-stream") {
+      content_type = std::string(audio_content_type(record->file_name).value_or("application/octet-stream"));
+    }
+    resp.set_header("Accept-Ranges", "bytes");
+    resp.set_content_type(content_type);
+    auto range_it = req.headers.find("Range");
+    if (range_it != req.headers.end()) {
+      auto range_req = parse_range_header(range_it->second, record->file_size);
+      if (!range_req.valid || !range_req.satisfiable || range_req.ranges.empty()) {
+        build_416_response(resp, record->file_size);
+        return;
+      }
+      build_206_headers(resp, range_req, record->file_size);
+      resp.set_content_type(content_type);
+      std::string body_data;
+      if (!read_stream_range(fs, chunks, range_req.ranges[0].start, range_req.ranges[0].end, body_data)) {
+        resp = auth_error(500, "chunk read failed");
+        return;
+      }
+      resp.body = std::move(body_data);
+      resp.set_content_length(range_req.ranges[0].end - range_req.ranges[0].start);
+    } else {
+      resp.set_status(200, "OK");
+      std::string body_data;
+      if (!read_stream_file(fs, chunks, record->file_size, body_data)) {
+        resp = auth_error(500, "chunk read failed");
+        return;
+      }
+      resp.body = std::move(body_data);
+      resp.set_content_length(record->file_size);
+    }
+  });
 
   // N4 — 文件搜索
   server.get("/api/files/search", [&db](const HttpRequest& req, HttpResponse& resp) {
@@ -442,7 +402,8 @@ void register_routes(HttpServer& server,
                             {"file_size", record.file_size},
                             {"content_type", record.content_type}};
     });
-    resp.body = nlohmann::json{{"items", std::move(items)}, {"total", total}, {"offset", offset}, {"limit", limit}}.dump();
+    resp.body =
+      nlohmann::json{{"items", std::move(items)}, {"total", total}, {"offset", offset}, {"limit", limit}}.dump();
     resp.set_content_length(resp.body.size());
   });
 
@@ -788,6 +749,16 @@ void register_routes(HttpServer& server,
       std::vector<char> buf(data.begin(), data.end());
       return fs.store_file("chunks/" + chunk_hash, buf);
     };
+    const auto file_name = ctx.file_name;
+    ctx.set_initial_chunk_probe(kAudioSignatureProbeSize,
+                                [file_name](std::string_view prefix) -> std::optional<HttpResponse> {
+                                  const auto validation =
+                                    validate_audio_signature(file_name, AudioSignaturePrefix{prefix});
+                                  if (validation.accepted) {
+                                    return std::nullopt;
+                                  }
+                                  return make_upload_validation_response(validation);
+                                });
   };
 
   auto upload_preflight = [&cfg](const HttpRequest& req,
@@ -938,6 +909,7 @@ void register_routes(HttpServer& server,
     resp.set_content_type("application/octet-stream");
     resp.body = std::move(body_data);
     resp.set_content_length(resp.body.size());
+    resp.set_header("Content-Disposition", build_attachment_content_disposition(record->file_name));
   });
 
   server.get("/api/users/:id", [&db](const HttpRequest& req, HttpResponse& resp) {

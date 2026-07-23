@@ -14,7 +14,10 @@
 #include <csignal>
 #include <cstddef>
 #include <cstring>
+#include <ctime>
+#include <future>
 #include <latch>
+#include <memory>
 #include <string>
 #include <thread>
 #include <vector>
@@ -396,6 +399,73 @@ TEST_F(TcpServerTest, ClientDisconnect) {
   server_->stop();
   server_thread_.join();
   server_thread_ = std::thread();
+}
+
+TEST_F(TcpServerTest, NonPositiveEpollTimeoutDoesNotBusyWait) {
+  constexpr auto kIdleObservation = std::chrono::milliseconds(150);
+  constexpr auto kMaximumIdleCpuTime = std::chrono::milliseconds(50);
+  config_.epoll_timeout_ms = -1;
+  start_server();
+
+  struct timespec cpu_before {};
+
+  ASSERT_EQ(::clock_gettime(CLOCK_PROCESS_CPUTIME_ID, &cpu_before), 0);
+  std::this_thread::sleep_for(kIdleObservation);
+
+  struct timespec cpu_after {};
+
+  ASSERT_EQ(::clock_gettime(CLOCK_PROCESS_CPUTIME_ID, &cpu_after), 0);
+
+  const auto to_duration = [](const struct timespec& timestamp) {
+    return std::chrono::seconds(timestamp.tv_sec) + std::chrono::nanoseconds(timestamp.tv_nsec);
+  };
+  EXPECT_LT(to_duration(cpu_after) - to_duration(cpu_before), kMaximumIdleCpuTime);
+}
+
+TEST_F(TcpServerTest, ZeroEpollTimeoutStillHandlesRealConnection) {
+  constexpr auto kHandlerTimeout = std::chrono::seconds(2);
+  config_.epoll_timeout_ms = 0;
+  auto handled_request = std::make_shared<std::promise<std::string>>();
+  auto handled_request_future = handled_request->get_future();
+  auto handler_completed = std::make_shared<std::atomic<bool>>(false);
+
+  server_ = std::make_unique<hps::TcpServer>(config_);
+  server_->set_handler([handled_request, handler_completed](std::shared_ptr<hps::Connection> conn) {
+    if (!handler_completed->exchange(true, std::memory_order_acq_rel)) {
+      handled_request->set_value(conn->read_buffer());
+    }
+  });
+  ASSERT_TRUE(server_->init());
+  server_thread_ = std::thread([this]() { server_->start(); });
+
+  const auto start_deadline = std::chrono::steady_clock::now() + kHandlerTimeout;
+  while (!server_->is_running() && std::chrono::steady_clock::now() < start_deadline) {
+    std::this_thread::sleep_for(std::chrono::milliseconds(1));
+  }
+  ASSERT_TRUE(server_->is_running());
+
+  const int client_fd = connect_client();
+  ASSERT_GE(client_fd, 0);
+  const std::string request = "zero-timeout";
+  ASSERT_EQ(send(client_fd, request.data(), request.size(), 0), static_cast<ssize_t>(request.size()));
+  ASSERT_EQ(handled_request_future.wait_for(kHandlerTimeout), std::future_status::ready);
+  EXPECT_EQ(handled_request_future.get(), request);
+
+  close(client_fd);
+}
+
+TEST_F(TcpServerTest, StopWakeFdInterruptsLongEpollWait) {
+  constexpr auto kStopTimeout = std::chrono::seconds(1);
+  config_.epoll_timeout_ms = 5000;
+  start_server();
+
+  auto stop_future = std::async(std::launch::async, [this] { server_->stop(); });
+  ASSERT_EQ(stop_future.wait_for(kStopTimeout), std::future_status::ready);
+  stop_future.get();
+
+  server_thread_.join();
+  server_thread_ = std::thread();
+  EXPECT_FALSE(server_->is_running());
 }
 
 TEST_F(TcpServerTest, SignalStopServer) {

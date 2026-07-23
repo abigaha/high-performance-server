@@ -44,7 +44,7 @@ public:
    * TcpServer(Config config = {})，因为 GCC 对含有默认成员初始化器的
    * 聚合类型的默认参数存在兼容问题。
    */
-  TcpServer() : config_(Config{}) {}
+  TcpServer() : TcpServer(Config{}) {}
 
   /** 使用自定义配置构造 */
   explicit TcpServer(const Config& config);

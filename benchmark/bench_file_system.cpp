@@ -125,7 +125,7 @@ static void BM_FileSystem_ResolvePath(benchmark::State& state) {
   };
   std::vector<char> data(16, 'x');
   for (auto _ : state) {
-    for (auto& vp : vpaths) {
+    for (const auto& vp : vpaths) {
       fs.store_file(vp, data);
       auto read_back = fs.read_file(vp);
       fs.delete_file(vp);

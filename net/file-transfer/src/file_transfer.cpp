@@ -15,6 +15,7 @@
 #include <array>
 #include <cstddef>
 #include <cstring>
+#include <numeric>
 #include <sstream>
 #include <vector>
 
@@ -43,10 +44,10 @@ bool FileTransfer::transfer_large(const std::string& path, const std::string& pe
     return false;
   }
 
-  std::size_t total_size = 0;
-  for (const auto& c : chunks) {
-    total_size += c.size;
-  }
+  const auto total_size =
+    std::accumulate(chunks.cbegin(), chunks.cend(), std::size_t{0}, [](std::size_t total, const FileChunk& chunk) {
+      return total + chunk.size;
+    });
 
   std::ostringstream ss;
   ss << total_size << " " << path << " " << peer_ip << " " << peer_port << " " << chunks.size() << "\n";
@@ -265,30 +266,6 @@ bool FileTransfer::receive_file(const std::string& save_path, ITcpServer& /*serv
   if (!all_done) {
     unlink(save_path.c_str());
     return false;
-  }
-  return true;
-}
-
-bool FileTransfer::recv_all(int fd, void* buf, std::size_t size) {
-  auto* ptr = static_cast<char*>(buf);
-  while (size > 0) {
-    ssize_t n = read(fd, ptr, size);
-    if (n < 0) {
-      if (errno == EINTR)
-        continue;
-      if (errno == EAGAIN || errno == EWOULDBLOCK) {
-        pollfd pfd;
-        pfd.fd = fd;
-        pfd.events = POLLIN;
-        poll(&pfd, 1, 30000);
-        continue;
-      }
-      return false;
-    }
-    if (n == 0)
-      return false;
-    ptr += n;
-    size -= static_cast<std::size_t>(n);
   }
   return true;
 }

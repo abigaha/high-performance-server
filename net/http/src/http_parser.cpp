@@ -20,8 +20,10 @@ void HttpParser::reset() {
   total_body_bytes_ = 0;
   streaming_mode_ = false;
   chunk_handler_ = nullptr;
+  body_done_cb_ = nullptr;
   headers_done_cb_ = nullptr;
   chunk_buf_.clear();
+  stream_chunk_size_ = static_cast<std::size_t>(kStreamChunkSize);
 }
 
 void HttpParser::reset_line_buf() {
@@ -129,6 +131,10 @@ void HttpParser::handle_end_of_headers() {
     body_bytes_remaining_ = cl;
     total_body_bytes_ = 0;
     if (cl == 0) {
+      finish_body();
+      if (error_ != ParserError::OK) {
+        return;
+      }
       state_ = ParserState::COMPLETE;
     } else {
       state_ = ParserState::BODY_IDENTITY;
@@ -186,27 +192,44 @@ ParserResult HttpParser::feed_headers(char c) {
 // ==================== Body（Content-Length）解析 ====================
 
 void HttpParser::flush_chunk_buf() {
-  if (!chunk_handler_ || chunk_buf_.empty()) {
+  if (chunk_buf_.empty()) {
     return;
   }
-  if (!chunk_handler_(chunk_buf_)) {
+  if (chunk_handler_ && !chunk_handler_(chunk_buf_)) {
     error_ = ParserError::BAD_REQUEST;
   }
   chunk_buf_.clear();
 }
 
+void HttpParser::finish_body() {
+  if (streaming_mode_) {
+    flush_chunk_buf();
+  }
+  if (error_ != ParserError::OK || !body_done_cb_) {
+    return;
+  }
+  auto callback = std::move(body_done_cb_);
+  if (!callback()) {
+    error_ = ParserError::BAD_REQUEST;
+  }
+}
+
+void HttpParser::append_body_byte(char c) {
+  if (!streaming_mode_) {
+    request_.body.push_back(c);
+    return;
+  }
+  chunk_buf_.push_back(c);
+  if (chunk_buf_.size() >= stream_chunk_size_) {
+    flush_chunk_buf();
+  }
+}
+
 ParserResult HttpParser::feed_body_identity(char c) {
   if (body_bytes_remaining_ > 0) {
-    if (streaming_mode_) {
-      chunk_buf_.push_back(c);
-      if (chunk_buf_.size() >= kStreamChunkSize) {
-        flush_chunk_buf();
-        if (error_ != ParserError::OK) {
-          return {.err = error_, .consumed = 1};
-        }
-      }
-    } else {
-      request_.body.push_back(c);
+    append_body_byte(c);
+    if (error_ != ParserError::OK) {
+      return {.err = error_, .consumed = 1};
     }
     --body_bytes_remaining_;
     ++total_body_bytes_;
@@ -216,11 +239,9 @@ ParserResult HttpParser::feed_body_identity(char c) {
     }
   }
   if (body_bytes_remaining_ == 0) {
-    if (streaming_mode_) {
-      flush_chunk_buf();
-      if (error_ != ParserError::OK) {
-        return {.err = error_, .consumed = 1};
-      }
+    finish_body();
+    if (error_ != ParserError::OK) {
+      return {.err = error_, .consumed = 1};
     }
     state_ = ParserState::COMPLETE;
   }
@@ -245,6 +266,10 @@ ParserResult HttpParser::feed_chunk_size(char c) {
     }
     chunk_bytes_read_ = 0;
     if (chunk_size_ == 0) {
+      finish_body();
+      if (error_ != ParserError::OK) {
+        return {.err = error_, .consumed = 1};
+      }
       state_ = ParserState::BODY_CHUNK_TRAILER;
     } else {
       if (total_body_bytes_ + chunk_size_ > kMaxBodySize) {
@@ -263,7 +288,10 @@ ParserResult HttpParser::feed_chunk_size(char c) {
 ParserResult HttpParser::feed_chunk_data(char c) {
   (void)c;
   if (!chunk_need_crlf_) {
-    request_.body.push_back(c);
+    append_body_byte(c);
+    if (error_ != ParserError::OK) {
+      return {.err = error_, .consumed = 1};
+    }
     ++chunk_bytes_read_;
     ++total_body_bytes_;
     if (total_body_bytes_ > kMaxBodySize) {

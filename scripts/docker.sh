@@ -288,6 +288,19 @@ verify_service_health() {
   done
 }
 
+print_backend_runtime_state() {
+  local container_id runtime_state
+  if ! container_id="$(compose_control ps --all --quiet high-performance-server)" || [ -z "$container_id" ]; then
+    red "无法定位后端容器以读取运行时状态"
+    return 1
+  fi
+  if ! runtime_state="$(docker inspect --format 'RestartCount={{.RestartCount}} OOMKilled={{.State.OOMKilled}}' "$container_id")"; then
+    red "无法读取后端容器运行时状态"
+    return 1
+  fi
+  printf '后端容器运行时状态: %s\n' "$runtime_state"
+}
+
 public_health_url() {
   local published port
   if ! published="$(compose_control port nginx 80)"; then
@@ -360,6 +373,9 @@ cmd_status() {
   require_docker || return 1
   compose_control ps --all
   local failed=0
+  if ! print_backend_runtime_state; then
+    failed=1
+  fi
   if ! verify_service_health; then
     failed=1
   fi

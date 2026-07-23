@@ -285,7 +285,7 @@ bool initialize_upload_hash(UploadStreamContext& context) {
   return true;
 }
 
-bool process_upload_chunk(UploadStreamContext& context, std::string_view chunk) {
+bool process_upload_data(UploadStreamContext& context, std::string_view chunk) {
   if (context.hash_ctx == nullptr && !initialize_upload_hash(context)) {
     context.failed = true;
     return false;
@@ -316,9 +316,51 @@ bool process_upload_chunk(UploadStreamContext& context, std::string_view chunk) 
   return true;
 }
 
+bool finish_initial_chunk_probe(UploadStreamContext& context, HttpParser& parser) {
+  if (context.initial_chunk_probe_completed || !context.initial_chunk_probe || context.rejection_response) {
+    return true;
+  }
+  const auto rejection = context.initial_chunk_probe(context.initial_chunk_probe_data);
+  if (rejection) {
+    context.rejection_response = *rejection;
+    context.initial_chunk_probe_completed = true;
+    context.initial_chunk_probe_data.clear();
+    parser.set_stream_chunk_size(HttpParser::kStreamChunkSize);
+    return true;
+  }
+  context.initial_chunk_probe_completed = true;
+  parser.set_stream_chunk_size(HttpParser::kStreamChunkSize);
+  auto probe_data = std::move(context.initial_chunk_probe_data);
+  context.initial_chunk_probe_data.clear();
+  return process_upload_data(context, probe_data);
+}
+
+bool process_upload_chunk(UploadStreamContext& context, HttpParser& parser, std::string_view chunk) {
+  if (context.rejection_response) {
+    return true;
+  }
+  if (context.initial_chunk_probe && !context.initial_chunk_probe_completed) {
+    context.initial_chunk_probe_data.append(chunk);
+    if (context.initial_chunk_probe_data.size() < context.initial_chunk_probe_size) {
+      return true;
+    }
+    return finish_initial_chunk_probe(context, parser);
+  }
+  return process_upload_data(context, chunk);
+}
+
+bool finish_upload_stream(UploadStreamContext& context, HttpParser& parser) {
+  return finish_initial_chunk_probe(context, parser);
+}
+
 void enable_upload_streaming(HttpParser& parser, const std::shared_ptr<UploadStreamContext>& context) {
   parser.set_streaming_mode(true);
-  parser.set_chunk_handler([context](std::string_view chunk) { return process_upload_chunk(*context, chunk); });
+  if (context->initial_chunk_probe && context->initial_chunk_probe_size > 0) {
+    parser.set_stream_chunk_size(context->initial_chunk_probe_size);
+  }
+  parser.set_chunk_handler(
+    [context, &parser](std::string_view chunk) { return process_upload_chunk(*context, parser, chunk); });
+  parser.set_body_done_callback([context, &parser] { return finish_upload_stream(*context, parser); });
 }
 
 } // namespace
@@ -330,6 +372,20 @@ UploadStreamContext::~UploadStreamContext() {
 void UploadStreamContext::reset_hash_context() noexcept {
   EVP_MD_CTX_free(static_cast<EVP_MD_CTX*>(hash_ctx));
   hash_ctx = nullptr;
+}
+
+void UploadStreamContext::set_initial_chunk_probe(std::size_t probe_size, InitialChunkProbe probe) {
+  if (!probe || probe_size == 0) {
+    initial_chunk_probe = nullptr;
+    initial_chunk_probe_size = 0;
+    initial_chunk_probe_data.clear();
+    initial_chunk_probe_completed = false;
+    return;
+  }
+  initial_chunk_probe = std::move(probe);
+  initial_chunk_probe_size = probe_size;
+  initial_chunk_probe_data.clear();
+  initial_chunk_probe_completed = false;
 }
 
 std::optional<std::string> parse_content_disposition_filename(std::string_view header_value) {

@@ -177,24 +177,32 @@ if [ -z "$CPP_FILES" ]; then
 else
   TIDY_DIR=$(mktemp -d)
   TIDY_FAILED="$TIDY_DIR/failed"
+  TIDY_INPUT="$TIDY_DIR/input"
   : > "$TIDY_FAILED"
+  : > "$TIDY_INPUT"
 
   PROJECT_ROOT="$ROOT"
-  printf '%s\n' "$CPP_FILES" | awk '{ printf "%d\t%s\n", NR, $0 }' | \
-    while IFS=$'\t' read -r idx f; do printf '%s\0%s\0' "$idx" "$f"; done | \
-    xargs -0 -P "$JOBS" -n 2 bash -c '
-      idx="$1"; f="$2"
-      outdir="'"$TIDY_DIR"'"; cmd="'"$CLANG_TIDY"'"; proot="'"$PROJECT_ROOT"'"
-      args=(--quiet --warnings-as-errors="*" --header-filter="${proot}/.*" -p .)
-      if [[ "$f" == tests/* ]] && [ -f "${proot}/tests/.clang-tidy" ]; then
-        args+=(--config-file="${proot}/tests/.clang-tidy")
-      elif [[ "$f" == benchmark/* ]] && [ -f "${proot}/benchmark/.clang-tidy" ]; then
-        args+=(--config-file="${proot}/benchmark/.clang-tidy")
-      fi
-      if ! "$cmd" "${args[@]}" "$f" > "$outdir/$idx.out" 2>&1; then
-        printf "%s\n" "$f" >> "$outdir/failed"
-      fi
-    ' _
+  mapfile -t TIDY_FILES <<< "$CPP_FILES"
+  for idx in "${!TIDY_FILES[@]}"; do
+    printf '%s\0%s\0' "$((idx + 1))" "${TIDY_FILES[idx]}" >> "$TIDY_INPUT"
+  done
+
+  set +e
+  xargs -r -0 -P "$JOBS" -n 2 bash -c '
+    idx="$1"; f="$2"
+    outdir="'"$TIDY_DIR"'"; cmd="'"$CLANG_TIDY"'"; proot="'"$PROJECT_ROOT"'"
+    args=(--quiet --warnings-as-errors="*" --header-filter="${proot}/.*" -p .)
+    if [[ "$f" == tests/* ]] && [ -f "${proot}/tests/.clang-tidy" ]; then
+      args+=(--config-file="${proot}/tests/.clang-tidy")
+    elif [[ "$f" == benchmark/* ]] && [ -f "${proot}/benchmark/.clang-tidy" ]; then
+      args+=(--config-file="${proot}/benchmark/.clang-tidy")
+    fi
+    if ! "$cmd" "${args[@]}" "$f" > "$outdir/$idx.out" 2>&1; then
+      printf "%s\n" "$f" >> "$outdir/failed"
+    fi
+  ' _ < "$TIDY_INPUT"
+  TIDY_XARGS_RC=$?
+  set -e
 
   TIDY_OUT=$(mktemp)
   max_idx=$(printf '%s\n' "$CPP_FILES" | awk 'END { print NR }')
@@ -211,7 +219,12 @@ else
     red "clang-tidy 发现问题或执行失败，涉及文件:"
     cat "$TIDY_FAILED"
     HAS_ERROR=1
-  else
+  fi
+  if [ "$TIDY_XARGS_RC" -ne 0 ]; then
+    red "clang-tidy 调度执行失败"
+    HAS_ERROR=1
+  fi
+  if [ ! -s "$TIDY_FAILED" ] && [ "$TIDY_XARGS_RC" -eq 0 ]; then
     green "clang-tidy: 0 error, 0 warning, 0 style"
   fi
   rm -rf "$TIDY_DIR" "$TIDY_OUT"
@@ -240,6 +253,14 @@ CPPCHECK_POLICY_ARGS=(
   --suppress=unmatchedSuppression
   --suppress=checkLevelNormal
   --suppress=checkersReport
+  # Google Benchmark 回调必须接收可变的 benchmark::State&，改为 const 会破坏框架要求的函数签名。
+  # 仅限 benchmark 目录，避免屏蔽业务与测试代码中的 constParameterCallback。
+  "--suppress=constParameterCallback:benchmark/bench_*.cpp"
+  # BENCHMARK_DEFINE_F 是 Google Benchmark 的夹具宏，cppcheck 没有内置宏模型。
+  # 精确限定到已确认的三个框架展开点，其他 unknownMacro 仍按严格门禁报告。
+  "--suppress=unknownMacro:benchmark/bench_http_server.cpp:82"
+  "--suppress=unknownMacro:benchmark/bench_logger.cpp:18"
+  "--suppress=unknownMacro:benchmark/bench_tcp_server.cpp:52"
 )
 set +e
 # Google Test 宏需要 cppcheck 官方 googletest 模型才能正确展开；该模型只补充解析语义，

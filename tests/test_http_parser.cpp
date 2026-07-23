@@ -3,6 +3,7 @@
 #include <gtest/gtest.h>
 
 #include <string>
+#include <vector>
 
 using namespace hps;
 
@@ -181,6 +182,57 @@ TEST(HttpParserTest, ChunkedWithExtensions) {
   EXPECT_EQ(result.err, ParserError::OK);
   EXPECT_EQ(parser.state(), ParserState::COMPLETE);
   EXPECT_EQ(parser.request().body, "hello");
+}
+
+TEST(HttpParserTest, ChunkedStreamingUsesFixedSizeCallbacksAndFlushesTail) {
+  HttpParser parser;
+  std::vector<std::string> delivered;
+  parser.set_streaming_mode(true);
+  parser.set_chunk_handler([&delivered](std::string_view chunk) {
+    delivered.emplace_back(chunk);
+    return true;
+  });
+
+  std::string body(static_cast<std::size_t>(HttpParser::kStreamChunkSize) + 5, 'a');
+  body.back() = 'z';
+  std::string raw = "POST / HTTP/1.1\r\n"
+                    "Transfer-Encoding: chunked\r\n"
+                    "\r\n"
+                    "11\r\n";
+  raw.append(body, 0, 17);
+  raw += "\r\n1ffff4\r\n";
+  raw.append(body, 17, std::string::npos);
+  raw += "\r\n0\r\n\r\n";
+
+  const auto split = raw.size() / 2;
+  auto result = parser.feed(std::string_view(raw).substr(0, split));
+  EXPECT_EQ(result.err, ParserError::INCOMPLETE);
+  result = parser.feed(std::string_view(raw).substr(split));
+
+  EXPECT_EQ(result.err, ParserError::OK);
+  EXPECT_EQ(parser.state(), ParserState::COMPLETE);
+  EXPECT_TRUE(parser.request().body.empty());
+  ASSERT_EQ(delivered.size(), 2U);
+  EXPECT_EQ(delivered[0].size(), HttpParser::kStreamChunkSize);
+  EXPECT_EQ(delivered[1].size(), 5U);
+  EXPECT_EQ(delivered[0] + delivered[1], body);
+}
+
+TEST(HttpParserTest, ChunkedStreamingWithoutHandlerDiscardsBody) {
+  HttpParser parser;
+  parser.set_streaming_mode(true);
+
+  const std::string raw = "POST / HTTP/1.1\r\n"
+                          "Transfer-Encoding: chunked\r\n"
+                          "\r\n"
+                          "5\r\nhello\r\n"
+                          "6\r\n world\r\n"
+                          "0\r\n\r\n";
+  const auto result = parser.feed(raw);
+
+  EXPECT_EQ(result.err, ParserError::OK);
+  EXPECT_EQ(parser.state(), ParserState::COMPLETE);
+  EXPECT_TRUE(parser.request().body.empty());
 }
 
 TEST(HttpParserTest, DeleteMethod) {

@@ -4,7 +4,10 @@
 
 #include <atomic>
 #include <cstddef>
+#include <cstdlib>
+#include <exception>
 #include <format>
+#include <iostream>
 
 namespace {
 
@@ -66,41 +69,48 @@ void bench_pool(hps::bench::QpsSample& sample, auto& pool, int concurrency, int 
 
 } // namespace
 
-int main() {
-  auto levels = hps::bench::default_qps_levels();
-  std::vector<hps::bench::QpsSample> results;
+int main() noexcept {
+  try {
+    auto levels = hps::bench::default_qps_levels();
+    std::vector<hps::bench::QpsSample> results;
 
-  // LockFreeThreadPool
-  {
-    results.clear();
-    for (auto& lv : levels) {
-      hps::LockFreeThreadPool pool(4);
-      hps::bench::QpsSample s;
-      std::cout << std::format("  [LockFreeTP 并发={:>4} 时长={:>2}s]", lv.concurrency, lv.duration_sec);
-      std::cout.flush();
-      bench_pool(s, pool, lv.concurrency, lv.duration_sec);
-      pool.stop();
-      std::cout << std::format(" QPS={:>10}\n", static_cast<int64_t>(s.qps));
-      results.push_back(s);
+    // LockFreeThreadPool
+    {
+      results.clear();
+      for (auto& lv : levels) {
+        hps::LockFreeThreadPool pool(4);
+        hps::bench::QpsSample s;
+        std::cout << std::format("  [LockFreeTP 并发={:>4} 时长={:>2}s]", lv.concurrency, lv.duration_sec);
+        std::cout.flush();
+        bench_pool(s, pool, lv.concurrency, lv.duration_sec);
+        pool.stop();
+        std::cout << std::format(" QPS={:>10}\n", static_cast<int64_t>(s.qps));
+        results.push_back(s);
+      }
+      hps::bench::print_qps_report("LockFreeThreadPool Enqueue", results);
     }
-    hps::bench::print_qps_report("LockFreeThreadPool Enqueue", results);
-  }
 
-  // LockedThreadPool
-  {
-    results.clear();
-    for (auto& lv : levels) {
-      hps::LockedThreadPool pool(4);
-      hps::bench::QpsSample s;
-      std::cout << std::format("  [LockedTP   并发={:>4} 时长={:>2}s]", lv.concurrency, lv.duration_sec);
-      std::cout.flush();
-      bench_pool(s, pool, lv.concurrency, lv.duration_sec);
-      pool.stop();
-      std::cout << std::format(" QPS={:>10}\n", static_cast<int64_t>(s.qps));
-      results.push_back(s);
+    // LockedThreadPool
+    {
+      results.clear();
+      for (auto& lv : levels) {
+        hps::LockedThreadPool pool(4);
+        hps::bench::QpsSample s;
+        std::cout << std::format("  [LockedTP   并发={:>4} 时长={:>2}s]", lv.concurrency, lv.duration_sec);
+        std::cout.flush();
+        bench_pool(s, pool, lv.concurrency, lv.duration_sec);
+        pool.stop();
+        std::cout << std::format(" QPS={:>10}\n", static_cast<int64_t>(s.qps));
+        results.push_back(s);
+      }
+      hps::bench::print_qps_report("LockedThreadPool Enqueue", results);
     }
-    hps::bench::print_qps_report("LockedThreadPool Enqueue", results);
-  }
 
-  return 0;
+    return EXIT_SUCCESS;
+  } catch (const std::exception& error) {
+    std::cerr << "线程池 QPS 基准失败: " << error.what() << '\n';
+  } catch (...) {
+    std::cerr << "线程池 QPS 基准失败: 未知异常\n";
+  }
+  return EXIT_FAILURE;
 }

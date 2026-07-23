@@ -23,6 +23,7 @@ namespace hps {
 namespace {
 
 constexpr int kMaxEpollEvents = 64;
+constexpr int kMinimumEpollTimeoutMs = 1;
 
 struct EpollFd {
   int fd;
@@ -59,7 +60,12 @@ void TcpServer::signal_handler(int sig) {
   }
 }
 
-TcpServer::TcpServer(const Config& config) : config_(config) {}
+TcpServer::TcpServer(const Config& config) : config_(config) {
+  if (config_.epoll_timeout_ms <= 0) {
+    Logger::_warn("epoll_timeout_ms 必须大于 0，已调整为 " + std::to_string(kMinimumEpollTimeoutMs) + " 毫秒");
+    config_.epoll_timeout_ms = kMinimumEpollTimeoutMs;
+  }
+}
 
 TcpServer::~TcpServer() {
   this->TcpServer::stop(); // 限定调用避免析构时虚分发绕过

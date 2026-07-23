@@ -10,6 +10,7 @@
 #include "tcp_server.h"
 
 #include <atomic>
+#include <cstddef>
 #include <cstdint>
 #include <functional>
 #include <memory>
@@ -25,6 +26,7 @@ class WsConnection;
 
 struct UploadStreamContext {
   using ChunkStoreFunc = std::function<bool(std::string_view data, const std::string& chunk_hash)>;
+  using InitialChunkProbe = std::function<std::optional<HttpResponse>(std::string_view data)>;
 
   std::string file_name;
   std::string file_hash;
@@ -35,6 +37,10 @@ struct UploadStreamContext {
   ChunkStoreFunc store_chunk_data;
   std::optional<std::size_t> content_length;
   std::optional<HttpResponse> rejection_response;
+  InitialChunkProbe initial_chunk_probe;
+  std::size_t initial_chunk_probe_size{0};
+  std::string initial_chunk_probe_data;
+  bool initial_chunk_probe_completed{false};
   bool failed{false};
   bool size_exceeded{false};
 
@@ -44,6 +50,7 @@ struct UploadStreamContext {
   UploadStreamContext& operator=(const UploadStreamContext&) = delete;
 
   void reset_hash_context() noexcept;
+  void set_initial_chunk_probe(std::size_t probe_size, InitialChunkProbe probe);
 };
 
 std::optional<std::string> parse_content_disposition_filename(std::string_view header_value);

@@ -20,11 +20,7 @@ struct ServerFixture {
   std::thread server_thread;
   uint16_t port{0};
 
-  ServerFixture() {
-    hps::TcpServer::Config cfg;
-    cfg.port = 0;
-    cfg.thread_count = 2;
-    server = std::make_unique<hps::HttpServer>(cfg);
+  ServerFixture() : server(std::make_unique<hps::HttpServer>(make_server_config())) {
     server->get("/bench", [](const hps::HttpRequest&, hps::HttpResponse& resp) {
       resp.set_status(200, "OK");
       resp.set_header("Content-Type", "text/plain");
@@ -69,6 +65,14 @@ struct ServerFixture {
            "Connection: keep-alive\r\n"
            "\r\n" +
            body;
+  }
+
+private:
+  static hps::TcpServer::Config make_server_config() {
+    hps::TcpServer::Config cfg;
+    cfg.port = 0;
+    cfg.thread_count = 2;
+    return cfg;
   }
 };
 

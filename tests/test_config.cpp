@@ -129,6 +129,18 @@ TEST(ConfigTest, DeploymentEnvironmentOverridesDatabaseConfig) {
   EXPECT_EQ(loaded.db_name, loaded.db.database);
 }
 
+TEST(ConfigTest, NonPositiveEpollTimeoutIsClamped) {
+  ScopedEnvironment auth_secret("AUTH_SECRET", std::nullopt);
+
+  for (const int invalid_timeout : {0, -1}) {
+    const std::string content =
+      R"({"server":{"auth_secret":"config-secret","epoll_timeout_ms":)" + std::to_string(invalid_timeout) + "}}";
+    TempConfigFile config(content);
+
+    EXPECT_EQ(load_test_config(config.path()).epoll_timeout_ms, 1);
+  }
+}
+
 int main(int argc, char** argv) {
   ::testing::InitGoogleTest(&argc, argv);
   return RUN_ALL_TESTS();
