@@ -24,18 +24,18 @@
 | Step 13 | Docker 化部署 | 已完成，持续维护 | [docker-deployment.md](docker-deployment.md) |
 | Step 14 | 文件上传功能改进 | 已完成 | [step-14-file-upload-improvement.md](step-14-file-upload-improvement.md) |
 | - | 并发上传问题修复 | 已完成 | [bugfix-concurrent-uploads.md](bugfix-concurrent-uploads.md) |
-| Step 15 | 前端 Web 界面第一版 | 历史基线 | [step-15-frontend.md](step-15-frontend.md)，后续以 Step 17 为准 |
+| Step 15 | 前端 Web 界面第一版 | 历史基线 | [step-15-frontend.md](step-15-frontend.md)；技术基线以 Step 17 为准，视觉还原以 Step 18 为准 |
 | Step 16 | 后端数据库重构与音乐库/歌单 API | 已完成 | [step-16-backend-music.md](step-16-backend-music.md) |
 | - | Prepared Statement 查询修复 | 已完成 | [fix-prepared-statement.md](fix-prepared-statement.md) |
-| Step 17 | 前端体验、上传契约与浏览器验收补强 | P0 运行时回归阻塞，修复待执行 | [step-17-frontend-optimization.md](step-17-frontend-optimization.md)、[bugfix-step17-runtime-regressions.md](bugfix-step17-runtime-regressions.md) |
+| Step 17 | 前端体验、上传契约与浏览器验收补强 | 已完成，作为 Step 18 的技术基线 | [step-17-frontend-optimization.md](step-17-frontend-optimization.md)、[bugfix-step17-runtime-regressions.md](bugfix-step17-runtime-regressions.md) |
+| Step 18 | Crystal Music UI 视觉还原 | 计划中 | [step-18-ui-visual-restoration.md](step-18-ui-visual-restoration.md)，仅调整 UI 视觉呈现，保留 Step 17 技术修复和现有功能契约 |
 
-## Step 17 当前范围
+## Step 17 技术基线与 Step 18 UI 范围
 
-- 上传端到端统一为原始文件字节，并通过 `Content-Disposition: filename*` 传递 UTF-8 文件名；前后端共同校验扩展名、空文件和角色大小上限，后端继续作为最终安全边界。
-- 前端上传队列支持稳定标识、受控并发、上传期间继续追加、取消、重试、移除和准确汇总，并保留后端 JSON、纯文本或 HTML 错误详情。
-- 认证恢复、角色归一化、受保护的下载与播放、播放器资源回收、响应式导航、页面状态、表单约束和无障碍交互已补强。
-- 已加入 Vitest 回归用例和部署环境 Playwright 配置；真实浏览器验收依赖 nginx、后端和 MySQL，不并入普通单元测试脚本。
-- 2026-07-22 分项质量门禁和四视口 Playwright `4/4` 是已执行的历史事实，但 E2E 只覆盖匿名 stream `401` 且只在开头检查健康。后续复测确认已认证 stream 可触发后端重启和 nginx `502`，P0 修复与重新验收前不得宣告 Step 17 完成。
+- Step 17 已完成上传原始文件字节、格式与大小安全边界、并发队列、认证恢复、受保护下载与播放、播放器生命周期、响应式导航和无障碍交互的修复；其 A-F 运行时回归已在 2026-07-23 完成最终验收。
+- Step 17 的技术和测试基线在 Step 18 中必须完整保留：上传协议、角色权限、认证 Blob、已认证完整/Range 流播、容器健康检查、错误状态和现有自动化用例均不得回退。
+- Step 18 只恢复 Crystal Music 的青绿玻璃态、毛玻璃、浅/深绿主题、字体、圆角、阴影、页面构图和响应式视觉层次；不改变路由、接口、数据模型、业务流程或后端能力。
+- 2026-07-22 的 P0 诊断与未覆盖授权流播的验收结果保留为历史事实；A-F 修复、全量质量门禁和 Docker 四视口最终验收已在 [bugfix-step17-runtime-regressions.md](bugfix-step17-runtime-regressions.md) 中记录为完成。
 
 ## 当前稳定入口
 
@@ -74,7 +74,7 @@ bash scripts/pipeline.sh all
 
 任一步修改代码后，都必须从完整流水线起点重新执行。测试目标由 `xmake.lua` 和测试目录动态发现，文档不维护容易失真的固定目标数或用例数。
 
-Step 17 在 2026-07-22 的修复前验收实际依次执行了四个分项门禁，没有另行执行 `bash scripts/pipeline.sh all`。以下数量仅为该次执行快照，不取代上述动态发现原则，也不代表当前 P0 已通过：
+Step 17 在 2026-07-22 的修复前验收实际依次执行了四个分项门禁，没有另行执行 `bash scripts/pipeline.sh all`。以下数量仅为该次执行快照，不取代上述动态发现原则，也不能替代 2026-07-23 已完成的 A-F 修复与最终验收：
 
 | 命令 | 2026-07-22 执行结果 |
 |------|----------------------|
@@ -95,4 +95,4 @@ bash scripts/docker.sh logs
 
 最终标准为：clang-tidy 与 cppcheck 无门禁级问题，编译无错误和警告，CodeQL 无 critical/high，后端与前端自动化测试全部通过，配置的桌面与移动视口 E2E 全部通过且浏览器控制台没有未处理错误。
 
-2026-07-22 的部署验收中，Docker 公共入口 `http://127.0.0.1:18080` 开头健康检查通过；Playwright 的 `desktop`、`desktop-compact`、`tablet`、`mobile` 四个项目 4/4 通过，0 失败、0 不稳定、0 跳过，有效报告目录为 `e2e_20260722_214738`。`bash scripts/docker.sh logs --since 5m` 同时记录到上传请求 `201` 和匿名流式请求的预期 `401`。这些结果未覆盖已认证 stream `200/206`、用例末尾健康状态或容器 `RestartCount`；后续复测暴露 P0 崩溃，因此 Step 17 当前阻塞，实施与验收以 [运行时回归 Bug 修复计划](bugfix-step17-runtime-regressions.md) 为准。
+2026-07-22 的部署验收中，Docker 公共入口 `http://127.0.0.1:18080` 开头健康检查通过；Playwright 的 `desktop`、`desktop-compact`、`tablet`、`mobile` 四个项目 4/4 通过，0 失败、0 不稳定、0 跳过，有效报告目录为 `e2e_20260722_214738`。`bash scripts/docker.sh logs --since 5m` 同时记录到上传请求 `201` 和匿名流式请求的预期 `401`。这些结果未覆盖已认证 stream `200/206`、用例末尾健康状态或容器 `RestartCount`；后续复测确实暴露 P0 崩溃，但其 A-F 修复、完整质量门禁和 Docker 四视口最终验收已在 2026-07-23 完成，详见 [运行时回归 Bug 修复计划](bugfix-step17-runtime-regressions.md)。
