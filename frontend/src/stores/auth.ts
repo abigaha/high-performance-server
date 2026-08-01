@@ -1,75 +1,166 @@
 import { create } from 'zustand';
 import type { AuthUser } from '../types/api';
 import * as authApi from '../api/auth';
+import {
+  captureSessionSnapshot,
+  getSessionRevision,
+  isSessionSnapshotCurrent,
+  markSessionChanged,
+} from '../api/client';
+import type { SessionSnapshot } from '../api/client';
 
 interface AuthState {
   token: string | null;
   user: AuthUser | null;
   loading: boolean;
   restored: boolean;
-  login: (username: string, password: string) => Promise<void>;
-  register: (username: string, password: string, email: string) => Promise<void>;
+  sessionRevision: number;
+  setUser: (user: AuthUser) => void;
+  login: (username: string, password: string) => Promise<boolean>;
+  register: (username: string, password: string, email: string) => Promise<boolean>;
   logout: () => void;
   restore: () => Promise<void>;
+  reset: () => void;
 }
 
-const initialToken = localStorage.getItem('token');
-let restorePromise: Promise<void> | null = null;
+type SessionClearer = () => void;
 
-export const useAuthStore = create<AuthState>((set) => ({
+const initialToken = localStorage.getItem('token');
+let authGeneration = 0;
+let restorePromise: Promise<void> | null = null;
+let restoreSession: SessionSnapshot | null = null;
+let sessionClearer: SessionClearer | null = null;
+
+function invalidateRestore(): void {
+  restorePromise = null;
+  restoreSession = null;
+}
+
+export const useAuthStore = create<AuthState>((set, get) => ({
   token: initialToken,
   user: null,
   loading: initialToken !== null,
   restored: initialToken === null,
+  sessionRevision: getSessionRevision(),
+  setUser: (user) => set({ user }),
   login: async (username, password) => {
-    const res = await authApi.login(username, password);
-    localStorage.setItem('token', res.token);
+    const generation = ++authGeneration;
+    invalidateRestore();
+    let response;
+    try {
+      response = await authApi.login(username, password);
+    } catch (error) {
+      if (generation !== authGeneration) return false;
+      throw error;
+    }
+    if (generation !== authGeneration) return false;
+    localStorage.setItem('token', response.token);
+    const sessionRevision = markSessionChanged();
     set({
-      token: res.token,
-      user: { user_id: res.user_id, username, email: '', role: res.role },
+      token: response.token,
+      user: response.user,
       loading: false,
       restored: true,
+      sessionRevision,
     });
+    return true;
   },
   register: async (username, password, email) => {
-    const res = await authApi.register(username, password, email);
-    localStorage.setItem('token', res.token);
+    const generation = ++authGeneration;
+    invalidateRestore();
+    let response;
+    try {
+      response = await authApi.register(username, password, email);
+    } catch (error) {
+      if (generation !== authGeneration) return false;
+      throw error;
+    }
+    if (generation !== authGeneration) return false;
+    localStorage.setItem('token', response.token);
+    const sessionRevision = markSessionChanged();
     set({
-      token: res.token,
-      user: { user_id: res.user_id, username, email, role: res.role },
+      token: response.token,
+      user: response.user,
       loading: false,
       restored: true,
+      sessionRevision,
     });
+    return true;
   },
   logout: () => {
     authApi.logout().catch(() => {});
-    localStorage.removeItem('token');
-    set({ token: null, user: null, loading: false, restored: true });
+    (sessionClearer ?? clearAuthSession)();
   },
   restore: async () => {
     const token = localStorage.getItem('token');
     if (!token) {
-      set({ token: null, user: null, loading: false, restored: true });
+      invalidateRestore();
+      if (get().token || get().user) (sessionClearer ?? clearAuthSession)();
+      else {
+        set({
+          token: null,
+          user: null,
+          loading: false,
+          restored: true,
+          sessionRevision: getSessionRevision(),
+        });
+      }
       return;
     }
-    if (restorePromise) return restorePromise;
 
+    const session = captureSessionSnapshot();
+    if (restorePromise && restoreSession && isSessionSnapshotCurrent(restoreSession)) {
+      return restorePromise;
+    }
+
+    const generation = ++authGeneration;
+    invalidateRestore();
     set({ loading: true });
-    restorePromise = (async () => {
+    const pendingRestore = (async () => {
       try {
         const user = await authApi.getMe();
-        if (localStorage.getItem('token') === token) {
-          set({ token, user, loading: false, restored: true });
+        if (generation === authGeneration && isSessionSnapshotCurrent(session)) {
+          set({
+            token,
+            user,
+            loading: false,
+            restored: true,
+            sessionRevision: getSessionRevision(),
+          });
         }
       } catch {
-        if (localStorage.getItem('token') === token) {
-          localStorage.removeItem('token');
-          set({ token: null, user: null, loading: false, restored: true });
+        if (generation === authGeneration && isSessionSnapshotCurrent(session)) {
+          (sessionClearer ?? clearAuthSession)();
         }
-      } finally {
-        restorePromise = null;
       }
     })();
-    return restorePromise;
+    restorePromise = pendingRestore;
+    restoreSession = session;
+    const clearPendingRestore = () => {
+      if (restorePromise === pendingRestore) invalidateRestore();
+    };
+    void pendingRestore.then(clearPendingRestore, clearPendingRestore);
+    return pendingRestore;
   },
+  reset: clearAuthSession,
 }));
+
+export function injectSessionClearer(clearer: SessionClearer | null): void {
+  sessionClearer = clearer;
+}
+
+export function clearAuthSession(): void {
+  authGeneration += 1;
+  invalidateRestore();
+  localStorage.removeItem('token');
+  const stateRevision = useAuthStore.getState().sessionRevision;
+  const clientRevision = getSessionRevision();
+  const sessionRevision = stateRevision === clientRevision ? markSessionChanged() : clientRevision;
+  useAuthStore.setState({
+    token: null,
+    user: null,
+    loading: false,
+    restored: true,
+    sessionRevision,
+  });
+}

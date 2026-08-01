@@ -366,11 +366,11 @@ public:
 
 ---
 
-## Step 18 — Crystal Music UI 视觉还原（计划中）
+## Step 18 — Crystal Music UI 视觉还原 ✅ 已完成
 
 ### 概述
 
-> [plan/step-18-ui-visual-restoration.md](plan/step-18-ui-visual-restoration.md) 是本轮前端 UI 专项计划。它以 Step 15 的 Crystal Music（翠澄·雨璃）视觉合同为目标，纠正 Step 17 中将大面积青绿玻璃态收敛为中性后台表面的视觉决策；Step 17 已完成的技术修复、运行时可靠性和功能验收均为不变基线。
+> [plan/step-18-ui-visual-restoration.md](plan/step-18-ui-visual-restoration.md) 记录本轮前端 UI 专项实施与 2026-07-27 最终验收。它以 Step 15 的 Crystal Music（翠澄·雨璃）视觉合同为目标，纠正 Step 17 中将大面积青绿玻璃态收敛为中性后台表面的视觉决策；Step 17 已完成的技术修复、运行时可靠性和功能验收均作为不变基线保留。
 
 ### 本轮目标
 
@@ -383,6 +383,33 @@ public:
 1. 本轮只修改前端 UI、视觉令牌、布局呈现和静态展示素材；不改变任何业务功能、用户流程、后端逻辑、REST API、WebSocket、路由、认证、上传协议、音频流播、状态数据模型或数据契约。
 2. Step 17 及其运行时回归修复中已完成的上传安全校验、角色与认证恢复、受保护下载与播放、播放器生命周期、响应式导航、无障碍交互、错误状态和测试覆盖必须完整保留，视觉重构不得造成回归。
 3. Step 17 关于中性表面与最多 `8px` 圆角的视觉收敛不再作为设计验收依据；其余技术修复和功能行为继续有效。
+
+### 最终验收（2026-07-27）
+
+- `bash scripts/lint.sh --changed` 通过，前端 Oxlint 零告警，本轮无 C++ 变更；`bash scripts/compile.sh build` 后端与前端通过，Fontsource 本地字体进入 `dist/`。
+- CodeQL 最终任务 `2e701c4c-70be-4f3e-96fb-b038885c98ec` 为 `critical=0`、`high=0`。
+- `bash scripts/test.sh` 通过 Google Test `42/42`、脚本回归和 Vitest `21` 文件 `106/106`，输出无媒体 mock 噪声。
+- `bash scripts/docker.sh deploy` 健康，入口为 `http://127.0.0.1:18080`。
+- 最终 `npm --prefix frontend run test:e2e` 为 `15 passed`、`3 skipped`、`0 failed`；四个真实部署项目 `4/4`，两个视觉项目的全部适用结构和截图用例通过，浏览器无未处理错误。报告为 `frontend/playwright-report/e2e_20260727_134904/index.html`，结果文件 `frontend/test-results/e2e_20260727_134904/.last-run.json` 为 `passed`。
+- 12 张浅色/深色、桌面/小屏截图基线已经人工检查并保留在 `frontend/tests/e2e/visual.spec.ts-snapshots/`。真实浏览器发现并推动修复 Google Fonts 外链和 AudioPlayer Blob URL 回收竞态。
+
+---
+
+## Step 19 — 用户功能闭环、VIP 生命周期与管理员治理 ✅ 已完成
+
+### 概述
+
+> [plan/step-19-user-feature-completion.md](plan/step-19-user-feature-completion.md) 记录角色能力、VIP 生命周期、唯一管理员、资料和治理页面、文件与歌单所有权、播放队列以及隔离 E2E 的完整合同。
+
+### 最终验收（2026-08-01）
+
+1. Step 2 整体审查通过：6 类问题（pending 异常/连接回收、FileDetail/UserPlaylist 竞态、VIP 时间/状态安全、歌单读取去重排序、E2E-03/07/10/11 断言、visual fixture）均经独立审查确认正确实现；E2E-10 新增 `waitForURL` 稳定等待。
+2. Step 3 Lint 通过：`bash scripts/lint.sh --changed`，clang-tidy 0/0/0，cppcheck 0/0/0/0，前端 Oxlint 通过。
+3. Step 4 编译通过：`bash scripts/compile.sh build`，后端与前端 0 error/warning。
+4. Step 5 CodeQL 通过：任务 `d13ae231-d80b-42ac-b180-71df6271de41`，`critical=0`，`high=0`，`executionSuccessful=true`。
+5. Step 6 全量测试通过：`bash scripts/test.sh`，Google Test 46 目标全通过，Vitest 34 文件/298 用例全通过，脚本回归全通过。
+6. 最终隔离 E2E 通过：`bash scripts/test.sh e2e tests/e2e/user-governance.spec.ts`，13/13，0 failed，隔离环境完整回收。
+7. 已提交并 push 到 master。
 
 ---
 
@@ -430,6 +457,8 @@ main() {
 - Playwright：部署后单独执行，要求配置的桌面与移动视口全部通过，且浏览器控制台无未处理错误。
 
 截至 2026-07-23，Step 17 已完成 A-F 修复及正式验收：最终 CodeQL 任务 `ff62db5b-e741-4d78-ac00-33100da6ce8a` 为 `0 critical + 0 high`，测试为后端 `42/42` 与前端 `18/71`，Docker 四视口 Playwright 为 `4/4`，后端容器 `RestartCount=0`、`OOMKilled=false`。2026-07-22 的分项门禁与 Playwright `4/4` 仍是有效的修复前历史快照，但因未覆盖已认证流播，不能替代 2026-07-23 的最终验收。
+
+截至 2026-07-27，Step 18 已完成视觉还原与正式验收：最终 CodeQL 为 `0 critical + 0 high`，测试为后端 `42/42` 与前端 `21/106`，Docker 六项目 Playwright 为 `15 passed`、`3 skipped`、`0 failed`，12 张视觉基线已经人工检查。
 
 ---
 
@@ -607,6 +636,18 @@ Step 17 ─── 前端体验、上传契约与浏览器验收补强 ✅ 已正
   ├─ 自动化: 已覆盖已认证 stream `200/206`、匿名 `401`、非法 Range `416`、末尾健康检查和容器重启计数
   ├─ 最终验收: CodeQL `0 critical + 0 high`、Google Test `42/42`、Vitest `18/71`、Docker 四视口 Playwright `4/4`
   └─ 运行状态: 后端容器 `RestartCount=0`、`OOMKilled=false`；2026-07-22 未覆盖授权流播的结果仅保留为历史快照
+        │
+Step 18 ─── Crystal Music UI 视觉还原 ✅ 已完成
+  ├─ 视觉: 浅深主题、青绿玻璃材质、本地 Inter/Righteous 字体与四张原创 WebP 封面
+  ├─ 响应式: 375、390、768、1024、1280、1440 六个目标宽度完成结构与截图验收
+  ├─ 浏览器修复: 移除 Google Fonts 外链，修复 AudioPlayer Blob URL 回收竞态
+  ├─ 最终门禁: CodeQL `0 critical + 0 high`、Google Test `42/42`、Vitest `21/106`
+  └─ E2E: 六项目 `15 passed`、`3 skipped`、`0 failed`，12 张截图基线人工检查通过
+        │
+Step 19 ─── 用户功能闭环、VIP 生命周期与管理员治理 ✅ 已完成（2026-08-01）
+  ├─ 四角色/能力模型、UTC VIP 生命周期、唯一 ADMIN bootstrap、Token 实时回查、文件与歌单所有权、QueueEntry 与集中会话清理
+  ├─ Step 3-6 正式门禁全部通过：Lint/编译/CodeQL(critical=0,high=0)/全量测试(46 GT+298 Vitest)
+  └─ 最终隔离 E2E：13/13 通过，0 failed；已提交并 push 到 master
 ```
 
 ---
@@ -649,8 +690,8 @@ Step 17 ─── 前端体验、上传契约与浏览器验收补强 ✅ 已正
 | db | boost::mysql 连接池、认证数据与音乐数据访问 | 已实现 |
 | net/ssl | TLS 上下文、连接集成与双模式检测 | 已实现 |
 | net/websocket | 握手、帧编解码与连接事件循环 | 已实现 |
-| frontend | 认证、文件、上传、音乐库、歌单、播放器和响应式交互 | 已实现；Step 17 的 A-F 运行时回归修复与正式验收均已完成 |
-| tests | Google Test、Vitest 与部署后 Playwright | 2026-07-23 最终验收为后端 `42/42`、Vitest `18` 文件/`71` 用例、Playwright `4/4`，并覆盖授权流播；2026-07-22 的后端 `41/41` 等数据仅为历史快照，数量动态发现 |
+| frontend | 认证、文件、上传、音乐库、歌单、播放器和响应式交互 | 已实现；Step 17 技术基线与 Step 18 Crystal Music 视觉还原均已完成正式验收 |
+| tests | Google Test、Vitest 与部署后 Playwright | 2026-08-01 Step 19 最终验收：Google Test 46 目标全通过，Vitest 34 文件/298 用例全通过，隔离 E2E 13/13；数量动态发现 |
 
 ---
 
@@ -694,4 +735,4 @@ Step 17 ─── 前端体验、上传契约与浏览器验收补强 ✅ 已正
 - 应用公共入口：`http://127.0.0.1:18080`
 - CodeQL 默认探测地址：`http://localhost:8080`；也可通过 `CODEQL_SERVER_URL` 指定其他主机
 
-已删除的 `verification/` 和 `scripts/run_tp_debug.sh` 只可能出现在明确标注的历史记录中，不能作为当前命令。部署环境用户流程使用 `npm run test:e2e`，GDB 调试使用 `xmake run -d <target>`。
+已删除的 `verification/` 和 `scripts/run_tp_debug.sh` 只可能出现在明确标注的历史记录中，不能作为当前命令。部署环境用户流程使用 `bash scripts/test.sh e2e tests/e2e/user-governance.spec.ts`，GDB 调试使用 `xmake run -d <target>`。

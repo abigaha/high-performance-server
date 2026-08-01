@@ -129,4 +129,28 @@ describe('music API', () => {
       }),
     );
   });
+
+  it('renamePlaylist sends the complete editable playlist contract', async () => {
+    mockFetch.mockResolvedValueOnce({
+      ok: true,
+      status: 200,
+      json: async () => ({ id: 1, user_id: 7, name: 'New', description: 'Desc', item_count: 2, created_at: 'now' }),
+    });
+    const { renamePlaylist } = await import('../../src/api/music');
+
+    const renamed = await renamePlaylist(1, 'New', 'Desc');
+
+    expect(mockFetch).toHaveBeenCalledWith(expect.stringContaining('/api/playlists/1'), expect.objectContaining({
+      method: 'PUT',
+      body: JSON.stringify({ name: 'New', description: 'Desc' }),
+    }));
+    expect(renamed).toEqual(expect.objectContaining({ item_count: 2, created_at: 'now' }));
+  });
+
+  it('deletePlaylist accepts an empty 204 response', async () => {
+    mockFetch.mockResolvedValueOnce({ ok: true, status: 204 });
+    const { deletePlaylist } = await import('../../src/api/music');
+
+    await expect(deletePlaylist(1)).resolves.toBeUndefined();
+  });
 });

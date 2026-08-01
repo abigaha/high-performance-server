@@ -19,8 +19,8 @@ int run_benchmark() {
   auto pool = std::make_unique<hps::DatabasePool>([password_hash, salt]() -> std::unique_ptr<hps::IConnection> {
     auto conn = std::make_unique<hps::MockConnection>();
     conn->query_result = hps::QueryResult{
-      .columns = {"user_id", "username", "password_hash", "salt", "role", "email", "created_at"},
-      .rows = {{"1", "bench_user", password_hash, salt, "1", "bench@test.com", "2024-01-01"}},
+      .columns = {"user_id", "username", "password_hash", "salt", "role", "email", "vip_expires_at", "created_at"},
+      .rows = {{"1", "bench_user", password_hash, salt, "1", "bench@test.com", "", "2024-01-01 00:00:00.000000"}},
     };
     conn->execute_result = 1;
     conn->query_hook = [password_hash, salt](const std::string& sql,
@@ -32,8 +32,8 @@ int run_benchmark() {
         };
       }
       return hps::QueryResult{
-        .columns = {"user_id", "username", "password_hash", "salt", "role", "email", "created_at"},
-        .rows = {{"1", "bench_user", password_hash, salt, "1", "bench@test.com", "2024-01-01"}},
+        .columns = {"user_id", "username", "password_hash", "salt", "role", "email", "vip_expires_at", "created_at"},
+        .rows = {{"1", "bench_user", password_hash, salt, "1", "bench@test.com", "", "2024-01-01 00:00:00.000000"}},
       };
     };
     return conn;
@@ -63,17 +63,19 @@ int run_benchmark() {
     new_user.password_hash = "hash";
     new_user.salt = "salt";
     new_user.email = "qps@test.com";
-    return pool_ref.create_user(new_user);
+    return pool_ref.create_user(new_user).status == hps::MutationStatus::OK;
   });
 
   hps::bench::run_qps_steps("Auth Authenticate", levels, [&auth_ref, &password](int) {
     const auto authenticated = auth_ref.authenticate("bench_user", password);
-    return authenticated.has_value() && authenticated->user_id == 1 && authenticated->role == hps::UserRole::NORMAL;
+    return authenticated.status == hps::AuthenticationStatus::AUTHENTICATED && authenticated.user.has_value() &&
+           authenticated.user->user_id == 1 && authenticated.user->role == hps::UserRole::NORMAL;
   });
 
   hps::bench::run_qps_steps("Auth ValidateToken", levels, [&token, &auth_ref](int) {
     const auto validated = auth_ref.validate_token(token);
-    return validated.user_id == 1 && validated.role == hps::UserRole::NORMAL;
+    return validated.status == hps::TokenValidationStatus::AUTHENTICATED && validated.identity.user_id == 1 &&
+           validated.identity.role == hps::UserRole::NORMAL;
   });
 
   pool->close();

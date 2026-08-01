@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { getFiles, deleteFile, getFileDownloadUrl } from '../api/files';
+import { captureSessionSnapshot, isSessionSnapshotCurrent } from '../api/client';
 import { useAuthStore } from '../stores/auth';
 import { useToastStore } from '../stores/toast';
 import FileCard from '../components/FileCard';
@@ -13,55 +14,112 @@ export default function FileListPage() {
   const [files, setFiles] = useState<FileRecord[]>([]);
   const [total, setTotal] = useState(0);
   const [page, setPage] = useState(1);
+  const [name, setName] = useState('');
+  const [type, setType] = useState('');
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [actionError, setActionError] = useState<string | null>(null);
   const [downloadingId, setDownloadingId] = useState<number | null>(null);
   const [deletingId, setDeletingId] = useState<number | null>(null);
-  const requestIdRef = useRef(0);
-  const user = useAuthStore((s) => s.user);
+  const loadRequestIdRef = useRef(0);
+  const downloadControllerRef = useRef<AbortController | null>(null);
+  const downloadOperationIdRef = useRef(0);
+  const deleteOperationIdRef = useRef(0);
+  const sessionScopeRef = useRef(0);
+  const mountedRef = useRef(false);
+  const sessionRevision = useAuthStore((state) => state.sessionRevision);
   const showSuccess = useToastStore((state) => state.success);
   const navigate = useNavigate();
 
-  const loadFiles = useCallback(async (pageNum: number) => {
-    const requestId = ++requestIdRef.current;
+  useEffect(() => {
+    mountedRef.current = true;
+    return () => {
+      mountedRef.current = false;
+      loadRequestIdRef.current += 1;
+      downloadControllerRef.current?.abort();
+      downloadControllerRef.current = null;
+      downloadOperationIdRef.current += 1;
+      deleteOperationIdRef.current += 1;
+    };
+  }, []);
+
+  useEffect(() => {
+    sessionScopeRef.current += 1;
+    loadRequestIdRef.current += 1;
+    downloadControllerRef.current?.abort();
+    downloadControllerRef.current = null;
+    downloadOperationIdRef.current += 1;
+    deleteOperationIdRef.current += 1;
+    setDownloadingId(null);
+    setDeletingId(null);
+    setActionError(null);
+  }, [sessionRevision]);
+
+  const loadFiles = useCallback(async (pageNum: number, signal?: AbortSignal) => {
+    const requestId = ++loadRequestIdRef.current;
+    const sessionScope = sessionScopeRef.current;
+    const session = captureSessionSnapshot();
+    const isCurrentRequest = () => mountedRef.current
+      && requestId === loadRequestIdRef.current
+      && sessionScope === sessionScopeRef.current
+      && sessionRevision === useAuthStore.getState().sessionRevision
+      && isSessionSnapshotCurrent(session);
     setLoading(true);
     setError(null);
     try {
       const offset = (pageNum - 1) * PAGE_SIZE;
-      const res = await getFiles({ offset, limit: PAGE_SIZE });
-      if (requestId === requestIdRef.current) {
+      const res = await getFiles({ name: name || undefined, type: type || undefined, offset, limit: PAGE_SIZE }, signal);
+      if (isCurrentRequest()) {
         setFiles(res.items);
         setTotal(res.total);
       }
     } catch (loadError) {
-      if (requestId === requestIdRef.current) {
+      if (isCurrentRequest() && !(loadError instanceof DOMException && loadError.name === 'AbortError')) {
         setError(errorMessage(loadError, '文件列表加载失败，请稍后重试'));
       }
     } finally {
-      if (requestId === requestIdRef.current) setLoading(false);
+      if (isCurrentRequest()) setLoading(false);
     }
-  }, []);
+  }, [name, sessionRevision, type]);
 
   useEffect(() => {
-    void loadFiles(page);
+    const controller = new AbortController();
+    void loadFiles(page, controller.signal);
     return () => {
-      requestIdRef.current += 1;
+      controller.abort();
+      loadRequestIdRef.current += 1;
     };
   }, [page, loadFiles]);
 
   const handleDownload = async (id: number) => {
     if (downloadingId !== null) return;
+    const controller = new AbortController();
+    downloadControllerRef.current?.abort();
+    downloadControllerRef.current = controller;
+    const operationId = ++downloadOperationIdRef.current;
+    const sessionScope = sessionScopeRef.current;
+    const session = captureSessionSnapshot();
+    const fileName = files.find((file) => file.file_id === id)?.file_name ?? `file-${id}`;
+    const isCurrentOperation = () => mountedRef.current
+      && operationId === downloadOperationIdRef.current
+      && downloadControllerRef.current === controller
+      && !controller.signal.aborted
+      && sessionScope === sessionScopeRef.current
+      && sessionRevision === useAuthStore.getState().sessionRevision
+      && isSessionSnapshotCurrent(session);
     setActionError(null);
     setDownloadingId(id);
     try {
-      const url = await getFileDownloadUrl(id);
-      const fileName = files.find((file) => file.file_id === id)?.file_name ?? `file-${id}`;
+      const url = await getFileDownloadUrl(id, controller.signal);
+      if (!isCurrentOperation()) return;
       triggerDownload(url, fileName);
     } catch (downloadError) {
-      setActionError(errorMessage(downloadError, '文件下载失败，请稍后重试'));
+      if (isCurrentOperation()) setActionError(errorMessage(downloadError, '文件下载失败，请稍后重试'));
     } finally {
-      setDownloadingId(null);
+      if (isCurrentOperation()) {
+        downloadControllerRef.current = null;
+        setDownloadingId((current) => current === id ? null : current);
+      }
     }
   };
 
@@ -72,8 +130,19 @@ export default function FileListPage() {
 
     setActionError(null);
     setDeletingId(id);
+    const operationId = ++deleteOperationIdRef.current;
+    const loadRequestId = loadRequestIdRef.current;
+    const sessionScope = sessionScopeRef.current;
+    const session = captureSessionSnapshot();
+    const isCurrentOperation = () => mountedRef.current
+      && operationId === deleteOperationIdRef.current
+      && sessionScope === sessionScopeRef.current
+      && sessionRevision === useAuthStore.getState().sessionRevision
+      && isSessionSnapshotCurrent(session);
+    const isCurrentView = () => isCurrentOperation() && loadRequestId === loadRequestIdRef.current;
     try {
       await deleteFile(id);
+      if (!isCurrentView()) return;
       showSuccess('文件已删除');
       if (files.length === 1 && page > 1) {
         setPage((current) => current - 1);
@@ -81,9 +150,11 @@ export default function FileListPage() {
         await loadFiles(page);
       }
     } catch (deleteError) {
-      setActionError(errorMessage(deleteError, '文件删除失败，请稍后重试'));
+      if (isCurrentView()) setActionError(errorMessage(deleteError, '文件删除失败，请稍后重试'));
     } finally {
-      setDeletingId(null);
+      if (isCurrentOperation()) {
+        setDeletingId((current) => current === id ? null : current);
+      }
     }
   };
 
@@ -91,42 +162,39 @@ export default function FileListPage() {
     <div className="min-w-0">
       <div className="flex flex-wrap items-center justify-between gap-3 mb-6">
         <h1 className="text-xl font-display text-primary">文件列表</h1>
-        <button type="button" onClick={() => navigate('/upload')} className="glass-button text-sm">上传文件</button>
+        <button type="button" onClick={() => navigate('/upload')} className="glass-button min-h-11 min-w-11 text-sm">上传文件</button>
       </div>
 
       {actionError && <p role="alert" className="mb-4 text-sm text-destructive">{actionError}</p>}
 
+      <div className="mb-5 grid gap-3 sm:grid-cols-2">
+        <label className="grid gap-1 text-sm">文件名称<input className="glass-input min-h-11" value={name} onChange={(event) => { setName(event.target.value); setPage(1); }} /></label>
+        <label className="grid gap-1 text-sm">文件类型<select className="glass-input min-h-11" value={type} onChange={(event) => { setType(event.target.value); setPage(1); }}><option value="">全部类型</option><option value="audio">音频</option><option value="image">图片</option><option value="video">视频</option><option value="other">其他</option></select></label>
+      </div>
+
       {loading ? (
-        <div role="status" className="text-center text-text-muted py-12">正在加载文件...</div>
+        <section role="status" className="flex min-h-64 items-center justify-center text-center text-text-muted">
+          正在加载文件...
+        </section>
       ) : error ? (
-        <div role="alert" className="text-center py-12">
-          <p className="text-sm text-destructive mb-4">{error}</p>
-          <button type="button" onClick={() => void loadFiles(page)} className="glass-button text-sm">重试</button>
-        </div>
+        <section role="alert" className="flex min-h-64 flex-col items-center justify-center gap-4 text-center">
+          <p className="text-sm text-destructive">{error}</p>
+          <button type="button" onClick={() => void loadFiles(page)} className="glass-button min-h-11 min-w-11 text-sm">重试</button>
+        </section>
       ) : files.length === 0 ? (
-        <div className="text-center text-text-muted py-12">
-          <p className="mb-4">暂无文件</p>
-          <button type="button" onClick={() => navigate('/upload')} className="glass-button text-sm">上传第一个文件</button>
-        </div>
+        <section className="flex min-h-64 flex-col items-center justify-center gap-4 text-center text-text-muted">
+          <p>暂无文件</p>
+          <button type="button" onClick={() => navigate('/upload')} className="glass-button min-h-11 min-w-11 text-sm">上传第一个文件</button>
+        </section>
       ) : (
         <>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
             {files.map((f) => (
-              <article
-                key={f.file_id}
-                role="link"
-                tabIndex={0}
-                aria-label={`查看 ${f.file_name} 的详情`}
-                onClick={() => navigate(`/files/${f.file_id}`)}
-                onKeyDown={(event) => {
-                  if (event.key === 'Enter') navigate(`/files/${f.file_id}`);
-                }}
-                className="cursor-pointer focus-visible:outline-2 focus-visible:outline-primary focus-visible:outline-offset-2"
-              >
+              <article key={f.file_id}>
                 <FileCard
                   file={f}
                   onDownload={handleDownload}
-                  onDelete={user?.role === 'VIP' ? handleDelete : undefined}
+                  onDelete={f.can_delete ? handleDelete : undefined}
                   downloading={downloadingId === f.file_id}
                   deleting={deletingId === f.file_id}
                 />

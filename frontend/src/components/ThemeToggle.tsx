@@ -34,9 +34,13 @@ export default function ThemeToggle() {
       aria-pressed={dark}
       title={label}
     >
-      {dark ? <Sun size={20} aria-hidden="true" /> : <Moon size={20} aria-hidden="true" />}
-      <span>外观</span>
-      <span className="ml-auto text-xs text-text-muted">{dark ? '深色' : '浅色'}</span>
+      {dark
+        ? <Sun size={20} className="theme-toggle-icon" aria-hidden="true" />
+        : <Moon size={20} className="theme-toggle-icon" aria-hidden="true" />}
+      <span className="theme-toggle-label">外观</span>
+      <span className="theme-toggle-state ml-auto text-xs text-text-muted">
+        {dark ? '深色' : '浅色'}
+      </span>
     </button>
   );
 }

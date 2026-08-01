@@ -1,13 +1,22 @@
 #include "auth_service.h"
+#include "database_pool.h"
 #include "http_server.h"
+#include "mock_connection.h"
+#include "pending_chunk_deletions.h"
 #include "tcp_client.h"
 #include "thread_pool.h"
+#include "upload_policy.h"
+#include "upload_setup.h"
 
 #include <gtest/gtest.h>
 
 #include <atomic>
 #include <chrono>
+#include <condition_variable>
 #include <cstdint>
+#include <future>
+#include <memory>
+#include <mutex>
 #include <stdexcept>
 #include <string>
 #include <thread>
@@ -17,11 +26,18 @@ using namespace hps;
 // 模拟认证服务：已知 token "valid-token" → NORMAL，其余 → GUEST
 class MockAuthService : public IAuthService {
 public:
-  AuthUser validate_token(const std::string& token) override {
-    if (token == "valid-token") {
-      return AuthUser{1, "test", UserRole::NORMAL};
+  TokenValidationResult validate_token(const std::string& token) override {
+    if (token == "throw-token") {
+      throw std::runtime_error("authentication storage failure");
     }
-    return AuthUser{};
+    if (token == "storage-error-token") {
+      return {TokenValidationStatus::STORAGE_ERROR, {}};
+    }
+    if (token == "valid-token") {
+      return {TokenValidationStatus::AUTHENTICATED,
+              EffectiveIdentity{1, "test", UserRole::NORMAL, VipStatus::NONE, std::nullopt}};
+    }
+    return {};
   }
 
   std::string generate_token(const AuthUser& user) override {
@@ -29,10 +45,10 @@ public:
     return "mock-token";
   }
 
-  std::optional<AuthUser> authenticate(const std::string& username, const std::string& password) override {
+  AuthenticationResult authenticate(const std::string& username, const std::string& password) override {
     static_cast<void>(username);
     static_cast<void>(password);
-    return std::nullopt;
+    return {};
   }
 };
 
@@ -42,6 +58,244 @@ int main(int argc, char** argv) {
 }
 
 namespace {
+
+std::string send_raw(uint16_t port, const std::string& raw);
+
+class UploadSetupFileSystem final : public IFileSystem {
+public:
+  std::vector<FileChunk> split_file(const std::string& path, std::size_t chunk_size) override {
+    static_cast<void>(path);
+    static_cast<void>(chunk_size);
+    return {};
+  }
+
+  std::string compute_file_hash(const std::string& path) override {
+    static_cast<void>(path);
+    return {};
+  }
+
+  std::string compute_chunk_hash(const FileChunk& chunk) override {
+    static_cast<void>(chunk);
+    return {};
+  }
+
+  bool store_file(const std::string& path, const std::vector<char>& data) override {
+    static_cast<void>(path);
+    static_cast<void>(data);
+    active_uploads_during_store = coordinator->active_uploads();
+    return true;
+  }
+
+  bool delete_file(const std::string& path) override {
+    static_cast<void>(path);
+    return false;
+  }
+
+  std::optional<std::vector<char>> read_file(const std::string& path) override {
+    static_cast<void>(path);
+    return std::nullopt;
+  }
+
+  ChunkLifecycleCoordinator* coordinator{nullptr};
+  std::size_t active_uploads_during_store{0};
+};
+
+TEST(UploadSetupTest, ProductionFactoryOwnsGuardAcrossPhysicalStoreAndDatabaseFinalize) {
+  MockConnection* connection = nullptr;
+  DatabasePool database([&connection] {
+    auto mock = std::make_unique<MockConnection>();
+    connection = mock.get();
+    return mock;
+  });
+  DbConfig config;
+  config.pool_size = 1;
+  ASSERT_TRUE(database.init(config));
+  UploadSetupFileSystem file_system;
+  ChunkLifecycleCoordinator coordinator;
+  file_system.coordinator = &coordinator;
+  ASSERT_TRUE(database.bind_chunk_lifecycle_coordinator(coordinator));
+  auto setup = make_upload_setup(database, file_system, coordinator);
+  UploadStreamContext context;
+  context.file_name = "track.mp3";
+  HttpRequest request;
+  HttpParser parser;
+
+  EXPECT_EQ(coordinator.active_uploads(), 0U);
+  setup(request, context, parser);
+  EXPECT_EQ(coordinator.active_uploads(), 1U);
+  ASSERT_TRUE(context.store_chunk_data("data", "hash"));
+  EXPECT_EQ(file_system.active_uploads_during_store, 1U);
+  connection->query_hook = [&coordinator](const std::string&, const std::vector<std::string>&) {
+    EXPECT_EQ(coordinator.active_uploads(), 1U);
+    return std::optional<QueryResult>{QueryResult{}};
+  };
+  EXPECT_FALSE(database.get_file_record_by_hash("file-hash"));
+  context.chunk_lifecycle_guard.reset();
+  EXPECT_EQ(coordinator.active_uploads(), 0U);
+}
+
+TEST(UploadSetupTest, ProductionFactoryRejectsCoordinatorDifferentFromDatabaseCanonical) {
+  DatabasePool database;
+  UploadSetupFileSystem file_system;
+  ChunkLifecycleCoordinator canonical;
+  ChunkLifecycleCoordinator other;
+  ASSERT_TRUE(database.bind_chunk_lifecycle_coordinator(canonical));
+
+  EXPECT_THROW(static_cast<void>(make_upload_setup(database, file_system, other)), std::logic_error);
+}
+
+void wait_for_cleanup_waiter(const ChunkLifecycleCoordinator& coordinator) {
+  const auto deadline = std::chrono::steady_clock::now() + std::chrono::seconds(2);
+  while (coordinator.cleanup_waiters() == 0 && std::chrono::steady_clock::now() < deadline) std::this_thread::yield();
+  ASSERT_GT(coordinator.cleanup_waiters(), 0U);
+}
+
+TEST(UploadStreamContextTest, LifecycleGuardIsReleasedByContextDestructor) {
+  DatabasePool database;
+  UploadSetupFileSystem file_system;
+  ChunkLifecycleCoordinator coordinator;
+  file_system.coordinator = &coordinator;
+  ASSERT_TRUE(database.bind_chunk_lifecycle_coordinator(coordinator));
+  auto setup = make_upload_setup(database, file_system, coordinator);
+  std::atomic<bool> acquired{false};
+  auto context = std::make_unique<UploadStreamContext>();
+  context->file_name = "track.mp3";
+  HttpRequest request;
+  HttpParser parser;
+  setup(request, *context, parser);
+
+  auto future = std::async(std::launch::async, [&] {
+    auto guard = coordinator.acquire_cleanup_guard();
+    acquired.store(true);
+  });
+
+  wait_for_cleanup_waiter(coordinator);
+  EXPECT_FALSE(acquired.load());
+  context.reset();
+  future.get();
+  EXPECT_TRUE(acquired.load());
+}
+
+std::string valid_mp3_payload() {
+  std::string payload(kAudioSignatureProbeSize, '\0');
+  payload[0] = static_cast<char>(0xFF);
+  payload[1] = static_cast<char>(0xFB);
+  payload[2] = static_cast<char>(0x90);
+  return payload;
+}
+
+std::string upload_request(const std::string& payload) {
+  return "POST /upload HTTP/1.1\r\nHost: localhost\r\nAuthorization: Bearer valid-token\r\n"
+         "Content-Disposition: attachment; filename=\"track.mp3\"\r\nContent-Length: " +
+         std::to_string(payload.size()) + "\r\nConnection: close\r\n\r\n" + payload;
+}
+
+void wait_for_no_active_uploads(const ChunkLifecycleCoordinator& coordinator) {
+  const auto deadline = std::chrono::steady_clock::now() + std::chrono::seconds(2);
+  while (coordinator.active_uploads() != 0 && std::chrono::steady_clock::now() < deadline) std::this_thread::yield();
+  ASSERT_EQ(coordinator.active_uploads(), 0U);
+}
+
+TEST(UploadSetupTest, ProductionSetupReleasesGuardAfterSignatureRejection) {
+  MockAuthService auth;
+  DatabasePool database;
+  UploadSetupFileSystem file_system;
+  ChunkLifecycleCoordinator coordinator;
+  file_system.coordinator = &coordinator;
+  ASSERT_TRUE(database.bind_chunk_lifecycle_coordinator(coordinator));
+  auto setup = make_upload_setup(database, file_system, coordinator);
+  HttpServer server(TcpServer::Config{0, 128, 2, 50});
+  server.set_auth_service(auth);
+  server.upload("/upload", [](const HttpRequest&, UploadStreamContext&, HttpResponse&) {}, setup);
+  ASSERT_TRUE(server.init());
+  std::thread thread([&server] { server.start(); });
+
+  const auto response = send_raw(server.actual_port(), upload_request(std::string(kAudioSignatureProbeSize, 'x')));
+  wait_for_no_active_uploads(coordinator);
+  server.stop();
+  thread.join();
+
+  EXPECT_NE(response.find("415 Unsupported Media Type"), std::string::npos) << response;
+}
+
+TEST(UploadSetupTest, ProductionSetupReleasesGuardAfterHandlerException) {
+  MockAuthService auth;
+  DatabasePool database;
+  UploadSetupFileSystem file_system;
+  ChunkLifecycleCoordinator coordinator;
+  file_system.coordinator = &coordinator;
+  ASSERT_TRUE(database.bind_chunk_lifecycle_coordinator(coordinator));
+  auto setup = make_upload_setup(database, file_system, coordinator);
+  HttpServer server(TcpServer::Config{0, 128, 2, 50});
+  server.set_auth_service(auth);
+  server.upload(
+    "/upload",
+    [](const HttpRequest&, UploadStreamContext&, HttpResponse&) { throw std::runtime_error("failed"); },
+    setup);
+  ASSERT_TRUE(server.init());
+  std::thread thread([&server] { server.start(); });
+
+  const auto response = send_raw(server.actual_port(), upload_request(valid_mp3_payload()));
+  wait_for_no_active_uploads(coordinator);
+  server.stop();
+  thread.join();
+
+  EXPECT_NE(response.find("500 Internal Server Error"), std::string::npos) << response;
+}
+
+TEST(UploadSetupTest, ProductionSetupReleasesGuardWhenRequestStateResets) {
+  MockAuthService auth;
+  DatabasePool database;
+  UploadSetupFileSystem file_system;
+  ChunkLifecycleCoordinator coordinator;
+  file_system.coordinator = &coordinator;
+  ASSERT_TRUE(database.bind_chunk_lifecycle_coordinator(coordinator));
+  auto setup = make_upload_setup(database, file_system, coordinator);
+  HttpServer server(TcpServer::Config{0, 128, 2, 50});
+  server.set_auth_service(auth);
+  server.upload(
+    "/upload",
+    [&coordinator](const HttpRequest&, UploadStreamContext&, HttpResponse& response) {
+      EXPECT_EQ(coordinator.active_uploads(), 1U);
+      response.set_status(201, "Created");
+    },
+    setup);
+  ASSERT_TRUE(server.init());
+  std::thread thread([&server] { server.start(); });
+
+  const auto response = send_raw(server.actual_port(), upload_request(valid_mp3_payload()));
+  wait_for_no_active_uploads(coordinator);
+  server.stop();
+  thread.join();
+
+  EXPECT_NE(response.find("201 Created"), std::string::npos) << response;
+}
+
+TEST(HttpServerTest, AuthenticationExceptionRemainsAStorageErrorInsideConnectionHandling) {
+  MockAuthService auth;
+  HttpServer server(TcpServer::Config{0, 128, 2, 50});
+  server.set_auth_service(auth);
+  std::atomic<int> received_status{static_cast<int>(TokenValidationStatus::INVALID)};
+  server.get("/protected", [&received_status](const HttpRequest& request, HttpResponse& response) {
+    received_status.store(static_cast<int>(request.auth_status));
+    response.set_status(200, "OK");
+    response.body = "handled";
+    response.set_content_length(response.body.size());
+  });
+  ASSERT_TRUE(server.init());
+  std::thread thread([&server]() { server.start(); });
+  thread.detach();
+  std::this_thread::sleep_for(std::chrono::milliseconds(100));
+
+  const auto response = send_raw(server.actual_port(),
+                                 "GET /protected HTTP/1.1\r\nHost: localhost\r\n"
+                                 "Authorization: Bearer throw-token\r\nConnection: close\r\n\r\n");
+  server.stop();
+  std::this_thread::sleep_for(std::chrono::milliseconds(50));
+
+  EXPECT_NE(response.find("200 OK"), std::string::npos) << response;
+  EXPECT_EQ(received_status.load(), static_cast<int>(TokenValidationStatus::STORAGE_ERROR));
+}
 
 // 辅助：发送原始 HTTP 请求并读取响应
 std::string send_raw(uint16_t port, const std::string& raw) {
@@ -237,7 +491,8 @@ TEST(HttpServerTest, UploadNoAuth) {
 
   EXPECT_FALSE(setup_called.load()) << "未鉴权不应触发流式 setup";
   ASSERT_NE(resp.find("401 Unauthorized"), std::string::npos) << "响应: " << resp;
-  ASSERT_NE(resp.find("auth required"), std::string::npos) << "响应: " << resp;
+  ASSERT_NE(resp.find("401 Unauthorized"), std::string::npos) << "响应: " << resp;
+  ASSERT_NE(resp.find("AUTH_REQUIRED"), std::string::npos) << "响应: " << resp;
 }
 
 // TH9: upload 已鉴权 → 流式 setup 被触发，handler 正常处理

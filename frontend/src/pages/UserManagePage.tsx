@@ -12,7 +12,10 @@ export default function UserManagePage() {
         <span className="rounded-full bg-amber-500/20 px-2 py-0.5 text-xs text-amber-700 dark:text-amber-300">VIP 专属</span>
       </div>
 
-      <section className="glass-card p-5 sm:p-6" aria-labelledby="user-management-status">
+      <section
+        className="glass-card relative overflow-hidden p-5 pl-6 before:absolute before:inset-y-0 before:left-0 before:w-1 before:bg-primary sm:p-6 sm:pl-7"
+        aria-labelledby="user-management-status"
+      >
         <h2 id="user-management-status" className="mb-2 text-base font-medium">暂无用户目录</h2>
         <p className="text-sm leading-6 text-text-muted">
           服务端当前未开放用户列表和管理接口，此页面不会使用文件数据推断用户状态。

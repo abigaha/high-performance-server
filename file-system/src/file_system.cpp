@@ -197,13 +197,21 @@ bool FileSystem::store_file(const std::string& path, const std::vector<char>& da
 }
 
 bool FileSystem::delete_file(const std::string& path) {
+  return delete_file_status(path) == ChunkDeleteStatus::DELETED;
+}
+
+ChunkDeleteStatus FileSystem::delete_file_status(const std::string& path) {
   std::string resolved = resolve_path(path);
   if (resolved.empty()) {
-    return false;
+    return ChunkDeleteStatus::ERROR;
   }
 
   std::error_code ec;
-  return fs::remove(resolved, ec) && !ec;
+  const bool removed = fs::remove(resolved, ec);
+  if (ec) {
+    return ChunkDeleteStatus::ERROR;
+  }
+  return removed ? ChunkDeleteStatus::DELETED : ChunkDeleteStatus::NOT_FOUND;
 }
 
 std::optional<std::vector<char>> FileSystem::read_file(const std::string& path) {

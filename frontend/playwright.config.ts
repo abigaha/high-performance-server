@@ -15,7 +15,10 @@ function formatTimestamp(date: Date): string {
 }
 
 function sanitizePathPart(value: string): string {
-  return value.replace(/[^A-Za-z0-9_-]+/g, '_').replace(/^_+|_+$/g, '');
+  return value
+    .replace(/latest/gi, '')
+    .replace(/[^A-Za-z0-9_-]+/g, '_')
+    .replace(/^_+|_+$/g, '');
 }
 
 function makeRunId(): string {
@@ -25,9 +28,7 @@ function makeRunId(): string {
 
   const safeRequested = sanitizePathPart(requested);
   if (!safeRequested) return timestamp;
-  return /\d{8}_\d{6}/.test(safeRequested)
-    ? safeRequested
-    : `${timestamp}_${safeRequested}`;
+  return `${timestamp}_${safeRequested}`;
 }
 
 const runId = makeRunId();
@@ -35,8 +36,21 @@ const baseURL = process.env.PLAYWRIGHT_BASE_URL?.trim() || 'http://127.0.0.1:180
 const executablePath = process.env.PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH?.trim();
 const outputRoot = process.env.PLAYWRIGHT_OUTPUT_ROOT?.trim() || 'test-results';
 const reportRoot = process.env.PLAYWRIGHT_REPORT_ROOT?.trim() || 'playwright-report';
-const outputDir = path.resolve(outputRoot, `e2e_${runId}`);
-const reportDir = path.resolve(reportRoot, `e2e_${runId}`);
+
+function resolveRunDirectory(root: string, variableName: string): string {
+  if (root.split(/[\\/]/).some((segment) => /latest/i.test(segment))) {
+    throw new Error(`环境变量 ${variableName} 不允许包含 latest 路径段`);
+  }
+
+  const resolved = path.resolve(root, `e2e_${runId}`);
+  if (/latest/i.test(resolved)) {
+    throw new Error(`Playwright ${variableName} 最终路径不允许包含 latest`);
+  }
+  return resolved;
+}
+
+const outputDir = resolveRunDirectory(outputRoot, 'PLAYWRIGHT_OUTPUT_ROOT');
+const reportDir = resolveRunDirectory(reportRoot, 'PLAYWRIGHT_REPORT_ROOT');
 
 export default defineConfig({
   testDir: './tests/e2e',
@@ -65,20 +79,39 @@ export default defineConfig({
   },
   projects: [
     {
+      name: 'user-governance',
+      testMatch: /user-governance\.spec\.ts/,
+      use: { viewport: { width: 1440, height: 900 } },
+    },
+    {
       name: 'desktop',
+      testMatch: /deployment\.spec\.ts/,
       use: { viewport: { width: 1440, height: 900 } },
     },
     {
       name: 'desktop-compact',
+      testMatch: /deployment\.spec\.ts/,
       use: { viewport: { width: 1280, height: 800 } },
     },
     {
       name: 'tablet',
+      testMatch: /deployment\.spec\.ts/,
       use: { viewport: { width: 768, height: 1024 } },
     },
     {
       name: 'mobile',
+      testMatch: /deployment\.spec\.ts/,
       use: { viewport: { width: 390, height: 844 } },
+    },
+    {
+      name: 'visual-breakpoint',
+      testMatch: /visual\.spec\.ts/,
+      use: { viewport: { width: 1024, height: 768 } },
+    },
+    {
+      name: 'visual-mobile-small',
+      testMatch: /visual\.spec\.ts/,
+      use: { viewport: { width: 375, height: 812 } },
     },
   ],
 });

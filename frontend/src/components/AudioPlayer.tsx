@@ -2,7 +2,13 @@ import { useEffect, useRef, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import { Pause, Play, SkipBack, SkipForward, SpeakerHigh } from '@phosphor-icons/react';
 import { getFileStreamUrl } from '../api/files';
-import { usePlayerStore } from '../stores/player';
+import { getMusicDetail } from '../api/music';
+import { getCoverPlaceholder } from '../lib/coverPlaceholder';
+import {
+  capturePlayerGeneration,
+  isPlayerGenerationCurrent,
+  usePlayerStore,
+} from '../stores/player';
 import type { MusicMeta } from '../types/api';
 
 interface Props {
@@ -21,8 +27,8 @@ export default function AudioPlayer({ mode }: Props) {
   const [playbackError, setPlaybackError] = useState<string | null>(null);
   const {
     currentTrack,
-    playlist,
-    playlistIndex,
+    queue,
+    queueIndex,
     playing,
     currentTime,
     duration,
@@ -35,6 +41,7 @@ export default function AudioPlayer({ mode }: Props) {
     setVolume,
     setCurrentTime,
     setDuration,
+    hydrateTrack,
   } = usePlayerStore();
 
   const visible = mode === 'fullscreen' || !location.pathname.startsWith('/player/');
@@ -42,10 +49,16 @@ export default function AudioPlayer({ mode }: Props) {
 
   useEffect(() => {
     let active = true;
+    const audio = audioRef.current;
     const releaseOwnedUrl = () => {
       const ownedUrl = ownedStreamUrlRef.current;
       if (!ownedUrl) return;
       ownedStreamUrlRef.current = null;
+      if (audio?.getAttribute('src') === ownedUrl) {
+        audio.pause();
+        audio.removeAttribute('src');
+        audio.load();
+      }
       URL.revokeObjectURL(ownedUrl);
     };
 
@@ -60,7 +73,14 @@ export default function AudioPlayer({ mode }: Props) {
       };
     }
     if (!streamFileId) {
-      setPlaybackError('缺少可播放文件信息，请重新打开该音乐');
+      const playerGeneration = capturePlayerGeneration();
+      void getMusicDetail(currentTrack.music_id)
+        .then((detail) => {
+          if (active && isPlayerGenerationCurrent(playerGeneration)) hydrateTrack(detail);
+        })
+        .catch((error: unknown) => {
+          if (active) setPlaybackError(errorMessage(error, '无法加载可播放文件信息'));
+        });
       return () => {
         active = false;
         releaseOwnedUrl();
@@ -85,20 +105,40 @@ export default function AudioPlayer({ mode }: Props) {
       active = false;
       releaseOwnedUrl();
     };
-  }, [currentTrack, streamFileId, visible]);
+  }, [currentTrack, hydrateTrack, streamFileId, visible]);
 
   useEffect(() => {
     const audio = audioRef.current;
     if (!visible || !audio || !currentTrack || !streamUrl) return;
+    let active = true;
+    const playerGeneration = capturePlayerGeneration();
+    const expectedState = usePlayerStore.getState();
+    const playerStateRevision = expectedState.stateRevision;
+    const expectedTrack = expectedState.currentTrack;
+    const expectedEntry = expectedState.queue[expectedState.queueIndex];
+    const isCurrentPlayback = () => {
+      const state = usePlayerStore.getState();
+      return active
+        && audioRef.current === audio
+        && audio.getAttribute('src') === streamUrl
+        && isPlayerGenerationCurrent(playerGeneration)
+        && state.stateRevision === playerStateRevision
+        && state.currentTrack === expectedTrack
+        && state.queue[state.queueIndex] === expectedEntry;
+    };
 
     if (playing) {
       void audio.play().catch((error: unknown) => {
+        if (!isCurrentPlayback()) return;
         setPlaybackError(`播放失败：${errorMessage(error, '浏览器拒绝了播放请求')}`);
         pause();
       });
     } else {
       audio.pause();
     }
+    return () => {
+      active = false;
+    };
   }, [playing, currentTrack, pause, streamUrl, visible]);
 
   useEffect(() => {
@@ -110,8 +150,9 @@ export default function AudioPlayer({ mode }: Props) {
   const effectiveDuration = duration > 0 ? duration : Math.max(0, currentTrack.duration_sec);
   const seekMaximum = Math.max(effectiveDuration, 1);
   const seekValue = Math.min(Math.max(currentTime, 0), seekMaximum);
-  const canGoPrevious = playlistIndex > 0;
-  const canGoNext = playlistIndex >= 0 && playlistIndex < playlist.length - 1;
+  const canGoPrevious = queueIndex > 0;
+  const canGoNext = queueIndex >= 0 && queueIndex < queue.length - 1;
+  const currentSource = queue[queueIndex]?.source.kind ?? 'SINGLE';
 
   const handleSeek = (value: number) => {
     const bounded = Math.min(Math.max(value, 0), effectiveDuration);
@@ -198,9 +239,15 @@ export default function AudioPlayer({ mode }: Props) {
 
   if (mode === 'mini') {
     return (
-      <div className="frosted-bar fixed bottom-0 left-0 right-0 z-40 min-h-16 px-3 py-2 sm:px-5 lg:left-60" aria-label="迷你播放器">
+      <div className="frosted-bar fixed bottom-0 left-0 right-0 z-40 min-h-16 px-3 py-2 sm:px-5 lg:left-60" aria-label="迷你播放器" data-source={currentSource}>
         {media}
         <div className="flex min-w-0 items-center gap-3">
+          <img
+            src={getCoverPlaceholder(currentTrack.music_id)}
+            alt=""
+            aria-hidden="true"
+            className="h-12 w-12 shrink-0 rounded-lg object-cover"
+          />
           <div className="min-w-0 flex-1 sm:w-40 sm:flex-none">
             <p className="truncate text-xs font-medium">{currentTrack.title}</p>
             <p className="truncate text-[11px] text-text-muted">{currentTrack.artist || '未知艺术家'}</p>
@@ -229,11 +276,14 @@ export default function AudioPlayer({ mode }: Props) {
   }
 
   return (
-    <section className="glass-card mx-auto mt-4 max-w-lg p-5 sm:p-8" aria-label="音乐播放器">
+    <section className="mx-auto mt-4 max-w-lg px-5 py-4 sm:px-8" aria-label="音乐播放器">
       {media}
-      <div className="mx-auto mb-6 flex aspect-square w-40 items-center justify-center rounded-lg border border-primary/20 bg-primary/10 sm:w-48" aria-hidden="true">
-        <div className="h-16 w-16 rounded-full border-2 border-primary/30" />
-      </div>
+      <img
+        src={getCoverPlaceholder(currentTrack.music_id)}
+        alt=""
+        aria-hidden="true"
+        className="player-cover mx-auto mb-6 aspect-square w-[clamp(12rem,42vw,22rem)] rounded-lg object-cover"
+      />
       <h2 className="break-words text-center text-lg font-display">{currentTrack.title}</h2>
       <p className="mb-6 break-words text-center text-sm text-text-muted">{currentTrack.artist || '未知艺术家'}</p>
       {timeline}

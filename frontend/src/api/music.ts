@@ -76,6 +76,17 @@ export async function createPlaylist(userId: number, name: string, description?:
   });
 }
 
+export async function renamePlaylist(playlistId: number, name: string, description: string): Promise<Playlist> {
+  return request<Playlist>(`/api/playlists/${playlistId}`, {
+    method: 'PUT',
+    body: JSON.stringify({ name, description }),
+  });
+}
+
+export async function deletePlaylist(playlistId: number): Promise<void> {
+  await request<void>(`/api/playlists/${playlistId}`, { method: 'DELETE' });
+}
+
 export async function getPlaylistItems(playlistId: number): Promise<PlaylistItem[]> {
   const response = await request<PlaylistItemsResponse>(`/api/playlists/${playlistId}/items`);
   return response.items;

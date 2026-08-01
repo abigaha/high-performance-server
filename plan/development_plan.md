@@ -28,14 +28,26 @@
 | Step 16 | 后端数据库重构与音乐库/歌单 API | 已完成 | [step-16-backend-music.md](step-16-backend-music.md) |
 | - | Prepared Statement 查询修复 | 已完成 | [fix-prepared-statement.md](fix-prepared-statement.md) |
 | Step 17 | 前端体验、上传契约与浏览器验收补强 | 已完成，作为 Step 18 的技术基线 | [step-17-frontend-optimization.md](step-17-frontend-optimization.md)、[bugfix-step17-runtime-regressions.md](bugfix-step17-runtime-regressions.md) |
-| Step 18 | Crystal Music UI 视觉还原 | 计划中 | [step-18-ui-visual-restoration.md](step-18-ui-visual-restoration.md)，仅调整 UI 视觉呈现，保留 Step 17 技术修复和现有功能契约 |
+| Step 18 | Crystal Music UI 视觉还原 | 已完成（2026-07-27） | [step-18-ui-visual-restoration.md](step-18-ui-visual-restoration.md)，UI 视觉还原、质量门禁、截图审批和六项目浏览器验收均已通过，Step 17 技术修复和现有功能契约保持不变 |
+| Step 19 | 用户功能闭环、VIP 生命周期与管理员治理 | 已完成（2026-08-01） | [step-19-user-feature-completion.md](step-19-user-feature-completion.md)；Step 2 整体审查、Step 3-6 正式门禁与最终隔离 E2E（13/13）全部通过，已提交并 push 到 master |
 
 ## Step 17 技术基线与 Step 18 UI 范围
 
 - Step 17 已完成上传原始文件字节、格式与大小安全边界、并发队列、认证恢复、受保护下载与播放、播放器生命周期、响应式导航和无障碍交互的修复；其 A-F 运行时回归已在 2026-07-23 完成最终验收。
 - Step 17 的技术和测试基线在 Step 18 中必须完整保留：上传协议、角色权限、认证 Blob、已认证完整/Range 流播、容器健康检查、错误状态和现有自动化用例均不得回退。
 - Step 18 只恢复 Crystal Music 的青绿玻璃态、毛玻璃、浅/深绿主题、字体、圆角、阴影、页面构图和响应式视觉层次；不改变路由、接口、数据模型、业务流程或后端能力。
+- Step 18 已于 2026-07-27 完成：CodeQL `0 critical + 0 high`，Google Test `42/42`，Vitest `21/106`，六项目 Playwright `15 passed`、`3 skipped`、`0 failed`，12 张截图基线已人工检查。
 - 2026-07-22 的 P0 诊断与未覆盖授权流播的验收结果保留为历史事实；A-F 修复、全量质量门禁和 Docker 四视口最终验收已在 [bugfix-step17-runtime-regressions.md](bugfix-step17-runtime-regressions.md) 中记录为完成。
+
+## Step 19 当前阶段
+
+- Step 19 于 2026-08-01 完成全部验收并提交 push 到 master。
+- Step 2 整体审查通过（6 类问题均已正确实现，E2E-10 flaky 修复）。
+- Step 3 Lint 通过：`bash scripts/lint.sh --changed`，clang-tidy 0/0/0，cppcheck 0/0/0/0，前端 Oxlint 通过。
+- Step 4 编译通过：`bash scripts/compile.sh build`，后端与前端 0 error/warning。
+- Step 5 CodeQL 通过：任务 `d13ae231-d80b-42ac-b180-71df6271de41`，`critical=0`，`high=0`。
+- Step 6 全量测试通过：Google Test 46 目标全通过，Vitest 34 文件/298 用例全通过，脚本回归全通过。
+- 最终隔离 E2E 通过：`bash scripts/test.sh e2e tests/e2e/user-governance.spec.ts`，13/13，0 failed。
 
 ## 当前稳定入口
 
@@ -45,6 +57,7 @@
 | Lint | `bash scripts/lint.sh --all` | clang-tidy、cppcheck 与前端 Oxlint |
 | 构建 | `bash scripts/compile.sh build` | 构建 C++ 后端与前端生产包 |
 | 测试 | `bash scripts/test.sh` | 运行全部 Google Test 与前端 Vitest |
+| 隔离 E2E | `bash scripts/test.sh e2e tests/e2e/user-governance.spec.ts` | 创建隔离 Docker project 后运行指定 Playwright spec，并在退出时清理 |
 | CodeQL | `bash scripts/codeql.sh run` | 探测并使用 CodeQL 服务 |
 | 正式流水线 | `bash scripts/pipeline.sh all` | 格式化、Lint、构建、CodeQL、测试，失败即停止 |
 | Docker | `bash scripts/docker.sh deploy` | 构建并启动 MySQL、后端和 nginx；另有 `status`、`health`、`logs`、`stop` |
@@ -83,14 +96,10 @@ Step 17 在 2026-07-22 的修复前验收实际依次执行了四个分项门禁
 | `bash scripts/codeql.sh run` | 任务 `fa999293-4980-4356-83b3-a2307e87ff18` 通过，`critical=0`、`high=0` |
 | `bash scripts/test.sh` | 后端 Google Test 41/41，前端 Vitest 18 个测试文件、71 个用例全部通过 |
 
-真实浏览器验收在部署健康后单独执行：
+真实浏览器验收通过隔离脚本单独执行：
 
 ```bash
-bash scripts/docker.sh deploy
-cd frontend
-PLAYWRIGHT_BASE_URL=http://127.0.0.1:18080 npm run test:e2e
-cd ..
-bash scripts/docker.sh logs
+bash scripts/test.sh e2e tests/e2e/user-governance.spec.ts
 ```
 
 最终标准为：clang-tidy 与 cppcheck 无门禁级问题，编译无错误和警告，CodeQL 无 critical/high，后端与前端自动化测试全部通过，配置的桌面与移动视口 E2E 全部通过且浏览器控制台没有未处理错误。

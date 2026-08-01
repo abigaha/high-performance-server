@@ -290,7 +290,6 @@ public:
                                                     const std::string& type_filter,
                                                     int offset, int limit,
                                                     int& out_total) = 0;
-  virtual bool delete_file_record(int64_t file_id) = 0;
   virtual bool update_file_record(const FileRecord& record) = 0;
   virtual bool update_user(const User& user) = 0;
 

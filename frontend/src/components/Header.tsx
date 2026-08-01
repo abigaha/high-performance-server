@@ -16,7 +16,9 @@ function getPageTitle(pathname: string): string {
   if (pathname === '/my/music') return '我的歌单';
   if (pathname === '/upload') return '上传音频';
   if (/^\/player\/[^/]+$/.test(pathname)) return '播放器';
-  if (pathname === '/users') return '用户管理';
+  if (pathname === '/users' || pathname === '/admin/users') return '用户管理';
+  if (pathname === '/profile') return '个人资料';
+  if (pathname === '/vip') return '会员中心';
   return 'Crystal';
 }
 
@@ -28,7 +30,7 @@ export default function Header({ menuOpen, onMenuOpen, menuButtonRef }: HeaderPr
 
   const handleLogout = () => {
     logout();
-    navigate('/login');
+    navigate('/login', { replace: true });
   };
 
   return (
@@ -46,7 +48,9 @@ export default function Header({ menuOpen, onMenuOpen, menuButtonRef }: HeaderPr
         >
           <List size={22} aria-hidden="true" />
         </button>
-        <h1 className="truncate text-base font-semibold sm:text-lg">{getPageTitle(location.pathname)}</h1>
+        <h1 className="app-header-title truncate text-base font-semibold sm:text-lg">
+          {getPageTitle(location.pathname)}
+        </h1>
       </div>
 
       {user && (

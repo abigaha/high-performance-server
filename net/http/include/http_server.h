@@ -2,6 +2,7 @@
 
 #include "auth_middleware.h"
 #include "auth_service.h"
+#include "chunk_lifecycle_coordinator.h"
 #include "http_parser.h"
 #include "http_request.h"
 #include "http_response.h"
@@ -43,6 +44,7 @@ struct UploadStreamContext {
   bool initial_chunk_probe_completed{false};
   bool failed{false};
   bool size_exceeded{false};
+  std::optional<ChunkLifecycleCoordinator::UploadGuard> chunk_lifecycle_guard;
 
   UploadStreamContext() = default;
   ~UploadStreamContext();

@@ -1,21 +1,36 @@
 #include "auth_service.h"
 
+#include "authorization.h"
 #include "database_pool.h"
+#include "iconnection.h"
 
+#include <openssl/crypto.h>
 #include <openssl/evp.h>
 #include <openssl/hmac.h>
 #include <openssl/rand.h>
 
+#include <algorithm>
 #include <array>
+#include <cctype>
+#include <charconv>
 #include <chrono>
 #include <cstdlib>
 #include <iomanip>
+#include <iterator>
+#include <limits>
+#include <nlohmann/json.hpp>
+#include <ranges>
 #include <sstream>
+#include <stdexcept>
+#include <string_view>
+#include <utility>
 #include <vector>
 
 namespace hps {
 
 namespace {
+
+constexpr std::chrono::seconds kTokenLifetime = std::chrono::hours{24};
 
 std::string to_hex(const unsigned char* data, std::size_t len) {
   static constexpr std::array<char, 17> kHexChars = {
@@ -77,6 +92,57 @@ std::string base64_encode(const std::string& in) {
   return out;
 }
 
+template <typename Integer>
+bool parse_integer(std::string_view value, Integer& result) noexcept {
+  if (value.empty()) {
+    return false;
+  }
+  const auto [end, error] = std::from_chars(value.data(), value.data() + value.size(), result);
+  return error == std::errc{} && end == value.data() + value.size();
+}
+
+std::optional<int64_t> epoch_seconds(std::chrono::system_clock::time_point value) noexcept {
+  const auto seconds = std::chrono::floor<std::chrono::seconds>(value).time_since_epoch().count();
+  if (!std::in_range<int64_t>(seconds)) {
+    return std::nullopt;
+  }
+  return static_cast<int64_t>(seconds);
+}
+
+std::string role_name(UserRole role) {
+  switch (role) {
+    case UserRole::GUEST:
+      return "GUEST";
+    case UserRole::NORMAL:
+      return "NORMAL";
+    case UserRole::VIP:
+      return "VIP";
+    case UserRole::ADMIN:
+      return "ADMIN";
+  }
+  return "GUEST";
+}
+
+std::string vip_status_name(VipStatus status) {
+  switch (status) {
+    case VipStatus::NONE:
+      return "NONE";
+    case VipStatus::ACTIVE:
+      return "ACTIVE";
+    case VipStatus::EXPIRED:
+      return "EXPIRED";
+  }
+  return "NONE";
+}
+
+std::string api_datetime(std::string_view mysql_datetime) {
+  const auto parsed = parse_mysql_utc_datetime(mysql_datetime);
+  if (!parsed) {
+    throw std::runtime_error("invalid created_at");
+  }
+  return format_rfc3339_utc(*parsed);
+}
+
 } // namespace
 
 std::string generate_salt() {
@@ -95,84 +161,101 @@ std::string hash_password(const std::string& password, const std::string& salt) 
 
 class SimpleAuthService : public IAuthService {
 public:
-  explicit SimpleAuthService(IDatabasePool& db, std::string secret) : db_(db), secret_(std::move(secret)) {}
+  SimpleAuthService(IDatabasePool& db, std::string secret, AuthClock clock) :
+      db_(db), secret_(std::move(secret)), clock_(std::move(clock)) {}
 
-  AuthUser validate_token(const std::string& token) override {
-    auto dot = token.find('.');
-    if (dot == std::string::npos || dot == 0 || dot == token.size() - 1) {
-      return AuthUser{};
-    }
-    auto payload_b64 = token.substr(0, dot);
-    auto sig_hex = token.substr(dot + 1);
+  TokenValidationResult validate_token(const std::string& token) override {
+    try {
+      const auto dot = token.find('.');
+      if (dot == std::string::npos || dot == 0 || dot == token.size() - 1) {
+        return {};
+      }
+      auto payload_b64 = token.substr(0, dot);
+      const auto sig_hex = token.substr(dot + 1);
+      const auto expected_signature = hmac_sha256(secret_, payload_b64);
+      if (sig_hex.size() != expected_signature.size() ||
+          CRYPTO_memcmp(sig_hex.data(), expected_signature.data(), expected_signature.size()) != 0) {
+        return {};
+      }
 
-    auto expected_sig = hmac_sha256(secret_, payload_b64);
-    if (sig_hex != expected_sig) {
-      return AuthUser{};
-    }
+      const auto pad = payload_b64.size() % 4;
+      if (pad > 0) {
+        payload_b64.append(4 - pad, '=');
+      }
+      const auto decoded = base64_decode(payload_b64);
+      if (!decoded || !decoded->starts_with("uid")) {
+        return {};
+      }
+      const auto role_pos = decoded->find("role", 3);
+      const auto exp_pos = role_pos == std::string::npos ? std::string::npos : decoded->find("exp", role_pos + 4);
+      if (role_pos == std::string::npos || exp_pos == std::string::npos || role_pos == 3 || exp_pos == role_pos + 4) {
+        return {};
+      }
 
-    std::string payload;
-    auto pad = payload_b64.size() % 4;
-    if (pad > 0) {
-      payload_b64.append(4 - pad, '=');
+      int64_t user_id = 0;
+      int64_t expires_at = 0;
+      const auto payload = std::string_view(*decoded);
+      const auto now = clock_();
+      const auto now_seconds = epoch_seconds(now);
+      if (!parse_integer(payload.substr(3, role_pos - 3), user_id) || user_id <= 0 ||
+          !parse_integer(payload.substr(exp_pos + 3), expires_at) || !now_seconds || *now_seconds >= expires_at) {
+        return {};
+      }
+      const auto user = db_.get_user_result(user_id);
+      if (user.status == LookupStatus::NOT_FOUND) {
+        return {TokenValidationStatus::USER_NOT_FOUND, {}};
+      }
+      if (user.status != LookupStatus::FOUND || !user.value) {
+        return {TokenValidationStatus::STORAGE_ERROR, {}};
+      }
+      return {TokenValidationStatus::AUTHENTICATED, make_effective_identity(*user.value, now)};
+    } catch (...) {
+      return {TokenValidationStatus::STORAGE_ERROR, {}};
     }
-    auto decoded = base64_decode(payload_b64);
-    if (!decoded) {
-      return AuthUser{};
-    }
-    payload = std::move(*decoded);
-    auto uid_pos = payload.find("uid");
-    auto role_pos = payload.find("role");
-    auto exp_pos = payload.find("exp");
-    if (uid_pos == std::string::npos || role_pos == std::string::npos || exp_pos == std::string::npos) {
-      return AuthUser{};
-    }
-
-    auto uid = std::stoll(payload.substr(uid_pos + 3));
-    auto exp = std::stoll(payload.substr(exp_pos + 3));
-    auto now = std::chrono::system_clock::to_time_t(std::chrono::system_clock::now());
-    if (now > exp) {
-      return AuthUser{};
-    }
-
-    int role_val = std::stoi(payload.substr(role_pos + 4));
-    UserRole role = UserRole::GUEST;
-    if (role_val >= 2) {
-      role = UserRole::VIP;
-    } else if (role_val >= 1) {
-      role = UserRole::NORMAL;
-    }
-
-    AuthUser u;
-    u.user_id = uid;
-    u.role = role;
-    u.username = "user_" + std::to_string(uid);
-    return u;
   }
 
   std::string generate_token(const AuthUser& user) override {
-    auto now = std::chrono::system_clock::to_time_t(std::chrono::system_clock::now());
+    const auto now = clock_();
+    const auto lifetime = std::chrono::duration_cast<std::chrono::system_clock::duration>(kTokenLifetime);
+    if (now > std::chrono::system_clock::time_point::max() - lifetime) {
+      return {};
+    }
+    const auto expires_at = epoch_seconds(now + lifetime);
+    if (!expires_at) {
+      return {};
+    }
     auto payload = "uid" + std::to_string(user.user_id) + "role" + std::to_string(static_cast<int>(user.role)) + "exp" +
-                   std::to_string(now + 86400);
+                   std::to_string(*expires_at);
     auto payload_b64 = base64_encode(payload);
     auto sig = hmac_sha256(secret_, payload_b64);
     return payload_b64 + "." + sig;
   }
 
   // NOLINTNEXTLINE(bugprone-easily-swappable-parameters)
-  std::optional<AuthUser> authenticate(const std::string& username, const std::string& password) override {
-    auto auth_user = db_.get_auth_user(username);
-    if (!auth_user) {
-      return std::nullopt;
+  AuthenticationResult authenticate(const std::string& username, const std::string& password) override {
+    try {
+      const auto auth_user = db_.get_auth_user_result(username);
+      if (auth_user.status == LookupStatus::NOT_FOUND) {
+        return {AuthenticationStatus::INVALID_CREDENTIALS, std::nullopt};
+      }
+      if (auth_user.status != LookupStatus::FOUND || !auth_user.value) {
+        return {AuthenticationStatus::STORAGE_ERROR, std::nullopt};
+      }
+      const auto user = db_.get_user_result(auth_user.value->user_id);
+      if (user.status == LookupStatus::NOT_FOUND) {
+        return {AuthenticationStatus::INVALID_CREDENTIALS, std::nullopt};
+      }
+      if (user.status != LookupStatus::FOUND || !user.value) {
+        return {AuthenticationStatus::STORAGE_ERROR, std::nullopt};
+      }
+      const auto hashed = hash_password(password, user.value->salt);
+      if (hashed != user.value->password_hash) {
+        return {AuthenticationStatus::INVALID_CREDENTIALS, std::nullopt};
+      }
+      return {AuthenticationStatus::AUTHENTICATED, auth_user.value};
+    } catch (...) {
+      return {AuthenticationStatus::STORAGE_ERROR, std::nullopt};
     }
-    auto user = db_.get_user(auth_user->user_id);
-    if (!user) {
-      return std::nullopt;
-    }
-    auto hashed = hash_password(password, user->salt);
-    if (hashed != user->password_hash) {
-      return std::nullopt;
-    }
-    return auth_user;
   }
 
 private:
@@ -217,10 +300,62 @@ private:
   // NOLINTNEXTLINE(cppcoreguidelines-avoid-const-or-ref-data-members)
   IDatabasePool& db_;
   std::string secret_;
+  AuthClock clock_;
 };
 
-std::unique_ptr<IAuthService> create_auth_service(IDatabasePool& db, const std::string& secret) {
-  return std::make_unique<SimpleAuthService>(db, secret);
+std::unique_ptr<IAuthService> create_auth_service(IDatabasePool& db, const std::string& secret, AuthClock clock) {
+  if (!clock) {
+    clock = [] { return std::chrono::system_clock::now(); };
+  }
+  return std::make_unique<SimpleAuthService>(db, secret, std::move(clock));
+}
+
+nlohmann::json serialize_auth_user(const User& user, const EffectiveIdentity& identity) {
+  nlohmann::json capabilities = nlohmann::json::array();
+  constexpr std::array capability_names = {
+    std::pair{Capability::USE_AUTHENTICATED_FEATURES, "USE_AUTHENTICATED_FEATURES"},
+    std::pair{Capability::USE_VIP_BENEFITS, "USE_VIP_BENEFITS"},
+    std::pair{Capability::MANAGE_USERS, "MANAGE_USERS"},
+    std::pair{Capability::DELETE_ANY_FILE, "DELETE_ANY_FILE"},
+  };
+  for (const auto& [capability, name] : capability_names) {
+    if (has_capability(identity, capability)) {
+      capabilities.push_back(name);
+    }
+  }
+  return nlohmann::json{{"user_id", user.user_id},
+                        {"username", user.username},
+                        {"email", user.email},
+                        {"role", role_name(identity.role)},
+                        {"vip_status", vip_status_name(identity.vip_status)},
+                        {"vip_expires_at",
+                         identity.vip_expires_at ? nlohmann::json(format_rfc3339_utc(*identity.vip_expires_at))
+                                                 : nlohmann::json(nullptr)},
+                        {"capabilities", std::move(capabilities)},
+                        {"created_at", api_datetime(user.created_at)}};
+}
+
+nlohmann::json serialize_auth_response(const std::string& token, const User& user, const EffectiveIdentity& identity) {
+  return nlohmann::json{{"token", token}, {"user", serialize_auth_user(user, identity)}};
+}
+
+bool has_forbidden_registration_fields(const nlohmann::json& body) {
+  if (!body.is_object()) {
+    return false;
+  }
+  for (const auto& [key, value] : body.items()) {
+    static_cast<void>(value);
+    std::string normalized;
+    normalized.reserve(key.size());
+    std::ranges::transform(key, std::back_inserter(normalized), [](unsigned char ch) {
+      return static_cast<char>(std::tolower(ch));
+    });
+    if (normalized == "role" || normalized == "capabilities" || normalized.find("vip") != std::string::npos ||
+        normalized.find("admin") != std::string::npos) {
+      return true;
+    }
+  }
+  return false;
 }
 
 } // namespace hps

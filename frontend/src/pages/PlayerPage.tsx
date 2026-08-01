@@ -2,15 +2,30 @@ import { useEffect, useRef, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { ArrowLeft } from '@phosphor-icons/react';
 import { getMusicDetail } from '../api/music';
+import { captureSessionSnapshot, isSessionSnapshotCurrent } from '../api/client';
 import AudioPlayer from '../components/AudioPlayer';
-import { usePlayerStore } from '../stores/player';
+import {
+  capturePlayerGeneration,
+  capturePlayerStateRevision,
+  isPlayerGenerationCurrent,
+  usePlayerStore,
+} from '../stores/player';
+import { useAuthStore } from '../stores/auth';
 
 export default function PlayerPage() {
   const { id } = useParams<{ id: string }>();
   const currentTrack = usePlayerStore((state) => state.currentTrack);
   const hydrateTrack = usePlayerStore((state) => state.hydrateTrack);
+  const playerRevision = usePlayerStore((state) => state.stateRevision);
+  const sessionRevision = useAuthStore((state) => state.sessionRevision);
   const navigate = useNavigate();
   const requestIdRef = useRef(0);
+  const activeRequestRef = useRef<{
+    id: number;
+    playerRevision: number;
+    sessionRevision: number;
+  } | null>(null);
+  const observedRevisionsRef = useRef({ playerRevision, sessionRevision });
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -27,32 +42,66 @@ export default function PlayerPage() {
     }
 
     const requestId = ++requestIdRef.current;
+    const session = captureSessionSnapshot();
+    const playerGeneration = capturePlayerGeneration();
+    const playerStateRevision = capturePlayerStateRevision();
+    activeRequestRef.current = {
+      id: requestId,
+      playerRevision: playerStateRevision,
+      sessionRevision: session.revision,
+    };
+    const isActiveRequest = () => requestId === requestIdRef.current;
+    const canApplyResult = () => isActiveRequest()
+      && isSessionSnapshotCurrent(session)
+      && isPlayerGenerationCurrent(playerGeneration)
+      && capturePlayerStateRevision() === playerStateRevision;
     setLoading(true);
     setError(null);
     void getMusicDetail(musicId)
       .then((detail) => {
-        if (requestId === requestIdRef.current) hydrateTrack(detail);
+        if (canApplyResult()) {
+          hydrateTrack(detail);
+        }
       })
       .catch((loadError: unknown) => {
-        if (requestId === requestIdRef.current) {
+        if (canApplyResult()) {
           setError(errorMessage(loadError, '音乐详情加载失败，请稍后重试'));
         }
       })
       .finally(() => {
-        if (requestId === requestIdRef.current) setLoading(false);
+        if (isActiveRequest()) {
+          activeRequestRef.current = null;
+          setLoading(false);
+        }
       });
 
     return () => {
-      requestIdRef.current += 1;
+      if (requestId === requestIdRef.current) {
+        requestIdRef.current += 1;
+        activeRequestRef.current = null;
+      }
     };
   }, [hydrateTrack, musicId]);
+
+  useEffect(() => {
+    const previous = observedRevisionsRef.current;
+    observedRevisionsRef.current = { playerRevision, sessionRevision };
+    if (previous.playerRevision === playerRevision && previous.sessionRevision === sessionRevision) return;
+
+    const request = activeRequestRef.current;
+    if (!request || (request.playerRevision === playerRevision && request.sessionRevision === sessionRevision)) return;
+
+    requestIdRef.current += 1;
+    activeRequestRef.current = null;
+    setLoading(false);
+  }, [playerRevision, sessionRevision]);
 
   return (
     <div className="min-w-0">
       <button
         type="button"
         onClick={() => navigate('/music/library')}
-        className="mb-4 flex min-h-10 items-center gap-2 text-sm text-text-muted transition-colors hover:text-text"
+        className="mb-4 flex min-h-11 min-w-11 items-center gap-2 text-sm text-text-muted transition-colors hover:text-text"
       >
         <ArrowLeft size={18} /> 返回音乐库
       </button>
@@ -62,7 +111,7 @@ export default function PlayerPage() {
       ) : error && !hasMatchingTrack ? (
         <div role="alert" className="text-center py-12">
           <p className="mb-4 text-sm text-destructive">{error}</p>
-          <button type="button" onClick={() => navigate('/music/library')} className="glass-button text-sm">返回音乐库</button>
+          <button type="button" onClick={() => navigate('/music/library')} className="glass-button min-h-11 min-w-11 text-sm">返回音乐库</button>
         </div>
       ) : currentTrack ? (
         <>

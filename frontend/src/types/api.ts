@@ -7,6 +7,11 @@ import type {
   PaginatedResponse,
   UserRole,
   UserRoleValue,
+  VipStatus,
+  Capability,
+  VipPlan,
+  VipMembership,
+  AdminUserSummary,
 } from './models';
 
 export type {
@@ -18,6 +23,11 @@ export type {
   PaginatedResponse,
   UserRole,
   UserRoleValue,
+  VipStatus,
+  Capability,
+  VipPlan,
+  VipMembership,
+  AdminUserSummary,
 };
 
 export interface LoginRequest {
@@ -33,8 +43,7 @@ export interface RegisterRequest {
 
 export interface AuthResponse {
   token: string;
-  user_id: number;
-  role: UserRole;
+  user: AuthUser;
 }
 
 export interface UploadResult {

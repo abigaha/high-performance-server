@@ -6,6 +6,8 @@ import {
   MusicNote,
   MusicNotes,
   Playlist,
+  Crown,
+  Shield,
   Upload,
   User,
   X,
@@ -67,7 +69,12 @@ export default function Sidebar({ open, onClose, sidebarRef }: SidebarProps) {
       }`}
     >
       <div className="mb-7 flex min-h-11 items-center justify-between gap-2 px-2">
-        <NavLink to="/files" onClick={onClose} className="flex min-w-0 items-center gap-2" aria-label="Crystal 首页">
+        <NavLink
+          to="/files"
+          onClick={onClose}
+          className="sidebar-brand flex min-w-0 items-center gap-2"
+          aria-label="Crystal 首页"
+        >
           <MusicNote size={26} className="shrink-0 text-primary" weight="fill" aria-hidden="true" />
           <span className="truncate font-display text-lg text-text">Crystal</span>
         </NavLink>
@@ -90,15 +97,25 @@ export default function Sidebar({ open, onClose, sidebarRef }: SidebarProps) {
             <span>{link.label}</span>
           </NavLink>
         ))}
-        {user?.role === 'VIP' && (
-          <NavLink to="/users" onClick={onClose} className={linkClassName}>
-            <User size={20} aria-hidden="true" />
+        <NavLink to="/profile" onClick={onClose} className={linkClassName}>
+          <User size={20} aria-hidden="true" />
+          <span>个人资料</span>
+        </NavLink>
+        {(user?.role === 'NORMAL' || user?.role === 'VIP') && (
+          <NavLink to="/vip" onClick={onClose} className={linkClassName}>
+            <Crown size={20} aria-hidden="true" />
+            <span>会员中心</span>
+          </NavLink>
+        )}
+        {user?.capabilities?.includes('MANAGE_USERS') && (
+          <NavLink to="/admin/users" onClick={onClose} className={linkClassName}>
+            <Shield size={20} aria-hidden="true" />
             <span>用户管理</span>
           </NavLink>
         )}
       </nav>
 
-      <div className="border-t border-[var(--surface-border)] px-1 pt-4">
+      <div className="sidebar-footer border-t border-[var(--surface-border)] px-1 pt-4">
         <ThemeToggle />
       </div>
     </aside>

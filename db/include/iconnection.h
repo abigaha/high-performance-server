@@ -2,9 +2,11 @@
 
 #include "db_config.h"
 
+#include <chrono>
 #include <cstdint>
 #include <optional>
 #include <string>
+#include <string_view>
 #include <vector>
 
 namespace hps {
@@ -33,5 +35,11 @@ public:
 
   virtual void close() = 0;
 };
+
+bool configure_mysql_utc_session(IConnection& connection);
+std::optional<std::chrono::system_clock::time_point> parse_mysql_utc_datetime(std::string_view value) noexcept;
+std::optional<std::string> try_format_mysql_utc_datetime(std::chrono::system_clock::time_point value);
+std::string format_mysql_utc_datetime(std::chrono::system_clock::time_point value);
+std::string format_rfc3339_utc(std::chrono::system_clock::time_point value);
 
 } // namespace hps

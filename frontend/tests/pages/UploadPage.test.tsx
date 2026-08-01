@@ -64,6 +64,8 @@ describe('UploadPage', () => {
     dropFiles([audioFile('broken.mp3')]);
 
     expect(await screen.findByRole('alert')).toHaveTextContent('文件签名与扩展名不匹配');
+    expect(await screen.findByRole('progressbar', { name: 'broken.mp3 上传进度' }))
+      .toHaveAttribute('aria-valuetext', '上传失败');
     await waitFor(() => {
       expect(mocks.error).toHaveBeenCalledWith('1 个文件未能上传，请查看队列中的详细原因');
     });

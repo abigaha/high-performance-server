@@ -21,14 +21,26 @@ using namespace hps;
 
 namespace {
 
+std::string send_raw(uint16_t port, const std::string& request);
+
 class UploadAuthService : public IAuthService {
 public:
-  AuthUser validate_token(const std::string& token) override {
+  TokenValidationResult validate_token(const std::string& token) override {
+    if (token == "guest-token") {
+      return {TokenValidationStatus::AUTHENTICATED, {0, "guest", UserRole::GUEST, VipStatus::NONE, std::nullopt}};
+    }
     if (token == "normal-token") {
-      return {1, "normal", UserRole::NORMAL};
+      return {TokenValidationStatus::AUTHENTICATED, {1, "normal", UserRole::NORMAL, VipStatus::NONE, std::nullopt}};
     }
     if (token == "vip-token") {
-      return {2, "vip", UserRole::VIP};
+      return {TokenValidationStatus::AUTHENTICATED,
+              {2, "vip", UserRole::VIP, VipStatus::ACTIVE, std::chrono::system_clock::time_point::max()}};
+    }
+    if (token == "admin-token") {
+      return {TokenValidationStatus::AUTHENTICATED, {3, "admin", UserRole::ADMIN, VipStatus::NONE, std::nullopt}};
+    }
+    if (token == "storage-error-token") {
+      return {TokenValidationStatus::STORAGE_ERROR, {}};
     }
     return {};
   }
@@ -38,12 +50,63 @@ public:
     return "token";
   }
 
-  std::optional<AuthUser> authenticate(const std::string& username, const std::string& password) override {
+  AuthenticationResult authenticate(const std::string& username, const std::string& password) override {
     static_cast<void>(username);
     static_cast<void>(password);
-    return std::nullopt;
+    return {};
   }
 };
+
+TEST(UploadPolicyHttpTest, HeaderAuthenticationUsesCapabilityAndMapsStorageError) {
+  struct Case {
+    std::string token;
+    int expected_status;
+    bool expects_setup;
+    std::string expected_code;
+  };
+
+  const std::array cases = {
+    Case{"guest-token", 401, false, "AUTH_REQUIRED"},
+    Case{"normal-token", 201, true, ""},
+    Case{"vip-token", 201, true, ""},
+    Case{"admin-token", 201, true, ""},
+    Case{"storage-error-token", 500, false, "PERSISTENCE_ERROR"},
+  };
+
+  for (const auto& test_case : cases) {
+    UploadAuthService auth;
+    HttpServer server(TcpServer::Config{0, 128, 2, 50});
+    server.set_auth_service(auth);
+    std::atomic<int> setup_calls{0};
+    server.upload(
+      "/upload-auth",
+      [](const HttpRequest&, UploadStreamContext&, HttpResponse& response) { response.set_status(201, "Created"); },
+      [&setup_calls](const HttpRequest&, UploadStreamContext& context, HttpParser&) {
+        ++setup_calls;
+        context.store_chunk_data = [](std::string_view, const std::string&) { return true; };
+      });
+    ASSERT_TRUE(server.init());
+    std::thread server_thread([&server]() { server.start(); });
+    server_thread.detach();
+    std::this_thread::sleep_for(std::chrono::milliseconds(100));
+
+    const auto response = send_raw(server.actual_port(),
+                                   "POST /upload-auth HTTP/1.1\r\n"
+                                   "Host: localhost\r\n"
+                                   "Authorization: Bearer " +
+                                     test_case.token +
+                                     "\r\nContent-Disposition: attachment; filename=\"payload.bin\"\r\n"
+                                     "Content-Length: 1\r\nConnection: close\r\n\r\nx");
+    server.stop();
+    std::this_thread::sleep_for(std::chrono::milliseconds(50));
+
+    EXPECT_NE(response.find(std::to_string(test_case.expected_status)), std::string::npos) << test_case.token;
+    EXPECT_EQ(setup_calls.load() > 0, test_case.expects_setup) << test_case.token;
+    if (!test_case.expected_code.empty()) {
+      EXPECT_NE(response.find(test_case.expected_code), std::string::npos) << response;
+    }
+  }
+}
 
 std::string send_raw(uint16_t port, const std::string& request) {
   TcpClient client("127.0.0.1", port);
@@ -352,6 +415,24 @@ TEST(UploadPolicyTest, AppliesConfiguredNormalAndVipLimitsInclusively) {
     validate_audio_upload("track.flac", static_cast<std::size_t>(config.vip_max_size) + 1, UserRole::VIP, config);
   EXPECT_EQ(vip_too_large.status_code, 413);
   EXPECT_EQ(vip_too_large.max_size, static_cast<std::size_t>(config.vip_max_size));
+}
+
+TEST(UploadPolicyTest, AppliesNormalLimitToAdminInclusively) {
+  ServerConfig config;
+  config.normal_max_size = 10 * 1024 * 1024;
+  config.vip_max_size = 100 * 1024 * 1024;
+
+  const auto at_limit =
+    validate_audio_upload("track.mp3", static_cast<std::size_t>(config.normal_max_size), UserRole::ADMIN, config);
+  EXPECT_TRUE(at_limit.accepted);
+  EXPECT_EQ(at_limit.max_size, static_cast<std::size_t>(config.normal_max_size));
+
+  const auto over_limit =
+    validate_audio_upload("track.mp3", static_cast<std::size_t>(config.normal_max_size) + 1, UserRole::ADMIN, config);
+  EXPECT_FALSE(over_limit.accepted);
+  EXPECT_EQ(over_limit.status_code, 413);
+  EXPECT_EQ(over_limit.code, "FILE_TOO_LARGE");
+  EXPECT_EQ(over_limit.max_size, static_cast<std::size_t>(config.normal_max_size));
 }
 
 TEST(UploadPolicyTest, BuildsStructuredJsonErrorWithStableCodeAndDetails) {

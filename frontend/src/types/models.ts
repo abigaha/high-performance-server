@@ -1,8 +1,17 @@
-export type UserRole = 'GUEST' | 'NORMAL' | 'VIP';
+export type UserRole = 'GUEST' | 'NORMAL' | 'VIP' | 'ADMIN';
 
-export type UserRoleValue = UserRole | 0 | 1 | 2 | '0' | '1' | '2';
+export type UserRoleValue = UserRole | 0 | 1 | 2 | 3 | '0' | '1' | '2' | '3';
+
+export type VipStatus = 'NONE' | 'ACTIVE' | 'EXPIRED';
+
+export type Capability =
+  | 'USE_AUTHENTICATED_FEATURES'
+  | 'USE_VIP_BENEFITS'
+  | 'MANAGE_USERS'
+  | 'DELETE_ANY_FILE';
 
 export function normalizeUserRole(role: unknown): UserRole {
+  if (role === 'ADMIN' || role === 3 || role === '3') return 'ADMIN';
   if (role === 'VIP' || role === 2 || role === '2') return 'VIP';
   if (role === 'NORMAL' || role === 1 || role === '1') return 'NORMAL';
   return 'GUEST';
@@ -13,6 +22,33 @@ export interface AuthUser {
   username: string;
   email: string;
   role: UserRole;
+  vip_status: VipStatus;
+  vip_expires_at: string | null;
+  capabilities: Capability[];
+  created_at: string;
+}
+
+export interface VipPlan {
+  duration_days: 30 | 90 | 365;
+  label: string;
+}
+
+export interface VipMembership {
+  role: 'NORMAL' | 'VIP';
+  vip_status: VipStatus;
+  vip_expires_at: string | null;
+  server_now: string;
+  remaining_seconds: number;
+}
+
+export interface AdminUserSummary {
+  user_id: number;
+  username: string;
+  email: string;
+  role: UserRole;
+  vip_status: VipStatus;
+  vip_expires_at: string | null;
+  created_at: string;
 }
 
 export interface FileRecord {
@@ -21,6 +57,8 @@ export interface FileRecord {
   file_hash: string;
   file_size: number;
   content_type: string;
+  uploaded_by: number;
+  can_delete: boolean;
   created_at: string;
 }
 

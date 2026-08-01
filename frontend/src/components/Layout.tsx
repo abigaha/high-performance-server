@@ -88,7 +88,7 @@ export default function AppLayout() {
         onMenuOpen={openMenu}
         menuButtonRef={menuButtonRef}
       />
-      <main className="min-w-0 px-4 pb-24 pt-20 sm:px-6 lg:ml-60 lg:px-8">
+      <main aria-label="主内容" className="min-w-0 px-4 pb-24 pt-20 sm:px-6 lg:ml-60 lg:px-8">
         <Outlet />
       </main>
       {!isFullScreenPlayer && <AudioPlayer mode="mini" />}

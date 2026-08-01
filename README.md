@@ -375,19 +375,13 @@ bash scripts/test.sh test_tcp_server
 
 顶层 `xmake.lua` 从 `tests/*.cpp` 动态创建测试目标，不维护手写目标清单。目标数和用例数会随源码变化，应以当前工作树执行 `bash scripts/test.sh` 的完整输出为准。
 
-前端单元测试由 `scripts/test.sh` 统一执行。真实浏览器验收需要已经部署的 nginx、后端和 MySQL，因此使用独立命令，不会隐式加入普通测试脚本：
+前端单元测试由 `scripts/test.sh` 统一执行。真实浏览器验收也只通过受控入口运行；`<spec>` 必须是 `tests/e2e/` 下的 Playwright spec，脚本会创建隔离 Docker project、临时凭据和动态端口：
 
 ```bash
-cd frontend
-npm run test:e2e
-
-# 可覆盖部署地址和系统 Chromium；产物目录自动带时间戳
-PLAYWRIGHT_BASE_URL=http://127.0.0.1:18080 \
-PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH=/snap/bin/chromium \
-  npm run test:e2e
+bash scripts/test.sh e2e <spec>
 ```
 
-Playwright 固化四个视口：`1440x900`、`1280x800`、`768x1024`、`390x844`。用例覆盖注册、退出、登录、会话恢复、桌面侧栏、移动抽屉、SPA 深链、无效类型前端拦截、上传期间安全追加两个有效 WAV、水平溢出和浏览器控制台错误。报告与截图写入带 `_YYYYMMDD_HHMMSS` 的目录，不创建无时间戳的“最新”别名。
+如需使用系统 Chromium，可设置 `PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH`。受控入口会忽略调用者提供的 `PLAYWRIGHT_RUN_ID`，并自行生成唯一运行标识。具体项目矩阵由 `frontend/playwright.config.ts` 管理；报告与截图写入带 `_YYYYMMDD_HHMMSS` 的目录，不创建无时间戳的“最新”别名。
 
 ### CodeQL 脚本
 
@@ -490,7 +484,7 @@ http://127.0.0.1:18080
 
 `docker.sh build` 只构建本机 Release 后端和前端，`docker.sh image` 还会构建后端镜像但不启动服务。`all`、`up`、`run` 是 `deploy` 的兼容别名，`down` 是 `stop` 的兼容别名。
 
-部署后的完整前端验收应检查根页面、静态资源、`/files` 等 SPA 深链和四个响应式视口。2026-07-22 的修复前版本曾通过 `docker.sh health` 开头公共入口健康检查和真实用户流程 Playwright 验收，有效报告为 `frontend/playwright-report/e2e_20260722_214738/index.html`；该历史结果未覆盖已认证流播，不能代表当前 Step 17 已完成。
+部署后的完整前端验收应检查根页面、静态资源、`/files` 等 SPA 深链和当前响应式视口矩阵。2026-07-22 的修复前版本曾通过 `docker.sh health` 开头公共入口健康检查和真实用户流程 Playwright 验收，有效报告为 `frontend/playwright-report/e2e_20260722_214738/index.html`；该历史结果未覆盖已认证流播，不能代表当前 Step 17 已完成。
 
 ## 质量标准
 
@@ -502,7 +496,7 @@ http://127.0.0.1:18080
 | 编译 | 0 error、0 warning | `bash scripts/compile.sh build` |
 | CodeQL | 0 critical、0 high | `bash scripts/codeql.sh run` |
 | 测试 | 要求后端与前端全部通过 | `bash scripts/test.sh` |
-| 浏览器验收 | 要求四个视口核心流程全部通过 | `cd frontend && npm run test:e2e` |
+| 浏览器验收 | 要求受控 E2E spec 的核心流程通过 | `bash scripts/test.sh e2e <spec>` |
 
 ### 2026-07-22 修复前历史验证快照
 
@@ -511,9 +505,9 @@ http://127.0.0.1:18080
 - `bash scripts/codeql.sh run`：任务 `fa999293-4980-4356-83b3-a2307e87ff18` 完成，`critical=0`、`high=0`。
 - `bash scripts/test.sh`：后端 Google Test `41/41` 通过，前端 Vitest `18` 个测试文件、`71` 个用例全部通过。
 - Docker 公共入口 `http://127.0.0.1:18080` 健康检查通过。
-- 真实部署 Playwright 的 `desktop`、`desktop-compact`、`tablet`、`mobile` 四个项目 `4/4` 通过；最新有效报告为 `frontend/playwright-report/e2e_20260722_214738/index.html`。
+- 真实部署 Playwright 的历史矩阵已通过；最新有效报告为 `frontend/playwright-report/e2e_20260722_214738/index.html`。
 - `bash scripts/docker.sh logs --since 5m` 记录到已认证上传返回 HTTP `201`，匿名 stream 请求返回预期的 HTTP `401`。
-- 上述 `4/4` 是已执行的历史事实，但用例只覆盖匿名 stream `401`，没有覆盖已认证 stream `200/206`，且只在流程开头检查健康状态。后续复测曾发现授权流播可触发后端重启并由 nginx 返回 `502`；这是 Step 17 修复前的 P0 阻塞背景，根因和修复过程见 [Step 17 运行时回归 Bug 修复计划](plan/bugfix-step17-runtime-regressions.md)。
+- 上述历史结果只覆盖匿名 stream `401`，没有覆盖已认证 stream `200/206`，且只在流程开头检查健康状态。后续复测曾发现授权流播可触发后端重启并由 nginx 返回 `502`；这是 Step 17 修复前的 P0 阻塞背景，根因和修复过程见 [Step 17 运行时回归 Bug 修复计划](plan/bugfix-step17-runtime-regressions.md)。
 
 这些数字只记录修复前工作树曾实际执行的结果，不是永久固定的测试数量或验收门槛；后续仍以测试动态发现结果和脚本原始输出为准。旧报告不能单独解释为 Step 17 已完成，最终状态以以下同一份修复后工作树的完整验证为准。
 
@@ -533,7 +527,7 @@ Step 17 的 A-F 运行时修复和最终验收均已完成，已不再存在当�
 - 格式化、全量 Lint 和构建均通过。
 - `bash scripts/codeql.sh run`：任务 `ff62db5b-e741-4d78-ac00-33100da6ce8a` 成功完成，SARIF 为 `0 critical + 0 high`。
 - `bash scripts/test.sh`：测试汇总为 `42/42 + 18/71`；后端 Google Test `42/42` 通过，前端 Vitest `18` 个测试文件、`71` 个用例全部通过。
-- Docker 部署、健康检查、日志和状态复核通过；四个 Playwright 视口 `4/4` 通过。
+- Docker 部署、健康检查、日志和状态复核通过；当时的 Playwright 浏览器验收通过。
 - 授权流播前后后端容器 `RestartCount=0`、`OOMKilled=false`，没有新增 `502`、`upstream prematurely closed` 或 `connection refused`，结论为本轮验收期间服务未重启。
 
 因此 Step 17 已完成 A-F 修复、全部质量门禁和 Docker/浏览器验收。历史快照保留用于追溯覆盖缺口，不表示当前存在 P0 阻塞。

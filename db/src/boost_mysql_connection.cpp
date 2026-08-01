@@ -8,11 +8,15 @@
 #include <boost/asio/ssl/context.hpp>
 #include <boost/mysql.hpp>
 #include <charconv>
+#include <chrono>
 #include <cstdint>
+#include <cstdio>
 #include <iomanip>
 #include <iostream>
 #include <iterator>
+#include <limits>
 #include <locale>
+#include <ratio>
 #include <sstream>
 #include <stdexcept>
 #include <string>
@@ -27,6 +31,95 @@ namespace asio = boost::asio;
 namespace mysql = boost::mysql;
 
 namespace {
+
+bool parse_number(std::string_view value, int& output) noexcept {
+  output = 0;
+  for (const char ch : value) {
+    if (ch < '0' || ch > '9') {
+      return false;
+    }
+    output = output * 10 + (ch - '0');
+  }
+  return true;
+}
+
+using SystemClock = std::chrono::system_clock;
+using SystemMicroseconds = std::chrono::sys_time<std::chrono::microseconds>;
+using WideInteger = __int128;
+
+constexpr int kMysqlMinimumYear = 1000;
+constexpr int kMysqlMaximumYear = 9999;
+
+constexpr WideInteger floor_div(WideInteger numerator, WideInteger denominator) noexcept {
+  const auto quotient = numerator / denominator;
+  const auto remainder = numerator % denominator;
+  return remainder != 0 && numerator < 0 ? quotient - 1 : quotient;
+}
+
+template <typename Rep>
+bool fits_rep(WideInteger value) noexcept {
+  return value >= static_cast<WideInteger>(std::numeric_limits<Rep>::lowest()) &&
+         value <= static_cast<WideInteger>(std::numeric_limits<Rep>::max());
+}
+
+std::optional<std::chrono::microseconds> to_microseconds(SystemClock::time_point value) noexcept {
+  using Conversion = std::ratio_divide<SystemClock::duration::period, std::micro>;
+  const auto count = static_cast<WideInteger>(value.time_since_epoch().count());
+  const auto microseconds =
+    floor_div(count * static_cast<WideInteger>(Conversion::num), static_cast<WideInteger>(Conversion::den));
+  if (!fits_rep<std::chrono::microseconds::rep>(microseconds)) {
+    return std::nullopt;
+  }
+  return std::chrono::microseconds{static_cast<std::chrono::microseconds::rep>(microseconds)};
+}
+
+std::optional<SystemClock::time_point> to_system_clock(SystemMicroseconds value) noexcept {
+  using Conversion = std::ratio_divide<std::micro, SystemClock::duration::period>;
+  const auto numerator =
+    static_cast<WideInteger>(value.time_since_epoch().count()) * static_cast<WideInteger>(Conversion::num);
+  const auto denominator = static_cast<WideInteger>(Conversion::den);
+  if (numerator % denominator != 0) {
+    return std::nullopt;
+  }
+  const auto count = numerator / denominator;
+  if (!fits_rep<SystemClock::duration::rep>(count)) {
+    return std::nullopt;
+  }
+  return SystemClock::time_point{SystemClock::duration{static_cast<SystemClock::duration::rep>(count)}};
+}
+
+std::optional<std::string> format_utc(SystemClock::time_point value,
+                                      char separator,
+                                      std::string_view suffix,
+                                      bool requires_mysql_year) {
+  const auto micros = to_microseconds(value);
+  if (!micros) {
+    return std::nullopt;
+  }
+  const SystemMicroseconds datetime{*micros};
+  const auto day = std::chrono::floor<std::chrono::days>(datetime);
+  const std::chrono::year_month_day date{day};
+  const auto year = static_cast<int>(date.year());
+  if (!date.ok() || (requires_mysql_year && (year < kMysqlMinimumYear || year > kMysqlMaximumYear))) {
+    return std::nullopt;
+  }
+  const std::chrono::hh_mm_ss time{datetime - day};
+  std::array<char, 40> output{};
+  // NOLINTNEXTLINE(cppcoreguidelines-pro-type-vararg,hicpp-vararg)
+  std::snprintf(output.data(),
+                output.size(),
+                "%04d-%02u-%02u%c%02lld:%02lld:%02lld.%06lld%s",
+                year,
+                static_cast<unsigned>(date.month()),
+                static_cast<unsigned>(date.day()),
+                separator,
+                static_cast<long long>(time.hours().count()),
+                static_cast<long long>(time.minutes().count()),
+                static_cast<long long>(time.seconds().count()),
+                static_cast<long long>(time.subseconds().count()),
+                std::string(suffix).c_str());
+  return std::string(output.data());
+}
 
 template <typename Value>
 std::string floating_to_string(Value value) {
@@ -129,11 +222,12 @@ public:
       conn_ = std::move(temp);
       return true;
     } catch (const mysql::error_with_diagnostics& e) {
-      std::cerr << "[mysql] connect error: " << e.what() << " | server: " << e.get_diagnostics().server_message()
-                << std::endl;
+      static_cast<void>(e);
+      std::cerr << "[mysql] connect failed" << std::endl;
       return false;
     } catch (const std::exception& e) {
-      std::cerr << "[mysql] connect exception: " << e.what() << std::endl;
+      static_cast<void>(e);
+      std::cerr << "[mysql] connect failed" << std::endl;
       return false;
     }
   }
@@ -146,11 +240,12 @@ public:
       conn_.execute("SELECT 1", result);
       return !result.rows().empty();
     } catch (const mysql::error_with_diagnostics& e) {
-      std::cerr << "[mysql] ping error: " << e.what() << " | server: " << e.get_diagnostics().server_message()
-                << std::endl;
+      static_cast<void>(e);
+      std::cerr << "[mysql] ping failed" << std::endl;
       return false;
     } catch (const std::exception& e) {
-      std::cerr << "[mysql] ping exception: " << e.what() << std::endl;
+      static_cast<void>(e);
+      std::cerr << "[mysql] ping failed" << std::endl;
       return false;
     }
   }
@@ -181,11 +276,12 @@ public:
       }
       return qr;
     } catch (const mysql::error_with_diagnostics& e) {
-      std::cerr << "[mysql] query error: " << e.what() << " | server: " << e.get_diagnostics().server_message()
-                << std::endl;
+      static_cast<void>(e);
+      std::cerr << "[mysql] query failed" << std::endl;
       return std::nullopt;
     } catch (const std::exception& e) {
-      std::cerr << "[mysql] query exception: " << e.what() << std::endl;
+      static_cast<void>(e);
+      std::cerr << "[mysql] query failed" << std::endl;
       return std::nullopt;
     }
   }
@@ -202,11 +298,12 @@ public:
       last_id_ = static_cast<int64_t>(result.last_insert_id());
       return static_cast<int64_t>(result.affected_rows());
     } catch (const mysql::error_with_diagnostics& e) {
-      std::cerr << "[mysql] execute error: " << e.what() << " | server: " << e.get_diagnostics().server_message()
-                << std::endl;
+      static_cast<void>(e);
+      std::cerr << "[mysql] execute failed" << std::endl;
       return std::nullopt;
     } catch (const std::exception& e) {
-      std::cerr << "[mysql] execute exception: " << e.what() << std::endl;
+      static_cast<void>(e);
+      std::cerr << "[mysql] execute failed" << std::endl;
       return std::nullopt;
     }
   }
@@ -246,7 +343,13 @@ BoostMySqlConnection::~BoostMySqlConnection() {
 }
 
 bool BoostMySqlConnection::connect(const DbConfig& config) {
-  return impl_->connect(config);
+  if (!impl_->connect(config)) {
+    return false;
+  }
+  if (!configure_mysql_utc_session(*this)) {
+    return false;
+  }
+  return true;
 }
 
 bool BoostMySqlConnection::is_open() const {
@@ -271,6 +374,68 @@ int64_t BoostMySqlConnection::last_insert_id() const {
 
 void BoostMySqlConnection::close() {
   impl_->close_socket();
+}
+
+bool configure_mysql_utc_session(IConnection& connection) {
+  if (connection.execute("SET time_zone = '+00:00'").has_value()) {
+    return true;
+  }
+  connection.close();
+  return false;
+}
+
+std::optional<std::chrono::system_clock::time_point> parse_mysql_utc_datetime(std::string_view value) noexcept {
+  if (value.size() != 19 && value.size() != 26) {
+    return std::nullopt;
+  }
+  if (value[4] != '-' || value[7] != '-' || value[10] != ' ' || value[13] != ':' || value[16] != ':' ||
+      (value.size() == 26 && value[19] != '.')) {
+    return std::nullopt;
+  }
+
+  int year = 0;
+  int month = 0;
+  int day = 0;
+  int hour = 0;
+  int minute = 0;
+  int second = 0;
+  int microsecond = 0;
+  if (!parse_number(value.substr(0, 4), year) || !parse_number(value.substr(5, 2), month) ||
+      !parse_number(value.substr(8, 2), day) || !parse_number(value.substr(11, 2), hour) ||
+      !parse_number(value.substr(14, 2), minute) || !parse_number(value.substr(17, 2), second) ||
+      (value.size() == 26 && !parse_number(value.substr(20, 6), microsecond))) {
+    return std::nullopt;
+  }
+  const std::chrono::year_month_day date{std::chrono::year{year},
+                                         std::chrono::month{static_cast<unsigned>(month)},
+                                         std::chrono::day{static_cast<unsigned>(day)}};
+  if (year < kMysqlMinimumYear || year > kMysqlMaximumYear || !date.ok() || hour > 23 || minute > 59 || second > 59) {
+    return std::nullopt;
+  }
+  const SystemMicroseconds datetime = std::chrono::sys_days{date} + std::chrono::hours{hour} +
+                                      std::chrono::minutes{minute} + std::chrono::seconds{second} +
+                                      std::chrono::microseconds{microsecond};
+  return to_system_clock(datetime);
+}
+
+std::optional<std::string> try_format_mysql_utc_datetime(std::chrono::system_clock::time_point value) {
+  return format_utc(value, ' ', "", true);
+}
+
+std::string format_mysql_utc_datetime(std::chrono::system_clock::time_point value) {
+  const auto formatted = try_format_mysql_utc_datetime(value);
+  if (!formatted) {
+    throw std::out_of_range("MySQL DATETIME 超出可表示范围");
+  }
+  return *formatted;
+}
+
+std::string format_rfc3339_utc(std::chrono::system_clock::time_point value) {
+  const auto formatted = format_utc(value, 'T', "Z", false);
+  if (!formatted) {
+    throw std::out_of_range("系统时钟超出微秒可表示范围");
+  }
+  return *formatted;
 }
 
 } // namespace hps

@@ -203,6 +203,15 @@ void apply_env_overrides(ServerConfig& cfg) {
   if (const char* env = std::getenv("AUTH_SECRET")) {
     cfg.auth_secret = env;
   }
+  if (const char* env = std::getenv("ADMIN_USERNAME")) {
+    cfg.admin.username = env;
+  }
+  if (const char* env = std::getenv("ADMIN_PASSWORD")) {
+    cfg.admin.password = env;
+  }
+  if (const char* env = std::getenv("ADMIN_EMAIL")) {
+    cfg.admin.email = env;
+  }
 }
 
 } // namespace

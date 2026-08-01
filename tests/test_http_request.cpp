@@ -6,6 +6,7 @@ using namespace hps;
 
 TEST(HttpRequestTest, DefaultState) {
   HttpRequest req;
+  EXPECT_EQ(req.auth_status, TokenValidationStatus::INVALID);
   EXPECT_EQ(req.method, HttpMethod::UNKNOWN);
   EXPECT_TRUE(req.path.empty());
   EXPECT_TRUE(req.query_string.empty());
@@ -25,6 +26,20 @@ TEST(HttpRequestTest, Clear) {
   EXPECT_TRUE(req.path.empty());
   EXPECT_TRUE(req.headers.empty());
   EXPECT_TRUE(req.body.empty());
+}
+
+TEST(HttpRequestTest, ClearResetsEffectiveIdentity) {
+  HttpRequest req;
+  req.auth_user =
+    EffectiveIdentity{42, "vip-user", UserRole::VIP, VipStatus::ACTIVE, std::chrono::system_clock::time_point::max()};
+
+  req.clear();
+
+  EXPECT_EQ(req.auth_user.user_id, 0);
+  EXPECT_EQ(req.auth_user.role, UserRole::GUEST);
+  EXPECT_EQ(req.auth_user.vip_status, VipStatus::NONE);
+  EXPECT_FALSE(req.auth_user.vip_expires_at.has_value());
+  EXPECT_EQ(req.auth_status, TokenValidationStatus::INVALID);
 }
 
 TEST(HttpMethodTest, ToString) {

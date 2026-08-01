@@ -1,5 +1,6 @@
 #pragma once
 
+#include "admin_bootstrap.h"
 #include "db_config.h"
 #include "ssl_context.h"
 
@@ -25,6 +26,7 @@ struct ServerConfig {
   SslConfig ssl;
   std::string fs_root_dir = "./data";
   std::string auth_secret;
+  AdminBootstrapConfig admin;
   int normal_max_size = 10 * 1024 * 1024;
   int vip_max_size = 100 * 1024 * 1024;
 };

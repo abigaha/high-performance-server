@@ -1,12 +1,50 @@
 #pragma once
 
+#include <chrono>
+#include <cstddef>
 #include <cstdint>
+#include <optional>
 #include <string>
+#include <variant>
 #include <vector>
 
 namespace hps {
 
-enum class UserRole : uint8_t { GUEST = 0, NORMAL = 1, VIP = 2 };
+inline constexpr std::size_t kMaximumEmailLength = 128;
+
+enum class UserRole : uint8_t { GUEST = 0, NORMAL = 1, VIP = 2, ADMIN = 3 };
+
+enum class VipStatus : uint8_t { NONE, ACTIVE, EXPIRED };
+
+enum class MutationStatus : uint8_t {
+  OK,
+  NOT_FOUND,
+  USER_NOT_FOUND,
+  OWNER_REQUIRED,
+  CONFLICT,
+  INVALID_STATE,
+  STORAGE_ERROR,
+};
+
+template <typename T>
+struct MutationResult {
+  MutationStatus status{MutationStatus::STORAGE_ERROR};
+  std::optional<T> value;
+  std::optional<std::string> detail;
+};
+
+enum class LookupStatus : uint8_t {
+  FOUND,
+  NOT_FOUND,
+  STORAGE_ERROR,
+  INVALID_DATA,
+};
+
+template <typename T>
+struct LookupResult {
+  LookupStatus status{LookupStatus::STORAGE_ERROR};
+  std::optional<T> value;
+};
 
 struct User {
   int64_t user_id{0};
@@ -15,7 +53,39 @@ struct User {
   std::string salt;
   UserRole role{UserRole::GUEST};
   std::string email;
+  std::optional<std::chrono::system_clock::time_point> vip_expires_at;
   std::string created_at;
+};
+
+inline bool has_valid_vip_expiry_state(const User& user) noexcept {
+  return (user.role == UserRole::VIP) == user.vip_expires_at.has_value();
+}
+
+struct AdminUserPage {
+  std::vector<User> items;
+  int total{0};
+  int offset{0};
+  int limit{20};
+};
+
+struct EffectiveIdentity {
+  int64_t user_id{0};
+  std::string username;
+  UserRole role{UserRole::GUEST};
+  VipStatus vip_status{VipStatus::NONE};
+  std::optional<std::chrono::system_clock::time_point> vip_expires_at;
+};
+
+enum class TokenValidationStatus : uint8_t {
+  AUTHENTICATED,
+  INVALID,
+  USER_NOT_FOUND,
+  STORAGE_ERROR,
+};
+
+struct TokenValidationResult {
+  TokenValidationStatus status{TokenValidationStatus::INVALID};
+  EffectiveIdentity identity;
 };
 
 struct FileRecord {
@@ -30,6 +100,13 @@ struct FileRecord {
   std::string created_at;
 };
 
+struct FilePage {
+  std::vector<FileRecord> items;
+  int total{0};
+  int offset{0};
+  int limit{20};
+};
+
 struct FileChunkRecord {
   std::string file_hash;
   int chunk_index{0};
@@ -38,10 +115,32 @@ struct FileChunkRecord {
   int chunk_size{0};
 };
 
+struct FileDeletionPlan {
+  int64_t file_id{0};
+  std::size_t queued_chunk_count{0};
+};
+
+struct PendingChunkDeletion {
+  std::string chunk_hash;
+  std::string claim_token;
+  int retry_count{0};
+};
+
 struct AuthUser {
   int64_t user_id{0};
   std::string username;
   UserRole role{UserRole::GUEST};
+};
+
+enum class AuthenticationStatus : uint8_t {
+  AUTHENTICATED,
+  INVALID_CREDENTIALS,
+  STORAGE_ERROR,
+};
+
+struct AuthenticationResult {
+  AuthenticationStatus status{AuthenticationStatus::INVALID_CREDENTIALS};
+  std::optional<AuthUser> user;
 };
 
 struct MusicMeta {

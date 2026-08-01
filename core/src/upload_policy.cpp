@@ -1,5 +1,7 @@
 #include "upload_policy.h"
 
+#include "authorization.h"
+
 #include <algorithm>
 #include <array>
 #include <cctype>
@@ -59,16 +61,6 @@ std::string lowercase_extension(std::string_view file_name) {
     return static_cast<char>(std::tolower(value));
   });
   return extension;
-}
-
-std::size_t role_size_limit(UserRole role, const ServerConfig& config) {
-  if (role == UserRole::NORMAL && config.normal_max_size > 0) {
-    return static_cast<std::size_t>(config.normal_max_size);
-  }
-  if (role == UserRole::VIP && config.vip_max_size > 0) {
-    return static_cast<std::size_t>(config.vip_max_size);
-  }
-  return 0;
 }
 
 std::string status_text(int status_code) {

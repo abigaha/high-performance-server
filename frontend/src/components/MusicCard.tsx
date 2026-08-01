@@ -1,5 +1,6 @@
 import type { MusicMeta } from '../types/api';
-import { Play, Plus, Trash, MusicNote } from '@phosphor-icons/react';
+import { Play, Plus, Trash } from '@phosphor-icons/react';
+import { getCoverPlaceholder } from '../lib/coverPlaceholder';
 
 interface Props {
   music: MusicMeta;
@@ -26,8 +27,13 @@ export default function MusicCard({
 }: Props) {
   return (
     <div className="glass-card p-4 flex flex-col gap-3 hover:shadow-lg transition-shadow">
-      <div className="w-full aspect-square rounded-xl bg-gradient-to-br from-primary/30 to-primary/10 flex items-center justify-center">
-        <MusicNote size={40} className="text-primary/60" />
+      <div className="aspect-square w-full overflow-hidden rounded-xl bg-[var(--surface-subtle)]">
+        <img
+          src={getCoverPlaceholder(music.music_id)}
+          alt=""
+          aria-hidden="true"
+          className="h-full w-full object-cover"
+        />
       </div>
       <div className="flex-1 min-w-0">
         <p className="text-sm font-medium truncate">{music.title}</p>
@@ -37,7 +43,7 @@ export default function MusicCard({
         <span>{music.album || '—'}</span>
         <span>{formatDuration(music.duration_sec)}</span>
       </div>
-      <div className="flex gap-2 pt-1" onClick={(event) => event.stopPropagation()}>
+      <div className="flex flex-wrap gap-2 pt-1" onClick={(event) => event.stopPropagation()}>
         <button
           type="button"
           aria-label={`播放 ${music.title}`}
@@ -46,7 +52,7 @@ export default function MusicCard({
             event.stopPropagation();
             onPlay(music);
           }}
-          className="glass-button !py-1.5 !px-3 !text-xs flex items-center gap-1"
+          className="glass-button min-h-11 min-w-11 !py-1.5 !px-3 !text-xs flex items-center gap-1"
         >
           <Play size={14} weight="fill" /> {busyAction === 'play' ? '载入中' : '播放'}
         </button>
@@ -59,7 +65,7 @@ export default function MusicCard({
               event.stopPropagation();
               onAddToPlaylist(music.music_id);
             }}
-            className="glass-button !py-1.5 !px-3 !text-xs flex items-center gap-1 !bg-transparent !text-primary !border !border-primary/30"
+            className="glass-button min-h-11 min-w-11 !py-1.5 !px-3 !text-xs flex items-center gap-1 !bg-transparent !text-primary !border !border-primary/30"
           >
             <Plus size={14} /> {busyAction === 'add' ? '添加中' : '添加'}
           </button>
@@ -73,7 +79,7 @@ export default function MusicCard({
               event.stopPropagation();
               onRemove(music.music_id);
             }}
-            className="glass-button !py-1.5 !px-3 !text-xs flex items-center gap-1 !bg-red-500/80"
+            className="glass-button min-h-11 min-w-11 !py-1.5 !px-3 !text-xs flex items-center gap-1 !bg-red-500/80"
           >
             <Trash size={14} /> {busyAction === 'remove' ? '移除中' : '移除'}
           </button>

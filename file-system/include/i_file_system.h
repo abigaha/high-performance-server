@@ -7,6 +7,8 @@
 
 namespace hps {
 
+enum class ChunkDeleteStatus { DELETED, NOT_FOUND, ERROR };
+
 /**
  * 文件分块描述（存引用不存数据）
  *
@@ -43,6 +45,11 @@ public:
 
   /** 删除文件：删除虚拟路径对应文件 */
   virtual bool delete_file(const std::string& path) = 0;
+
+  /** 删除分片并区分幂等不存在与存储错误。 */
+  virtual ChunkDeleteStatus delete_file_status(const std::string& path) {
+    return delete_file(path) ? ChunkDeleteStatus::DELETED : ChunkDeleteStatus::ERROR;
+  }
 
   /** 读取文件：返回虚拟路径对应文件内容，不存在返回 nullopt */
   virtual std::optional<std::vector<char>> read_file(const std::string& path) = 0;

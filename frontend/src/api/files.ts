@@ -1,4 +1,13 @@
-import { API_BASE, ApiError, handleUnauthorized, request } from './client';
+import {
+  API_BASE,
+  ApiError,
+  captureSessionSnapshot,
+  handleUnauthorized,
+  isSessionSnapshotCurrent,
+  parseApiErrorDetails,
+  request,
+  type SessionSnapshot,
+} from './client';
 import { getContentType } from '../lib/uploadPolicy';
 import type {
   FileRecord,
@@ -8,23 +17,34 @@ import type {
   UploadResult,
 } from '../types/api';
 
-export async function getFiles(query?: FileQuery): Promise<PaginatedResponse<FileRecord>> {
+export async function getFiles(query?: FileQuery, signal?: AbortSignal): Promise<PaginatedResponse<FileRecord>> {
   const params = new URLSearchParams();
   if (query?.name) params.set('name', query.name);
   if (query?.type) params.set('type', query.type);
   if (query?.offset !== undefined) params.set('offset', String(query.offset));
   if (query?.limit !== undefined) params.set('limit', String(query.limit));
   const qs = params.toString();
-  return request<PaginatedResponse<FileRecord>>(`/api/files${qs ? `?${qs}` : ''}`);
+  return request<PaginatedResponse<FileRecord>>(`/api/files${qs ? `?${qs}` : ''}`, { signal });
 }
 
 export async function getFile(id: number): Promise<FileRecord> {
   return request<FileRecord>(`/api/files/${id}`);
 }
 
-export async function getFileDownloadUrl(id: number): Promise<string> {
-  const response = await request<Response>(`/api/files/${id}/download`, {}, true);
-  const url = URL.createObjectURL(await response.blob());
+function assertDownloadActive(signal: AbortSignal | undefined, session: SessionSnapshot): void {
+  if (signal?.aborted || !isSessionSnapshotCurrent(session)) {
+    throw new DOMException('下载已取消', 'AbortError');
+  }
+}
+
+export async function getFileDownloadUrl(id: number, signal?: AbortSignal): Promise<string> {
+  const session = captureSessionSnapshot();
+  assertDownloadActive(signal, session);
+  const response = await request<Response>(`/api/files/${id}/download`, { signal }, true);
+  assertDownloadActive(signal, session);
+  const blob = await response.blob();
+  assertDownloadActive(signal, session);
+  const url = URL.createObjectURL(blob);
   window.setTimeout(() => URL.revokeObjectURL(url), 60_000);
   return url;
 }
@@ -47,7 +67,8 @@ export async function uploadFile(
     throw new DOMException('上传已取消', 'AbortError');
   }
 
-  const token = localStorage.getItem('token');
+  const requestSession = captureSessionSnapshot();
+  const token = requestSession.token;
   return new Promise((resolve, reject) => {
     const xhr = new XMLHttpRequest();
     const path = '/api/files/upload';
@@ -92,9 +113,9 @@ export async function uploadFile(
         : xhr.status === 403
           ? '权限不足'
           : `上传失败 (${xhr.status})`;
-      const message = parseUploadError(xhr.responseText, fallback);
-      if (xhr.status === 401) handleUnauthorized(path);
-      rejectOnce(new ApiError(xhr.status, message));
+      const detail = parseApiErrorDetails(xhr.responseText, fallback);
+      if (xhr.status === 401) handleUnauthorized(path, requestSession);
+      rejectOnce(new ApiError(xhr.status, detail.message, detail.code));
     };
     xhr.onerror = () => rejectOnce(new ApiError(0, '网络错误，请检查连接后重试'));
     xhr.onabort = () => rejectOnce(new DOMException('上传已取消', 'AbortError'));
@@ -102,33 +123,6 @@ export async function uploadFile(
     signal?.addEventListener('abort', abortUpload, { once: true });
     xhr.send(file);
   });
-}
-
-function parseUploadError(responseText: string, fallback: string): string {
-  const text = responseText.trim();
-  if (!text) return fallback;
-
-  try {
-    const payload: unknown = JSON.parse(text);
-    if (payload && typeof payload === 'object') {
-      const { error, message } = payload as Record<string, unknown>;
-      const detail = [error, message].find(
-        (value): value is string => typeof value === 'string' && value.trim().length > 0,
-      );
-      if (detail) return detail.trim();
-    }
-    if (typeof payload === 'string' && payload.trim()) return payload.trim();
-  } catch {
-    // 非 JSON 响应继续按纯文本或 HTML 提取可读信息。
-  }
-
-  if (/<(?:!doctype|html|body|head|title|h\d|p|div)\b/i.test(text)) {
-    const document = new DOMParser().parseFromString(text, 'text/html');
-    const htmlMessage = document.body.textContent?.replace(/\s+/g, ' ').trim();
-    if (htmlMessage) return htmlMessage;
-  }
-
-  return text;
 }
 
 function buildContentDisposition(fileName: string): string {

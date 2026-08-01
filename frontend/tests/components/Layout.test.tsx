@@ -28,6 +28,11 @@ function FilesPage() {
   );
 }
 
+function LoginPage() {
+  const navigate = useNavigate();
+  return <div>登录页面<button type="button" onClick={() => navigate(-1)}>后退</button></div>;
+}
+
 function renderLayout(initialEntry = '/files') {
   render(
     <MemoryRouter initialEntries={[initialEntry]}>
@@ -37,7 +42,7 @@ function renderLayout(initialEntry = '/files') {
           <Route path="/upload" element={<div>上传页面内容</div>} />
           <Route path="/player/:id" element={<div>全屏播放器页面</div>} />
         </Route>
-        <Route path="/login" element={<div>登录页面</div>} />
+        <Route path="/login" element={<LoginPage />} />
       </Routes>
     </MemoryRouter>,
   );
@@ -69,7 +74,7 @@ describe('应用响应式壳层', () => {
   it('移动正文不带固定左偏移且 Header 显示页面与用户', () => {
     renderLayout();
 
-    const main = screen.getByRole('main');
+    const main = screen.getByRole('main', { name: '主内容' });
     expect(main).not.toHaveClass('ml-60');
     expect(main).toHaveClass('lg:ml-60');
     expect(screen.getByRole('heading', { name: '文件' })).toBeInTheDocument();
@@ -83,9 +88,22 @@ describe('应用响应式壳层', () => {
     const menuButton = screen.getByRole('button', { name: '打开导航菜单' });
     expect(menuButton).toHaveClass('icon-button', 'lg:hidden');
     expect(menuButton).not.toHaveClass('hidden');
+    expect(menuButton).toHaveAttribute('aria-controls', 'app-sidebar');
+    fireEvent.click(menuButton);
+    expect(screen.getByRole('navigation', { name: '功能导航' })).toBeInTheDocument();
 
     const logoutButton = screen.getByRole('button', { name: '退出登录' });
     expect(logoutButton).toHaveClass('icon-button', 'sm:w-auto', 'sm:px-3');
+  });
+
+  it('登出替换当前历史项，后退不会恢复受限页面', async () => {
+    const user = userEvent.setup();
+    renderLayout();
+
+    await user.click(screen.getByRole('button', { name: '退出登录' }));
+    expect(screen.getByText('登录页面')).toBeInTheDocument();
+    await user.click(screen.getByRole('button', { name: '后退' }));
+    expect(screen.queryByText('文件内容')).not.toBeInTheDocument();
   });
 
   it('全屏播放器路由不重复挂载 mini 播放器', () => {

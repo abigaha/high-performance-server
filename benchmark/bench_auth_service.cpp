@@ -20,8 +20,8 @@ struct AuthBenchFixture {
       pool([]() -> std::unique_ptr<hps::IConnection> {
         auto conn = std::make_unique<hps::MockConnection>();
         conn->query_result = hps::QueryResult{
-          .columns = {"user_id", "username", "password_hash", "salt", "role", "email", "created_at"},
-          .rows = {{"1", "bench_user", "hash", "salt", "1", "bench@test.com", "2024-01-01"}},
+          .columns = {"user_id", "username", "password_hash", "salt", "role", "email", "vip_expires_at", "created_at"},
+          .rows = {{"1", "bench_user", "hash", "salt", "1", "bench@test.com", "", "2024-01-01 00:00:00.000000"}},
         };
         conn->execute_result = 1;
         conn->query_hook = [](const std::string& sql,
@@ -34,8 +34,9 @@ struct AuthBenchFixture {
           }
           if (sql.find("SELECT user_id, username, password_hash") != std::string::npos) {
             return hps::QueryResult{
-              .columns = {"user_id", "username", "password_hash", "salt", "role", "email", "created_at"},
-              .rows = {{"1", "bench_user", "hash", "salt", "1", "bench@test.com", "2024-01-01"}},
+              .columns =
+                {"user_id", "username", "password_hash", "salt", "role", "email", "vip_expires_at", "created_at"},
+              .rows = {{"1", "bench_user", "hash", "salt", "1", "bench@test.com", "", "2024-01-01 00:00:00.000000"}},
             };
           }
           if (sql.find("SELECT 1 FROM users WHERE username") != std::string::npos) {
@@ -45,8 +46,9 @@ struct AuthBenchFixture {
             };
           }
           return hps::QueryResult{
-            .columns = {"user_id", "username", "password_hash", "salt", "role", "email", "created_at"},
-            .rows = {{"1", "bench_user", "hash", "salt", "1", "bench@test.com", "2024-01-01"}},
+            .columns =
+              {"user_id", "username", "password_hash", "salt", "role", "email", "vip_expires_at", "created_at"},
+            .rows = {{"1", "bench_user", "hash", "salt", "1", "bench@test.com", "", "2024-01-01 00:00:00.000000"}},
           };
         };
         return conn;

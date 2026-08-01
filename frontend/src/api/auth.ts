@@ -2,16 +2,20 @@ import { request } from './client';
 import { normalizeUserRole } from '../types/models';
 import type { AuthResponse, AuthUser, UserRoleValue } from '../types/api';
 
-interface AuthResponsePayload extends Omit<AuthResponse, 'role'> {
-  role: UserRoleValue;
-}
-
 interface AuthUserPayload extends Omit<AuthUser, 'role'> {
   role: UserRoleValue;
 }
 
-function normalizeAuthResponse(payload: AuthResponsePayload): AuthResponse {
+interface AuthResponsePayload extends Omit<AuthResponse, 'user'> {
+  user: AuthUserPayload;
+}
+
+function normalizeAuthUser(payload: AuthUserPayload): AuthUser {
   return { ...payload, role: normalizeUserRole(payload.role) };
+}
+
+function normalizeAuthResponse(payload: AuthResponsePayload): AuthResponse {
+  return { ...payload, user: normalizeAuthUser(payload.user) };
 }
 
 export async function login(username: string, password: string): Promise<AuthResponse> {
@@ -36,5 +40,5 @@ export async function logout(): Promise<void> {
 
 export async function getMe(): Promise<AuthUser> {
   const response = await request<AuthUserPayload>('/api/auth/me');
-  return { ...response, role: normalizeUserRole(response.role) };
+  return normalizeAuthUser(response);
 }

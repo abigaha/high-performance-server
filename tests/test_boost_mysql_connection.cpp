@@ -120,6 +120,77 @@ TEST(BoostMySqlConnectionTest, RequestsTlsDuringHandshake) {
   EXPECT_FALSE(connection.is_open());
 }
 
+class SessionConnection : public IConnection {
+public:
+  bool execute_succeeds{true};
+  int close_count{0};
+  std::vector<std::string> statements;
+
+  bool connect(const DbConfig& config) override {
+    (void)config;
+    return true;
+  }
+
+  bool is_open() const override { return true; }
+
+  bool ping() override { return true; }
+
+  std::optional<QueryResult> query(const std::string& sql, const std::vector<std::string>& params) override {
+    (void)sql;
+    (void)params;
+    return QueryResult{};
+  }
+
+  std::optional<int64_t> execute(const std::string& sql, const std::vector<std::string>& params) override {
+    (void)params;
+    statements.push_back(sql);
+    return execute_succeeds ? std::optional<int64_t>{0} : std::nullopt;
+  }
+
+  void close() override { ++close_count; }
+};
+
+TEST(BoostMySqlConnectionTest, ConfiguresConnectedSessionAsUtc) {
+  SessionConnection connection;
+
+  EXPECT_TRUE(configure_mysql_utc_session(connection));
+  EXPECT_EQ(connection.statements, std::vector<std::string>{"SET time_zone = '+00:00'"});
+  EXPECT_EQ(connection.close_count, 0);
+}
+
+TEST(BoostMySqlConnectionTest, ClosesConnectedSessionWhenUtcConfigurationFails) {
+  SessionConnection connection;
+  connection.execute_succeeds = false;
+
+  EXPECT_FALSE(configure_mysql_utc_session(connection));
+  EXPECT_EQ(connection.statements, std::vector<std::string>{"SET time_zone = '+00:00'"});
+  EXPECT_EQ(connection.close_count, 1);
+}
+
+TEST(BoostMySqlConnectionTest, ConvertsMysqlUtcDatetimeToRfc3339WithoutLocalTimezone) {
+  const auto parsed = parse_mysql_utc_datetime("2026-07-27 12:34:56.123456");
+  ASSERT_TRUE(parsed.has_value());
+  const auto mysql = format_mysql_utc_datetime(*parsed);
+  ASSERT_FALSE(mysql.empty());
+  EXPECT_EQ(mysql, "2026-07-27 12:34:56.123456");
+  EXPECT_EQ(format_rfc3339_utc(*parsed), "2026-07-27T12:34:56.123456Z");
+  EXPECT_FALSE(parse_mysql_utc_datetime("2026-07-27T12:34:56Z").has_value());
+}
+
+TEST(BoostMySqlConnectionTest, ValidatesMysqlYearRangeAndActualSystemClockRepresentability) {
+  EXPECT_FALSE(parse_mysql_utc_datetime("0999-12-31 23:59:59.999999").has_value());
+
+  for (const std::string_view value : {"1000-01-01 00:00:00.000000", "9999-12-31 23:59:59.999999"}) {
+    const auto parsed = parse_mysql_utc_datetime(value);
+    if (!parsed) {
+      continue;
+    }
+    const auto formatted = format_mysql_utc_datetime(*parsed);
+    ASSERT_FALSE(formatted.empty());
+    EXPECT_EQ(formatted, value);
+  }
+}
+
 } // namespace hps
 
 int main(int argc, char** argv) {

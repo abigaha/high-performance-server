@@ -42,12 +42,39 @@ local common_deps = {
 for _, file in ipairs(os.files("tests/*.cpp")) do
     local name = path.basename(file)
     local extra_files = {}
-    if name == "test_step16_api" or name == "test_auth_service" then
-        extra_files = {"core/src/auth_service.cpp"}
+    if name == "test_step16_api" then
+        extra_files = {
+            "core/src/auth_service.cpp",
+            "core/src/auth_routes.cpp",
+            "core/src/authorization.cpp",
+            "core/src/file_routes.cpp",
+            "core/src/pending_chunk_deletions.cpp",
+            "core/src/playlist_routes.cpp",
+            "core/src/upload_policy.cpp",
+            "core/src/upload_setup.cpp",
+            "core/src/vip_admin_routes.cpp",
+        }
+    elseif name == "test_auth_service" then
+        extra_files = {"core/src/auth_service.cpp", "core/src/authorization.cpp"}
+    elseif name == "test_authorization" then
+        extra_files = {"core/src/authorization.cpp"}
+    elseif name == "test_schema_migrations" then
+        extra_files = {"core/src/schema_migrations.cpp"}
+    elseif name == "test_admin_bootstrap" then
+        extra_files = {
+            "core/src/admin_bootstrap.cpp",
+            "core/src/auth_service.cpp",
+            "core/src/authorization.cpp",
+            "core/src/config.cpp",
+        }
     elseif name == "test_config" then
         extra_files = {"core/src/config.cpp"}
     elseif name == "test_upload_policy" then
-        extra_files = {"core/src/upload_policy.cpp"}
+        extra_files = {"core/src/upload_policy.cpp", "core/src/authorization.cpp"}
+    elseif name == "test_http_server" then
+        extra_files = {"core/src/upload_setup.cpp", "core/src/upload_policy.cpp", "core/src/authorization.cpp"}
+    elseif name == "test_pending_chunk_deletions" then
+        extra_files = {"core/src/pending_chunk_deletions.cpp"}
     end
     target(name)
         set_kind("binary")
@@ -57,7 +84,7 @@ for _, file in ipairs(os.files("tests/*.cpp")) do
         add_files(extra_files)
         add_includedirs(common_includedirs)
         add_deps(common_deps)
-        if name == "test_config" then
+        if name == "test_config" or name == "test_admin_bootstrap" or name == "test_step16_api" then
             add_deps("logger")
         end
         -- 为 test binary 设置 RPATH（传递性），而非 RUNPATH
@@ -72,7 +99,7 @@ if os.host() == "linux" and os.isfile("/usr/lib/x86_64-linux-gnu/libbenchmark.so
         local name = path.basename(file)
         local extra_files = {}
         if name == "bench_auth_service" then
-            extra_files = {"core/src/auth_service.cpp"}
+            extra_files = {"core/src/auth_service.cpp", "core/src/authorization.cpp"}
         end
         target(name)
             set_kind("binary")
@@ -103,7 +130,7 @@ for _, file in ipairs(os.files("benchmark/qps_*.cpp")) do
     local name = path.basename(file) -- e.g. "qps_chunk_header"
     local extra_files = {}
     if name == "qps_auth_service" then
-        extra_files = {"core/src/auth_service.cpp"}
+        extra_files = {"core/src/auth_service.cpp", "core/src/authorization.cpp"}
     end
     target(name)
         set_kind("binary")

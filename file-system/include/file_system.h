@@ -25,6 +25,7 @@ public:
   std::string compute_chunk_hash(const FileChunk& chunk) override;
   bool store_file(const std::string& path, const std::vector<char>& data) override;
   bool delete_file(const std::string& path) override;
+  ChunkDeleteStatus delete_file_status(const std::string& path) override;
   std::optional<std::vector<char>> read_file(const std::string& path) override;
 
   /** 对指定数据计算 SHA-256 并返回十六进制字符串 */

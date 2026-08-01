@@ -46,6 +46,22 @@ function statusText(item: UploadItem): string {
   return '上传失败';
 }
 
+const statusColor = {
+  queued: 'text-warning',
+  uploading: 'text-info',
+  done: 'text-primary',
+  error: 'text-destructive',
+  cancelled: 'text-text-muted',
+} satisfies Record<UploadStatus, string>;
+
+const progressColor = {
+  queued: 'bg-warning',
+  uploading: 'bg-info',
+  done: 'bg-primary',
+  error: 'bg-destructive',
+  cancelled: 'bg-text-muted',
+} satisfies Record<UploadStatus, string>;
+
 export default function UploadPage() {
   const [items, setItems] = useState<UploadItem[]>([]);
   const [dragActive, setDragActive] = useState(false);
@@ -264,8 +280,10 @@ export default function UploadPage() {
         onDragLeave={handleDragLeave}
         onDrop={handleDrop}
         aria-describedby="upload-policy"
-        className={`glass-card flex w-full flex-col items-center justify-center gap-3 border p-10 text-center transition-colors ${
-          dragActive ? 'border-primary bg-primary/10' : 'border-transparent hover:border-primary/40'
+        className={`glass-card flex min-h-48 w-full flex-col items-center justify-center gap-3 border border-dashed p-10 text-center transition-[border-color,background-color,box-shadow] ${
+          dragActive
+            ? 'border-primary bg-primary/10 shadow-[0_0_0_3px_var(--focus-ring)]'
+            : 'border-[var(--surface-border)] hover:border-primary/40'
         }`}
       >
         <CloudArrowUp size={44} className="text-primary" aria-hidden="true" />
@@ -311,31 +329,33 @@ export default function UploadPage() {
           <ul className="flex flex-col gap-2">
             {items.map((item) => (
               <li key={item.id} className="glass-card flex items-start gap-3 p-4">
-                <FileAudio size={22} className="mt-0.5 shrink-0 text-primary" aria-hidden="true" />
+                <FileAudio
+                  size={22}
+                  className={`mt-0.5 shrink-0 ${statusColor[item.status]}`}
+                  aria-hidden="true"
+                />
                 <div className="min-w-0 flex-1">
                   <div className="flex flex-wrap items-baseline justify-between gap-x-3 gap-y-1">
-                    <p className="min-w-0 truncate text-sm font-medium" title={item.file.name}>{item.file.name}</p>
+                    <p className="min-w-0 break-all text-sm font-medium" title={item.file.name}>{item.file.name}</p>
                     <span className="shrink-0 text-xs text-text-muted">{formatFileSize(item.file.size)}</span>
                   </div>
                   <div
                     className="mt-2 h-1.5 w-full overflow-hidden rounded-full bg-white/20"
                     role="progressbar"
                     aria-label={`${item.file.name} 上传进度`}
+                    aria-valuetext={statusText(item)}
                     aria-valuemin={0}
                     aria-valuemax={100}
                     aria-valuenow={item.progress}
+                    data-status={item.status}
                   >
                     <div
-                      className={`h-full rounded-full transition-[width] ${
-                        item.status === 'error' ? 'bg-destructive' : 'bg-primary'
-                      }`}
+                      className={`h-full rounded-full transition-[width] ${progressColor[item.status]}`}
                       style={{ width: `${item.progress}%` }}
                     />
                   </div>
                   <p
-                    className={`mt-2 text-xs ${
-                      item.status === 'error' ? 'text-destructive' : 'text-text-muted'
-                    }`}
+                    className={`mt-2 break-words text-xs ${statusColor[item.status]}`}
                     role={item.status === 'error' ? 'alert' : undefined}
                   >
                     {item.error ?? statusText(item)}
@@ -346,7 +366,7 @@ export default function UploadPage() {
                     <button
                       type="button"
                       onClick={() => cancelItem(item.id)}
-                      className="grid h-8 w-8 place-items-center rounded text-text-muted hover:bg-white/10 hover:text-destructive"
+                      className="grid h-11 w-11 place-items-center rounded-[12px] text-text-muted hover:bg-white/10 hover:text-destructive"
                       aria-label={`取消 ${item.file.name}`}
                       title="取消上传"
                     >
@@ -357,7 +377,7 @@ export default function UploadPage() {
                     <button
                       type="button"
                       onClick={() => retryItem(item.id)}
-                      className="grid h-8 w-8 place-items-center rounded text-text-muted hover:bg-white/10 hover:text-primary"
+                      className="grid h-11 w-11 place-items-center rounded-[12px] text-text-muted hover:bg-white/10 hover:text-primary"
                       aria-label={`重试 ${item.file.name}`}
                       title="重试上传"
                     >
@@ -368,7 +388,7 @@ export default function UploadPage() {
                     <button
                       type="button"
                       onClick={() => removeItem(item.id)}
-                      className="grid h-8 w-8 place-items-center rounded text-text-muted hover:bg-white/10 hover:text-destructive"
+                      className="grid h-11 w-11 place-items-center rounded-[12px] text-text-muted hover:bg-white/10 hover:text-destructive"
                       aria-label={`移除 ${item.file.name}`}
                       title="移除记录"
                     >

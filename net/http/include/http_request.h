@@ -30,14 +30,15 @@ HttpMethod string_to_http_method(std::string_view s) noexcept;
 
 /** HTTP 请求结构体 */
 struct HttpRequest {
-  HttpMethod method = HttpMethod::UNKNOWN;                  ///< 请求方法
-  std::string path;                                         ///< 请求路径（不含查询参数）
-  std::string query_string;                                 ///< 查询参数字符串（? 之后的部分）
-  std::string version = "HTTP/1.1";                         ///< HTTP 版本
-  HeaderMap headers;                                        ///< 请求头（大小写不敏感）
-  std::string body;                                         ///< 请求体
-  std::unordered_map<std::string, std::string> path_params; ///< 路由参数（如 {"id":"42"}）
-  AuthUser auth_user;                                       ///< 认证用户信息
+  HttpMethod method = HttpMethod::UNKNOWN;                           ///< 请求方法
+  std::string path;                                                  ///< 请求路径（不含查询参数）
+  std::string query_string;                                          ///< 查询参数字符串（? 之后的部分）
+  std::string version = "HTTP/1.1";                                  ///< HTTP 版本
+  HeaderMap headers;                                                 ///< 请求头（大小写不敏感）
+  std::string body;                                                  ///< 请求体
+  std::unordered_map<std::string, std::string> path_params;          ///< 路由参数（如 {"id":"42"}）
+  TokenValidationStatus auth_status{TokenValidationStatus::INVALID}; ///< Token 验证状态
+  EffectiveIdentity auth_user;                                       ///< 当前有效认证身份
 
   /** 重置为默认状态 */
   void clear() noexcept;

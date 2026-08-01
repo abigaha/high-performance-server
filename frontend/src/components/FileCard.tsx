@@ -1,5 +1,6 @@
 import type { FileRecord } from '../types/api';
 import { File as FileIcon, Download, Trash } from '@phosphor-icons/react';
+import { Link } from 'react-router-dom';
 
 interface Props {
   file: FileRecord;
@@ -33,7 +34,13 @@ export default function FileCard({
           <FileIcon size={22} className="text-primary" />
         </div>
         <div className="flex-1 min-w-0">
-          <p className="text-sm font-medium truncate">{file.file_name}</p>
+          <Link
+            to={`/files/${file.file_id}`}
+            className="block truncate text-sm font-medium text-text hover:text-primary focus-visible:outline-2 focus-visible:outline-primary"
+            title={file.file_name}
+          >
+            {file.file_name}
+          </Link>
           <p className="text-xs text-text-muted">{formatSize(file.file_size)}</p>
         </div>
       </div>
@@ -46,28 +53,30 @@ export default function FileCard({
           <button
             type="button"
             aria-label={`下载 ${file.file_name}`}
+            aria-busy={downloading}
             disabled={downloading || deleting}
             onClick={(event) => {
               event.stopPropagation();
               onDownload(file.file_id);
             }}
-            className="glass-button !py-1.5 !px-3 !text-xs flex items-center gap-1"
+            className="glass-button flex min-h-11 min-w-24 items-center justify-center gap-1 text-xs"
           >
-            <Download size={14} /> {downloading ? '准备中' : '下载'}
+            <Download size={14} aria-hidden="true" /> <span>{downloading ? '准备中' : '下载'}</span>
           </button>
         )}
         {onDelete && (
           <button
             type="button"
             aria-label={`删除 ${file.file_name}`}
+            aria-busy={deleting}
             disabled={deleting || downloading}
             onClick={(event) => {
               event.stopPropagation();
               onDelete(file.file_id);
             }}
-            className="glass-button !py-1.5 !px-3 !text-xs flex items-center gap-1 !bg-red-500/80"
+            className="glass-button flex min-h-11 min-w-24 items-center justify-center gap-1 text-xs !bg-red-500/80"
           >
-            <Trash size={14} /> {deleting ? '删除中' : '删除'}
+            <Trash size={14} aria-hidden="true" /> <span>{deleting ? '删除中' : '删除'}</span>
           </button>
         )}
       </div>

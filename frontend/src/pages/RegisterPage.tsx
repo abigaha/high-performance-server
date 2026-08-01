@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuthStore } from '../stores/auth';
 
@@ -10,6 +10,16 @@ export default function RegisterPage() {
   const [submitting, setSubmitting] = useState(false);
   const register = useAuthStore((state) => state.register);
   const navigate = useNavigate();
+  const operationIdRef = useRef(0);
+  const mountedRef = useRef(true);
+
+  useEffect(() => {
+    mountedRef.current = true;
+    return () => {
+      mountedRef.current = false;
+      operationIdRef.current += 1;
+    };
+  }, []);
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -30,13 +40,15 @@ export default function RegisterPage() {
     }
 
     setSubmitting(true);
+    const operationId = ++operationIdRef.current;
+    const isCurrent = () => mountedRef.current && operationId === operationIdRef.current;
     try {
-      await register(username, password, email);
-      navigate('/files', { replace: true });
+      const committed = await register(username, password, email);
+      if (committed !== false && isCurrent()) navigate('/files', { replace: true });
     } catch (registerError) {
-      setError(registerError instanceof Error && registerError.message ? registerError.message : '注册失败，请重试');
+      if (isCurrent()) setError(registerError instanceof Error && registerError.message ? registerError.message : '注册失败，请重试');
     } finally {
-      setSubmitting(false);
+      if (isCurrent()) setSubmitting(false);
     }
   };
 
@@ -44,10 +56,11 @@ export default function RegisterPage() {
     <form
       noValidate
       onSubmit={handleSubmit}
-      className="glass-card flex w-full max-w-sm flex-col gap-5 p-8"
+      className="guest-form-surface glass-card flex w-full max-w-md flex-col gap-5 p-5 sm:p-7"
       aria-busy={submitting}
+      aria-labelledby="register-title"
     >
-      <h1 className="text-center font-display text-xl text-primary">注册</h1>
+      <h1 id="register-title" className="text-center font-display text-2xl text-text">注册</h1>
       {error && <p role="alert" className="text-center text-xs text-destructive">{error}</p>}
       <div>
         <label htmlFor="register-username" className="sr-only">用户名</label>

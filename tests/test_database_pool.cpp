@@ -6,18 +6,26 @@
 
 #include <gtest/gtest.h>
 
+#include <algorithm>
+#include <array>
 #include <atomic>
+#include <barrier>
 #include <chrono>
 #include <future>
 #include <memory>
+#include <mutex>
+#include <stdexcept>
 #include <string>
+#include <string_view>
 #include <thread>
+#include <tuple>
 #include <vector>
 
 namespace hps {
 
 // 工厂辅助：创建使用 MockConnection 的 DatabasePool
 struct MockPool {
+  ChunkLifecycleCoordinator coordinator;
   std::vector<MockConnection*> connections;
   std::unique_ptr<DatabasePool> pool;
   int create_count = 0;
@@ -34,6 +42,9 @@ struct MockPool {
     cfg.pool_size = pool_size;
     cfg.connect_timeout_ms = 500;
     pool->init(cfg);
+    if (!pool->bind_chunk_lifecycle_coordinator(coordinator)) {
+      throw std::runtime_error("failed to bind chunk lifecycle coordinator");
+    }
   }
 };
 
@@ -151,6 +162,473 @@ TEST(DatabaseModelTest, FileChunkRecordModelFields) {
   EXPECT_EQ(c.chunk_size, 2097152);
 }
 
+TEST(DatabasePoolFileDeletionTest, OwnerQueuesOnlyChunksWithNoRemainingReferencesAndKeepsSharedMusic) {
+  MockPool mp(1);
+  auto* connection = mp.connections[0];
+  std::vector<std::string> executed;
+  connection->execute_hook = [&](const std::string& sql, const std::vector<std::string>&) {
+    executed.push_back(sql);
+    return std::optional<int64_t>{1};
+  };
+  connection->query_hook = [](const std::string& sql, const std::vector<std::string>& params) {
+    if (sql == "SELECT music_id FROM file_records WHERE file_id = ?") {
+      return std::optional<QueryResult>{QueryResult{.rows = {{"9"}}}};
+    }
+    if (sql.find("FROM music_meta") != std::string::npos) {
+      return std::optional<QueryResult>{QueryResult{.rows = {{"9"}}}};
+    }
+    if (sql.find("WHERE file_id = ?") != std::string::npos) {
+      return std::optional<QueryResult>{
+        QueryResult{.rows = {{"7", "owner.mp3", "file-hash", "10", "audio/mpeg", "4", "2026-01-01", "9", "42"}}}};
+    }
+    if (sql.find("WHERE chunk_hash = ? ORDER BY file_hash, chunk_index FOR UPDATE") != std::string::npos) {
+      return std::optional<QueryResult>{
+        QueryResult{.rows = params[0] == "shared" ? std::vector<std::vector<std::string>>{{"file-hash"}, {"other-file"}}
+                                                  : std::vector<std::vector<std::string>>{{"file-hash"}}}};
+    }
+    if (sql.find("FROM file_chunks") != std::string::npos) {
+      return std::optional<QueryResult>{QueryResult{.rows = {{"only"}, {"shared"}}}};
+    }
+    if (sql.find("COUNT(*) FROM file_records WHERE music_id") != std::string::npos) {
+      return std::optional<QueryResult>{QueryResult{.rows = {{"1"}}}};
+    }
+    return std::optional<QueryResult>{QueryResult{}};
+  };
+
+  auto cleanup_guard = mp.coordinator.acquire_cleanup_guard();
+  const auto result = mp.pool->delete_file_owned(cleanup_guard.permit(), 7, 42, false);
+
+  ASSERT_EQ(result.status, MutationStatus::OK) << result.detail.value_or("no detail");
+  ASSERT_TRUE(result.value);
+  EXPECT_EQ(result.value->file_id, 7);
+  EXPECT_EQ(result.value->queued_chunk_count, 1U);
+  EXPECT_TRUE(std::ranges::any_of(executed, [](const auto& sql) {
+    return sql.find("pending_chunk_deletions") != std::string::npos;
+  }));
+  EXPECT_FALSE(std::ranges::any_of(executed, [](const auto& sql) {
+    return sql.find("DELETE FROM music_meta") != std::string::npos;
+  }));
+}
+
+TEST(DatabasePoolFileDeletionTest, CanonicalCoordinatorCanOnlyBindToOneIdentity) {
+  MockPool mp(1);
+  ChunkLifecycleCoordinator other;
+
+  EXPECT_TRUE(mp.pool->bind_chunk_lifecycle_coordinator(mp.coordinator));
+  EXPECT_TRUE(mp.pool->bind_chunk_lifecycle_coordinator(mp.coordinator));
+  EXPECT_FALSE(mp.pool->bind_chunk_lifecycle_coordinator(other));
+}
+
+TEST(DatabasePoolFileDeletionTest, WrongCleanupPermitIsRejectedBeforeStartingTransaction) {
+  MockPool mp(1);
+  ChunkLifecycleCoordinator other;
+  auto wrong_guard = other.acquire_cleanup_guard();
+  std::vector<std::string> executed;
+  mp.connections[0]->execute_hook = [&](const std::string& sql, const std::vector<std::string>&) {
+    executed.push_back(sql);
+    return std::optional<int64_t>{1};
+  };
+
+  const auto result = mp.pool->delete_file_owned(wrong_guard.permit(), 7, 42, false);
+
+  EXPECT_EQ(result.status, MutationStatus::INVALID_STATE);
+  EXPECT_EQ(result.detail, "CLEANUP_PERMIT_INVALID");
+  EXPECT_TRUE(executed.empty());
+}
+
+TEST(DatabasePoolFileDeletionTest, NonOwnerIsRejectedWithoutDeletingOrEnqueueing) {
+  MockPool mp(1);
+  auto* connection = mp.connections[0];
+  std::vector<std::string> executed;
+  connection->execute_hook = [&](const std::string& sql, const std::vector<std::string>&) {
+    executed.push_back(sql);
+    return std::optional<int64_t>{1};
+  };
+  connection->query_hook = [](const std::string& sql, const std::vector<std::string>&) {
+    if (sql == "SELECT music_id FROM file_records WHERE file_id = ?")
+      return std::optional<QueryResult>{QueryResult{.rows = {{""}}}};
+    return std::optional<QueryResult>{
+      QueryResult{.rows = {{"7", "owner.mp3", "file-hash", "10", "audio/mpeg", "4", "2026-01-01", "", "42"}}}};
+  };
+
+  auto cleanup_guard = mp.coordinator.acquire_cleanup_guard();
+  const auto result = mp.pool->delete_file_owned(cleanup_guard.permit(), 7, 99, false);
+
+  EXPECT_EQ(result.status, MutationStatus::OWNER_REQUIRED);
+  EXPECT_FALSE(result.value);
+  EXPECT_FALSE(std::ranges::any_of(executed, [](const auto& sql) {
+    return sql.find("DELETE FROM file_records") != std::string::npos ||
+           sql.find("pending_chunk_deletions") != std::string::npos;
+  }));
+  EXPECT_TRUE(std::ranges::any_of(executed, [](const auto& sql) { return sql == "ROLLBACK"; }));
+}
+
+TEST(DatabasePoolFileDeletionTest, ConcurrentDeletesLockChunkHashesInSameGlobalOrder) {
+  MockPool mp(2);
+  std::barrier chunks_loaded(2);
+  std::mutex capture_mutex;
+  std::vector<std::vector<std::string>> lock_orders(2);
+  for (std::size_t index = 0; index < mp.connections.size(); ++index) {
+    auto* connection = mp.connections[index];
+    connection->execute_hook = [](const std::string&, const std::vector<std::string>&) {
+      return std::optional<int64_t>{1};
+    };
+    connection->query_hook = [&, index](const std::string& sql, const std::vector<std::string>& params) {
+      if (sql == "SELECT music_id FROM file_records WHERE file_id = ?") {
+        return std::optional<QueryResult>{QueryResult{.rows = {{""}}}};
+      }
+      if (sql.find("WHERE file_id = ?") != std::string::npos) {
+        return std::optional<QueryResult>{QueryResult{
+          .rows = {
+            {params[0], "file", "file-" + params[0], "10", "application/octet-stream", "4", "2026-01-01", "0", "42"}}}};
+      }
+      if (sql.find("WHERE file_hash = ? ORDER BY chunk_index") != std::string::npos) {
+        chunks_loaded.arrive_and_wait();
+        const bool reverse = params[0] == "file-8";
+        return std::optional<QueryResult>{QueryResult{.rows = reverse
+                                                                ? std::vector<std::vector<std::string>>{{"z"}, {"a"}}
+                                                                : std::vector<std::vector<std::string>>{{"a"}, {"z"}}}};
+      }
+      if (sql.find("WHERE chunk_hash = ? ORDER BY file_hash, chunk_index FOR UPDATE") != std::string::npos) {
+        std::lock_guard lock(capture_mutex);
+        lock_orders[index].push_back(params[0]);
+        return std::optional<QueryResult>{QueryResult{.rows = {{"file-" + std::to_string(index == 0 ? 7 : 8)}}}};
+      }
+      return std::optional<QueryResult>{QueryResult{}};
+    };
+  }
+
+  auto cleanup_guard = mp.coordinator.acquire_cleanup_guard();
+  auto first =
+    std::async(std::launch::async, [&] { return mp.pool->delete_file_owned(cleanup_guard.permit(), 7, 42, false); });
+  auto second =
+    std::async(std::launch::async, [&] { return mp.pool->delete_file_owned(cleanup_guard.permit(), 8, 42, false); });
+
+  EXPECT_EQ(first.get().status, MutationStatus::OK);
+  EXPECT_EQ(second.get().status, MutationStatus::OK);
+  EXPECT_EQ(lock_orders[0], (std::vector<std::string>{"a", "z"}));
+  EXPECT_EQ(lock_orders[1], (std::vector<std::string>{"a", "z"}));
+}
+
+TEST(DatabasePoolFileDeletionTest, DuplicateChunkHashIsLockedAndQueuedOnlyOnce) {
+  MockPool mp(1);
+  auto* connection = mp.connections[0];
+  int pending_inserts = 0;
+  connection->execute_hook = [&](const std::string& sql, const std::vector<std::string>&) {
+    if (sql.find("pending_chunk_deletions") != std::string::npos)
+      ++pending_inserts;
+    return std::optional<int64_t>{1};
+  };
+  connection->query_hook = [](const std::string& sql, const std::vector<std::string>& params) {
+    if (sql == "SELECT music_id FROM file_records WHERE file_id = ?") {
+      return std::optional<QueryResult>{QueryResult{.rows = {{""}}}};
+    }
+    if (sql.find("WHERE file_id = ?") != std::string::npos) {
+      return std::optional<QueryResult>{
+        QueryResult{.rows = {{"7", "file", "file-7", "10", "application/octet-stream", "4", "2026-01-01", "0", "42"}}}};
+    }
+    if (sql.find("WHERE file_hash = ? ORDER BY chunk_index") != std::string::npos) {
+      return std::optional<QueryResult>{QueryResult{.rows = {{"same"}, {"same"}}}};
+    }
+    if (sql.find("WHERE chunk_hash = ? ORDER BY file_hash, chunk_index FOR UPDATE") != std::string::npos) {
+      EXPECT_EQ(params[0], "same");
+      return std::optional<QueryResult>{QueryResult{.rows = {{"file-7"}, {"file-7"}}}};
+    }
+    return std::optional<QueryResult>{QueryResult{}};
+  };
+
+  auto cleanup_guard = mp.coordinator.acquire_cleanup_guard();
+  const auto result = mp.pool->delete_file_owned(cleanup_guard.permit(), 7, 42, false);
+
+  ASSERT_EQ(result.status, MutationStatus::OK);
+  EXPECT_EQ(result.value->queued_chunk_count, 1U);
+  EXPECT_EQ(pending_inserts, 1);
+}
+
+TEST(DatabasePoolFileDeletionTest, MusicIsLockedBeforeTargetFileAndThenRevalidated) {
+  MockPool mp(1);
+  auto* connection = mp.connections[0];
+  std::vector<std::string> queries;
+  connection->execute_hook = [](const std::string&, const std::vector<std::string>&) {
+    return std::optional<int64_t>{1};
+  };
+  connection->query_hook = [&](const std::string& sql, const std::vector<std::string>&) {
+    queries.push_back(sql);
+    if (sql.find("SELECT music_id FROM file_records") != std::string::npos)
+      return std::optional<QueryResult>{QueryResult{.rows = {{"9"}}}};
+    if (sql.find("FROM music_meta") != std::string::npos)
+      return std::optional<QueryResult>{QueryResult{.rows = {{"9"}}}};
+    if (sql.find("WHERE file_id = ? FOR UPDATE") != std::string::npos)
+      return std::optional<QueryResult>{
+        QueryResult{.rows = {{"7", "owner.mp3", "file-hash", "10", "audio/mpeg", "4", "2026-01-01", "9", "42"}}}};
+    if (sql.find("COUNT(*) FROM file_records WHERE music_id") != std::string::npos)
+      return std::optional<QueryResult>{QueryResult{.rows = {{"0"}}}};
+    return std::optional<QueryResult>{QueryResult{}};
+  };
+
+  auto cleanup_guard = mp.coordinator.acquire_cleanup_guard();
+  const auto result = mp.pool->delete_file_owned(cleanup_guard.permit(), 7, 42, false);
+
+  ASSERT_EQ(result.status, MutationStatus::OK) << result.detail.value_or("no detail");
+  ASSERT_GE(queries.size(), 3U);
+  EXPECT_EQ(queries[0], "SELECT music_id FROM file_records WHERE file_id = ?");
+  EXPECT_EQ(queries[1], "SELECT music_id FROM music_meta WHERE music_id = ? FOR UPDATE");
+  EXPECT_NE(queries[2].find("WHERE file_id = ? FOR UPDATE"), std::string::npos);
+}
+
+TEST(DatabasePoolFileDeletionTest, ConcurrentSameMusicTransactionsReachSharedMusicLockBeforeEitherFileLock) {
+  MockPool mp(2);
+  std::barrier music_lock_requested(2);
+  std::atomic<int> music_lock_requests{0};
+  std::atomic<int> file_locks_before_music_barrier{0};
+  for (auto* connection : mp.connections) {
+    connection->execute_hook = [](const std::string&, const std::vector<std::string>&) {
+      return std::optional<int64_t>{1};
+    };
+    connection->query_hook = [&](const std::string& sql, const std::vector<std::string>& params) {
+      if (sql.find("SELECT music_id FROM file_records") != std::string::npos)
+        return std::optional<QueryResult>{QueryResult{.rows = {{"9"}}}};
+      if (sql.find("FROM music_meta") != std::string::npos) {
+        music_lock_requests.fetch_add(1);
+        music_lock_requested.arrive_and_wait();
+        return std::optional<QueryResult>{QueryResult{.rows = {{"9"}}}};
+      }
+      if (sql.find("WHERE file_id = ? FOR UPDATE") != std::string::npos) {
+        if (music_lock_requests.load() < 2)
+          file_locks_before_music_barrier.fetch_add(1);
+        return std::optional<QueryResult>{QueryResult{
+          .rows = {{params[0], "owner.mp3", "file-" + params[0], "10", "audio/mpeg", "4", "2026-01-01", "9", "42"}}}};
+      }
+      if (sql.find("COUNT(*) FROM file_records WHERE music_id") != std::string::npos)
+        return std::optional<QueryResult>{QueryResult{.rows = {{"1"}}}};
+      return std::optional<QueryResult>{QueryResult{}};
+    };
+  }
+
+  auto cleanup_guard = mp.coordinator.acquire_cleanup_guard();
+  auto first =
+    std::async(std::launch::async, [&] { return mp.pool->delete_file_owned(cleanup_guard.permit(), 7, 42, false); });
+  auto second =
+    std::async(std::launch::async, [&] { return mp.pool->delete_file_owned(cleanup_guard.permit(), 8, 42, false); });
+
+  EXPECT_EQ(first.get().status, MutationStatus::OK);
+  EXPECT_EQ(second.get().status, MutationStatus::OK);
+  EXPECT_EQ(file_locks_before_music_barrier.load(), 0);
+}
+
+TEST(DatabasePoolFileDeletionTest, MalformedChunkListReturnsInvalidStateAndRollsBack) {
+  MockPool mp(1);
+  auto* connection = mp.connections[0];
+  std::vector<std::string> executed;
+  connection->execute_hook = [&](const std::string& sql, const std::vector<std::string>&) {
+    executed.push_back(sql);
+    return std::optional<int64_t>{1};
+  };
+  connection->query_hook = [](const std::string& sql, const std::vector<std::string>&) {
+    if (sql.find("SELECT music_id FROM file_records") != std::string::npos)
+      return std::optional<QueryResult>{QueryResult{.rows = {{""}}}};
+    if (sql.find("WHERE file_id = ? FOR UPDATE") != std::string::npos)
+      return std::optional<QueryResult>{QueryResult{
+        .rows = {{"7", "owner.bin", "file-hash", "10", "application/octet-stream", "4", "2026-01-01", "", "42"}}}};
+    if (sql.find("FROM file_chunks") != std::string::npos)
+      return std::optional<QueryResult>{QueryResult{.rows = {{"hash", "unexpected"}}}};
+    return std::optional<QueryResult>{QueryResult{}};
+  };
+
+  auto cleanup_guard = mp.coordinator.acquire_cleanup_guard();
+  const auto result = mp.pool->delete_file_owned(cleanup_guard.permit(), 7, 42, false);
+
+  EXPECT_EQ(result.status, MutationStatus::INVALID_STATE);
+  EXPECT_EQ(result.detail, "FILE_CHUNK_STATE_INVALID");
+  EXPECT_TRUE(std::ranges::any_of(executed, [](const auto& sql) { return sql == "ROLLBACK"; }));
+  EXPECT_FALSE(std::ranges::any_of(executed, [](const auto& sql) { return sql == "COMMIT"; }));
+}
+
+TEST(DatabasePoolFileDeletionTest, MusicChangeAfterPreviewReturnsConflictAndRollsBack) {
+  MockPool mp(1);
+  auto* connection = mp.connections[0];
+  std::vector<std::string> executed;
+  connection->execute_hook = [&](const std::string& sql, const std::vector<std::string>&) {
+    executed.push_back(sql);
+    return std::optional<int64_t>{1};
+  };
+  connection->query_hook = [](const std::string& sql, const std::vector<std::string>&) {
+    if (sql == "SELECT music_id FROM file_records WHERE file_id = ?")
+      return std::optional<QueryResult>{QueryResult{.rows = {{"9"}}}};
+    if (sql.find("FROM music_meta") != std::string::npos)
+      return std::optional<QueryResult>{QueryResult{.rows = {{"9"}}}};
+    if (sql.find("WHERE file_id = ? FOR UPDATE") != std::string::npos)
+      return std::optional<QueryResult>{
+        QueryResult{.rows = {{"7", "owner.mp3", "file-hash", "10", "audio/mpeg", "4", "2026-01-01", "10", "42"}}}};
+    return std::optional<QueryResult>{QueryResult{}};
+  };
+
+  auto cleanup_guard = mp.coordinator.acquire_cleanup_guard();
+  const auto result = mp.pool->delete_file_owned(cleanup_guard.permit(), 7, 42, false);
+
+  EXPECT_EQ(result.status, MutationStatus::CONFLICT);
+  EXPECT_EQ(result.detail, "FILE_MUSIC_CHANGED");
+  EXPECT_TRUE(std::ranges::any_of(executed, [](const auto& sql) { return sql == "ROLLBACK"; }));
+  EXPECT_FALSE(std::ranges::any_of(executed, [](const auto& sql) {
+    return sql.find("DELETE FROM file_records") != std::string::npos;
+  }));
+}
+
+TEST(DatabasePoolPendingDeletionTest, ClaimRecoversStaleRowsLocksDueRowsAndUsesUniqueTokens) {
+  MockPool mp(1);
+  auto* connection = mp.connections[0];
+  std::vector<std::string> sqls;
+  connection->execute_hook = [&](const std::string& sql, const std::vector<std::string>&) {
+    sqls.push_back(sql);
+    return std::optional<int64_t>{1};
+  };
+  connection->query_hook = [&](const std::string& sql, const std::vector<std::string>&) {
+    sqls.push_back(sql);
+    return std::optional<QueryResult>{QueryResult{.rows = {{"hash-a", "2"}, {"hash-b", "0"}}}};
+  };
+
+  const auto result = mp.pool->claim_pending_chunk_deletions(2, std::chrono::system_clock::now());
+
+  ASSERT_EQ(result.status, MutationStatus::OK);
+  ASSERT_EQ(result.value->size(), 2U);
+  EXPECT_FALSE((*result.value)[0].claim_token.empty());
+  EXPECT_NE((*result.value)[0].claim_token, (*result.value)[1].claim_token);
+  EXPECT_TRUE(std::ranges::any_of(sqls, [](const auto& sql) { return sql.find("SKIP LOCKED") != std::string::npos; }));
+  EXPECT_TRUE(
+    std::ranges::any_of(sqls, [](const auto& sql) { return sql.find("claimed_at < ?") != std::string::npos; }));
+}
+
+TEST(DatabasePoolPendingDeletionTest, CompleteAndReleaseRequireMatchingTokenAndCapBackoffAndError) {
+  MockPool mp(1);
+  auto* connection = mp.connections[0];
+  std::vector<std::string> sqls;
+  std::vector<std::vector<std::string>> params;
+  connection->execute_hook = [&](const std::string& sql, const std::vector<std::string>& values) {
+    sqls.push_back(sql);
+    params.push_back(values);
+    return std::optional<int64_t>{1};
+  };
+
+  EXPECT_EQ(mp.pool->complete_pending_chunk_deletion("hash", "token").status, MutationStatus::OK);
+  EXPECT_EQ(mp.pool->release_pending_chunk_deletion("hash", "token", std::string(700, 'x')).status, MutationStatus::OK);
+  ASSERT_GE(params.size(), 2U);
+  ASSERT_GE(sqls.size(), 2U);
+  EXPECT_EQ(params[0], (std::vector<std::string>{"hash", "token"}));
+  EXPECT_EQ(params[1][0].size(), 512U);
+  EXPECT_EQ(params[1][1], "hash");
+  EXPECT_EQ(params[1][2], "token");
+  const auto next_attempt = sqls[1].find("next_attempt_at = DATE_ADD(UTC_TIMESTAMP(6), INTERVAL "
+                                         "LEAST(POW(2, IF(retry_count >= 12, 12, retry_count + 1)), 3600) SECOND)");
+  const auto retry_count = sqls[1].find("retry_count = IF(retry_count >= 2147483647, 2147483647, retry_count + 1)");
+  ASSERT_NE(next_attempt, std::string::npos);
+  ASSERT_NE(retry_count, std::string::npos);
+  EXPECT_LT(next_attempt, retry_count);
+}
+
+TEST(DatabasePoolPendingDeletionTest, ThrowingPendingOperationsCloseAndReturnConnectionCapacity) {
+  constexpr int kAttempts = 3;
+  const auto expect_reusable_after = [kAttempts](auto configure, auto invoke, auto expected_status) {
+    MockPool mp(1);
+    auto* connection = mp.connections[0];
+    connection->close_hook = [connection]() { connection->is_open_result = false; };
+    connection->connect_hook = [connection]() { connection->is_open_result = true; };
+    configure(*connection);
+
+    for (int attempt = 0; attempt < kAttempts; ++attempt) {
+      EXPECT_EQ(invoke(*mp.pool).status, expected_status) << attempt;
+      EXPECT_TRUE(mp.pool->with_connection([](IConnection&) { return true; })) << attempt;
+    }
+    EXPECT_EQ(connection->close_count, kAttempts);
+  };
+
+  expect_reusable_after(
+    [](MockConnection& connection) {
+      connection.execute_hook = [](const std::string& sql, const std::vector<std::string>&) -> std::optional<int64_t> {
+        return sql == "ROLLBACK" ? std::optional<int64_t>{} : std::optional<int64_t>{1};
+      };
+      connection.query_hook = [](const std::string&, const std::vector<std::string>&) -> std::optional<QueryResult> {
+        throw std::runtime_error("claim query failed");
+      };
+    },
+    [](DatabasePool& pool) { return pool.claim_pending_chunk_deletions(1, std::chrono::system_clock::now()); },
+    MutationStatus::STORAGE_ERROR);
+
+  expect_reusable_after(
+    [](MockConnection& connection) {
+      connection.execute_hook = [](const std::string& sql, const std::vector<std::string>&) -> std::optional<int64_t> {
+        if (sql == "ROLLBACK") {
+          return std::nullopt;
+        }
+        if (sql.starts_with("DELETE FROM pending_chunk_deletions")) {
+          throw std::runtime_error("complete execute failed");
+        }
+        return 1;
+      };
+    },
+    [](DatabasePool& pool) { return pool.complete_pending_chunk_deletion("hash", "token"); },
+    MutationStatus::STORAGE_ERROR);
+
+  expect_reusable_after(
+    [](MockConnection& connection) {
+      connection.execute_hook = [](const std::string& sql, const std::vector<std::string>&) -> std::optional<int64_t> {
+        if (sql == "ROLLBACK") {
+          return std::nullopt;
+        }
+        if (sql.starts_with("UPDATE pending_chunk_deletions")) {
+          throw std::runtime_error("release execute failed");
+        }
+        return 1;
+      };
+    },
+    [](DatabasePool& pool) { return pool.release_pending_chunk_deletion("hash", "token", "error"); },
+    MutationStatus::STORAGE_ERROR);
+
+  expect_reusable_after(
+    [](MockConnection& connection) {
+      connection.execute_hook = [](const std::string& sql, const std::vector<std::string>&) -> std::optional<int64_t> {
+        return sql == "ROLLBACK" ? std::optional<int64_t>{} : std::optional<int64_t>{0};
+      };
+      connection.query_hook = [](const std::string&, const std::vector<std::string>&) -> std::optional<QueryResult> {
+        throw std::runtime_error("reference query failed");
+      };
+    },
+    [](DatabasePool& pool) { return pool.has_chunk_references("hash"); },
+    LookupStatus::STORAGE_ERROR);
+
+  expect_reusable_after(
+    [](MockConnection& connection) {
+      connection.execute_hook = [](const std::string& sql, const std::vector<std::string>&) -> std::optional<int64_t> {
+        if (sql == "ROLLBACK") {
+          return std::nullopt;
+        }
+        if (sql.starts_with("DELETE FROM pending_chunk_deletions")) {
+          throw std::runtime_error("cancel execute failed");
+        }
+        return 1;
+      };
+    },
+    [](DatabasePool& pool) { return pool.cancel_pending_chunk_deletion("hash", "token"); },
+    MutationStatus::STORAGE_ERROR);
+}
+
+TEST(DatabasePoolPendingDeletionTest, MalformedDueListReturnsInvalidStateAndRollsBack) {
+  MockPool mp(1);
+  auto* connection = mp.connections[0];
+  std::vector<std::string> executed;
+  connection->execute_hook = [&](const std::string& sql, const std::vector<std::string>&) {
+    executed.push_back(sql);
+    return std::optional<int64_t>{1};
+  };
+  connection->query_result = QueryResult{.rows = {{"hash-only"}}};
+
+  const auto result = mp.pool->claim_pending_chunk_deletions(2, std::chrono::system_clock::now());
+
+  EXPECT_EQ(result.status, MutationStatus::INVALID_STATE);
+  EXPECT_EQ(result.detail, "PENDING_STATE_INVALID");
+  EXPECT_TRUE(std::ranges::any_of(executed, [](const auto& sql) { return sql == "ROLLBACK"; }));
+  EXPECT_FALSE(std::ranges::any_of(executed, [](const auto& sql) { return sql == "COMMIT"; }));
+}
+
 // ============================================================
 // T5: 连接池创建销毁
 // ============================================================
@@ -191,6 +669,91 @@ TEST(DatabasePoolTest, ConnectionAcquireRelease) {
   // 即使只有 2 个连接，也应该成功
   EXPECT_FALSE(u1.has_value()); // 查询结果为空
   EXPECT_FALSE(u2.has_value());
+}
+
+TEST(DatabasePoolTest, PingFailureReconnectsBeforeReusingConnection) {
+  MockConnection* connection = nullptr;
+  std::vector<std::string> session_statements;
+  auto factory = [&connection, &session_statements]() -> std::unique_ptr<IConnection> {
+    auto mock = std::make_unique<MockConnection>();
+    connection = mock.get();
+    mock->execute_hook = [&session_statements](const std::string& sql,
+                                               const std::vector<std::string>&) -> std::optional<int64_t> {
+      session_statements.push_back(sql);
+      return 0;
+    };
+    mock->connect_hook = [raw = mock.get()]() { configure_mysql_utc_session(*raw); };
+    return mock;
+  };
+  DatabasePool pool(factory);
+  DbConfig config;
+  config.pool_size = 1;
+  ASSERT_TRUE(pool.init(config));
+  ASSERT_NE(connection, nullptr);
+  EXPECT_EQ(session_statements, std::vector<std::string>{"SET time_zone = '+00:00'"});
+
+  connection->ping_result = false;
+  connection->query_result = QueryResult{};
+
+  EXPECT_FALSE(pool.get_user(1).has_value());
+  EXPECT_EQ(connection->ping_count, 1);
+  EXPECT_EQ(connection->close_count, 1);
+  EXPECT_EQ(connection->connect_count, 2);
+  EXPECT_EQ(session_statements, (std::vector<std::string>{"SET time_zone = '+00:00'", "SET time_zone = '+00:00'"}));
+}
+
+TEST(DatabasePoolTest, WithConnectionRollsBackWhenOperationReturnsFalse) {
+  MockPool mp(1);
+  int rollback_count = 0;
+  mp.connections[0]->execute_hook = [&rollback_count](const std::string& sql,
+                                                      const std::vector<std::string>&) -> std::optional<int64_t> {
+    if (sql == "ROLLBACK") {
+      ++rollback_count;
+    }
+    return 0;
+  };
+
+  EXPECT_FALSE(mp.pool->with_connection([](IConnection&) { return false; }));
+  EXPECT_EQ(rollback_count, 1);
+  EXPECT_EQ(mp.connections[0]->close_count, 0);
+  EXPECT_TRUE(mp.pool->with_connection([](IConnection&) { return true; }));
+}
+
+TEST(DatabasePoolTest, WithConnectionRollsBackWhenOperationThrows) {
+  MockPool mp(1);
+  int rollback_count = 0;
+  mp.connections[0]->execute_hook = [&rollback_count](const std::string& sql,
+                                                      const std::vector<std::string>&) -> std::optional<int64_t> {
+    if (sql == "ROLLBACK") {
+      ++rollback_count;
+    }
+    return 0;
+  };
+
+  EXPECT_FALSE(mp.pool->with_connection([](IConnection&) -> bool { throw std::runtime_error("operation failed"); }));
+  EXPECT_EQ(rollback_count, 1);
+  EXPECT_EQ(mp.connections[0]->close_count, 0);
+  EXPECT_TRUE(mp.pool->with_connection([](IConnection&) { return true; }));
+}
+
+TEST(DatabasePoolTest, WithConnectionClosesOnRollbackFailureAndReconnectsBeforeReuse) {
+  MockPool mp(1);
+  auto* connection = mp.connections[0];
+  connection->execute_hook = [](const std::string& sql, const std::vector<std::string>&) -> std::optional<int64_t> {
+    if (sql == "ROLLBACK") {
+      return std::nullopt;
+    }
+    return 0;
+  };
+  connection->close_hook = [connection]() { connection->is_open_result = false; };
+  connection->connect_hook = [connection]() { connection->is_open_result = true; };
+
+  EXPECT_FALSE(mp.pool->with_connection([](IConnection&) { return false; }));
+  EXPECT_EQ(connection->close_count, 1);
+  EXPECT_EQ(connection->connect_count, 1);
+
+  EXPECT_TRUE(mp.pool->with_connection([](IConnection&) { return true; }));
+  EXPECT_EQ(connection->connect_count, 2);
 }
 
 // ============================================================
@@ -242,8 +805,8 @@ TEST(DatabasePoolTest, GetUser) {
   MockPool mp(1);
 
   QueryResult qr;
-  qr.columns = {"user_id", "username", "password_hash", "salt", "role", "email", "created_at"};
-  qr.rows.push_back({"42", "bob", "hash123", "somesalt", "1", "bob@test.com", "2024-01-15"});
+  qr.columns = {"user_id", "username", "password_hash", "salt", "role", "email", "vip_expires_at", "created_at"};
+  qr.rows.push_back({"42", "bob", "hash123", "somesalt", "1", "bob@test.com", "", "2024-01-15"});
   mp.connections[0]->query_result = std::move(qr);
 
   auto user = mp.pool->get_user(42);
@@ -255,6 +818,88 @@ TEST(DatabasePoolTest, GetUser) {
   EXPECT_EQ(user->email, "bob@test.com");
   EXPECT_EQ(user->created_at, "2024-01-15");
   EXPECT_EQ(user->role, UserRole::NORMAL);
+}
+
+TEST(DatabasePoolTest, GetUserRejectsTruncatedRow) {
+  MockPool mp(1);
+  QueryResult result;
+  result.rows.push_back({"42", "bob", "hash123", "somesalt", "1", "bob@test.com", "2024-01-15"});
+  mp.connections[0]->query_result = std::move(result);
+
+  EXPECT_FALSE(mp.pool->get_user(42).has_value());
+}
+
+TEST(DatabasePoolTest, GetUserRejectsOversizedRow) {
+  MockPool mp(1);
+  QueryResult result;
+  result.rows.push_back({"42", "bob", "hash123", "somesalt", "1", "bob@test.com", "", "2024-01-15", "extra"});
+  mp.connections[0]->query_result = std::move(result);
+
+  EXPECT_FALSE(mp.pool->get_user(42).has_value());
+}
+
+TEST(DatabasePoolTest, GetUserResultDistinguishesLookupFailures) {
+  MockPool mp(1);
+
+  mp.connections[0]->query_result = std::nullopt;
+  EXPECT_EQ(mp.pool->get_user_result(42).status, LookupStatus::STORAGE_ERROR);
+
+  mp.connections[0]->query_result = QueryResult{};
+  EXPECT_EQ(mp.pool->get_user_result(42).status, LookupStatus::NOT_FOUND);
+
+  QueryResult truncated;
+  truncated.rows.push_back({"42", "bob"});
+  mp.connections[0]->query_result = std::move(truncated);
+  EXPECT_EQ(mp.pool->get_user_result(42).status, LookupStatus::INVALID_DATA);
+
+  QueryResult malformed;
+  malformed.rows.push_back({"invalid", "bob", "hash", "salt", "1", "bob@example.com", "", "2024-01-15"});
+  mp.connections[0]->query_result = std::move(malformed);
+  EXPECT_EQ(mp.pool->get_user_result(42).status, LookupStatus::INVALID_DATA);
+
+  mp.pool->close();
+  EXPECT_EQ(mp.pool->get_user_result(42).status, LookupStatus::STORAGE_ERROR);
+}
+
+TEST(DatabasePoolTest, GetUserResultReturnsFoundValueAndOptionalWrapper) {
+  MockPool mp(1);
+  QueryResult result;
+  result.rows.push_back({"42", "bob", "hash", "salt", "1", "bob@example.com", "", "2024-01-15"});
+  mp.connections[0]->query_result = result;
+
+  const auto lookup = mp.pool->get_user_result(42);
+
+  ASSERT_EQ(lookup.status, LookupStatus::FOUND);
+  ASSERT_TRUE(lookup.value.has_value());
+  EXPECT_EQ(lookup.value->user_id, 42);
+  mp.connections[0]->query_result = std::move(result);
+  EXPECT_TRUE(mp.pool->get_user(42).has_value());
+}
+
+TEST(DatabasePoolTest, GetUserResultRejectsEveryContradictoryRoleExpiryState) {
+  const std::array invalid_states = {
+    std::pair{UserRole::GUEST, std::string{"2034-01-01 00:00:00.000000"}},
+    std::pair{UserRole::NORMAL, std::string{"2034-01-01 00:00:00.000000"}},
+    std::pair{UserRole::ADMIN, std::string{"2034-01-01 00:00:00.000000"}},
+    std::pair{UserRole::VIP, std::string{}},
+  };
+
+  for (const auto& [role, expires_at] : invalid_states) {
+    MockPool mp(1);
+    mp.connections[0]->query_result = QueryResult{.rows = {{"42",
+                                                            "broken",
+                                                            "hash",
+                                                            "salt",
+                                                            std::to_string(static_cast<int>(role)),
+                                                            "broken@example.com",
+                                                            expires_at,
+                                                            "2026-01-02 03:04:05.000000"}}};
+
+    const auto result = mp.pool->get_user_result(42);
+
+    EXPECT_EQ(result.status, LookupStatus::INVALID_DATA) << static_cast<int>(role);
+    EXPECT_FALSE(result.value.has_value());
+  }
 }
 
 // ============================================================
@@ -270,10 +915,10 @@ TEST(DatabasePoolTest, CreateUser) {
   u.salt = "testsalt";
   u.email = "carol@test.com";
 
-  EXPECT_TRUE(mp.pool->create_user(u));
+  EXPECT_EQ(mp.pool->create_user(u).status, MutationStatus::OK);
 
   // 验证 SQL 中含有参数化占位符
-  EXPECT_NE(mp.connections[0]->last_sql.find('?'), std::string::npos);
+  EXPECT_NE(mp.connections[0]->last_sql.find("NULLIF(?, '')"), std::string::npos);
   ASSERT_EQ(mp.connections[0]->last_params.size(), 5U);
   EXPECT_EQ(mp.connections[0]->last_params[0], "carol");
   EXPECT_EQ(mp.connections[0]->last_params[1], "secure_hash");
@@ -291,7 +936,71 @@ TEST(DatabasePoolTest, CreateUserFails) {
   u.password_hash = "hash";
   u.email = "";
 
-  EXPECT_FALSE(mp.pool->create_user(u));
+  EXPECT_EQ(mp.pool->create_user(u).status, MutationStatus::STORAGE_ERROR);
+}
+
+TEST(DatabasePoolTest, CreateUserStoresEmptyEmailAsNull) {
+  MockPool mp(1);
+  mp.connections[0]->execute_result = 1;
+  User user;
+  user.username = "no_email";
+  user.password_hash = "hash";
+
+  EXPECT_EQ(mp.pool->create_user(user).status, MutationStatus::OK);
+  EXPECT_NE(mp.connections[0]->last_sql.find("NULLIF(?, '')"), std::string::npos);
+  EXPECT_TRUE(mp.connections[0]->last_params.back().empty());
+}
+
+TEST(DatabasePoolTest, CreateUserRejectsEmailLongerThan128BeforeWriting) {
+  MockPool mp(1);
+  mp.connections[0]->execute_result = 1;
+  User user;
+  user.username = "long_email";
+  user.password_hash = "hash";
+  user.email = std::string(129, 'a');
+
+  const auto creation = mp.pool->create_user(user);
+
+  EXPECT_EQ(creation.status, MutationStatus::INVALID_STATE);
+  EXPECT_EQ(creation.detail, "EMAIL_INVALID");
+  EXPECT_TRUE(mp.connections[0]->last_sql.empty());
+}
+
+TEST(DatabasePoolTest, CreateUserRechecksUniqueKeysAfterConcurrentInsertFailure) {
+  MockPool mp(1);
+  mp.connections[0]->execute_result = std::nullopt;
+  User user;
+  user.username = "racing_user";
+  user.password_hash = "hash";
+  user.email = "racing@example.com";
+  bool email_conflict = false;
+  mp.connections[0]->query_hook = [&email_conflict](const std::string& sql,
+                                                    const std::vector<std::string>&) -> std::optional<QueryResult> {
+    QueryResult result;
+    if (email_conflict && sql.find("email = ?") != std::string::npos) {
+      result.rows.push_back({"9", "winner", "hash", "salt", "1", "racing@example.com", "", "2026-01-01"});
+    }
+    return result;
+  };
+
+  email_conflict = true;
+  const auto email_result = mp.pool->create_user(user);
+  EXPECT_EQ(email_result.status, MutationStatus::CONFLICT);
+  EXPECT_EQ(email_result.detail, "EMAIL_CONFLICT");
+  EXPECT_EQ(email_result.detail->find(user.email), std::string::npos);
+
+  email_conflict = false;
+  mp.connections[0]->query_hook = [](const std::string& sql,
+                                     const std::vector<std::string>&) -> std::optional<QueryResult> {
+    QueryResult result;
+    if (sql.find("username = ?") != std::string::npos) {
+      result.rows.push_back({"10", "racing_user", "hash", "salt", "1", "", "", "2026-01-01"});
+    }
+    return result;
+  };
+  const auto username_result = mp.pool->create_user(user);
+  EXPECT_EQ(username_result.status, MutationStatus::CONFLICT);
+  EXPECT_EQ(username_result.detail, "USERNAME_CONFLICT");
 }
 
 // ============================================================
@@ -333,8 +1042,15 @@ TEST(DatabasePoolTest, StoreAndGetFileRecord) {
                 "created_at",
                 "music_id",
                 "uploaded_by"};
-  qr.rows.push_back(
-    {"1", "record_test.bin", "testhash123", "512000", "application/octet-stream", "2097152", "2024-07-01", "0", "0"});
+  qr.rows.push_back({"1",
+                     "record_test.bin",
+                     "testhash123",
+                     "512000",
+                     "application/octet-stream",
+                     "2097152",
+                     "2024-07-01 00:00:00.000000",
+                     "0",
+                     "0"});
   mp.connections[0]->query_result = std::move(qr);
 
   auto result = mp.pool->get_file_record(1);
@@ -342,6 +1058,40 @@ TEST(DatabasePoolTest, StoreAndGetFileRecord) {
   EXPECT_EQ(result->file_name, "record_test.bin");
   EXPECT_EQ(result->file_hash, "testhash123");
   EXPECT_EQ(result->file_size, 512000U);
+}
+
+TEST(DatabasePoolFileDetailTest, LookupResultDistinguishesMissingStorageAndInvalidRows) {
+  MockPool mp(1);
+  auto* connection = mp.connections[0];
+
+  connection->query_result = QueryResult{};
+  auto result = mp.pool->get_file_record_result(7);
+  EXPECT_EQ(result.status, LookupStatus::NOT_FOUND);
+  EXPECT_FALSE(result.value.has_value());
+
+  connection->query_result = std::nullopt;
+  result = mp.pool->get_file_record_result(7);
+  EXPECT_EQ(result.status, LookupStatus::STORAGE_ERROR);
+  EXPECT_FALSE(result.value.has_value());
+
+  connection->query_result = QueryResult{.rows = {{"7", "truncated"}}};
+  result = mp.pool->get_file_record_result(7);
+  EXPECT_EQ(result.status, LookupStatus::INVALID_DATA);
+  EXPECT_FALSE(result.value.has_value());
+
+  connection->query_result =
+    QueryResult{.rows = {{"7", "detail.mp3", "hash-7", "1024", "audio/mpeg", "2097152", "not-a-datetime", "0", "42"}}};
+  result = mp.pool->get_file_record_result(7);
+  EXPECT_EQ(result.status, LookupStatus::INVALID_DATA);
+  EXPECT_FALSE(result.value.has_value());
+
+  connection->query_result = QueryResult{
+    .rows = {{"7", "detail.mp3", "hash-7", "1024", "audio/mpeg", "2097152", "2026-01-03 00:00:00.000000", "0", "42"}}};
+  result = mp.pool->get_file_record_result(7);
+  ASSERT_EQ(result.status, LookupStatus::FOUND);
+  ASSERT_TRUE(result.value.has_value());
+  EXPECT_EQ(result.value->file_id, 7);
+  EXPECT_EQ(result.value->created_at, "2026-01-03 00:00:00.000000");
 }
 
 TEST(DatabasePoolTest, GetFileRecordByHash) {
@@ -357,8 +1107,15 @@ TEST(DatabasePoolTest, GetFileRecordByHash) {
                 "created_at",
                 "music_id",
                 "uploaded_by"};
-  qr.rows.push_back(
-    {"2", "hash_lookup.bin", "byhash789", "256000", "application/octet-stream", "2097152", "2024-07-02", "0", "0"});
+  qr.rows.push_back({"2",
+                     "hash_lookup.bin",
+                     "byhash789",
+                     "256000",
+                     "application/octet-stream",
+                     "2097152",
+                     "2024-07-02 00:00:00.000000",
+                     "0",
+                     "0"});
   mp.connections[0]->query_result = std::move(qr);
 
   auto result = mp.pool->get_file_record_by_hash("byhash789");
@@ -497,6 +1254,26 @@ TEST(DatabasePoolTest, AuthUserQuery) {
   EXPECT_EQ(user->role, UserRole::NORMAL);
 }
 
+TEST(DatabasePoolTest, GetAuthUserResultDistinguishesLookupFailures) {
+  MockPool mp(1);
+
+  mp.connections[0]->query_result = std::nullopt;
+  EXPECT_EQ(mp.pool->get_auth_user_result("testuser").status, LookupStatus::STORAGE_ERROR);
+
+  mp.connections[0]->query_result = QueryResult{};
+  EXPECT_EQ(mp.pool->get_auth_user_result("testuser").status, LookupStatus::NOT_FOUND);
+
+  QueryResult truncated;
+  truncated.rows.push_back({"10", "testuser"});
+  mp.connections[0]->query_result = std::move(truncated);
+  EXPECT_EQ(mp.pool->get_auth_user_result("testuser").status, LookupStatus::INVALID_DATA);
+
+  QueryResult malformed;
+  malformed.rows.push_back({"not-an-id", "testuser", "1"});
+  mp.connections[0]->query_result = std::move(malformed);
+  EXPECT_EQ(mp.pool->get_auth_user_result("testuser").status, LookupStatus::INVALID_DATA);
+}
+
 TEST(DatabasePoolTest, VerifyPassword) {
   MockPool mp(1);
 
@@ -614,26 +1391,29 @@ TEST(DatabasePoolTest, UsernameExists) {
 // ============================================================
 TEST(DatabasePoolTest, SearchFilesExt) {
   MockPool mp(1);
-
-  // count query
-  QueryResult count_qr;
-  count_qr.columns = {"COUNT(*)"};
-  count_qr.rows.push_back({"1"});
-  mp.connections[0]->query_result = std::move(count_qr);
-
-  // data query
-  QueryResult data_qr;
-  data_qr.columns = {"file_id",
-                     "file_name",
-                     "file_hash",
-                     "file_size",
-                     "content_type",
-                     "chunk_size",
-                     "created_at",
-                     "music_id",
-                     "uploaded_by"};
-  data_qr.rows.push_back({"1", "song.mp3", "hash1", "1000", "audio/mpeg", "2097152", "2024-01-01", "1", "1"});
-  mp.connections[0]->query_result = std::move(data_qr);
+  auto* connection = mp.connections[0];
+  std::vector<std::string> sqls;
+  connection->execute_hook = [&](const std::string& sql, const std::vector<std::string>&) {
+    sqls.push_back(sql);
+    return std::optional<int64_t>{1};
+  };
+  connection->query_hook = [&](const std::string& sql, const std::vector<std::string>&) {
+    sqls.push_back(sql);
+    if (sql.find("COUNT(*)") != std::string::npos) {
+      return std::optional<QueryResult>{QueryResult{.columns = {"COUNT(*)"}, .rows = {{"1"}}}};
+    }
+    return std::optional<QueryResult>{QueryResult{
+      .columns = {"file_id",
+                  "file_name",
+                  "file_hash",
+                  "file_size",
+                  "content_type",
+                  "chunk_size",
+                  "created_at",
+                  "music_id",
+                  "uploaded_by"},
+      .rows = {{"1", "song.mp3", "hash1", "1000", "audio/mpeg", "2097152", "2024-01-01 00:00:00.000000", "1", "1"}}}};
+  };
 
   int total = 0;
   auto results = mp.pool->search_files_ext("song", "audio", 0, 10, total);
@@ -641,15 +1421,125 @@ TEST(DatabasePoolTest, SearchFilesExt) {
   EXPECT_EQ(total, 1);
   EXPECT_EQ(results[0].file_name, "song.mp3");
   EXPECT_EQ(results[0].music_id, 1);
+  EXPECT_EQ(sqls.front(), "START TRANSACTION WITH CONSISTENT SNAPSHOT");
+  EXPECT_EQ(sqls.back(), "COMMIT");
 }
 
-// ============================================================
-// T19: delete_file_record
-// ============================================================
-TEST(DatabasePoolTest, DeleteFileRecord) {
+TEST(DatabasePoolFileListTest, UsesOneConsistentSnapshotAndStrictRows) {
   MockPool mp(1);
-  mp.connections[0]->execute_result = 1;
-  EXPECT_TRUE(mp.pool->delete_file_record(1));
+  auto* connection = mp.connections[0];
+  std::vector<std::string> sqls;
+  connection->execute_hook = [&](const std::string& sql, const std::vector<std::string>&) {
+    sqls.push_back(sql);
+    return std::optional<int64_t>{1};
+  };
+  connection->query_hook = [&](const std::string& sql, const std::vector<std::string>&) {
+    sqls.push_back(sql);
+    if (sql.find("COUNT(*)") != std::string::npos) {
+      return std::optional<QueryResult>{QueryResult{.rows = {{"1"}}}};
+    }
+    return std::optional<QueryResult>{
+      QueryResult{.rows = {{"7", "file", "hash", "10", "image/png", "4", "2026-01-01 00:00:00.000000", "0", "42"}}}};
+  };
+
+  const auto result = mp.pool->list_files("file", "image", 0, 20);
+
+  ASSERT_EQ(result.status, LookupStatus::FOUND);
+  ASSERT_TRUE(result.value);
+  EXPECT_EQ(result.value->total, 1);
+  ASSERT_EQ(result.value->items.size(), 1U);
+  EXPECT_EQ(result.value->items[0].uploaded_by, 42);
+  EXPECT_EQ(sqls.front(), "START TRANSACTION WITH CONSISTENT SNAPSHOT");
+  EXPECT_EQ(sqls.back(), "COMMIT");
+}
+
+TEST(DatabasePoolFileListTest, OtherUsesParameterizedTopLevelExclusionsForCountAndItems) {
+  MockPool mp(1);
+  auto* connection = mp.connections[0];
+  std::vector<std::pair<std::string, std::vector<std::string>>> queries;
+  connection->execute_hook = [](const std::string&, const std::vector<std::string>&) {
+    return std::optional<int64_t>{1};
+  };
+  connection->query_hook = [&](const std::string& sql, const std::vector<std::string>& params) {
+    queries.emplace_back(sql, params);
+    if (sql.find("COUNT(*)") != std::string::npos) {
+      return std::optional<QueryResult>{QueryResult{.rows = {{"1"}}}};
+    }
+    return std::optional<QueryResult>{QueryResult{
+      .rows = {{"7", "report.pdf", "hash", "10", "application/pdf", "4", "2026-01-01 00:00:00.000000", "", "42"}}}};
+  };
+
+  const auto result = mp.pool->list_files("report", "other", 0, 20);
+
+  ASSERT_EQ(result.status, LookupStatus::FOUND);
+  ASSERT_TRUE(result.value);
+  ASSERT_EQ(result.value->total, 1);
+  ASSERT_EQ(result.value->items.size(), 1U);
+  ASSERT_EQ(queries.size(), 2U);
+  const std::string predicate = "f.content_type NOT LIKE CONCAT(?, '/%')";
+  EXPECT_EQ(std::ranges::count(queries[0].first, '?'), 4);
+  EXPECT_EQ(std::ranges::count(queries[1].first, '?'), 6);
+  EXPECT_NE(queries[0].first.find(predicate), std::string::npos);
+  EXPECT_NE(queries[1].first.find(predicate), std::string::npos);
+  EXPECT_EQ(queries[0].second, (std::vector<std::string>{"%report%", "audio", "image", "video"}));
+  EXPECT_EQ(queries[1].second, (std::vector<std::string>{"%report%", "audio", "image", "video", "20", "0"}));
+}
+
+TEST(DatabasePoolFileListTest, RejectsUnknownTypeBeforeOpeningTransaction) {
+  MockPool mp(1);
+  std::vector<std::string> executed;
+  mp.connections[0]->execute_hook = [&](const std::string& sql, const std::vector<std::string>&) {
+    executed.push_back(sql);
+    return std::optional<int64_t>{1};
+  };
+
+  const auto result = mp.pool->list_files("", "application/pdf", 0, 20);
+
+  EXPECT_EQ(result.status, LookupStatus::INVALID_DATA);
+  EXPECT_TRUE(executed.empty());
+}
+
+TEST(DatabasePoolFileListTest, RejectsMalformedRowsAndRollsBack) {
+  MockPool mp(1);
+  auto* connection = mp.connections[0];
+  std::vector<std::string> executed;
+  connection->execute_hook = [&](const std::string& sql, const std::vector<std::string>&) {
+    executed.push_back(sql);
+    return std::optional<int64_t>{1};
+  };
+  connection->query_hook = [](const std::string& sql, const std::vector<std::string>&) {
+    if (sql.find("COUNT(*)") != std::string::npos) {
+      return std::optional<QueryResult>{QueryResult{.rows = {{"1"}}}};
+    }
+    return std::optional<QueryResult>{QueryResult{.rows = {{"truncated"}}}};
+  };
+
+  const auto result = mp.pool->list_files("", "", 0, 20);
+
+  EXPECT_EQ(result.status, LookupStatus::INVALID_DATA);
+  EXPECT_TRUE(std::ranges::any_of(executed, [](const auto& sql) { return sql == "ROLLBACK"; }));
+}
+
+TEST(DatabasePoolFileListTest, RejectsInvalidCreatedAtAndRollsBack) {
+  MockPool mp(1);
+  auto* connection = mp.connections[0];
+  std::vector<std::string> executed;
+  connection->execute_hook = [&](const std::string& sql, const std::vector<std::string>&) {
+    executed.push_back(sql);
+    return std::optional<int64_t>{1};
+  };
+  connection->query_hook = [](const std::string& sql, const std::vector<std::string>&) {
+    if (sql.find("COUNT(*)") != std::string::npos) {
+      return std::optional<QueryResult>{QueryResult{.rows = {{"1"}}}};
+    }
+    return std::optional<QueryResult>{
+      QueryResult{.rows = {{"7", "file", "hash", "10", "image/png", "4", "not-a-datetime", "0", "42"}}}};
+  };
+
+  const auto result = mp.pool->list_files("", "", 0, 20);
+
+  EXPECT_EQ(result.status, LookupStatus::INVALID_DATA);
+  EXPECT_TRUE(std::ranges::any_of(executed, [](const auto& sql) { return sql == "ROLLBACK"; }));
 }
 
 // ============================================================
@@ -682,7 +1572,11 @@ TEST(DatabasePoolTest, UpdateFileRecord) {
 // ============================================================
 TEST(DatabasePoolTest, UpdateUser) {
   MockPool mp(1);
-  mp.connections[0]->execute_result = 1;
+  std::vector<std::pair<std::string, std::vector<std::string>>> executions;
+  mp.connections[0]->execute_hook = [&executions](const std::string& sql, const std::vector<std::string>& params) {
+    executions.emplace_back(sql, params);
+    return std::optional<int64_t>{1};
+  };
 
   User u;
   u.user_id = 1;
@@ -690,13 +1584,118 @@ TEST(DatabasePoolTest, UpdateUser) {
   u.password_hash = "new_hash";
   u.salt = "new_salt";
 
-  EXPECT_TRUE(mp.pool->update_user(u));
-  EXPECT_NE(mp.connections[0]->last_sql.find("salt = ?"), std::string::npos);
-  ASSERT_EQ(mp.connections[0]->last_params.size(), 4U);
-  EXPECT_EQ(mp.connections[0]->last_params[0], "new@test.com");
-  EXPECT_EQ(mp.connections[0]->last_params[1], "new_hash");
-  EXPECT_EQ(mp.connections[0]->last_params[2], "new_salt");
-  EXPECT_EQ(mp.connections[0]->last_params[3], "1");
+  EXPECT_EQ(mp.pool->update_user(u).status, MutationStatus::OK);
+  ASSERT_EQ(executions.size(), 3U);
+  EXPECT_EQ(executions[0].first, "START TRANSACTION");
+  EXPECT_EQ(executions[2].first, "COMMIT");
+  EXPECT_NE(executions[1].first.find("UPDATE users SET email = ?"), std::string::npos);
+  EXPECT_NE(executions[1].first.find("password_hash = ?"), std::string::npos);
+  EXPECT_NE(executions[1].first.find("salt = ?"), std::string::npos);
+  EXPECT_EQ(executions[1].second, (std::vector<std::string>{"new@test.com", "new_hash", "new_salt", "1"}));
+}
+
+TEST(DatabasePoolTest, UpdateUserMapsConcurrentEmailConflictWithoutSensitiveDetail) {
+  MockPool mp(1);
+  mp.connections[0]->execute_hook = [](const std::string& sql, const std::vector<std::string>&) {
+    if (sql == "START TRANSACTION") {
+      return std::optional<int64_t>{1};
+    }
+    return std::optional<int64_t>{std::nullopt};
+  };
+  User user;
+  user.user_id = 1;
+  user.email = "occupied@example.com";
+  user.password_hash = "hash";
+  user.salt = "salt";
+  mp.connections[0]->query_hook = [&user](const std::string& sql,
+                                          const std::vector<std::string>&) -> std::optional<QueryResult> {
+    QueryResult result;
+    if (sql.find("email = ?") != std::string::npos) {
+      result.rows.push_back({"2", "other", "hash", "salt", "1", user.email, "", "2026-01-01"});
+    }
+    return result;
+  };
+
+  const auto update = mp.pool->update_user(user);
+
+  EXPECT_EQ(update.status, MutationStatus::CONFLICT);
+  EXPECT_EQ(update.detail, "EMAIL_CONFLICT");
+  EXPECT_EQ(update.detail->find(user.email), std::string::npos);
+}
+
+TEST(DatabasePoolProfilePatchTest, ConcurrentPartialUpdatesPreserveBothFieldsAndCommit) {
+  MockPool mp(2);
+
+  struct StoredUser {
+    std::string email{"old@example.com"};
+    std::string password_hash{"old-hash"};
+    std::string salt{"old-salt"};
+  } stored;
+
+  std::mutex stored_mutex;
+  std::barrier synchronize_updates{2};
+  std::atomic<int> transaction_starts{0};
+  std::atomic<int> commits{0};
+
+  for (auto* connection : mp.connections) {
+    connection->execute_hook = [&](const std::string& sql, const std::vector<std::string>& params) {
+      if (sql == "START TRANSACTION") {
+        transaction_starts.fetch_add(1, std::memory_order_relaxed);
+        return std::optional<int64_t>{1};
+      }
+      if (sql == "COMMIT") {
+        commits.fetch_add(1, std::memory_order_relaxed);
+        return std::optional<int64_t>{1};
+      }
+      if (sql.starts_with("UPDATE users SET")) {
+        synchronize_updates.arrive_and_wait();
+        std::lock_guard lock(stored_mutex);
+        std::size_t parameter_index = 0;
+        if (sql.find("email = ?") != std::string::npos) {
+          stored.email = params.at(parameter_index++);
+        }
+        if (sql.find("password_hash = ?") != std::string::npos) {
+          stored.password_hash = params.at(parameter_index++);
+          stored.salt = params.at(parameter_index++);
+        }
+        return std::optional<int64_t>{1};
+      }
+      return std::optional<int64_t>{1};
+    };
+  }
+
+  User email_patch;
+  email_patch.user_id = 1;
+  email_patch.email = "new@example.com";
+  User password_patch;
+  password_patch.user_id = 1;
+  password_patch.password_hash = "new-hash";
+  password_patch.salt = "new-salt";
+
+  auto email_result = std::async(std::launch::async, [&] { return mp.pool->update_user(email_patch); });
+  auto password_result = std::async(std::launch::async, [&] { return mp.pool->update_user(password_patch); });
+
+  EXPECT_EQ(email_result.get().status, MutationStatus::OK);
+  EXPECT_EQ(password_result.get().status, MutationStatus::OK);
+  EXPECT_EQ(stored.email, "new@example.com");
+  EXPECT_EQ(stored.password_hash, "new-hash");
+  EXPECT_EQ(stored.salt, "new-salt");
+  EXPECT_EQ(transaction_starts.load(std::memory_order_relaxed), 2);
+  EXPECT_EQ(commits.load(std::memory_order_relaxed), 2);
+}
+
+TEST(DatabasePoolTest, UpdateUserRejectsEmailLongerThan128BeforeWriting) {
+  MockPool mp(1);
+  mp.connections[0]->execute_result = 1;
+  User user;
+  user.user_id = 1;
+  user.email = std::string(129, 'a');
+
+  const auto update = mp.pool->update_user(user);
+
+  EXPECT_EQ(update.status, MutationStatus::INVALID_STATE);
+  EXPECT_EQ(update.detail, "EMAIL_INVALID");
+  EXPECT_TRUE(mp.connections[0]->last_sql.empty());
 }
 
 TEST(DatabasePoolTest, ListMusicLibraryUsesExistsWithoutInvalidGroupBy) {
@@ -806,10 +1805,12 @@ TEST(DatabasePoolTest, GetUserPlaylists) {
   qr.rows.push_back({"1", "1", "Favorites", "My favs", "3", "2024-01-01"});
   mp.connections[0]->query_result = std::move(qr);
 
-  auto playlists = mp.pool->get_user_playlists(1);
-  ASSERT_EQ(playlists.size(), 1U);
-  EXPECT_EQ(playlists[0].name, "Favorites");
-  EXPECT_EQ(playlists[0].item_count, 3);
+  auto playlists = mp.pool->get_user_playlists(1, 1);
+  ASSERT_EQ(playlists.status, MutationStatus::OK);
+  ASSERT_TRUE(playlists.value.has_value());
+  ASSERT_EQ(playlists.value->size(), 1U);
+  EXPECT_EQ(playlists.value->at(0).name, "Favorites");
+  EXPECT_EQ(playlists.value->at(0).item_count, 3);
 }
 
 // ============================================================
@@ -819,13 +1820,21 @@ TEST(DatabasePoolTest, CreatePlaylist) {
   MockPool mp(1);
   mp.connections[0]->execute_result = 1;
   mp.connections[0]->last_insert_id_value = 10;
+  mp.connections[0]->query_hook = [](const std::string& sql,
+                                     const std::vector<std::string>&) -> std::optional<QueryResult> {
+    if (sql.find("FROM users") != std::string::npos)
+      return QueryResult{.rows = {{"1"}}};
+    return QueryResult{.rows = {{"10", "1", "My Playlist", "", "0", "2026-07-28"}}};
+  };
 
   Playlist pl;
   pl.user_id = 1;
   pl.name = "My Playlist";
 
-  auto id = mp.pool->create_playlist(pl);
-  EXPECT_EQ(id, 10);
+  auto created = mp.pool->create_playlist(pl, 1);
+  ASSERT_EQ(created.status, MutationStatus::OK);
+  ASSERT_TRUE(created.value.has_value());
+  EXPECT_EQ(created.value->playlist_id, 10);
 }
 
 // ============================================================
@@ -834,22 +1843,28 @@ TEST(DatabasePoolTest, CreatePlaylist) {
 TEST(DatabasePoolTest, AddRemoveReorderPlaylistItems) {
   MockPool mp(1);
 
-  // add: max_order query returns null → next_order = 0
-  QueryResult max_qr;
-  max_qr.columns = {"next"};
-  max_qr.rows.push_back({"0"});
-  mp.connections[0]->query_result = std::move(max_qr);
+  int phase = 0;
+  mp.connections[0]->query_hook = [&phase](const std::string& sql,
+                                           const std::vector<std::string>& params) -> std::optional<QueryResult> {
+    if (sql.find("user_playlists") != std::string::npos)
+      return QueryResult{.rows = {{"1"}}};
+    if (sql.find("music_meta") != std::string::npos)
+      return QueryResult{.rows = {{params.at(0)}}};
+    if (phase == 0)
+      return QueryResult{};
+    if (phase == 1)
+      return QueryResult{.rows = {{"5", "0"}}};
+    return QueryResult{.rows = {{"3", "0"}, {"1", "1"}, {"2", "2"}}};
+  };
   mp.connections[0]->execute_result = 1;
 
-  EXPECT_TRUE(mp.pool->add_playlist_item(1, 5));
+  EXPECT_EQ(mp.pool->add_playlist_item(1, 1, 5).status, MutationStatus::OK);
 
-  // remove
-  mp.connections[0]->execute_result = 1;
-  EXPECT_TRUE(mp.pool->remove_playlist_item(1, 5));
+  phase = 1;
+  EXPECT_EQ(mp.pool->remove_playlist_item(1, 1, 5).status, MutationStatus::OK);
 
-  // reorder: DELETE + 3 INSERT
-  mp.connections[0]->execute_result = 1;
-  EXPECT_TRUE(mp.pool->reorder_playlist_items(1, {3, 1, 2}));
+  phase = 2;
+  EXPECT_EQ(mp.pool->reorder_playlist_items(1, 1, {3, 1, 2}).status, MutationStatus::OK);
 }
 
 // ============================================================
@@ -857,18 +1872,1158 @@ TEST(DatabasePoolTest, AddRemoveReorderPlaylistItems) {
 // ============================================================
 TEST(DatabasePoolTest, GetPlaylistItems) {
   MockPool mp(1);
+  mp.connections[0]->execute_result = 1;
 
   QueryResult qr;
   qr.columns = {"id", "playlist_id", "music_id", "sort_order", "added_at", "title", "artist", "file_hash"};
   qr.rows.push_back({"1", "1", "5", "0", "2024-01-01", "Song", "Artist", "abcdef"});
-  mp.connections[0]->query_result = std::move(qr);
+  mp.connections[0]->query_hook = [qr = std::move(qr)](const std::string& sql,
+                                                       const std::vector<std::string>&) -> std::optional<QueryResult> {
+    if (sql.find("user_playlists") != std::string::npos)
+      return QueryResult{.rows = {{"1"}}};
+    return qr;
+  };
 
-  auto items = mp.pool->get_playlist_items(1);
-  ASSERT_EQ(items.size(), 1U);
-  EXPECT_EQ(items[0].title, "Song");
-  EXPECT_EQ(items[0].artist, "Artist");
-  EXPECT_EQ(items[0].file_hash, "abcdef");
-  EXPECT_EQ(items[0].sort_order, 0);
+  auto items = mp.pool->get_playlist_items(1, 1);
+  ASSERT_EQ(items.status, MutationStatus::OK);
+  ASSERT_TRUE(items.value.has_value());
+  ASSERT_EQ(items.value->size(), 1U);
+  EXPECT_EQ(items.value->at(0).title, "Song");
+  EXPECT_EQ(items.value->at(0).artist, "Artist");
+  EXPECT_EQ(items.value->at(0).file_hash, "abcdef");
+  EXPECT_EQ(items.value->at(0).sort_order, 0);
+}
+
+TEST(DatabasePoolPlaylistTest, RemoveLocksOwnerThenItemsAndCompactsPositionsInOneTransaction) {
+  MockPool mp(1);
+  std::vector<std::string> operations;
+  mp.connections[0]->query_hook = [&operations](const std::string& sql,
+                                                const std::vector<std::string>&) -> std::optional<QueryResult> {
+    operations.push_back(sql);
+    if (sql.find("FROM user_playlists") != std::string::npos)
+      return QueryResult{.rows = {{"42"}}};
+    return QueryResult{.rows = {{"3", "0"}, {"5", "1"}, {"9", "2"}}};
+  };
+  mp.connections[0]->execute_hook = [&operations](const std::string& sql,
+                                                  const std::vector<std::string>&) -> std::optional<int64_t> {
+    operations.push_back(sql);
+    return 1;
+  };
+
+  const auto result = mp.pool->remove_playlist_item(7, 42, 5);
+
+  EXPECT_EQ(result.status, MutationStatus::OK);
+  ASSERT_GE(operations.size(), 6U);
+  EXPECT_EQ(operations[0], "START TRANSACTION");
+  EXPECT_NE(operations[1].find("user_playlists"), std::string::npos);
+  EXPECT_NE(operations[1].find("FOR UPDATE"), std::string::npos);
+  EXPECT_NE(operations[2].find("playlist_items"), std::string::npos);
+  EXPECT_NE(operations[2].find("FOR UPDATE"), std::string::npos);
+  EXPECT_EQ(operations[4], "UPDATE playlist_items SET sort_order = ? WHERE playlist_id = ? AND music_id = ?");
+  EXPECT_EQ(operations[5], "UPDATE playlist_items SET sort_order = ? WHERE playlist_id = ? AND music_id = ?");
+  EXPECT_EQ(operations.back(), "COMMIT");
+}
+
+TEST(DatabasePoolPlaylistTest, RemoveLastItemAcceptsUnchangedRemainingPositions) {
+  MockPool mp(1);
+  bool committed = false;
+  mp.connections[0]->query_hook = [](const std::string& sql,
+                                     const std::vector<std::string>&) -> std::optional<QueryResult> {
+    if (sql.find("FROM user_playlists") != std::string::npos)
+      return QueryResult{.rows = {{"42"}}};
+    return QueryResult{.rows = {{"3", "0"}, {"5", "1"}, {"9", "2"}}};
+  };
+  mp.connections[0]->execute_hook = [&committed](const std::string& sql,
+                                                 const std::vector<std::string>&) -> std::optional<int64_t> {
+    if (sql.starts_with("UPDATE playlist_items"))
+      return 0;
+    if (sql == "COMMIT")
+      committed = true;
+    return 1;
+  };
+
+  const auto result = mp.pool->remove_playlist_item(7, 42, 9);
+
+  EXPECT_EQ(result.status, MutationStatus::OK);
+  EXPECT_TRUE(committed);
+}
+
+TEST(DatabasePoolPlaylistTest, ReorderRequiresExactUniqueSetIncludingEmptyCase) {
+  const auto invoke = [](const std::vector<std::string>& existing, const std::vector<int64_t>& requested) {
+    MockPool mp(1);
+    int update_count = 0;
+    mp.connections[0]->query_hook = [existing](const std::string& sql,
+                                               const std::vector<std::string>&) -> std::optional<QueryResult> {
+      if (sql.find("FROM user_playlists") != std::string::npos)
+        return QueryResult{.rows = {{"42"}}};
+      QueryResult result;
+      for (std::size_t index = 0; index < existing.size(); ++index)
+        result.rows.push_back({existing[index], std::to_string(index)});
+      return result;
+    };
+    mp.connections[0]->execute_hook = [&update_count](const std::string& sql,
+                                                      const std::vector<std::string>&) -> std::optional<int64_t> {
+      if (sql.starts_with("UPDATE playlist_items"))
+        ++update_count;
+      return 1;
+    };
+    const auto result = mp.pool->reorder_playlist_items(7, 42, requested);
+    return std::pair{result.status, update_count};
+  };
+
+  EXPECT_EQ(invoke({"3", "5"}, {3, 3}).first, MutationStatus::CONFLICT);
+  EXPECT_EQ(invoke({"3", "5"}, {3}).first, MutationStatus::CONFLICT);
+  EXPECT_EQ(invoke({"3", "5"}, {3, 5, 9}).first, MutationStatus::CONFLICT);
+  EXPECT_EQ(invoke({"3", "5"}, {}).first, MutationStatus::CONFLICT);
+  EXPECT_EQ(invoke({}, {}).first, MutationStatus::OK);
+  const auto valid = invoke({"3", "5"}, {5, 3});
+  EXPECT_EQ(valid.first, MutationStatus::OK);
+  EXPECT_EQ(valid.second, 2);
+}
+
+TEST(DatabasePoolPlaylistTest, MutationFailureRollsBackWithoutCommit) {
+  MockPool mp(1);
+  int rollback_count = 0;
+  int commit_count = 0;
+  mp.connections[0]->query_hook = [](const std::string& sql,
+                                     const std::vector<std::string>&) -> std::optional<QueryResult> {
+    if (sql.find("FROM user_playlists") != std::string::npos)
+      return QueryResult{.rows = {{"42"}}};
+    return QueryResult{.rows = {{"3", "0"}, {"5", "1"}}};
+  };
+  mp.connections[0]->execute_hook = [&rollback_count,
+                                     &commit_count](const std::string& sql,
+                                                    const std::vector<std::string>& params) -> std::optional<int64_t> {
+    if (sql == "ROLLBACK")
+      ++rollback_count;
+    if (sql == "COMMIT")
+      ++commit_count;
+    if (sql.starts_with("UPDATE playlist_items") && params.at(0) == "1")
+      return std::nullopt;
+    return 1;
+  };
+
+  const auto result = mp.pool->reorder_playlist_items(7, 42, {5, 3});
+
+  EXPECT_EQ(result.status, MutationStatus::STORAGE_ERROR);
+  EXPECT_EQ(rollback_count, 1);
+  EXPECT_EQ(commit_count, 0);
+}
+
+TEST(DatabasePoolPlaylistTest, StrictlyValidatesOwnerAndCreateUserLockRows) {
+  const auto update_status = [](QueryResult owner) {
+    MockPool mp(1);
+    mp.connections[0]->query_result = std::move(owner);
+    mp.connections[0]->execute_result = 1;
+    return mp.pool->update_playlist(7, 42, "name", "description").status;
+  };
+  EXPECT_EQ(update_status(QueryResult{.rows = {{"42"}, {"42"}}}), MutationStatus::INVALID_STATE);
+  EXPECT_EQ(update_status(QueryResult{.rows = {{"42", "extra"}}}), MutationStatus::INVALID_STATE);
+  EXPECT_EQ(update_status(QueryResult{.rows = {{"invalid"}}}), MutationStatus::INVALID_STATE);
+  EXPECT_EQ(update_status(QueryResult{.rows = {{"99"}}}), MutationStatus::OWNER_REQUIRED);
+
+  for (const QueryResult& user : {QueryResult{.rows = {{"42"}, {"42"}}},
+                                  QueryResult{.rows = {{"42", "extra"}}},
+                                  QueryResult{.rows = {{"invalid"}}}}) {
+    MockPool mp(1);
+    mp.connections[0]->query_result = user;
+    mp.connections[0]->execute_result = 1;
+    mp.connections[0]->last_insert_id_value = 7;
+    Playlist playlist;
+    playlist.user_id = 42;
+    playlist.name = "name";
+    EXPECT_EQ(mp.pool->create_playlist(playlist, 42).status, MutationStatus::INVALID_STATE);
+  }
+}
+
+TEST(DatabasePoolPlaylistTest, CreateDistinguishesMissingTargetUser) {
+  MockPool mp(1);
+  mp.connections[0]->execute_result = 1;
+  mp.connections[0]->query_result = QueryResult{};
+  Playlist playlist;
+  playlist.user_id = 42;
+  playlist.name = "name";
+
+  const auto result = mp.pool->create_playlist(playlist, 42);
+
+  EXPECT_EQ(result.status, MutationStatus::USER_NOT_FOUND);
+  EXPECT_EQ(result.detail, "USER_NOT_FOUND");
+}
+
+TEST(DatabasePoolPlaylistTest, CreateAndUpdateReturnCompletePersistedPlaylist) {
+  const QueryResult complete{.rows = {{"7", "42", "Persisted", "Stored", "3", "2026-07-28 01:02:03"}}};
+  {
+    MockPool mp(1);
+    mp.connections[0]->last_insert_id_value = 7;
+    mp.connections[0]->execute_result = 1;
+    mp.connections[0]->query_hook = [complete](const std::string& sql,
+                                               const std::vector<std::string>&) -> std::optional<QueryResult> {
+      if (sql.find("FROM users") != std::string::npos)
+        return QueryResult{.rows = {{"42"}}};
+      return complete;
+    };
+    Playlist playlist;
+    playlist.user_id = 42;
+    playlist.name = "Requested";
+    playlist.description = "Input";
+
+    const auto result = mp.pool->create_playlist(playlist, 42);
+
+    ASSERT_EQ(result.status, MutationStatus::OK);
+    ASSERT_TRUE(result.value.has_value());
+    EXPECT_EQ(result.value->playlist_id, 7);
+    EXPECT_EQ(result.value->user_id, 42);
+    EXPECT_EQ(result.value->name, "Persisted");
+    EXPECT_EQ(result.value->description, "Stored");
+    EXPECT_EQ(result.value->item_count, 3);
+    EXPECT_EQ(result.value->created_at, "2026-07-28 01:02:03");
+  }
+  {
+    MockPool mp(1);
+    mp.connections[0]->execute_result = 1;
+    mp.connections[0]->query_hook = [complete](const std::string& sql,
+                                               const std::vector<std::string>&) -> std::optional<QueryResult> {
+      if (sql.find("SELECT user_id FROM user_playlists") != std::string::npos)
+        return QueryResult{.rows = {{"42"}}};
+      if (sql.find("SELECT music_id, sort_order") != std::string::npos)
+        return QueryResult{};
+      return complete;
+    };
+
+    const auto result = mp.pool->update_playlist(7, 42, "Requested", "Input");
+
+    ASSERT_EQ(result.status, MutationStatus::OK);
+    ASSERT_TRUE(result.value.has_value());
+    EXPECT_EQ(result.value->item_count, 3);
+    EXPECT_EQ(result.value->created_at, "2026-07-28 01:02:03");
+    EXPECT_EQ(result.value->name, "Persisted");
+  }
+}
+
+TEST(DatabasePoolPlaylistTest, ListRequiresExactlySixStrictColumns) {
+  MockPool mp(1);
+  mp.connections[0]->query_result = QueryResult{.rows = {{"7", "42", "name", "desc", "0", "now", "extra"}}};
+
+  EXPECT_EQ(mp.pool->get_user_playlists(42, 42).status, MutationStatus::INVALID_STATE);
+}
+
+TEST(DatabasePoolPlaylistTest, GetItemsUsesOneSnapshotAndStrictOwnerRow) {
+  MockPool mp(1);
+  std::vector<std::string> operations;
+  mp.connections[0]->execute_hook = [&operations](const std::string& sql,
+                                                  const std::vector<std::string>&) -> std::optional<int64_t> {
+    operations.push_back(sql);
+    return 1;
+  };
+  mp.connections[0]->query_hook = [&operations](const std::string& sql,
+                                                const std::vector<std::string>&) -> std::optional<QueryResult> {
+    operations.push_back(sql);
+    if (sql.find("user_playlists") != std::string::npos)
+      return QueryResult{.rows = {{"42"}}};
+    return QueryResult{.rows = {{"1", "7", "5", "0", "now", "song", "artist", "hash"}}};
+  };
+
+  const auto result = mp.pool->get_playlist_items(7, 42);
+
+  ASSERT_EQ(result.status, MutationStatus::OK);
+  EXPECT_EQ(operations.front(), "START TRANSACTION WITH CONSISTENT SNAPSHOT");
+  EXPECT_NE(operations.at(1).find("user_playlists"), std::string::npos);
+  EXPECT_NE(operations.at(2).find("playlist_items"), std::string::npos);
+  EXPECT_EQ(operations.back(), "COMMIT");
+
+  for (const QueryResult& owner : {QueryResult{.rows = {{"42"}, {"42"}}},
+                                   QueryResult{.rows = {{"42", "extra"}}},
+                                   QueryResult{.rows = {{"invalid"}}}}) {
+    MockPool malformed(1);
+    malformed.connections[0]->execute_result = 1;
+    malformed.connections[0]->query_result = owner;
+    EXPECT_EQ(malformed.pool->get_playlist_items(7, 42).status, MutationStatus::INVALID_STATE);
+  }
+}
+
+TEST(DatabasePoolPlaylistTest, AddLocksMusicBeforeOwnerAndItemsAndStopsWhenMusicIsMissing) {
+  MockPool mp(1);
+  std::vector<std::string> queries;
+  bool music_exists = true;
+  mp.connections[0]->execute_result = 1;
+  mp.connections[0]->query_hook =
+    [&queries, &music_exists](const std::string& sql, const std::vector<std::string>&) -> std::optional<QueryResult> {
+    queries.push_back(sql);
+    if (sql.find("user_playlists") != std::string::npos)
+      return QueryResult{.rows = {{"42"}}};
+    if (sql.find("playlist_items") != std::string::npos)
+      return QueryResult{};
+    if (sql.find("music_meta") != std::string::npos)
+      return music_exists ? QueryResult{.rows = {{"9"}}} : QueryResult{};
+    return QueryResult{};
+  };
+
+  EXPECT_EQ(mp.pool->add_playlist_item(7, 42, 9).status, MutationStatus::OK);
+  ASSERT_EQ(queries.size(), 3U);
+  EXPECT_NE(queries[0].find("music_meta"), std::string::npos);
+  EXPECT_NE(queries[0].find("FOR UPDATE"), std::string::npos);
+  EXPECT_NE(queries[1].find("user_playlists"), std::string::npos);
+  EXPECT_NE(queries[2].find("playlist_items"), std::string::npos);
+
+  queries.clear();
+  music_exists = false;
+  const auto missing = mp.pool->add_playlist_item(7, 42, 99);
+  EXPECT_EQ(missing.status, MutationStatus::NOT_FOUND);
+  EXPECT_EQ(missing.detail, "MUSIC_NOT_FOUND");
+  ASSERT_EQ(queries.size(), 1U);
+  EXPECT_NE(queries[0].find("music_meta"), std::string::npos);
+}
+
+TEST(DatabasePoolPlaylistTest, AddLocksMusicBeforeReportingDuplicateConflict) {
+  MockPool mp(1);
+  std::vector<std::string> queries;
+  mp.connections[0]->execute_result = 1;
+  mp.connections[0]->query_hook = [&queries](const std::string& sql,
+                                             const std::vector<std::string>&) -> std::optional<QueryResult> {
+    queries.push_back(sql);
+    if (sql.find("user_playlists") != std::string::npos)
+      return QueryResult{.rows = {{"42"}}};
+    if (sql.find("playlist_items") != std::string::npos)
+      return QueryResult{.rows = {{"9", "0"}}};
+    if (sql.find("music_meta") != std::string::npos)
+      return QueryResult{.rows = {{"9"}}};
+    return QueryResult{};
+  };
+
+  const auto result = mp.pool->add_playlist_item(7, 42, 9);
+
+  EXPECT_EQ(result.status, MutationStatus::CONFLICT);
+  ASSERT_EQ(queries.size(), 3U);
+  EXPECT_NE(queries.front().find("music_meta"), std::string::npos);
+}
+
+TEST(DatabasePoolPlaylistTest, ConcurrentAddsReachSharedMusicLockBeforeAnyPlaylistLock) {
+  MockPool mp(2);
+  std::barrier music_barrier(2);
+  std::atomic<int> music_locks{0};
+  std::atomic<bool> playlist_lock_before_all_music{false};
+  for (auto* connection : mp.connections) {
+    connection->execute_result = 1;
+    connection->query_hook = [&](const std::string& sql,
+                                 const std::vector<std::string>&) -> std::optional<QueryResult> {
+      if (sql.find("music_meta") != std::string::npos) {
+        music_locks.fetch_add(1);
+        music_barrier.arrive_and_wait();
+        return QueryResult{.rows = {{"9"}}};
+      }
+      if (sql.find("user_playlists") != std::string::npos) {
+        if (music_locks.load() != 2)
+          playlist_lock_before_all_music.store(true);
+        return QueryResult{.rows = {{"42"}}};
+      }
+      return QueryResult{};
+    };
+  }
+
+  auto first = std::async(std::launch::async, [&] { return mp.pool->add_playlist_item(7, 42, 9); });
+  auto second = std::async(std::launch::async, [&] { return mp.pool->add_playlist_item(8, 42, 9); });
+
+  EXPECT_EQ(first.get().status, MutationStatus::OK);
+  EXPECT_EQ(second.get().status, MutationStatus::OK);
+  EXPECT_FALSE(playlist_lock_before_all_music.load());
+}
+
+TEST(DatabasePoolPlaylistTest, ItemMutationsStrictlyRejectMalformedLockedRows) {
+  const std::vector<QueryResult> malformed = {
+    QueryResult{.rows = {{"3"}}},
+    QueryResult{.rows = {{"3", "0", "extra"}}},
+    QueryResult{.rows = {{"0", "0"}}},
+    QueryResult{.rows = {{"3", "-1"}}},
+    QueryResult{.rows = {{"3", "0"}, {"3", "1"}}},
+    QueryResult{.rows = {{"3", "0"}, {"5", "0"}}},
+  };
+  for (const auto& rows : malformed) {
+    for (int operation = 0; operation < 3; ++operation) {
+      MockPool mp(1);
+      int rollback_count = 0;
+      mp.connections[0]->query_hook = [rows](const std::string& sql,
+                                             const std::vector<std::string>&) -> std::optional<QueryResult> {
+        if (sql.find("music_meta") != std::string::npos)
+          return QueryResult{.rows = {{"9"}}};
+        if (sql.find("user_playlists") != std::string::npos)
+          return QueryResult{.rows = {{"42"}}};
+        return rows;
+      };
+      mp.connections[0]->execute_hook = [&rollback_count](const std::string& sql,
+                                                          const std::vector<std::string>&) -> std::optional<int64_t> {
+        if (sql == "ROLLBACK")
+          ++rollback_count;
+        return 1;
+      };
+      std::optional<MutationResult<std::monostate>> result;
+      if (operation == 0) {
+        result = mp.pool->add_playlist_item(7, 42, 9);
+      } else if (operation == 1) {
+        result = mp.pool->remove_playlist_item(7, 42, 3);
+      } else {
+        result = mp.pool->reorder_playlist_items(7, 42, {3, 5});
+      }
+      EXPECT_EQ(result->status, MutationStatus::INVALID_STATE) << operation;
+      EXPECT_EQ(rollback_count, 1) << operation;
+    }
+  }
+}
+
+TEST(DatabasePoolPlaylistTest, RemoveRewritesEveryRemainingPositionAndRollsBackMidway) {
+  const auto invoke = [](bool fail_second_rewrite) {
+    MockPool mp(1);
+    std::vector<std::vector<std::string>> rewrite_params;
+    int rollback_count = 0;
+    mp.connections[0]->query_hook = [](const std::string& sql,
+                                       const std::vector<std::string>&) -> std::optional<QueryResult> {
+      if (sql.find("user_playlists") != std::string::npos)
+        return QueryResult{.rows = {{"42"}}};
+      return QueryResult{.rows = {{"3", "2"}, {"5", "7"}, {"9", "11"}}};
+    };
+    mp.connections[0]->execute_hook = [&](const std::string& sql,
+                                          const std::vector<std::string>& params) -> std::optional<int64_t> {
+      if (sql == "ROLLBACK")
+        ++rollback_count;
+      if (sql == "UPDATE playlist_items SET sort_order = ? WHERE playlist_id = ? AND music_id = ?") {
+        rewrite_params.push_back(params);
+        if (fail_second_rewrite && rewrite_params.size() == 2)
+          return std::nullopt;
+      }
+      return 1;
+    };
+    const auto result = mp.pool->remove_playlist_item(7, 42, 5);
+    return std::tuple{result.status, rewrite_params, rollback_count};
+  };
+
+  const auto [status, params, rollback] = invoke(false);
+  EXPECT_EQ(status, MutationStatus::OK);
+  EXPECT_EQ(params, (std::vector<std::vector<std::string>>{{"0", "7", "3"}, {"1", "7", "9"}}));
+  EXPECT_EQ(rollback, 0);
+
+  const auto [failed_status, failed_params, failed_rollback] = invoke(true);
+  EXPECT_EQ(failed_status, MutationStatus::STORAGE_ERROR);
+  EXPECT_EQ(failed_params.size(), 2U);
+  EXPECT_EQ(failed_rollback, 1);
+}
+
+TEST(DatabasePoolPlaylistTest, RemoveDistinguishesMissingMusicFromMissingPlaylist) {
+  MockPool mp(1);
+  mp.connections[0]->execute_result = 1;
+  mp.connections[0]->query_hook = [](const std::string& sql,
+                                     const std::vector<std::string>&) -> std::optional<QueryResult> {
+    if (sql.find("user_playlists") != std::string::npos)
+      return QueryResult{.rows = {{"42"}}};
+    return QueryResult{.rows = {{"3", "0"}}};
+  };
+
+  const auto result = mp.pool->remove_playlist_item(7, 42, 99);
+
+  EXPECT_EQ(result.status, MutationStatus::NOT_FOUND);
+  EXPECT_EQ(result.detail, "MUSIC_NOT_FOUND");
+}
+
+TEST(DatabasePoolPlaylistTest, EveryTransactionalOperationRollsBackWhenCommitFails) {
+  for (int operation = 0; operation < 7; ++operation) {
+    MockPool mp(1);
+    int rollback_count = 0;
+    mp.connections[0]->last_insert_id_value = 7;
+    mp.connections[0]->query_hook = [operation](const std::string& sql,
+                                                const std::vector<std::string>&) -> std::optional<QueryResult> {
+      if (sql.find("FROM users") != std::string::npos)
+        return QueryResult{.rows = {{"42"}}};
+      if (sql.find("SELECT user_id FROM user_playlists") != std::string::npos)
+        return QueryResult{.rows = {{"42"}}};
+      if (sql.find("SELECT pi.id") != std::string::npos)
+        return QueryResult{};
+      if (sql.find("SELECT p.playlist_id") != std::string::npos)
+        return QueryResult{.rows = {{"7", "42", "name", "desc", "1", "now"}}};
+      if (sql.find("music_meta") != std::string::npos)
+        return QueryResult{.rows = {{"9"}}};
+      if (sql.find("playlist_items") != std::string::npos)
+        return operation == 4 ? QueryResult{} : QueryResult{.rows = {{"5", "0"}}};
+      return QueryResult{};
+    };
+    mp.connections[0]->execute_hook = [&rollback_count](const std::string& sql,
+                                                        const std::vector<std::string>&) -> std::optional<int64_t> {
+      if (sql == "COMMIT")
+        return std::nullopt;
+      if (sql == "ROLLBACK")
+        ++rollback_count;
+      return 1;
+    };
+    MutationStatus status = MutationStatus::OK;
+    Playlist playlist;
+    playlist.user_id = 42;
+    playlist.name = "name";
+    switch (operation) {
+      case 0:
+        status = mp.pool->create_playlist(playlist, 42).status;
+        break;
+      case 1:
+        status = mp.pool->update_playlist(7, 42, "name", "desc").status;
+        break;
+      case 2:
+        status = mp.pool->delete_playlist(7, 42).status;
+        break;
+      case 3:
+        status = mp.pool->get_playlist_items(7, 42).status;
+        break;
+      case 4:
+        status = mp.pool->add_playlist_item(7, 42, 9).status;
+        break;
+      case 5:
+        status = mp.pool->remove_playlist_item(7, 42, 5).status;
+        break;
+      case 6:
+        status = mp.pool->reorder_playlist_items(7, 42, {5}).status;
+        break;
+      default:
+        FAIL();
+    }
+    EXPECT_EQ(status, MutationStatus::STORAGE_ERROR) << operation;
+    EXPECT_EQ(rollback_count, 1) << operation;
+  }
+}
+
+TEST(DatabasePoolPlaylistTest, GetItemsRollsBackAtEverySnapshotFailureStage) {
+  for (int failure_stage = 0; failure_stage < 4; ++failure_stage) {
+    MockPool mp(1);
+    int rollback_count = 0;
+    int query_count = 0;
+    mp.connections[0]->query_hook = [&query_count,
+                                     failure_stage](const std::string& sql,
+                                                    const std::vector<std::string>&) -> std::optional<QueryResult> {
+      const int current = query_count++;
+      if ((failure_stage == 1 && current == 0) || (failure_stage == 2 && current == 1))
+        return std::nullopt;
+      if (sql.find("user_playlists") != std::string::npos)
+        return QueryResult{.rows = {{"42"}}};
+      return QueryResult{};
+    };
+    mp.connections[0]->execute_hook = [failure_stage,
+                                       &rollback_count](const std::string& sql,
+                                                        const std::vector<std::string>&) -> std::optional<int64_t> {
+      if (sql == "ROLLBACK") {
+        ++rollback_count;
+        return 1;
+      }
+      if ((failure_stage == 0 && sql == "START TRANSACTION WITH CONSISTENT SNAPSHOT") ||
+          (failure_stage == 3 && sql == "COMMIT")) {
+        return std::nullopt;
+      }
+      return 1;
+    };
+
+    const auto result = mp.pool->get_playlist_items(7, 42);
+
+    EXPECT_EQ(result.status, MutationStatus::STORAGE_ERROR) << failure_stage;
+    EXPECT_FALSE(result.value.has_value()) << failure_stage;
+    EXPECT_EQ(rollback_count, 1) << failure_stage;
+  }
+}
+
+TEST(DatabasePoolPlaylistTest, ValidatesUtf8NameAndDescriptionByCodePointBeforeWriting) {
+  const auto repeat = [](std::string_view value, std::size_t count) {
+    std::string result;
+    for (std::size_t index = 0; index < count; ++index) result += value;
+    return result;
+  };
+  const std::string chinese = "歌";
+  MockPool mp(1);
+  mp.connections[0]->last_insert_id_value = 7;
+  mp.connections[0]->execute_result = 1;
+  mp.connections[0]->query_hook = [](const std::string& sql,
+                                     const std::vector<std::string>&) -> std::optional<QueryResult> {
+    if (sql.find("FROM users") != std::string::npos)
+      return QueryResult{.rows = {{"42"}}};
+    return QueryResult{.rows = {{"7", "42", "name", "desc", "0", "now"}}};
+  };
+  Playlist playlist;
+  playlist.user_id = 42;
+  playlist.name = repeat(chinese, 128);
+  playlist.description = repeat(chinese, 512);
+  EXPECT_EQ(mp.pool->create_playlist(playlist, 42).status, MutationStatus::OK);
+
+  playlist.name = repeat(chinese, 129);
+  EXPECT_EQ(mp.pool->create_playlist(playlist, 42).status, MutationStatus::INVALID_STATE);
+  playlist.name = "valid";
+  playlist.description = repeat(chinese, 513);
+  EXPECT_EQ(mp.pool->create_playlist(playlist, 42).status, MutationStatus::INVALID_STATE);
+  playlist.description.clear();
+  playlist.name = std::string(1, static_cast<char>(0xFF));
+  EXPECT_EQ(mp.pool->create_playlist(playlist, 42).status, MutationStatus::INVALID_STATE);
+
+  for (const std::string& invalid : {std::string{"\x80", 1},
+                                     std::string{"\xC0\xAF", 2},
+                                     std::string{"\xED\xA0\x80", 3},
+                                     std::string{"\xF4\x90\x80\x80", 4}}) {
+    playlist.name = invalid;
+    EXPECT_EQ(mp.pool->create_playlist(playlist, 42).status, MutationStatus::INVALID_STATE);
+    playlist.name = "valid";
+    playlist.description = invalid;
+    EXPECT_EQ(mp.pool->create_playlist(playlist, 42).status, MutationStatus::INVALID_STATE);
+  }
+}
+
+TEST(DatabasePoolVipTest, GrantUsesMaxOfNowAndCurrentExpiryForEveryAllowedDuration) {
+  constexpr auto now = std::chrono::system_clock::time_point{std::chrono::seconds{2'000'000'000}};
+  for (const int days : {30, 90, 365}) {
+    MockPool mp(1);
+    auto current_expiry = now + std::chrono::hours{24 * 10};
+    std::string written_expiry;
+    mp.connections[0]->query_hook = [current_expiry](const std::string& sql,
+                                                     const std::vector<std::string>&) -> std::optional<QueryResult> {
+      EXPECT_NE(sql.find("FOR UPDATE"), std::string::npos);
+      return QueryResult{.rows = {{"7",
+                                   "vip-user",
+                                   "hash",
+                                   "salt",
+                                   "2",
+                                   "vip@example.com",
+                                   format_mysql_utc_datetime(current_expiry),
+                                   "2026-01-02 03:04:05.000000"}}};
+    };
+    mp.connections[0]->execute_hook =
+      [&written_expiry](const std::string& sql, const std::vector<std::string>& params) -> std::optional<int64_t> {
+      if (sql.starts_with("UPDATE users SET role = 2")) {
+        written_expiry = params.at(0);
+        return 1;
+      }
+      return 0;
+    };
+
+    const auto result = mp.pool->grant_or_extend_vip(7, days, now);
+
+    ASSERT_EQ(result.status, MutationStatus::OK);
+    ASSERT_TRUE(result.value.has_value());
+    const auto expected = current_expiry + std::chrono::hours{24 * days};
+    EXPECT_EQ(result.value->role, UserRole::VIP);
+    EXPECT_EQ(result.value->vip_expires_at, expected);
+    EXPECT_EQ(written_expiry, format_mysql_utc_datetime(expected));
+  }
+}
+
+TEST(DatabasePoolVipTest, GrantStartsExpiredMembershipFromNow) {
+  constexpr auto now = std::chrono::system_clock::time_point{std::chrono::seconds{2'000'000'000}};
+  MockPool mp(1);
+  const auto expired = now - std::chrono::seconds{1};
+  mp.connections[0]->query_result = QueryResult{
+    .rows = {
+      {"7", "expired", "hash", "salt", "2", "", format_mysql_utc_datetime(expired), "2026-01-02 03:04:05.000000"}}};
+  mp.connections[0]->execute_result = 1;
+
+  const auto result = mp.pool->grant_or_extend_vip(7, 30, now);
+
+  ASSERT_EQ(result.status, MutationStatus::OK);
+  ASSERT_TRUE(result.value.has_value());
+  EXPECT_EQ(result.value->vip_expires_at, now + std::chrono::hours{24 * 30});
+}
+
+TEST(DatabasePoolVipTest, MutationDistinguishesNotFoundAdminInvalidDataAndStorage) {
+  constexpr auto now = std::chrono::system_clock::time_point{std::chrono::seconds{2'000'000'000}};
+  MockPool mp(1);
+  mp.connections[0]->execute_result = 0;
+
+  mp.connections[0]->query_result = QueryResult{};
+  EXPECT_EQ(mp.pool->grant_or_extend_vip(7, 30, now).status, MutationStatus::NOT_FOUND);
+
+  mp.connections[0]->query_result =
+    QueryResult{.rows = {{"1", "admin", "hash", "salt", "3", "admin@example.com", "", "2026-01-02 03:04:05.000000"}}};
+  EXPECT_EQ(mp.pool->grant_or_extend_vip(1, 30, now).status, MutationStatus::CONFLICT);
+  EXPECT_EQ(mp.pool->revoke_vip(1).status, MutationStatus::CONFLICT);
+
+  mp.connections[0]->query_result = QueryResult{.rows = {{"broken", "row"}}};
+  EXPECT_EQ(mp.pool->grant_or_extend_vip(7, 30, now).status, MutationStatus::INVALID_STATE);
+
+  mp.connections[0]->query_result =
+    QueryResult{.rows = {{"7", "guest", "hash", "salt", "0", "", "", "2026-01-02 03:04:05.000000"}}};
+  EXPECT_EQ(mp.pool->grant_or_extend_vip(7, 30, now).status, MutationStatus::INVALID_STATE);
+
+  mp.connections[0]->query_result = std::nullopt;
+  EXPECT_EQ(mp.pool->grant_or_extend_vip(7, 30, now).status, MutationStatus::STORAGE_ERROR);
+}
+
+TEST(DatabasePoolVipTest, GrantAndRevokeRejectEveryRoleExpiryInvariantViolation) {
+  constexpr auto now = std::chrono::system_clock::time_point{std::chrono::seconds{2'000'000'000}};
+  const std::array inconsistent_states = {
+    std::pair{UserRole::NORMAL, std::string_view{"2034-01-01 00:00:00.000000"}},
+    std::pair{UserRole::VIP, std::string_view{}},
+    std::pair{UserRole::ADMIN, std::string_view{"2034-01-01 00:00:00.000000"}},
+    std::pair{UserRole::GUEST, std::string_view{"2034-01-01 00:00:00.000000"}},
+  };
+
+  for (const auto& [role, expires_at] : inconsistent_states) {
+    for (const bool grant : {true, false}) {
+      MockPool mp(1);
+      int rollback_count = 0;
+      int update_count = 0;
+      mp.connections[0]->query_result = QueryResult{.rows = {{"7",
+                                                              "inconsistent",
+                                                              "hash",
+                                                              "salt",
+                                                              std::to_string(static_cast<int>(role)),
+                                                              "",
+                                                              std::string(expires_at),
+                                                              "2026-01-02 03:04:05.000000"}}};
+      mp.connections[0]->execute_hook = [&rollback_count,
+                                         &update_count](const std::string& sql,
+                                                        const std::vector<std::string>&) -> std::optional<int64_t> {
+        if (sql == "ROLLBACK") {
+          ++rollback_count;
+          return 0;
+        }
+        if (sql.starts_with("UPDATE users")) {
+          ++update_count;
+        }
+        return 0;
+      };
+
+      const auto result = grant ? mp.pool->grant_or_extend_vip(7, 30, now) : mp.pool->revoke_vip(7);
+
+      EXPECT_EQ(result.status, MutationStatus::INVALID_STATE) << static_cast<int>(role) << grant;
+      EXPECT_EQ(result.detail, "VIP_STATE_INVALID") << static_cast<int>(role) << grant;
+      EXPECT_FALSE(result.value.has_value()) << static_cast<int>(role) << grant;
+      EXPECT_EQ(update_count, 0) << static_cast<int>(role) << grant;
+      EXPECT_EQ(rollback_count, 1) << static_cast<int>(role) << grant;
+    }
+  }
+}
+
+TEST(DatabasePoolVipTest, EveryTransactionFailureRollsBackAndReturnsNoValue) {
+  constexpr auto now = std::chrono::system_clock::time_point{std::chrono::seconds{2'000'000'000}};
+  for (int failure_stage = 0; failure_stage < 4; ++failure_stage) {
+    MockPool mp(1);
+    int rollback_count = 0;
+    bool pending_vip = false;
+    UserRole persisted_role = UserRole::NORMAL;
+    mp.connections[0]->query_hook = [failure_stage](const std::string&,
+                                                    const std::vector<std::string>&) -> std::optional<QueryResult> {
+      if (failure_stage == 1) {
+        return std::nullopt;
+      }
+      return QueryResult{
+        .rows = {{"7", "normal", "hash", "salt", "1", "normal@example.com", "", "2026-01-02 03:04:05.000000"}}};
+    };
+    mp.connections[0]->execute_hook = [failure_stage,
+                                       &rollback_count,
+                                       &pending_vip,
+                                       &persisted_role](const std::string& sql,
+                                                        const std::vector<std::string>&) -> std::optional<int64_t> {
+      if (sql == "ROLLBACK") {
+        ++rollback_count;
+        pending_vip = false;
+        return 0;
+      }
+      if ((failure_stage == 0 && sql == "START TRANSACTION") ||
+          (failure_stage == 2 && sql.starts_with("UPDATE users SET role = 2")) ||
+          (failure_stage == 3 && sql == "COMMIT")) {
+        return std::nullopt;
+      }
+      if (sql.starts_with("UPDATE")) {
+        pending_vip = true;
+        return 1;
+      }
+      if (sql == "COMMIT" && pending_vip) {
+        persisted_role = UserRole::VIP;
+      }
+      return 0;
+    };
+
+    const auto result = mp.pool->grant_or_extend_vip(7, 30, now);
+
+    EXPECT_EQ(result.status, MutationStatus::STORAGE_ERROR) << failure_stage;
+    EXPECT_FALSE(result.value.has_value()) << failure_stage;
+    EXPECT_EQ(rollback_count, 1) << failure_stage;
+    EXPECT_EQ(persisted_role, UserRole::NORMAL) << failure_stage;
+  }
+}
+
+TEST(DatabasePoolVipTest, ConnectionAcquisitionFailureNeverReturnsOkOrAValue) {
+  constexpr auto now = std::chrono::system_clock::time_point{std::chrono::seconds{2'000'000'000}};
+  MockPool mp(1);
+  mp.pool->close();
+
+  const auto grant = mp.pool->grant_or_extend_vip(7, 30, now);
+  const auto revoke = mp.pool->revoke_vip(7);
+
+  EXPECT_EQ(grant.status, MutationStatus::STORAGE_ERROR);
+  EXPECT_FALSE(grant.value.has_value());
+  EXPECT_EQ(revoke.status, MutationStatus::STORAGE_ERROR);
+  EXPECT_FALSE(revoke.value.has_value());
+}
+
+TEST(DatabasePoolVipTest, GrantRejectsExpiryThatWouldOverflowSystemClock) {
+  const auto now = std::chrono::system_clock::time_point::max() - std::chrono::hours{24};
+  MockPool mp(1);
+  int update_count = 0;
+  mp.connections[0]->query_result =
+    QueryResult{.rows = {{"7", "normal", "hash", "salt", "1", "", "", "2026-01-02 03:04:05.000000"}}};
+  mp.connections[0]->execute_hook = [&update_count](const std::string& sql,
+                                                    const std::vector<std::string>&) -> std::optional<int64_t> {
+    if (sql.starts_with("UPDATE users")) {
+      ++update_count;
+    }
+    return 0;
+  };
+
+  const auto result = mp.pool->grant_or_extend_vip(7, 30, now);
+
+  EXPECT_EQ(result.status, MutationStatus::INVALID_STATE);
+  EXPECT_FALSE(result.value.has_value());
+  EXPECT_EQ(update_count, 0);
+}
+
+TEST(DatabasePoolVipTest, RevokeRejectsGuestWithoutUpdating) {
+  MockPool mp(1);
+  int update_count = 0;
+  mp.connections[0]->query_result =
+    QueryResult{.rows = {{"7", "guest", "hash", "salt", "0", "", "", "2026-01-02 03:04:05.000000"}}};
+  mp.connections[0]->execute_hook = [&update_count](const std::string& sql,
+                                                    const std::vector<std::string>&) -> std::optional<int64_t> {
+    if (sql.starts_with("UPDATE users")) {
+      ++update_count;
+      return 1;
+    }
+    return 0;
+  };
+
+  const auto result = mp.pool->revoke_vip(7);
+
+  EXPECT_EQ(result.status, MutationStatus::INVALID_STATE);
+  EXPECT_EQ(result.detail, "VIP_STATE_INVALID");
+  EXPECT_FALSE(result.value.has_value());
+  EXPECT_EQ(update_count, 0);
+}
+
+TEST(DatabasePoolVipTest, RevokeFailureAtEveryTransactionStageRollsBackWithoutReturningValue) {
+  for (int failure_stage = 0; failure_stage < 4; ++failure_stage) {
+    MockPool mp(1);
+    int rollback_count = 0;
+    bool pending_revoke = false;
+    UserRole persisted_role = UserRole::VIP;
+    mp.connections[0]->query_hook = [failure_stage](const std::string&,
+                                                    const std::vector<std::string>&) -> std::optional<QueryResult> {
+      if (failure_stage == 1) {
+        return std::nullopt;
+      }
+      return QueryResult{.rows = {{"7",
+                                   "vip",
+                                   "hash",
+                                   "salt",
+                                   "2",
+                                   "vip@example.com",
+                                   "2034-01-01 00:00:00.000000",
+                                   "2026-01-02 03:04:05.000000"}}};
+    };
+    mp.connections[0]->execute_hook = [failure_stage,
+                                       &rollback_count,
+                                       &pending_revoke,
+                                       &persisted_role](const std::string& sql,
+                                                        const std::vector<std::string>&) -> std::optional<int64_t> {
+      if (sql == "ROLLBACK") {
+        ++rollback_count;
+        pending_revoke = false;
+        return 0;
+      }
+      if ((failure_stage == 0 && sql == "START TRANSACTION") ||
+          (failure_stage == 2 && sql.starts_with("UPDATE users SET role = 1")) ||
+          (failure_stage == 3 && sql == "COMMIT")) {
+        return std::nullopt;
+      }
+      if (sql.starts_with("UPDATE users SET role = 1")) {
+        pending_revoke = true;
+        return 1;
+      }
+      if (sql == "COMMIT" && pending_revoke) {
+        persisted_role = UserRole::NORMAL;
+      }
+      return 0;
+    };
+
+    const auto result = mp.pool->revoke_vip(7);
+
+    EXPECT_EQ(result.status, MutationStatus::STORAGE_ERROR) << failure_stage;
+    EXPECT_FALSE(result.value.has_value()) << failure_stage;
+    EXPECT_EQ(rollback_count, 1) << failure_stage;
+    EXPECT_EQ(persisted_role, UserRole::VIP) << failure_stage;
+  }
+}
+
+TEST(DatabasePoolVipTest, RevokeClosesAfterRollbackFailureAndReconnectsBeforeReuse) {
+  MockPool mp(1);
+  auto* connection = mp.connections[0];
+  connection->query_result = QueryResult{.rows = {{"7",
+                                                   "vip",
+                                                   "hash",
+                                                   "salt",
+                                                   "2",
+                                                   "vip@example.com",
+                                                   "2034-01-01 00:00:00.000000",
+                                                   "2026-01-02 03:04:05.000000"}}};
+  connection->execute_hook = [](const std::string& sql, const std::vector<std::string>&) -> std::optional<int64_t> {
+    if (sql == "ROLLBACK" || sql.starts_with("UPDATE users SET role = 1")) {
+      return std::nullopt;
+    }
+    return 0;
+  };
+  connection->close_hook = [connection]() { connection->is_open_result = false; };
+  connection->connect_hook = [connection]() { connection->is_open_result = true; };
+
+  const auto result = mp.pool->revoke_vip(7);
+
+  EXPECT_EQ(result.status, MutationStatus::STORAGE_ERROR);
+  EXPECT_FALSE(result.value.has_value());
+  EXPECT_EQ(connection->close_count, 1);
+  EXPECT_EQ(connection->connect_count, 1);
+  EXPECT_TRUE(mp.pool->with_connection([](IConnection&) { return true; }));
+  EXPECT_EQ(connection->connect_count, 2);
+}
+
+TEST(DatabasePoolVipTest, RevokePersistsNormalRoleAndNullExpiryInOneTransaction) {
+  MockPool mp(1);
+  std::vector<std::string> statements;
+  mp.connections[0]->query_result = QueryResult{.rows = {{"7",
+                                                          "vip",
+                                                          "hash",
+                                                          "salt",
+                                                          "2",
+                                                          "vip@example.com",
+                                                          "2034-01-01 00:00:00.000000",
+                                                          "2026-01-02 03:04:05.000000"}}};
+  mp.connections[0]->execute_hook = [&statements](const std::string& sql,
+                                                  const std::vector<std::string>&) -> std::optional<int64_t> {
+    statements.push_back(sql);
+    return sql.starts_with("UPDATE") ? 1 : 0;
+  };
+
+  const auto result = mp.pool->revoke_vip(7);
+
+  ASSERT_EQ(result.status, MutationStatus::OK);
+  ASSERT_TRUE(result.value.has_value());
+  EXPECT_EQ(result.value->role, UserRole::NORMAL);
+  EXPECT_FALSE(result.value->vip_expires_at.has_value());
+  ASSERT_EQ(statements.size(), 3U);
+  EXPECT_EQ(statements[0], "START TRANSACTION");
+  EXPECT_NE(statements[1].find("vip_expires_at = NULL"), std::string::npos);
+  EXPECT_EQ(statements[2], "COMMIT");
+}
+
+TEST(DatabasePoolAdminTest, ListUsersUsesSameDecodedFilterAndStableAscendingPagination) {
+  MockPool mp(1);
+  mp.connections[0]->execute_result = 0;
+  std::vector<std::string> sqls;
+  std::vector<std::vector<std::string>> params;
+  mp.connections[0]->query_hook =
+    [&sqls, &params](const std::string& sql,
+                     const std::vector<std::string>& query_params) -> std::optional<QueryResult> {
+    sqls.push_back(sql);
+    params.push_back(query_params);
+    if (sql.starts_with("SELECT COUNT")) {
+      return QueryResult{.rows = {{"2"}}};
+    }
+    return QueryResult{
+      .rows = {{"2", "alice", "hash", "salt", "1", "alice@example.com", "", "2026-01-02 03:04:05.000000"},
+               {"9",
+                "bob",
+                "hash",
+                "salt",
+                "2",
+                "bob@example.com",
+                "2034-01-01 00:00:00.000000",
+                "2026-02-03 04:05:06.000000"}}};
+  };
+
+  const auto result = mp.pool->list_admin_users("example.com", 3, 5);
+
+  ASSERT_EQ(result.status, LookupStatus::FOUND);
+  ASSERT_TRUE(result.value.has_value());
+  EXPECT_EQ(result.value->total, 2);
+  ASSERT_EQ(result.value->items.size(), 2U);
+  ASSERT_EQ(sqls.size(), 2U);
+  EXPECT_NE(sqls[0].find("username LIKE ? ESCAPE '\\\\' OR email LIKE ? ESCAPE '\\\\'"), std::string::npos);
+  EXPECT_NE(sqls[1].find("ORDER BY user_id ASC LIMIT ? OFFSET ?"), std::string::npos);
+  EXPECT_EQ(params[0], (std::vector<std::string>{"%example.com%", "%example.com%"}));
+  EXPECT_EQ(params[1], (std::vector<std::string>{"%example.com%", "%example.com%", "5", "3"}));
+}
+
+TEST(DatabasePoolAdminTest, ListUsersKeepsCountAndItemsInOneConsistentSnapshot) {
+  MockPool mp(1);
+  int live_version = 1;
+  int snapshot_version = 0;
+  bool transaction_active = false;
+  std::vector<std::string> statements;
+  mp.connections[0]->execute_hook = [&live_version,
+                                     &snapshot_version,
+                                     &transaction_active,
+                                     &statements](const std::string& sql,
+                                                  const std::vector<std::string>&) -> std::optional<int64_t> {
+    statements.push_back(sql);
+    if (sql == "START TRANSACTION WITH CONSISTENT SNAPSHOT") {
+      transaction_active = true;
+      snapshot_version = live_version;
+    }
+    if (sql == "COMMIT" || sql == "ROLLBACK") {
+      transaction_active = false;
+    }
+    return 0;
+  };
+  mp.connections[0]->query_hook = [&live_version,
+                                   &snapshot_version,
+                                   &transaction_active](const std::string& sql,
+                                                        const std::vector<std::string>&) -> std::optional<QueryResult> {
+    const int visible_version = transaction_active ? snapshot_version : live_version;
+    if (sql.starts_with("SELECT COUNT")) {
+      auto result = QueryResult{.rows = {{std::to_string(visible_version)}}};
+      live_version = 2;
+      return result;
+    }
+    QueryResult result;
+    result.rows.push_back({"1", "first", "hash", "salt", "1", "", "", "2026-01-02 03:04:05.000000"});
+    if (visible_version == 2) {
+      result.rows.push_back({"2", "concurrent", "hash", "salt", "1", "", "", "2026-01-02 03:04:05.000000"});
+    }
+    return result;
+  };
+
+  const auto result = mp.pool->list_admin_users("", 0, 20);
+
+  ASSERT_EQ(result.status, LookupStatus::FOUND);
+  ASSERT_TRUE(result.value.has_value());
+  EXPECT_EQ(result.value->total, 1);
+  EXPECT_EQ(result.value->items.size(), 1U);
+  EXPECT_EQ(statements, (std::vector<std::string>{"START TRANSACTION WITH CONSISTENT SNAPSHOT", "COMMIT"}));
+}
+
+TEST(DatabasePoolAdminTest, ListUsersFailureAtEverySnapshotStageRollsBackWithoutReturningValue) {
+  for (int failure_stage = 0; failure_stage < 4; ++failure_stage) {
+    MockPool mp(1);
+    int rollback_count = 0;
+    mp.connections[0]->execute_hook = [failure_stage,
+                                       &rollback_count](const std::string& sql,
+                                                        const std::vector<std::string>&) -> std::optional<int64_t> {
+      if (sql == "ROLLBACK") {
+        ++rollback_count;
+        return 0;
+      }
+      if ((failure_stage == 0 && sql == "START TRANSACTION WITH CONSISTENT SNAPSHOT") ||
+          (failure_stage == 3 && sql == "COMMIT")) {
+        return std::nullopt;
+      }
+      return 0;
+    };
+    mp.connections[0]->query_hook = [failure_stage](const std::string& sql,
+                                                    const std::vector<std::string>&) -> std::optional<QueryResult> {
+      if ((failure_stage == 1 && sql.starts_with("SELECT COUNT")) ||
+          (failure_stage == 2 && !sql.starts_with("SELECT COUNT"))) {
+        return std::nullopt;
+      }
+      return sql.starts_with("SELECT COUNT")
+               ? QueryResult{.rows = {{"1"}}}
+               : QueryResult{.rows = {{"1", "first", "hash", "salt", "1", "", "", "2026-01-02 03:04:05.000000"}}};
+    };
+
+    const auto result = mp.pool->list_admin_users("", 0, 20);
+
+    EXPECT_EQ(result.status, LookupStatus::STORAGE_ERROR) << failure_stage;
+    EXPECT_FALSE(result.value.has_value()) << failure_stage;
+    EXPECT_EQ(rollback_count, 1) << failure_stage;
+  }
+}
+
+TEST(DatabasePoolAdminTest, ListUsersClosesAfterRollbackFailureAndReconnectsBeforeReuse) {
+  MockPool mp(1);
+  auto* connection = mp.connections[0];
+  connection->execute_hook = [](const std::string& sql, const std::vector<std::string>&) -> std::optional<int64_t> {
+    if (sql == "ROLLBACK" || sql == "COMMIT") {
+      return std::nullopt;
+    }
+    return 0;
+  };
+  connection->query_hook = [](const std::string& sql, const std::vector<std::string>&) -> std::optional<QueryResult> {
+    return sql.starts_with("SELECT COUNT") ? QueryResult{.rows = {{"0"}}} : QueryResult{};
+  };
+  connection->close_hook = [connection]() { connection->is_open_result = false; };
+  connection->connect_hook = [connection]() { connection->is_open_result = true; };
+
+  const auto result = mp.pool->list_admin_users("", 0, 20);
+
+  EXPECT_EQ(result.status, LookupStatus::STORAGE_ERROR);
+  EXPECT_FALSE(result.value.has_value());
+  EXPECT_EQ(connection->close_count, 1);
+  EXPECT_EQ(connection->connect_count, 1);
+  EXPECT_TRUE(mp.pool->with_connection([](IConnection&) { return true; }));
+  EXPECT_EQ(connection->connect_count, 2);
+}
+
+TEST(DatabasePoolAdminTest, ListUsersTreatsLikeWildcardsAsLiteralSearchText) {
+  MockPool mp(1);
+  mp.connections[0]->execute_result = 0;
+  std::vector<std::string> sqls;
+  std::vector<std::vector<std::string>> params;
+  mp.connections[0]->query_hook =
+    [&sqls, &params](const std::string& sql,
+                     const std::vector<std::string>& query_params) -> std::optional<QueryResult> {
+    sqls.push_back(sql);
+    params.push_back(query_params);
+    return sql.starts_with("SELECT COUNT") ? QueryResult{.rows = {{"0"}}} : QueryResult{};
+  };
+
+  const auto result = mp.pool->list_admin_users(R"(50%_off\today)", 0, 20);
+
+  ASSERT_EQ(result.status, LookupStatus::FOUND);
+  ASSERT_EQ(sqls.size(), 2U);
+  EXPECT_NE(sqls[0].find("LIKE ? ESCAPE '\\\\'"), std::string::npos);
+  EXPECT_NE(sqls[1].find("LIKE ? ESCAPE '\\\\'"), std::string::npos);
+  const std::string expected = R"(%50\%\_off\\today%)";
+  EXPECT_EQ(params[0], (std::vector<std::string>{expected, expected}));
+  EXPECT_EQ(params[1], (std::vector<std::string>{expected, expected, "20", "0"}));
+}
+
+// T-PLAYLIST-DEDUP: 一个 music_id 关联两条音频文件时不产生重复 PlaylistItem
+TEST(DatabasePoolPlaylistTest, GetPlaylistItemsDeduplicatesMultipleAudioFiles) {
+  MockPool mp(1);
+  mp.connections[0]->execute_result = 1;
+
+  mp.connections[0]->query_hook = [](const std::string& sql,
+                                     const std::vector<std::string>&) -> std::optional<QueryResult> {
+    if (sql.find("user_playlists") != std::string::npos)
+      return QueryResult{.rows = {{"1"}}};
+    // 断言 SQL 不含 LEFT JOIN file_records（已改为标量子查询）
+    EXPECT_EQ(sql.find("LEFT JOIN file_records"), std::string::npos) << "SQL should use scalar subquery, not LEFT JOIN";
+    // 返回 1 行（标量子查询正确时）
+    QueryResult qr;
+    qr.rows.push_back({"1", "1", "5", "0", "2024-01-01 00:00:00", "Song", "Artist", "hash-mp3"});
+    return qr;
+  };
+
+  auto items = mp.pool->get_playlist_items(1, 1);
+  ASSERT_EQ(items.status, MutationStatus::OK);
+  ASSERT_TRUE(items.value.has_value());
+  // 关键断言：只有 1 项，不是 2 项
+  ASSERT_EQ(items.value->size(), 1U) << "Should return exactly 1 PlaylistItem even if music has 2 audio files";
+  EXPECT_EQ(items.value->at(0).file_hash, "hash-mp3");
+}
+
+// T-PLAYLIST-ORDERBY: get_user_playlists 使用带 tie-break 的稳定排序
+TEST(DatabasePoolPlaylistTest, GetUserPlaylistsUsesStableOrderBy) {
+  MockPool mp(1);
+  std::string captured_sql;
+  mp.connections[0]->query_hook = [&captured_sql](const std::string& sql,
+                                                  const std::vector<std::string>&) -> std::optional<QueryResult> {
+    if (sql.find("FROM user_playlists") != std::string::npos) {
+      captured_sql = sql;
+      QueryResult qr;
+      qr.rows.push_back({"1", "1", "A", "", "0", "2024-01-01 00:00:00"});
+      qr.rows.push_back({"2", "1", "B", "", "0", "2024-01-01 00:00:00"});
+      return qr;
+    }
+    return std::nullopt;
+  };
+  auto result = mp.pool->get_user_playlists(1, 1);
+  ASSERT_EQ(result.status, MutationStatus::OK);
+  // 断言 ORDER BY 子句含确定性二级排序键 playlist_id DESC
+  EXPECT_NE(captured_sql.find("playlist_id DESC"), std::string::npos)
+    << "ORDER BY must include playlist_id DESC as tie-break";
 }
 
 } // namespace hps

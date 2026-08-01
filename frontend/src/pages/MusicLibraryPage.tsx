@@ -1,7 +1,13 @@
-import { useEffect, useState, useCallback } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
+import { captureSessionSnapshot, isSessionSnapshotCurrent } from '../api/client';
 import { useMusicStore } from '../stores/music';
 import { useAuthStore } from '../stores/auth';
-import { usePlayerStore } from '../stores/player';
+import {
+  capturePlayerGeneration,
+  capturePlayerStateRevision,
+  isPlayerGenerationCurrent,
+  usePlayerStore,
+} from '../stores/player';
 import { useToastStore } from '../stores/toast';
 import { useNavigate } from 'react-router-dom';
 import MusicCard from '../components/MusicCard';
@@ -21,6 +27,7 @@ export default function MusicLibraryPage() {
   const userPlaylists = useMusicStore((state) => state.userPlaylists);
   const addToPlaylist = useMusicStore((state) => state.addToPlaylist);
   const user = useAuthStore((s) => s.user);
+  const sessionRevision = useAuthStore((state) => state.sessionRevision);
   const play = usePlayerStore((state) => state.play);
   const showSuccess = useToastStore((state) => state.success);
   const showInfo = useToastStore((state) => state.info);
@@ -30,8 +37,33 @@ export default function MusicLibraryPage() {
   const [debouncedSearch, setDebouncedSearch] = useState('');
   const [showPlaylistPicker, setShowPlaylistPicker] = useState<number | null>(null);
   const [playingMusicId, setPlayingMusicId] = useState<number | null>(null);
-  const [addingMusicId, setAddingMusicId] = useState<number | null>(null);
+  const [addingMusicIds, setAddingMusicIds] = useState<Set<number>>(() => new Set());
   const [actionError, setActionError] = useState<string | null>(null);
+  const playRequestIdRef = useRef(0);
+  const mountedRef = useRef(false);
+  const sessionScopeRef = useRef(0);
+  const addRequestIdsRef = useRef(new Map<number, number>());
+
+  useEffect(() => {
+    mountedRef.current = true;
+    const addRequestIds = addRequestIdsRef.current;
+    return () => {
+      mountedRef.current = false;
+      playRequestIdRef.current += 1;
+      sessionScopeRef.current += 1;
+      addRequestIds.clear();
+    };
+  }, []);
+
+  useEffect(() => {
+    sessionScopeRef.current += 1;
+    playRequestIdRef.current += 1;
+    addRequestIdsRef.current.clear();
+    setShowPlaylistPicker(null);
+    setPlayingMusicId(null);
+    setAddingMusicIds(new Set());
+    setActionError(null);
+  }, [sessionRevision]);
 
   const fetchData = useCallback(async (pageNum: number, q?: string) => {
     const offset = (pageNum - 1) * PAGE_SIZE;
@@ -49,20 +81,37 @@ export default function MusicLibraryPage() {
 
   useEffect(() => {
     if (user) void fetchPlaylists(user.user_id).catch(() => {});
-  }, [user, fetchPlaylists]);
+  }, [user, fetchPlaylists, sessionRevision]);
 
   const handlePlay = async (music: MusicMeta) => {
-    if (playingMusicId !== null) return;
+    const requestId = ++playRequestIdRef.current;
+    const sessionScope = sessionScopeRef.current;
+    const session = captureSessionSnapshot();
+    const playerGeneration = capturePlayerGeneration();
+    const playerStateRevision = capturePlayerStateRevision();
+    const isActiveRequest = () => mountedRef.current
+      && requestId === playRequestIdRef.current
+      && sessionScope === sessionScopeRef.current
+      && isSessionSnapshotCurrent(session);
+    const canApplyResult = () => isActiveRequest()
+      && isPlayerGenerationCurrent(playerGeneration)
+      && capturePlayerStateRevision() === playerStateRevision;
     setActionError(null);
     setPlayingMusicId(music.music_id);
     try {
       const detail = await getMusicDetail(music.music_id);
-      play(detail);
+      if (!canApplyResult()) return;
+      play(detail, library.map((item) => ({
+        track: item.music_id === music.music_id ? detail : item,
+        source: { kind: 'LIBRARY', id: null },
+      })));
       navigate(`/player/${music.music_id}`);
     } catch (playError) {
-      setActionError(errorMessage(playError, '音乐加载失败，请稍后重试'));
+      if (canApplyResult()) {
+        setActionError(errorMessage(playError, '音乐加载失败，请稍后重试'));
+      }
     } finally {
-      setPlayingMusicId(null);
+      if (isActiveRequest()) setPlayingMusicId(null);
     }
   };
 
@@ -72,15 +121,28 @@ export default function MusicLibraryPage() {
       return;
     }
     if (userPlaylists.length === 1) {
+      if (addingMusicIds.has(musicId)) return;
+      const requestId = (addRequestIdsRef.current.get(musicId) ?? 0) + 1;
+      addRequestIdsRef.current.set(musicId, requestId);
+      const sessionScope = sessionScopeRef.current;
+      const session = captureSessionSnapshot();
+      const isCurrent = () => mountedRef.current
+        && addRequestIdsRef.current.get(musicId) === requestId
+        && sessionScope === sessionScopeRef.current
+        && isSessionSnapshotCurrent(session);
       setActionError(null);
-      setAddingMusicId(musicId);
+      setAddingMusicIds((current) => new Set(current).add(musicId));
       try {
         await addToPlaylist(userPlaylists[0].id, musicId);
-        showSuccess('已添加到歌单');
+        if (isCurrent()) showSuccess('已添加到歌单');
       } catch (addError) {
-        setActionError(errorMessage(addError, '添加到歌单失败，请稍后重试'));
+        if (isCurrent()) setActionError(errorMessage(addError, '添加到歌单失败，请稍后重试'));
       } finally {
-        setAddingMusicId(null);
+        if (isCurrent()) setAddingMusicIds((current) => {
+          const next = new Set(current);
+          next.delete(musicId);
+          return next;
+        });
       }
       return;
     }
@@ -88,16 +150,31 @@ export default function MusicLibraryPage() {
   };
 
   const handleSelectPlaylist = async (playlistId: number, musicId: number) => {
+    if (addingMusicIds.has(musicId)) return;
+    const requestId = (addRequestIdsRef.current.get(musicId) ?? 0) + 1;
+    addRequestIdsRef.current.set(musicId, requestId);
+    const sessionScope = sessionScopeRef.current;
+    const session = captureSessionSnapshot();
+    const isCurrent = () => mountedRef.current
+      && addRequestIdsRef.current.get(musicId) === requestId
+      && sessionScope === sessionScopeRef.current
+      && isSessionSnapshotCurrent(session);
     setActionError(null);
-    setAddingMusicId(musicId);
+    setAddingMusicIds((current) => new Set(current).add(musicId));
     try {
       await addToPlaylist(playlistId, musicId);
-      showSuccess('已添加到歌单');
-      setShowPlaylistPicker(null);
+      if (isCurrent()) {
+        showSuccess('已添加到歌单');
+        setShowPlaylistPicker(null);
+      }
     } catch (addError) {
-      setActionError(errorMessage(addError, '添加到歌单失败，请稍后重试'));
+      if (isCurrent()) setActionError(errorMessage(addError, '添加到歌单失败，请稍后重试'));
     } finally {
-      setAddingMusicId(null);
+      if (isCurrent()) setAddingMusicIds((current) => {
+        const next = new Set(current);
+        next.delete(musicId);
+        return next;
+      });
     }
   };
 
@@ -115,7 +192,7 @@ export default function MusicLibraryPage() {
             setSearch(e.target.value);
             setPage(1);
           }}
-          className="glass-input w-full max-w-md"
+          className="glass-input min-h-11 w-full max-w-md"
         />
       </div>
 
@@ -126,7 +203,7 @@ export default function MusicLibraryPage() {
       ) : libraryError ? (
         <div role="alert" className="text-center py-12">
           <p className="text-sm text-destructive mb-4">{libraryError}</p>
-          <button type="button" onClick={() => void fetchData(page, debouncedSearch)} className="glass-button text-sm">重试</button>
+          <button type="button" onClick={() => void fetchData(page, debouncedSearch)} className="glass-button min-h-11 text-sm">重试</button>
         </div>
       ) : library.length === 0 ? (
         <div className="text-center text-text-muted py-12">
@@ -134,9 +211,9 @@ export default function MusicLibraryPage() {
         </div>
       ) : (
         <>
-          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
+          <div className="grid grid-cols-1 min-[375px]:grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
             {library.map((m) => (
-              <div key={m.music_id} className="relative">
+              <div key={m.music_id} className="relative min-w-0">
                 <MusicCard
                   music={m}
                   onPlay={handlePlay}
@@ -144,7 +221,7 @@ export default function MusicLibraryPage() {
                   busyAction={
                     playingMusicId === m.music_id
                       ? 'play'
-                      : addingMusicId === m.music_id
+                      : addingMusicIds.has(m.music_id)
                         ? 'add'
                         : null
                   }
@@ -157,9 +234,9 @@ export default function MusicLibraryPage() {
                         key={p.id}
                         type="button"
                         role="menuitem"
-                        disabled={addingMusicId === m.music_id}
+                        disabled={addingMusicIds.has(m.music_id)}
                         onClick={() => void handleSelectPlaylist(p.id, m.music_id)}
-                        className="w-full text-left text-sm px-2 py-1.5 hover:bg-white/10 rounded-lg transition-colors"
+                        className="min-h-11 w-full break-words rounded-lg px-3 py-1.5 text-left text-sm transition-colors hover:bg-white/10"
                       >
                         {p.name} ({p.itemCount})
                       </button>

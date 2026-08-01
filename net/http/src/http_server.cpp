@@ -1,5 +1,6 @@
 #include "http_server.h"
 
+#include "authorization.h"
 #include "file_system.h"
 #include "logger.h"
 #include "thread_pool.h"
@@ -22,6 +23,18 @@
 namespace hps {
 
 namespace {
+
+HttpResponse upload_auth_error(TokenValidationStatus status) {
+  HttpResponse response;
+  const bool storage_error = status == TokenValidationStatus::STORAGE_ERROR;
+  response.set_status(storage_error ? 500 : 401, storage_error ? "Internal Server Error" : "Unauthorized");
+  response.set_content_type("application/json");
+  response.body = nlohmann::json{{"code", storage_error ? "PERSISTENCE_ERROR" : "AUTH_REQUIRED"},
+                                 {"error", storage_error ? "认证存储暂时不可用" : "需要登录"}}
+                    .dump();
+  response.set_content_length(response.body.size());
+  return response;
+}
 
 void add_cors_headers(HttpResponse& resp) {
   resp.set_header("Access-Control-Allow-Origin", "*");
@@ -514,7 +527,14 @@ void HttpServer::on_headers_done(HttpParser& parser, const HttpRequest& req, std
   HttpRequest authenticated_request = req;
   if (auth_service_ != nullptr) {
     AuthMiddleware::apply(*auth_service_, authenticated_request);
-    if (authenticated_request.auth_user.role < UserRole::NORMAL) {
+    if (authenticated_request.auth_status == TokenValidationStatus::STORAGE_ERROR) {
+      ctx->rejection_response = upload_auth_error(authenticated_request.auth_status);
+      enable_discard_mode(parser);
+      return;
+    }
+    if (authenticated_request.auth_status != TokenValidationStatus::AUTHENTICATED ||
+        !has_capability(authenticated_request.auth_user, Capability::USE_AUTHENTICATED_FEATURES)) {
+      ctx->rejection_response = upload_auth_error(authenticated_request.auth_status);
       enable_discard_mode(parser);
       return;
     }

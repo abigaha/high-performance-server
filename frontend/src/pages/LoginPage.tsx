@@ -1,6 +1,28 @@
-import { useState } from 'react';
-import { Link, useNavigate, useSearchParams } from 'react-router-dom';
+import { useEffect, useRef, useState } from 'react';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useAuthStore } from '../stores/auth';
+
+interface RedirectState {
+  from?: {
+    pathname?: unknown;
+    search?: unknown;
+    hash?: unknown;
+  };
+}
+
+function getSafeInternalRedirect(state: unknown): string {
+  const from = (state as RedirectState | null)?.from;
+  if (!from || typeof from.pathname !== 'string' || !from.pathname.startsWith('/')) return '/files';
+
+  const search = typeof from.search === 'string' && from.search.startsWith('?') ? from.search : '';
+  const hash = typeof from.hash === 'string' && from.hash.startsWith('#') ? from.hash : '';
+  try {
+    const target = new URL(`${from.pathname}${search}${hash}`, window.location.origin);
+    return target.origin === window.location.origin ? `${target.pathname}${target.search}${target.hash}` : '/files';
+  } catch {
+    return '/files';
+  }
+}
 
 export default function LoginPage() {
   const [username, setUsername] = useState('');
@@ -9,8 +31,18 @@ export default function LoginPage() {
   const [submitting, setSubmitting] = useState(false);
   const login = useAuthStore((state) => state.login);
   const navigate = useNavigate();
-  const [searchParams] = useSearchParams();
-  const redirect = searchParams.get('redirect') || '/files';
+  const location = useLocation();
+  const redirect = getSafeInternalRedirect(location.state);
+  const operationIdRef = useRef(0);
+  const mountedRef = useRef(true);
+
+  useEffect(() => {
+    mountedRef.current = true;
+    return () => {
+      mountedRef.current = false;
+      operationIdRef.current += 1;
+    };
+  }, []);
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -31,17 +63,19 @@ export default function LoginPage() {
     }
 
     setSubmitting(true);
+    const operationId = ++operationIdRef.current;
+    const isCurrent = () => mountedRef.current && operationId === operationIdRef.current;
     try {
-      await login(username, password);
-      navigate(redirect, { replace: true });
+      const committed = await login(username, password);
+      if (committed !== false && isCurrent()) navigate(redirect, { replace: true });
     } catch (loginError) {
-      setError(
+      if (isCurrent()) setError(
         loginError instanceof Error && loginError.message
           ? loginError.message
           : '登录失败，请检查用户名和密码',
       );
     } finally {
-      setSubmitting(false);
+      if (isCurrent()) setSubmitting(false);
     }
   };
 
@@ -49,10 +83,11 @@ export default function LoginPage() {
     <form
       noValidate
       onSubmit={handleSubmit}
-      className="glass-card flex w-full max-w-sm flex-col gap-5 p-8"
+      className="guest-form-surface glass-card flex w-full max-w-md flex-col gap-5 p-5 sm:p-7"
       aria-busy={submitting}
+      aria-labelledby="login-title"
     >
-      <h1 className="text-center font-display text-xl text-primary">登录</h1>
+      <h1 id="login-title" className="text-center font-display text-2xl text-text">登录</h1>
       {error && <p role="alert" className="text-center text-xs text-destructive">{error}</p>}
       <div>
         <label htmlFor="login-username" className="sr-only">用户名</label>

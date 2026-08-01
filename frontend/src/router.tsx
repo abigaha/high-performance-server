@@ -10,7 +10,10 @@ import UploadPage from './pages/UploadPage';
 import MusicLibraryPage from './pages/MusicLibraryPage';
 import UserPlaylistPage from './pages/UserPlaylistPage';
 import PlayerPage from './pages/PlayerPage';
-import UserManagePage from './pages/UserManagePage';
+import VipCenterPage from './pages/VipCenterPage';
+import ProfilePage from './pages/ProfilePage';
+import AdminUsersPage from './pages/AdminUsersPage';
+import RoleUsersRedirect from './components/RoleUsersRedirect';
 
 export const router = createBrowserRouter([
   {
@@ -32,18 +35,29 @@ export const router = createBrowserRouter([
           { path: '/music/library', element: <MusicLibraryPage /> },
           { path: '/my/music', element: <UserPlaylistPage /> },
           { path: '/player/:id', element: <PlayerPage /> },
+          { path: '/profile', element: <ProfilePage /> },
+          { path: '/users', element: <RoleUsersRedirect /> },
         ],
       },
     ],
   },
   {
-    element: <ProtectedRoute requiredRole="VIP" />,
+    element: <ProtectedRoute allowedRoles={['NORMAL', 'VIP']} />,
     children: [
       {
         element: <AppLayout />,
         children: [
-          { path: '/users', element: <UserManagePage /> },
+          { path: '/vip', element: <VipCenterPage /> },
         ],
+      },
+    ],
+  },
+  {
+    element: <ProtectedRoute requiredCapability="MANAGE_USERS" />,
+    children: [
+      {
+        element: <AppLayout />,
+        children: [{ path: '/admin/users', element: <AdminUsersPage /> }],
       },
     ],
   },

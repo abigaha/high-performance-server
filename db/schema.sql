@@ -9,10 +9,33 @@ CREATE TABLE IF NOT EXISTS users (
   username      VARCHAR(64)  NOT NULL UNIQUE,
   password_hash VARCHAR(128) NOT NULL,
   salt          VARCHAR(32)  NOT NULL DEFAULT '',
-  role          TINYINT      NOT NULL DEFAULT 0 COMMENT '0=GUEST 1=NORMAL 2=VIP',
+  role          TINYINT      NOT NULL DEFAULT 0 COMMENT '0=GUEST 1=NORMAL 2=VIP 3=ADMIN',
   email         VARCHAR(128),
+  vip_expires_at DATETIME(6) NULL,
+  admin_slot    TINYINT GENERATED ALWAYS AS (CASE WHEN role = 3 THEN 1 ELSE NULL END) STORED,
   created_at    TIMESTAMP    DEFAULT CURRENT_TIMESTAMP,
-  INDEX idx_users_username (username)
+  INDEX idx_users_username (username),
+  INDEX idx_users_vip_expires_at (vip_expires_at),
+  UNIQUE KEY uk_users_email (email),
+  UNIQUE KEY uk_users_single_admin (admin_slot)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+CREATE TABLE IF NOT EXISTS schema_migrations (
+  migration_key VARCHAR(128) PRIMARY KEY,
+  applied_at    DATETIME(6) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+CREATE TABLE IF NOT EXISTS pending_chunk_deletions (
+  chunk_hash      VARCHAR(64) PRIMARY KEY,
+  state           ENUM('PENDING', 'CLAIMED') NOT NULL DEFAULT 'PENDING',
+  claim_token     VARCHAR(64) NULL,
+  claimed_at      DATETIME(6) NULL,
+  retry_count     INT NOT NULL DEFAULT 0,
+  next_attempt_at DATETIME(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6),
+  last_error      VARCHAR(512) NULL,
+  created_at      DATETIME(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6),
+  updated_at      DATETIME(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6) ON UPDATE CURRENT_TIMESTAMP(6),
+  INDEX idx_pending_chunk_due (state, next_attempt_at)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 CREATE TABLE IF NOT EXISTS music_meta (
