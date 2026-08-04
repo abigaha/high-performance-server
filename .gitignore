@@ -18,8 +18,10 @@ Build/
 # AI 编程助手配置（本地，不入库）
 /.agents/
 /.codex/
+.serena/
 .codegraph
 .codegraph/
+benchmark/tools/__pycache__/
 compile_commands_fixed.json
 compile_commands.json
 # Compiled Dynamic libraries
