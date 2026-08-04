@@ -1,0 +1,7 @@
+--- bench_bench_database_pool ---
+  BM_DatabasePool_GetUser                       170.54 ns
+  BM_DatabasePool_CreateUser                    176.00 ns
+  BM_DatabasePool_GetFileMeta                   233.74 ns
+  BM_DatabasePool_StoreFileMeta                 191.13 ns
+  BM_DatabasePool_GetHistory                    101.31 ns
+

@@ -1,0 +1,38 @@
+==========================================
+  微基准测试报告
+  时间: 20260804_103933
+  Git:  433f20e (dirty=true)
+  主机: jmjvm
+  CPU:  11th Gen Intel(R) Core(TM) i5-11400H @ 2.70GHz
+  核心: 8
+  Profile: default
+==========================================
+
+目标: bench_thread_pool
+运行 ID: 20260804_104000
+状态: passed
+退出码: 0
+耗时: 7s
+
+--- 原始输出 ---
+2026-08-04T10:40:51+08:00
+Running /home/jmj/work-space/projects/high-performance-server/bin/bench_thread_pool
+Run on (8 X 2688 MHz CPU s)
+CPU Caches:
+  L1 Data 48 KiB (x8)
+  L1 Instruction 32 KiB (x8)
+  L2 Unified 1280 KiB (x8)
+  L3 Unified 12288 KiB (x8)
+Load Average: 1.40, 1.02, 1.13
+***WARNING*** Library was built as DEBUG. Timings may be affected.
+-------------------------------------------------------------------------------------------------
+Benchmark                                       Time             CPU   Iterations UserCounters...
+-------------------------------------------------------------------------------------------------
+BM_LockFreeThreadPool_Tasks/100           1641218 ns       813093 ns          269 items_per_second=122.987k/s
+BM_LockFreeThreadPool_Tasks/1000          9909299 ns      4264588 ns          118 items_per_second=234.489k/s
+BM_LockedThreadPool_Tasks/100              347715 ns       116145 ns         1376 items_per_second=860.994k/s
+BM_LockedThreadPool_Tasks/1000            1329978 ns       550836 ns          246 items_per_second=1.81542M/s
+BM_LockFreeThreadPool_HeavyTask           9927582 ns      4475348 ns          263
+BM_LockedThreadPool_HeavyTask             1019183 ns       457248 ns          310
+BM_LockedThreadPool_EnqueueDelay/1000     2605897 ns       937855 ns          133 items_per_second=1.06626M/s
+BM_LockedThreadPool_EnqueueDelay/10000   22143243 ns      7842548 ns           13 items_per_second=1.2751M/s

@@ -8,6 +8,7 @@
 #include <chrono>
 #include <cstdint>
 #include <memory>
+#include <stdexcept>
 #include <string>
 #include <thread>
 #include <vector>
@@ -21,26 +22,32 @@ public:
     config_.thread_count = 2;
     server_ = std::make_unique<hps::TcpServer>(config_);
     server_->set_handler([](std::shared_ptr<hps::Connection> conn) {
-      conn->read_from_fd();
-      auto& buf = conn->read_buffer();
-      if (!buf.empty()) {
-        conn->write_buffer() = buf;
-        conn->consume_read_buffer(buf.size());
-        conn->write_to_fd();
+      std::string payload;
+      {
+        std::lock_guard read_lock(conn->read_mutex());
+        payload = conn->read_buffer();
+        conn->consume_read_buffer_locked(payload.size());
+      }
+      if (!payload.empty()) {
+        std::lock_guard write_lock(conn->write_mutex());
+        conn->write_buffer().append(payload);
       }
     });
-    server_->init();
-    server_thread_ = std::thread([this] { server_->start(); });
-    while (server_->actual_port() == 0) {
-      std::this_thread::yield();
+    if (!server_->init()) {
+      throw std::runtime_error("TCP 基准服务初始化失败");
     }
     port_ = server_->actual_port();
+    if (port_ == 0) {
+      throw std::runtime_error("TCP 基准服务未获得监听端口");
+    }
+    server_thread_ = std::thread([this] { server_->start(); });
   }
 
   void TearDown(const ::benchmark::State& /*state*/) override {
     server_->stop();
     if (server_thread_.joinable())
       server_thread_.join();
+    server_.reset();
   }
 
   hps::TcpServer::Config config_;
@@ -49,6 +56,7 @@ public:
   uint16_t port_{0};
 };
 
+// cppcheck-suppress unknownMacro
 BENCHMARK_DEFINE_F(TcpServerBench, Connect)(benchmark::State& state) {
   for (auto _ : state) {
     hps::TcpClient client("127.0.0.1", port_);

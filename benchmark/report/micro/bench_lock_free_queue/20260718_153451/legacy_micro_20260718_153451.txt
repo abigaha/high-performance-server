@@ -1,0 +1,5 @@
+--- bench_lock_free_queue ---
+  Benchmark                          Time             CPU   Iterations UserCounters...
+  BM_LockFreeQueue_SPSC_1k     2789623 ns       194398 ns          434 items_per_second=51.4409M/s
+  BM_LockFreeQueue_SPSC_10k   26125785 ns       211811 ns           10 items_per_second=472.12M/s
+

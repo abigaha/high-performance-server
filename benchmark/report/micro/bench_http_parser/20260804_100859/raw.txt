@@ -1,0 +1,22 @@
+2026-08-04T10:09:11+08:00
+Running /home/jmj/work-space/projects/high-performance-server/bin/bench_http_parser
+Run on (8 X 2688 MHz CPU s)
+CPU Caches:
+  L1 Data 48 KiB (x8)
+  L1 Instruction 32 KiB (x8)
+  L2 Unified 1280 KiB (x8)
+  L3 Unified 12288 KiB (x8)
+Load Average: 1.92, 1.75, 1.97
+***WARNING*** Library was built as DEBUG. Timings may be affected.
+----------------------------------------------------------------------------
+Benchmark                                  Time             CPU   Iterations
+----------------------------------------------------------------------------
+BM_HttpParser_GetShortPath              9701 ns         9695 ns        10565
+BM_HttpParser_GetLongPath              10904 ns        10894 ns        10000
+BM_HttpParser_PostSmallBody            11639 ns        11519 ns        13566
+BM_HttpParser_PostLargeBody/1024       50277 ns        50192 ns         2628 bytes_per_second=19.4566Mi/s
+BM_HttpParser_PostLargeBody/4096      159144 ns       158141 ns         1146 bytes_per_second=24.7011Mi/s
+BM_HttpParser_PostLargeBody/32768    1083515 ns      1082921 ns          142 bytes_per_second=28.8571Mi/s
+BM_HttpParser_PostLargeBody/65536    2298133 ns      2280382 ns           70 bytes_per_second=27.4077Mi/s
+BM_HttpParser_ResetReuse                8242 ns         8240 ns        17776
+BM_HttpParser_ManyHeaders              22171 ns        22054 ns         7511

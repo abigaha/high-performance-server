@@ -1,0 +1,43 @@
+{
+  "schema_version": 1,
+  "kind": "micro",
+  "target": "bench_http_server",
+  "profile": "default",
+  "run_id": "20260803_181725",
+  "state": "running",
+  "attempt": 1,
+  "started_at": "2026-08-03T10:17:42Z",
+  "finished_at": null,
+  "run_fingerprint": "613f19f41ada50af41557e7e485014612ef3924baeae090482527c79b7b97a64",
+  "fingerprint_inputs": {
+    "binary_sha256": "94f8b289218fc7b7c7aa6b34214e1f465cb122bfa7d91ff5be6900e637917aa0",
+    "build_mode": "release",
+    "git_dirty": true,
+    "git_hash": "433f20e",
+    "profile": "default",
+    "target": "bench_http_server",
+    "timeout_seconds": "none",
+    "bench_flags_sha256": "06c1a8696679a7911f2a722b5a97272e09d6ab5eb26e92257d9033827f7e977c"
+  },
+  "environment": {
+    "git_hash": "433f20e",
+    "git_dirty": true,
+    "hostname": "jmjvm",
+    "cpu_model": "11th Gen Intel(R) Core(TM) i5-11400H @ 2.70GHz",
+    "cpu_cores": 8,
+    "memory_kb": 8078744
+  },
+  "status": "running",
+  "exit_code": null,
+  "elapsed_seconds": null,
+  "raw_file": "raw.txt",
+  "report_file": "report.txt",
+  "result": {
+    "status": "running",
+    "exit_code": null,
+    "elapsed_seconds": null
+  },
+  "metrics": {
+    "raw_output_bytes": 0
+  }
+}

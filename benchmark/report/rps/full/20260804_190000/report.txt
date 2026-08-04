@@ -1,0 +1,30 @@
+==========================================
+  HTTP RPS 压力测试报告
+  时间: 20260804_131405
+  Git:  433f20e (dirty=true)
+  主机: jmjvm
+  CPU:  11th Gen Intel(R) Core(TM) i5-11400H @ 2.70GHz
+  核心: 8
+  Profile: full
+==========================================
+
+入口: http://127.0.0.1:32774
+上传保护: 单元时长=5s 请求间隔=250ms
+预检: failed
+矩阵: 10/40
+通过: 8  过载观测: 0  失败: 2
+non-2xx: 0  unexpected: 0  socket errors: 234
+结论: failed
+
+场景                   方法     载荷           并发          RPS        P50        P90        P99   non2xx   socket           结果
+==========================================================================================================================
+health               GET    none          1       2810.1   318.00us   483.00us     1.41ms        0        0       passed
+health               GET    none         10       9092.0   794.00us     1.34ms     2.18ms        0        0       passed
+health               GET    none         50      18755.1     2.43ms     3.59ms     5.56ms        0        0       passed
+health               GET    none        100      18442.7     4.97ms     6.78ms    11.85ms        0        0       passed
+health               GET    none        500      18452.4    26.35ms    31.33ms    38.03ms        0        0       passed
+health               GET    none       1000      17891.4    48.09ms    59.54ms      1.00s        0      234       failed
+auth_me              GET    none          1        151.6     6.69ms     9.02ms    11.14ms        0        0       passed
+auth_me              GET    none         10        369.0    21.61ms    29.38ms    34.25ms        0        0       passed
+auth_me              GET    none         50        370.2   129.54ms   152.16ms   164.18ms        0        0       passed
+auth_me              GET    none        100          0.0        N/A        N/A        N/A        0        0       failed

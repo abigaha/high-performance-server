@@ -1,0 +1,39 @@
+==========================================
+  微基准测试报告
+  时间: 20260804_102240
+  Git:  433f20e (dirty=true)
+  主机: jmjvm
+  CPU:  11th Gen Intel(R) Core(TM) i5-11400H @ 2.70GHz
+  核心: 8
+  Profile: default
+==========================================
+
+目标: bench_tcp_server
+运行 ID: 20260804_102240
+状态: failed
+退出码: 139
+耗时: 15s
+
+--- 原始输出 ---
+2026-08-04T10:23:49+08:00
+Running /home/jmj/work-space/projects/high-performance-server/bin/bench_tcp_server
+Run on (8 X 2688 MHz CPU s)
+CPU Caches:
+  L1 Data 48 KiB (x8)
+  L1 Instruction 32 KiB (x8)
+  L2 Unified 1280 KiB (x8)
+  L3 Unified 12288 KiB (x8)
+Load Average: 1.38, 1.36, 1.60
+***WARNING*** Library was built as DEBUG. Timings may be affected.
+-----------------------------------------------------------------------------------
+Benchmark                                         Time             CPU   Iterations
+-----------------------------------------------------------------------------------
+TcpServerBench/Connect                        60724 ns        60275 ns         3466
+TcpServerBench/SendReceive/64                552278 ns       194521 ns          656 bytes_per_second=321.303Ki/s
+TcpServerBench/SendReceive/1024             4188445 ns       199047 ns          550 bytes_per_second=4.9062Mi/s
+TcpServerBench/SendReceive/16384            3397990 ns       198370 ns         1389 bytes_per_second=78.7671Mi/s
+TcpServerBench/ConcurrentConnections/10      541650 ns       538058 ns          195 items_per_second=18.5853k/s
+TcpServerBench/ConcurrentConnections/50     2700742 ns      2650275 ns           59 items_per_second=18.866k/s
+TcpServerBench/ConcurrentConnections/100    6238934 ns      6206861 ns           23 items_per_second=16.1112k/s
+TcpServerBench/Throughput/4096               682101 ns       263496 ns          458 bytes_per_second=29.6494Mi/s
+TcpServerBench/Throughput/65536            16694725 ns       386703 ns          316 bytes_per_second=322.478Mi/s

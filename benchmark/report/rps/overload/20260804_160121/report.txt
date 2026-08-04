@@ -1,0 +1,25 @@
+==========================================
+  HTTP RPS 压力测试报告
+  时间: 20260804_160121
+  Git:  433f20e (dirty=true)
+  主机: jmjvm
+  CPU:  11th Gen Intel(R) Core(TM) i5-11400H @ 2.70GHz
+  核心: 8
+  Profile: overload
+==========================================
+
+入口: http://127.0.0.1:32778
+上传保护: 单元时长=5s 请求间隔=250ms
+预检: failed
+矩阵: 5/25
+通过: 2  过载观测: 3  失败: 0
+non-2xx: 9080  unexpected: 9080  socket errors: 887598
+结论: failed
+
+场景                   方法     载荷           并发          RPS        P50        P90        P99   non2xx   socket           结果
+==========================================================================================================================
+health               GET    none       2000      17700.1    47.65ms    57.18ms    70.56ms        0        0       passed
+health               GET    none       5000       1315.6    69.96ms   108.80ms   200.03ms        0   461023   overloaded
+health               GET    none      10000        931.2   539.11ms   951.20ms      1.65s        0   319703   overloaded
+auth_me              GET    none       2000        750.8   262.02ms   270.67ms   280.95ms        0        0       passed
+auth_me              GET    none       5000        941.6   116.45ms   940.02ms      1.04s     9080   106872   overloaded

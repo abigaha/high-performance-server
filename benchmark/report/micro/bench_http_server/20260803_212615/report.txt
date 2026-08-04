@@ -1,0 +1,37 @@
+==========================================
+  微基准测试报告
+  时间: 20260803_212615
+  Git:  433f20e (dirty=true)
+  主机: jmjvm
+  CPU:  11th Gen Intel(R) Core(TM) i5-11400H @ 2.70GHz
+  核心: 8
+  Profile: default
+==========================================
+
+目标: bench_http_server
+运行 ID: 20260803_212615
+状态: passed
+退出码: 0
+耗时: 31s
+
+--- 原始输出 ---
+2026-08-03T21:26:29+08:00
+Running /home/jmj/work-space/projects/high-performance-server/bin/bench_http_server
+Run on (8 X 2688 MHz CPU s)
+CPU Caches:
+  L1 Data 48 KiB (x8)
+  L1 Instruction 32 KiB (x8)
+  L2 Unified 1280 KiB (x8)
+  L3 Unified 12288 KiB (x8)
+Load Average: 1.08, 1.40, 1.32
+***WARNING*** Library was built as DEBUG. Timings may be affected.
+----------------------------------------------------------------------------------
+Benchmark                                        Time             CPU   Iterations
+----------------------------------------------------------------------------------
+HttpServerBench/HttpGet                     498147 ns       142997 ns          817
+HttpServerBench/HttpPost                    834581 ns       243612 ns         1322
+HttpServerBench/HttpPostLargeBody/1024     1220060 ns       326153 ns          468 bytes_per_second=2.99418Mi/s
+HttpServerBench/HttpPostLargeBody/65536    6079649 ns       447845 ns          100 bytes_per_second=139.557Mi/s
+HttpServerBench/HttpPipelined/2         2003837874 ns       469816 ns            1 items_per_second=4.25699k/s
+HttpServerBench/HttpPipelined/5         8011440212 ns       903805 ns            1 items_per_second=5.53217k/s
+HttpServerBench/HttpPipelined/10        1.8022e+10 ns       994200 ns            1 items_per_second=10.0583k/s

@@ -1,0 +1,52 @@
+==========================================
+  负载测试报告
+  时间: 20260718_181105
+  Git:  7cc5224
+  主机: jmjvm
+  CPU:  11th Gen Intel(R) Core(TM) i5-11400H @ 2.70GHz
+  核心: 8
+==========================================
+
+端点                         方法 载荷   并发        RPS 平均延迟        p50        p90        p99
+==============================================================================================================
+/api/health                    GET        -        1     6000.0   407.69us   127.00us     1.19ms     3.76ms
+/api/health                    GET        -       10    27340.3   464.14us   237.00us   781.00us     3.82ms
+/api/health                    GET        -       50    41265.7     1.29ms     1.02ms     2.45ms     5.37ms
+/api/health                    GET        -      100    35750.4     2.85ms     2.54ms     4.96ms     9.77ms
+/api/health                    GET        -      500    34541.9    14.25ms    13.52ms    21.40ms    33.14ms
+/api/health                    GET        -     1000    31130.8    31.72ms    31.15ms    43.71ms    55.56ms
+/api/health                    GET        -     2000    31321.6    68.31ms    59.19ms    79.48ms   308.91ms
+/api/health                    GET        -     5000    32025.8   124.95ms   122.18ms   168.88ms   210.35ms
+/api/health                    GET        -    10000    32998.3   162.68ms   171.31ms   213.17ms   266.52ms
+/api/users/1                   GET        -        1      634.8     4.82ms     1.22ms     3.70ms   149.29ms
+/api/users/1                   GET        -       10     5769.0     1.44ms     1.19ms     2.35ms     4.81ms
+/api/users/1                   GET        -       50     8209.6     5.83ms     5.64ms     7.32ms     9.37ms
+/api/users/1                   GET        -      100     8064.8    13.82ms    11.48ms    14.20ms    70.21ms
+/api/users/1                   GET        -      500     8168.0    60.55ms    60.40ms    66.31ms    72.49ms
+/api/users/1                   GET        -     1000     8195.2   117.53ms   120.42ms   130.25ms   138.17ms
+/api/users/1                   GET        -     2000     8057.6   237.61ms   239.32ms   270.86ms   448.01ms
+/api/users/1                   GET        -     5000     8168.1   570.36ms   603.31ms   655.82ms   698.78ms
+/api/users/1                   GET        -    10000     8041.5   957.64ms      1.04s      1.13s      1.15s
+/api/files/upload              POST   1024B        1     2116.2   689.59us   371.00us     1.62ms     4.36ms
+/api/files/upload              POST   1024B       10     4763.6     1.82ms     1.40ms     3.74ms     6.99ms
+/api/files/upload              POST   1024B       50     4398.6    10.91ms    10.51ms    14.83ms    20.75ms
+/api/files/upload              POST   1024B      100     4236.4    22.67ms    22.10ms    28.19ms    36.62ms
+/api/files/upload              POST   1024B      500     4107.6   120.26ms   119.61ms   137.08ms   178.91ms
+/api/files/upload              POST   1024B     1000     4042.2   238.00ms   243.32ms   275.20ms   309.25ms
+/api/files/upload              POST   1024B     2000     4366.2   439.49ms   462.29ms   500.63ms   533.04ms
+/api/files/upload              POST   1024B     5000     4326.8   952.44ms      1.01s      1.12s      1.17s
+/api/files/upload              POST   1024B    10000     4308.8      1.13s      1.12s      1.92s      2.00s
+/api/files/upload              POST    10MB        1        8.9   114.46ms   101.55ms   151.96ms   340.41ms
+/api/files/upload              POST    10MB       10       20.4   307.31ms   191.51ms   689.90ms      1.22s
+/api/files/upload              POST    10MB       50       33.0   707.81ms   623.91ms      1.45s      1.93s
+/api/files/upload              POST    10MB      100       34.2      1.44s      1.48s      1.90s      2.00s
+/api/files/upload              POST    10MB      500        0.0     0.00us     0.00us     0.00us     0.00us
+/api/files/upload              POST     1MB        1       88.0    15.44ms    10.67ms    15.27ms   221.59ms
+/api/files/upload              POST     1MB       10      380.9    21.01ms    19.70ms    31.91ms    45.10ms
+/api/files/upload              POST     1MB       50      372.4   133.89ms   140.05ms   267.04ms   384.44ms
+/api/files/upload              POST     1MB      100      369.2   259.49ms   293.60ms   519.61ms   592.21ms
+/api/files/upload              POST     1MB      500      395.3      1.10s      1.32s      1.87s      1.96s
+/api/files/upload              POST     1MB     1000      224.0   919.01ms   893.40ms      1.71s      1.98s
+/api/files/upload              POST     1MB     2000      218.4   882.90ms   910.95ms      1.23s      1.87s
+/api/files/upload              POST     1MB     5000       55.1      1.13s      1.70s      1.98s      1.98s
+/api/files/upload              POST     1MB    10000       18.6   907.04ms   762.94ms      1.65s      1.90s

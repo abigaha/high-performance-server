@@ -407,7 +407,10 @@ TEST(AuthServiceTest, ValidateTokenValid) {
   user.user_id = 42;
   user.username = "valid_user";
   user.role = UserRole::VIP;
-  mock_db.users[42] = make_user(42, "valid_user", UserRole::VIP, std::chrono::system_clock::from_time_t(kNow + 3600));
+  auto stored_user = make_user(42, "valid_user", UserRole::VIP, std::chrono::system_clock::from_time_t(kNow + 3600));
+  stored_user.email = "valid_user@example.com";
+  stored_user.created_at = "2026-01-01 00:00:00.000000";
+  mock_db.users[42] = std::move(stored_user);
 
   auto token = auth->generate_token(user);
   EXPECT_FALSE(token.empty());
@@ -418,6 +421,11 @@ TEST(AuthServiceTest, ValidateTokenValid) {
   EXPECT_EQ(validated.identity.role, UserRole::VIP);
   EXPECT_EQ(validated.identity.username, "valid_user");
   EXPECT_EQ(validated.identity.vip_status, VipStatus::ACTIVE);
+  ASSERT_TRUE(validated.profile);
+  EXPECT_EQ(validated.profile->user_id, 42);
+  EXPECT_EQ(validated.profile->username, "valid_user");
+  EXPECT_EQ(validated.profile->email, "valid_user@example.com");
+  EXPECT_EQ(validated.profile->created_at, "2026-01-01 00:00:00.000000");
   EXPECT_EQ(mock_db.legacy_user_lookup_count, 0);
 }
 

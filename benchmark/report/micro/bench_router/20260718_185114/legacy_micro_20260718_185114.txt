@@ -1,0 +1,9 @@
+--- bench_router ---
+  Benchmark                          Time             CPU   Iterations
+  BM_Router_MatchStatic            114 ns          113 ns      1209398
+  BM_Router_MatchParam             192 ns          192 ns       722528
+  BM_Router_MatchNotFound         80.5 ns         80.1 ns      1560082
+  BM_Router_PathExists             123 ns          122 ns      1356008
+  BM_Router_MatchLongPath          190 ns          190 ns       756989
+  BM_Router_MatchLargeTable        124 ns          124 ns      1385011
+

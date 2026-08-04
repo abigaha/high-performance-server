@@ -1,0 +1,21 @@
+==========================================
+  QPS + 压力测试报告
+  时间: 20260803_225433
+  Git:  433f20e (dirty=true)
+  主机: jmjvm
+  CPU:  11th Gen Intel(R) Core(TM) i5-11400H @ 2.70GHz
+  核心: 8
+  Profile: full
+==========================================
+
+目标: qps_thread_pool
+运行 ID: 20260803_225433
+状态: failed
+退出码: 134
+耗时: 6s
+单目标超时: 900s
+
+--- 原始输出 ---
+  [LockFreeTP 并发=   1 时长= 5s]. QPS=   1424436
+  [LockFreeTP 并发=   4 时长= 5s]terminate called without an active exception
+timeout: the monitored command dumped core

@@ -16,7 +16,10 @@ usage() {
   -h, --help      显示帮助
 
 环境变量:
-  CODEQL_SUBMIT_TIMEOUT  提交请求超时秒数，默认 300，必须为正整数
+  CODEQL_SUBMIT_TIMEOUT  提交总超时秒数，默认 1800，范围 600..7200
+  CODEQL_POLL_TIMEOUT    轮询总预算秒数，默认 1800，范围 600..7200
+  CODEQL_POLL_INTERVAL   轮询间隔秒数，默认 5，必须为正整数
+  CODEQL_POLL_ATTEMPTS   可选轮询次数上限；默认按总预算动态计算
 
 说明:
   无参数时进入交互菜单
@@ -29,6 +32,45 @@ check_required_tools() {
   require_cmd readlink
   require_cmd tar
   require_cmd xmake
+}
+
+codeql_timeout_value() {
+  local variable_name="$1"
+  local default_value="$2"
+  local value="${!variable_name:-$default_value}"
+
+  if ! [[ "$value" =~ ^[1-9][0-9]*$ ]] || \
+     ((10#$value < 600 || 10#$value > 7200)); then
+    red "错误: $variable_name=$value 无效，合法范围为 600..7200 秒" >&2
+    return 1
+  fi
+  printf '%s\n' "$value"
+}
+
+codeql_poll_attempts() {
+  local poll_timeout interval configured_attempts calculated_attempts
+
+  poll_timeout="$(codeql_timeout_value CODEQL_POLL_TIMEOUT 1800)" || return 1
+  interval="${CODEQL_POLL_INTERVAL:-5}"
+  if ! [[ "$interval" =~ ^[1-9][0-9]*$ ]]; then
+    red "错误: CODEQL_POLL_INTERVAL=$interval 无效，必须为正整数秒" >&2
+    return 1
+  fi
+  calculated_attempts=$(((10#$poll_timeout + 10#$interval - 1) / 10#$interval))
+  configured_attempts="${CODEQL_POLL_ATTEMPTS:-}"
+  if [ -z "$configured_attempts" ]; then
+    printf '%s\n' "$calculated_attempts"
+    return 0
+  fi
+  if ! [[ "$configured_attempts" =~ ^[1-9][0-9]*$ ]]; then
+    red "错误: CODEQL_POLL_ATTEMPTS=$configured_attempts 无效，必须为正整数" >&2
+    return 1
+  fi
+  if ((10#$configured_attempts < calculated_attempts)); then
+    printf '%s\n' "$configured_attempts"
+  else
+    printf '%s\n' "$calculated_attempts"
+  fi
 }
 
 probe_server() {
@@ -203,6 +245,7 @@ package_source() {
       --exclude='*.o' --exclude='*.obj' --exclude='*.exe' \
       --exclude='__pycache__' --exclude='.xmake' --exclude='build' \
       --exclude='benchmark/reports' --exclude='benchmark/reports/*' \
+      --exclude='benchmark/report' --exclude='benchmark/report/*' \
       "${source_paths[@]}"
   )
 }
@@ -214,15 +257,11 @@ submit_analysis() {
   local curl_exit
   local http_code
   local task_id
-  local submit_timeout="${CODEQL_SUBMIT_TIMEOUT:-300}"
-
-  if ! [[ "$submit_timeout" =~ ^[1-9][0-9]*$ ]]; then
-    red "错误: CODEQL_SUBMIT_TIMEOUT 必须是正整数"
-    return 1
-  fi
+  local submit_timeout
+  submit_timeout="$(codeql_timeout_value CODEQL_SUBMIT_TIMEOUT 1800)" || return 1
 
   green "打包完成，发送到 CodeQL 服务器..."
-  yellow "提交请求超时: ${submit_timeout} 秒；分析可能耗时 1-5 分钟..."
+  yellow "提交请求总超时: ${submit_timeout} 秒；分析可能耗时较长..."
 
   set +e
   http_code=$(curl -sS --max-time "$submit_timeout" -X POST "$CODEQL_SERVER_URL/analyze" \
@@ -394,27 +433,28 @@ PY
 poll_result() {
   local task_id="$1"
   local response_file="$2"
-  local max_attempts="${CODEQL_POLL_ATTEMPTS:-120}"
-  local interval="${CODEQL_POLL_INTERVAL:-5}"
-  local attempt
+  local max_attempts interval poll_timeout start_seconds elapsed_seconds remaining_seconds
+  local sleep_seconds request_timeout attempt
   local curl_exit
   local http_code
   local state
 
-  if ! [[ "$max_attempts" =~ ^[1-9][0-9]*$ ]]; then
-    red "错误: CODEQL_POLL_ATTEMPTS 必须是正整数"
-    return 1
-  fi
-  if ! [[ "$interval" =~ ^[0-9]+([.][0-9]+)?$ ]]; then
-    red "错误: CODEQL_POLL_INTERVAL 必须是非负数"
-    return 1
-  fi
+  poll_timeout="$(codeql_timeout_value CODEQL_POLL_TIMEOUT 1800)" || return 1
+  interval="${CODEQL_POLL_INTERVAL:-5}"
+  max_attempts="$(codeql_poll_attempts)" || return 1
 
-  yellow "轮询分析结果..."
+  yellow "轮询分析结果（总预算 ${poll_timeout} 秒，最多 ${max_attempts} 次）..."
+  start_seconds=$SECONDS
   for ((attempt = 1; attempt <= max_attempts; attempt++)); do
-    sleep "$interval"
+    elapsed_seconds=$((SECONDS - start_seconds))
+    remaining_seconds=$((10#$poll_timeout - elapsed_seconds))
+    [ "$remaining_seconds" -gt 0 ] || break
+    request_timeout=10
+    if [ "$request_timeout" -gt "$remaining_seconds" ]; then
+      request_timeout="$remaining_seconds"
+    fi
     set +e
-    http_code=$(curl -sS --max-time 10 \
+    http_code=$(curl -sS --max-time "$request_timeout" \
       -o "$response_file" -w '%{http_code}' "$CODEQL_SERVER_URL/result/$task_id")
     curl_exit=$?
     set -e
@@ -440,9 +480,19 @@ poll_result() {
           ;;
       esac
     fi
+
+    if [ "$attempt" -ge "$max_attempts" ]; then
+      break
+    fi
+    elapsed_seconds=$((SECONDS - start_seconds))
+    remaining_seconds=$((10#$poll_timeout - elapsed_seconds))
+    [ "$remaining_seconds" -gt 0 ] || break
+    sleep_seconds=$((10#$interval))
+    [ "$sleep_seconds" -lt "$remaining_seconds" ] || break
+    sleep "$sleep_seconds"
   done
 
-  red "轮询超时（尝试 ${max_attempts} 次，间隔 ${interval} 秒）"
+  red "轮询超时（总预算 ${poll_timeout} 秒，最多 ${max_attempts} 次，间隔 ${interval} 秒）"
   if [ -s "$response_file" ]; then
     cat "$response_file"
   fi

@@ -1,0 +1,25 @@
+Running 20s test @ http://127.0.0.1:32769/api/files?offset=0&limit=20
+  8 threads and 1000 connections
+  Thread Stats   Avg      Stdev     Max   +/- Stdev
+    Latency   206.25ms   23.16ms 315.28ms   83.84%
+    Req/Sec   593.53    353.90     1.25k    60.97%
+  Latency Distribution
+     50%  205.76ms
+     75%  216.09ms
+     90%  225.73ms
+     99%  289.01ms
+  94070 requests in 20.09s, 47.28MB read
+  Non-2xx or 3xx responses: 94070
+Requests/sec:   4681.83
+Transfer/sec:      2.35MB
+HPS_WRK_REQUESTS 94070
+HPS_WRK_STATUS_ERRORS 94070
+HPS_SOCKET_CONNECT 0
+HPS_SOCKET_READ 0
+HPS_SOCKET_WRITE 0
+HPS_SOCKET_TIMEOUT 0
+HPS_STATUS_TOTAL 94070
+HPS_STATUS_2XX 0
+HPS_STATUS_NON_2XX 94070
+HPS_STATUS_UNEXPECTED 94070
+HPS_STATUS_CODES 500=94070

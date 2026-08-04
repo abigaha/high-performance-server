@@ -1,0 +1,45 @@
+==========================================
+  HTTP RPS 压力测试报告
+  时间: 20260804_150938
+  Git:  433f20e (dirty=true)
+  主机: jmjvm
+  CPU:  11th Gen Intel(R) Core(TM) i5-11400H @ 2.70GHz
+  核心: 8
+  Profile: overload
+==========================================
+
+入口: http://127.0.0.1:32776
+上传保护: 单元时长=5s 请求间隔=250ms
+预检: passed
+矩阵: 25/25
+通过: 0  过载观测: 5  失败: 20
+non-2xx: 236482  unexpected: 236482  socket errors: 556926
+结论: failed
+
+场景                   方法     载荷           并发          RPS        P50        P90        P99   non2xx   socket           结果
+==========================================================================================================================
+health               GET    none       2000      14811.2    17.89ms    49.07ms    77.06ms       22       22   overloaded
+health               GET    none       5000       3720.8    47.22ms   470.38ms      2.77s    74769    16260   overloaded
+health               GET    none      10000          0.0     0.00us     0.00us     0.00us        0   160249       failed
+auth_me              GET    none       2000          0.0     0.00us     0.00us     0.00us        0        0       failed
+auth_me              GET    none       5000       4171.2    46.05ms   282.85ms      2.29s    83790    29316   overloaded
+auth_me              GET    none      10000          0.0     0.00us     0.00us     0.00us        0   125176       failed
+files_list           GET    none       2000          0.0     0.00us     0.00us     0.00us        0        0       failed
+files_list           GET    none       5000       3875.4    38.46ms   398.04ms      2.48s    77882     7342   overloaded
+files_list           GET    none      10000          0.0     0.00us     0.00us     0.00us        0    80792       failed
+music_list           GET    none       2000          0.0     0.00us     0.00us     0.00us        0        0       failed
+music_list           GET    none       5000          0.9   660.00us     6.66ms     7.52ms       19    56237   overloaded
+music_list           GET    none      10000          0.0     0.00us     0.00us     0.00us        0    81532       failed
+upload_1kb           POST   1KB           2          0.0     0.00us     0.00us     0.00us        0        0       failed
+upload_1kb           POST   1KB           5          0.0     0.00us     0.00us     0.00us        0        0       failed
+upload_1mb           POST   1MB           2          0.0     0.00us     0.00us     0.00us        0        0       failed
+upload_1mb           POST   1MB           5          0.0     0.00us     0.00us     0.00us        0        0       failed
+download_1kb         GET    1KB         100          0.0     0.00us     0.00us     0.00us        0        0       failed
+download_1kb         GET    1KB         500          0.0     0.00us     0.00us     0.00us        0        0       failed
+download_1kb         GET    1KB        1000          0.0     0.00us     0.00us     0.00us        0        0       failed
+download_1mb         GET    1MB         100          0.0     0.00us     0.00us     0.00us        0        0       failed
+download_1mb         GET    1MB         500          0.0     0.00us     0.00us     0.00us        0        0       failed
+download_1mb         GET    1MB        1000          0.0     0.00us     0.00us     0.00us        0        0       failed
+range_1mb            GET    1KB-range    100          0.0     0.00us     0.00us     0.00us        0        0       failed
+range_1mb            GET    1KB-range    500          0.0     0.00us     0.00us     0.00us        0        0       failed
+range_1mb            GET    1KB-range   1000          0.0     0.00us     0.00us     0.00us        0        0       failed

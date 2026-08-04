@@ -71,24 +71,26 @@ struct ServerFixture {
 thread_local std::unique_ptr<hps::TcpClient> g_tcp_client;
 
 bool exchange_tcp_payload(uint16_t port, const std::string& payload) {
-  if (!g_tcp_client || !g_tcp_client->is_connected()) {
-    g_tcp_client = std::make_unique<hps::TcpClient>("127.0.0.1", port);
-    if (!g_tcp_client->connect_to_server()) {
-      g_tcp_client.reset();
-      return false;
+  constexpr int kMaxAttempts = 3;
+  for (int attempt = 0; attempt < kMaxAttempts; ++attempt) {
+    if (!g_tcp_client || !g_tcp_client->is_connected()) {
+      g_tcp_client = std::make_unique<hps::TcpClient>("127.0.0.1", port);
+      if (!g_tcp_client->connect_to_server()) {
+        g_tcp_client.reset();
+        continue;
+      }
     }
-  }
-  if (!g_tcp_client->send_message(payload)) {
-    g_tcp_client.reset();
-    return false;
-  }
 
-  std::string reply;
-  if (!g_tcp_client->receive_message(reply, hps::ReadMode::RAW, 2000)) {
+    std::string reply;
+    if (g_tcp_client->send_message(payload) && g_tcp_client->receive_message(reply, hps::ReadMode::RAW, 2000) &&
+        reply == payload) {
+      return true;
+    }
+    // A failed exchange may leave the stream half-consumed; reconnect before
+    // retrying so a later sample cannot inherit stale bytes.
     g_tcp_client.reset();
-    return false;
   }
-  return reply == payload;
+  return false;
 }
 
 } // namespace

@@ -1,0 +1,24 @@
+Running 20s test @ http://127.0.0.1:32782/api/files/by-hash/4abcdb181d987cd6027a670c7b8616ea6640d35d3a1e27bd255704560546a24e/download
+  8 threads and 100 connections
+  Thread Stats   Avg      Stdev     Max   +/- Stdev
+    Latency   376.38ms   30.98ms 415.30ms   97.40%
+    Req/Sec    37.78     28.67   121.00     69.46%
+  Latency Distribution
+     50%  379.87ms
+     75%  382.58ms
+     90%  385.46ms
+     99%  400.96ms
+  5072 requests in 20.08s, 7.90MB read
+Requests/sec:    252.62
+Transfer/sec:    402.86KB
+HPS_WRK_REQUESTS 5072
+HPS_WRK_STATUS_ERRORS 0
+HPS_SOCKET_CONNECT 0
+HPS_SOCKET_READ 0
+HPS_SOCKET_WRITE 0
+HPS_SOCKET_TIMEOUT 0
+HPS_STATUS_TOTAL 5072
+HPS_STATUS_2XX 5072
+HPS_STATUS_NON_2XX 0
+HPS_STATUS_UNEXPECTED 0
+HPS_STATUS_CODES 200=5072

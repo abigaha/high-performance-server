@@ -1,0 +1,4 @@
+--- bench_bench_ssl ---
+  BM_SslContext_Create                          113.857 µs
+  BM_SslContext_NotEnabled                      132.280 µs
+

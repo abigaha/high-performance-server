@@ -1,0 +1,19 @@
+2026-08-04T10:10:02+08:00
+Running /home/jmj/work-space/projects/high-performance-server/bin/bench_router
+Run on (8 X 2688 MHz CPU s)
+CPU Caches:
+  L1 Data 48 KiB (x8)
+  L1 Instruction 32 KiB (x8)
+  L2 Unified 1280 KiB (x8)
+  L3 Unified 12288 KiB (x8)
+Load Average: 1.77, 1.71, 1.94
+***WARNING*** Library was built as DEBUG. Timings may be affected.
+--------------------------------------------------------------------
+Benchmark                          Time             CPU   Iterations
+--------------------------------------------------------------------
+BM_Router_MatchStatic           1893 ns         1890 ns        69704
+BM_Router_MatchParam            2674 ns         2663 ns        59876
+BM_Router_MatchNotFound         1502 ns         1500 ns        84763
+BM_Router_PathExists            1853 ns         1851 ns        84291
+BM_Router_MatchLongPath         2752 ns         2749 ns        43851
+BM_Router_MatchLargeTable       2157 ns         2146 ns        89606

@@ -1,0 +1,6 @@
+--- bench_bench_chunk_header ---
+  Benchmark                           Time             CPU   Iterations
+  BM_ChunkHeader_ToNetwork         35.7 ns         34.9 ns     20971753
+  BM_ChunkHeader_FromNetwork       26.6 ns         26.2 ns     36168012
+  BM_ChunkHeader_Serialize         1.24 ns         1.21 ns    657954899
+

@@ -1,0 +1,31 @@
+2026-08-04T10:37:33+08:00
+Running /home/jmj/work-space/projects/high-performance-server/bin/bench_websocket
+Run on (8 X 2688 MHz CPU s)
+CPU Caches:
+  L1 Data 48 KiB (x8)
+  L1 Instruction 32 KiB (x8)
+  L2 Unified 1280 KiB (x8)
+  L3 Unified 12288 KiB (x8)
+Load Average: 0.66, 0.92, 1.15
+***WARNING*** Library was built as DEBUG. Timings may be affected.
+----------------------------------------------------------------------------------------------
+Benchmark                                    Time             CPU   Iterations UserCounters...
+----------------------------------------------------------------------------------------------
+BM_WebSocket_EncodeText/16                1248 ns         1230 ns       100521 bytes_per_second=12.4088Mi/s
+BM_WebSocket_EncodeText/64                1538 ns         1507 ns       100000 bytes_per_second=40.5068Mi/s
+BM_WebSocket_EncodeText/256               1350 ns         1331 ns       171777 bytes_per_second=183.368Mi/s
+BM_WebSocket_EncodeText/1024              1424 ns         1401 ns       130957 bytes_per_second=696.923Mi/s
+BM_WebSocket_EncodeText/65536             4878 ns         4772 ns        27113 bytes_per_second=12.7896Gi/s
+BM_WebSocket_DecodeFrame/16                328 ns          318 ns       317480 bytes_per_second=47.9929Mi/s
+BM_WebSocket_DecodeFrame/64                429 ns          425 ns       326293 bytes_per_second=143.555Mi/s
+BM_WebSocket_DecodeFrame/256              1335 ns         1317 ns       112220 bytes_per_second=185.369Mi/s
+BM_WebSocket_DecodeFrame/1024             5871 ns         5802 ns        25830 bytes_per_second=168.308Mi/s
+BM_WebSocket_DecodeFrame/65536          325002 ns       320418 ns          510 bytes_per_second=195.058Mi/s
+BM_WebSocket_EncodeBinary/1024             686 ns          681 ns       192767 bytes_per_second=1.39947Gi/s
+BM_WebSocket_DecodeWithMask/1024          4542 ns         4502 ns        34695 bytes_per_second=216.941Mi/s
+BM_WebSocket_ContinuousFrames/100       110730 ns       109580 ns         1422 items_per_second=912.578k/s
+BM_WebSocket_ContinuousFrames/1000     1023107 ns      1015329 ns          100 items_per_second=984.903k/s
+BM_WebSocket_ContinuousFrames/10000   10703683 ns     10576855 ns           12 items_per_second=945.461k/s
+BM_WebSocket_LargePayload/65536         280871 ns       277440 ns          552 bytes_per_second=225.274Mi/s
+BM_WebSocket_LargePayload/262144       1300825 ns      1285610 ns           91 bytes_per_second=194.46Mi/s
+BM_WebSocket_LargePayload/1048576      6096746 ns      5993121 ns           21 bytes_per_second=166.858Mi/s

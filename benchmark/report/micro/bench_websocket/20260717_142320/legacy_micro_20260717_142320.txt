@@ -1,0 +1,15 @@
+--- bench_bench_websocket ---
+  Benchmark                                 Time             CPU   Iterations UserCounters...
+  BM_WebSocket_EncodeText/16             38.4 ns         38.2 ns     17360561 bytes_per_second=399.755Mi/s
+  BM_WebSocket_EncodeText/64             39.9 ns         39.6 ns     18297938 bytes_per_second=1.50474Gi/s
+  BM_WebSocket_EncodeText/256            54.4 ns         54.1 ns     10612218 bytes_per_second=4.40809Gi/s
+  BM_WebSocket_EncodeText/1024           56.6 ns         56.4 ns     12669296 bytes_per_second=16.9021Gi/s
+  BM_WebSocket_EncodeText/65536          1620 ns         1617 ns       450276 bytes_per_second=37.7455Gi/s
+  BM_WebSocket_DecodeFrame/16            17.6 ns         17.6 ns     40185377 bytes_per_second=868.318Mi/s
+  BM_WebSocket_DecodeFrame/64            16.5 ns         16.4 ns     43909624 bytes_per_second=3.63302Gi/s
+  BM_WebSocket_DecodeFrame/256           18.5 ns         18.5 ns     39667470 bytes_per_second=12.9116Gi/s
+  BM_WebSocket_DecodeFrame/1024          30.9 ns         30.8 ns     24439484 bytes_per_second=30.9177Gi/s
+  BM_WebSocket_DecodeFrame/65536         2466 ns         2457 ns       289213 bytes_per_second=24.8415Gi/s
+  BM_WebSocket_EncodeBinary/1024         65.8 ns         65.6 ns     10934545 bytes_per_second=14.5272Gi/s
+  BM_WebSocket_DecodeWithMask/1024       27.5 ns         27.4 ns     23148072 bytes_per_second=34.762Gi/s
+

@@ -1,0 +1,19 @@
+2026-08-04T10:10:04+08:00
+Running /home/jmj/work-space/projects/high-performance-server/bin/bench_ssl
+Run on (8 X 2688 MHz CPU s)
+CPU Caches:
+  L1 Data 48 KiB (x8)
+  L1 Instruction 32 KiB (x8)
+  L2 Unified 1280 KiB (x8)
+  L3 Unified 12288 KiB (x8)
+Load Average: 1.77, 1.71, 1.94
+***WARNING*** Library was built as DEBUG. Timings may be affected.
+----------------------------------------------------------------------------
+Benchmark                                  Time             CPU   Iterations
+----------------------------------------------------------------------------
+BM_SslContext_Create                  116257 ns       116058 ns          969
+BM_SslContext_NotEnabled              122618 ns       121983 ns         1170
+BM_SSL_ReadWriteThroughput/1024         3868 ns         3864 ns        38741 bytes_per_second=252.763Mi/s
+BM_SSL_ReadWriteThroughput/65536        5740 ns         5683 ns        27779 bytes_per_second=10.7397Gi/s
+BM_SSL_ReadWriteThroughput/262144       4396 ns         4395 ns        29319 bytes_per_second=55.5521Gi/s
+BM_SSL_HandshakeLatency               149207 ns       148929 ns         1160

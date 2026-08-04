@@ -1,0 +1,17 @@
+--- bench_memory_pool ---
+  Benchmark                                      Time             CPU   Iterations
+  BM_MemoryPool_AllocateDeallocate/32         22.9 ns         22.6 ns      6721110
+  BM_MemoryPool_AllocateDeallocate/64         19.1 ns         19.0 ns      8415451
+  BM_MemoryPool_AllocateDeallocate/128        14.6 ns         14.5 ns      8936837
+  BM_MemoryPool_AllocateDeallocate/512        16.9 ns         16.7 ns      8564894
+  BM_MemoryPool_AllocateDeallocate/4096       18.5 ns         18.4 ns      7414442
+  BM_MemoryPool_BatchAllocate/32/100         70087 ns        69820 ns         1807 items_per_second=1.43226M/s
+  BM_MemoryPool_BatchAllocate/512/100        78976 ns        78235 ns         1506 items_per_second=1.2782M/s
+  BM_MemoryPool_BatchAllocate/4096/100       25563 ns        25293 ns         5207 items_per_second=3.95363M/s
+  BM_MemoryPool_MixedSizes                    92.3 ns         92.0 ns      1243093 items_per_second=65.2417M/s
+  BM_MemoryPool_CompareMalloc/32              8.80 ns         8.76 ns     15120628
+  BM_MemoryPool_CompareMalloc/64              8.87 ns         8.81 ns     16786739
+  BM_MemoryPool_CompareMalloc/128             8.50 ns         8.45 ns     16102450
+  BM_MemoryPool_CompareMalloc/512             8.70 ns         8.67 ns     15633512
+  BM_MemoryPool_CompareMalloc/4096            19.4 ns         19.3 ns      5382315
+

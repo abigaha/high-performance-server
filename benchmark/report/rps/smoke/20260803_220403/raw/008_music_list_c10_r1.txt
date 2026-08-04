@@ -1,0 +1,24 @@
+Running 1s test @ http://127.0.0.1:32775/api/music/library?offset=0&limit=20
+  8 threads and 10 connections
+  Thread Stats   Avg      Stdev     Max   +/- Stdev
+    Latency     7.38ms    1.80ms  18.91ms   77.40%
+    Req/Sec   134.48     23.08   212.00     81.93%
+  Latency Distribution
+     50%    7.16ms
+     75%    8.12ms
+     90%    9.35ms
+     99%   13.82ms
+  1115 requests in 1.10s, 788.34KB read
+Requests/sec:   1013.82
+Transfer/sec:    716.80KB
+HPS_WRK_REQUESTS 1115
+HPS_WRK_STATUS_ERRORS 0
+HPS_SOCKET_CONNECT 0
+HPS_SOCKET_READ 0
+HPS_SOCKET_WRITE 0
+HPS_SOCKET_TIMEOUT 0
+HPS_STATUS_TOTAL 1115
+HPS_STATUS_2XX 1115
+HPS_STATUS_NON_2XX 0
+HPS_STATUS_UNEXPECTED 0
+HPS_STATUS_CODES 200=1115

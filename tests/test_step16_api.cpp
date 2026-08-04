@@ -223,14 +223,12 @@ TEST(Step19FileRouteTest, ListStrictlyDecodesQueryAndReturnsDeletionCapabilities
     return std::optional<int64_t>{0};
   };
   connection->query_hook = [](const std::string& sql, const std::vector<std::string>& params) {
-    if (sql.find("COUNT(*)") != std::string::npos) {
-      EXPECT_EQ(params, (std::vector<std::string>{"%报告%", "audio"}));
-      return std::optional<QueryResult>{QueryResult{.rows = {{"2"}}}};
-    }
+    EXPECT_NE(sql.find("COUNT(*) OVER() AS total"), std::string::npos);
+    EXPECT_EQ(params, (std::vector<std::string>{"%报告%", "audio", "20", "0"}));
     return std::optional<QueryResult>{
       QueryResult{.rows = {
-                    {"7", "mine.mp3", "hash-1", "10", "audio/mpeg", "4", "2026-01-01 00:00:00.000000", "0", "42"},
-                    {"8", "other.mp3", "hash-2", "20", "audio/mpeg", "4", "2026-01-02 00:00:00.000000", "0", "99"},
+                    {"7", "mine.mp3", "hash-1", "10", "audio/mpeg", "4", "2026-01-01 00:00:00.000000", "0", "42", "2"},
+                    {"8", "other.mp3", "hash-2", "20", "audio/mpeg", "4", "2026-01-02 00:00:00.000000", "0", "99", "2"},
                   }}};
   };
   CapturingHttpServer server;
@@ -250,7 +248,7 @@ TEST(Step19FileRouteTest, ListStrictlyDecodesQueryAndReturnsDeletionCapabilities
   EXPECT_FALSE(body["items"][1]["can_delete"].get<bool>());
   EXPECT_EQ(body["items"][0]["uploaded_by"], 42);
   EXPECT_EQ(body["items"][0]["created_at"], "2026-01-01T00:00:00.000000Z");
-  EXPECT_EQ(transaction_statements, (std::vector<std::string>{"START TRANSACTION WITH CONSISTENT SNAPSHOT", "COMMIT"}));
+  EXPECT_TRUE(transaction_statements.empty());
 
   request.query_string = "type=audio&type=video";
   server.get_handlers.at("/api/files")(request, response);
@@ -1506,6 +1504,8 @@ TEST(Step16ApiTest, TokenGenerationValidation) {
   EXPECT_EQ(validated.status, TokenValidationStatus::AUTHENTICATED);
   EXPECT_EQ(validated.identity.user_id, 42);
   EXPECT_EQ(validated.identity.role, UserRole::NORMAL);
+  ASSERT_TRUE(validated.profile);
+  EXPECT_EQ(validated.profile->email, "test@example.com");
 
   // Validate without token
   auto empty = auth->validate_token("");
@@ -1519,11 +1519,14 @@ TEST(Step16ApiTest, TokenGenerationValidation) {
   EXPECT_EQ(req.auth_status, TokenValidationStatus::AUTHENTICATED);
   EXPECT_EQ(req.auth_user.user_id, 42);
   EXPECT_EQ(req.auth_user.role, UserRole::NORMAL);
+  ASSERT_TRUE(req.auth_profile);
+  EXPECT_EQ(req.auth_profile->created_at, "2026-01-02 03:04:05.000000");
 
   HttpRequest req2;
   AuthMiddleware::apply(*auth, req2);
   EXPECT_EQ(req2.auth_status, TokenValidationStatus::INVALID);
   EXPECT_EQ(req2.auth_user.role, UserRole::GUEST);
+  EXPECT_FALSE(req2.auth_profile);
 }
 
 TEST(Step16ApiTest, AuthMiddlewarePreservesStorageError) {
@@ -1531,7 +1534,7 @@ TEST(Step16ApiTest, AuthMiddlewarePreservesStorageError) {
   public:
     TokenValidationResult validate_token(const std::string& token) override {
       (void)token;
-      return {TokenValidationStatus::STORAGE_ERROR, {}};
+      return {TokenValidationStatus::STORAGE_ERROR, {}, {}};
     }
 
     std::string generate_token(const AuthUser& user) override {
@@ -1729,6 +1732,40 @@ TEST(Step16ApiTest, ProtectedMeRouteMapsAuthenticationStorageErrorToPersistenceE
 
   EXPECT_EQ(response.status_code, 500);
   EXPECT_EQ(nlohmann::json::parse(response.body).at("code"), "PERSISTENCE_ERROR");
+}
+
+TEST(Step16ApiTest, ProtectedMeRouteReusesAuthenticatedProfileWithoutSecondDatabaseLookup) {
+  MockConnection* connection = nullptr;
+  auto pool = make_database_pool(connection);
+  ASSERT_NE(connection, nullptr);
+  int query_count = 0;
+  connection->query_hook = [&query_count](const std::string&, const std::vector<std::string>&) {
+    ++query_count;
+    return std::optional<QueryResult>{
+      QueryResult{.rows = {
+                    {"42", "alice", "hash", "salt", "1", "alice@example.com", "", "2026-01-02 03:04:05.000000"},
+                  }}};
+  };
+  auto auth = create_auth_service(*pool, "test-secret");
+  CapturingHttpServer server;
+  register_auth_routes(server, *pool, *auth);
+
+  const AuthUser token_user{42, "alice", UserRole::NORMAL};
+  HttpRequest request;
+  request.headers["Authorization"] = "Bearer " + auth->generate_token(token_user);
+  AuthMiddleware::apply(*auth, request);
+  ASSERT_EQ(request.auth_status, TokenValidationStatus::AUTHENTICATED);
+  ASSERT_TRUE(request.auth_profile);
+
+  HttpResponse response;
+  server.get_handlers.at("/api/auth/me")(request, response);
+
+  EXPECT_EQ(response.status_code, 200);
+  EXPECT_EQ(query_count, 1);
+  const auto payload = nlohmann::json::parse(response.body);
+  EXPECT_EQ(payload.at("username"), "alice");
+  EXPECT_EQ(payload.at("email"), "alice@example.com");
+  EXPECT_EQ(payload.at("created_at"), "2026-01-02T03:04:05.000000Z");
 }
 
 TEST(Step16ApiTest, ProtectedMeRouteKeepsDisappearedUserAsAuthRequiredAcrossAuthenticationPaths) {

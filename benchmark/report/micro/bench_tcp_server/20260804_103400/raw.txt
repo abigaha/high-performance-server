@@ -1,0 +1,23 @@
+2026-08-04T10:34:53+08:00
+Running /home/jmj/work-space/projects/high-performance-server/bin/bench_tcp_server
+Run on (8 X 2688 MHz CPU s)
+CPU Caches:
+  L1 Data 48 KiB (x8)
+  L1 Instruction 32 KiB (x8)
+  L2 Unified 1280 KiB (x8)
+  L3 Unified 12288 KiB (x8)
+Load Average: 1.51, 0.97, 1.21
+***WARNING*** Library was built as DEBUG. Timings may be affected.
+-----------------------------------------------------------------------------------
+Benchmark                                         Time             CPU   Iterations
+-----------------------------------------------------------------------------------
+TcpServerBench/Connect                       359099 ns        46593 ns         3321
+TcpServerBench/SendReceive/64               3796330 ns       208460 ns         1216 bytes_per_second=299.818Ki/s
+TcpServerBench/SendReceive/1024              413729 ns       148354 ns         1119 bytes_per_second=6.58265Mi/s
+TcpServerBench/SendReceive/16384             197286 ns        87417 ns         1313 bytes_per_second=178.741Mi/s
+TcpServerBench/ConcurrentConnections/10      334411 ns       331556 ns          496 items_per_second=30.1608k/s
+TcpServerBench/ConcurrentConnections/50     1597169 ns      1590659 ns           66 items_per_second=31.4335k/s
+TcpServerBench/ConcurrentConnections/100    3759070 ns      3731274 ns           36 items_per_second=26.8005k/s
+TcpServerBench/Throughput/4096             25994374 ns       223403 ns         1183 bytes_per_second=34.9705Mi/s
+TcpServerBench/Throughput/65536              650976 ns       269685 ns          478 bytes_per_second=462.776Mi/s
+TcpServerBench/Throughput/262144            1144671 ns       607134 ns          206 bytes_per_second=798.523Mi/s

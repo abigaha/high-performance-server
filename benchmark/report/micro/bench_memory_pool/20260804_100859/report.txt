@@ -1,0 +1,49 @@
+==========================================
+  微基准测试报告
+  时间: 20260804_100859
+  Git:  433f20e (dirty=true)
+  主机: jmjvm
+  CPU:  11th Gen Intel(R) Core(TM) i5-11400H @ 2.70GHz
+  核心: 8
+  Profile: default
+==========================================
+
+目标: bench_memory_pool
+运行 ID: 20260804_100859
+状态: passed
+退出码: 0
+耗时: 6s
+
+--- 原始输出 ---
+2026-08-04T10:09:55+08:00
+Running /home/jmj/work-space/projects/high-performance-server/bin/bench_memory_pool
+Run on (8 X 2688 MHz CPU s)
+CPU Caches:
+  L1 Data 48 KiB (x8)
+  L1 Instruction 32 KiB (x8)
+  L2 Unified 1280 KiB (x8)
+  L3 Unified 12288 KiB (x8)
+Load Average: 1.81, 1.71, 1.94
+***WARNING*** Library was built as DEBUG. Timings may be affected.
+------------------------------------------------------------------------------------
+Benchmark                                          Time             CPU   Iterations
+------------------------------------------------------------------------------------
+BM_MemoryPool_AllocateDeallocate/32             40.5 ns         40.4 ns      3809239
+BM_MemoryPool_AllocateDeallocate/64             40.3 ns         40.2 ns      3502040
+BM_MemoryPool_AllocateDeallocate/128            44.3 ns         44.0 ns      3209227
+BM_MemoryPool_AllocateDeallocate/512            44.8 ns         44.7 ns      2751593
+BM_MemoryPool_AllocateDeallocate/4096           68.4 ns         67.8 ns      2443235
+BM_MemoryPool_BatchAllocate/32/100            708649 ns       706568 ns          202 items_per_second=141.529k/s
+BM_MemoryPool_BatchAllocate/512/100           710574 ns       704391 ns          203 items_per_second=141.967k/s
+BM_MemoryPool_BatchAllocate/4096/100           37905 ns        37798 ns         3558 items_per_second=2.64566M/s
+BM_MemoryPool_MixedSizes                         268 ns          267 ns       426836 items_per_second=22.4382M/s
+BM_MemoryPool_CompareMalloc/32                  8.55 ns         8.52 ns     15193492
+BM_MemoryPool_CompareMalloc/64                  10.5 ns         10.5 ns     15875868
+BM_MemoryPool_CompareMalloc/128                 8.96 ns         8.90 ns     15247804
+BM_MemoryPool_CompareMalloc/512                 9.37 ns         9.32 ns     18597722
+BM_MemoryPool_CompareMalloc/4096                21.8 ns         21.7 ns      7419046
+BM_MemoryPool_MultiThreadAlloc/32/8/1000      488064 ns       444288 ns          320 items_per_second=18.0063M/s
+BM_MemoryPool_MultiThreadAlloc/512/8/500      421534 ns       389573 ns          361 items_per_second=10.2677M/s
+BM_MemoryPool_MultiThreadAlloc/4096/8/200     469245 ns       401443 ns          355 items_per_second=3.98562M/s
+BM_MemoryPool_CrossThreadReturn/32/100        179701 ns        63260 ns         2205 items_per_second=1.58077M/s
+BM_MemoryPool_CrossThreadReturn/512/100       208754 ns        63662 ns         2063 items_per_second=1.57081M/s

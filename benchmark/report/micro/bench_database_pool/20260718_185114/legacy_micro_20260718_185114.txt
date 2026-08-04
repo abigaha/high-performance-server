@@ -1,0 +1,7 @@
+--- bench_database_pool ---
+  Benchmark                                Time             CPU   Iterations
+  BM_DatabasePool_GetUser                106 ns          104 ns      1377431
+  BM_DatabasePool_CreateUser             128 ns          127 ns      1339077
+  BM_DatabasePool_GetFileRecord          123 ns          122 ns       934049
+  BM_DatabasePool_StoreFileRecord        160 ns          159 ns       696163
+

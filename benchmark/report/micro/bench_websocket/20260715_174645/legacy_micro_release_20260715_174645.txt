@@ -1,0 +1,13 @@
+--- bench_bench_websocket ---
+  BM_WebSocket_EncodeText/16                    44.40 ns  throughput=360.35MB/s
+  BM_WebSocket_EncodeText/64                    45.91 ns  throughput=1.3942GB/s
+  BM_WebSocket_EncodeText/256                   56.94 ns  throughput=4.4960GB/s
+  BM_WebSocket_EncodeText/1024                  62.65 ns  throughput=16.3455GB/s
+  BM_WebSocket_EncodeText/65536                 1.508 µs  throughput=43.4488GB/s
+  BM_WebSocket_DecodeFrame/16                   17.26 ns  throughput=926.77MB/s
+  BM_WebSocket_DecodeFrame/64                   17.46 ns  throughput=3.6665GB/s
+  BM_WebSocket_DecodeFrame/256                  18.09 ns  throughput=14.1479GB/s
+  BM_WebSocket_DecodeFrame/1024                 30.55 ns  throughput=33.5205GB/s
+  BM_WebSocket_DecodeFrame/65536                2.360 µs  throughput=27.7644GB/s
+  BM_WebSocket_EncodeBinary/1024                58.54 ns  throughput=17.4911GB/s
+  BM_WebSocket_DecodeWithMask/1024              30.28 ns  throughput=33.8186GB/s

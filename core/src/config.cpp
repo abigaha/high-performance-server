@@ -200,6 +200,15 @@ void apply_env_overrides(ServerConfig& cfg) {
   if (const char* env = std::getenv("SERVER_PORT")) {
     cfg.port = static_cast<uint16_t>(std::stoul(env));
   }
+  if (const char* env = std::getenv("SERVER_THREAD_COUNT")) {
+    cfg.thread_count = std::stoul(env);
+  }
+  if (const char* env = std::getenv("SERVER_BACKLOG")) {
+    cfg.backlog = std::stoul(env);
+  }
+  if (const char* env = std::getenv("DB_POOL_SIZE")) {
+    cfg.db.pool_size = std::stoul(env);
+  }
   if (const char* env = std::getenv("AUTH_SECRET")) {
     cfg.auth_secret = env;
   }

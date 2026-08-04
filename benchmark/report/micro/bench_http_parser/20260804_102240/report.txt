@@ -1,0 +1,39 @@
+==========================================
+  微基准测试报告
+  时间: 20260804_102240
+  Git:  433f20e (dirty=true)
+  主机: jmjvm
+  CPU:  11th Gen Intel(R) Core(TM) i5-11400H @ 2.70GHz
+  核心: 8
+  Profile: default
+==========================================
+
+目标: bench_http_parser
+运行 ID: 20260804_102240
+状态: passed
+退出码: 0
+耗时: 2s
+
+--- 原始输出 ---
+2026-08-04T10:22:53+08:00
+Running /home/jmj/work-space/projects/high-performance-server/bin/bench_http_parser
+Run on (8 X 2688 MHz CPU s)
+CPU Caches:
+  L1 Data 48 KiB (x8)
+  L1 Instruction 32 KiB (x8)
+  L2 Unified 1280 KiB (x8)
+  L3 Unified 12288 KiB (x8)
+Load Average: 1.22, 1.39, 1.62
+***WARNING*** Library was built as DEBUG. Timings may be affected.
+----------------------------------------------------------------------------
+Benchmark                                  Time             CPU   Iterations
+----------------------------------------------------------------------------
+BM_HttpParser_GetShortPath             11497 ns        11447 ns        10000
+BM_HttpParser_GetLongPath              12464 ns        12427 ns        11053
+BM_HttpParser_PostSmallBody            11953 ns        11907 ns         9249
+BM_HttpParser_PostLargeBody/1024       67605 ns        67320 ns         2570 bytes_per_second=14.5062Mi/s
+BM_HttpParser_PostLargeBody/4096      233465 ns       232652 ns          694 bytes_per_second=16.7901Mi/s
+BM_HttpParser_PostLargeBody/32768    1281417 ns      1276938 ns           99 bytes_per_second=24.4726Mi/s
+BM_HttpParser_PostLargeBody/65536    3565315 ns      3501305 ns           61 bytes_per_second=17.8505Mi/s
+BM_HttpParser_ResetReuse               11807 ns        11779 ns        14151
+BM_HttpParser_ManyHeaders              30973 ns        30907 ns         4403

@@ -5,6 +5,8 @@
 #include <benchmark/benchmark.h>
 
 #include <cstdint>
+#include <cstdlib>
+#include <iostream>
 #include <memory>
 #include <string>
 #include <thread>
@@ -29,18 +31,19 @@ public:
       resp.set_header("Content-Type", "text/plain");
       resp.body = req.body;
     });
-    server_->init();
-    server_thread_ = std::thread([this] { server_->start(); });
-    while (server_->actual_port() == 0) {
-      std::this_thread::yield();
+    if (!server_->init()) {
+      std::cerr << "HTTP 基准服务初始化失败\n";
+      std::exit(EXIT_FAILURE);
     }
     port_ = server_->actual_port();
+    server_thread_ = std::thread([this] { server_->start(); });
   }
 
   void TearDown(const ::benchmark::State& /*state*/) override {
     server_->stop();
     if (server_thread_.joinable())
       server_thread_.join();
+    server_.reset();
   }
 
   std::string make_get() {

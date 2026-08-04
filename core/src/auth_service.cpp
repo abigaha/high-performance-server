@@ -143,6 +143,10 @@ std::string api_datetime(std::string_view mysql_datetime) {
   return format_rfc3339_utc(*parsed);
 }
 
+AuthenticatedUserProfile make_authenticated_user_profile(const User& user) {
+  return {user.user_id, user.username, user.email, user.created_at};
+}
+
 } // namespace
 
 std::string generate_salt() {
@@ -203,14 +207,16 @@ public:
       }
       const auto user = db_.get_user_result(user_id);
       if (user.status == LookupStatus::NOT_FOUND) {
-        return {TokenValidationStatus::USER_NOT_FOUND, {}};
+        return {TokenValidationStatus::USER_NOT_FOUND, {}, {}};
       }
       if (user.status != LookupStatus::FOUND || !user.value) {
-        return {TokenValidationStatus::STORAGE_ERROR, {}};
+        return {TokenValidationStatus::STORAGE_ERROR, {}, {}};
       }
-      return {TokenValidationStatus::AUTHENTICATED, make_effective_identity(*user.value, now)};
+      return {TokenValidationStatus::AUTHENTICATED,
+              make_effective_identity(*user.value, now),
+              make_authenticated_user_profile(*user.value)};
     } catch (...) {
-      return {TokenValidationStatus::STORAGE_ERROR, {}};
+      return {TokenValidationStatus::STORAGE_ERROR, {}, {}};
     }
   }
 

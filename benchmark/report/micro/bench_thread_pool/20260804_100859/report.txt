@@ -1,0 +1,40 @@
+==========================================
+  微基准测试报告
+  时间: 20260804_100859
+  Git:  433f20e (dirty=true)
+  主机: jmjvm
+  CPU:  11th Gen Intel(R) Core(TM) i5-11400H @ 2.70GHz
+  核心: 8
+  Profile: default
+==========================================
+
+目标: bench_thread_pool
+运行 ID: 20260804_100859
+状态: passed
+退出码: 0
+耗时: 4s
+
+--- 原始输出 ---
+2026-08-04T10:20:00+08:00
+Running /home/jmj/work-space/projects/high-performance-server/bin/bench_thread_pool
+Run on (8 X 2688 MHz CPU s)
+CPU Caches:
+  L1 Data 48 KiB (x8)
+  L1 Instruction 32 KiB (x8)
+  L2 Unified 1280 KiB (x8)
+  L3 Unified 12288 KiB (x8)
+Load Average: 1.45, 1.58, 1.73
+***WARNING*** Library was built as DEBUG. Timings may be affected.
+-------------------------------------------------------------------------------------------------
+Benchmark                                       Time             CPU   Iterations UserCounters...
+-------------------------------------------------------------------------------------------------
+BM_LockFreeThreadPool_Tasks/100           2060360 ns      1004237 ns          100 items_per_second=99.5781k/s
+BM_LockFreeThreadPool_Tasks/1000         11948706 ns      4969706 ns           24 items_per_second=201.219k/s
+BM_LockedThreadPool_Tasks/100              453723 ns       148970 ns          883 items_per_second=671.275k/s
+BM_LockedThreadPool_Tasks/1000            1508730 ns       617524 ns          223 items_per_second=1.61937M/s
+BM_LockFreeThreadPool_HeavyTask           7503389 ns      4301662 ns           82
+BM_LockedThreadPool_HeavyTask             1090861 ns       513181 ns          264
+BM_LockedThreadPool_EnqueueDelay/1000     2028611 ns       966991 ns          195 items_per_second=1.03414M/s
+BM_LockedThreadPool_EnqueueDelay/10000   20599089 ns      9126060 ns           13 items_per_second=1.09576M/s
+BM_LockFree_vs_Locked_Compare/1000/1     11181528 ns      6252340 ns           42 items_per_second=159.94k/s
+BM_LockFree_vs_Locked_Compare/1000/0      1501243 ns       607701 ns          207 items_per_second=1.64555M/s

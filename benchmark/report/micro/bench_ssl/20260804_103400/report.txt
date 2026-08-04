@@ -1,0 +1,36 @@
+==========================================
+  微基准测试报告
+  时间: 20260804_103342
+  Git:  433f20e (dirty=true)
+  主机: jmjvm
+  CPU:  11th Gen Intel(R) Core(TM) i5-11400H @ 2.70GHz
+  核心: 8
+  Profile: default
+==========================================
+
+目标: bench_ssl
+运行 ID: 20260804_103400
+状态: passed
+退出码: 0
+耗时: 2s
+
+--- 原始输出 ---
+2026-08-04T10:34:51+08:00
+Running /home/jmj/work-space/projects/high-performance-server/bin/bench_ssl
+Run on (8 X 2688 MHz CPU s)
+CPU Caches:
+  L1 Data 48 KiB (x8)
+  L1 Instruction 32 KiB (x8)
+  L2 Unified 1280 KiB (x8)
+  L3 Unified 12288 KiB (x8)
+Load Average: 1.29, 0.92, 1.19
+***WARNING*** Library was built as DEBUG. Timings may be affected.
+----------------------------------------------------------------------------
+Benchmark                                  Time             CPU   Iterations
+----------------------------------------------------------------------------
+BM_SslContext_Create                  228258 ns       216923 ns         1000
+BM_SslContext_NotEnabled              239839 ns       238640 ns          463
+BM_SSL_ReadWriteThroughput/1024         6283 ns         6228 ns        29836 bytes_per_second=156.791Mi/s
+BM_SSL_ReadWriteThroughput/65536        6946 ns         6942 ns        24229 bytes_per_second=8.79219Gi/s
+BM_SSL_ReadWriteThroughput/262144       6500 ns         6463 ns        28300 bytes_per_second=37.7732Gi/s
+BM_SSL_HandshakeLatency               299763 ns       299316 ns          464

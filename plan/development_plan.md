@@ -30,6 +30,7 @@
 | Step 17 | 前端体验、上传契约与浏览器验收补强 | 已完成，作为 Step 18 的技术基线 | [step-17-frontend-optimization.md](step-17-frontend-optimization.md)、[bugfix-step17-runtime-regressions.md](bugfix-step17-runtime-regressions.md) |
 | Step 18 | Crystal Music UI 视觉还原 | 已完成（2026-07-27） | [step-18-ui-visual-restoration.md](step-18-ui-visual-restoration.md)，UI 视觉还原、质量门禁、截图审批和六项目浏览器验收均已通过，Step 17 技术修复和现有功能契约保持不变 |
 | Step 19 | 用户功能闭环、VIP 生命周期与管理员治理 | 已完成（2026-08-01） | [step-19-user-feature-completion.md](step-19-user-feature-completion.md)；Step 2 整体审查、Step 3-6 正式门禁与最终隔离 E2E（13/13）全部通过，已提交并 push 到 master |
+| - | 性能基准报告分层、续跑与完整质量闭环 | 已完成（2026-08-04） | [benchmark-report-restructure.md](benchmark-report-restructure.md)；micro/QPS/RPS 报告、隔离环境、续跑与 diff 已验证，正式流水线全部通过 |
 
 ## Step 17 技术基线与 Step 18 UI 范围
 
@@ -48,6 +49,13 @@
 - Step 5 CodeQL 通过：任务 `d13ae231-d80b-42ac-b180-71df6271de41`，`critical=0`，`high=0`。
 - Step 6 全量测试通过：Google Test 46 目标全通过，Vitest 34 文件/298 用例全通过，脚本回归全通过。
 - 最终隔离 E2E 通过：`bash scripts/test.sh e2e tests/e2e/user-governance.spec.ts`，13/13，0 failed。
+
+## 2026-08-04 性能与质量收尾
+
+- RPS run `20260804_184656`：`full` 为 `40/40` cells passed；`overload` 为 `25/25` cells completed，其中 `15` 个按设计记录为 overloaded，`0` 个 failed。
+- 数据库文件列表和音乐库列表均使用单次 CTE 查询，兼容空页、越界页和严格行校验；窗口总数列保持既有 `total` SQL 契约。
+- Docker/Nginx 并发参数、连接复用、文件描述符限制和高频日志均已按性能基准结果调整。
+- `bash scripts/pipeline.sh all` 已通过：后端 46/46、前端 34 个测试文件/298 个用例、脚本回归全部通过；clang-tidy、cppcheck、编译、前端构建通过，CodeQL `0 critical + 0 high`。
 
 ## 当前稳定入口
 

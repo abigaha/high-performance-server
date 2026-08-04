@@ -104,13 +104,21 @@ TEST(ConfigTest, DeploymentEnvironmentOverridesDatabaseConfig) {
   ScopedEnvironment db_password("DB_PASSWORD", std::string("deployed-password"));
   ScopedEnvironment db_name("DB_NAME", std::string("deployed-database"));
   ScopedEnvironment server_port("SERVER_PORT", std::string("9191"));
+  ScopedEnvironment server_thread_count("SERVER_THREAD_COUNT", std::string("24"));
+  ScopedEnvironment server_backlog("SERVER_BACKLOG", std::string("1024"));
+  ScopedEnvironment db_pool_size("DB_POOL_SIZE", std::string("48"));
   TempConfigFile config(R"({
+    "server": {
+      "thread_count": 4,
+      "backlog": 128
+    },
     "database": {
       "host": "config-host",
       "port": 3306,
       "username": "config-user",
       "password": "config-password",
-      "database": "config-database"
+      "database": "config-database",
+      "pool_size": 10
     }
   })");
 
@@ -122,6 +130,9 @@ TEST(ConfigTest, DeploymentEnvironmentOverridesDatabaseConfig) {
   EXPECT_EQ(loaded.db.password, "deployed-password");
   EXPECT_EQ(loaded.db.database, "deployed-database");
   EXPECT_EQ(loaded.port, 9191);
+  EXPECT_EQ(loaded.thread_count, 24U);
+  EXPECT_EQ(loaded.backlog, 1024U);
+  EXPECT_EQ(loaded.db.pool_size, 48U);
   EXPECT_EQ(loaded.db_host, loaded.db.host);
   EXPECT_EQ(loaded.db_port, loaded.db.port);
   EXPECT_EQ(loaded.db_user, loaded.db.username);

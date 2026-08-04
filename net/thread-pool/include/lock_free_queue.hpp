@@ -131,6 +131,9 @@ bool LockFreeQueue<T, Capacity, Allocator>::emplace(Args&&... args) {
     std::uint64_t next_tail = increment_index(current_tail);
     if (tail_.compare_exchange_weak(current_tail, next_tail, std::memory_order_release, std::memory_order_relaxed)) {
       std::uint32_t tail_index = get_index(current_tail);
+      while (state_[tail_index].load(std::memory_order_acquire) != State::EMPTY) {
+        std::this_thread::yield();
+      }
       try {
         std::allocator_traits<decltype(allocator_)>::construct(
           allocator_, std::next(buffer_, static_cast<std::ptrdiff_t>(tail_index)), std::forward<Args>(args)...);
@@ -202,11 +205,15 @@ bool LockFreeQueue<T, Capacity, Allocator>::pop(T& item) {
 
 template <typename T, std::size_t Capacity, typename Allocator>
 bool LockFreeQueue<T, Capacity, Allocator>::try_pop(T& item) {
-  std::uint64_t current_head = head_.load(std::memory_order_acquire);
-  if (get_index(current_head) == get_index(tail_.load(std::memory_order_acquire)))
-    return false;
-  std::uint64_t next_head = increment_index(current_head);
-  if (head_.compare_exchange_weak(current_head, next_head, std::memory_order_acquire, std::memory_order_relaxed)) {
+  while (true) {
+    std::uint64_t current_head = head_.load(std::memory_order_acquire);
+    if (get_index(current_head) == get_index(tail_.load(std::memory_order_acquire))) {
+      return false;
+    }
+    const std::uint64_t next_head = increment_index(current_head);
+    if (!head_.compare_exchange_weak(current_head, next_head, std::memory_order_acq_rel, std::memory_order_relaxed)) {
+      continue;
+    }
     std::uint32_t head_index = get_index(current_head);
     while (state_[head_index].load(std::memory_order_acquire) != State::PUSHED) {
       if (state_[head_index].load(std::memory_order_acquire) == State::ABORTING) {
@@ -227,7 +234,6 @@ bool LockFreeQueue<T, Capacity, Allocator>::try_pop(T& item) {
     state_[head_index].store(State::EMPTY, std::memory_order_release);
     return true;
   }
-  return false;
 }
 
 template <typename T, std::size_t Capacity, typename Allocator>

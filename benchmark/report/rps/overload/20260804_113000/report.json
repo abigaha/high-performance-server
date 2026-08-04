@@ -1,0 +1,36 @@
+{
+  "type": "rps",
+  "profile": "overload",
+  "base_url": "http://127.0.0.1:32769",
+  "strict_errors": false,
+  "upload_guard": {
+    "duration_seconds": 5,
+    "request_delay_milliseconds": 250
+  },
+  "environment": {
+    "timestamp": "20260804_113651",
+    "git_hash": "433f20e",
+    "git_dirty": true,
+    "hostname": "jmjvm",
+    "cpu_model": "11th Gen Intel(R) Core(TM) i5-11400H @ 2.70GHz",
+    "cpu_cores": "8",
+    "memory_kb": "8078760"
+  },
+  "preflight": {
+    "status": "failed",
+    "error": "RPS 认证预检失败"
+  },
+  "summary": {
+    "expected_cells": 25,
+    "completed_cells": 0,
+    "passed_cells": 0,
+    "overloaded_cells": 0,
+    "failed_cells": 0,
+    "non_2xx": 0,
+    "unexpected_status": 0,
+    "socket_errors": 0,
+    "preflight_status": "failed",
+    "result": "failed"
+  },
+  "results": []
+}

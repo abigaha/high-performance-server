@@ -1,0 +1,8 @@
+--- bench_bench_move_only_function ---
+  BM_MoveOnlyFunction_ConstructVoid             1.10 ns
+  BM_MoveOnlyFunction_ConstructWithCapture      1.41 ns
+  BM_MoveOnlyFunction_ConstructLargeCapture     41.59 ns
+  BM_MoveOnlyFunction_Invoke                    1.35 ns
+  BM_MoveOnlyFunction_MoveConstruct             1.38 ns
+  BM_StdFunction_Compare                        1.36 ns
+

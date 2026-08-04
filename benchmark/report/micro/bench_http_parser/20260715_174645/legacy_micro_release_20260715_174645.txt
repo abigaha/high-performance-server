@@ -1,0 +1,11 @@
+--- bench_bench_http_parser ---
+  BM_HttpParser_GetShortPath                    986.52 ns
+  BM_HttpParser_GetLongPath                     1.103 µs
+  BM_HttpParser_PostSmallBody                   1.434 µs
+  BM_HttpParser_PostLargeBody/1024              6.066 µs  throughput=168.81MB/s
+  BM_HttpParser_PostLargeBody/4096              18.982 µs  throughput=215.78MB/s
+  BM_HttpParser_PostLargeBody/32768             152.754 µs  throughput=214.52MB/s
+  BM_HttpParser_PostLargeBody/65536             398.372 µs  throughput=164.51MB/s
+  BM_HttpParser_ResetReuse                      1.096 µs
+  BM_HttpParser_ManyHeaders                     2.674 µs
+

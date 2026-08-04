@@ -1,0 +1,43 @@
+{
+  "schema_version": 1,
+  "kind": "micro",
+  "target": "bench_lock_free_queue",
+  "profile": "default",
+  "run_id": "20260804_100859",
+  "state": "passed",
+  "attempt": 1,
+  "started_at": "2026-08-04T02:09:46Z",
+  "finished_at": "2026-08-04T02:09:53Z",
+  "run_fingerprint": "7d2253ed979ee2506e19ba0b26a5f09a1fa552b84149811347b0b80eefac8c08",
+  "fingerprint_inputs": {
+    "binary_sha256": "712122bd1f20112b90f5d88733cc651bf4a5258497d04d43719bf6dfc9c3aefa",
+    "build_mode": "release",
+    "git_dirty": true,
+    "git_hash": "433f20e",
+    "profile": "default",
+    "target": "bench_lock_free_queue",
+    "timeout_seconds": "none",
+    "bench_flags_sha256": "06c1a8696679a7911f2a722b5a97272e09d6ab5eb26e92257d9033827f7e977c"
+  },
+  "environment": {
+    "git_hash": "433f20e",
+    "git_dirty": true,
+    "hostname": "jmjvm",
+    "cpu_model": "11th Gen Intel(R) Core(TM) i5-11400H @ 2.70GHz",
+    "cpu_cores": 8,
+    "memory_kb": 8078760
+  },
+  "status": "passed",
+  "exit_code": 0,
+  "elapsed_seconds": 7,
+  "raw_file": "raw.txt",
+  "report_file": "report.txt",
+  "result": {
+    "status": "passed",
+    "exit_code": 0,
+    "elapsed_seconds": 7
+  },
+  "metrics": {
+    "raw_output_bytes": 1258
+  }
+}

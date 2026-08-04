@@ -1,0 +1,5 @@
+--- bench_ssl ---
+  Benchmark                         Time             CPU   Iterations
+  BM_SslContext_Create         113578 ns       112989 ns          482
+  BM_SslContext_NotEnabled     140852 ns       139888 ns          677
+

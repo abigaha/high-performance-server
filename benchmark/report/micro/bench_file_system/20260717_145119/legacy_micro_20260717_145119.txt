@@ -1,0 +1,16 @@
+--- bench_bench_file_system ---
+  Benchmark                                   Time             CPU   Iterations UserCounters...
+  BM_FileSystem_Sha256/1024                9886 ns         9725 ns       100480 bytes_per_second=100.423Mi/s
+  BM_FileSystem_Sha256/65536             111327 ns       109143 ns         5757 bytes_per_second=572.644Mi/s
+  BM_FileSystem_Sha256/1048576           985353 ns       971931 ns          791 bytes_per_second=1.00477Gi/s
+  BM_FileSystem_Sha256SmallData/16         1455 ns         1432 ns       692430 bytes_per_second=10.6581Mi/s
+  BM_FileSystem_Sha256SmallData/64         1849 ns         1815 ns       351631 bytes_per_second=33.6225Mi/s
+  BM_FileSystem_Sha256SmallData/256        2008 ns         1964 ns       390057 bytes_per_second=124.28Mi/s
+  BM_FileSystem_Sha256SmallData/1024       2844 ns         2790 ns       318475 bytes_per_second=350.063Mi/s
+  BM_FileSystem_Sha256SmallData/8192      10267 ns        10105 ns        78248 bytes_per_second=773.111Mi/s
+  BM_FileSystem_SplitFile/1048576         13238 ns        12979 ns        60694
+  BM_FileSystem_SplitFile/10485760        98681 ns        97045 ns         6324
+  BM_FileSystem_StoreRead/1024           387446 ns       340435 ns         1730 bytes_per_second=5.73715Mi/s
+  BM_FileSystem_StoreRead/65536         6937063 ns      6796729 ns           89 bytes_per_second=18.3912Mi/s
+  BM_FileSystem_StoreRead/1048576     126474614 ns    123183682 ns            9 bytes_per_second=16.2359Mi/s
+

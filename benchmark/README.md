@@ -6,7 +6,7 @@
 
 1. `bench_*.cpp`：基于 Google Benchmark 的单进程微基准。
 2. `qps_*.cpp`：模块级并发阶梯测试，覆盖核心容器、网络、HTTP、文件、认证等模块。
-3. `rps`：通过 `wrk` 访问已经部署的同源 HTTP 入口，覆盖 Nginx、后端、数据库和文件系统的端到端链路。
+3. `rps`：通过 `wrk` 访问同源 HTTP 入口，覆盖 Nginx、后端、数据库和文件系统的端到端链路。未设置外部入口时，脚本负责创建并销毁隔离 Compose 环境。
 
 统一入口为：
 
@@ -80,14 +80,19 @@ QPS_TIMEOUT_SECONDS=300 QPS_PROFILE=full bash scripts/benchmark.sh qps
 
 ## 端到端 RPS
 
-`rps` 不编译、不启动后端，只压测 `RPS_BASE_URL` 指定的已部署同源入口。该变量必须是无路径、查询和片段的 HTTP(S) 入口；Docker 默认应用入口为 `http://127.0.0.1:18080`：
+`rps` 不编译基准目标。未设置 `RPS_BASE_URL` 时，脚本以动态端口创建唯一的隔离 Compose 项目，读取运行时指纹，并在成功、失败或信号中断后执行 `down --volumes`。设置 `RPS_BASE_URL` 时，它只预检该外部同源入口，不部署也不清理；该变量必须是无路径、查询和片段的 HTTP(S) 入口，且必须同时设置非空的 `RPS_TARGET_FINGERPRINT`：
 
 ```bash
-bash scripts/benchmark.sh rps smoke
-RPS_BASE_URL=http://127.0.0.1:18080 bash scripts/benchmark.sh rps full
+# 正式 RPS 范围
+bash scripts/benchmark.sh rps full overload
+
+# 外部环境
+RPS_BASE_URL=https://benchmark.example.test \
+RPS_TARGET_FINGERPRINT=release-20260803 \
+  bash scripts/benchmark.sh rps full
 ```
 
-宿主机 `8080` 保留给 CodeQL 服务。若已有 `.env` 通过 `HPS_HTTP_PORT` 修改了 Docker 应用端口，须将 `RPS_BASE_URL` 改为相同的入口，例如 `RPS_BASE_URL=http://127.0.0.1:19080`。部署会在构建前检查该端口是否已被占用，端口不可用时会直接失败。
+宿主机 `8080` 保留给 CodeQL 服务。隔离环境使用动态端口，不会占用该端口。
 
 兼容入口 `load` 与 `rps` 行为相同：
 
@@ -142,6 +147,7 @@ RPS_UPLOAD_DURATION_SECONDS=5 \
 RPS_UPLOAD_DELAY_MILLISECONDS=250 \
 RPS_REQUEST_TIMEOUT_SECONDS=10 \
 RPS_BASE_URL=https://example.test \
+RPS_TARGET_FINGERPRINT=release-20260803 \
 bash scripts/benchmark.sh rps
 ```
 
@@ -149,22 +155,17 @@ bash scripts/benchmark.sh rps
 
 ## 报告
 
-每次运行使用同一时间戳生成报告，不创建无时间戳别名：
+每个新运行使用 `YYYYMMDD_HHMMSS` 格式的 run ID，不创建 `latest` 别名。可通过 `--run-id <ID>` 指定运行 ID，通过 `--resume <ID>` 恢复同一运行；仅运行指纹一致且状态为通过的目标或 RPS 单元会复用。新报告按实际目标或 profile 分层：
 
 ```text
-benchmark/reports/
-├── micro_YYYYMMDD_HHMMSS.txt
-├── micro_YYYYMMDD_HHMMSS.json
-├── micro_YYYYMMDD_HHMMSS_raw/
-├── qps_YYYYMMDD_HHMMSS.txt
-├── qps_YYYYMMDD_HHMMSS.json
-├── qps_YYYYMMDD_HHMMSS_raw/
-├── rps_YYYYMMDD_HHMMSS.txt
-├── rps_YYYYMMDD_HHMMSS.json
-└── rps_YYYYMMDD_HHMMSS_raw/
+benchmark/report/
+├── micro/bench_<target>/<run-id>/
+├── qps/qps_<target>/<run-id>/
+├── rps/<profile>/<run-id>/
+└── _legacy_migrations/
 ```
 
-RPS JSON/TXT 汇总包含：
+每个运行目录都有原始输出、文本报告和原子发布的 `manifest.json`；RPS 的 `raw/` 下还保留确定性单元原始输出。RPS JSON/TXT 汇总包含：
 
 - Git 提交与 dirty 状态、主机、CPU、内存、profile、目标入口；
 - 每个矩阵单元的 RPS、平均延迟、p50/p90/p99；
@@ -172,16 +173,33 @@ RPS JSON/TXT 汇总包含：
 - `wrk` 请求总数与跨线程响应总数对账、connect/read/write/timeout 错误和原始输出路径；
 - 期望单元数、实际完成数和整体结论。
 
-`raw/` 目录保留每个目标或矩阵单元的完整原始输出，便于复核汇总结果。
-
-对比最近两个同类型时间戳 JSON 报告：
+对比同一选择器最近两个完整 manifest：
 
 ```bash
-bash scripts/benchmark.sh diff micro
-bash scripts/benchmark.sh diff qps
-bash scripts/benchmark.sh diff rps
-bash scripts/benchmark.sh diff load
+bash scripts/benchmark.sh diff micro bench_memory_pool
+bash scripts/benchmark.sh diff qps qps_chunk_header full
+bash scripts/benchmark.sh diff rps full
 ```
+
+报告不足两份时，`diff` 会明确失败，不会读取旧格式。
+
+### 2026-08-04 实测记录
+
+- 全量微基准和 QPS `full` 均生成了新结构的通过 manifest；报告位于 `benchmark/report/`，旧 `benchmark/reports/` 未被覆盖。
+- RPS run `20260804_184656` 的 `full` profile 完成 `40/40` 个单元，全部通过。
+- 同一 run 的 `overload` profile 完成 `25/25` 个单元，其中 `15` 个按设计标记为 `overloaded`，无失败单元；过载状态不等同于服务错误门禁失败。
+- 运行后使用 `diff` 只对同一目标/profile 的最近两份 `complete` manifest 做比较；报告不足两份时保持明确失败。
+
+## 历史报告迁移
+
+`benchmark/reports/` 是只读历史源，不参与运行、恢复或 `diff`。迁移器默认只显示计划；显式 `--apply` 才复制 TXT 片段到 `benchmark/report/`，不会移动、删除、覆盖或硬链接旧原件：
+
+```bash
+python3 benchmark/tools/migrate_legacy_reports.py --source benchmark/reports --destination benchmark/report
+python3 benchmark/tools/migrate_legacy_reports.py --source benchmark/reports --destination benchmark/report --apply --no-clobber
+```
+
+无法严格映射到唯一 `bench_*` 或 `qps_*` 目标的内容会逐字节保留在对应的 `_legacy_aggregate/` 目录；迁移索引记录来源、SHA-256 和字节范围。
 
 ## 测试数据
 

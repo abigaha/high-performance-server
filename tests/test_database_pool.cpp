@@ -671,7 +671,7 @@ TEST(DatabasePoolTest, ConnectionAcquireRelease) {
   EXPECT_FALSE(u2.has_value());
 }
 
-TEST(DatabasePoolTest, PingFailureReconnectsBeforeReusingConnection) {
+TEST(DatabasePoolTest, ClosedConnectionReconnectsWithoutPingBeforeReuse) {
   MockConnection* connection = nullptr;
   std::vector<std::string> session_statements;
   auto factory = [&connection, &session_statements]() -> std::unique_ptr<IConnection> {
@@ -692,12 +692,12 @@ TEST(DatabasePoolTest, PingFailureReconnectsBeforeReusingConnection) {
   ASSERT_NE(connection, nullptr);
   EXPECT_EQ(session_statements, std::vector<std::string>{"SET time_zone = '+00:00'"});
 
-  connection->ping_result = false;
+  connection->is_open_result = false;
   connection->query_result = QueryResult{};
 
   EXPECT_FALSE(pool.get_user(1).has_value());
-  EXPECT_EQ(connection->ping_count, 1);
-  EXPECT_EQ(connection->close_count, 1);
+  EXPECT_EQ(connection->ping_count, 0);
+  EXPECT_EQ(connection->close_count, 0);
   EXPECT_EQ(connection->connect_count, 2);
   EXPECT_EQ(session_statements, (std::vector<std::string>{"SET time_zone = '+00:00'", "SET time_zone = '+00:00'"}));
 }
@@ -1399,9 +1399,6 @@ TEST(DatabasePoolTest, SearchFilesExt) {
   };
   connection->query_hook = [&](const std::string& sql, const std::vector<std::string>&) {
     sqls.push_back(sql);
-    if (sql.find("COUNT(*)") != std::string::npos) {
-      return std::optional<QueryResult>{QueryResult{.columns = {"COUNT(*)"}, .rows = {{"1"}}}};
-    }
     return std::optional<QueryResult>{QueryResult{
       .columns = {"file_id",
                   "file_name",
@@ -1411,8 +1408,10 @@ TEST(DatabasePoolTest, SearchFilesExt) {
                   "chunk_size",
                   "created_at",
                   "music_id",
-                  "uploaded_by"},
-      .rows = {{"1", "song.mp3", "hash1", "1000", "audio/mpeg", "2097152", "2024-01-01 00:00:00.000000", "1", "1"}}}};
+                  "uploaded_by",
+                  "total"},
+      .rows = {
+        {"1", "song.mp3", "hash1", "1000", "audio/mpeg", "2097152", "2024-01-01 00:00:00.000000", "1", "1", "1"}}}};
   };
 
   int total = 0;
@@ -1421,11 +1420,11 @@ TEST(DatabasePoolTest, SearchFilesExt) {
   EXPECT_EQ(total, 1);
   EXPECT_EQ(results[0].file_name, "song.mp3");
   EXPECT_EQ(results[0].music_id, 1);
-  EXPECT_EQ(sqls.front(), "START TRANSACTION WITH CONSISTENT SNAPSHOT");
-  EXPECT_EQ(sqls.back(), "COMMIT");
+  ASSERT_EQ(sqls.size(), 1U);
+  EXPECT_NE(sqls.front().find("COUNT(*) OVER()"), std::string::npos);
 }
 
-TEST(DatabasePoolFileListTest, UsesOneConsistentSnapshotAndStrictRows) {
+TEST(DatabasePoolFileListTest, UsesOneWindowQueryAndStrictRows) {
   MockPool mp(1);
   auto* connection = mp.connections[0];
   std::vector<std::string> sqls;
@@ -1435,11 +1434,8 @@ TEST(DatabasePoolFileListTest, UsesOneConsistentSnapshotAndStrictRows) {
   };
   connection->query_hook = [&](const std::string& sql, const std::vector<std::string>&) {
     sqls.push_back(sql);
-    if (sql.find("COUNT(*)") != std::string::npos) {
-      return std::optional<QueryResult>{QueryResult{.rows = {{"1"}}}};
-    }
-    return std::optional<QueryResult>{
-      QueryResult{.rows = {{"7", "file", "hash", "10", "image/png", "4", "2026-01-01 00:00:00.000000", "0", "42"}}}};
+    return std::optional<QueryResult>{QueryResult{
+      .rows = {{"7", "file", "hash", "10", "image/png", "4", "2026-01-01 00:00:00.000000", "0", "42", "1"}}}};
   };
 
   const auto result = mp.pool->list_files("file", "image", 0, 20);
@@ -1449,8 +1445,27 @@ TEST(DatabasePoolFileListTest, UsesOneConsistentSnapshotAndStrictRows) {
   EXPECT_EQ(result.value->total, 1);
   ASSERT_EQ(result.value->items.size(), 1U);
   EXPECT_EQ(result.value->items[0].uploaded_by, 42);
-  EXPECT_EQ(sqls.front(), "START TRANSACTION WITH CONSISTENT SNAPSHOT");
-  EXPECT_EQ(sqls.back(), "COMMIT");
+  ASSERT_EQ(sqls.size(), 1U);
+  EXPECT_NE(sqls.front().find("COUNT(*) OVER()"), std::string::npos);
+}
+
+TEST(DatabasePoolFileListTest, EmptyPageUsesSingleQuerySentinelToPreserveTotal) {
+  MockPool mp(1);
+  std::vector<std::pair<std::string, std::vector<std::string>>> queries;
+  mp.connections[0]->query_hook = [&](const std::string& sql, const std::vector<std::string>& params) {
+    queries.emplace_back(sql, params);
+    return std::optional<QueryResult>{QueryResult{.rows = {{"", "", "", "", "", "", "", "", "", "4"}}}};
+  };
+
+  const auto result = mp.pool->list_files("file", "image", 40, 20);
+
+  ASSERT_EQ(result.status, LookupStatus::FOUND);
+  ASSERT_TRUE(result.value);
+  EXPECT_EQ(result.value->total, 4);
+  EXPECT_TRUE(result.value->items.empty());
+  ASSERT_EQ(queries.size(), 1U);
+  EXPECT_EQ(queries[0].second, (std::vector<std::string>{"%file%", "image", "20", "40"}));
+  EXPECT_NE(queries[0].first.find("LEFT JOIN paged_files"), std::string::npos);
 }
 
 TEST(DatabasePoolFileListTest, OtherUsesParameterizedTopLevelExclusionsForCountAndItems) {
@@ -1462,11 +1477,9 @@ TEST(DatabasePoolFileListTest, OtherUsesParameterizedTopLevelExclusionsForCountA
   };
   connection->query_hook = [&](const std::string& sql, const std::vector<std::string>& params) {
     queries.emplace_back(sql, params);
-    if (sql.find("COUNT(*)") != std::string::npos) {
-      return std::optional<QueryResult>{QueryResult{.rows = {{"1"}}}};
-    }
     return std::optional<QueryResult>{QueryResult{
-      .rows = {{"7", "report.pdf", "hash", "10", "application/pdf", "4", "2026-01-01 00:00:00.000000", "", "42"}}}};
+      .rows = {
+        {"7", "report.pdf", "hash", "10", "application/pdf", "4", "2026-01-01 00:00:00.000000", "", "42", "1"}}}};
   };
 
   const auto result = mp.pool->list_files("report", "other", 0, 20);
@@ -1475,14 +1488,12 @@ TEST(DatabasePoolFileListTest, OtherUsesParameterizedTopLevelExclusionsForCountA
   ASSERT_TRUE(result.value);
   ASSERT_EQ(result.value->total, 1);
   ASSERT_EQ(result.value->items.size(), 1U);
-  ASSERT_EQ(queries.size(), 2U);
+  ASSERT_EQ(queries.size(), 1U);
   const std::string predicate = "f.content_type NOT LIKE CONCAT(?, '/%')";
-  EXPECT_EQ(std::ranges::count(queries[0].first, '?'), 4);
-  EXPECT_EQ(std::ranges::count(queries[1].first, '?'), 6);
+  EXPECT_EQ(std::ranges::count(queries[0].first, '?'), 6);
   EXPECT_NE(queries[0].first.find(predicate), std::string::npos);
-  EXPECT_NE(queries[1].first.find(predicate), std::string::npos);
-  EXPECT_EQ(queries[0].second, (std::vector<std::string>{"%report%", "audio", "image", "video"}));
-  EXPECT_EQ(queries[1].second, (std::vector<std::string>{"%report%", "audio", "image", "video", "20", "0"}));
+  EXPECT_NE(queries[0].first.find("COUNT(*) OVER()"), std::string::npos);
+  EXPECT_EQ(queries[0].second, (std::vector<std::string>{"%report%", "audio", "image", "video", "20", "0"}));
 }
 
 TEST(DatabasePoolFileListTest, RejectsUnknownTypeBeforeOpeningTransaction) {
@@ -1499,7 +1510,7 @@ TEST(DatabasePoolFileListTest, RejectsUnknownTypeBeforeOpeningTransaction) {
   EXPECT_TRUE(executed.empty());
 }
 
-TEST(DatabasePoolFileListTest, RejectsMalformedRowsAndRollsBack) {
+TEST(DatabasePoolFileListTest, RejectsMalformedRows) {
   MockPool mp(1);
   auto* connection = mp.connections[0];
   std::vector<std::string> executed;
@@ -1508,19 +1519,17 @@ TEST(DatabasePoolFileListTest, RejectsMalformedRowsAndRollsBack) {
     return std::optional<int64_t>{1};
   };
   connection->query_hook = [](const std::string& sql, const std::vector<std::string>&) {
-    if (sql.find("COUNT(*)") != std::string::npos) {
-      return std::optional<QueryResult>{QueryResult{.rows = {{"1"}}}};
-    }
+    static_cast<void>(sql);
     return std::optional<QueryResult>{QueryResult{.rows = {{"truncated"}}}};
   };
 
   const auto result = mp.pool->list_files("", "", 0, 20);
 
   EXPECT_EQ(result.status, LookupStatus::INVALID_DATA);
-  EXPECT_TRUE(std::ranges::any_of(executed, [](const auto& sql) { return sql == "ROLLBACK"; }));
+  EXPECT_TRUE(executed.empty());
 }
 
-TEST(DatabasePoolFileListTest, RejectsInvalidCreatedAtAndRollsBack) {
+TEST(DatabasePoolFileListTest, RejectsInvalidCreatedAt) {
   MockPool mp(1);
   auto* connection = mp.connections[0];
   std::vector<std::string> executed;
@@ -1529,17 +1538,15 @@ TEST(DatabasePoolFileListTest, RejectsInvalidCreatedAtAndRollsBack) {
     return std::optional<int64_t>{1};
   };
   connection->query_hook = [](const std::string& sql, const std::vector<std::string>&) {
-    if (sql.find("COUNT(*)") != std::string::npos) {
-      return std::optional<QueryResult>{QueryResult{.rows = {{"1"}}}};
-    }
+    static_cast<void>(sql);
     return std::optional<QueryResult>{
-      QueryResult{.rows = {{"7", "file", "hash", "10", "image/png", "4", "not-a-datetime", "0", "42"}}}};
+      QueryResult{.rows = {{"7", "file", "hash", "10", "image/png", "4", "not-a-datetime", "0", "42", "1"}}}};
   };
 
   const auto result = mp.pool->list_files("", "", 0, 20);
 
   EXPECT_EQ(result.status, LookupStatus::INVALID_DATA);
-  EXPECT_TRUE(std::ranges::any_of(executed, [](const auto& sql) { return sql == "ROLLBACK"; }));
+  EXPECT_TRUE(executed.empty());
 }
 
 // ============================================================
@@ -1698,21 +1705,24 @@ TEST(DatabasePoolTest, UpdateUserRejectsEmailLongerThan128BeforeWriting) {
   EXPECT_TRUE(mp.connections[0]->last_sql.empty());
 }
 
-TEST(DatabasePoolTest, ListMusicLibraryUsesExistsWithoutInvalidGroupBy) {
+TEST(DatabasePoolTest, ListMusicLibraryUsesOneWindowQueryWithoutInvalidGroupBy) {
   MockPool mp(1);
-  std::vector<std::string> sqls;
-  mp.connections[0]->query_hook = [&sqls](const std::string& sql,
-                                          const std::vector<std::string>&) -> std::optional<QueryResult> {
-    sqls.push_back(sql);
+  std::vector<std::pair<std::string, std::vector<std::string>>> queries;
+  mp.connections[0]->query_hook = [&](const std::string& sql,
+                                      const std::vector<std::string>& params) -> std::optional<QueryResult> {
+    queries.emplace_back(sql, params);
     QueryResult result;
-    if (sqls.size() == 1U) {
-      result.columns = {"COUNT(*)"};
-      result.rows.push_back({"1"});
-      return result;
-    }
-    result.columns = {
-      "music_id", "title", "artist", "album", "genre", "duration_sec", "track_number", "created_at", "updated_at"};
-    result.rows.push_back({"7", "Song", "Artist", "Album", "Pop", "180", "2", "2024-01-01", "2024-01-02"});
+    result.columns = {"music_id",
+                      "title",
+                      "artist",
+                      "album",
+                      "genre",
+                      "duration_sec",
+                      "track_number",
+                      "created_at",
+                      "updated_at",
+                      "total"};
+    result.rows.push_back({"7", "Song", "Artist", "Album", "Pop", "180", "2", "2024-01-01", "2024-01-02", "1"});
     return result;
   };
 
@@ -1722,10 +1732,30 @@ TEST(DatabasePoolTest, ListMusicLibraryUsesExistsWithoutInvalidGroupBy) {
   EXPECT_EQ(total, 1);
   ASSERT_EQ(items.size(), 1U);
   EXPECT_EQ(items[0].music_id, 7);
-  ASSERT_EQ(sqls.size(), 2U);
-  EXPECT_NE(sqls[0].find("EXISTS"), std::string::npos);
-  EXPECT_EQ(sqls[1].find("GROUP BY"), std::string::npos);
-  EXPECT_EQ(sqls[1].find("file_hash"), std::string::npos);
+  ASSERT_EQ(queries.size(), 1U);
+  EXPECT_NE(queries[0].first.find("EXISTS"), std::string::npos);
+  EXPECT_NE(queries[0].first.find("COUNT(*) OVER()"), std::string::npos);
+  EXPECT_EQ(queries[0].first.find("GROUP BY"), std::string::npos);
+  EXPECT_EQ(queries[0].first.find("file_hash"), std::string::npos);
+  EXPECT_EQ(queries[0].second, (std::vector<std::string>{"%song%", "%song%", "%song%", "10", "0"}));
+}
+
+TEST(DatabasePoolTest, ListMusicLibraryEmptyPageUsesSingleQuerySentinelToPreserveTotal) {
+  MockPool mp(1);
+  std::vector<std::pair<std::string, std::vector<std::string>>> queries;
+  mp.connections[0]->query_hook = [&](const std::string& sql, const std::vector<std::string>& params) {
+    queries.emplace_back(sql, params);
+    return std::optional<QueryResult>{QueryResult{.rows = {{"", "", "", "", "", "", "", "", "", "3"}}}};
+  };
+
+  int total = 0;
+  const auto items = mp.pool->list_music_library("song", 20, 10, total);
+
+  EXPECT_TRUE(items.empty());
+  EXPECT_EQ(total, 3);
+  ASSERT_EQ(queries.size(), 1U);
+  EXPECT_EQ(queries[0].second, (std::vector<std::string>{"%song%", "%song%", "%song%", "10", "20"}));
+  EXPECT_NE(queries[0].first.find("LEFT JOIN paged_music"), std::string::npos);
 }
 
 // ============================================================

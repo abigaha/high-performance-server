@@ -1,0 +1,33 @@
+==========================================
+  微基准测试报告
+  时间: 20260803_204258
+  Git:  433f20e (dirty=true)
+  主机: jmjvm
+  CPU:  11th Gen Intel(R) Core(TM) i5-11400H @ 2.70GHz
+  核心: 8
+  Profile: default
+==========================================
+
+目标: bench_auth_service
+运行 ID: 20260803_204258
+状态: passed
+退出码: 0
+耗时: 0s
+
+--- 原始输出 ---
+2026-08-03T20:43:02+08:00
+Running /home/jmj/work-space/projects/high-performance-server/bin/bench_auth_service
+Run on (8 X 2688 MHz CPU s)
+CPU Caches:
+  L1 Data 48 KiB (x8)
+  L1 Instruction 32 KiB (x8)
+  L2 Unified 1280 KiB (x8)
+  L3 Unified 12288 KiB (x8)
+Load Average: 1.37, 2.01, 2.28
+***WARNING*** Library was built as DEBUG. Timings may be affected.
+------------------------------------------------------------------------------------
+Benchmark                          Time             CPU   Iterations UserCounters...
+------------------------------------------------------------------------------------
+BM_AuthRegister/1000          194956 ns       194767 ns          572 items_per_second=5.13434M/s
+BM_AuthAuthenticate/1000     2220010 ns      2212474 ns           83 items_per_second=451.983k/s
+BM_AuthValidateToken/1000    3265318 ns      3256183 ns           46 items_per_second=307.108k/s

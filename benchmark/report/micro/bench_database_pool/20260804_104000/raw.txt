@@ -1,0 +1,21 @@
+2026-08-04T10:39:41+08:00
+Running /home/jmj/work-space/projects/high-performance-server/bin/bench_database_pool
+Run on (8 X 2688 MHz CPU s)
+CPU Caches:
+  L1 Data 48 KiB (x8)
+  L1 Instruction 32 KiB (x8)
+  L2 Unified 1280 KiB (x8)
+  L3 Unified 12288 KiB (x8)
+Load Average: 0.71, 0.87, 1.10
+***WARNING*** Library was built as DEBUG. Timings may be affected.
+-----------------------------------------------------------------------------
+Benchmark                                   Time             CPU   Iterations
+-----------------------------------------------------------------------------
+BM_DatabasePool_GetUser                   227 ns          225 ns       628328
+BM_DatabasePool_CreateUser                207 ns          204 ns       538734
+BM_DatabasePool_GetFileRecord             149 ns          148 ns       769475
+BM_DatabasePool_StoreFileRecord           226 ns          226 ns       724816
+BM_DBPool_GetReturnConnection/100       10275 ns        10176 ns        10000 items_per_second=9.82739M/s
+BM_DBPool_GetReturnConnection/1000     105455 ns       105416 ns         1142 items_per_second=9.48624M/s
+BM_DBPool_PoolExhaustion/4/2           341707 ns       271813 ns          424 items_per_second=22.074k/s
+BM_DBPool_PoolExhaustion/8/4           653057 ns       606664 ns          230 items_per_second=19.7803k/s

@@ -1,0 +1,4 @@
+--- bench_bench_lock_free_queue ---
+  BM_LockFreeQueue_SPSC_1k                      186.274 µs  items/sec=53.68M
+  BM_LockFreeQueue_SPSC_10k                     218.756 µs  items/sec=457.13M
+

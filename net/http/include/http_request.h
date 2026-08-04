@@ -3,6 +3,7 @@
 #include "case_insensitive.h"
 #include "models.h"
 
+#include <optional>
 #include <string>
 #include <string_view>
 #include <unordered_map>
@@ -39,6 +40,7 @@ struct HttpRequest {
   std::unordered_map<std::string, std::string> path_params;          ///< 路由参数（如 {"id":"42"}）
   TokenValidationStatus auth_status{TokenValidationStatus::INVALID}; ///< Token 验证状态
   EffectiveIdentity auth_user;                                       ///< 当前有效认证身份
+  std::optional<AuthenticatedUserProfile> auth_profile;              ///< 认证阶段读取的公开用户资料
 
   /** 重置为默认状态 */
   void clear() noexcept;

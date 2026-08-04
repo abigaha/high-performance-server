@@ -77,11 +77,24 @@ std::optional<int64_t> parse_profile_id(const HttpRequest& request) {
   return id;
 }
 
-void set_auth_user_response(HttpResponse& response, const User& user) {
+void set_auth_user_response(HttpResponse& response, const User& user, const EffectiveIdentity& identity) {
   response.set_status(200, "OK");
   response.set_content_type("application/json");
-  response.body = serialize_auth_user(user, make_effective_identity(user, std::chrono::system_clock::now())).dump();
+  response.body = serialize_auth_user(user, identity).dump();
   response.set_content_length(response.body.size());
+}
+
+void set_auth_user_response(HttpResponse& response, const User& user) {
+  set_auth_user_response(response, user, make_effective_identity(user, std::chrono::system_clock::now()));
+}
+
+User make_response_user(const AuthenticatedUserProfile& profile) {
+  User user;
+  user.user_id = profile.user_id;
+  user.username = profile.username;
+  user.email = profile.email;
+  user.created_at = profile.created_at;
+  return user;
 }
 
 void handle_register(IDatabasePool& db, IAuthService& auth, const HttpRequest& request, HttpResponse& response) {
@@ -219,6 +232,10 @@ void handle_get_me(IDatabasePool& db, const HttpRequest& request, HttpResponse& 
     return;
   }
   try {
+    if (request.auth_profile && request.auth_profile->user_id == request.auth_user.user_id) {
+      set_auth_user_response(response, make_response_user(*request.auth_profile), request.auth_user);
+      return;
+    }
     const auto user = db.get_user_result(request.auth_user.user_id);
     if (user.status == LookupStatus::NOT_FOUND) {
       response = auth_error(401, "需要登录");
@@ -228,11 +245,7 @@ void handle_get_me(IDatabasePool& db, const HttpRequest& request, HttpResponse& 
       response = auth_error(500, "认证服务暂时不可用", "PERSISTENCE_ERROR");
       return;
     }
-    const auto identity = make_effective_identity(*user.value, std::chrono::system_clock::now());
-    response.set_status(200, "OK");
-    response.set_content_type("application/json");
-    response.body = serialize_auth_user(*user.value, identity).dump();
-    response.set_content_length(response.body.size());
+    set_auth_user_response(response, *user.value);
   } catch (...) {
     response = auth_error(500, "认证服务暂时不可用", "PERSISTENCE_ERROR");
   }

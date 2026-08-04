@@ -1,0 +1,35 @@
+==========================================
+  微基准测试报告
+  时间: 20260804_103933
+  Git:  433f20e (dirty=true)
+  主机: jmjvm
+  CPU:  11th Gen Intel(R) Core(TM) i5-11400H @ 2.70GHz
+  核心: 8
+  Profile: default
+==========================================
+
+目标: bench_coroutine
+运行 ID: 20260804_104000
+状态: passed
+退出码: 0
+耗时: 1s
+
+--- 原始输出 ---
+2026-08-04T10:39:39+08:00
+Running /home/jmj/work-space/projects/high-performance-server/bin/bench_coroutine
+Run on (8 X 2688 MHz CPU s)
+CPU Caches:
+  L1 Data 48 KiB (x8)
+  L1 Instruction 32 KiB (x8)
+  L2 Unified 1280 KiB (x8)
+  L3 Unified 12288 KiB (x8)
+Load Average: 0.71, 0.87, 1.10
+***WARNING*** Library was built as DEBUG. Timings may be affected.
+-------------------------------------------------------------------------
+Benchmark                               Time             CPU   Iterations
+-------------------------------------------------------------------------
+BM_Coroutine_CreateAndRun            17.8 ns         17.8 ns      8676002
+BM_Coro_AwaitReadWrite               39.2 ns         39.1 ns      2974489
+BM_Coro_SwitchingOverhead/10         76.0 ns         75.9 ns      3041441
+BM_Coro_SwitchingOverhead/100        1797 ns         1793 ns        77295
+BM_Coro_SwitchingOverhead/1000      14994 ns        14588 ns        12194

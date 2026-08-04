@@ -1,0 +1,42 @@
+{
+  "schema_version": 1,
+  "kind": "qps",
+  "target": "qps_tcp_server",
+  "profile": "full",
+  "run_id": "20260804_104200",
+  "state": "passed",
+  "attempt": 1,
+  "started_at": "2026-08-04T03:28:37Z",
+  "finished_at": "2026-08-04T03:30:54Z",
+  "run_fingerprint": "b7455c828fe9edc4937958641686494f9a63cec7fec97f1a762d7f74e2957d2f",
+  "fingerprint_inputs": {
+    "binary_sha256": "ec2c84a807f93ff3fe553b996280fb363b90d9d8549b1395d4d37b57f5b00d00",
+    "build_mode": "release",
+    "git_dirty": true,
+    "git_hash": "433f20e",
+    "profile": "full",
+    "target": "qps_tcp_server",
+    "timeout_seconds": "900"
+  },
+  "environment": {
+    "git_hash": "433f20e",
+    "git_dirty": true,
+    "hostname": "jmjvm",
+    "cpu_model": "11th Gen Intel(R) Core(TM) i5-11400H @ 2.70GHz",
+    "cpu_cores": 8,
+    "memory_kb": 8078760
+  },
+  "status": "passed",
+  "exit_code": 0,
+  "elapsed_seconds": 137,
+  "raw_file": "raw.txt",
+  "report_file": "report.txt",
+  "result": {
+    "status": "passed",
+    "exit_code": 0,
+    "elapsed_seconds": 137
+  },
+  "metrics": {
+    "raw_output_bytes": 3386
+  }
+}

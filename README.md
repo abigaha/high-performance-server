@@ -165,6 +165,9 @@ Vite 当前没有开发代理。前后端分开运行时必须将 `VITE_API_URL`
 | `DB_PASSWORD` | MySQL 密码 |
 | `DB_NAME` | MySQL 数据库名 |
 | `SERVER_PORT` | 后端监听端口 |
+| `SERVER_THREAD_COUNT` | 后端 HTTP 工作线程数，Compose 默认 `16` |
+| `SERVER_BACKLOG` | 后端监听队列长度，Compose 默认 `1024` |
+| `DB_POOL_SIZE` | 数据库连接池大小，Compose 默认 `32` |
 | `AUTH_SECRET` | 认证令牌签名密钥，优先于 JSON |
 
 ### 命令行参数
@@ -189,8 +192,8 @@ Vite 当前没有开发代理。前后端分开运行时必须将 `VITE_API_URL`
 {
   "server": {
     "port": 9090,
-    "backlog": 128,
-    "thread_count": 4,
+    "backlog": 1024,
+    "thread_count": 16,
     "epoll_timeout_ms": 100,
     "auth_secret": "",
     "normal_max_size": 10485760,
@@ -202,7 +205,7 @@ Vite 当前没有开发代理。前后端分开运行时必须将 `VITE_API_URL`
     "username": "root",
     "password": "",
     "database": "music_server",
-    "pool_size": 10,
+    "pool_size": 32,
     "connect_timeout_ms": 3000,
     "read_timeout_ms": 5000
   },
@@ -361,7 +364,7 @@ bash scripts/lint.sh --changed
 bash scripts/lint.sh -j 8 core net/http tests
 ```
 
-脚本对 `.cpp`、`.hpp`、`.h`、`.cc`、`.cxx` 执行 clang-tidy 和 cppcheck。缺少或过期的 `compile_commands.json` 会按 xmake 配置自动生成。门禁要求 clang-tidy 的 error/warning/style 和 cppcheck 的 error/warning/style/performance 均为零。
+脚本对 `.cpp`、`.hpp`、`.h`、`.cc`、`.cxx` 执行 clang-tidy 和 cppcheck。缺少或过期的 `compile_commands.json` 会按 xmake 配置自动生成。`CLANG_TIDY_TIMEOUT_SECONDS` 按翻译单元生效，`CPPCHECK_TIMEOUT_SECONDS` 按整次扫描生效；二者默认都是 1800 秒，允许范围为 600 至 7200 秒。超时是门禁失败，会明确显示目标文件或扫描范围。门禁要求 clang-tidy 的 error/warning/style 和 cppcheck 的 error/warning/style/performance 均为零。
 
 ### 测试脚本
 
@@ -390,7 +393,7 @@ CODEQL_SERVER_URL=http://192.168.1.10:8080 \
   bash scripts/codeql.sh run
 ```
 
-探测顺序是已设置的 `CODEQL_SERVER_URL`、`http://localhost:8080`、交互输入 IP。已配置地址不可达时，脚本仍会继续探测 localhost；两者在非交互环境均不可达时，错误会列出全部已尝试地址。脚本负责生成和预处理编译数据库、打包源码、提交任务、轮询 SARIF，并以 `0 critical + 0 high` 为通过标准。`analyze` 是 `run` 的兼容别名。
+探测顺序是已设置的 `CODEQL_SERVER_URL`、`http://localhost:8080`、交互输入 IP。已配置地址不可达时，脚本仍会继续探测 localhost；两者在非交互环境均不可达时，错误会列出全部已尝试地址。脚本负责生成和预处理编译数据库、打包源码、提交任务、轮询 SARIF，并以 `0 critical + 0 high` 为通过标准。`CODEQL_SUBMIT_TIMEOUT` 和 `CODEQL_POLL_TIMEOUT` 默认均为 1800 秒，允许范围为 600 至 7200 秒；`CODEQL_POLL_INTERVAL` 默认 5 秒且必须是正整数。未显式设置 `CODEQL_POLL_ATTEMPTS` 时，脚本按 `ceil(CODEQL_POLL_TIMEOUT / CODEQL_POLL_INTERVAL)` 计算轮询次数；显式值只作为更小的兼容上限。服务器探测和单次结果请求仍使用短连接超时，并且不会超出轮询总预算。`analyze` 是 `run` 的兼容别名。
 
 ### 完整流水线
 
@@ -427,28 +430,32 @@ bash scripts/benchmark.sh check
 bash scripts/benchmark.sh build
 bash scripts/benchmark.sh build --debug
 
-# 微基准
-bash scripts/benchmark.sh micro
+# 微基准：可指定新运行 ID 或恢复同一运行
+bash scripts/benchmark.sh micro --run-id 20260803_120000
+bash scripts/benchmark.sh micro --resume 20260803_120000
 
 # 模块 QPS
 bash scripts/benchmark.sh qps smoke
 bash scripts/benchmark.sh qps full
 
-# 已部署服务的端到端 RPS
-bash scripts/benchmark.sh rps smoke
-bash scripts/benchmark.sh rps full
-bash scripts/benchmark.sh rps overload
+# RPS：默认使用临时隔离 Compose 环境，正式范围为 full 与 overload
+bash scripts/benchmark.sh rps full overload
 
-# 对比最近两个同类时间戳报告
-bash scripts/benchmark.sh diff micro
-bash scripts/benchmark.sh diff qps
-bash scripts/benchmark.sh diff rps
+# 已部署的外部同源入口：必须提供稳定的目标指纹，脚本不会管理该环境
+RPS_BASE_URL=https://benchmark.example.test \
+RPS_TARGET_FINGERPRINT=release-20260803 \
+  bash scripts/benchmark.sh rps full
+
+# 对比同一目标或 profile 最近两个完整报告
+bash scripts/benchmark.sh diff micro bench_memory_pool
+bash scripts/benchmark.sh diff qps qps_chunk_header full
+bash scripts/benchmark.sh diff rps full
 
 # 生成 1KB 到 100MB 的通用测试数据
 bash scripts/benchmark.sh gen-data
 ```
 
-`rps` 不启动服务，执行前应先部署，并通过 `RPS_BASE_URL` 指向同源入口；`load` 是 `rps` 的兼容别名。报告写入 `benchmark/reports/`，文件名均包含 `_YYYYMMDD_HHMMSS` 时间戳，不创建“最新”别名。完整矩阵、环境变量与报告格式见 `benchmark/README.md`。
+报告写入 `benchmark/report/`，按实际 `bench_*`/`qps_*` 目标或 RPS profile 与时间戳分层；同一运行可使用 `--resume <run-id>` 复用相同指纹的已通过单元。未设置 `RPS_BASE_URL` 时，`rps` 会创建动态端口的独立 Compose 项目并在结束时销毁；设置后仅预检外部入口，且必须同时提供 `RPS_TARGET_FINGERPRINT`。`load` 是 `rps` 的兼容别名。`benchmark/reports/` 仅保留为历史只读迁移源，完整格式、迁移与矩阵说明见 `benchmark/README.md`。
 
 ## Docker 部署
 
@@ -531,6 +538,13 @@ Step 17 的 A-F 运行时修复和最终验收均已完成，已不再存在当�
 - 授权流播前后后端容器 `RestartCount=0`、`OOMKilled=false`，没有新增 `502`、`upstream prematurely closed` 或 `connection refused`，结论为本轮验收期间服务未重启。
 
 因此 Step 17 已完成 A-F 修复、全部质量门禁和 Docker/浏览器验收。历史快照保留用于追溯覆盖缺口，不表示当前存在 P0 阻塞。
+
+### 2026-08-04 性能与质量收尾
+
+- 基准报告重构已完成：micro、QPS 和 RPS 结果按目标/profile 与时间戳写入 `benchmark/report/`，支持原子 manifest、`--resume` 和同选择器 `diff`；`benchmark/reports/` 仍为只读历史迁移源。
+- RPS run `20260804_184656` 的 `full` profile 完成 `40/40` 个单元并全部通过；`overload` 完成 `25/25` 个单元，其中 `15` 个按设计标记为 `overloaded`，无失败单元。
+- 文件列表和音乐库列表使用单次 CTE 查询取得分页数据与总数，并保留空页、越界页和畸形行的严格校验；Docker/Nginx 并发与连接复用配置已同步优化。
+- 正式流水线 `bash scripts/pipeline.sh all` 已通过：后端 46/46、前端 34 个测试文件/298 个用例、脚本回归全部通过；clang-tidy、cppcheck、编译、前端构建通过，CodeQL 为 `0 critical + 0 high`。
 
 ## 许可证
 

@@ -353,8 +353,6 @@ bool TcpServer::handle_read(int fd) {
     return false;
   }
 
-  Logger::_info("收到 " + std::to_string(n) + " 字节 (fd=" + std::to_string(fd) + ")");
-
   if (handler_) {
     thread_pool_->enqueue([this, conn]() {
       handler_(conn);

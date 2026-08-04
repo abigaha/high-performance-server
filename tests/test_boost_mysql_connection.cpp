@@ -1,5 +1,6 @@
 #include "boost_mysql_connection.h"
 #include "db_config.h"
+#include "prepared_statement_guard.h"
 
 #include <gtest/gtest.h>
 
@@ -149,6 +150,49 @@ public:
 
   void close() override { ++close_count; }
 };
+
+struct PreparedStatementHandle {};
+
+class PreparedStatementConnection {
+public:
+  bool close_throws{false};
+  int close_count{0};
+
+  void close_statement(const PreparedStatementHandle& /*statement*/) {
+    ++close_count;
+    if (close_throws) {
+      throw std::runtime_error("close failed");
+    }
+  }
+};
+
+TEST(PreparedStatementGuardTest, ClosesStatementAtScopeExit) {
+  PreparedStatementConnection connection;
+  PreparedStatementHandle statement;
+  { detail::PreparedStatementGuard guard{connection, statement}; }
+
+  EXPECT_EQ(connection.close_count, 1);
+}
+
+TEST(PreparedStatementGuardTest, ExplicitClosePreventsDuplicateClose) {
+  PreparedStatementConnection connection;
+  PreparedStatementHandle statement;
+  {
+    detail::PreparedStatementGuard guard{connection, statement};
+    guard.close();
+  }
+
+  EXPECT_EQ(connection.close_count, 1);
+}
+
+TEST(PreparedStatementGuardTest, DestructorSuppressesCloseFailureDuringUnwinding) {
+  PreparedStatementConnection connection;
+  connection.close_throws = true;
+  PreparedStatementHandle statement;
+
+  EXPECT_NO_THROW(([&] { detail::PreparedStatementGuard guard{connection, statement}; })());
+  EXPECT_EQ(connection.close_count, 1);
+}
 
 TEST(BoostMySqlConnectionTest, ConfiguresConnectedSessionAsUtc) {
   SessionConnection connection;

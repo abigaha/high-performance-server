@@ -27,20 +27,21 @@ class UploadAuthService : public IAuthService {
 public:
   TokenValidationResult validate_token(const std::string& token) override {
     if (token == "guest-token") {
-      return {TokenValidationStatus::AUTHENTICATED, {0, "guest", UserRole::GUEST, VipStatus::NONE, std::nullopt}};
+      return {TokenValidationStatus::AUTHENTICATED, {0, "guest", UserRole::GUEST, VipStatus::NONE, std::nullopt}, {}};
     }
     if (token == "normal-token") {
-      return {TokenValidationStatus::AUTHENTICATED, {1, "normal", UserRole::NORMAL, VipStatus::NONE, std::nullopt}};
+      return {TokenValidationStatus::AUTHENTICATED, {1, "normal", UserRole::NORMAL, VipStatus::NONE, std::nullopt}, {}};
     }
     if (token == "vip-token") {
       return {TokenValidationStatus::AUTHENTICATED,
-              {2, "vip", UserRole::VIP, VipStatus::ACTIVE, std::chrono::system_clock::time_point::max()}};
+              {2, "vip", UserRole::VIP, VipStatus::ACTIVE, std::chrono::system_clock::time_point::max()},
+              {}};
     }
     if (token == "admin-token") {
-      return {TokenValidationStatus::AUTHENTICATED, {3, "admin", UserRole::ADMIN, VipStatus::NONE, std::nullopt}};
+      return {TokenValidationStatus::AUTHENTICATED, {3, "admin", UserRole::ADMIN, VipStatus::NONE, std::nullopt}, {}};
     }
     if (token == "storage-error-token") {
-      return {TokenValidationStatus::STORAGE_ERROR, {}};
+      return {TokenValidationStatus::STORAGE_ERROR, {}, {}};
     }
     return {};
   }

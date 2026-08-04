@@ -23,6 +23,9 @@ usage() {
   无参数时全量检查所有源文件（向后兼容）
   指定文件/目录时仅检查对应范围
   支持扩展名: .cpp .hpp .h .cc .cxx
+环境变量:
+  CLANG_TIDY_TIMEOUT_SECONDS  单个翻译单元超时秒数，默认 1800，范围 600..7200
+  CPPCHECK_TIMEOUT_SECONDS    整次 cppcheck 扫描超时秒数，默认 1800，范围 600..7200
 EOF
 }
 
@@ -41,11 +44,24 @@ check_required_tools() {
   require_cmd xmake
   require_cmd bc
   require_cmd cppcheck
+  require_cmd timeout
 
   CLANG_TIDY="$(detect_clang_tidy)" || {
     red "错误: clang-tidy 未安装，无法执行严格 Lint 门禁"
     return 1
   }
+}
+
+lint_timeout_value() {
+  local variable_name="$1"
+  local value="${!variable_name:-1800}"
+
+  if ! [[ "$value" =~ ^[1-9][0-9]*$ ]] || \
+     ((10#$value < 600 || 10#$value > 7200)); then
+    red "错误: $variable_name=$value 无效，合法范围为 600..7200 秒" >&2
+    return 1
+  fi
+  printf '%s\n' "$value"
 }
 
 run_frontend_lint() {
@@ -79,6 +95,9 @@ if ! [[ "$JOBS" =~ ^[0-9]+$ ]] || [ "$JOBS" -lt 1 ]; then
   red "并发数无效: $JOBS"
   exit 2
 fi
+
+CLANG_TIDY_TIMEOUT_VALUE="$(lint_timeout_value CLANG_TIDY_TIMEOUT_SECONDS)" || exit 2
+CPPCHECK_TIMEOUT_VALUE="$(lint_timeout_value CPPCHECK_TIMEOUT_SECONDS)" || exit 2
 
 CLANG_TIDY=""
 check_required_tools
@@ -177,8 +196,10 @@ if [ -z "$CPP_FILES" ]; then
 else
   TIDY_DIR=$(mktemp -d)
   TIDY_FAILED="$TIDY_DIR/failed"
+  TIDY_TIMED_OUT="$TIDY_DIR/timed-out"
   TIDY_INPUT="$TIDY_DIR/input"
   : > "$TIDY_FAILED"
+  : > "$TIDY_TIMED_OUT"
   : > "$TIDY_INPUT"
 
   PROJECT_ROOT="$ROOT"
@@ -190,15 +211,20 @@ else
   set +e
   xargs -r -0 -P "$JOBS" -n 2 bash -c '
     idx="$1"; f="$2"
-    outdir="'"$TIDY_DIR"'"; cmd="'"$CLANG_TIDY"'"; proot="'"$PROJECT_ROOT"'"
+    outdir="'"$TIDY_DIR"'"; cmd="'"$CLANG_TIDY"'"; proot="'"$PROJECT_ROOT"'"; timeout_seconds="'"$CLANG_TIDY_TIMEOUT_VALUE"'"
     args=(--quiet --warnings-as-errors="*" --header-filter="${proot}/.*" -p .)
     if [[ "$f" == tests/* ]] && [ -f "${proot}/tests/.clang-tidy" ]; then
       args+=(--config-file="${proot}/tests/.clang-tidy")
     elif [[ "$f" == benchmark/* ]] && [ -f "${proot}/benchmark/.clang-tidy" ]; then
       args+=(--config-file="${proot}/benchmark/.clang-tidy")
     fi
-    if ! "$cmd" "${args[@]}" "$f" > "$outdir/$idx.out" 2>&1; then
+    timeout --signal=TERM --kill-after=60s "${timeout_seconds}s" "$cmd" "${args[@]}" "$f" > "$outdir/$idx.out" 2>&1
+    tool_rc=$?
+    if [ "$tool_rc" -ne 0 ]; then
       printf "%s\n" "$f" >> "$outdir/failed"
+      if [ "$tool_rc" -eq 124 ] || [ "$tool_rc" -eq 137 ]; then
+        printf "%s\n" "$f" >> "$outdir/timed-out"
+      fi
     fi
   ' _ < "$TIDY_INPUT"
   TIDY_XARGS_RC=$?
@@ -219,6 +245,11 @@ else
     red "clang-tidy 发现问题或执行失败，涉及文件:"
     cat "$TIDY_FAILED"
     HAS_ERROR=1
+  fi
+  if [ -s "$TIDY_TIMED_OUT" ]; then
+    while IFS= read -r timed_out_file; do
+      red "clang-tidy 执行超时: $timed_out_file"
+    done < "$TIDY_TIMED_OUT"
   fi
   if [ "$TIDY_XARGS_RC" -ne 0 ]; then
     red "clang-tidy 调度执行失败"
@@ -258,14 +289,15 @@ CPPCHECK_POLICY_ARGS=(
   "--suppress=constParameterCallback:benchmark/bench_*.cpp"
   # BENCHMARK_DEFINE_F 是 Google Benchmark 的夹具宏，cppcheck 没有内置宏模型。
   # 精确限定到已确认的三个框架展开点，其他 unknownMacro 仍按严格门禁报告。
-  "--suppress=unknownMacro:benchmark/bench_http_server.cpp:82"
+  "--suppress=unknownMacro:benchmark/bench_http_server.cpp:85"
   "--suppress=unknownMacro:benchmark/bench_logger.cpp:18"
   "--suppress=unknownMacro:benchmark/bench_tcp_server.cpp:52"
 )
 set +e
 # Google Test 宏需要 cppcheck 官方 googletest 模型才能正确展开；该模型只补充解析语义，
 # 不抑制 syntaxError，也不放宽 error/warning/style/performance 门禁。
-cppcheck --enable=all --error-exitcode=1 \
+timeout --signal=TERM --kill-after=60s "${CPPCHECK_TIMEOUT_VALUE}s" \
+  cppcheck --enable=all --error-exitcode=1 \
   --library=googletest \
   "${CPPCHECK_POLICY_ARGS[@]}" --suppress=missingIncludeSystem \
   --inline-suppr --language=c++ --std=c++20 \
@@ -277,6 +309,9 @@ if [ -s "$CPP_OUT" ]; then
   cat "$CPP_OUT"
 fi
 if [ "$CPPCHECK_RC" -ne 0 ]; then
+  if [ "$CPPCHECK_RC" -eq 124 ] || [ "$CPPCHECK_RC" -eq 137 ]; then
+    red "cppcheck 执行超时: 本次扫描范围"
+  fi
   red "cppcheck 发现问题或执行失败"
   HAS_ERROR=1
 else

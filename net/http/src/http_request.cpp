@@ -59,6 +59,7 @@ void HttpRequest::clear() noexcept {
   path_params.clear();
   auth_status = TokenValidationStatus::INVALID;
   auth_user = EffectiveIdentity{};
+  auth_profile.reset();
 }
 
 } // namespace hps

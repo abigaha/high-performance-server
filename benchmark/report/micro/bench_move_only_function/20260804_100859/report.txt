@@ -1,0 +1,36 @@
+==========================================
+  微基准测试报告
+  时间: 20260804_100859
+  Git:  433f20e (dirty=true)
+  主机: jmjvm
+  CPU:  11th Gen Intel(R) Core(TM) i5-11400H @ 2.70GHz
+  核心: 8
+  Profile: default
+==========================================
+
+目标: bench_move_only_function
+运行 ID: 20260804_100859
+状态: passed
+退出码: 0
+耗时: 1s
+
+--- 原始输出 ---
+2026-08-04T10:10:01+08:00
+Running /home/jmj/work-space/projects/high-performance-server/bin/bench_move_only_function
+Run on (8 X 2688 MHz CPU s)
+CPU Caches:
+  L1 Data 48 KiB (x8)
+  L1 Instruction 32 KiB (x8)
+  L2 Unified 1280 KiB (x8)
+  L3 Unified 12288 KiB (x8)
+Load Average: 1.75, 1.70, 1.94
+***WARNING*** Library was built as DEBUG. Timings may be affected.
+------------------------------------------------------------------------------------
+Benchmark                                          Time             CPU   Iterations
+------------------------------------------------------------------------------------
+BM_MoveOnlyFunction_ConstructVoid               1.42 ns         1.41 ns    136619487
+BM_MoveOnlyFunction_ConstructWithCapture        2.40 ns         2.40 ns     59799950
+BM_MoveOnlyFunction_ConstructLargeCapture       93.3 ns         91.6 ns      1137942
+BM_MoveOnlyFunction_Invoke                      3.29 ns         3.29 ns     61436474
+BM_MoveOnlyFunction_MoveConstruct               3.26 ns         3.25 ns     48142612
+BM_StdFunction_Compare                          1.41 ns         1.40 ns    113370339

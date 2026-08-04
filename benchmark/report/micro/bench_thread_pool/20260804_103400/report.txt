@@ -1,0 +1,33 @@
+==========================================
+  微基准测试报告
+  时间: 20260804_103342
+  Git:  433f20e (dirty=true)
+  主机: jmjvm
+  CPU:  11th Gen Intel(R) Core(TM) i5-11400H @ 2.70GHz
+  核心: 8
+  Profile: default
+==========================================
+
+目标: bench_thread_pool
+运行 ID: 20260804_103400
+状态: failed
+退出码: 143
+耗时: 120s
+
+--- 原始输出 ---
+2026-08-04T10:35:33+08:00
+Running /home/jmj/work-space/projects/high-performance-server/bin/bench_thread_pool
+Run on (8 X 2688 MHz CPU s)
+CPU Caches:
+  L1 Data 48 KiB (x8)
+  L1 Instruction 32 KiB (x8)
+  L2 Unified 1280 KiB (x8)
+  L3 Unified 12288 KiB (x8)
+Load Average: 1.42, 1.02, 1.21
+***WARNING*** Library was built as DEBUG. Timings may be affected.
+-------------------------------------------------------------------------------------------------
+Benchmark                                       Time             CPU   Iterations UserCounters...
+-------------------------------------------------------------------------------------------------
+BM_LockFreeThreadPool_Tasks/100           1999379 ns      1044864 ns          224 items_per_second=95.7063k/s
+BM_LockFreeThreadPool_Tasks/1000          6828701 ns      2836400 ns           59 items_per_second=352.56k/s
+BM_LockedThreadPool_Tasks/100              488148 ns       146224 ns         1159 items_per_second=683.88k/s

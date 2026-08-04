@@ -1,0 +1,40 @@
+==========================================
+  微基准测试报告
+  时间: 20260804_103933
+  Git:  433f20e (dirty=true)
+  主机: jmjvm
+  CPU:  11th Gen Intel(R) Core(TM) i5-11400H @ 2.70GHz
+  核心: 8
+  Profile: default
+==========================================
+
+目标: bench_tcp_server
+运行 ID: 20260804_104000
+状态: passed
+退出码: 0
+耗时: 8s
+
+--- 原始输出 ---
+2026-08-04T10:40:43+08:00
+Running /home/jmj/work-space/projects/high-performance-server/bin/bench_tcp_server
+Run on (8 X 2688 MHz CPU s)
+CPU Caches:
+  L1 Data 48 KiB (x8)
+  L1 Instruction 32 KiB (x8)
+  L2 Unified 1280 KiB (x8)
+  L3 Unified 12288 KiB (x8)
+Load Average: 1.43, 1.02, 1.14
+***WARNING*** Library was built as DEBUG. Timings may be affected.
+-----------------------------------------------------------------------------------
+Benchmark                                         Time             CPU   Iterations
+-----------------------------------------------------------------------------------
+TcpServerBench/Connect                        43575 ns        43355 ns         4078
+TcpServerBench/SendReceive/64               2004747 ns       149271 ns         1245 bytes_per_second=418.702Ki/s
+TcpServerBench/SendReceive/1024             2824772 ns       159236 ns          843 bytes_per_second=6.13281Mi/s
+TcpServerBench/SendReceive/16384             251037 ns       103806 ns         1552 bytes_per_second=150.521Mi/s
+TcpServerBench/ConcurrentConnections/10      279219 ns       272423 ns          586 items_per_second=36.7077k/s
+TcpServerBench/ConcurrentConnections/50     1719197 ns      1707926 ns           76 items_per_second=29.2753k/s
+TcpServerBench/ConcurrentConnections/100    3883696 ns      3532621 ns           38 items_per_second=28.3076k/s
+TcpServerBench/Throughput/4096               184890 ns        79876 ns         1662 bytes_per_second=97.8084Mi/s
+TcpServerBench/Throughput/65536              436802 ns       203180 ns          905 bytes_per_second=613.857Mi/s
+TcpServerBench/Throughput/262144             983145 ns       517454 ns          365 bytes_per_second=927.867Mi/s

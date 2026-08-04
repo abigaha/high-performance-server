@@ -52,11 +52,8 @@ void LockFreeThreadPool::worker([[maybe_unused]] std::stop_token stop_token) {
       --queued_tasks_;
     }
 
-    {
-      std::lock_guard pop_lock(pop_mutex_);
-      if (!tasks_.try_pop(task)) {
-        std::terminate();
-      }
+    if (!tasks_.try_pop(task)) {
+      std::terminate();
     }
 
     task();

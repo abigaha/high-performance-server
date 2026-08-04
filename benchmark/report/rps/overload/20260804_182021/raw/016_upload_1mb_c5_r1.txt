@@ -1,0 +1,24 @@
+Running 5s test @ http://127.0.0.1:32783/api/files/upload
+  5 threads and 5 connections
+  Thread Stats   Avg      Stdev     Max   +/- Stdev
+    Latency   174.61ms   58.21ms 345.15ms   64.29%
+    Req/Sec     1.68      0.61     3.00     53.57%
+  Latency Distribution
+     50%  165.47ms
+     75%  219.60ms
+     90%  236.71ms
+     99%  345.15ms
+  56 requests in 5.03s, 34.51KB read
+Requests/sec:     11.13
+Transfer/sec:      6.86KB
+HPS_WRK_REQUESTS 56
+HPS_WRK_STATUS_ERRORS 0
+HPS_SOCKET_CONNECT 0
+HPS_SOCKET_READ 0
+HPS_SOCKET_WRITE 0
+HPS_SOCKET_TIMEOUT 0
+HPS_STATUS_TOTAL 56
+HPS_STATUS_2XX 56
+HPS_STATUS_NON_2XX 0
+HPS_STATUS_UNEXPECTED 0
+HPS_STATUS_CODES 201=56

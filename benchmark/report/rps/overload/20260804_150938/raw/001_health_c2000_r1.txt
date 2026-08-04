@@ -1,0 +1,26 @@
+Running 20s test @ http://127.0.0.1:32776/api/health
+  8 threads and 2000 connections
+  Thread Stats   Avg      Stdev     Max   +/- Stdev
+    Latency    23.53ms   21.26ms   1.19s    88.06%
+    Req/Sec     1.94k   398.00     3.47k    69.21%
+  Latency Distribution
+     50%   17.89ms
+     75%   22.65ms
+     90%   49.07ms
+     99%   77.06ms
+  297436 requests in 20.08s, 133.31MB read
+  Socket errors: connect 0, read 0, write 0, timeout 22
+  Non-2xx or 3xx responses: 22
+Requests/sec:  14811.22
+Transfer/sec:      6.64MB
+HPS_WRK_REQUESTS 297436
+HPS_WRK_STATUS_ERRORS 22
+HPS_SOCKET_CONNECT 0
+HPS_SOCKET_READ 0
+HPS_SOCKET_WRITE 0
+HPS_SOCKET_TIMEOUT 22
+HPS_STATUS_TOTAL 297436
+HPS_STATUS_2XX 297414
+HPS_STATUS_NON_2XX 22
+HPS_STATUS_UNEXPECTED 22
+HPS_STATUS_CODES 200=297414,502=22

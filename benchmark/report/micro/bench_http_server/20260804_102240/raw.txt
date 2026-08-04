@@ -1,0 +1,20 @@
+2026-08-04T10:22:55+08:00
+Running /home/jmj/work-space/projects/high-performance-server/bin/bench_http_server
+Run on (8 X 2688 MHz CPU s)
+CPU Caches:
+  L1 Data 48 KiB (x8)
+  L1 Instruction 32 KiB (x8)
+  L2 Unified 1280 KiB (x8)
+  L3 Unified 12288 KiB (x8)
+Load Average: 1.22, 1.39, 1.62
+***WARNING*** Library was built as DEBUG. Timings may be affected.
+----------------------------------------------------------------------------------
+Benchmark                                        Time             CPU   Iterations
+----------------------------------------------------------------------------------
+HttpServerBench/HttpGet                     456003 ns       124074 ns          877
+HttpServerBench/HttpPost                  20494956 ns       137081 ns          100
+HttpServerBench/HttpPostLargeBody/1024      606760 ns       157623 ns          851 bytes_per_second=6.19557Mi/s
+HttpServerBench/HttpPostLargeBody/65536    4360004 ns       341437 ns          425 bytes_per_second=183.05Mi/s
+HttpServerBench/HttpPipelined/2         2003520022 ns       419011 ns            1 items_per_second=4.77314k/s
+HttpServerBench/HttpPipelined/5         8007530543 ns       637988 ns            1 items_per_second=7.83714k/s
+HttpServerBench/HttpPipelined/10        1.8021e+10 ns      1570706 ns            1 items_per_second=6.36656k/s

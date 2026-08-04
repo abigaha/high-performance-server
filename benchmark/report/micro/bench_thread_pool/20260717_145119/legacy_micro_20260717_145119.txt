@@ -1,0 +1,11 @@
+--- bench_bench_thread_pool ---
+  Benchmark                                  Time             CPU   Iterations UserCounters...
+  BM_LockFreeThreadPool_Tasks/100        30189 ns        26534 ns        25701 items_per_second=3.76875M/s
+  BM_LockFreeThreadPool_Tasks/1000      287082 ns       248739 ns         2624 items_per_second=4.02028M/s
+  BM_LockFreeThreadPool_Tasks/10000    2468110 ns      2462609 ns          300 items_per_second=4.06073M/s
+  BM_LockedThreadPool_Tasks/100         316014 ns        80941 ns        10949 items_per_second=1.23547M/s
+  BM_LockedThreadPool_Tasks/1000       1056339 ns       358784 ns         1520 items_per_second=2.7872M/s
+  BM_LockedThreadPool_Tasks/10000      6926021 ns      2879593 ns          252 items_per_second=3.47271M/s
+  BM_LockFreeThreadPool_HeavyTask       245389 ns       241929 ns         2855
+  BM_LockedThreadPool_HeavyTask        1125258 ns       403235 ns         1568
+

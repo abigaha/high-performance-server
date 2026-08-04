@@ -1,0 +1,33 @@
+==========================================
+  微基准测试报告
+  时间: 20260803_212615
+  Git:  433f20e (dirty=true)
+  主机: jmjvm
+  CPU:  11th Gen Intel(R) Core(TM) i5-11400H @ 2.70GHz
+  核心: 8
+  Profile: default
+==========================================
+
+目标: bench_chunk_header
+运行 ID: 20260803_212615
+状态: passed
+退出码: 0
+耗时: 1s
+
+--- 原始输出 ---
+2026-08-03T21:26:18+08:00
+Running /home/jmj/work-space/projects/high-performance-server/bin/bench_chunk_header
+Run on (8 X 2688 MHz CPU s)
+CPU Caches:
+  L1 Data 48 KiB (x8)
+  L1 Instruction 32 KiB (x8)
+  L2 Unified 1280 KiB (x8)
+  L3 Unified 12288 KiB (x8)
+Load Average: 1.09, 1.42, 1.33
+***WARNING*** Library was built as DEBUG. Timings may be affected.
+---------------------------------------------------------------------
+Benchmark                           Time             CPU   Iterations
+---------------------------------------------------------------------
+BM_ChunkHeader_ToNetwork         17.8 ns         17.7 ns      9616034
+BM_ChunkHeader_FromNetwork       20.1 ns         20.1 ns      8781665
+BM_ChunkHeader_Serialize        0.739 ns        0.736 ns    204463688

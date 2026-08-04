@@ -153,14 +153,7 @@ std::unique_ptr<IConnection> DatabasePool::get_connection() {
   pool_.pop();
   lock.unlock();
 
-  if (conn->is_open()) {
-    if (!conn->ping()) {
-      conn->close();
-      if (!conn->connect(config_)) {
-        return nullptr;
-      }
-    }
-  } else {
+  if (!conn->is_open()) {
     if (!conn->connect(config_)) {
       return nullptr;
     }
@@ -1280,7 +1273,6 @@ LookupResult<FilePage> DatabasePool::list_files(const std::string& name_pattern,
                                                 const std::string& type_filter,
                                                 int offset,
                                                 int limit) {
-  LookupResult<FilePage> result{LookupStatus::STORAGE_ERROR, std::nullopt};
   if (!type_filter.empty() && type_filter != "audio" && type_filter != "image" && type_filter != "video" &&
       type_filter != "other") {
     return {LookupStatus::INVALID_DATA, std::nullopt};
@@ -1301,41 +1293,61 @@ LookupResult<FilePage> DatabasePool::list_files(const std::string& name_pattern,
       params.push_back(type_filter);
     }
   }
-  const bool committed = with_connection([&](IConnection& connection) {
-    if (!connection.execute("START TRANSACTION WITH CONSISTENT SNAPSHOT"))
-      return false;
-    const auto count_result = connection.query("SELECT COUNT(*) FROM file_records f WHERE 1=1" + where, params);
-    int total = 0;
-    if (!count_result || count_result->rows.size() != 1 || count_result->rows[0].size() != 1 ||
-        !parse_integer(count_result->rows[0][0], total) || total < 0) {
-      if (count_result)
-        result = {LookupStatus::INVALID_DATA, std::nullopt};
-      return false;
-    }
+  auto connection = get_connection();
+  if (!connection) {
+    return {LookupStatus::STORAGE_ERROR, std::nullopt};
+  }
+  try {
     auto query_params = params;
     query_params.push_back(std::to_string(limit));
     query_params.push_back(std::to_string(offset));
-    const auto rows = connection.query("SELECT f.file_id, f.file_name, f.file_hash, f.file_size, "
-                                       "f.content_type, f.chunk_size, f.created_at, f.music_id, f.uploaded_by "
-                                       "FROM file_records f WHERE 1=1" +
-                                         where + " ORDER BY f.file_id DESC LIMIT ? OFFSET ?",
-                                       query_params);
-    if (!rows)
-      return false;
+    const auto rows =
+      connection->query("WITH filtered_files AS ("
+                        "SELECT f.file_id, f.file_name, f.file_hash, f.file_size, f.content_type, f.chunk_size, "
+                        "f.created_at, f.music_id, f.uploaded_by FROM file_records f WHERE 1=1" +
+                          where +
+                          "), paged_files AS ("
+                          "SELECT filtered_files.*, COUNT(*) OVER() AS total FROM filtered_files "
+                          "ORDER BY file_id DESC LIMIT ? OFFSET ?"
+                          "), totals AS (SELECT COUNT(*) AS total FROM filtered_files) "
+                          "SELECT p.file_id, p.file_name, p.file_hash, p.file_size, p.content_type, p.chunk_size, "
+                          "p.created_at, p.music_id, p.uploaded_by, COALESCE(p.total, totals.total) AS total "
+                          "FROM totals LEFT JOIN paged_files p ON TRUE",
+                        query_params);
+    if (!rows) {
+      release_connection(std::move(connection));
+      return {LookupStatus::STORAGE_ERROR, std::nullopt};
+    }
     FilePage page;
-    page.total = total;
     page.offset = offset;
     page.limit = limit;
     page.items.reserve(rows->rows.size());
+    bool has_total = false;
     for (const auto& row : rows->rows) {
+      int total = 0;
+      if (row.size() != 10 || !parse_integer(row[9], total) || total < 0 || (has_total && page.total != total)) {
+        release_connection(std::move(connection));
+        return {LookupStatus::INVALID_DATA, std::nullopt};
+      }
+      has_total = true;
+      page.total = total;
+      if (row[0].empty()) {
+        if (!page.items.empty() || std::ranges::any_of(row.begin(), row.begin() + 9, [](const std::string& field) {
+              return !field.empty();
+            })) {
+          release_connection(std::move(connection));
+          return {LookupStatus::INVALID_DATA, std::nullopt};
+        }
+        continue;
+      }
       FileRecord record;
-      if (row.size() != 9 || row[1].empty() || row[2].empty() || row[4].empty() || row[6].empty() ||
+      if (row[1].empty() || row[2].empty() || row[4].empty() || row[6].empty() ||
           !parse_integer(row[0], record.file_id) || record.file_id <= 0 || !parse_integer(row[3], record.file_size) ||
           !parse_integer(row[5], record.chunk_size) || record.chunk_size <= 0 ||
           !parse_integer(row[8], record.uploaded_by) || record.uploaded_by < 0 ||
           (!row[7].empty() && !parse_integer(row[7], record.music_id)) || !parse_mysql_utc_datetime(row[6])) {
-        result = {LookupStatus::INVALID_DATA, std::nullopt};
-        return false;
+        release_connection(std::move(connection));
+        return {LookupStatus::INVALID_DATA, std::nullopt};
       }
       record.file_name = row[1];
       record.file_hash = row[2];
@@ -1343,14 +1355,16 @@ LookupResult<FilePage> DatabasePool::list_files(const std::string& name_pattern,
       record.created_at = row[6];
       page.items.push_back(std::move(record));
     }
-    if (!connection.execute("COMMIT"))
-      return false;
-    result = {LookupStatus::FOUND, std::move(page)};
-    return true;
-  });
-  if (!committed && result.status == LookupStatus::FOUND)
+    if (!has_total) {
+      release_connection(std::move(connection));
+      return {LookupStatus::INVALID_DATA, std::nullopt};
+    }
+    release_connection(std::move(connection));
+    return {LookupStatus::FOUND, std::move(page)};
+  } catch (...) {
+    release_connection(std::move(connection));
     return {LookupStatus::STORAGE_ERROR, std::nullopt};
-  return result;
+  }
 }
 
 // IDatabasePool 与文件删除路由合同固定 permit、file_id、actor_id、can_delete_any 的公共参数顺序。
@@ -1539,45 +1553,69 @@ std::vector<MusicMeta> DatabasePool::list_music_library(const std::string& searc
     where += " AND (m.title LIKE ? OR m.artist LIKE ? OR m.album LIKE ?)";
   }
 
-  auto count_result = conn->query("SELECT COUNT(*) FROM music_meta m" + where, params);
   out_total = 0;
-  if (count_result && !count_result->rows.empty() && !count_result->rows[0].empty()) {
-    out_total = std::stoi(count_result->rows[0][0]);
-  }
+  auto query_params = params;
+  query_params.push_back(std::to_string(limit));
+  query_params.push_back(std::to_string(offset));
 
-  std::vector<std::string> data_params = params;
-  data_params.push_back(std::to_string(limit));
-  data_params.push_back(std::to_string(offset));
-
-  auto result = conn->query("SELECT m.music_id, m.title, m.artist, m.album, m.genre, m.duration_sec, "
-                            "m.track_number, m.created_at, m.updated_at "
-                            "FROM music_meta m" +
-                              where + " ORDER BY m.title, m.music_id LIMIT ? OFFSET ?",
-                            data_params);
-
-  release_connection(std::move(conn));
-
+  auto result = conn->query("WITH filtered_music AS ("
+                            "SELECT m.music_id, m.title, m.artist, m.album, m.genre, m.duration_sec, m.track_number, "
+                            "m.created_at, m.updated_at FROM music_meta m" +
+                              where +
+                              "), paged_music AS ("
+                              "SELECT filtered_music.*, COUNT(*) OVER() AS total FROM filtered_music "
+                              "ORDER BY title, music_id LIMIT ? OFFSET ?"
+                              "), totals AS (SELECT COUNT(*) AS total FROM filtered_music) "
+                              "SELECT p.music_id, p.title, p.artist, p.album, p.genre, p.duration_sec, p.track_number, "
+                              "p.created_at, p.updated_at, COALESCE(p.total, totals.total) AS total "
+                              "FROM totals LEFT JOIN paged_music p ON TRUE",
+                            query_params);
   std::vector<MusicMeta> items;
   if (!result) {
+    release_connection(std::move(conn));
     return items;
   }
   items.reserve(result->rows.size());
+  bool has_total = false;
   for (const auto& row : result->rows) {
-    if (row.size() < 9) {
+    int total = 0;
+    if (row.size() != 10 || !parse_integer(row[9], total) || total < 0 || (has_total && out_total != total)) {
+      release_connection(std::move(conn));
+      out_total = 0;
+      return {};
+    }
+    has_total = true;
+    out_total = total;
+    if (row[0].empty()) {
+      if (!items.empty() ||
+          std::ranges::any_of(row.begin(), row.begin() + 9, [](const std::string& field) { return !field.empty(); })) {
+        release_connection(std::move(conn));
+        out_total = 0;
+        return {};
+      }
       continue;
     }
     MusicMeta m{};
-    m.music_id = row[0].empty() ? 0 : std::stoll(row[0]);
+    if (!parse_integer(row[0], m.music_id) || m.music_id <= 0 || row[1].empty() || row[2].empty() ||
+        !parse_integer(row[5], m.duration_sec) || m.duration_sec < 0 || !parse_integer(row[6], m.track_number) ||
+        m.track_number < 0) {
+      release_connection(std::move(conn));
+      out_total = 0;
+      return {};
+    }
     m.title = row[1];
     m.artist = row[2];
     m.album = row[3];
     m.genre = row[4];
-    m.duration_sec = row[5].empty() ? 0 : std::stoi(row[5]);
-    m.track_number = row[6].empty() ? 0 : std::stoi(row[6]);
     m.created_at = row[7];
     m.updated_at = row[8];
     items.push_back(std::move(m));
   }
+  if (!has_total) {
+    release_connection(std::move(conn));
+    return {};
+  }
+  release_connection(std::move(conn));
   return items;
 }
 

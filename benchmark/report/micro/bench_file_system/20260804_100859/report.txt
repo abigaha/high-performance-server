@@ -1,0 +1,46 @@
+==========================================
+  微基准测试报告
+  时间: 20260804_100859
+  Git:  433f20e (dirty=true)
+  主机: jmjvm
+  CPU:  11th Gen Intel(R) Core(TM) i5-11400H @ 2.70GHz
+  核心: 8
+  Profile: default
+==========================================
+
+目标: bench_file_system
+运行 ID: 20260804_100859
+状态: passed
+退出码: 0
+耗时: 5s
+
+--- 原始输出 ---
+2026-08-04T10:09:06+08:00
+Running /home/jmj/work-space/projects/high-performance-server/bin/bench_file_system
+Run on (8 X 2688 MHz CPU s)
+CPU Caches:
+  L1 Data 48 KiB (x8)
+  L1 Instruction 32 KiB (x8)
+  L2 Unified 1280 KiB (x8)
+  L3 Unified 12288 KiB (x8)
+Load Average: 1.47, 1.66, 1.94
+***WARNING*** Library was built as DEBUG. Timings may be affected.
+----------------------------------------------------------------------------------------------------
+Benchmark                                          Time             CPU   Iterations UserCounters...
+----------------------------------------------------------------------------------------------------
+BM_FileSystem_Sha256/1024                       6184 ns         6137 ns        26318 bytes_per_second=159.125Mi/s
+BM_FileSystem_Sha256/65536                     51122 ns        50598 ns         2211 bytes_per_second=1.20627Gi/s
+BM_FileSystem_Sha256/1048576                  764807 ns       755229 ns          165 bytes_per_second=1.29307Gi/s
+BM_FileSystem_Sha256SmallData/16                1042 ns         1029 ns       153210 bytes_per_second=14.8217Mi/s
+BM_FileSystem_Sha256SmallData/64                 914 ns          911 ns       145681 bytes_per_second=66.9865Mi/s
+BM_FileSystem_Sha256SmallData/256               1071 ns         1070 ns       154226 bytes_per_second=228.232Mi/s
+BM_FileSystem_Sha256SmallData/1024              1646 ns         1637 ns       103343 bytes_per_second=596.635Mi/s
+BM_FileSystem_Sha256SmallData/8192              6095 ns         6087 ns        24767 bytes_per_second=1.25344Gi/s
+BM_FileSystem_SplitFile/1048576                 6860 ns         6851 ns        20065
+BM_FileSystem_SplitFile/10485760               46540 ns        45994 ns         2442
+BM_FileSystem_StoreRead/1024                  251750 ns       224140 ns          455 bytes_per_second=8.71385Mi/s
+BM_FileSystem_StoreRead/65536                5016771 ns      4999864 ns           27 bytes_per_second=25.0007Mi/s
+BM_FileSystem_StoreRead/1048576             63684506 ns     63561507 ns            2 bytes_per_second=31.4656Mi/s
+BM_FileSystem_ConcurrentStoreRead/1024/4      970619 ns       274913 ns          667 bytes_per_second=28.4181Mi/s
+BM_FileSystem_ConcurrentStoreRead/65536/4   10315600 ns       344928 ns          100 bytes_per_second=1.4156Gi/s
+BM_FileSystem_ResolvePath                     236240 ns       234790 ns          579 items_per_second=12.7774k/s

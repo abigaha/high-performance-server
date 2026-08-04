@@ -42,7 +42,6 @@ private:
   std::vector<std::jthread> workers_;            ///< 工作线程集合（jthread 自动 join）
   LockFreeQueue<MoveOnlyFunction, 65535> tasks_; ///< 无锁任务队列（大容量降低 ABA 碰撞概率）
   std::mutex state_mutex_;                       ///< 任务计数和生命周期状态保护锁
-  std::mutex pop_mutex_;                         ///< 协调无锁队列的任务领取
   std::mutex stop_mutex_;                        ///< 串行化 stop 调用
   std::condition_variable work_cv_;              ///< worker 空闲等待
   std::condition_variable idle_cv_;              ///< wait_for_all_tasks 等待

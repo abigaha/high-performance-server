@@ -1,0 +1,60 @@
+==========================================
+  HTTP RPS 压力测试报告
+  时间: 20260804_184656
+  Git:  433f20e (dirty=true)
+  主机: jmjvm
+  CPU:  11th Gen Intel(R) Core(TM) i5-11400H @ 2.70GHz
+  核心: 8
+  Profile: full
+==========================================
+
+入口: http://127.0.0.1:32784
+上传保护: 单元时长=5s 请求间隔=250ms
+预检: passed
+矩阵: 40/40
+通过: 40  过载观测: 0  失败: 0
+non-2xx: 0  unexpected: 0  socket errors: 0
+结论: passed
+
+场景                   方法     载荷           并发          RPS        P50        P90        P99   non2xx   socket           结果
+==========================================================================================================================
+health               GET    none          1       2910.2   299.00us   542.00us     1.27ms        0        0       passed
+health               GET    none         10      12833.8   519.00us     1.03ms     1.96ms        0        0       passed
+health               GET    none         50      21894.6     2.06ms     3.17ms     5.11ms        0        0       passed
+health               GET    none        100      21483.5     4.30ms     6.25ms     9.12ms        0        0       passed
+health               GET    none        500      24795.6    20.96ms    27.47ms    36.39ms        0        0       passed
+health               GET    none       1000      24244.7    43.57ms    53.61ms    65.71ms        0        0       passed
+auth_me              GET    none          1        395.6     2.30ms     4.29ms     5.87ms        0        0       passed
+auth_me              GET    none         10        752.4     9.89ms    16.82ms    21.76ms        0        0       passed
+auth_me              GET    none         50        752.2    63.75ms    70.85ms    76.29ms        0        0       passed
+auth_me              GET    none        100        751.4   127.77ms   130.08ms   133.16ms        0        0       passed
+auth_me              GET    none        500        751.4   658.99ms   666.96ms   679.27ms        0        0       passed
+auth_me              GET    none       1000        752.1      1.33s      1.34s      1.35s        0        0       passed
+files_list           GET    none          1        292.9     3.13ms     5.71ms     8.02ms        0        0       passed
+files_list           GET    none         10        378.5    21.14ms    32.01ms    37.21ms        0        0       passed
+files_list           GET    none         50        378.4   126.69ms   130.51ms   137.38ms        0        0       passed
+files_list           GET    none        100        377.4   254.06ms   260.32ms   271.89ms        0        0       passed
+files_list           GET    none        500        379.3      1.31s      1.32s      1.33s        0        0       passed
+files_list           GET    none       1000        377.2      2.63s      2.65s      2.67s        0        0       passed
+music_list           GET    none          1        282.2     3.27ms     5.88ms     8.34ms        0        0       passed
+music_list           GET    none         10        377.4    21.13ms    32.39ms    36.91ms        0        0       passed
+music_list           GET    none         50        379.1   126.57ms   130.39ms   135.88ms        0        0       passed
+music_list           GET    none        100        379.4   252.80ms   257.75ms   262.67ms        0        0       passed
+music_list           GET    none        500        376.5      1.31s      1.33s      1.34s        0        0       passed
+music_list           GET    none       1000        375.4      2.66s      2.67s      2.69s        0        0       passed
+upload_1kb           POST   1KB           1          3.0    74.87ms    82.43ms    89.07ms        0        0       passed
+upload_1kb           POST   1KB           2          6.0    80.36ms    92.80ms    97.53ms        0        0       passed
+upload_1mb           POST   1MB           1          2.6    99.57ms   120.00ms   120.73ms        0        0       passed
+upload_1mb           POST   1MB           2          5.4   103.30ms   142.59ms   168.58ms        0        0       passed
+download_1kb         GET    1KB           1        139.2     7.34ms     9.42ms    11.32ms        0        0       passed
+download_1kb         GET    1KB          10        250.5    32.78ms    38.17ms    42.14ms        0        0       passed
+download_1kb         GET    1KB          50        250.4   191.61ms   200.00ms   207.99ms        0        0       passed
+download_1kb         GET    1KB         100        250.4   382.97ms   388.64ms   398.06ms        0        0       passed
+download_1mb         GET    1MB           1         10.7    87.93ms   111.30ms   170.10ms        0        0       passed
+download_1mb         GET    1MB          10         72.7   106.73ms   127.64ms   153.38ms        0        0       passed
+download_1mb         GET    1MB          50         77.2   600.45ms   756.26ms   896.69ms        0        0       passed
+download_1mb         GET    1MB         100         79.5      1.17s      1.32s      1.48s        0        0       passed
+range_1mb            GET    1KB-range      1         11.2    83.27ms   114.14ms   179.75ms        0        0       passed
+range_1mb            GET    1KB-range     10         78.8    98.74ms   122.59ms   148.50ms        0        0       passed
+range_1mb            GET    1KB-range     50         86.3   542.77ms   643.69ms   752.13ms        0        0       passed
+range_1mb            GET    1KB-range    100         89.1      1.04s      1.19s      1.36s        0        0       passed

@@ -101,14 +101,11 @@ TEST(DatabasePoolStressTest, ReturnConnectionToPool) {
 }
 
 TEST(DatabasePoolStressTest, BrokenConnection) {
-  int ping_count = 0;
-
   auto factory = [&]() -> std::unique_ptr<IConnection> {
     auto mc = std::make_unique<MockConnection>();
-    mc->ping_result = false;
+    mc->is_open_result = false;
     mc->connect_result = true;
-    mc->query_hook = [&](const std::string&, const std::vector<std::string>&) -> std::optional<QueryResult> {
-      ++ping_count;
+    mc->query_hook = [](const std::string&, const std::vector<std::string>&) -> std::optional<QueryResult> {
       return std::nullopt;
     };
     return mc;
@@ -153,15 +150,12 @@ TEST(DatabasePoolStressTest, ConcurrentGetConnections) {
   EXPECT_EQ(success_count.load(), kThreads * 5);
 }
 
-TEST(DatabasePoolStressTest, PingIdleConnections) {
-  int ping_count = 0;
-
+TEST(DatabasePoolStressTest, ReusesIdleConnectionsWithoutPing) {
   auto factory = [&]() -> std::unique_ptr<IConnection> {
     auto mc = std::make_unique<MockConnection>();
     mc->connect_result = true;
     mc->ping_result = true;
-    mc->query_hook = [&](const std::string&, const std::vector<std::string>&) -> std::optional<QueryResult> {
-      ++ping_count;
+    mc->query_hook = [](const std::string&, const std::vector<std::string>&) -> std::optional<QueryResult> {
       return QueryResult{};
     };
     return mc;

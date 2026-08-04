@@ -1,0 +1,26 @@
+Running 20s test @ http://127.0.0.1:32777/api/auth/me
+  8 threads and 5000 connections
+  Thread Stats   Avg      Stdev     Max   +/- Stdev
+    Latency   232.42ms  440.80ms   4.99s    94.33%
+    Req/Sec   541.19    675.83     3.67k    86.02%
+  Latency Distribution
+     50%  139.63ms
+     75%  233.95ms
+     90%  330.99ms
+     99%    2.33s 
+  48043 requests in 20.10s, 14.89MB read
+  Socket errors: connect 0, read 98563, write 0, timeout 1
+  Non-2xx or 3xx responses: 48043
+Requests/sec:   2389.99
+Transfer/sec:    758.54KB
+HPS_WRK_REQUESTS 48043
+HPS_WRK_STATUS_ERRORS 48043
+HPS_SOCKET_CONNECT 0
+HPS_SOCKET_READ 98563
+HPS_SOCKET_WRITE 0
+HPS_SOCKET_TIMEOUT 1
+HPS_STATUS_TOTAL 48043
+HPS_STATUS_2XX 0
+HPS_STATUS_NON_2XX 48043
+HPS_STATUS_UNEXPECTED 48043
+HPS_STATUS_CODES 500=48043

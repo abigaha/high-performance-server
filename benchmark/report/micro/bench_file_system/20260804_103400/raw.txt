@@ -1,0 +1,29 @@
+2026-08-04T10:33:51+08:00
+Running /home/jmj/work-space/projects/high-performance-server/bin/bench_file_system
+Run on (8 X 2688 MHz CPU s)
+CPU Caches:
+  L1 Data 48 KiB (x8)
+  L1 Instruction 32 KiB (x8)
+  L2 Unified 1280 KiB (x8)
+  L3 Unified 12288 KiB (x8)
+Load Average: 1.05, 0.84, 1.19
+***WARNING*** Library was built as DEBUG. Timings may be affected.
+----------------------------------------------------------------------------------------------------
+Benchmark                                          Time             CPU   Iterations UserCounters...
+----------------------------------------------------------------------------------------------------
+BM_FileSystem_Sha256/1024                       8266 ns         8264 ns        23137 bytes_per_second=118.166Mi/s
+BM_FileSystem_Sha256/65536                    107017 ns       106818 ns         1377 bytes_per_second=585.107Mi/s
+BM_FileSystem_Sha256/1048576                 1658913 ns      1645417 ns           88 bytes_per_second=607.749Mi/s
+BM_FileSystem_Sha256SmallData/16                2164 ns         2160 ns        50405 bytes_per_second=7.06579Mi/s
+BM_FileSystem_Sha256SmallData/64                1904 ns         1901 ns        77655 bytes_per_second=32.1073Mi/s
+BM_FileSystem_Sha256SmallData/256               1263 ns         1263 ns        86238 bytes_per_second=193.338Mi/s
+BM_FileSystem_Sha256SmallData/1024              2441 ns         2432 ns        41684 bytes_per_second=401.528Mi/s
+BM_FileSystem_Sha256SmallData/8192             10271 ns        10193 ns        16455 bytes_per_second=766.452Mi/s
+BM_FileSystem_SplitFile/1048576                15608 ns        15541 ns         8960
+BM_FileSystem_SplitFile/10485760              111996 ns       111689 ns         1142
+BM_FileSystem_StoreRead/1024                  335573 ns       298773 ns          529 bytes_per_second=6.53715Mi/s
+BM_FileSystem_StoreRead/65536               12571666 ns     12427392 ns           20 bytes_per_second=10.0584Mi/s
+BM_FileSystem_StoreRead/1048576            123106076 ns    122208400 ns            1 bytes_per_second=16.3655Mi/s
+BM_FileSystem_ConcurrentStoreRead/1024/4      634483 ns       191019 ns          710 bytes_per_second=40.8991Mi/s
+BM_FileSystem_ConcurrentStoreRead/65536/4    7736086 ns       271230 ns          100 bytes_per_second=1.80025Gi/s
+BM_FileSystem_ResolvePath                     296481 ns       294901 ns          532 items_per_second=10.1729k/s

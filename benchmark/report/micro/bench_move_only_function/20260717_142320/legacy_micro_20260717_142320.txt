@@ -1,0 +1,9 @@
+--- bench_bench_move_only_function ---
+  Benchmark                                          Time             CPU   Iterations
+  BM_MoveOnlyFunction_ConstructVoid               1.07 ns         1.06 ns    654929880
+  BM_MoveOnlyFunction_ConstructWithCapture        1.38 ns         1.38 ns    514465283
+  BM_MoveOnlyFunction_ConstructLargeCapture       43.1 ns         43.0 ns     16188000
+  BM_MoveOnlyFunction_Invoke                      1.37 ns         1.37 ns    523879098
+  BM_MoveOnlyFunction_MoveConstruct               1.39 ns         1.38 ns    512967018
+  BM_StdFunction_Compare                          1.47 ns         1.47 ns    518430796
+

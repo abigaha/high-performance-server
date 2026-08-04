@@ -31,11 +31,12 @@ public:
       throw std::runtime_error("authentication storage failure");
     }
     if (token == "storage-error-token") {
-      return {TokenValidationStatus::STORAGE_ERROR, {}};
+      return {TokenValidationStatus::STORAGE_ERROR, {}, {}};
     }
     if (token == "valid-token") {
       return {TokenValidationStatus::AUTHENTICATED,
-              EffectiveIdentity{1, "test", UserRole::NORMAL, VipStatus::NONE, std::nullopt}};
+              EffectiveIdentity{1, "test", UserRole::NORMAL, VipStatus::NONE, std::nullopt},
+              {}};
     }
     return {};
   }

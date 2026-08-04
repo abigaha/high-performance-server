@@ -1,0 +1,39 @@
+==========================================
+  负载测试报告
+  时间: 20260718_171912
+  Git:  4ccf1e8
+  主机: jmjvm
+  CPU:  11th Gen Intel(R) Core(TM) i5-11400H @ 2.70GHz
+  核心: 8
+==========================================
+
+端点                         方法 载荷   并发        RPS 平均延迟        p50        p90        p99
+==============================================================================================================
+/api/health                    GET        -        1     6571.7   343.99us   120.00us   844.00us     3.49ms
+/api/health                    GET        -       10    31440.7   433.89us   202.00us   776.00us     3.79ms
+/api/health                    GET        -       50    41713.7     1.29ms     1.05ms     2.31ms     5.76ms
+/api/health                    GET        -      100    38783.3     2.58ms     2.32ms     4.62ms     8.20ms
+/api/health                    GET        -      500    37767.8    12.94ms    12.65ms    19.22ms    26.08ms
+/api/health                    GET        -     1000    35214.2    30.53ms    25.88ms    41.80ms    66.63ms
+/api/health                    GET        -     2000    37053.4    58.22ms    49.55ms    71.55ms   257.76ms
+/api/health                    GET        -     5000    35829.8    86.44ms    79.26ms   119.55ms   147.58ms
+/api/health                    GET        -    10000    36462.4   178.13ms   169.95ms   249.79ms   350.70ms
+/api/users/1                   GET        -        1     4632.2     2.40ms   144.00us     1.83ms    50.98ms
+/api/users/1                   GET        -       10    30348.6    20.91ms   206.00us     1.00ms   797.47ms
+/api/users/1                   GET        -       50    41357.1     1.39ms     1.05ms     2.32ms     8.42ms
+/api/users/1                   GET        -      100    41407.8     2.60ms     2.08ms     4.76ms    11.59ms
+/api/users/1                   GET        -      500    34667.7    14.20ms    13.91ms    20.40ms    25.77ms
+/api/users/1                   GET        -     1000    32275.0    30.87ms    29.41ms    42.66ms    59.42ms
+/api/users/1                   GET        -     2000    35449.8    62.51ms    52.56ms    74.67ms   281.51ms
+/api/users/1                   GET        -     5000    36408.4   116.93ms   105.42ms   161.27ms   535.38ms
+/api/users/1                   GET        -    10000    36038.1   145.54ms   140.11ms   214.83ms   322.37ms
+/api/files/upload              POST   1024B        1     2038.2   803.61us   352.00us     2.16ms     4.96ms
+/api/files/upload              POST   1024B       10     4358.1     1.96ms     1.63ms     3.90ms     7.22ms
+/api/files/upload              POST   1024B       50     3855.6    12.46ms    12.03ms    16.33ms    22.43ms
+/api/files/upload              POST   1024B      100     3916.3    24.62ms    23.90ms    30.18ms    41.82ms
+/api/files/upload              POST   1024B      500     3895.8   125.33ms   126.34ms   140.25ms   153.24ms
+/api/files/upload              POST   1024B     1000     3927.9   246.48ms   253.04ms   279.67ms   298.35ms
+/api/files/upload              POST   1024B     2000     3888.4   489.97ms   503.94ms   549.65ms   641.34ms
+/api/files/upload              POST   1024B     5000     3828.1      1.02s      1.07s      1.20s      1.23s
+/api/files/upload              POST   1024B    10000     3935.3      1.10s      1.12s      1.97s      2.00s
+/api/files/upload              POST     1MB        1       13.6    14.17ms     9.72ms    15.72ms   240.17ms

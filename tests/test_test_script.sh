@@ -28,6 +28,7 @@ green() { :; }
 red() { :; }
 ensure_frontend_dependencies() { :; }
 EOF
+cp "$PROJECT_ROOT/scripts/lib/isolated_docker_env.sh" "$TEMP_DIR/lib/isolated_docker_env.sh"
 cat > "$TEMP_DIR/bin/npm" <<'EOF'
 #!/usr/bin/env bash
 printf '%s\n' "$*" >> "$CALLS"
@@ -66,11 +67,21 @@ if [ "${FAKE_RM_RC:-0}" -ne 0 ] && [ "${1:-}" = "-f" ] && [[ "${2:-}" == *.env ]
 fi
 exec /usr/bin/rm "$@"
 EOF
+cat > "$TEMP_DIR/bin/rmdir" <<'EOF'
+#!/usr/bin/env bash
+printf 'rmdir' >> "$CALLS"
+printf ' <%s>' "$@" >> "$CALLS"
+printf '\n' >> "$CALLS"
+if [ "${FAKE_RMDIR_RC:-0}" -ne 0 ]; then
+  exit "$FAKE_RMDIR_RC"
+fi
+exec /usr/bin/rmdir "$@"
+EOF
 cat > "$TEMP_DIR/bin/xmake" <<'EOF'
 #!/usr/bin/env bash
 printf 'xmake %s\n' "$*" >> "$CALLS"
 EOF
-chmod +x "$TEMP_DIR/bin/npm" "$TEMP_DIR/bin/rm" "$TEMP_DIR/bin/xmake"
+chmod +x "$TEMP_DIR/bin/npm" "$TEMP_DIR/bin/rm" "$TEMP_DIR/bin/rmdir" "$TEMP_DIR/bin/xmake"
 cat > "$TEMP_DIR/bin/openssl" <<'EOF'
 #!/usr/bin/env bash
 case "$*" in
@@ -86,7 +97,9 @@ cat > "$TEMP_DIR/scripts/docker.sh" <<'EOF'
 printf 'docker.sh' >> "$CALLS"
 printf ' <%s>' "$@" >> "$CALLS"
 printf '\n' >> "$CALLS"
-if [ "${1:-}" = "down" ] && [ -n "${FAKE_DOWN_READY_FIFO:-}" ]; then
+if [ "${1:-}" = "down" ] && [ -n "${FAKE_DOWN_READY_FIFO:-}" ] && \
+  { [ -z "${FAKE_DOWN_READY_ONCE_FILE:-}" ] || [ ! -e "$FAKE_DOWN_READY_ONCE_FILE" ]; }; then
+  [ -z "${FAKE_DOWN_READY_ONCE_FILE:-}" ] || : > "$FAKE_DOWN_READY_ONCE_FILE"
   printf 'down-ready\n' > "$FAKE_DOWN_READY_FIFO"
   IFS= read -r _ < "$FAKE_DOWN_RELEASE_FIFO"
 fi
@@ -106,14 +119,26 @@ if [ "${1:-}" = "deploy" ]; then
     fi
     shift
   done
+  if [ -n "${FAKE_DEPLOY_READY_FIFO:-}" ]; then
+    printf 'deploy-ready\n' > "$FAKE_DEPLOY_READY_FIFO"
+    IFS= read -r _ < "$FAKE_DEPLOY_RELEASE_FIFO"
+  fi
   [ "${FAKE_DEPLOY_RC:-0}" -eq 0 ] || exit "$FAKE_DEPLOY_RC"
 elif [ "${1:-}" = "base-url" ]; then
+  if [ -n "${FAKE_BASE_URL_READY_FIFO:-}" ]; then
+    printf 'base-url-ready\n' > "$FAKE_BASE_URL_READY_FIFO"
+    IFS= read -r _ < "$FAKE_BASE_URL_RELEASE_FIFO"
+  fi
   [ "${FAKE_BASE_URL_RC:-0}" -eq 0 ] || exit "$FAKE_BASE_URL_RC"
   printf 'http://127.0.0.1:23456\n'
+elif [ "${1:-}" = "runtime-fingerprint" ]; then
+  [ "${FAKE_FINGERPRINT_RC:-0}" -eq 0 ] || exit "$FAKE_FINGERPRINT_RC"
+  printf '%s\n' "${FAKE_FINGERPRINT:-sha256:deadbeefdeadbeefdeadbeefdeadbeef}"
 fi
 EOF
 chmod +x "$TEMP_DIR/bin/openssl" "$TEMP_DIR/scripts/docker.sh"
-for regression in test_codeql_discovery.sh test_docker_admin_env.sh test_test_script.sh; do
+for regression in test_codeql_discovery.sh test_lint_script.sh test_docker_admin_env.sh test_test_script.sh \
+  test_benchmark_script.sh test_bench_http_server.sh test_migrate_legacy_reports.sh; do
   printf '#!/usr/bin/env bash\nexit 0\n' > "$TEMP_DIR/tests/$regression"
   chmod +x "$TEMP_DIR/tests/$regression"
 done
@@ -143,6 +168,7 @@ ensure_frontend_dependencies() {
   : > "\$FRONTEND_DIR/node_modules/.ready"
 }
 EOF
+  cp "$PROJECT_ROOT/scripts/lib/isolated_docker_env.sh" "$case_root/scripts/lib/isolated_docker_env.sh"
   cat > "$case_root/bin/xmake" <<'EOF'
 #!/usr/bin/env bash
 printf 'xmake %s\n' "$*" >> "$TEST_ENTRY_CALLS"
@@ -156,7 +182,8 @@ EOF
 printf 'npm %s\n' "$*" >> "$TEST_ENTRY_CALLS"
 EOF
   chmod +x "$case_root/bin/xmake" "$case_root/bin/npm"
-  for regression in test_codeql_discovery.sh test_docker_admin_env.sh; do
+  for regression in test_codeql_discovery.sh test_lint_script.sh test_docker_admin_env.sh \
+    test_benchmark_script.sh test_bench_http_server.sh test_migrate_legacy_reports.sh; do
     printf '#!/usr/bin/env bash\nexit 0\n' > "$case_root/tests/$regression"
     chmod +x "$case_root/tests/$regression"
   done
@@ -172,6 +199,13 @@ case_root="$(cd "$(dirname "$0")/.." && pwd)"
 printf 'playwright-cli-regression\n' >> "$TEST_ENTRY_CALLS"
 EOF
   chmod +x "$case_root/tests/test_test_script.sh"
+  cat > "$case_root/tests/test_bench_http_server.sh" <<'EOF'
+#!/usr/bin/env bash
+set -euo pipefail
+
+printf 'http-benchmark-regression\n' >> "$TEST_ENTRY_CALLS"
+EOF
+  chmod +x "$case_root/tests/test_bench_http_server.sh"
 
   [ ! -e "$case_root/frontend/node_modules" ] || {
     echo "$case_name 初始状态不应存在 node_modules" >&2
@@ -192,6 +226,10 @@ EOF
   regression_line="$(grep -n '^playwright-cli-regression$' "$calls_file" | cut -d: -f1)"
   [ "$dependency_line" -lt "$regression_line" ] || {
     echo "$case_name 在依赖准备前执行了 Playwright CLI 回归" >&2
+    exit 1
+  }
+  grep -Fx 'http-benchmark-regression' "$calls_file" >/dev/null || {
+    echo "$case_name 未执行 HTTP 基准服务启动回归" >&2
     exit 1
   }
 }
@@ -474,7 +512,7 @@ else
   rc=$?
 fi
 [ "$rc" -eq 41 ] || { echo "凭据随机数失败码被改写为 $rc" >&2; exit 1; }
-if compgen -G "$TEMP_DIR/random-failure-tmp/hps_e2e_*.env" >/dev/null; then
+if compgen -G "$TEMP_DIR/random-failure-tmp/hps_e2e_*/environment.*.env" >/dev/null; then
   echo '凭据随机数生成失败后遗留临时 env' >&2
   exit 1
 fi
@@ -694,6 +732,119 @@ run_repeated_signal_case() {
 run_repeated_signal_case TERM TERM 143 repeated-term
 run_repeated_signal_case INT TERM 130 int-then-term
 
+run_startup_signal_case() {
+  local phase="$1" signal="$2" expected_rc="$3"
+  local ready_fifo="$TEMP_DIR/startup-$phase.ready"
+  local release_fifo="$TEMP_DIR/startup-$phase.release"
+  local output_log="$TEMP_DIR/startup-$phase.log"
+  mkfifo "$ready_fifo" "$release_fifo"
+  : > "$CALLS"
+
+  if [ "$phase" = "deploy" ]; then
+    FAKE_DEPLOY_READY_FIFO="$ready_fifo" \
+      FAKE_DEPLOY_RELEASE_FIFO="$release_fifo" \
+      env --default-signal=INT bash "$TEMP_DIR/test.sh" e2e tests/e2e/user-governance.spec.ts \
+        >"$output_log" 2>&1 &
+  else
+    FAKE_BASE_URL_READY_FIFO="$ready_fifo" \
+      FAKE_BASE_URL_RELEASE_FIFO="$release_fifo" \
+      env --default-signal=INT bash "$TEMP_DIR/test.sh" e2e tests/e2e/user-governance.spec.ts \
+        >"$output_log" 2>&1 &
+  fi
+  local script_pid=$!
+  local event
+  IFS= read -r event < "$ready_fifo"
+  [ "$event" = "$phase-ready" ] || { echo "$phase 信号回归未进入启动阶段" >&2; exit 1; }
+
+  local deploy_call project env_file
+  deploy_call="$(grep '^docker.sh <deploy>' "$CALLS")"
+  project="$(printf '%s\n' "$deploy_call" | grep -o '<--project-name> <[^>]*>' | cut -d'<' -f3 | tr -d '>')"
+  env_file="$(printf '%s\n' "$deploy_call" | grep -o '<--env-file> <[^>]*>' | cut -d'<' -f3 | tr -d '>')"
+  kill -s "$signal" "$script_pid"
+  timeout 5s bash -c 'printf "release\n" > "$1"' _ "$release_fifo" || {
+    echo "$phase 信号回归无法释放 fake docker" >&2
+    exit 1
+  }
+  timeout 5s tail --pid="$script_pid" -f /dev/null || {
+    echo "$phase 信号后 test.sh 未限时退出" >&2
+    exit 1
+  }
+  local script_rc=0
+  wait "$script_pid" || script_rc=$?
+  [ "$script_rc" -eq "$expected_rc" ] || {
+    echo "$phase 信号退出码应为 $expected_rc，实际为 $script_rc" >&2
+    exit 1
+  }
+  [ "$(grep -Fxc "docker.sh <down> <--project-name> <$project> <--env-file> <$env_file> <--volumes>" "$CALLS")" -eq 1 ] || {
+    echo "$phase 信号后未恰好执行一次 down --volumes" >&2
+    exit 1
+  }
+  [ ! -e "$env_file" ] || { echo "$phase 信号后未删除临时 env" >&2; exit 1; }
+  if grep -q '^run ' "$CALLS"; then
+    echo "$phase 信号后不应运行 Playwright" >&2
+    exit 1
+  fi
+}
+
+run_startup_signal_case deploy TERM 143
+run_startup_signal_case base-url INT 130
+
+run_start_failure_cleanup_signal_case() {
+  local down_ready_fifo="$TEMP_DIR/start-failure-down.ready"
+  local down_release_fifo="$TEMP_DIR/start-failure-down.release"
+  local down_once_file="$TEMP_DIR/start-failure-down.once"
+  local output_log="$TEMP_DIR/start-failure-cleanup-signal.log"
+  mkfifo "$down_ready_fifo" "$down_release_fifo"
+  : > "$CALLS"
+
+  FAKE_DEPLOY_RC=29 \
+    FAKE_RM_RC=43 \
+    FAKE_DOWN_READY_FIFO="$down_ready_fifo" \
+    FAKE_DOWN_RELEASE_FIFO="$down_release_fifo" \
+    FAKE_DOWN_READY_ONCE_FILE="$down_once_file" \
+    env --default-signal=INT bash "$TEMP_DIR/test.sh" e2e tests/e2e/user-governance.spec.ts \
+      >"$output_log" 2>&1 &
+  local script_pid=$!
+  local event
+  IFS= read -r event < "$down_ready_fifo"
+  [ "$event" = 'down-ready' ] || { echo '启动失败信号回归未进入 down 清理' >&2; exit 1; }
+
+  local deploy_call project env_file env_dir
+  deploy_call="$(grep '^docker.sh <deploy>' "$CALLS")"
+  project="$(printf '%s\n' "$deploy_call" | grep -o '<--project-name> <[^>]*>' | cut -d'<' -f3 | tr -d '>')"
+  env_file="$(printf '%s\n' "$deploy_call" | grep -o '<--env-file> <[^>]*>' | cut -d'<' -f3 | tr -d '>')"
+  env_dir="$(dirname "$env_file")"
+  kill -TERM "$script_pid"
+  timeout 5s bash -c 'printf "release\n" > "$1"' _ "$down_release_fifo" || {
+    echo '启动失败信号回归无法释放 down' >&2
+    exit 1
+  }
+  timeout 5s tail --pid="$script_pid" -f /dev/null || {
+    echo '启动失败信号回归未限时退出' >&2
+    exit 1
+  }
+  local script_rc=0
+  wait "$script_pid" || script_rc=$?
+  [ "$script_rc" -eq 143 ] || {
+    echo "启动失败信号退出码应为 143，实际为 $script_rc" >&2
+    exit 1
+  }
+  [ "$(grep -Fxc "docker.sh <down> <--project-name> <$project> <--env-file> <$env_file> <--volumes>" "$CALLS")" -eq 1 ] || {
+    echo '启动失败信号路径未恰好执行一次 down --volumes' >&2
+    exit 1
+  }
+  [ -e "$env_file" ] || { echo 'fake rm 失败后应保留启动失败路径 env' >&2; exit 1; }
+  [ -d "$env_dir" ] || { echo 'fake rm 失败后应保留启动失败路径父目录' >&2; exit 1; }
+  if grep -q '^run ' "$CALLS"; then
+    echo '启动失败信号路径不应运行 Playwright' >&2
+    exit 1
+  fi
+  /usr/bin/rm -f "$env_file"
+  /usr/bin/rmdir "$env_dir"
+}
+
+run_start_failure_cleanup_signal_case
+
 e2e_secrets=(
   0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef
   E2eAdmin_a1b2c3d4_0123456789abcdef0123456789abcdef0123456789abcdef
@@ -737,3 +888,430 @@ if [ -s "$CALLS" ]; then
 fi
 
 echo 'test.sh frontend/e2e 参数路由回归通过'
+
+# ──────────────────────────────────────────────────────────────────────────────
+# isolated_docker_env.sh 可复用隔离环境生命周期回归（Task 3）
+# ──────────────────────────────────────────────────────────────────────────────
+
+ISOLATED_ENV_LIB="$PROJECT_ROOT/scripts/lib/isolated_docker_env.sh"
+[ -f "$ISOLATED_ENV_LIB" ] || {
+  printf '缺少 scripts/lib/isolated_docker_env.sh\n' >&2
+  exit 1
+}
+mkdir -p "$TEMP_DIR/scripts/lib"
+cp "$ISOLATED_ENV_LIB" "$TEMP_DIR/scripts/lib/isolated_docker_env.sh"
+cp "$TEMP_DIR/lib/common.sh" "$TEMP_DIR/scripts/lib/common.sh"
+
+ISOLATED_CALLS="$TEMP_DIR/isolated-calls"
+: > "$ISOLATED_CALLS"
+
+run_isolated_helper() {
+  local body="$1"
+  local rc=0
+  CALLS="$ISOLATED_CALLS" PROJECT_ROOT="$TEMP_DIR" PATH="$TEMP_DIR/bin:$PATH" \
+    bash -euo pipefail -c "
+      source '$TEMP_DIR/scripts/lib/common.sh'
+      source '$TEMP_DIR/scripts/lib/isolated_docker_env.sh'
+      $body
+    " || rc=$?
+  return "$rc"
+}
+
+for isolated_fn in hps_start_isolated_environment hps_cleanup_isolated_environment hps_runtime_fingerprint; do
+  run_isolated_helper "declare -f $isolated_fn >/dev/null" || {
+    printf '%s 未在 isolated_docker_env.sh 中定义\n' "$isolated_fn" >&2
+    exit 1
+  }
+done
+
+# TMPDIR 位于工作区时，凭据目录必须回退到工作区外，并在正常 cleanup 后删除 env/父目录。
+workspace_tmp_root="$TEMP_DIR/workspace-tmp"
+mkdir -p "$workspace_tmp_root"
+: > "$ISOLATED_CALLS"
+workspace_tmp_out=$(run_isolated_helper "
+  TMPDIR='$workspace_tmp_root'
+  hps_start_isolated_environment bench 20260101_000000
+  printf 'ENV=%s\\n' \"\$HPS_ISOLATED_ENV_FILE\"
+  printf 'DIR=%s\\n' \"\$HPS_ISOLATED_TEMP_DIR\"
+  hps_cleanup_isolated_environment
+  if [ -e \"\$HPS_ISOLATED_ENV_FILE\" ]; then printf 'ENV_EXISTS=1\\n'; else printf 'ENV_EXISTS=0\\n'; fi
+  if [ -e \"\$HPS_ISOLATED_TEMP_DIR\" ]; then printf 'DIR_EXISTS=1\\n'; else printf 'DIR_EXISTS=0\\n'; fi
+") || { printf 'workspace TMPDIR 回退场景异常失败\n' >&2; exit 1; }
+workspace_env=$(printf '%s\n' "$workspace_tmp_out" | awk -F= '/^ENV=/{print $2}')
+workspace_dir=$(printf '%s\n' "$workspace_tmp_out" | awk -F= '/^DIR=/{print $2}')
+[[ "$workspace_env" != "$TEMP_DIR"/* && "$workspace_dir" != "$TEMP_DIR"/* ]] || {
+  printf 'workspace TMPDIR 下创建了隔离凭据目录或 env\n' >&2
+  exit 1
+}
+grep -Fx 'ENV_EXISTS=0' <<< "$workspace_tmp_out" >/dev/null || {
+  printf 'workspace TMPDIR 回退场景未删除 env\n' >&2
+  exit 1
+}
+grep -Fx 'DIR_EXISTS=0' <<< "$workspace_tmp_out" >/dev/null || {
+  printf 'workspace TMPDIR 回退场景未删除 0700 父目录\n' >&2
+  exit 1
+}
+
+workspace_tmp_link="$TEMP_DIR/workspace-tmp-link"
+ln -s "$workspace_tmp_root" "$workspace_tmp_link"
+: > "$ISOLATED_CALLS"
+workspace_link_out=$(run_isolated_helper "
+  TMPDIR='$workspace_tmp_link'
+  hps_start_isolated_environment bench 20260101_000005
+  printf 'ENV=%s\\n' \"\$HPS_ISOLATED_ENV_FILE\"
+  printf 'DIR=%s\\n' \"\$HPS_ISOLATED_TEMP_DIR\"
+  hps_cleanup_isolated_environment
+  if [ -e \"\$HPS_ISOLATED_ENV_FILE\" ]; then printf 'ENV_EXISTS=1\\n'; else printf 'ENV_EXISTS=0\\n'; fi
+  if [ -e \"\$HPS_ISOLATED_TEMP_DIR\" ]; then printf 'DIR_EXISTS=1\\n'; else printf 'DIR_EXISTS=0\\n'; fi
+") || { printf 'workspace TMPDIR 符号链接回退场景异常失败\n' >&2; exit 1; }
+workspace_link_env=$(printf '%s\n' "$workspace_link_out" | awk -F= '/^ENV=/{print $2}')
+workspace_link_dir=$(printf '%s\n' "$workspace_link_out" | awk -F= '/^DIR=/{print $2}')
+[[ "$workspace_link_env" != "$TEMP_DIR"/* && "$workspace_link_dir" != "$TEMP_DIR"/* ]] || {
+  printf 'workspace TMPDIR 符号链接下创建了隔离凭据目录或 env\n' >&2
+  exit 1
+}
+grep -Fx 'ENV_EXISTS=0' <<< "$workspace_link_out" >/dev/null
+grep -Fx 'DIR_EXISTS=0' <<< "$workspace_link_out" >/dev/null
+
+# 临时目录删除失败不得被吞掉，且 env 删除成功后父目录应保留以便诊断/重试。
+: > "$ISOLATED_CALLS"
+rmdir_failure_log="$TEMP_DIR/isolated-rmdir-failure.log"
+if rmdir_failure_out=$(run_isolated_helper '
+  hps_start_isolated_environment bench 20260101_000003
+  printf "ENV=%s\n" "$HPS_ISOLATED_ENV_FILE"
+  printf "DIR=%s\n" "$HPS_ISOLATED_TEMP_DIR"
+  export FAKE_RMDIR_RC=44
+  hps_cleanup_isolated_environment
+' 2>"$rmdir_failure_log"); then
+  printf '临时目录删除失败时 hps_cleanup_isolated_environment 应返回非零\n' >&2
+  exit 1
+else
+  rc=$?
+fi
+[ "$rc" -eq 44 ] || { printf '临时目录删除失败码应为 44，实际为 %s\n' "$rc" >&2; exit 1; }
+rmdir_failure_env=$(printf '%s\n' "$rmdir_failure_out" | awk -F= '/^ENV=/{print $2}')
+rmdir_failure_dir=$(printf '%s\n' "$rmdir_failure_out" | awk -F= '/^DIR=/{print $2}')
+[ ! -e "$rmdir_failure_env" ] || { printf '临时目录删除失败时 env 应已删除\n' >&2; exit 1; }
+[ -d "$rmdir_failure_dir" ] || { printf '临时目录删除失败时 0700 父目录应保留\n' >&2; exit 1; }
+grep -Fx '错误: E2E 清理失败: 临时目录删除退出码 44' "$rmdir_failure_log" >/dev/null || {
+  printf '临时目录删除失败未输出预期错误\n' >&2
+  exit 1
+}
+/usr/bin/rmdir "$rmdir_failure_dir"
+
+# 清理错误优先级固定为 down、env、临时目录。
+: > "$ISOLATED_CALLS"
+cleanup_priority_log="$TEMP_DIR/isolated-cleanup-priority.log"
+if cleanup_priority_out=$(run_isolated_helper '
+  hps_start_isolated_environment bench 20260101_000004
+  printf "ENV=%s\n" "$HPS_ISOLATED_ENV_FILE"
+  printf "DIR=%s\n" "$HPS_ISOLATED_TEMP_DIR"
+  export FAKE_DOWN_RC=42
+  export FAKE_RM_RC=43
+  export FAKE_RMDIR_RC=44
+  hps_cleanup_isolated_environment
+' 2>"$cleanup_priority_log"); then
+  printf '多重清理失败时 hps_cleanup_isolated_environment 应返回非零\n' >&2
+  exit 1
+else
+  rc=$?
+fi
+[ "$rc" -eq 42 ] || { printf '多重清理失败应优先返回 down 42，实际为 %s\n' "$rc" >&2; exit 1; }
+cleanup_priority_env=$(printf '%s\n' "$cleanup_priority_out" | awk -F= '/^ENV=/{print $2}')
+cleanup_priority_dir=$(printf '%s\n' "$cleanup_priority_out" | awk -F= '/^DIR=/{print $2}')
+[ -e "$cleanup_priority_env" ] || { printf 'fake rm 失败后多重失败路径 env 应保留\n' >&2; exit 1; }
+[ -d "$cleanup_priority_dir" ] || { printf 'fake rmdir 失败后多重失败路径父目录应保留\n' >&2; exit 1; }
+grep -Fx '错误: E2E 清理失败: docker down 退出码 42' "$cleanup_priority_log" >/dev/null
+grep -Fx '错误: E2E 清理失败: 临时 env 删除退出码 43' "$cleanup_priority_log" >/dev/null
+grep -Fx '错误: E2E 清理失败: 临时目录删除退出码 44' "$cleanup_priority_log" >/dev/null
+/usr/bin/rm -f "$cleanup_priority_env"
+/usr/bin/rmdir "$cleanup_priority_dir"
+
+# start：唯一项目名（hps_<prefix>_ 前缀）、0600 env、HPS_HTTP_PORT=0，deploy 恰好调用一次
+: > "$ISOLATED_CALLS"
+isolated_start_out=$(run_isolated_helper '
+  hps_start_isolated_environment bench 20260101_000000
+  printf "PROJECT=%s\n" "$HPS_ISOLATED_PROJECT_NAME"
+  printf "ENV=%s\n" "$HPS_ISOLATED_ENV_FILE"
+  printf "DIR=%s\n" "$HPS_ISOLATED_TEMP_DIR"
+') || { printf 'hps_start_isolated_environment 返回非零\n' >&2; exit 1; }
+isolated_project=$(printf '%s\n' "$isolated_start_out" | awk -F= '/^PROJECT=/{print $2}')
+isolated_env=$(printf '%s\n' "$isolated_start_out" | awk -F= '/^ENV=/{print $2}')
+isolated_dir=$(printf '%s\n' "$isolated_start_out" | awk -F= '/^DIR=/{print $2}')
+[[ "$isolated_project" =~ ^hps_bench_ ]] || {
+  printf '独立环境项目名不以 hps_bench_ 开头: %s\n' "$isolated_project" >&2
+  exit 1
+}
+[ -f "$isolated_env" ] || { printf '独立环境 env 文件未创建: %s\n' "$isolated_env" >&2; exit 1; }
+[ "$(stat -c '%a' "$isolated_env")" = "600" ] || {
+  printf '独立环境 env 文件权限非 0600\n' >&2
+  exit 1
+}
+[ "$(stat -c '%a' "$isolated_dir")" = "700" ] || {
+  printf '独立环境临时目录权限非 0700\n' >&2
+  exit 1
+}
+grep -q '^HPS_HTTP_PORT=0$' "$isolated_env" || {
+  printf '独立环境 env 缺少 HPS_HTTP_PORT=0\n' >&2
+  exit 1
+}
+[ "$(grep -c '^docker.sh <deploy>' "$ISOLATED_CALLS")" = "1" ] || {
+  printf '独立环境未恰好调用一次 deploy\n' >&2
+  exit 1
+}
+grep -Fx "docker.sh <deploy> <--project-name> <$isolated_project> <--env-file> <$isolated_env>" \
+  "$ISOLATED_CALLS" >/dev/null || {
+  printf 'deploy 未使用预期的 --project-name/--env-file 调用\n' >&2
+  exit 1
+}
+[ "$(grep -c '^docker.sh <base-url>' "$ISOLATED_CALLS")" = "1" ] || {
+  printf '独立环境未恰好调用一次 base-url\n' >&2
+  exit 1
+}
+
+# runtime-fingerprint：不得输出 env 中的密钥
+isolated_auth_secret=$(grep '^AUTH_SECRET=' "$isolated_env" 2>/dev/null | cut -d= -f2-)
+isolated_fp=$(run_isolated_helper "
+  HPS_ISOLATED_PROJECT_NAME=$isolated_project
+  HPS_ISOLATED_ENV_FILE=$isolated_env
+  hps_runtime_fingerprint
+") || { printf 'hps_runtime_fingerprint 返回非零\n' >&2; exit 1; }
+if [ -n "$isolated_auth_secret" ] && printf '%s\n' "$isolated_fp" | grep -Fq "$isolated_auth_secret"; then
+  printf 'hps_runtime_fingerprint 输出中泄露了密钥\n' >&2
+  exit 1
+fi
+
+# cleanup：down --volumes 恰好一次，随后删除 env
+: > "$ISOLATED_CALLS"
+run_isolated_helper "
+  HPS_ISOLATED_PROJECT_NAME=$isolated_project
+  HPS_ISOLATED_ENV_FILE=$isolated_env
+  HPS_ISOLATED_TEMP_DIR=$isolated_dir
+  hps_cleanup_isolated_environment
+" || { printf 'hps_cleanup_isolated_environment 返回非零\n' >&2; exit 1; }
+grep -Fx "docker.sh <down> <--project-name> <$isolated_project> <--env-file> <$isolated_env> <--volumes>" \
+  "$ISOLATED_CALLS" >/dev/null || {
+  printf 'cleanup 未以 --project-name/--env-file/--volumes 调用 down\n' >&2
+  exit 1
+}
+[ "$(grep -c '^docker.sh <down>' "$ISOLATED_CALLS")" = "1" ] || {
+  printf 'cleanup 未恰好调用一次 down\n' >&2
+  exit 1
+}
+[ ! -e "$isolated_env" ] || { printf 'cleanup 后 env 文件仍然存在\n' >&2; exit 1; }
+[ ! -e "$isolated_dir" ] || { printf 'cleanup 后 0700 父目录仍然存在\n' >&2; exit 1; }
+
+# cleanup：env 已丢失时省略 --env-file，仍调用 down --volumes 完成清理
+: > "$ISOLATED_CALLS"
+run_isolated_helper "
+  HPS_ISOLATED_PROJECT_NAME=hps_bench_missingenv
+  HPS_ISOLATED_ENV_FILE=$TEMP_DIR/isolated-missing-env-\$\$
+  hps_cleanup_isolated_environment
+" || { printf 'env 缺失时 cleanup 返回非零\n' >&2; exit 1; }
+grep -Fx "docker.sh <down> <--project-name> <hps_bench_missingenv> <--volumes>" "$ISOLATED_CALLS" >/dev/null || {
+  printf 'env 缺失时 cleanup 未省略 --env-file 调用 down --volumes\n' >&2
+  exit 1
+}
+
+# deploy 失败：仍必须清理（down --volumes 被调用），且原始失败码保留
+: > "$ISOLATED_CALLS"
+if run_isolated_helper "
+  export FAKE_DEPLOY_RC=55
+  hps_start_isolated_environment bench 20260101_000001
+"; then
+  printf 'deploy 失败时 hps_start_isolated_environment 应返回非零\n' >&2
+  exit 1
+fi
+grep -q '^docker.sh <down>.*<--volumes>$' "$ISOLATED_CALLS" || {
+  printf 'deploy 失败后未清理独立环境（缺少 down --volumes）\n' >&2
+  exit 1
+}
+
+# base-url 解析失败：仍必须清理
+: > "$ISOLATED_CALLS"
+if run_isolated_helper "
+  export FAKE_BASE_URL_RC=31
+  hps_start_isolated_environment bench 20260101_000002
+"; then
+  printf 'base-url 失败时 hps_start_isolated_environment 应返回非零\n' >&2
+  exit 1
+fi
+grep -q '^docker.sh <down>.*<--volumes>$' "$ISOLATED_CALLS" || {
+  printf 'base-url 解析失败后未清理独立环境（缺少 down --volumes）\n' >&2
+  exit 1
+}
+
+# 捕获的调用记录与输出中不得出现测试凭据
+isolated_secret_probe=(
+  "$isolated_auth_secret"
+)
+for isolated_secret in "${isolated_secret_probe[@]}"; do
+  [ -n "$isolated_secret" ] || continue
+  if grep -Fq "$isolated_secret" "$ISOLATED_CALLS"; then
+    printf '独立环境调用记录泄露了密钥\n' >&2
+    exit 1
+  fi
+done
+
+# docker.sh runtime-fingerprint：只读接口必须存在，且不得输出密钥或响应体
+isolated_rf_probe_env="$TEMP_DIR/isolated-rf-probe.env"
+umask 077
+printf 'AUTH_SECRET=%s\n' "probe_secret_value_not_expected_in_output" > "$isolated_rf_probe_env"
+umask 0022
+if ! isolated_rf_output=$(bash "$PROJECT_ROOT/scripts/docker.sh" runtime-fingerprint \
+  --project-name hps_bench_rfprobe --env-file "$isolated_rf_probe_env" 2>&1); then
+  printf 'docker.sh runtime-fingerprint 接口不存在或执行失败\n' >&2
+  exit 1
+fi
+[ -n "$isolated_rf_output" ] || { printf 'docker.sh runtime-fingerprint 无输出\n' >&2; exit 1; }
+if printf '%s\n' "$isolated_rf_output" | grep -Fq 'probe_secret_value_not_expected_in_output'; then
+  printf 'docker.sh runtime-fingerprint 输出中泄露了 env 内容\n' >&2
+  exit 1
+fi
+
+# runtime-fingerprint 失败必须保持 stdout 为空，且 Compose JSON 必须按服务边界解析。
+runtime_fingerprint_fake_bin="$TEMP_DIR/runtime-fingerprint-docker-bin"
+runtime_fingerprint_calls="$TEMP_DIR/runtime-fingerprint-calls.log"
+mkdir "$runtime_fingerprint_fake_bin"
+cat > "$runtime_fingerprint_fake_bin/docker" <<'EOF'
+#!/usr/bin/env bash
+set -euo pipefail
+printf 'docker' >> "$RUNTIME_FINGERPRINT_CALLS"
+printf ' <%s>' "$@" >> "$RUNTIME_FINGERPRINT_CALLS"
+printf '\n' >> "$RUNTIME_FINGERPRINT_CALLS"
+case "$*" in
+  "info")
+    if [ "${FAKE_RUNTIME_FINGERPRINT_DOCKER_INFO_RC:-0}" -ne 0 ]; then
+      printf 'fake docker diagnostic: %s\n' "${FAKE_RUNTIME_FINGERPRINT_DIAGNOSTIC:-}" >&2
+      exit "$FAKE_RUNTIME_FINGERPRINT_DOCKER_INFO_RC"
+    fi
+    exit 0
+    ;;
+  "compose version") exit 0 ;;
+  *" config --quiet")
+    if [ "${FAKE_RUNTIME_FINGERPRINT_CONFIG_QUIET_RC:-0}" -ne 0 ]; then
+      printf 'fake compose diagnostic: %s\n' "${FAKE_RUNTIME_FINGERPRINT_DIAGNOSTIC:-}" >&2
+      exit "$FAKE_RUNTIME_FINGERPRINT_CONFIG_QUIET_RC"
+    fi
+    exit 0
+    ;;
+  *" config --no-interpolate --hash high-performance-server")
+    printf '%s\n' 'high-performance-server 0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef'
+    exit 0
+    ;;
+  *" config --no-interpolate --format json high-performance-server")
+    printf '%s\n' "${FAKE_RUNTIME_FINGERPRINT_CONFIG_JSON:?}"
+    exit 0
+    ;;
+  *" ps --all --quiet high-performance-server") exit 0 ;;
+  *)
+    printf 'unexpected fake docker invocation\n' >&2
+    exit 99
+    ;;
+esac
+EOF
+chmod 700 "$runtime_fingerprint_fake_bin/docker"
+
+runtime_fingerprint_failure_stdout="$TEMP_DIR/runtime-fingerprint-failure.stdout"
+runtime_fingerprint_failure_stderr="$TEMP_DIR/runtime-fingerprint-failure.stderr"
+: > "$runtime_fingerprint_calls"
+if RUNTIME_FINGERPRINT_CALLS="$runtime_fingerprint_calls" \
+  FAKE_RUNTIME_FINGERPRINT_DOCKER_INFO_RC=74 \
+  FAKE_RUNTIME_FINGERPRINT_DIAGNOSTIC="$isolated_auth_secret" \
+  PATH="$runtime_fingerprint_fake_bin:$PATH" \
+  bash "$PROJECT_ROOT/scripts/docker.sh" runtime-fingerprint \
+    --project-name hps_bench_rfprobe --env-file "$isolated_rf_probe_env" \
+    >"$runtime_fingerprint_failure_stdout" 2>"$runtime_fingerprint_failure_stderr"; then
+  printf 'Docker 服务不可用时 runtime-fingerprint 应返回非零\n' >&2
+  exit 1
+fi
+[ ! -s "$runtime_fingerprint_failure_stdout" ] || {
+  printf 'Docker 服务不可用时 stdout 不应包含诊断\n' >&2
+  exit 1
+}
+grep -Fx '错误: Docker 服务不可用' "$runtime_fingerprint_failure_stderr" >/dev/null || {
+  printf 'Docker 服务不可用时 stderr 缺少安全诊断\n' >&2
+  exit 1
+}
+if grep -Fq "$isolated_auth_secret" "$runtime_fingerprint_failure_stdout" "$runtime_fingerprint_failure_stderr"; then
+  printf 'Docker 服务不可用诊断泄露了密钥\n' >&2
+  exit 1
+fi
+
+: > "$runtime_fingerprint_calls"
+if RUNTIME_FINGERPRINT_CALLS="$runtime_fingerprint_calls" \
+  FAKE_RUNTIME_FINGERPRINT_CONFIG_QUIET_RC=75 \
+  FAKE_RUNTIME_FINGERPRINT_DIAGNOSTIC="$isolated_auth_secret" \
+  PATH="$runtime_fingerprint_fake_bin:$PATH" \
+  bash "$PROJECT_ROOT/scripts/docker.sh" runtime-fingerprint \
+    --project-name hps_bench_rfprobe --env-file "$isolated_rf_probe_env" \
+    >"$runtime_fingerprint_failure_stdout" 2>"$runtime_fingerprint_failure_stderr"; then
+  printf 'Compose 配置无效时 runtime-fingerprint 应返回非零\n' >&2
+  exit 1
+fi
+[ ! -s "$runtime_fingerprint_failure_stdout" ] || {
+  printf 'runtime-fingerprint 失败时 stdout 不应包含诊断\n' >&2
+  exit 1
+}
+grep -Fx '错误: Compose 配置无效或无法验证' "$runtime_fingerprint_failure_stderr" >/dev/null || {
+  printf 'runtime-fingerprint 失败时 stderr 缺少安全诊断\n' >&2
+  exit 1
+}
+if grep -Fq "$isolated_auth_secret" "$runtime_fingerprint_failure_stdout" "$runtime_fingerprint_failure_stderr"; then
+  printf 'runtime-fingerprint 失败诊断泄露了密钥\n' >&2
+  exit 1
+fi
+
+runtime_fingerprint_success_stdout="$TEMP_DIR/runtime-fingerprint-success.stdout"
+runtime_fingerprint_success_stderr="$TEMP_DIR/runtime-fingerprint-success.stderr"
+: > "$runtime_fingerprint_calls"
+if ! RUNTIME_FINGERPRINT_CALLS="$runtime_fingerprint_calls" \
+  FAKE_RUNTIME_FINGERPRINT_CONFIG_JSON='{"services":{"high-performance-server":{"image":"hps-server:fixture"}}}' \
+  PATH="$runtime_fingerprint_fake_bin:$PATH" \
+  bash "$PROJECT_ROOT/scripts/docker.sh" runtime-fingerprint \
+    --project-name hps_bench_rfprobe --env-file "$isolated_rf_probe_env" \
+    >"$runtime_fingerprint_success_stdout" 2>"$runtime_fingerprint_success_stderr"; then
+  printf '紧凑 JSON 的服务镜像应能生成 runtime-fingerprint\n' >&2
+  exit 1
+fi
+[ "$(wc -l < "$runtime_fingerprint_success_stdout")" -eq 1 ] &&
+  grep -Eq '^sha256:[0-9a-f]{64}$' "$runtime_fingerprint_success_stdout" || {
+  printf 'runtime-fingerprint 成功 stdout 必须仅为小写 SHA-256\n' >&2
+  exit 1
+}
+[ ! -s "$runtime_fingerprint_success_stderr" ] || {
+  printf 'runtime-fingerprint 成功时 stderr 应为空\n' >&2
+  exit 1
+}
+if grep -Eq '<(up|down|build|health|stop|rm)>' "$runtime_fingerprint_calls"; then
+  printf 'runtime-fingerprint 调用了非只读 Docker 操作\n' >&2
+  exit 1
+fi
+
+runtime_fingerprint_missing_stdout="$TEMP_DIR/runtime-fingerprint-missing.stdout"
+runtime_fingerprint_missing_stderr="$TEMP_DIR/runtime-fingerprint-missing.stderr"
+: > "$runtime_fingerprint_calls"
+if RUNTIME_FINGERPRINT_CALLS="$runtime_fingerprint_calls" \
+  FAKE_RUNTIME_FINGERPRINT_CONFIG_JSON=$'{\n  "services": {\n    "high-performance-server": {\n      "environment": {}\n    },\n    "nginx": {\n      "image": "nginx:fixture"\n    }\n  }\n}' \
+  PATH="$runtime_fingerprint_fake_bin:$PATH" \
+  bash "$PROJECT_ROOT/scripts/docker.sh" runtime-fingerprint \
+    --project-name hps_bench_rfprobe --env-file "$isolated_rf_probe_env" \
+    >"$runtime_fingerprint_missing_stdout" 2>"$runtime_fingerprint_missing_stderr"; then
+  printf 'high-performance-server 缺少 image 时 runtime-fingerprint 应返回非零\n' >&2
+  exit 1
+fi
+[ ! -s "$runtime_fingerprint_missing_stdout" ] || {
+  printf '服务镜像缺失时 stdout 不应包含诊断\n' >&2
+  exit 1
+}
+grep -Fx '错误: 无法解析 high-performance-server 镜像' "$runtime_fingerprint_missing_stderr" >/dev/null || {
+  printf '服务镜像缺失时 stderr 缺少安全诊断\n' >&2
+  exit 1
+}
+if grep -Fq "$isolated_auth_secret" "$runtime_fingerprint_missing_stdout" "$runtime_fingerprint_missing_stderr"; then
+  printf '服务镜像缺失诊断泄露了密钥\n' >&2
+  exit 1
+fi
+rm -f "$isolated_rf_probe_env"
+
+echo 'isolated_docker_env.sh 生命周期回归通过'

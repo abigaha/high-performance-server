@@ -1,8 +1,8 @@
 {
   "server": {
     "port": 9090,
-    "backlog": 128,
-    "thread_count": 4,
+    "backlog": 1024,
+    "thread_count": 16,
     "epoll_timeout_ms": 100,
     "normal_max_size": 10485760,
     "vip_max_size": 104857600
@@ -12,7 +12,7 @@
     "username": "root",
     "password": "123456",
     "database": "music_server",
-    "pool_size": 10,
+    "pool_size": 32,
     "connect_timeout_ms": 3000,
     "read_timeout_ms": 5000
   },

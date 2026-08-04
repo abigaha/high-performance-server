@@ -1,0 +1,45 @@
+==========================================
+  HTTP RPS 压力测试报告
+  时间: 20260804_182021
+  Git:  433f20e (dirty=true)
+  主机: jmjvm
+  CPU:  11th Gen Intel(R) Core(TM) i5-11400H @ 2.70GHz
+  核心: 8
+  Profile: overload
+==========================================
+
+入口: http://127.0.0.1:32783
+上传保护: 单元时长=5s 请求间隔=250ms
+预检: passed
+矩阵: 25/25
+通过: 10  过载观测: 15  失败: 0
+non-2xx: 41908  unexpected: 41908  socket errors: 62347
+结论: passed
+
+场景                   方法     载荷           并发          RPS        P50        P90        P99   non2xx   socket           结果
+==========================================================================================================================
+health               GET    none       2000      13254.6    10.34ms    13.95ms    40.01ms        0        0       passed
+health               GET    none       5000       3867.2      1.23s      2.79s      4.10s    19690      581   overloaded
+health               GET    none      10000       1209.1      1.92s      3.73s      4.62s    18155      898   overloaded
+auth_me              GET    none       2000        895.7      2.64s      2.68s      2.74s     4063      392   overloaded
+auth_me              GET    none       5000        742.4      2.48s      4.51s      4.95s        0    11118   overloaded
+auth_me              GET    none      10000        735.7      4.36s      4.64s      4.88s        0    11238   overloaded
+files_list           GET    none       2000        370.9      2.73s      4.41s      4.43s        0     5387   overloaded
+files_list           GET    none       5000        371.9      2.51s      4.50s      4.94s        0     5600   overloaded
+files_list           GET    none      10000        364.7      2.85s      4.53s      4.95s        0     5559   overloaded
+music_list           GET    none       2000        368.9      2.49s      4.52s      4.95s        0     5541   overloaded
+music_list           GET    none       5000        366.9      2.53s      4.51s      4.94s        0     5533   overloaded
+music_list           GET    none      10000        364.8      2.75s      4.52s      4.95s        0     5550   overloaded
+upload_1kb           POST   1KB           2          5.6    84.29ms   104.59ms   111.51ms        0        0       passed
+upload_1kb           POST   1KB           5         13.9    91.25ms   105.09ms   113.85ms        0        0       passed
+upload_1mb           POST   1MB           2          5.6    99.50ms   125.90ms   181.93ms        0        0       passed
+upload_1mb           POST   1MB           5         11.1   165.47ms   236.71ms   345.15ms        0        0       passed
+download_1kb         GET    1KB         100        249.8   384.26ms   389.61ms   396.91ms        0        0       passed
+download_1kb         GET    1KB         500        249.2      1.99s      2.00s      2.02s        0        0       passed
+download_1kb         GET    1KB        1000        249.8      4.00s      4.02s      4.03s        0        0       passed
+download_1mb         GET    1MB         100         78.8      1.16s      1.40s      1.58s        0        0       passed
+download_1mb         GET    1MB         500         79.8      2.71s      4.57s      4.98s        0     1218   overloaded
+download_1mb         GET    1MB        1000         75.2      2.60s      4.55s      4.93s        0     1136   overloaded
+range_1mb            GET    1KB-range    100         86.4      1.07s      1.27s      1.47s        0        0       passed
+range_1mb            GET    1KB-range    500         85.9      2.60s      4.53s      4.97s        0     1283   overloaded
+range_1mb            GET    1KB-range   1000         86.8      2.54s      4.42s      4.95s        0     1313   overloaded

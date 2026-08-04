@@ -1,0 +1,51 @@
+{
+  "schema_version": 1,
+  "kind": "rps",
+  "target": "rps",
+  "profile": "overload",
+  "run_id": "20260803_220550",
+  "state": "failed",
+  "attempt": 1,
+  "started_at": "2026-08-03T14:07:33Z",
+  "finished_at": "2026-08-03T14:07:33Z",
+  "run_fingerprint": "754856ca01115555f1d9b0f26e18659aceed2c2ae5815c3507c95ffdd55ace3d",
+  "fingerprint_inputs": {
+    "cell_timeout_grace_seconds": "2",
+    "duration_seconds": "1",
+    "profile": "overload",
+    "read_concurrency": "2000 5000 10000",
+    "repeats": "1",
+    "request_timeout_seconds": "1",
+    "target_fingerprint": "sha256:ea402cf5662e9833ca3f582817729ee558fefa483290fad0c97ee94c8f828b62",
+    "transfer_concurrency": "100 500 1000",
+    "upload_concurrency": "2 5",
+    "upload_delay_milliseconds": "250",
+    "upload_duration_seconds": "1"
+  },
+  "environment": {
+    "target_mode": "managed",
+    "git_hash": "433f20e",
+    "git_dirty": true,
+    "hostname": "jmjvm",
+    "cpu_model": "11th Gen Intel(R) Core(TM) i5-11400H @ 2.70GHz",
+    "cpu_cores": 8,
+    "memory_kb": 8078744
+  },
+  "status": "failed",
+  "exit_code": 1,
+  "elapsed_seconds": 0,
+  "raw_file": "raw.txt",
+  "report_file": "report.txt",
+  "result": {
+    "status": "failed",
+    "exit_code": 1,
+    "elapsed_seconds": 0
+  },
+  "metrics": {
+    "expected_cells": 25,
+    "completed_cells": 0,
+    "failed_cells": 0,
+    "overloaded_cells": 0
+  },
+  "cells": {}
+}

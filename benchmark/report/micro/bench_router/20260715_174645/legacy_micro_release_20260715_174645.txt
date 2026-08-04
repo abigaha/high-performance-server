@@ -1,0 +1,8 @@
+--- bench_bench_router ---
+  BM_Router_MatchStatic                         150.84 ns
+  BM_Router_MatchParam                          248.14 ns
+  BM_Router_MatchNotFound                       124.29 ns
+  BM_Router_PathExists                          155.33 ns
+  BM_Router_MatchLongPath                       251.55 ns
+  BM_Router_MatchLargeTable                     143.90 ns
+

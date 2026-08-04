@@ -1,0 +1,36 @@
+==========================================
+  微基准测试报告
+  时间: 20260804_103933
+  Git:  433f20e (dirty=true)
+  主机: jmjvm
+  CPU:  11th Gen Intel(R) Core(TM) i5-11400H @ 2.70GHz
+  核心: 8
+  Profile: default
+==========================================
+
+目标: bench_router
+运行 ID: 20260804_104000
+状态: passed
+退出码: 0
+耗时: 2s
+
+--- 原始输出 ---
+2026-08-04T10:40:39+08:00
+Running /home/jmj/work-space/projects/high-performance-server/bin/bench_router
+Run on (8 X 2688 MHz CPU s)
+CPU Caches:
+  L1 Data 48 KiB (x8)
+  L1 Instruction 32 KiB (x8)
+  L2 Unified 1280 KiB (x8)
+  L3 Unified 12288 KiB (x8)
+Load Average: 1.47, 1.03, 1.14
+***WARNING*** Library was built as DEBUG. Timings may be affected.
+--------------------------------------------------------------------
+Benchmark                          Time             CPU   Iterations
+--------------------------------------------------------------------
+BM_Router_MatchStatic           3145 ns         3118 ns        80193
+BM_Router_MatchParam            5465 ns         5462 ns        50428
+BM_Router_MatchNotFound         2043 ns         2015 ns        67744
+BM_Router_PathExists            2804 ns         2802 ns        75438
+BM_Router_MatchLongPath         6738 ns         6700 ns        38300
+BM_Router_MatchLargeTable       2170 ns         2157 ns        68176

@@ -1,0 +1,36 @@
+==========================================
+  微基准测试报告
+  时间: 20260804_103933
+  Git:  433f20e (dirty=true)
+  主机: jmjvm
+  CPU:  11th Gen Intel(R) Core(TM) i5-11400H @ 2.70GHz
+  核心: 8
+  Profile: default
+==========================================
+
+目标: bench_lock_free_queue
+运行 ID: 20260804_104000
+状态: passed
+退出码: 0
+耗时: 9s
+
+--- 原始输出 ---
+2026-08-04T10:40:21+08:00
+Running /home/jmj/work-space/projects/high-performance-server/bin/bench_lock_free_queue
+Run on (8 X 2688 MHz CPU s)
+CPU Caches:
+  L1 Data 48 KiB (x8)
+  L1 Instruction 32 KiB (x8)
+  L2 Unified 1280 KiB (x8)
+  L3 Unified 12288 KiB (x8)
+Load Average: 0.60, 0.84, 1.08
+***WARNING*** Library was built as DEBUG. Timings may be affected.
+-------------------------------------------------------------------------------------------
+Benchmark                                 Time             CPU   Iterations UserCounters...
+-------------------------------------------------------------------------------------------
+BM_LockFreeQueue_SPSC_1k            2369812 ns       254363 ns          547 items_per_second=39.3139M/s
+BM_LockFreeQueue_SPSC_10k          17000990 ns       271806 ns          100 items_per_second=367.91M/s
+BM_LFQ_MPSC_Contention/2/1/10000    3557016 ns       311449 ns          569 items_per_second=64.216M/s
+BM_LFQ_MPSC_Contention/4/1/5000     2408244 ns       333672 ns          332 items_per_second=59.9392M/s
+BM_LFQ_HighContention/8/5000        3610630 ns       600016 ns          253 items_per_second=66.6649M/s
+BM_LFQ_HighContention/16/2000       2805603 ns      1047782 ns          149 items_per_second=30.5407M/s

@@ -204,9 +204,9 @@ TEST(ThreadPoolStressTest, StopWakesWorkersAfterQueueBecomesIdle) {
   stop_future.get();
 }
 
-TEST(ThreadPoolStressTest, ManyShortTasks) {
-  LockFreeThreadPool pool(4);
-  constexpr int kTasks = 10000;
+TEST(ThreadPoolStressTest, ManyWorkersDrainShortTaskBurst) {
+  LockFreeThreadPool pool(32);
+  constexpr int kTasks = 50000;
   std::atomic<int> counter{0};
   for (int i = 0; i < kTasks; ++i) {
     pool.enqueue([&counter] { counter.fetch_add(1, std::memory_order_relaxed); });

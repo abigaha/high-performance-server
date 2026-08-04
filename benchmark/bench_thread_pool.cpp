@@ -106,36 +106,4 @@ static void BM_LockedThreadPool_EnqueueDelay(benchmark::State& state) {
 
 BENCHMARK(BM_LockedThreadPool_EnqueueDelay)->Arg(1000)->Arg(10000);
 
-static void BM_LockFree_vs_Locked_Compare(benchmark::State& state) {
-  int total = state.range(0);
-  bool use_lockfree = static_cast<bool>(state.range(1));
-  std::atomic<int> counter{0};
-  if (use_lockfree) {
-    hps::LockFreeThreadPool pool(4);
-    for (auto _ : state) {
-      counter.store(0);
-      for (int i = 0; i < total; ++i) {
-        pool.enqueue([&counter] { counter.fetch_add(1, std::memory_order_relaxed); });
-      }
-      pool.wait_for_all_tasks();
-      benchmark::DoNotOptimize(counter.load());
-    }
-    pool.stop();
-  } else {
-    hps::LockedThreadPool pool(4);
-    for (auto _ : state) {
-      counter.store(0);
-      for (int i = 0; i < total; ++i) {
-        pool.enqueue([&counter] { counter.fetch_add(1, std::memory_order_relaxed); });
-      }
-      pool.wait_for_all_tasks();
-      benchmark::DoNotOptimize(counter.load());
-    }
-    pool.stop();
-  }
-  state.SetItemsProcessed(state.iterations() * total);
-}
-
-BENCHMARK(BM_LockFree_vs_Locked_Compare)->Args({1000, 1})->Args({1000, 0});
-
 BENCHMARK_MAIN();

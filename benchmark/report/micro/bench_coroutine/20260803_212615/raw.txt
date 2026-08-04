@@ -1,0 +1,18 @@
+2026-08-03T21:26:19+08:00
+Running /home/jmj/work-space/projects/high-performance-server/bin/bench_coroutine
+Run on (8 X 2688 MHz CPU s)
+CPU Caches:
+  L1 Data 48 KiB (x8)
+  L1 Instruction 32 KiB (x8)
+  L2 Unified 1280 KiB (x8)
+  L3 Unified 12288 KiB (x8)
+Load Average: 1.09, 1.42, 1.33
+***WARNING*** Library was built as DEBUG. Timings may be affected.
+-------------------------------------------------------------------------
+Benchmark                               Time             CPU   Iterations
+-------------------------------------------------------------------------
+BM_Coroutine_CreateAndRun            10.3 ns         10.3 ns     12397859
+BM_Coro_AwaitReadWrite               16.0 ns         15.8 ns     11019327
+BM_Coro_SwitchingOverhead/10         28.1 ns         27.6 ns      4004068
+BM_Coro_SwitchingOverhead/100         821 ns          821 ns       180168
+BM_Coro_SwitchingOverhead/1000       7484 ns         7455 ns        16263

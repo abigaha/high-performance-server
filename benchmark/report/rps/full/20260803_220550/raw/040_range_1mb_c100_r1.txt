@@ -1,0 +1,25 @@
+Running 1s test @ http://127.0.0.1:32776/api/files/2/stream
+  8 threads and 100 connections
+  Thread Stats   Avg      Stdev     Max   +/- Stdev
+    Latency    21.26ms    2.63ms  30.18ms   82.25%
+    Req/Sec   560.21     52.36   696.00     73.26%
+  Latency Distribution
+     50%   21.19ms
+     75%   22.42ms
+     90%   23.87ms
+     99%   28.52ms
+  4799 requests in 1.10s, 2.41MB read
+  Non-2xx or 3xx responses: 4799
+Requests/sec:   4370.80
+Transfer/sec:      2.20MB
+HPS_WRK_REQUESTS 4799
+HPS_WRK_STATUS_ERRORS 4799
+HPS_SOCKET_CONNECT 0
+HPS_SOCKET_READ 0
+HPS_SOCKET_WRITE 0
+HPS_SOCKET_TIMEOUT 0
+HPS_STATUS_TOTAL 4799
+HPS_STATUS_2XX 0
+HPS_STATUS_NON_2XX 4799
+HPS_STATUS_UNEXPECTED 4799
+HPS_STATUS_CODES 500=4799

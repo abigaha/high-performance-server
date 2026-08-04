@@ -1,0 +1,16 @@
+2026-08-03T18:17:30+08:00
+Running /home/jmj/work-space/projects/high-performance-server/bin/bench_chunk_header
+Run on (8 X 2688 MHz CPU s)
+CPU Caches:
+  L1 Data 48 KiB (x8)
+  L1 Instruction 32 KiB (x8)
+  L2 Unified 1280 KiB (x8)
+  L3 Unified 12288 KiB (x8)
+Load Average: 3.88, 7.38, 8.19
+***WARNING*** Library was built as DEBUG. Timings may be affected.
+---------------------------------------------------------------------
+Benchmark                           Time             CPU   Iterations
+---------------------------------------------------------------------
+BM_ChunkHeader_ToNetwork         28.1 ns         28.1 ns      6546055
+BM_ChunkHeader_FromNetwork       21.3 ns         21.2 ns      5649651
+BM_ChunkHeader_Serialize         1.48 ns         1.47 ns    107704271

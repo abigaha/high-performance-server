@@ -76,6 +76,15 @@ struct EffectiveIdentity {
   std::optional<std::chrono::system_clock::time_point> vip_expires_at;
 };
 
+// 认证期间已读取的可公开用户资料。请求上下文只保留序列化响应所需字段，
+// 避免保存密码散列或盐值，并允许 /api/auth/me 复用认证查询结果。
+struct AuthenticatedUserProfile {
+  int64_t user_id{0};
+  std::string username;
+  std::string email;
+  std::string created_at;
+};
+
 enum class TokenValidationStatus : uint8_t {
   AUTHENTICATED,
   INVALID,
@@ -86,6 +95,7 @@ enum class TokenValidationStatus : uint8_t {
 struct TokenValidationResult {
   TokenValidationStatus status{TokenValidationStatus::INVALID};
   EffectiveIdentity identity;
+  std::optional<AuthenticatedUserProfile> profile;
 };
 
 struct FileRecord {

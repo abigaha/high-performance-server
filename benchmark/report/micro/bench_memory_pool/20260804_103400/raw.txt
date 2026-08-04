@@ -1,0 +1,32 @@
+2026-08-04T10:34:43+08:00
+Running /home/jmj/work-space/projects/high-performance-server/bin/bench_memory_pool
+Run on (8 X 2688 MHz CPU s)
+CPU Caches:
+  L1 Data 48 KiB (x8)
+  L1 Instruction 32 KiB (x8)
+  L2 Unified 1280 KiB (x8)
+  L3 Unified 12288 KiB (x8)
+Load Average: 1.32, 0.92, 1.19
+***WARNING*** Library was built as DEBUG. Timings may be affected.
+------------------------------------------------------------------------------------
+Benchmark                                          Time             CPU   Iterations
+------------------------------------------------------------------------------------
+BM_MemoryPool_AllocateDeallocate/32             88.6 ns         87.4 ns      1747954
+BM_MemoryPool_AllocateDeallocate/64             81.4 ns         81.3 ns      1637458
+BM_MemoryPool_AllocateDeallocate/128            57.7 ns         57.2 ns      3419111
+BM_MemoryPool_AllocateDeallocate/512             106 ns          106 ns      1000000
+BM_MemoryPool_AllocateDeallocate/4096            129 ns          129 ns      1656942
+BM_MemoryPool_BatchAllocate/32/100           1209070 ns      1195511 ns          100 items_per_second=83.6462k/s
+BM_MemoryPool_BatchAllocate/512/100          1260576 ns      1259380 ns          100 items_per_second=79.4041k/s
+BM_MemoryPool_BatchAllocate/4096/100           51787 ns        51779 ns         2400 items_per_second=1.93128M/s
+BM_MemoryPool_MixedSizes                         382 ns          379 ns       264282 items_per_second=15.8164M/s
+BM_MemoryPool_CompareMalloc/32                  18.2 ns         18.2 ns      8275171
+BM_MemoryPool_CompareMalloc/64                  19.0 ns         18.9 ns      9202625
+BM_MemoryPool_CompareMalloc/128                 20.5 ns         20.1 ns      6053350
+BM_MemoryPool_CompareMalloc/512                 12.1 ns         12.0 ns     11743248
+BM_MemoryPool_CompareMalloc/4096                34.0 ns         34.0 ns      3339304
+BM_MemoryPool_MultiThreadAlloc/32/8/1000      548579 ns       488781 ns          261 items_per_second=16.3672M/s
+BM_MemoryPool_MultiThreadAlloc/512/8/500      502746 ns       460203 ns          296 items_per_second=8.69183M/s
+BM_MemoryPool_MultiThreadAlloc/4096/8/200     569633 ns       476312 ns          278 items_per_second=3.35914M/s
+BM_MemoryPool_CrossThreadReturn/32/100        208953 ns        76830 ns         1998 items_per_second=1.30158M/s
+BM_MemoryPool_CrossThreadReturn/512/100       230162 ns        73803 ns         1974 items_per_second=1.35496M/s

@@ -1,0 +1,16 @@
+2026-08-03T18:17:29+08:00
+Running /home/jmj/work-space/projects/high-performance-server/bin/bench_auth_service
+Run on (8 X 2688 MHz CPU s)
+CPU Caches:
+  L1 Data 48 KiB (x8)
+  L1 Instruction 32 KiB (x8)
+  L2 Unified 1280 KiB (x8)
+  L3 Unified 12288 KiB (x8)
+Load Average: 3.88, 7.38, 8.19
+***WARNING*** Library was built as DEBUG. Timings may be affected.
+------------------------------------------------------------------------------------
+Benchmark                          Time             CPU   Iterations UserCounters...
+------------------------------------------------------------------------------------
+BM_AuthRegister/1000          324891 ns       324106 ns          499 items_per_second=3.08541M/s
+BM_AuthAuthenticate/1000     1485008 ns      1481113 ns          107 items_per_second=675.168k/s
+BM_AuthValidateToken/1000    2541477 ns      2536900 ns           47 items_per_second=394.182k/s

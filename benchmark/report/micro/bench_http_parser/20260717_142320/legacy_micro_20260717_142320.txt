@@ -1,0 +1,12 @@
+--- bench_bench_http_parser ---
+  Benchmark                                  Time             CPU   Iterations
+  BM_HttpParser_GetShortPath               904 ns          901 ns       726672
+  BM_HttpParser_GetLongPath               1087 ns         1084 ns       622738
+  BM_HttpParser_PostSmallBody             1270 ns         1267 ns       503073
+  BM_HttpParser_PostLargeBody/1024        6281 ns         6266 ns       130834 bytes_per_second=155.861Mi/s
+  BM_HttpParser_PostLargeBody/4096       19083 ns        19035 ns        36956 bytes_per_second=205.215Mi/s
+  BM_HttpParser_PostLargeBody/32768     144651 ns       144140 ns         5240 bytes_per_second=216.803Mi/s
+  BM_HttpParser_PostLargeBody/65536     353797 ns       352184 ns         1913 bytes_per_second=177.464Mi/s
+  BM_HttpParser_ResetReuse                1131 ns         1125 ns       898201
+  BM_HttpParser_ManyHeaders               2540 ns         2530 ns       279999
+

@@ -1,6 +1,7 @@
 #include "boost_mysql_connection.h"
 
 #include "detail/mysql_field_to_string.h"
+#include "prepared_statement_guard.h"
 
 #include <algorithm>
 #include <array>
@@ -257,7 +258,9 @@ public:
         conn_.execute(sql, result);
       } else {
         auto stmt = conn_.prepare_statement(sql);
+        detail::PreparedStatementGuard close_guard{conn_, stmt};
         execute_stmt(stmt, params, result);
+        close_guard.close();
       }
 
       last_id_ = static_cast<int64_t>(result.last_insert_id());
@@ -278,10 +281,12 @@ public:
     } catch (const mysql::error_with_diagnostics& e) {
       static_cast<void>(e);
       std::cerr << "[mysql] query failed" << std::endl;
+      close_socket();
       return std::nullopt;
     } catch (const std::exception& e) {
       static_cast<void>(e);
       std::cerr << "[mysql] query failed" << std::endl;
+      close_socket();
       return std::nullopt;
     }
   }
@@ -293,17 +298,21 @@ public:
         conn_.execute(sql, result);
       } else {
         auto stmt = conn_.prepare_statement(sql);
+        detail::PreparedStatementGuard close_guard{conn_, stmt};
         execute_stmt(stmt, params, result);
+        close_guard.close();
       }
       last_id_ = static_cast<int64_t>(result.last_insert_id());
       return static_cast<int64_t>(result.affected_rows());
     } catch (const mysql::error_with_diagnostics& e) {
       static_cast<void>(e);
       std::cerr << "[mysql] execute failed" << std::endl;
+      close_socket();
       return std::nullopt;
     } catch (const std::exception& e) {
       static_cast<void>(e);
       std::cerr << "[mysql] execute failed" << std::endl;
+      close_socket();
       return std::nullopt;
     }
   }

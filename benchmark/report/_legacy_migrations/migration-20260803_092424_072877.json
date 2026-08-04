@@ -1,0 +1,681 @@
+{
+  "schema_version": 1,
+  "migrated_at": "2026-08-03T09:24:24.072804Z",
+  "entries": [
+    {
+      "kind": "rps",
+      "source_path": "load_20260718_171912.txt",
+      "source_sha256": "80180b7e37f80b7ebcd2c20edb1344888fb31fc7686b6e266bff7159f6edfa93",
+      "byte_start": 0,
+      "byte_end": 3479,
+      "section_title": null,
+      "destination_path": "rps/_legacy_aggregate/20260718_171912/legacy_load_20260718_171912.txt"
+    },
+    {
+      "kind": "rps",
+      "source_path": "load_20260718_181105.txt",
+      "source_sha256": "2bebf77a2dd95f7ebc986ec235c04918556606b4f8842415e7a8ccc58b4781bc",
+      "byte_start": 0,
+      "byte_end": 4883,
+      "section_title": null,
+      "destination_path": "rps/_legacy_aggregate/20260718_181105/legacy_load_20260718_181105.txt"
+    },
+    {
+      "kind": "rps",
+      "source_path": "load_debug_20260715_172228.txt",
+      "source_sha256": "a35cf85682ab2119e73f8da97bffc30c08d0b636a4934f2702498f1d2c769487",
+      "byte_start": 0,
+      "byte_end": 1560,
+      "section_title": null,
+      "destination_path": "rps/_legacy_aggregate/20260715_172228/legacy_load_debug_20260715_172228.txt"
+    },
+    {
+      "kind": "rps",
+      "source_path": "load_debug_20260715_175124.txt",
+      "source_sha256": "3054eabebfcaf0f0ca263717cb9d1e69308803abd7e218e2f5325c802c3a92fe",
+      "byte_start": 0,
+      "byte_end": 1560,
+      "section_title": null,
+      "destination_path": "rps/_legacy_aggregate/20260715_175124/legacy_load_debug_20260715_175124.txt"
+    },
+    {
+      "kind": "rps",
+      "source_path": "load_release_20260715_173855.txt",
+      "source_sha256": "f2e1810928144ecd7077e475f58a3d0fa26ed208e36d41f09ecfac76241f24fd",
+      "byte_start": 0,
+      "byte_end": 1560,
+      "section_title": null,
+      "destination_path": "rps/_legacy_aggregate/20260715_173855/legacy_load_release_20260715_173855.txt"
+    },
+    {
+      "kind": "micro",
+      "source_path": "micro_20260717_142320.txt",
+      "source_sha256": "b004b3a478b1e3a2f264bc1199d686fc80a897f34055a7df59b71ebd3bc07ed7",
+      "byte_start": 236,
+      "byte_end": 558,
+      "section_title": "bench_bench_chunk_header",
+      "destination_path": "micro/bench_chunk_header/20260717_142320/legacy_micro_20260717_142320.txt"
+    },
+    {
+      "kind": "micro",
+      "source_path": "micro_20260717_142320.txt",
+      "source_sha256": "b004b3a478b1e3a2f264bc1199d686fc80a897f34055a7df59b71ebd3bc07ed7",
+      "byte_start": 558,
+      "byte_end": 731,
+      "section_title": "bench_bench_coroutine",
+      "destination_path": "micro/bench_coroutine/20260717_142320/legacy_micro_20260717_142320.txt"
+    },
+    {
+      "kind": "micro",
+      "source_path": "micro_20260717_142320.txt",
+      "source_sha256": "b004b3a478b1e3a2f264bc1199d686fc80a897f34055a7df59b71ebd3bc07ed7",
+      "byte_start": 731,
+      "byte_end": 1216,
+      "section_title": "bench_bench_database_pool",
+      "destination_path": "micro/bench_database_pool/20260717_142320/legacy_micro_20260717_142320.txt"
+    },
+    {
+      "kind": "micro",
+      "source_path": "micro_20260717_142320.txt",
+      "source_sha256": "b004b3a478b1e3a2f264bc1199d686fc80a897f34055a7df59b71ebd3bc07ed7",
+      "byte_start": 1216,
+      "byte_end": 2704,
+      "section_title": "bench_bench_file_system",
+      "destination_path": "micro/bench_file_system/20260717_142320/legacy_micro_20260717_142320.txt"
+    },
+    {
+      "kind": "micro",
+      "source_path": "micro_20260717_142320.txt",
+      "source_sha256": "b004b3a478b1e3a2f264bc1199d686fc80a897f34055a7df59b71ebd3bc07ed7",
+      "byte_start": 2704,
+      "byte_end": 3643,
+      "section_title": "bench_bench_http_parser",
+      "destination_path": "micro/bench_http_parser/20260717_142320/legacy_micro_20260717_142320.txt"
+    },
+    {
+      "kind": "micro",
+      "source_path": "micro_20260717_142320.txt",
+      "source_sha256": "b004b3a478b1e3a2f264bc1199d686fc80a897f34055a7df59b71ebd3bc07ed7",
+      "byte_start": 3643,
+      "byte_end": 3965,
+      "section_title": "bench_bench_lock_free_queue",
+      "destination_path": "micro/bench_lock_free_queue/20260717_142320/legacy_micro_20260717_142320.txt"
+    },
+    {
+      "kind": "micro",
+      "source_path": "micro_20260717_142320.txt",
+      "source_sha256": "b004b3a478b1e3a2f264bc1199d686fc80a897f34055a7df59b71ebd3bc07ed7",
+      "byte_start": 3965,
+      "byte_end": 5355,
+      "section_title": "bench_bench_memory_pool",
+      "destination_path": "micro/bench_memory_pool/20260717_142320/legacy_micro_20260717_142320.txt"
+    },
+    {
+      "kind": "micro",
+      "source_path": "micro_20260717_142320.txt",
+      "source_sha256": "b004b3a478b1e3a2f264bc1199d686fc80a897f34055a7df59b71ebd3bc07ed7",
+      "byte_start": 5355,
+      "byte_end": 6004,
+      "section_title": "bench_bench_move_only_function",
+      "destination_path": "micro/bench_move_only_function/20260717_142320/legacy_micro_20260717_142320.txt"
+    },
+    {
+      "kind": "micro",
+      "source_path": "micro_20260717_142320.txt",
+      "source_sha256": "b004b3a478b1e3a2f264bc1199d686fc80a897f34055a7df59b71ebd3bc07ed7",
+      "byte_start": 6004,
+      "byte_end": 6529,
+      "section_title": "bench_bench_router",
+      "destination_path": "micro/bench_router/20260717_142320/legacy_micro_20260717_142320.txt"
+    },
+    {
+      "kind": "micro",
+      "source_path": "micro_20260717_142320.txt",
+      "source_sha256": "b004b3a478b1e3a2f264bc1199d686fc80a897f34055a7df59b71ebd3bc07ed7",
+      "byte_start": 6529,
+      "byte_end": 6764,
+      "section_title": "bench_bench_ssl",
+      "destination_path": "micro/bench_ssl/20260717_142320/legacy_micro_20260717_142320.txt"
+    },
+    {
+      "kind": "micro",
+      "source_path": "micro_20260717_142320.txt",
+      "source_sha256": "b004b3a478b1e3a2f264bc1199d686fc80a897f34055a7df59b71ebd3bc07ed7",
+      "byte_start": 6764,
+      "byte_end": 7690,
+      "section_title": "bench_bench_thread_pool",
+      "destination_path": "micro/bench_thread_pool/20260717_142320/legacy_micro_20260717_142320.txt"
+    },
+    {
+      "kind": "micro",
+      "source_path": "micro_20260717_142320.txt",
+      "source_sha256": "b004b3a478b1e3a2f264bc1199d686fc80a897f34055a7df59b71ebd3bc07ed7",
+      "byte_start": 7690,
+      "byte_end": 9098,
+      "section_title": "bench_bench_websocket",
+      "destination_path": "micro/bench_websocket/20260717_142320/legacy_micro_20260717_142320.txt"
+    },
+    {
+      "kind": "micro",
+      "source_path": "micro_20260717_145119.txt",
+      "source_sha256": "12a0b4f1476e2b9cbdc9b2861c42f268c47a29f54ea8779993982068cf0e5ea6",
+      "byte_start": 236,
+      "byte_end": 558,
+      "section_title": "bench_bench_chunk_header",
+      "destination_path": "micro/bench_chunk_header/20260717_145119/legacy_micro_20260717_145119.txt"
+    },
+    {
+      "kind": "micro",
+      "source_path": "micro_20260717_145119.txt",
+      "source_sha256": "12a0b4f1476e2b9cbdc9b2861c42f268c47a29f54ea8779993982068cf0e5ea6",
+      "byte_start": 558,
+      "byte_end": 731,
+      "section_title": "bench_bench_coroutine",
+      "destination_path": "micro/bench_coroutine/20260717_145119/legacy_micro_20260717_145119.txt"
+    },
+    {
+      "kind": "micro",
+      "source_path": "micro_20260717_145119.txt",
+      "source_sha256": "12a0b4f1476e2b9cbdc9b2861c42f268c47a29f54ea8779993982068cf0e5ea6",
+      "byte_start": 731,
+      "byte_end": 1216,
+      "section_title": "bench_bench_database_pool",
+      "destination_path": "micro/bench_database_pool/20260717_145119/legacy_micro_20260717_145119.txt"
+    },
+    {
+      "kind": "micro",
+      "source_path": "micro_20260717_145119.txt",
+      "source_sha256": "12a0b4f1476e2b9cbdc9b2861c42f268c47a29f54ea8779993982068cf0e5ea6",
+      "byte_start": 1216,
+      "byte_end": 2703,
+      "section_title": "bench_bench_file_system",
+      "destination_path": "micro/bench_file_system/20260717_145119/legacy_micro_20260717_145119.txt"
+    },
+    {
+      "kind": "micro",
+      "source_path": "micro_20260717_145119.txt",
+      "source_sha256": "12a0b4f1476e2b9cbdc9b2861c42f268c47a29f54ea8779993982068cf0e5ea6",
+      "byte_start": 2703,
+      "byte_end": 3640,
+      "section_title": "bench_bench_http_parser",
+      "destination_path": "micro/bench_http_parser/20260717_145119/legacy_micro_20260717_145119.txt"
+    },
+    {
+      "kind": "micro",
+      "source_path": "micro_20260717_145119.txt",
+      "source_sha256": "12a0b4f1476e2b9cbdc9b2861c42f268c47a29f54ea8779993982068cf0e5ea6",
+      "byte_start": 3640,
+      "byte_end": 3962,
+      "section_title": "bench_bench_lock_free_queue",
+      "destination_path": "micro/bench_lock_free_queue/20260717_145119/legacy_micro_20260717_145119.txt"
+    },
+    {
+      "kind": "micro",
+      "source_path": "micro_20260717_145119.txt",
+      "source_sha256": "12a0b4f1476e2b9cbdc9b2861c42f268c47a29f54ea8779993982068cf0e5ea6",
+      "byte_start": 3962,
+      "byte_end": 5352,
+      "section_title": "bench_bench_memory_pool",
+      "destination_path": "micro/bench_memory_pool/20260717_145119/legacy_micro_20260717_145119.txt"
+    },
+    {
+      "kind": "micro",
+      "source_path": "micro_20260717_145119.txt",
+      "source_sha256": "12a0b4f1476e2b9cbdc9b2861c42f268c47a29f54ea8779993982068cf0e5ea6",
+      "byte_start": 5352,
+      "byte_end": 6001,
+      "section_title": "bench_bench_move_only_function",
+      "destination_path": "micro/bench_move_only_function/20260717_145119/legacy_micro_20260717_145119.txt"
+    },
+    {
+      "kind": "micro",
+      "source_path": "micro_20260717_145119.txt",
+      "source_sha256": "12a0b4f1476e2b9cbdc9b2861c42f268c47a29f54ea8779993982068cf0e5ea6",
+      "byte_start": 6001,
+      "byte_end": 6526,
+      "section_title": "bench_bench_router",
+      "destination_path": "micro/bench_router/20260717_145119/legacy_micro_20260717_145119.txt"
+    },
+    {
+      "kind": "micro",
+      "source_path": "micro_20260717_145119.txt",
+      "source_sha256": "12a0b4f1476e2b9cbdc9b2861c42f268c47a29f54ea8779993982068cf0e5ea6",
+      "byte_start": 6526,
+      "byte_end": 6761,
+      "section_title": "bench_bench_ssl",
+      "destination_path": "micro/bench_ssl/20260717_145119/legacy_micro_20260717_145119.txt"
+    },
+    {
+      "kind": "micro",
+      "source_path": "micro_20260717_145119.txt",
+      "source_sha256": "12a0b4f1476e2b9cbdc9b2861c42f268c47a29f54ea8779993982068cf0e5ea6",
+      "byte_start": 6761,
+      "byte_end": 7688,
+      "section_title": "bench_bench_thread_pool",
+      "destination_path": "micro/bench_thread_pool/20260717_145119/legacy_micro_20260717_145119.txt"
+    },
+    {
+      "kind": "micro",
+      "source_path": "micro_20260717_145119.txt",
+      "source_sha256": "12a0b4f1476e2b9cbdc9b2861c42f268c47a29f54ea8779993982068cf0e5ea6",
+      "byte_start": 7688,
+      "byte_end": 9096,
+      "section_title": "bench_bench_websocket",
+      "destination_path": "micro/bench_websocket/20260717_145119/legacy_micro_20260717_145119.txt"
+    },
+    {
+      "kind": "micro",
+      "source_path": "micro_20260718_153451.txt",
+      "source_sha256": "fb6cc738e966ce54c320e5b5337eac83e8294dbd9ee6e5709f9de3230bd9ddd5",
+      "byte_start": 236,
+      "byte_end": 552,
+      "section_title": "bench_chunk_header",
+      "destination_path": "micro/bench_chunk_header/20260718_153451/legacy_micro_20260718_153451.txt"
+    },
+    {
+      "kind": "micro",
+      "source_path": "micro_20260718_153451.txt",
+      "source_sha256": "fb6cc738e966ce54c320e5b5337eac83e8294dbd9ee6e5709f9de3230bd9ddd5",
+      "byte_start": 552,
+      "byte_end": 719,
+      "section_title": "bench_coroutine",
+      "destination_path": "micro/bench_coroutine/20260718_153451/legacy_micro_20260718_153451.txt"
+    },
+    {
+      "kind": "micro",
+      "source_path": "micro_20260718_153451.txt",
+      "source_sha256": "fb6cc738e966ce54c320e5b5337eac83e8294dbd9ee6e5709f9de3230bd9ddd5",
+      "byte_start": 719,
+      "byte_end": 1133,
+      "section_title": "bench_database_pool",
+      "destination_path": "micro/bench_database_pool/20260718_153451/legacy_micro_20260718_153451.txt"
+    },
+    {
+      "kind": "micro",
+      "source_path": "micro_20260718_153451.txt",
+      "source_sha256": "fb6cc738e966ce54c320e5b5337eac83e8294dbd9ee6e5709f9de3230bd9ddd5",
+      "byte_start": 1133,
+      "byte_end": 2614,
+      "section_title": "bench_file_system",
+      "destination_path": "micro/bench_file_system/20260718_153451/legacy_micro_20260718_153451.txt"
+    },
+    {
+      "kind": "micro",
+      "source_path": "micro_20260718_153451.txt",
+      "source_sha256": "fb6cc738e966ce54c320e5b5337eac83e8294dbd9ee6e5709f9de3230bd9ddd5",
+      "byte_start": 2614,
+      "byte_end": 3545,
+      "section_title": "bench_http_parser",
+      "destination_path": "micro/bench_http_parser/20260718_153451/legacy_micro_20260718_153451.txt"
+    },
+    {
+      "kind": "micro",
+      "source_path": "micro_20260718_153451.txt",
+      "source_sha256": "fb6cc738e966ce54c320e5b5337eac83e8294dbd9ee6e5709f9de3230bd9ddd5",
+      "byte_start": 3545,
+      "byte_end": 3860,
+      "section_title": "bench_lock_free_queue",
+      "destination_path": "micro/bench_lock_free_queue/20260718_153451/legacy_micro_20260718_153451.txt"
+    },
+    {
+      "kind": "micro",
+      "source_path": "micro_20260718_153451.txt",
+      "source_sha256": "fb6cc738e966ce54c320e5b5337eac83e8294dbd9ee6e5709f9de3230bd9ddd5",
+      "byte_start": 3860,
+      "byte_end": 5244,
+      "section_title": "bench_memory_pool",
+      "destination_path": "micro/bench_memory_pool/20260718_153451/legacy_micro_20260718_153451.txt"
+    },
+    {
+      "kind": "micro",
+      "source_path": "micro_20260718_153451.txt",
+      "source_sha256": "fb6cc738e966ce54c320e5b5337eac83e8294dbd9ee6e5709f9de3230bd9ddd5",
+      "byte_start": 5244,
+      "byte_end": 5887,
+      "section_title": "bench_move_only_function",
+      "destination_path": "micro/bench_move_only_function/20260718_153451/legacy_micro_20260718_153451.txt"
+    },
+    {
+      "kind": "micro",
+      "source_path": "micro_20260718_153451.txt",
+      "source_sha256": "fb6cc738e966ce54c320e5b5337eac83e8294dbd9ee6e5709f9de3230bd9ddd5",
+      "byte_start": 5887,
+      "byte_end": 6406,
+      "section_title": "bench_router",
+      "destination_path": "micro/bench_router/20260718_153451/legacy_micro_20260718_153451.txt"
+    },
+    {
+      "kind": "micro",
+      "source_path": "micro_20260718_153451.txt",
+      "source_sha256": "fb6cc738e966ce54c320e5b5337eac83e8294dbd9ee6e5709f9de3230bd9ddd5",
+      "byte_start": 6406,
+      "byte_end": 6635,
+      "section_title": "bench_ssl",
+      "destination_path": "micro/bench_ssl/20260718_153451/legacy_micro_20260718_153451.txt"
+    },
+    {
+      "kind": "micro",
+      "source_path": "micro_20260718_153451.txt",
+      "source_sha256": "fb6cc738e966ce54c320e5b5337eac83e8294dbd9ee6e5709f9de3230bd9ddd5",
+      "byte_start": 6635,
+      "byte_end": 7336,
+      "section_title": "bench_thread_pool",
+      "destination_path": "micro/bench_thread_pool/20260718_153451/legacy_micro_20260718_153451.txt"
+    },
+    {
+      "kind": "micro",
+      "source_path": "micro_20260718_153451.txt",
+      "source_sha256": "fb6cc738e966ce54c320e5b5337eac83e8294dbd9ee6e5709f9de3230bd9ddd5",
+      "byte_start": 7336,
+      "byte_end": 8737,
+      "section_title": "bench_websocket",
+      "destination_path": "micro/bench_websocket/20260718_153451/legacy_micro_20260718_153451.txt"
+    },
+    {
+      "kind": "micro",
+      "source_path": "micro_20260718_184759.txt",
+      "source_sha256": "87c8a1d68f1fb7c3c4658165f01ad4ba91d28ec53119ddedbad1415241fece61",
+      "byte_start": 236,
+      "byte_end": 552,
+      "section_title": "bench_chunk_header",
+      "destination_path": "micro/bench_chunk_header/20260718_184759/legacy_micro_20260718_184759.txt"
+    },
+    {
+      "kind": "micro",
+      "source_path": "micro_20260718_184759.txt",
+      "source_sha256": "87c8a1d68f1fb7c3c4658165f01ad4ba91d28ec53119ddedbad1415241fece61",
+      "byte_start": 552,
+      "byte_end": 719,
+      "section_title": "bench_coroutine",
+      "destination_path": "micro/bench_coroutine/20260718_184759/legacy_micro_20260718_184759.txt"
+    },
+    {
+      "kind": "micro",
+      "source_path": "micro_20260718_184759.txt",
+      "source_sha256": "87c8a1d68f1fb7c3c4658165f01ad4ba91d28ec53119ddedbad1415241fece61",
+      "byte_start": 719,
+      "byte_end": 1133,
+      "section_title": "bench_database_pool",
+      "destination_path": "micro/bench_database_pool/20260718_184759/legacy_micro_20260718_184759.txt"
+    },
+    {
+      "kind": "micro",
+      "source_path": "micro_20260718_184759.txt",
+      "source_sha256": "87c8a1d68f1fb7c3c4658165f01ad4ba91d28ec53119ddedbad1415241fece61",
+      "byte_start": 1133,
+      "byte_end": 2615,
+      "section_title": "bench_file_system",
+      "destination_path": "micro/bench_file_system/20260718_184759/legacy_micro_20260718_184759.txt"
+    },
+    {
+      "kind": "micro",
+      "source_path": "micro_20260718_184759.txt",
+      "source_sha256": "87c8a1d68f1fb7c3c4658165f01ad4ba91d28ec53119ddedbad1415241fece61",
+      "byte_start": 2615,
+      "byte_end": 3548,
+      "section_title": "bench_http_parser",
+      "destination_path": "micro/bench_http_parser/20260718_184759/legacy_micro_20260718_184759.txt"
+    },
+    {
+      "kind": "micro",
+      "source_path": "micro_20260718_184759.txt",
+      "source_sha256": "87c8a1d68f1fb7c3c4658165f01ad4ba91d28ec53119ddedbad1415241fece61",
+      "byte_start": 3548,
+      "byte_end": 3863,
+      "section_title": "bench_lock_free_queue",
+      "destination_path": "micro/bench_lock_free_queue/20260718_184759/legacy_micro_20260718_184759.txt"
+    },
+    {
+      "kind": "micro",
+      "source_path": "micro_20260718_184759.txt",
+      "source_sha256": "87c8a1d68f1fb7c3c4658165f01ad4ba91d28ec53119ddedbad1415241fece61",
+      "byte_start": 3863,
+      "byte_end": 5247,
+      "section_title": "bench_memory_pool",
+      "destination_path": "micro/bench_memory_pool/20260718_184759/legacy_micro_20260718_184759.txt"
+    },
+    {
+      "kind": "micro",
+      "source_path": "micro_20260718_184759.txt",
+      "source_sha256": "87c8a1d68f1fb7c3c4658165f01ad4ba91d28ec53119ddedbad1415241fece61",
+      "byte_start": 5247,
+      "byte_end": 5890,
+      "section_title": "bench_move_only_function",
+      "destination_path": "micro/bench_move_only_function/20260718_184759/legacy_micro_20260718_184759.txt"
+    },
+    {
+      "kind": "micro",
+      "source_path": "micro_20260718_184759.txt",
+      "source_sha256": "87c8a1d68f1fb7c3c4658165f01ad4ba91d28ec53119ddedbad1415241fece61",
+      "byte_start": 5890,
+      "byte_end": 6409,
+      "section_title": "bench_router",
+      "destination_path": "micro/bench_router/20260718_184759/legacy_micro_20260718_184759.txt"
+    },
+    {
+      "kind": "micro",
+      "source_path": "micro_20260718_184759.txt",
+      "source_sha256": "87c8a1d68f1fb7c3c4658165f01ad4ba91d28ec53119ddedbad1415241fece61",
+      "byte_start": 6409,
+      "byte_end": 6638,
+      "section_title": "bench_ssl",
+      "destination_path": "micro/bench_ssl/20260718_184759/legacy_micro_20260718_184759.txt"
+    },
+    {
+      "kind": "micro",
+      "source_path": "micro_20260718_185114.txt",
+      "source_sha256": "b820fca218c8fcc303291011de592a2c3c2f21dc2acbe44fafefc28b6dd096ed",
+      "byte_start": 236,
+      "byte_end": 552,
+      "section_title": "bench_chunk_header",
+      "destination_path": "micro/bench_chunk_header/20260718_185114/legacy_micro_20260718_185114.txt"
+    },
+    {
+      "kind": "micro",
+      "source_path": "micro_20260718_185114.txt",
+      "source_sha256": "b820fca218c8fcc303291011de592a2c3c2f21dc2acbe44fafefc28b6dd096ed",
+      "byte_start": 552,
+      "byte_end": 719,
+      "section_title": "bench_coroutine",
+      "destination_path": "micro/bench_coroutine/20260718_185114/legacy_micro_20260718_185114.txt"
+    },
+    {
+      "kind": "micro",
+      "source_path": "micro_20260718_185114.txt",
+      "source_sha256": "b820fca218c8fcc303291011de592a2c3c2f21dc2acbe44fafefc28b6dd096ed",
+      "byte_start": 719,
+      "byte_end": 1133,
+      "section_title": "bench_database_pool",
+      "destination_path": "micro/bench_database_pool/20260718_185114/legacy_micro_20260718_185114.txt"
+    },
+    {
+      "kind": "micro",
+      "source_path": "micro_20260718_185114.txt",
+      "source_sha256": "b820fca218c8fcc303291011de592a2c3c2f21dc2acbe44fafefc28b6dd096ed",
+      "byte_start": 1133,
+      "byte_end": 2615,
+      "section_title": "bench_file_system",
+      "destination_path": "micro/bench_file_system/20260718_185114/legacy_micro_20260718_185114.txt"
+    },
+    {
+      "kind": "micro",
+      "source_path": "micro_20260718_185114.txt",
+      "source_sha256": "b820fca218c8fcc303291011de592a2c3c2f21dc2acbe44fafefc28b6dd096ed",
+      "byte_start": 2615,
+      "byte_end": 3548,
+      "section_title": "bench_http_parser",
+      "destination_path": "micro/bench_http_parser/20260718_185114/legacy_micro_20260718_185114.txt"
+    },
+    {
+      "kind": "micro",
+      "source_path": "micro_20260718_185114.txt",
+      "source_sha256": "b820fca218c8fcc303291011de592a2c3c2f21dc2acbe44fafefc28b6dd096ed",
+      "byte_start": 3548,
+      "byte_end": 3864,
+      "section_title": "bench_lock_free_queue",
+      "destination_path": "micro/bench_lock_free_queue/20260718_185114/legacy_micro_20260718_185114.txt"
+    },
+    {
+      "kind": "micro",
+      "source_path": "micro_20260718_185114.txt",
+      "source_sha256": "b820fca218c8fcc303291011de592a2c3c2f21dc2acbe44fafefc28b6dd096ed",
+      "byte_start": 3864,
+      "byte_end": 5247,
+      "section_title": "bench_memory_pool",
+      "destination_path": "micro/bench_memory_pool/20260718_185114/legacy_micro_20260718_185114.txt"
+    },
+    {
+      "kind": "micro",
+      "source_path": "micro_20260718_185114.txt",
+      "source_sha256": "b820fca218c8fcc303291011de592a2c3c2f21dc2acbe44fafefc28b6dd096ed",
+      "byte_start": 5247,
+      "byte_end": 5890,
+      "section_title": "bench_move_only_function",
+      "destination_path": "micro/bench_move_only_function/20260718_185114/legacy_micro_20260718_185114.txt"
+    },
+    {
+      "kind": "micro",
+      "source_path": "micro_20260718_185114.txt",
+      "source_sha256": "b820fca218c8fcc303291011de592a2c3c2f21dc2acbe44fafefc28b6dd096ed",
+      "byte_start": 5890,
+      "byte_end": 6409,
+      "section_title": "bench_router",
+      "destination_path": "micro/bench_router/20260718_185114/legacy_micro_20260718_185114.txt"
+    },
+    {
+      "kind": "micro",
+      "source_path": "micro_20260718_185114.txt",
+      "source_sha256": "b820fca218c8fcc303291011de592a2c3c2f21dc2acbe44fafefc28b6dd096ed",
+      "byte_start": 6409,
+      "byte_end": 6638,
+      "section_title": "bench_ssl",
+      "destination_path": "micro/bench_ssl/20260718_185114/legacy_micro_20260718_185114.txt"
+    },
+    {
+      "kind": "micro",
+      "source_path": "micro_20260718_185114.txt",
+      "source_sha256": "b820fca218c8fcc303291011de592a2c3c2f21dc2acbe44fafefc28b6dd096ed",
+      "byte_start": 6638,
+      "byte_end": 7338,
+      "section_title": "bench_thread_pool",
+      "destination_path": "micro/bench_thread_pool/20260718_185114/legacy_micro_20260718_185114.txt"
+    },
+    {
+      "kind": "micro",
+      "source_path": "micro_20260718_185114.txt",
+      "source_sha256": "b820fca218c8fcc303291011de592a2c3c2f21dc2acbe44fafefc28b6dd096ed",
+      "byte_start": 7338,
+      "byte_end": 8739,
+      "section_title": "bench_websocket",
+      "destination_path": "micro/bench_websocket/20260718_185114/legacy_micro_20260718_185114.txt"
+    },
+    {
+      "kind": "micro",
+      "source_path": "micro_release_20260715_174645.txt",
+      "source_sha256": "fea8267ebbe5655adb69669940c73ed8d2011f4169db5d2064be429f195ec961",
+      "byte_start": 282,
+      "byte_end": 484,
+      "section_title": "bench_bench_chunk_header",
+      "destination_path": "micro/bench_chunk_header/20260715_174645/legacy_micro_release_20260715_174645.txt"
+    },
+    {
+      "kind": "micro",
+      "source_path": "micro_release_20260715_174645.txt",
+      "source_sha256": "fea8267ebbe5655adb69669940c73ed8d2011f4169db5d2064be429f195ec961",
+      "byte_start": 484,
+      "byte_end": 572,
+      "section_title": "bench_bench_coroutine",
+      "destination_path": "micro/bench_coroutine/20260715_174645/legacy_micro_release_20260715_174645.txt"
+    },
+    {
+      "kind": "micro",
+      "source_path": "micro_release_20260715_174645.txt",
+      "source_sha256": "fea8267ebbe5655adb69669940c73ed8d2011f4169db5d2064be429f195ec961",
+      "byte_start": 572,
+      "byte_end": 897,
+      "section_title": "bench_bench_database_pool",
+      "destination_path": "micro/bench_database_pool/20260715_174645/legacy_micro_release_20260715_174645.txt"
+    },
+    {
+      "kind": "micro",
+      "source_path": "micro_release_20260715_174645.txt",
+      "source_sha256": "fea8267ebbe5655adb69669940c73ed8d2011f4169db5d2064be429f195ec961",
+      "byte_start": 897,
+      "byte_end": 1946,
+      "section_title": "bench_bench_file_system",
+      "destination_path": "micro/bench_file_system/20260715_174645/legacy_micro_release_20260715_174645.txt"
+    },
+    {
+      "kind": "micro",
+      "source_path": "micro_release_20260715_174645.txt",
+      "source_sha256": "fea8267ebbe5655adb69669940c73ed8d2011f4169db5d2064be429f195ec961",
+      "byte_start": 1946,
+      "byte_end": 2598,
+      "section_title": "bench_bench_http_parser",
+      "destination_path": "micro/bench_http_parser/20260715_174645/legacy_micro_release_20260715_174645.txt"
+    },
+    {
+      "kind": "micro",
+      "source_path": "micro_release_20260715_174645.txt",
+      "source_sha256": "fea8267ebbe5655adb69669940c73ed8d2011f4169db5d2064be429f195ec961",
+      "byte_start": 2598,
+      "byte_end": 2792,
+      "section_title": "bench_bench_lock_free_queue",
+      "destination_path": "micro/bench_lock_free_queue/20260715_174645/legacy_micro_release_20260715_174645.txt"
+    },
+    {
+      "kind": "micro",
+      "source_path": "micro_release_20260715_174645.txt",
+      "source_sha256": "fea8267ebbe5655adb69669940c73ed8d2011f4169db5d2064be429f195ec961",
+      "byte_start": 2792,
+      "byte_end": 3169,
+      "section_title": "bench_bench_move_only_function",
+      "destination_path": "micro/bench_move_only_function/20260715_174645/legacy_micro_release_20260715_174645.txt"
+    },
+    {
+      "kind": "micro",
+      "source_path": "micro_release_20260715_174645.txt",
+      "source_sha256": "fea8267ebbe5655adb69669940c73ed8d2011f4169db5d2064be429f195ec961",
+      "byte_start": 3169,
+      "byte_end": 3545,
+      "section_title": "bench_bench_router",
+      "destination_path": "micro/bench_router/20260715_174645/legacy_micro_release_20260715_174645.txt"
+    },
+    {
+      "kind": "micro",
+      "source_path": "micro_release_20260715_174645.txt",
+      "source_sha256": "fea8267ebbe5655adb69669940c73ed8d2011f4169db5d2064be429f195ec961",
+      "byte_start": 3545,
+      "byte_end": 3690,
+      "section_title": "bench_bench_ssl",
+      "destination_path": "micro/bench_ssl/20260715_174645/legacy_micro_release_20260715_174645.txt"
+    },
+    {
+      "kind": "micro",
+      "source_path": "micro_release_20260715_174645.txt",
+      "source_sha256": "fea8267ebbe5655adb69669940c73ed8d2011f4169db5d2064be429f195ec961",
+      "byte_start": 3690,
+      "byte_end": 4689,
+      "section_title": "bench_bench_websocket",
+      "destination_path": "micro/bench_websocket/20260715_174645/legacy_micro_release_20260715_174645.txt"
+    },
+    {
+      "kind": "qps",
+      "source_path": "qps_20260717_151330.txt",
+      "source_sha256": "9659130dee373c526d91fca555ea91b09cd1f91c62783597712dd9cf28630317",
+      "byte_start": 0,
+      "byte_end": 48693,
+      "section_title": null,
+      "destination_path": "qps/_legacy_aggregate/20260717_151330/legacy_qps_20260717_151330.txt"
+    },
+    {
+      "kind": "qps",
+      "source_path": "qps_20260718_162217.txt",
+      "source_sha256": "12110cf1512f03c3a61b6687b2e7f6439e89ee878b03d25a7312fa079922e302",
+      "byte_start": 0,
+      "byte_end": 31737,
+      "section_title": null,
+      "destination_path": "qps/_legacy_aggregate/20260718_162217/legacy_qps_20260718_162217.txt"
+    }
+  ]
+}

@@ -1,0 +1,4 @@
+--- bench_coroutine ---
+  Benchmark                          Time             CPU   Iterations
+  BM_Coroutine_CreateAndRun       12.1 ns         12.0 ns      4203810
+

@@ -1,0 +1,19 @@
+2026-08-04T10:23:29+08:00
+Running /home/jmj/work-space/projects/high-performance-server/bin/bench_lock_free_queue
+Run on (8 X 2688 MHz CPU s)
+CPU Caches:
+  L1 Data 48 KiB (x8)
+  L1 Instruction 32 KiB (x8)
+  L2 Unified 1280 KiB (x8)
+  L3 Unified 12288 KiB (x8)
+Load Average: 0.73, 1.25, 1.57
+***WARNING*** Library was built as DEBUG. Timings may be affected.
+-------------------------------------------------------------------------------------------
+Benchmark                                 Time             CPU   Iterations UserCounters...
+-------------------------------------------------------------------------------------------
+BM_LockFreeQueue_SPSC_1k            1438372 ns       177875 ns          733 items_per_second=56.2193M/s
+BM_LockFreeQueue_SPSC_10k          12579105 ns       252218 ns          100 items_per_second=396.483M/s
+BM_LFQ_MPSC_Contention/2/1/10000    2362079 ns       227872 ns          630 items_per_second=87.7687M/s
+BM_LFQ_MPSC_Contention/4/1/5000     2527086 ns       491615 ns          287 items_per_second=40.6822M/s
+BM_LFQ_HighContention/8/5000        3686326 ns       683173 ns          190 items_per_second=58.5504M/s
+BM_LFQ_HighContention/16/2000       2708829 ns       978569 ns          125 items_per_second=32.7008M/s

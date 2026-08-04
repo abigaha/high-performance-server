@@ -1,0 +1,38 @@
+==========================================
+  HTTP RPS 压力测试报告
+  时间: 20260804_130019
+  Git:  433f20e (dirty=true)
+  主机: jmjvm
+  CPU:  11th Gen Intel(R) Core(TM) i5-11400H @ 2.70GHz
+  核心: 8
+  Profile: full
+==========================================
+
+入口: http://127.0.0.1:32773
+上传保护: 单元时长=5s 请求间隔=250ms
+预检: failed
+矩阵: 18/40
+通过: 16  过载观测: 0  失败: 2
+non-2xx: 0  unexpected: 0  socket errors: 2727
+结论: failed
+
+场景                   方法     载荷           并发          RPS        P50        P90        P99   non2xx   socket           结果
+==========================================================================================================================
+health               GET    none          1       2246.4   395.00us   618.00us     1.24ms        0        0       passed
+health               GET    none         10       7367.5     0.99ms     1.62ms     2.63ms        0        0       passed
+health               GET    none         50      13674.2     3.51ms     5.24ms     7.68ms        0        0       passed
+health               GET    none        100      15799.7     5.68ms     9.43ms    12.86ms        0        0       passed
+health               GET    none        500      18765.8    23.01ms    41.31ms   754.11ms        0        0       passed
+health               GET    none       1000      18979.2    42.73ms   364.13ms      1.81s        0        0       passed
+auth_me              GET    none          1        139.4     7.09ms     9.28ms    11.27ms        0        0       passed
+auth_me              GET    none         10        184.0    43.41ms    45.89ms    51.34ms        0        0       passed
+auth_me              GET    none         50        184.2   260.55ms   265.76ms   273.98ms        0        0       passed
+auth_me              GET    none        100        183.9   522.48ms   530.22ms   548.16ms        0        0       passed
+auth_me              GET    none        500        183.7      2.70s      2.71s      2.72s        0        0       passed
+auth_me              GET    none       1000        183.9      2.58s      3.94s      4.81s        0     2727       failed
+files_list           GET    none          1         20.1    49.40ms    53.09ms    55.19ms        0        0       passed
+files_list           GET    none         10        132.3    59.97ms    72.51ms    79.92ms        0        0       passed
+files_list           GET    none         50        134.6   357.08ms   369.87ms   383.19ms        0        0       passed
+files_list           GET    none        100        137.4   695.65ms   715.56ms   731.05ms        0        0       passed
+files_list           GET    none        500        140.5      3.50s      3.60s      3.63s        0        0       passed
+files_list           GET    none       1000          0.0        N/A        N/A        N/A        0        0       failed

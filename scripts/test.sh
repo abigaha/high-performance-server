@@ -2,6 +2,7 @@
 set -euo pipefail
 
 source "$(cd "$(dirname "$0")" && pwd)/lib/common.sh"
+source "$(cd "$(dirname "$0")" && pwd)/lib/isolated_docker_env.sh"
 cd "$PROJECT_ROOT"
 
 run_frontend_tests() {
@@ -22,8 +23,12 @@ run_frontend_tests() {
 run_script_regression_tests() {
   yellow "=== 脚本回归测试 ==="
   bash "$PROJECT_ROOT/tests/test_codeql_discovery.sh"
+  bash "$PROJECT_ROOT/tests/test_lint_script.sh"
   bash "$PROJECT_ROOT/tests/test_docker_admin_env.sh"
   bash "$PROJECT_ROOT/tests/test_test_script.sh"
+  bash "$PROJECT_ROOT/tests/test_benchmark_script.sh"
+  bash "$PROJECT_ROOT/tests/test_bench_http_server.sh"
+  bash "$PROJECT_ROOT/tests/test_migrate_legacy_reports.sh"
   green "脚本回归测试通过"
 }
 
@@ -43,40 +48,39 @@ validate_e2e_test_path() {
 
 run_e2e_tests() {
   local playwright_args=("$@")
-  local timestamp random_suffix run_id project_name env_file e2e_base_url
-  local playwright_pid="" playwright_rc previous_umask
+  local timestamp random_suffix run_id e2e_base_url
+  local playwright_pid="" playwright_rc
   local admin_username admin_email admin_password normal_one_username normal_one_email normal_one_password
-  local normal_two_username normal_two_email normal_two_password auth_secret mysql_root_password mysql_password
+  local normal_two_username normal_two_email normal_two_password
+  local cleanup_rc=0 e2e_cleanup_done=0 start_rc=0
   timestamp="$(date '+%Y%m%d_%H%M%S')"
   random_suffix="$(openssl rand -hex 4)"
   run_id="${timestamp}_$$_${random_suffix}"
-  project_name="hps_e2e_${run_id}"
-  previous_umask="$(umask)"
-  umask 077
-  env_file="$(mktemp "${TMPDIR:-/tmp}/hps_e2e_${run_id}.XXXXXX.env")"
-  E2E_CLEANUP_PROJECT_NAME="$project_name"
-  E2E_CLEANUP_ENV_FILE="$env_file"
 
   cleanup_e2e() {
-    local down_rc=0 rm_rc=0
+    local helper_cleanup_rc=0
+    if [ "$e2e_cleanup_done" -ne 0 ]; then
+      return 0
+    fi
+    e2e_cleanup_done=1
     trap - EXIT
     trap '' INT TERM
-    bash "$PROJECT_ROOT/scripts/docker.sh" down --project-name "$E2E_CLEANUP_PROJECT_NAME" \
-      --env-file "$E2E_CLEANUP_ENV_FILE" --volumes || down_rc=$?
-    rm -f "$E2E_CLEANUP_ENV_FILE" || rm_rc=$?
-    if [ "$down_rc" -ne 0 ]; then
-      printf '错误: E2E 清理失败: docker down 退出码 %s\n' "$down_rc" >&2
-    fi
-    if [ "$rm_rc" -ne 0 ]; then
-      printf '错误: E2E 清理失败: 临时 env 删除退出码 %s\n' "$rm_rc" >&2
-    fi
-    if [ "$down_rc" -ne 0 ]; then
-      return "$down_rc"
-    fi
-    return "$rm_rc"
+    hps_cleanup_isolated_environment || helper_cleanup_rc=$?
+    return "$helper_cleanup_rc"
+  }
+  read_isolated_env_value() {
+    local key="$1"
+    awk -v key="$key" '
+      index($0, key "=") == 1 {
+        print substr($0, length(key) + 2)
+        found = 1
+        exit
+      }
+      END { exit(found ? 0 : 1) }
+    ' "$HPS_ISOLATED_ENV_FILE"
   }
   forward_e2e_signal() {
-    local signal="$1" signal_rc="$2" cleanup_rc=0
+    local signal="$1" signal_rc="$2"
     trap '' INT TERM
     if [ -n "$playwright_pid" ]; then
       kill -s "$signal" -- "-$playwright_pid" 2>/dev/null || true
@@ -91,42 +95,48 @@ run_e2e_tests() {
       done
       wait "$playwright_pid" 2>/dev/null || true
     fi
-    cleanup_e2e || cleanup_rc=$?
+    cleanup_e2e || true
     exit "$signal_rc"
   }
+
+  HPS_ISOLATED_PROJECT_NAME="hps_e2e_${run_id}"
+  HPS_ISOLATED_ENV_FILE=""
+  HPS_ISOLATED_BASE_URL=""
+  HPS_ISOLATED_TEMP_DIR=""
   trap 'original_rc=$?; cleanup_rc=0; cleanup_e2e || cleanup_rc=$?; if [ "$original_rc" -ne 0 ]; then exit "$original_rc"; else exit "$cleanup_rc"; fi' EXIT
   trap 'forward_e2e_signal INT 130' INT
   trap 'forward_e2e_signal TERM 143' TERM
 
-  admin_username="admin_${run_id}"
-  admin_email="${admin_username}@example.invalid"
-  admin_password="E2eAdmin_${random_suffix}_$(openssl rand -hex 32)"
+  if hps_start_isolated_environment e2e "$run_id"; then
+    :
+  else
+    start_rc=$?
+    e2e_cleanup_done=1
+    trap - EXIT
+    trap - INT TERM
+    return "$start_rc"
+  fi
+
+  if admin_username="$(read_isolated_env_value ADMIN_USERNAME)"; then :; else return $?; fi
+  if admin_email="$(read_isolated_env_value ADMIN_EMAIL)"; then :; else return $?; fi
+  if admin_password="$(read_isolated_env_value ADMIN_PASSWORD)"; then :; else return $?; fi
   normal_one_username="normal_a_${run_id}"
   normal_one_email="${normal_one_username}@example.invalid"
-  normal_one_password="E2eNormalA_${random_suffix}_$(openssl rand -hex 24)"
+  if normal_one_password="$(openssl rand -hex 24)"; then
+    normal_one_password="E2eNormalA_${random_suffix}_${normal_one_password}"
+  else
+    return $?
+  fi
   normal_two_username="normal_b_${run_id}"
   normal_two_email="${normal_two_username}@example.invalid"
-  normal_two_password="E2eNormalB_${random_suffix}_$(openssl rand -hex 24)"
-  auth_secret="$(openssl rand -hex 48)"
-  mysql_root_password="$(openssl rand -hex 32)"
-  mysql_password="$(openssl rand -hex 32)"
-
-  {
-    printf 'AUTH_SECRET=%s\n' "$auth_secret"
-    printf 'MYSQL_ROOT_PASSWORD=%s\n' "$mysql_root_password"
-    printf 'MYSQL_USER=hps\n'
-    printf 'MYSQL_PASSWORD=%s\n' "$mysql_password"
-    printf 'HPS_HTTP_PORT=0\n'
-    printf 'ADMIN_USERNAME=%s\n' "$admin_username"
-    printf 'ADMIN_PASSWORD=%s\n' "$admin_password"
-    printf 'ADMIN_EMAIL=%s\n' "$admin_email"
-  } > "$env_file"
-  umask "$previous_umask"
+  if normal_two_password="$(openssl rand -hex 24)"; then
+    normal_two_password="E2eNormalB_${random_suffix}_${normal_two_password}"
+  else
+    return $?
+  fi
 
   yellow "=== 隔离 Playwright E2E: $run_id ==="
-  bash "$PROJECT_ROOT/scripts/docker.sh" deploy --project-name "$project_name" --env-file "$env_file"
-  e2e_base_url="$(bash "$PROJECT_ROOT/scripts/docker.sh" base-url --project-name "$project_name" \
-    --env-file "$env_file")"
+  e2e_base_url="$HPS_ISOLATED_BASE_URL"
   ensure_frontend_dependencies
   set +e
   (
@@ -151,7 +161,6 @@ run_e2e_tests() {
   playwright_rc=$?
   playwright_pid=""
   set -e
-  cleanup_rc=0
   cleanup_e2e || cleanup_rc=$?
   if [ "$playwright_rc" -ne 0 ]; then
     return "$playwright_rc"

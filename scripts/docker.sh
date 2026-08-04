@@ -20,6 +20,8 @@ usage() {
            编译、构建镜像、启动全部服务并验证公共入口
   base-url [--project-name <名称>] [--env-file <路径>]
            输出当前 project 的 nginx 80 动态映射 URL
+  runtime-fingerprint [--project-name <名称>] [--env-file <路径>]
+           只读输出当前 project 后端运行镜像与 Compose 配置的稳定指纹
   status   显示服务状态并检查公共入口
   health   检查 nginx 到后端的公共健康接口
   stop     停止服务并保留数据卷
@@ -526,6 +528,102 @@ cmd_base_url() {
   public_base_url
 }
 
+require_runtime_fingerprint_tools() {
+  if ! command -v docker >/dev/null 2>&1; then
+    red "错误: Docker 未安装" >&2
+    return 1
+  fi
+  if ! docker info >/dev/null 2>&1; then
+    red "错误: Docker 服务不可用" >&2
+    return 1
+  fi
+  if ! docker compose version >/dev/null 2>&1; then
+    red "错误: Docker Compose 插件不可用" >&2
+    return 1
+  fi
+  if ! command -v sha256sum >/dev/null 2>&1; then
+    red "错误: sha256sum 未安装" >&2
+    return 1
+  fi
+  if ! command -v python3 >/dev/null 2>&1; then
+    red "错误: python3 未安装" >&2
+    return 1
+  fi
+}
+
+configured_service_image() {
+  compose_control config --no-interpolate --format json high-performance-server 2>/dev/null |
+    python3 -c '
+import json
+import sys
+
+try:
+    image = json.load(sys.stdin)["services"]["high-performance-server"]["image"]
+except (json.JSONDecodeError, KeyError, TypeError):
+    raise SystemExit(1)
+
+if not isinstance(image, str) or not image or any(character.isspace() for character in image):
+    raise SystemExit(1)
+
+print(image)
+'
+}
+
+cmd_runtime_fingerprint() {
+  local compose_config_hash configured_image container_ids container_id image_id
+  local runtime_images fingerprint
+  local -a fingerprint_inputs
+
+  require_runtime_fingerprint_tools || return 1
+  if ! compose_control config --quiet >/dev/null 2>&1; then
+    red "错误: Compose 配置无效或无法验证" >&2
+    return 1
+  fi
+  if ! compose_config_hash="$(compose_control config --no-interpolate --hash high-performance-server 2>/dev/null |
+    awk '$1 == "high-performance-server" { print $2; exit }')" ||
+     [[ ! "$compose_config_hash" =~ ^[0-9a-fA-F]{64}$ ]]; then
+    red "错误: 无法读取 high-performance-server Compose 配置" >&2
+    return 1
+  fi
+  if ! configured_image="$(configured_service_image 2>/dev/null)" ||
+     [[ ! "$configured_image" =~ ^[^[:space:]]+$ ]]; then
+    red "错误: 无法解析 high-performance-server 镜像" >&2
+    return 1
+  fi
+  if ! container_ids="$(compose_control ps --all --quiet high-performance-server 2>/dev/null)"; then
+    red "错误: 无法查询 high-performance-server 容器" >&2
+    return 1
+  fi
+  if ! runtime_images="$({
+    while IFS= read -r container_id; do
+      [ -n "$container_id" ] || continue
+      if ! image_id="$(docker inspect --format '{{if .State.Running}}{{.Image}}{{end}}' "$container_id" 2>/dev/null)"; then
+        exit 1
+      fi
+      [ -z "$image_id" ] || printf '%s\n' "$image_id"
+    done <<< "$container_ids"
+  })"; then
+    red "错误: 无法读取 high-performance-server 运行镜像" >&2
+    return 1
+  fi
+
+  fingerprint_inputs=(
+    "compose-config-sha256:${compose_config_hash,,}"
+    "configured-image:$configured_image"
+  )
+  if [ -n "$runtime_images" ]; then
+    while IFS= read -r image_id; do
+      [ -n "$image_id" ] && fingerprint_inputs+=("runtime-image:$image_id")
+    done <<< "$runtime_images"
+  fi
+  if ! fingerprint="$(printf '%s\n' "${fingerprint_inputs[@]}" | LC_ALL=C sort -u | sha256sum | awk '{ print $1 }')" ||
+     [[ ! "$fingerprint" =~ ^[0-9a-fA-F]{64}$ ]]; then
+    red "错误: 无法生成运行时指纹" >&2
+    return 1
+  fi
+  printf 'sha256:%s\n' "${fingerprint,,}"
+}
+
 cmd_health() {
   require_docker || return 1
   local url response
@@ -578,6 +676,17 @@ cmd_deploy() {
   fi
   root_url="${health_url%/api/health}"
   green "部署成功，服务入口: $root_url"
+}
+
+cmd_restart() {
+  require_deploy_tools
+  ensure_env_file
+  validate_env_file
+  blue "=== 重启后端服务并等待健康 ==="
+  compose_control restart high-performance-server
+  compose up --detach --wait --wait-timeout "$DEPLOY_WAIT_TIMEOUT" high-performance-server
+  verify_service_health
+  cmd_health
 }
 
 cmd_status() {
@@ -695,9 +804,17 @@ elif [ $# -gt 0 ]; then
       parse_deployment_options 0 "$@"
       cmd_deploy
       ;;
+    restart)
+      parse_deployment_options 0 "$@"
+      cmd_restart
+      ;;
     base-url)
       parse_deployment_options 0 "$@"
       cmd_base_url
+      ;;
+    runtime-fingerprint)
+      parse_deployment_options 0 "$@" >&2
+      cmd_runtime_fingerprint
       ;;
     status)
       reject_unexpected_args "$command" "$@"

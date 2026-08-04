@@ -1,0 +1,38 @@
+==========================================
+  微基准测试报告
+  时间: 20260803_181725
+  Git:  433f20e (dirty=true)
+  主机: jmjvm
+  CPU:  11th Gen Intel(R) Core(TM) i5-11400H @ 2.70GHz
+  核心: 8
+  Profile: default
+==========================================
+
+目标: bench_database_pool
+运行 ID: 20260803_181725
+状态: passed
+退出码: 0
+耗时: 2s
+
+--- 原始输出 ---
+2026-08-03T18:17:33+08:00
+Running /home/jmj/work-space/projects/high-performance-server/bin/bench_database_pool
+Run on (8 X 2688 MHz CPU s)
+CPU Caches:
+  L1 Data 48 KiB (x8)
+  L1 Instruction 32 KiB (x8)
+  L2 Unified 1280 KiB (x8)
+  L3 Unified 12288 KiB (x8)
+Load Average: 3.89, 7.32, 8.17
+***WARNING*** Library was built as DEBUG. Timings may be affected.
+-----------------------------------------------------------------------------
+Benchmark                                   Time             CPU   Iterations
+-----------------------------------------------------------------------------
+BM_DatabasePool_GetUser                   203 ns          203 ns       705721
+BM_DatabasePool_CreateUser                334 ns          334 ns       534314
+BM_DatabasePool_GetFileRecord             217 ns          217 ns       721904
+BM_DatabasePool_StoreFileRecord           439 ns          437 ns       342441
+BM_DBPool_GetReturnConnection/100       20707 ns        20648 ns         6288 items_per_second=4.84311M/s
+BM_DBPool_GetReturnConnection/1000     216917 ns       215280 ns         1370 items_per_second=4.64512M/s
+BM_DBPool_PoolExhaustion/4/2           329555 ns       273378 ns          513 items_per_second=21.9476k/s
+BM_DBPool_PoolExhaustion/8/4           739800 ns       671152 ns          197 items_per_second=17.8797k/s

@@ -1,0 +1,19 @@
+2026-08-04T10:34:48+08:00
+Running /home/jmj/work-space/projects/high-performance-server/bin/bench_move_only_function
+Run on (8 X 2688 MHz CPU s)
+CPU Caches:
+  L1 Data 48 KiB (x8)
+  L1 Instruction 32 KiB (x8)
+  L2 Unified 1280 KiB (x8)
+  L3 Unified 12288 KiB (x8)
+Load Average: 1.29, 0.92, 1.19
+***WARNING*** Library was built as DEBUG. Timings may be affected.
+------------------------------------------------------------------------------------
+Benchmark                                          Time             CPU   Iterations
+------------------------------------------------------------------------------------
+BM_MoveOnlyFunction_ConstructVoid               1.63 ns         1.62 ns     85282724
+BM_MoveOnlyFunction_ConstructWithCapture        3.20 ns         3.14 ns     52429008
+BM_MoveOnlyFunction_ConstructLargeCapture       62.6 ns         62.2 ns      1942749
+BM_MoveOnlyFunction_Invoke                      2.19 ns         2.16 ns    106163633
+BM_MoveOnlyFunction_MoveConstruct               2.25 ns         2.21 ns     88158117
+BM_StdFunction_Compare                          2.27 ns         2.21 ns     54224730

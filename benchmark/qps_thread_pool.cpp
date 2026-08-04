@@ -8,12 +8,15 @@
 #include <exception>
 #include <format>
 #include <iostream>
+#include <semaphore>
 
 namespace {
 
 void bench_pool(hps::bench::QpsSample& sample, auto& pool, int concurrency, int duration_sec) {
+  constexpr std::ptrdiff_t kMaxInFlightTasks = 1024;
   std::atomic<int64_t> completed{0};
   std::atomic<bool> start_flag{false};
+  std::counting_semaphore<kMaxInFlightTasks> available_slots{kMaxInFlightTasks};
   std::vector<std::thread> threads;
 
   for (int i = 0; i < concurrency; ++i) {
@@ -22,7 +25,11 @@ void bench_pool(hps::bench::QpsSample& sample, auto& pool, int concurrency, int 
       }
       auto deadline = std::chrono::steady_clock::now() + std::chrono::seconds(duration_sec);
       while (std::chrono::steady_clock::now() < deadline) {
-        pool.enqueue([&completed] { completed.fetch_add(1, std::memory_order_relaxed); });
+        available_slots.acquire();
+        pool.enqueue([&completed, &available_slots] {
+          completed.fetch_add(1, std::memory_order_relaxed);
+          available_slots.release();
+        });
       }
     });
   }
@@ -50,12 +57,15 @@ void bench_pool(hps::bench::QpsSample& sample, auto& pool, int concurrency, int 
       std::this_thread::sleep_for(std::chrono::milliseconds(50));
     }
   }
-  pool.stop();
   heartbeat_stop.store(true);
   if (heartbeat.joinable())
     heartbeat.join();
 
+  // Stop producers before stopping the pool.  Otherwise stop() can close the
+  // worker side while a producer is still finishing an enqueue operation.
   for (auto& t : threads) t.join();
+  pool.wait_for_all_tasks();
+  pool.stop();
   pool.wait_for_all_tasks();
   auto wall_end = std::chrono::steady_clock::now();
 

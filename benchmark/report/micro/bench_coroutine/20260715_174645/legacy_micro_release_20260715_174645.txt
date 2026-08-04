@@ -1,0 +1,3 @@
+--- bench_bench_coroutine ---
+  BM_Coroutine_CreateAndRun                     13.54 ns
+

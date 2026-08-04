@@ -1,0 +1,15 @@
+--- bench_bench_file_system ---
+  BM_FileSystem_Sha256/1024                     5.237 µs  throughput=195.51MB/s
+  BM_FileSystem_Sha256/65536                    56.933 µs  throughput=1.1511GB/s
+  BM_FileSystem_Sha256/1048576                  829.068 µs  throughput=1.2648GB/s
+  BM_FileSystem_Sha256SmallData/16              687.26 ns  throughput=23.28MB/s
+  BM_FileSystem_Sha256SmallData/64              609.81 ns  throughput=104.95MB/s
+  BM_FileSystem_Sha256SmallData/256             683.01 ns  throughput=374.81MB/s
+  BM_FileSystem_Sha256SmallData/1024            1.202 µs  throughput=851.64MB/s
+  BM_FileSystem_Sha256SmallData/8192            7.152 µs  throughput=1.1454GB/s
+  BM_FileSystem_SplitFile/1048576               2.545 µs
+  BM_FileSystem_SplitFile/10485760              10.481 µs
+  BM_FileSystem_StoreRead/1024                  143.247 µs  throughput=14.30MB/s
+  BM_FileSystem_StoreRead/65536                 575.709 µs  throughput=227.67MB/s
+  BM_FileSystem_StoreRead/1048576               3718.333 µs  throughput=564.00MB/s
+
