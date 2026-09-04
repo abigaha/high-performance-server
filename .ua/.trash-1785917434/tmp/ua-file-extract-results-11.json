@@ -1,0 +1,531 @@
+{
+  "scriptCompleted": true,
+  "filesAnalyzed": 2,
+  "filesSkipped": [],
+  "results": [
+    {
+      "path": "net/tcp/tcp_server/include/connection.h",
+      "language": "c",
+      "fileCategory": "code",
+      "totalLines": 183,
+      "nonEmptyLines": 134,
+      "functions": [
+        {
+          "name": "Connection",
+          "startLine": 41,
+          "endLine": 41,
+          "params": []
+        },
+        {
+          "name": "fd",
+          "startLine": 45,
+          "endLine": 45,
+          "params": []
+        },
+        {
+          "name": "state",
+          "startLine": 102,
+          "endLine": 102,
+          "params": []
+        },
+        {
+          "name": "last_active",
+          "startLine": 105,
+          "endLine": 105,
+          "params": []
+        },
+        {
+          "name": "update_active",
+          "startLine": 108,
+          "endLine": 108,
+          "params": []
+        },
+        {
+          "name": "set_ssl",
+          "startLine": 113,
+          "endLine": 113,
+          "params": [
+            "ssl"
+          ]
+        },
+        {
+          "name": "ssl_state",
+          "startLine": 116,
+          "endLine": 116,
+          "params": []
+        },
+        {
+          "name": "set_ssl_state",
+          "startLine": 118,
+          "endLine": 118,
+          "params": [
+            "state"
+          ]
+        },
+        {
+          "name": "await_ready",
+          "startLine": 160,
+          "endLine": 160,
+          "params": []
+        },
+        {
+          "name": "await_resume",
+          "startLine": 164,
+          "endLine": 164,
+          "params": []
+        },
+        {
+          "name": "await_ready",
+          "startLine": 176,
+          "endLine": 176,
+          "params": []
+        },
+        {
+          "name": "await_resume",
+          "startLine": 180,
+          "endLine": 180,
+          "params": []
+        }
+      ],
+      "classes": [
+        {
+          "name": "ssl_st",
+          "startLine": 13,
+          "endLine": 13,
+          "methods": [],
+          "properties": []
+        },
+        {
+          "name": "ReadAwaiter",
+          "startLine": 18,
+          "endLine": 18,
+          "methods": [],
+          "properties": []
+        },
+        {
+          "name": "WriteAwaiter",
+          "startLine": 19,
+          "endLine": 19,
+          "methods": [],
+          "properties": []
+        },
+        {
+          "name": "Connection",
+          "startLine": 27,
+          "endLine": 146,
+          "methods": [
+            "Connection",
+            "fd",
+            "client_ip",
+            "client_port",
+            "read_from_fd",
+            "write_to_fd",
+            "write_to_fd_locked",
+            "close",
+            "consume_read_buffer",
+            "consume_read_buffer_locked",
+            "state",
+            "last_active",
+            "update_active",
+            "set_ssl",
+            "ssl_state",
+            "set_ssl_state",
+            "await_read",
+            "await_write",
+            "ssl_read_from_fd",
+            "plain_read_from_fd",
+            "ssl_write_to_fd_locked",
+            "plain_write_to_fd_locked"
+          ],
+          "properties": [
+            "fd_",
+            "ssl_",
+            "ssl_state_",
+            "addr_",
+            "read_buffer_",
+            "read_mutex_",
+            "write_buffer_",
+            "write_offset_",
+            "write_mutex_",
+            "state_",
+            "last_active_"
+          ]
+        },
+        {
+          "name": "ReadAwaiter",
+          "startLine": 156,
+          "endLine": 165,
+          "methods": [
+            "await_ready",
+            "await_suspend",
+            "await_resume"
+          ],
+          "properties": [
+            "conn",
+            "result"
+          ]
+        },
+        {
+          "name": "WriteAwaiter",
+          "startLine": 172,
+          "endLine": 181,
+          "methods": [
+            "await_ready",
+            "await_suspend",
+            "await_resume"
+          ],
+          "properties": [
+            "conn",
+            "result"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "ssl_st",
+          "line": 13,
+          "isDefault": false
+        },
+        {
+          "name": "ReadAwaiter",
+          "line": 18,
+          "isDefault": false
+        },
+        {
+          "name": "WriteAwaiter",
+          "line": 19,
+          "isDefault": false
+        },
+        {
+          "name": "Connection",
+          "line": 41,
+          "isDefault": false
+        },
+        {
+          "name": "fd",
+          "line": 45,
+          "isDefault": false
+        },
+        {
+          "name": "client_ip",
+          "line": 48,
+          "isDefault": false
+        },
+        {
+          "name": "client_port",
+          "line": 51,
+          "isDefault": false
+        },
+        {
+          "name": "read_from_fd",
+          "line": 57,
+          "isDefault": false
+        },
+        {
+          "name": "write_to_fd",
+          "line": 63,
+          "isDefault": false
+        },
+        {
+          "name": "write_to_fd_locked",
+          "line": 69,
+          "isDefault": false
+        },
+        {
+          "name": "close",
+          "line": 72,
+          "isDefault": false
+        },
+        {
+          "name": "consume_read_buffer",
+          "line": 93,
+          "isDefault": false
+        },
+        {
+          "name": "consume_read_buffer_locked",
+          "line": 99,
+          "isDefault": false
+        },
+        {
+          "name": "state",
+          "line": 102,
+          "isDefault": false
+        },
+        {
+          "name": "last_active",
+          "line": 105,
+          "isDefault": false
+        },
+        {
+          "name": "update_active",
+          "line": 108,
+          "isDefault": false
+        },
+        {
+          "name": "set_ssl",
+          "line": 113,
+          "isDefault": false
+        },
+        {
+          "name": "ssl_state",
+          "line": 116,
+          "isDefault": false
+        },
+        {
+          "name": "set_ssl_state",
+          "line": 118,
+          "isDefault": false
+        },
+        {
+          "name": "await_read",
+          "line": 121,
+          "isDefault": false
+        },
+        {
+          "name": "await_write",
+          "line": 124,
+          "isDefault": false
+        },
+        {
+          "name": "Connection",
+          "line": 27,
+          "isDefault": false
+        },
+        {
+          "name": "await_ready",
+          "line": 160,
+          "isDefault": false
+        },
+        {
+          "name": "await_suspend",
+          "line": 162,
+          "isDefault": false
+        },
+        {
+          "name": "await_resume",
+          "line": 164,
+          "isDefault": false
+        },
+        {
+          "name": "ReadAwaiter",
+          "line": 156,
+          "isDefault": false
+        },
+        {
+          "name": "await_ready",
+          "line": 176,
+          "isDefault": false
+        },
+        {
+          "name": "await_suspend",
+          "line": 178,
+          "isDefault": false
+        },
+        {
+          "name": "await_resume",
+          "line": 180,
+          "isDefault": false
+        },
+        {
+          "name": "WriteAwaiter",
+          "line": 172,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "update_active",
+          "callee": "Clock::now",
+          "lineNumber": 108
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 30,
+        "functionCount": 12,
+        "classCount": 6
+      }
+    },
+    {
+      "path": "net/tcp/tcp_server/include/tcp_server.h",
+      "language": "c",
+      "fileCategory": "code",
+      "totalLines": 132,
+      "nonEmptyLines": 100,
+      "functions": [
+        {
+          "name": "TcpServer",
+          "startLine": 47,
+          "endLine": 47,
+          "params": []
+        },
+        {
+          "name": "TcpServer",
+          "startLine": 53,
+          "endLine": 53,
+          "params": []
+        },
+        {
+          "name": "set_close_handler",
+          "startLine": 61,
+          "endLine": 61,
+          "params": [
+            "handler"
+          ]
+        },
+        {
+          "name": "actual_port",
+          "startLine": 63,
+          "endLine": 63,
+          "params": []
+        },
+        {
+          "name": "is_running",
+          "startLine": 66,
+          "endLine": 66,
+          "params": []
+        },
+        {
+          "name": "connection_count",
+          "startLine": 69,
+          "endLine": 69,
+          "params": []
+        }
+      ],
+      "classes": [
+        {
+          "name": "TcpServer",
+          "startLine": 27,
+          "endLine": 130,
+          "methods": [
+            "TcpServer",
+            "TcpServer",
+            "init",
+            "start",
+            "stop",
+            "set_handler",
+            "set_close_handler",
+            "actual_port",
+            "is_running",
+            "connection_count",
+            "notify_wake",
+            "event_loop",
+            "handle_event",
+            "handle_accept",
+            "handle_read",
+            "handle_write",
+            "close_connection",
+            "process_dirty_connections",
+            "handle_ssl_handshake",
+            "try_ssl_detection",
+            "try_ssl_handshake",
+            "handle_client_event",
+            "cleanup_resources",
+            "signal_handler"
+          ],
+          "properties": [
+            "config_",
+            "ssl_context_",
+            "actual_port_",
+            "server_sockfd_",
+            "epoll_fd_",
+            "wake_fd_",
+            "running_",
+            "thread_pool_",
+            "connections_",
+            "handler_",
+            "close_handler_",
+            "dirty_mutex_",
+            "dirty_fds_",
+            "s_instance_"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "TcpServer",
+          "line": 47,
+          "isDefault": false
+        },
+        {
+          "name": "TcpServer",
+          "line": 53,
+          "isDefault": false
+        },
+        {
+          "name": "init",
+          "line": 56,
+          "isDefault": false
+        },
+        {
+          "name": "start",
+          "line": 57,
+          "isDefault": false
+        },
+        {
+          "name": "stop",
+          "line": 58,
+          "isDefault": false
+        },
+        {
+          "name": "set_handler",
+          "line": 59,
+          "isDefault": false
+        },
+        {
+          "name": "set_close_handler",
+          "line": 61,
+          "isDefault": false
+        },
+        {
+          "name": "actual_port",
+          "line": 63,
+          "isDefault": false
+        },
+        {
+          "name": "is_running",
+          "line": 66,
+          "isDefault": false
+        },
+        {
+          "name": "connection_count",
+          "line": 69,
+          "isDefault": false
+        },
+        {
+          "name": "notify_wake",
+          "line": 72,
+          "isDefault": false
+        },
+        {
+          "name": "TcpServer",
+          "line": 27,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "set_close_handler",
+          "callee": "std::move",
+          "lineNumber": 61
+        },
+        {
+          "caller": "is_running",
+          "callee": "load",
+          "lineNumber": 66
+        },
+        {
+          "caller": "connection_count",
+          "callee": "size",
+          "lineNumber": 69
+        }
+      ],
+      "metrics": {
+        "importCount": 2,
+        "exportCount": 12,
+        "functionCount": 6,
+        "classCount": 1
+      }
+    }
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "ok": false,
+  "issues": [
+    "18 条自引用 calls 边违反'无自引用边'要求（如 function:net/http/src/http_server.cpp::init -> 自身，实为 server_.init() 异名对象调用被误映射；boost_mysql_connection.cpp::connect 调 impl_->connect；logger.cpp::log 包装函数重载合并成自环）。多数是跨对象同名方法名冲突伪边，个别（如 tiered_memory_pool::try_merge_central）为真实递归，合并脚本应统一丢弃自环",
+    "534 个节点（25.8%）缺 summary 与 tags，集中在核心生产文件：logger/include/logger.h(29)、net/tcp/tcp_server/src/tcp_server.cpp(24)、logger/src/logger.cpp(18)、logformatter.cpp(17)、connection.cpp(16)、database_pool.cpp(15)、tcp_client、http_server.cpp、boost_mysql_connection.cpp、ssl_context.h、core/src/main.cpp 等（439 function / 54 file / 41 class），均为只有 id+name+complexity 的空壳节点，影响图的可读性",
+    "8 条 tested_by 边被丢弃导致部分测试文件节点缺 tested_by（如 tests 目录文件）——属于合并期已记录的行为，但需确认无测试覆盖断言依赖这些边"
+  ],
+  "warnings": [
+    "14 个节点 id 前缀与 type 不一致：13 个 document 节点 id 为 file:plan/*.md（如 file:plan/step-2-routing.md），1 个 table 节点 id 为 file:db/schema.sql；不影响覆盖率匹配但破坏 id/type 一致性",
+    "139 个孤立节点（6.7%）：32 个 file 节点（9 个 xmake.lua、.clang-tidy、core/pch.h、net/http/include/url_decode.h、2 个测试 shell 脚本等）+ 96 个 function 节点无任何边（连 contains 都缺失，疑为去重时 contains 边丢失）+ 10 class + 1 config",
+    "图顶层缺少 version/project 字段（批次文件本身也无此字段，属流水线格式约定缺失，非合并 bug）",
+    "合并报告称 3296 边，实际输出 3298 边，相差 2 条（疑为 imports 边恢复后计数口径差异），影响可忽略"
+  ],
+  "notes": "结构基本合法：2069 个节点 ID 无重复、0 悬空边、imports 边全部指向项目内部文件、tested_by 98/98 方向均为 production→test、contains 边层级合理（file→function/class、class→成员函数、React 组件→子组件、schema→table）；抽样 12 个节点 summary 具体、tags 3-5 个，无中文/英文混杂混乱。文件覆盖率 100%（373/373 全部在图中可找到对应节点）。主要问题集中在两点：18 条自引用 calls 伪边和 534 个缺 summary/tags 的核心文件空壳节点，建议合并脚本丢弃自环边并对空壳节点回填摘要后再发布。",
+  "stats": {
+    "totalNodes": 2069,
+    "totalEdges": 3298,
+    "checkedFiles": 373,
+    "coverageMissing": 0
+  }
+}

@@ -1,0 +1,57 @@
+{
+  "projectRoot": "/home/jmj/work-space/projects/high-performance-server",
+  "batchFiles": [
+    {
+      "path": "frontend/.oxlintrc.json",
+      "language": "json",
+      "sizeLines": 8,
+      "fileCategory": "config"
+    },
+    {
+      "path": "frontend/README.md",
+      "language": "markdown",
+      "sizeLines": 163,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "frontend/index.html",
+      "language": "html",
+      "sizeLines": 13,
+      "fileCategory": "markup"
+    },
+    {
+      "path": "frontend/package.json",
+      "language": "json",
+      "sizeLines": 41,
+      "fileCategory": "config"
+    },
+    {
+      "path": "frontend/tsconfig.app.json",
+      "language": "json",
+      "sizeLines": 26,
+      "fileCategory": "config"
+    },
+    {
+      "path": "frontend/tsconfig.json",
+      "language": "json",
+      "sizeLines": 7,
+      "fileCategory": "config"
+    },
+    {
+      "path": "frontend/tsconfig.node.json",
+      "language": "json",
+      "sizeLines": 23,
+      "fileCategory": "config"
+    }
+  ],
+  "batchImportData": {
+    "frontend/.oxlintrc.json": [],
+    "frontend/README.md": [],
+    "frontend/index.html": [],
+    "frontend/package.json": [],
+    "frontend/tsconfig.app.json": [],
+    "frontend/tsconfig.json": [],
+    "frontend/tsconfig.node.json": []
+  },
+  "neighborMap": {}
+}

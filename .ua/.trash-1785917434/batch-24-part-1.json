@@ -1,0 +1,756 @@
+{
+ "nodes": [
+  {
+   "id": "file:net/http/xmake.lua",
+   "type": "file",
+   "name": "net/http/xmake.lua",
+   "summary": "net/http 模块的 xmake 构建脚本，声明 HTTP 服务器相关源文件的编译目标、头文件与依赖配置。",
+   "tags": [
+    "xmake",
+    "build-config",
+    "http",
+    "net"
+   ],
+   "complexity": "simple",
+   "filePath": "net/http/xmake.lua"
+  },
+  {
+   "id": "file:net/tcp/tcp_client/src/tcp_client.cpp",
+   "type": "file",
+   "name": "net/tcp/tcp_client/src/tcp_client.cpp",
+   "summary": "TcpClient 类实现：非阻塞 TCP 客户端，提供连接、超时控制、消息收发、行读取与文件发送能力。",
+   "tags": [
+    "tcp-client",
+    "nonblocking-io",
+    "socket",
+    "cpp"
+   ],
+   "complexity": "complex",
+   "filePath": "net/tcp/tcp_client/src/tcp_client.cpp"
+  },
+  {
+   "id": "function:net/tcp/tcp_client/src/tcp_client.cpp:TcpClient",
+   "type": "function",
+   "name": "TcpClient",
+   "summary": "构造函数重载：支持直接指定服务器地址与端口，或通过连接超时配置初始化。",
+   "tags": [
+    "tcpclient",
+    "cpp",
+    "tcp"
+   ],
+   "complexity": "simple",
+   "lineRange": [
+    20,
+    37
+   ]
+  },
+  {
+   "id": "function:net/tcp/tcp_client/src/tcp_client.cpp:~TcpClient",
+   "type": "function",
+   "name": "~TcpClient",
+   "summary": "析构函数，断开连接并清理资源。",
+   "tags": [
+    "tcpclient",
+    "cpp",
+    "tcp"
+   ],
+   "complexity": "simple",
+   "lineRange": [
+    26,
+    28
+   ]
+  },
+  {
+   "id": "function:net/tcp/tcp_client/src/tcp_client.cpp:send_all",
+   "type": "function",
+   "name": "send_all",
+   "summary": "循环调用 send 直到写入全部数据，通过 poll 处理写超时与错误。",
+   "tags": [
+    "send-all",
+    "cpp",
+    "tcp"
+   ],
+   "complexity": "moderate",
+   "lineRange": [
+    52,
+    80
+   ]
+  },
+  {
+   "id": "function:net/tcp/tcp_client/src/tcp_client.cpp:wait_connected",
+   "type": "function",
+   "name": "wait_connected",
+   "summary": "使用 poll 等待非阻塞 connect 完成，经 getsockopt 校验连接结果。",
+   "tags": [
+    "wait-connected",
+    "cpp",
+    "tcp"
+   ],
+   "complexity": "moderate",
+   "lineRange": [
+    82,
+    96
+   ]
+  },
+  {
+   "id": "function:net/tcp/tcp_client/src/tcp_client.cpp:wait_readable",
+   "type": "function",
+   "name": "wait_readable",
+   "summary": "通过 poll 等待 socket 可读或超时。",
+   "tags": [
+    "wait-readable",
+    "cpp",
+    "tcp"
+   ],
+   "complexity": "simple",
+   "lineRange": [
+    98,
+    106
+   ]
+  },
+  {
+   "id": "function:net/tcp/tcp_client/src/tcp_client.cpp:connect_to_server",
+   "type": "function",
+   "name": "connect_to_server",
+   "summary": "创建非阻塞 socket，getaddrinfo 解析地址并 connect，处理 DNS 失败、超时与日志。",
+   "tags": [
+    "connect-to-server",
+    "cpp",
+    "tcp"
+   ],
+   "complexity": "complex",
+   "lineRange": [
+    108,
+    156
+   ]
+  },
+  {
+   "id": "function:net/tcp/tcp_client/src/tcp_client.cpp:disconnect",
+   "type": "function",
+   "name": "disconnect",
+   "summary": "关闭 socket 并清空读写缓冲区。",
+   "tags": [
+    "disconnect",
+    "cpp",
+    "tcp"
+   ],
+   "complexity": "simple",
+   "lineRange": [
+    158,
+    164
+   ]
+  },
+  {
+   "id": "function:net/tcp/tcp_client/src/tcp_client.cpp:send_message",
+   "type": "function",
+   "name": "send_message",
+   "summary": "发送一条完整消息，失败时记录日志。",
+   "tags": [
+    "send-message",
+    "cpp",
+    "tcp"
+   ],
+   "complexity": "simple",
+   "lineRange": [
+    166,
+    172
+   ]
+  },
+  {
+   "id": "function:net/tcp/tcp_client/src/tcp_client.cpp:receive_message",
+   "type": "function",
+   "name": "receive_message",
+   "summary": "按 mode 选择行读取或原始字节读取方式接收消息。",
+   "tags": [
+    "receive-message",
+    "cpp",
+    "tcp"
+   ],
+   "complexity": "simple",
+   "lineRange": [
+    175,
+    183
+   ]
+  },
+  {
+   "id": "function:net/tcp/tcp_client/src/tcp_client.cpp:recv_into_buffer",
+   "type": "function",
+   "name": "recv_into_buffer",
+   "summary": "recv 读入内部缓冲区，处理 EAGAIN、超时与连接断开。",
+   "tags": [
+    "recv-into-buffer",
+    "cpp",
+    "tcp"
+   ],
+   "complexity": "moderate",
+   "lineRange": [
+    185,
+    202
+   ]
+  },
+  {
+   "id": "function:net/tcp/tcp_client/src/tcp_client.cpp:read_line",
+   "type": "function",
+   "name": "read_line",
+   "summary": "从内部缓冲区解析单行，数据不足时继续读取直到完整。",
+   "tags": [
+    "read-line",
+    "cpp",
+    "tcp"
+   ],
+   "complexity": "moderate",
+   "lineRange": [
+    204,
+    227
+   ]
+  },
+  {
+   "id": "function:net/tcp/tcp_client/src/tcp_client.cpp:read_raw",
+   "type": "function",
+   "name": "read_raw",
+   "summary": "读取指定长度的原始数据，处理多次 recv、超时与断开。",
+   "tags": [
+    "read-raw",
+    "cpp",
+    "tcp"
+   ],
+   "complexity": "moderate",
+   "lineRange": [
+    229,
+    264
+   ]
+  },
+  {
+   "id": "function:net/tcp/tcp_client/src/tcp_client.cpp:send_file",
+   "type": "function",
+   "name": "send_file",
+   "summary": "重载实现：从文件流分块读取并发送文件，或直接发送内存数据。",
+   "tags": [
+    "send-file",
+    "cpp",
+    "tcp"
+   ],
+   "complexity": "moderate",
+   "lineRange": [
+    266,
+    302
+   ]
+  },
+  {
+   "id": "file:net/thread-pool/src/locked_thread_pool.cpp",
+   "type": "file",
+   "name": "net/thread-pool/src/locked_thread_pool.cpp",
+   "summary": "LockedThreadPool 实现：基于互斥锁与条件变量的线程池，支持任务入队、等待与优雅停止。",
+   "tags": [
+    "thread-pool",
+    "mutex",
+    "condition-variable",
+    "cpp"
+   ],
+   "complexity": "moderate",
+   "filePath": "net/thread-pool/src/locked_thread_pool.cpp"
+  },
+  {
+   "id": "function:net/thread-pool/src/locked_thread_pool.cpp:LockedThreadPool",
+   "type": "function",
+   "name": "LockedThreadPool",
+   "summary": "构造函数，创建并启动指定数量的工作线程。",
+   "tags": [
+    "lockedthreadpool",
+    "cpp",
+    "thread-pool"
+   ],
+   "complexity": "simple",
+   "lineRange": [
+    7,
+    12
+   ]
+  },
+  {
+   "id": "function:net/thread-pool/src/locked_thread_pool.cpp:~LockedThreadPool",
+   "type": "function",
+   "name": "~LockedThreadPool",
+   "summary": "析构时停止并回收所有线程。",
+   "tags": [
+    "lockedthreadpool",
+    "cpp",
+    "thread-pool"
+   ],
+   "complexity": "simple",
+   "lineRange": [
+    14,
+    18
+   ]
+  },
+  {
+   "id": "function:net/thread-pool/src/locked_thread_pool.cpp:worker",
+   "type": "function",
+   "name": "worker",
+   "summary": "工作线程主循环：等待任务、执行并捕获异常，维护待执行计数。",
+   "tags": [
+    "worker",
+    "cpp",
+    "thread-pool"
+   ],
+   "complexity": "moderate",
+   "lineRange": [
+    20,
+    49
+   ]
+  },
+  {
+   "id": "function:net/thread-pool/src/locked_thread_pool.cpp:wait_impl",
+   "type": "function",
+   "name": "wait_impl",
+   "summary": "阻塞等待全部任务执行完成。",
+   "tags": [
+    "wait-impl",
+    "cpp",
+    "thread-pool"
+   ],
+   "complexity": "simple",
+   "lineRange": [
+    51,
+    57
+   ]
+  },
+  {
+   "id": "function:net/thread-pool/src/locked_thread_pool.cpp:wait_for",
+   "type": "function",
+   "name": "wait_for",
+   "summary": "带超时地等待任务完成。",
+   "tags": [
+    "wait-for",
+    "cpp",
+    "thread-pool"
+   ],
+   "complexity": "simple",
+   "lineRange": [
+    59,
+    62
+   ]
+  },
+  {
+   "id": "function:net/thread-pool/src/locked_thread_pool.cpp:stop_impl",
+   "type": "function",
+   "name": "stop_impl",
+   "summary": "请求停止、唤醒并 join 所有工作线程。",
+   "tags": [
+    "stop-impl",
+    "cpp",
+    "thread-pool"
+   ],
+   "complexity": "moderate",
+   "lineRange": [
+    64,
+    81
+   ]
+  },
+  {
+   "id": "file:net/thread-pool/src/thread_pool.cpp",
+   "type": "file",
+   "name": "net/thread-pool/src/thread_pool.cpp",
+   "summary": "LockFreeThreadPool 实现：基于无锁队列的线程池，提供任务派发、等待与停止能力。",
+   "tags": [
+    "thread-pool",
+    "lock-free",
+    "concurrency",
+    "cpp"
+   ],
+   "complexity": "moderate",
+   "filePath": "net/thread-pool/src/thread_pool.cpp"
+  },
+  {
+   "id": "function:net/thread-pool/src/thread_pool.cpp:LockFreeThreadPool",
+   "type": "function",
+   "name": "LockFreeThreadPool",
+   "summary": "构造函数，创建并启动工作线程。",
+   "tags": [
+    "lockfreethreadpool",
+    "cpp",
+    "thread-pool"
+   ],
+   "complexity": "simple",
+   "lineRange": [
+    8,
+    12
+   ]
+  },
+  {
+   "id": "function:net/thread-pool/src/thread_pool.cpp:~LockFreeThreadPool",
+   "type": "function",
+   "name": "~LockFreeThreadPool",
+   "summary": "析构时调用 stop_impl 停止线程池。",
+   "tags": [
+    "lockfreethreadpool",
+    "cpp",
+    "thread-pool"
+   ],
+   "complexity": "simple",
+   "lineRange": [
+    14,
+    16
+   ]
+  },
+  {
+   "id": "function:net/thread-pool/src/thread_pool.cpp:stop_impl",
+   "type": "function",
+   "name": "stop_impl",
+   "summary": "等待任务完成、通知并 join 所有工作线程。",
+   "tags": [
+    "stop-impl",
+    "cpp",
+    "thread-pool"
+   ],
+   "complexity": "moderate",
+   "lineRange": [
+    18,
+    40
+   ]
+  },
+  {
+   "id": "function:net/thread-pool/src/thread_pool.cpp:worker",
+   "type": "function",
+   "name": "worker",
+   "summary": "无锁队列取任务执行，处理异常与通知。",
+   "tags": [
+    "worker",
+    "cpp",
+    "thread-pool"
+   ],
+   "complexity": "moderate",
+   "lineRange": [
+    42,
+    71
+   ]
+  },
+  {
+   "id": "function:net/thread-pool/src/thread_pool.cpp:wait_impl",
+   "type": "function",
+   "name": "wait_impl",
+   "summary": "等待全部任务执行完成。",
+   "tags": [
+    "wait-impl",
+    "cpp",
+    "thread-pool"
+   ],
+   "complexity": "simple",
+   "lineRange": [
+    73,
+    76
+   ]
+  },
+  {
+   "id": "function:net/thread-pool/src/thread_pool.cpp:finish_enqueue",
+   "type": "function",
+   "name": "finish_enqueue",
+   "summary": "入队完成后的唤醒与通知逻辑。",
+   "tags": [
+    "finish-enqueue",
+    "cpp",
+    "thread-pool"
+   ],
+   "complexity": "moderate",
+   "lineRange": [
+    78,
+    97
+   ]
+  }
+ ],
+ "edges": [
+  {
+   "source": "file:net/tcp/tcp_client/src/tcp_client.cpp",
+   "target": "function:net/tcp/tcp_client/src/tcp_client.cpp:TcpClient",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:net/tcp/tcp_client/src/tcp_client.cpp",
+   "target": "function:net/tcp/tcp_client/src/tcp_client.cpp:~TcpClient",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:net/tcp/tcp_client/src/tcp_client.cpp",
+   "target": "function:net/tcp/tcp_client/src/tcp_client.cpp:send_all",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:net/tcp/tcp_client/src/tcp_client.cpp",
+   "target": "function:net/tcp/tcp_client/src/tcp_client.cpp:wait_connected",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:net/tcp/tcp_client/src/tcp_client.cpp",
+   "target": "function:net/tcp/tcp_client/src/tcp_client.cpp:wait_readable",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:net/tcp/tcp_client/src/tcp_client.cpp",
+   "target": "function:net/tcp/tcp_client/src/tcp_client.cpp:connect_to_server",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:net/tcp/tcp_client/src/tcp_client.cpp",
+   "target": "function:net/tcp/tcp_client/src/tcp_client.cpp:disconnect",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:net/tcp/tcp_client/src/tcp_client.cpp",
+   "target": "function:net/tcp/tcp_client/src/tcp_client.cpp:send_message",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:net/tcp/tcp_client/src/tcp_client.cpp",
+   "target": "function:net/tcp/tcp_client/src/tcp_client.cpp:receive_message",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:net/tcp/tcp_client/src/tcp_client.cpp",
+   "target": "function:net/tcp/tcp_client/src/tcp_client.cpp:recv_into_buffer",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:net/tcp/tcp_client/src/tcp_client.cpp",
+   "target": "function:net/tcp/tcp_client/src/tcp_client.cpp:read_line",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:net/tcp/tcp_client/src/tcp_client.cpp",
+   "target": "function:net/tcp/tcp_client/src/tcp_client.cpp:read_raw",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:net/tcp/tcp_client/src/tcp_client.cpp",
+   "target": "function:net/tcp/tcp_client/src/tcp_client.cpp:send_file",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:net/thread-pool/src/locked_thread_pool.cpp",
+   "target": "function:net/thread-pool/src/locked_thread_pool.cpp:LockedThreadPool",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:net/thread-pool/src/locked_thread_pool.cpp",
+   "target": "function:net/thread-pool/src/locked_thread_pool.cpp:~LockedThreadPool",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:net/thread-pool/src/locked_thread_pool.cpp",
+   "target": "function:net/thread-pool/src/locked_thread_pool.cpp:worker",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:net/thread-pool/src/locked_thread_pool.cpp",
+   "target": "function:net/thread-pool/src/locked_thread_pool.cpp:wait_impl",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:net/thread-pool/src/locked_thread_pool.cpp",
+   "target": "function:net/thread-pool/src/locked_thread_pool.cpp:wait_for",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:net/thread-pool/src/locked_thread_pool.cpp",
+   "target": "function:net/thread-pool/src/locked_thread_pool.cpp:stop_impl",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:net/thread-pool/src/thread_pool.cpp",
+   "target": "function:net/thread-pool/src/thread_pool.cpp:LockFreeThreadPool",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:net/thread-pool/src/thread_pool.cpp",
+   "target": "function:net/thread-pool/src/thread_pool.cpp:~LockFreeThreadPool",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:net/thread-pool/src/thread_pool.cpp",
+   "target": "function:net/thread-pool/src/thread_pool.cpp:stop_impl",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:net/thread-pool/src/thread_pool.cpp",
+   "target": "function:net/thread-pool/src/thread_pool.cpp:worker",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:net/thread-pool/src/thread_pool.cpp",
+   "target": "function:net/thread-pool/src/thread_pool.cpp:wait_impl",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:net/thread-pool/src/thread_pool.cpp",
+   "target": "function:net/thread-pool/src/thread_pool.cpp:finish_enqueue",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "function:net/tcp/tcp_client/src/tcp_client.cpp:~TcpClient",
+   "target": "function:net/tcp/tcp_client/src/tcp_client.cpp:disconnect",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:net/tcp/tcp_client/src/tcp_client.cpp:connect_to_server",
+   "target": "function:net/tcp/tcp_client/src/tcp_client.cpp:disconnect",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:net/tcp/tcp_client/src/tcp_client.cpp:connect_to_server",
+   "target": "function:net/tcp/tcp_client/src/tcp_client.cpp:wait_connected",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:net/tcp/tcp_client/src/tcp_client.cpp:send_message",
+   "target": "function:net/tcp/tcp_client/src/tcp_client.cpp:send_all",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:net/tcp/tcp_client/src/tcp_client.cpp:receive_message",
+   "target": "function:net/tcp/tcp_client/src/tcp_client.cpp:read_line",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:net/tcp/tcp_client/src/tcp_client.cpp:receive_message",
+   "target": "function:net/tcp/tcp_client/src/tcp_client.cpp:read_raw",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:net/tcp/tcp_client/src/tcp_client.cpp:recv_into_buffer",
+   "target": "function:net/tcp/tcp_client/src/tcp_client.cpp:wait_readable",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:net/tcp/tcp_client/src/tcp_client.cpp:recv_into_buffer",
+   "target": "function:net/tcp/tcp_client/src/tcp_client.cpp:disconnect",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:net/tcp/tcp_client/src/tcp_client.cpp:read_line",
+   "target": "function:net/tcp/tcp_client/src/tcp_client.cpp:recv_into_buffer",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:net/tcp/tcp_client/src/tcp_client.cpp:read_raw",
+   "target": "function:net/tcp/tcp_client/src/tcp_client.cpp:wait_readable",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:net/tcp/tcp_client/src/tcp_client.cpp:read_raw",
+   "target": "function:net/tcp/tcp_client/src/tcp_client.cpp:disconnect",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:net/tcp/tcp_client/src/tcp_client.cpp:read_raw",
+   "target": "function:net/tcp/tcp_client/src/tcp_client.cpp:recv_into_buffer",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:net/tcp/tcp_client/src/tcp_client.cpp:send_file",
+   "target": "function:net/tcp/tcp_client/src/tcp_client.cpp:send_all",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:net/thread-pool/src/locked_thread_pool.cpp:LockedThreadPool",
+   "target": "function:net/thread-pool/src/locked_thread_pool.cpp:worker",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:net/thread-pool/src/locked_thread_pool.cpp:~LockedThreadPool",
+   "target": "function:net/thread-pool/src/locked_thread_pool.cpp:stop_impl",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:net/thread-pool/src/thread_pool.cpp:LockFreeThreadPool",
+   "target": "function:net/thread-pool/src/thread_pool.cpp:worker",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:net/thread-pool/src/thread_pool.cpp:~LockFreeThreadPool",
+   "target": "function:net/thread-pool/src/thread_pool.cpp:stop_impl",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  }
+ ]
+}

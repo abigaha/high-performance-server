@@ -1,0 +1,1200 @@
+{
+ "nodes": [
+  {
+   "id": "file:tests/test_thread_pool_stress.cpp",
+   "type": "file",
+   "name": "tests/test_thread_pool_stress.cpp",
+   "summary": "线程池压力测试：停止排空队列、任务异常、等待所有任务与空闲 worker 唤醒。",
+   "tags": [
+    "thread-pool",
+    "concurrency",
+    "stress-test",
+    "cpp"
+   ],
+   "complexity": "complex",
+   "filePath": "tests/test_thread_pool_stress.cpp"
+  },
+  {
+   "id": "function:tests/test_thread_pool_stress.cpp:ThreadPoolStressTest.StopWithPendingTasks",
+   "type": "function",
+   "name": "ThreadPoolStressTest.StopWithPendingTasks",
+   "summary": "gtest 测试用例 ThreadPoolStressTest.StopWithPendingTasks，验证相关生产组件的预期行为（12 行）。",
+   "tags": [
+    "test-case",
+    "gtest",
+    "cpp"
+   ],
+   "complexity": "simple",
+   "lineRange": [
+    18,
+    29
+   ]
+  },
+  {
+   "id": "function:tests/test_thread_pool_stress.cpp:ThreadPoolStressTest.ExceptionInTask",
+   "type": "function",
+   "name": "ThreadPoolStressTest.ExceptionInTask",
+   "summary": "gtest 测试用例 ThreadPoolStressTest.ExceptionInTask，验证相关生产组件的预期行为（15 行）。",
+   "tags": [
+    "test-case",
+    "gtest",
+    "cpp"
+   ],
+   "complexity": "moderate",
+   "lineRange": [
+    31,
+    45
+   ]
+  },
+  {
+   "id": "function:tests/test_thread_pool_stress.cpp:ThreadPoolStressTest.ConcurrentEnqueueStopDrainsPreviouslyAcceptedTasks",
+   "type": "function",
+   "name": "ThreadPoolStressTest.ConcurrentEnqueueStopDrainsPreviouslyAcceptedTasks",
+   "summary": "gtest 测试用例 ThreadPoolStressTest.ConcurrentEnqueueStopDrainsPreviouslyAcceptedTasks，验证相关生产组件的预期行为（55 行）。",
+   "tags": [
+    "test-case",
+    "gtest",
+    "cpp"
+   ],
+   "complexity": "complex",
+   "lineRange": [
+    47,
+    101
+   ]
+  },
+  {
+   "id": "function:tests/test_thread_pool_stress.cpp:ThreadPoolStressTest.WaitForAllTasks",
+   "type": "function",
+   "name": "ThreadPoolStressTest.WaitForAllTasks",
+   "summary": "gtest 测试用例 ThreadPoolStressTest.WaitForAllTasks，验证相关生产组件的预期行为（11 行）。",
+   "tags": [
+    "test-case",
+    "gtest",
+    "cpp"
+   ],
+   "complexity": "simple",
+   "lineRange": [
+    103,
+    113
+   ]
+  },
+  {
+   "id": "function:tests/test_thread_pool_stress.cpp:ThreadPoolStressTest.IdleWorkersDoNotBusyWait",
+   "type": "function",
+   "name": "ThreadPoolStressTest.IdleWorkersDoNotBusyWait",
+   "summary": "gtest 测试用例 ThreadPoolStressTest.IdleWorkersDoNotBusyWait，验证相关生产组件的预期行为（20 行）。",
+   "tags": [
+    "test-case",
+    "gtest",
+    "cpp"
+   ],
+   "complexity": "moderate",
+   "lineRange": [
+    121,
+    140
+   ]
+  },
+  {
+   "id": "function:tests/test_thread_pool_stress.cpp:ThreadPoolStressTest.IdleWorkerExecutesTaskAfterWake",
+   "type": "function",
+   "name": "ThreadPoolStressTest.IdleWorkerExecutesTaskAfterWake",
+   "summary": "gtest 测试用例 ThreadPoolStressTest.IdleWorkerExecutesTaskAfterWake，验证相关生产组件的预期行为（13 行）。",
+   "tags": [
+    "test-case",
+    "gtest",
+    "cpp"
+   ],
+   "complexity": "simple",
+   "lineRange": [
+    142,
+    154
+   ]
+  },
+  {
+   "id": "function:tests/test_thread_pool_stress.cpp:ThreadPoolStressTest.WaitForAllTasksDoesNotBusyWait",
+   "type": "function",
+   "name": "ThreadPoolStressTest.WaitForAllTasksDoesNotBusyWait",
+   "summary": "gtest 测试用例 ThreadPoolStressTest.WaitForAllTasksDoesNotBusyWait，验证相关生产组件的预期行为（36 行）。",
+   "tags": [
+    "test-case",
+    "gtest",
+    "cpp"
+   ],
+   "complexity": "moderate",
+   "lineRange": [
+    156,
+    191
+   ]
+  },
+  {
+   "id": "function:tests/test_thread_pool_stress.cpp:ThreadPoolStressTest.StopWakesWorkersAfterQueueBecomesIdle",
+   "type": "function",
+   "name": "ThreadPoolStressTest.StopWakesWorkersAfterQueueBecomesIdle",
+   "summary": "gtest 测试用例 ThreadPoolStressTest.StopWakesWorkersAfterQueueBecomesIdle，验证相关生产组件的预期行为（13 行）。",
+   "tags": [
+    "test-case",
+    "gtest",
+    "cpp"
+   ],
+   "complexity": "simple",
+   "lineRange": [
+    193,
+    205
+   ]
+  },
+  {
+   "id": "function:tests/test_thread_pool_stress.cpp:ThreadPoolStressTest.ManyWorkersDrainShortTaskBurst",
+   "type": "function",
+   "name": "ThreadPoolStressTest.ManyWorkersDrainShortTaskBurst",
+   "summary": "gtest 测试用例 ThreadPoolStressTest.ManyWorkersDrainShortTaskBurst，验证相关生产组件的预期行为（11 行）。",
+   "tags": [
+    "test-case",
+    "gtest",
+    "cpp"
+   ],
+   "complexity": "simple",
+   "lineRange": [
+    207,
+    217
+   ]
+  },
+  {
+   "id": "function:tests/test_thread_pool_stress.cpp:ThreadPoolStressTest.LockedThreadPoolBasic",
+   "type": "function",
+   "name": "ThreadPoolStressTest.LockedThreadPoolBasic",
+   "summary": "gtest 测试用例 ThreadPoolStressTest.LockedThreadPoolBasic，验证相关生产组件的预期行为（11 行）。",
+   "tags": [
+    "test-case",
+    "gtest",
+    "cpp"
+   ],
+   "complexity": "simple",
+   "lineRange": [
+    229,
+    239
+   ]
+  },
+  {
+   "id": "file:tests/test_tcp_server_stress.cpp",
+   "type": "file",
+   "name": "tests/test_tcp_server_stress.cpp",
+   "summary": "TCP 服务器压力测试：大量并发客户端、异常断开、大数据量、最大连接数与重启。",
+   "tags": [
+    "tcp-server",
+    "stress-test",
+    "concurrency",
+    "cpp"
+   ],
+   "complexity": "complex",
+   "filePath": "tests/test_tcp_server_stress.cpp"
+  },
+  {
+   "id": "function:tests/test_tcp_server_stress.cpp:connect_client",
+   "type": "function",
+   "name": "connect_client",
+   "summary": "测试文件中的辅助函数，为测试用例搭建环境或执行公共逻辑（15 行）。",
+   "tags": [
+    "test-helper",
+    "test-utility",
+    "cpp"
+   ],
+   "complexity": "moderate",
+   "lineRange": [
+    55,
+    69
+   ]
+  },
+  {
+   "id": "function:tests/test_tcp_server_stress.cpp:TcpServerStressTest.ManyConcurrentClients",
+   "type": "function",
+   "name": "TcpServerStressTest.ManyConcurrentClients",
+   "summary": "gtest 测试用例 TcpServerStressTest.ManyConcurrentClients，验证相关生产组件的预期行为（36 行）。",
+   "tags": [
+    "test-case",
+    "gtest",
+    "cpp"
+   ],
+   "complexity": "moderate",
+   "lineRange": [
+    74,
+    109
+   ]
+  },
+  {
+   "id": "function:tests/test_tcp_server_stress.cpp:TcpServerStressTest.ClientDisconnectUnexpectedly",
+   "type": "function",
+   "name": "TcpServerStressTest.ClientDisconnectUnexpectedly",
+   "summary": "gtest 测试用例 TcpServerStressTest.ClientDisconnectUnexpectedly，验证相关生产组件的预期行为（31 行）。",
+   "tags": [
+    "test-case",
+    "gtest",
+    "cpp"
+   ],
+   "complexity": "moderate",
+   "lineRange": [
+    111,
+    141
+   ]
+  },
+  {
+   "id": "function:tests/test_tcp_server_stress.cpp:TcpServerStressTest.LargeDataFromMultipleClients",
+   "type": "function",
+   "name": "TcpServerStressTest.LargeDataFromMultipleClients",
+   "summary": "gtest 测试用例 TcpServerStressTest.LargeDataFromMultipleClients，验证相关生产组件的预期行为（79 行）。",
+   "tags": [
+    "test-case",
+    "gtest",
+    "cpp"
+   ],
+   "complexity": "complex",
+   "lineRange": [
+    143,
+    221
+   ]
+  },
+  {
+   "id": "function:tests/test_tcp_server_stress.cpp:TcpServerStressTest.ServerMaxConnections",
+   "type": "function",
+   "name": "TcpServerStressTest.ServerMaxConnections",
+   "summary": "gtest 测试用例 TcpServerStressTest.ServerMaxConnections，验证相关生产组件的预期行为（34 行）。",
+   "tags": [
+    "test-case",
+    "gtest",
+    "cpp"
+   ],
+   "complexity": "moderate",
+   "lineRange": [
+    223,
+    256
+   ]
+  },
+  {
+   "id": "function:tests/test_tcp_server_stress.cpp:TcpServerStressTest.ServerStopWhileClientsConnected",
+   "type": "function",
+   "name": "TcpServerStressTest.ServerStopWhileClientsConnected",
+   "summary": "gtest 测试用例 TcpServerStressTest.ServerStopWhileClientsConnected，验证相关生产组件的预期行为（28 行）。",
+   "tags": [
+    "test-case",
+    "gtest",
+    "cpp"
+   ],
+   "complexity": "moderate",
+   "lineRange": [
+    258,
+    285
+   ]
+  },
+  {
+   "id": "function:tests/test_tcp_server_stress.cpp:TcpServerStressTest.ServerRestart",
+   "type": "function",
+   "name": "TcpServerStressTest.ServerRestart",
+   "summary": "gtest 测试用例 TcpServerStressTest.ServerRestart，验证相关生产组件的预期行为（15 行）。",
+   "tags": [
+    "test-case",
+    "gtest",
+    "cpp"
+   ],
+   "complexity": "moderate",
+   "lineRange": [
+    287,
+    301
+   ]
+  },
+  {
+   "id": "class:tests/test_tcp_server_stress.cpp:TcpServerStressTest",
+   "type": "class",
+   "name": "TcpServerStressTest",
+   "summary": "测试夹具/桩类 TcpServerStressTest，提供 4 个方法，用于模拟生产依赖（46 行）。",
+   "tags": [
+    "test-fixture",
+    "stub",
+    "cpp"
+   ],
+   "complexity": "moderate",
+   "lineRange": [
+    25,
+    70
+   ]
+  },
+  {
+   "id": "file:tests/test_tcp_server.cpp",
+   "type": "file",
+   "name": "tests/test_tcp_server.cpp",
+   "summary": "测试 TCP 服务器的初始化、启停、并发连接回显、epoll 超时行为与信号停止。",
+   "tags": [
+    "tcp-server",
+    "epoll",
+    "unit-test",
+    "cpp"
+   ],
+   "complexity": "complex",
+   "filePath": "tests/test_tcp_server.cpp"
+  },
+  {
+   "id": "function:tests/test_tcp_server.cpp:start_server",
+   "type": "function",
+   "name": "start_server",
+   "summary": "测试文件中的辅助函数，为测试用例搭建环境或执行公共逻辑（10 行）。",
+   "tags": [
+    "test-helper",
+    "test-utility",
+    "cpp"
+   ],
+   "complexity": "simple",
+   "lineRange": [
+    47,
+    56
+   ]
+  },
+  {
+   "id": "function:tests/test_tcp_server.cpp:connect_client",
+   "type": "function",
+   "name": "connect_client",
+   "summary": "测试文件中的辅助函数，为测试用例搭建环境或执行公共逻辑（21 行）。",
+   "tags": [
+    "test-helper",
+    "test-utility",
+    "cpp"
+   ],
+   "complexity": "moderate",
+   "lineRange": [
+    58,
+    78
+   ]
+  },
+  {
+   "id": "function:tests/test_tcp_server.cpp:TcpServerTest.InitDuplicatePort",
+   "type": "function",
+   "name": "TcpServerTest.InitDuplicatePort",
+   "summary": "gtest 测试用例 TcpServerTest.InitDuplicatePort，验证相关生产组件的预期行为（10 行）。",
+   "tags": [
+    "test-case",
+    "gtest",
+    "cpp"
+   ],
+   "complexity": "simple",
+   "lineRange": [
+    87,
+    96
+   ]
+  },
+  {
+   "id": "function:tests/test_tcp_server.cpp:TcpServerTest.StartStop",
+   "type": "function",
+   "name": "TcpServerTest.StartStop",
+   "summary": "gtest 测试用例 TcpServerTest.StartStop，验证相关生产组件的预期行为（11 行）。",
+   "tags": [
+    "test-case",
+    "gtest",
+    "cpp"
+   ],
+   "complexity": "simple",
+   "lineRange": [
+    98,
+    108
+   ]
+  },
+  {
+   "id": "function:tests/test_tcp_server.cpp:TcpServerTest.SingleConnectionEcho",
+   "type": "function",
+   "name": "TcpServerTest.SingleConnectionEcho",
+   "summary": "gtest 测试用例 TcpServerTest.SingleConnectionEcho，验证相关生产组件的预期行为（51 行）。",
+   "tags": [
+    "test-case",
+    "gtest",
+    "cpp"
+   ],
+   "complexity": "complex",
+   "lineRange": [
+    110,
+    160
+   ]
+  },
+  {
+   "id": "function:tests/test_tcp_server.cpp:TcpServerTest.MultipleConcurrentConnections",
+   "type": "function",
+   "name": "TcpServerTest.MultipleConcurrentConnections",
+   "summary": "gtest 测试用例 TcpServerTest.MultipleConcurrentConnections，验证相关生产组件的预期行为（38 行）。",
+   "tags": [
+    "test-case",
+    "gtest",
+    "cpp"
+   ],
+   "complexity": "moderate",
+   "lineRange": [
+    162,
+    199
+   ]
+  },
+  {
+   "id": "function:tests/test_tcp_server.cpp:TcpServerTest.StopWaitsForActiveHandlerBeforeStartReturns",
+   "type": "function",
+   "name": "TcpServerTest.StopWaitsForActiveHandlerBeforeStartReturns",
+   "summary": "gtest 测试用例 TcpServerTest.StopWaitsForActiveHandlerBeforeStartReturns，验证相关生产组件的预期行为（79 行）。",
+   "tags": [
+    "test-case",
+    "gtest",
+    "cpp"
+   ],
+   "complexity": "complex",
+   "lineRange": [
+    201,
+    279
+   ]
+  },
+  {
+   "id": "function:tests/test_tcp_server.cpp:TcpServerTest.Accepts256SynchronizedConcurrentConnections",
+   "type": "function",
+   "name": "TcpServerTest.Accepts256SynchronizedConcurrentConnections",
+   "summary": "gtest 测试用例 TcpServerTest.Accepts256SynchronizedConcurrentConnections，验证相关生产组件的预期行为（68 行）。",
+   "tags": [
+    "test-case",
+    "gtest",
+    "cpp"
+   ],
+   "complexity": "complex",
+   "lineRange": [
+    281,
+    348
+   ]
+  },
+  {
+   "id": "function:tests/test_tcp_server.cpp:TcpServerTest.NoHandlerNoCrash",
+   "type": "function",
+   "name": "TcpServerTest.NoHandlerNoCrash",
+   "summary": "gtest 测试用例 TcpServerTest.NoHandlerNoCrash，验证相关生产组件的预期行为（21 行）。",
+   "tags": [
+    "test-case",
+    "gtest",
+    "cpp"
+   ],
+   "complexity": "moderate",
+   "lineRange": [
+    350,
+    370
+   ]
+  },
+  {
+   "id": "function:tests/test_tcp_server.cpp:TcpServerTest.ClientDisconnect",
+   "type": "function",
+   "name": "TcpServerTest.ClientDisconnect",
+   "summary": "gtest 测试用例 TcpServerTest.ClientDisconnect，验证相关生产组件的预期行为（31 行）。",
+   "tags": [
+    "test-case",
+    "gtest",
+    "cpp"
+   ],
+   "complexity": "moderate",
+   "lineRange": [
+    372,
+    402
+   ]
+  },
+  {
+   "id": "function:tests/test_tcp_server.cpp:TcpServerTest.NonPositiveEpollTimeoutDoesNotBusyWait",
+   "type": "function",
+   "name": "TcpServerTest.NonPositiveEpollTimeoutDoesNotBusyWait",
+   "summary": "gtest 测试用例 TcpServerTest.NonPositiveEpollTimeoutDoesNotBusyWait，验证相关生产组件的预期行为（20 行）。",
+   "tags": [
+    "test-case",
+    "gtest",
+    "cpp"
+   ],
+   "complexity": "moderate",
+   "lineRange": [
+    404,
+    423
+   ]
+  },
+  {
+   "id": "function:tests/test_tcp_server.cpp:TcpServerTest.ZeroEpollTimeoutStillHandlesRealConnection",
+   "type": "function",
+   "name": "TcpServerTest.ZeroEpollTimeoutStillHandlesRealConnection",
+   "summary": "gtest 测试用例 TcpServerTest.ZeroEpollTimeoutStillHandlesRealConnection，验证相关生产组件的预期行为（31 行）。",
+   "tags": [
+    "test-case",
+    "gtest",
+    "cpp"
+   ],
+   "complexity": "moderate",
+   "lineRange": [
+    425,
+    455
+   ]
+  },
+  {
+   "id": "function:tests/test_tcp_server.cpp:TcpServerTest.StopWakeFdInterruptsLongEpollWait",
+   "type": "function",
+   "name": "TcpServerTest.StopWakeFdInterruptsLongEpollWait",
+   "summary": "gtest 测试用例 TcpServerTest.StopWakeFdInterruptsLongEpollWait，验证相关生产组件的预期行为（13 行）。",
+   "tags": [
+    "test-case",
+    "gtest",
+    "cpp"
+   ],
+   "complexity": "simple",
+   "lineRange": [
+    457,
+    469
+   ]
+  },
+  {
+   "id": "function:tests/test_tcp_server.cpp:TcpServerTest.SignalStopServer",
+   "type": "function",
+   "name": "TcpServerTest.SignalStopServer",
+   "summary": "gtest 测试用例 TcpServerTest.SignalStopServer，验证相关生产组件的预期行为（25 行）。",
+   "tags": [
+    "test-case",
+    "gtest",
+    "cpp"
+   ],
+   "complexity": "moderate",
+   "lineRange": [
+    471,
+    495
+   ]
+  },
+  {
+   "id": "class:tests/test_tcp_server.cpp:TcpServerTest",
+   "type": "class",
+   "name": "TcpServerTest",
+   "summary": "测试夹具/桩类 TcpServerTest，提供 4 个方法，用于模拟生产依赖（55 行）。",
+   "tags": [
+    "test-fixture",
+    "stub",
+    "cpp"
+   ],
+   "complexity": "moderate",
+   "lineRange": [
+    25,
+    79
+   ]
+  },
+  {
+   "id": "file:tests/test_schema_migrations.cpp",
+   "type": "file",
+   "name": "tests/test_schema_migrations.cpp",
+   "summary": "测试数据库 schema 迁移逻辑，覆盖历史数据回填、DDL 幂等性、事务回滚与失败恢复。",
+   "tags": [
+    "schema-migrations",
+    "database",
+    "ddl",
+    "unit-test",
+    "cpp"
+   ],
+   "complexity": "complex",
+   "filePath": "tests/test_schema_migrations.cpp"
+  },
+  {
+   "id": "function:tests/test_schema_migrations.cpp:MigrationDatabase",
+   "type": "function",
+   "name": "MigrationDatabase",
+   "summary": "测试文件中的辅助函数，为测试用例搭建环境或执行公共逻辑（106 行）。",
+   "tags": [
+    "test-helper",
+    "test-utility",
+    "cpp"
+   ],
+   "complexity": "complex",
+   "lineRange": [
+    41,
+    146
+   ]
+  },
+  {
+   "id": "function:tests/test_schema_migrations.cpp:SchemaMigrationsTest.BackfillsHistoricalVipAndMarkerOnlyOnceInOneTransaction",
+   "type": "function",
+   "name": "SchemaMigrationsTest.BackfillsHistoricalVipAndMarkerOnlyOnceInOneTransaction",
+   "summary": "gtest 测试用例 SchemaMigrationsTest.BackfillsHistoricalVipAndMarkerOnlyOnceInOneTransaction，验证相关生产组件的预期行为（11 行）。",
+   "tags": [
+    "test-case",
+    "gtest",
+    "cpp"
+   ],
+   "complexity": "simple",
+   "lineRange": [
+    159,
+    169
+   ]
+  },
+  {
+   "id": "function:tests/test_schema_migrations.cpp:SchemaMigrationsTest.RepairsHistoricalRoleExpiryViolationsInTheMarkerTransaction",
+   "type": "function",
+   "name": "SchemaMigrationsTest.RepairsHistoricalRoleExpiryViolationsInTheMarkerTransaction",
+   "summary": "gtest 测试用例 SchemaMigrationsTest.RepairsHistoricalRoleExpiryViolationsInTheMarkerTransaction，验证相关生产组件的预期行为（20 行）。",
+   "tags": [
+    "test-case",
+    "gtest",
+    "cpp"
+   ],
+   "complexity": "moderate",
+   "lineRange": [
+    171,
+    190
+   ]
+  },
+  {
+   "id": "function:tests/test_schema_migrations.cpp:SchemaMigrationsTest.FailsClosedWhenHistoricalUserRoleIsUnknown",
+   "type": "function",
+   "name": "SchemaMigrationsTest.FailsClosedWhenHistoricalUserRoleIsUnknown",
+   "summary": "gtest 测试用例 SchemaMigrationsTest.FailsClosedWhenHistoricalUserRoleIsUnknown，验证相关生产组件的预期行为（12 行）。",
+   "tags": [
+    "test-case",
+    "gtest",
+    "cpp"
+   ],
+   "complexity": "simple",
+   "lineRange": [
+    192,
+    203
+   ]
+  },
+  {
+   "id": "function:tests/test_schema_migrations.cpp:SchemaMigrationsTest.KeepsDdlOutsideTransactionsAndBuildsSingleAdminConstraintInOrder",
+   "type": "function",
+   "name": "SchemaMigrationsTest.KeepsDdlOutsideTransactionsAndBuildsSingleAdminConstraintInOrder",
+   "summary": "gtest 测试用例 SchemaMigrationsTest.KeepsDdlOutsideTransactionsAndBuildsSingleAdminConstraintInOrder，验证相关生产组件的预期行为（26 行）。",
+   "tags": [
+    "test-case",
+    "gtest",
+    "cpp"
+   ],
+   "complexity": "moderate",
+   "lineRange": [
+    205,
+    230
+   ]
+  },
+  {
+   "id": "function:tests/test_schema_migrations.cpp:SchemaMigrationsTest.NormalizesMultipleEmptyEmailsAndBuildsUniqueEmailIndexOutsideTransaction",
+   "type": "function",
+   "name": "SchemaMigrationsTest.NormalizesMultipleEmptyEmailsAndBuildsUniqueEmailIndexOutsideTransaction",
+   "summary": "gtest 测试用例 SchemaMigrationsTest.NormalizesMultipleEmptyEmailsAndBuildsUniqueEmailIndexOutsideTransaction，验证相关生产组件的预期行为（24 行）。",
+   "tags": [
+    "test-case",
+    "gtest",
+    "cpp"
+   ],
+   "complexity": "moderate",
+   "lineRange": [
+    232,
+    255
+   ]
+  },
+  {
+   "id": "function:tests/test_schema_migrations.cpp:SchemaMigrationsTest.DuplicateHistoricalNonemptyEmailFailsClosedWithoutPretendingDdlRollback",
+   "type": "function",
+   "name": "SchemaMigrationsTest.DuplicateHistoricalNonemptyEmailFailsClosedWithoutPretendingDdlRollback",
+   "summary": "gtest 测试用例 SchemaMigrationsTest.DuplicateHistoricalNonemptyEmailFailsClosedWithoutPretendingDdlRollback，验证相关生产组件的预期行为（13 行）。",
+   "tags": [
+    "test-case",
+    "gtest",
+    "cpp"
+   ],
+   "complexity": "simple",
+   "lineRange": [
+    257,
+    269
+   ]
+  },
+  {
+   "id": "function:tests/test_schema_migrations.cpp:SchemaMigrationsTest.EmailUniqueIndexCreationIsIdempotent",
+   "type": "function",
+   "name": "SchemaMigrationsTest.EmailUniqueIndexCreationIsIdempotent",
+   "summary": "gtest 测试用例 SchemaMigrationsTest.EmailUniqueIndexCreationIsIdempotent，验证相关生产组件的预期行为（13 行）。",
+   "tags": [
+    "test-case",
+    "gtest",
+    "cpp"
+   ],
+   "complexity": "simple",
+   "lineRange": [
+    271,
+    283
+   ]
+  },
+  {
+   "id": "function:tests/test_schema_migrations.cpp:SchemaMigrationsTest.RetriesIdempotentDdlAfterInterruptedRun",
+   "type": "function",
+   "name": "SchemaMigrationsTest.RetriesIdempotentDdlAfterInterruptedRun",
+   "summary": "gtest 测试用例 SchemaMigrationsTest.RetriesIdempotentDdlAfterInterruptedRun，验证相关生产组件的预期行为（17 行）。",
+   "tags": [
+    "test-case",
+    "gtest",
+    "cpp"
+   ],
+   "complexity": "moderate",
+   "lineRange": [
+    285,
+    301
+   ]
+  },
+  {
+   "id": "function:tests/test_schema_migrations.cpp:SchemaMigrationsTest.RollsBackBackfillFailureAndRecoversOnNextRun",
+   "type": "function",
+   "name": "SchemaMigrationsTest.RollsBackBackfillFailureAndRecoversOnNextRun",
+   "summary": "gtest 测试用例 SchemaMigrationsTest.RollsBackBackfillFailureAndRecoversOnNextRun，验证相关生产组件的预期行为（14 行）。",
+   "tags": [
+    "test-case",
+    "gtest",
+    "cpp"
+   ],
+   "complexity": "simple",
+   "lineRange": [
+    303,
+    316
+   ]
+  },
+  {
+   "id": "function:tests/test_schema_migrations.cpp:SchemaMigrationsTest.RollsBackMarkerInsertFailureAndRecoversOnNextRun",
+   "type": "function",
+   "name": "SchemaMigrationsTest.RollsBackMarkerInsertFailureAndRecoversOnNextRun",
+   "summary": "gtest 测试用例 SchemaMigrationsTest.RollsBackMarkerInsertFailureAndRecoversOnNextRun，验证相关生产组件的预期行为（14 行）。",
+   "tags": [
+    "test-case",
+    "gtest",
+    "cpp"
+   ],
+   "complexity": "simple",
+   "lineRange": [
+    318,
+    331
+   ]
+  },
+  {
+   "id": "function:tests/test_schema_migrations.cpp:SchemaMigrationsTest.RollsBackCommitFailureAndRecoversWithoutDoubleBackfill",
+   "type": "function",
+   "name": "SchemaMigrationsTest.RollsBackCommitFailureAndRecoversWithoutDoubleBackfill",
+   "summary": "gtest 测试用例 SchemaMigrationsTest.RollsBackCommitFailureAndRecoversWithoutDoubleBackfill，验证相关生产组件的预期行为（15 行）。",
+   "tags": [
+    "test-case",
+    "gtest",
+    "cpp"
+   ],
+   "complexity": "moderate",
+   "lineRange": [
+    333,
+    347
+   ]
+  },
+  {
+   "id": "function:tests/test_schema_migrations.cpp:SchemaMigrationsTest.RollsBackCommitFailureWhenMarkerAlreadyExists",
+   "type": "function",
+   "name": "SchemaMigrationsTest.RollsBackCommitFailureWhenMarkerAlreadyExists",
+   "summary": "gtest 测试用例 SchemaMigrationsTest.RollsBackCommitFailureWhenMarkerAlreadyExists，验证相关生产组件的预期行为（15 行）。",
+   "tags": [
+    "test-case",
+    "gtest",
+    "cpp"
+   ],
+   "complexity": "moderate",
+   "lineRange": [
+    349,
+    363
+   ]
+  },
+  {
+   "id": "class:tests/test_schema_migrations.cpp:MigrationDatabase",
+   "type": "class",
+   "name": "MigrationDatabase",
+   "summary": "测试夹具/桩类 MigrationDatabase，提供 2 个方法，用于模拟生产依赖（139 行）。",
+   "tags": [
+    "test-fixture",
+    "stub",
+    "cpp"
+   ],
+   "complexity": "moderate",
+   "lineRange": [
+    17,
+    155
+   ]
+  }
+ ],
+ "edges": [
+  {
+   "source": "file:tests/test_thread_pool_stress.cpp",
+   "target": "function:tests/test_thread_pool_stress.cpp:ThreadPoolStressTest.StopWithPendingTasks",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "file:tests/test_thread_pool_stress.cpp",
+   "target": "function:tests/test_thread_pool_stress.cpp:ThreadPoolStressTest.ExceptionInTask",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "file:tests/test_thread_pool_stress.cpp",
+   "target": "function:tests/test_thread_pool_stress.cpp:ThreadPoolStressTest.ConcurrentEnqueueStopDrainsPreviouslyAcceptedTasks",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "file:tests/test_thread_pool_stress.cpp",
+   "target": "function:tests/test_thread_pool_stress.cpp:ThreadPoolStressTest.WaitForAllTasks",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "file:tests/test_thread_pool_stress.cpp",
+   "target": "function:tests/test_thread_pool_stress.cpp:ThreadPoolStressTest.IdleWorkersDoNotBusyWait",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "file:tests/test_thread_pool_stress.cpp",
+   "target": "function:tests/test_thread_pool_stress.cpp:ThreadPoolStressTest.IdleWorkerExecutesTaskAfterWake",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "file:tests/test_thread_pool_stress.cpp",
+   "target": "function:tests/test_thread_pool_stress.cpp:ThreadPoolStressTest.WaitForAllTasksDoesNotBusyWait",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "file:tests/test_thread_pool_stress.cpp",
+   "target": "function:tests/test_thread_pool_stress.cpp:ThreadPoolStressTest.StopWakesWorkersAfterQueueBecomesIdle",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "file:tests/test_thread_pool_stress.cpp",
+   "target": "function:tests/test_thread_pool_stress.cpp:ThreadPoolStressTest.ManyWorkersDrainShortTaskBurst",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "file:tests/test_thread_pool_stress.cpp",
+   "target": "function:tests/test_thread_pool_stress.cpp:ThreadPoolStressTest.LockedThreadPoolBasic",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "file:net/thread-pool/src/thread_pool.cpp",
+   "target": "file:tests/test_thread_pool_stress.cpp",
+   "type": "tested_by",
+   "direction": "forward",
+   "weight": 0.5
+  },
+  {
+   "source": "file:net/thread-pool/src/locked_thread_pool.cpp",
+   "target": "file:tests/test_thread_pool_stress.cpp",
+   "type": "tested_by",
+   "direction": "forward",
+   "weight": 0.5
+  },
+  {
+   "source": "file:tests/test_tcp_server_stress.cpp",
+   "target": "function:tests/test_tcp_server_stress.cpp:connect_client",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "file:tests/test_tcp_server_stress.cpp",
+   "target": "function:tests/test_tcp_server_stress.cpp:TcpServerStressTest.ManyConcurrentClients",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "file:tests/test_tcp_server_stress.cpp",
+   "target": "function:tests/test_tcp_server_stress.cpp:TcpServerStressTest.ClientDisconnectUnexpectedly",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "file:tests/test_tcp_server_stress.cpp",
+   "target": "function:tests/test_tcp_server_stress.cpp:TcpServerStressTest.LargeDataFromMultipleClients",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "file:tests/test_tcp_server_stress.cpp",
+   "target": "function:tests/test_tcp_server_stress.cpp:TcpServerStressTest.ServerMaxConnections",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "file:tests/test_tcp_server_stress.cpp",
+   "target": "function:tests/test_tcp_server_stress.cpp:TcpServerStressTest.ServerStopWhileClientsConnected",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "file:tests/test_tcp_server_stress.cpp",
+   "target": "function:tests/test_tcp_server_stress.cpp:TcpServerStressTest.ServerRestart",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "file:tests/test_tcp_server_stress.cpp",
+   "target": "class:tests/test_tcp_server_stress.cpp:TcpServerStressTest",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "file:net/tcp/tcp_server/src/tcp_server.cpp",
+   "target": "file:tests/test_tcp_server_stress.cpp",
+   "type": "tested_by",
+   "direction": "forward",
+   "weight": 0.5
+  },
+  {
+   "source": "file:net/tcp/tcp_server/src/connection.cpp",
+   "target": "file:tests/test_tcp_server_stress.cpp",
+   "type": "tested_by",
+   "direction": "forward",
+   "weight": 0.5
+  },
+  {
+   "source": "file:net/thread-pool/src/thread_pool.cpp",
+   "target": "file:tests/test_tcp_server_stress.cpp",
+   "type": "tested_by",
+   "direction": "forward",
+   "weight": 0.5
+  },
+  {
+   "source": "file:tests/test_tcp_server.cpp",
+   "target": "function:tests/test_tcp_server.cpp:start_server",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "file:tests/test_tcp_server.cpp",
+   "target": "function:tests/test_tcp_server.cpp:connect_client",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "file:tests/test_tcp_server.cpp",
+   "target": "function:tests/test_tcp_server.cpp:TcpServerTest.InitDuplicatePort",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "file:tests/test_tcp_server.cpp",
+   "target": "function:tests/test_tcp_server.cpp:TcpServerTest.StartStop",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "file:tests/test_tcp_server.cpp",
+   "target": "function:tests/test_tcp_server.cpp:TcpServerTest.SingleConnectionEcho",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "file:tests/test_tcp_server.cpp",
+   "target": "function:tests/test_tcp_server.cpp:TcpServerTest.MultipleConcurrentConnections",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "file:tests/test_tcp_server.cpp",
+   "target": "function:tests/test_tcp_server.cpp:TcpServerTest.StopWaitsForActiveHandlerBeforeStartReturns",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "file:tests/test_tcp_server.cpp",
+   "target": "function:tests/test_tcp_server.cpp:TcpServerTest.Accepts256SynchronizedConcurrentConnections",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "file:tests/test_tcp_server.cpp",
+   "target": "function:tests/test_tcp_server.cpp:TcpServerTest.NoHandlerNoCrash",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "file:tests/test_tcp_server.cpp",
+   "target": "function:tests/test_tcp_server.cpp:TcpServerTest.ClientDisconnect",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "file:tests/test_tcp_server.cpp",
+   "target": "function:tests/test_tcp_server.cpp:TcpServerTest.NonPositiveEpollTimeoutDoesNotBusyWait",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "file:tests/test_tcp_server.cpp",
+   "target": "function:tests/test_tcp_server.cpp:TcpServerTest.ZeroEpollTimeoutStillHandlesRealConnection",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "file:tests/test_tcp_server.cpp",
+   "target": "function:tests/test_tcp_server.cpp:TcpServerTest.StopWakeFdInterruptsLongEpollWait",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "file:tests/test_tcp_server.cpp",
+   "target": "function:tests/test_tcp_server.cpp:TcpServerTest.SignalStopServer",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "file:tests/test_tcp_server.cpp",
+   "target": "class:tests/test_tcp_server.cpp:TcpServerTest",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "file:net/tcp/tcp_server/src/tcp_server.cpp",
+   "target": "file:tests/test_tcp_server.cpp",
+   "type": "tested_by",
+   "direction": "forward",
+   "weight": 0.5
+  },
+  {
+   "source": "file:net/thread-pool/src/thread_pool.cpp",
+   "target": "file:tests/test_tcp_server.cpp",
+   "type": "tested_by",
+   "direction": "forward",
+   "weight": 0.5
+  },
+  {
+   "source": "file:tests/test_schema_migrations.cpp",
+   "target": "function:tests/test_schema_migrations.cpp:MigrationDatabase",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "file:tests/test_schema_migrations.cpp",
+   "target": "function:tests/test_schema_migrations.cpp:SchemaMigrationsTest.BackfillsHistoricalVipAndMarkerOnlyOnceInOneTransaction",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "file:tests/test_schema_migrations.cpp",
+   "target": "function:tests/test_schema_migrations.cpp:SchemaMigrationsTest.RepairsHistoricalRoleExpiryViolationsInTheMarkerTransaction",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "file:tests/test_schema_migrations.cpp",
+   "target": "function:tests/test_schema_migrations.cpp:SchemaMigrationsTest.FailsClosedWhenHistoricalUserRoleIsUnknown",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "file:tests/test_schema_migrations.cpp",
+   "target": "function:tests/test_schema_migrations.cpp:SchemaMigrationsTest.KeepsDdlOutsideTransactionsAndBuildsSingleAdminConstraintInOrder",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "file:tests/test_schema_migrations.cpp",
+   "target": "function:tests/test_schema_migrations.cpp:SchemaMigrationsTest.NormalizesMultipleEmptyEmailsAndBuildsUniqueEmailIndexOutsideTransaction",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "file:tests/test_schema_migrations.cpp",
+   "target": "function:tests/test_schema_migrations.cpp:SchemaMigrationsTest.DuplicateHistoricalNonemptyEmailFailsClosedWithoutPretendingDdlRollback",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "file:tests/test_schema_migrations.cpp",
+   "target": "function:tests/test_schema_migrations.cpp:SchemaMigrationsTest.EmailUniqueIndexCreationIsIdempotent",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "file:tests/test_schema_migrations.cpp",
+   "target": "function:tests/test_schema_migrations.cpp:SchemaMigrationsTest.RetriesIdempotentDdlAfterInterruptedRun",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "file:tests/test_schema_migrations.cpp",
+   "target": "function:tests/test_schema_migrations.cpp:SchemaMigrationsTest.RollsBackBackfillFailureAndRecoversOnNextRun",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "file:tests/test_schema_migrations.cpp",
+   "target": "function:tests/test_schema_migrations.cpp:SchemaMigrationsTest.RollsBackMarkerInsertFailureAndRecoversOnNextRun",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "file:tests/test_schema_migrations.cpp",
+   "target": "function:tests/test_schema_migrations.cpp:SchemaMigrationsTest.RollsBackCommitFailureAndRecoversWithoutDoubleBackfill",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "file:tests/test_schema_migrations.cpp",
+   "target": "function:tests/test_schema_migrations.cpp:SchemaMigrationsTest.RollsBackCommitFailureWhenMarkerAlreadyExists",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "file:tests/test_schema_migrations.cpp",
+   "target": "class:tests/test_schema_migrations.cpp:MigrationDatabase",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "file:core/src/schema_migrations.cpp",
+   "target": "file:tests/test_schema_migrations.cpp",
+   "type": "tested_by",
+   "direction": "forward",
+   "weight": 0.5
+  }
+ ]
+}

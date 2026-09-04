@@ -1,0 +1,1271 @@
+{
+ "nodes": [
+  {
+   "id": "file:net/file-transfer/include/file_transfer.h",
+   "type": "file",
+   "name": "file_transfer.h",
+   "summary": "FileTransfer 类声明：继承 IFileTransfer 接口，提供小文件直传（transfer_small）、大文件分片传输（transfer_large，fork 子进程执行）与分片接收（receive_file），依赖 IFileSystem 读取与切片文件。",
+   "tags": [
+    "file-transfer",
+    "tcp",
+    "interface",
+    "header"
+   ],
+   "complexity": "simple",
+   "filePath": "net/file-transfer/include/file_transfer.h"
+  },
+  {
+   "id": "class:net/file-transfer/include/file_transfer.h:FileTransfer",
+   "type": "class",
+   "name": "FileTransfer",
+   "summary": "文件传输门面类：实现 transfer_small/transfer_large/receive_file 三个纯虚接口，持有 IFileSystem 与分块大小，默认块 2MiB、最大并发 16。",
+   "tags": [
+    "file-transfer",
+    "tcp",
+    "chunking"
+   ],
+   "complexity": "moderate",
+   "lineRange": [
+    12,
+    28
+   ]
+  },
+  {
+   "id": "file:net/file-transfer/src/file_transfer.cpp",
+   "type": "file",
+   "name": "file_transfer.cpp",
+   "summary": "文件传输实现：小文件一次性读入发送；大文件用 fork+execlp 启动 file-send-process 子进程并经管道喂入分片清单；接收端建立监听 socket 逐块校验魔数后 pwrite 落盘。",
+   "tags": [
+    "file-transfer",
+    "tcp",
+    "fork",
+    "socket",
+    "cpp20"
+   ],
+   "complexity": "complex",
+   "filePath": "net/file-transfer/src/file_transfer.cpp"
+  },
+  {
+   "id": "function:net/file-transfer/src/file_transfer.cpp:transfer_small",
+   "type": "function",
+   "name": "transfer_small",
+   "summary": "小文件传输：校验客户端在线后整体读取文件内容并直接 send_message 发送。",
+   "tags": [
+    "file-transfer",
+    "small-file",
+    "tcp"
+   ],
+   "complexity": "simple",
+   "lineRange": [
+    27,
+    38
+   ]
+  },
+  {
+   "id": "function:net/file-transfer/src/file_transfer.cpp:transfer_large",
+   "type": "function",
+   "name": "transfer_large",
+   "summary": "大文件分片传输：split_file 分片后组装清单，fork 子进程 exec file-send-process，父进程经管道写入清单并 waitpid 校验退出状态。",
+   "tags": [
+    "file-transfer",
+    "fork",
+    "pipe",
+    "chunking"
+   ],
+   "complexity": "complex",
+   "lineRange": [
+    40,
+    110
+   ]
+  },
+  {
+   "id": "function:net/file-transfer/src/file_transfer.cpp:setup_listen_socket",
+   "type": "function",
+   "name": "setup_listen_socket",
+   "summary": "创建非阻塞监听 socket：SO_REUSEADDR、端口 0 自动绑定、getsockname 回读实际端口并 listen。",
+   "tags": [
+    "file-transfer",
+    "socket",
+    "listen",
+    "tcp"
+   ],
+   "complexity": "simple",
+   "lineRange": [
+    115,
+    148
+   ]
+  },
+  {
+   "id": "function:net/file-transfer/src/file_transfer.cpp:accept_and_receive_chunk",
+   "type": "function",
+   "name": "accept_and_receive_chunk",
+   "summary": "接受一个分片连接：非阻塞 accept4，poll 等待，读取定长 ChunkHeader 校验魔数，再读分片数据并 pwrite 到文件偏移处，返回是否全部接收完成。",
+   "tags": [
+    "file-transfer",
+    "socket",
+    "chunk",
+    "pwrite"
+   ],
+   "complexity": "complex",
+   "lineRange": [
+    151,
+    232
+   ]
+  },
+  {
+   "id": "function:net/file-transfer/src/file_transfer.cpp:receive_file",
+   "type": "function",
+   "name": "receive_file",
+   "summary": "接收端入口：建立监听 socket、打开目标文件，循环调用 accept_and_receive_chunk 直至全部块完成，失败时删除半成品文件。",
+   "tags": [
+    "file-transfer",
+    "receive",
+    "socket"
+   ],
+   "complexity": "moderate",
+   "lineRange": [
+    236,
+    271
+   ]
+  },
+  {
+   "id": "file:net/http/src/http_parser.cpp",
+   "type": "file",
+   "name": "http_parser.cpp",
+   "summary": "增量 HTTP/1.1 请求解析器状态机：逐字节驱动请求行、头部、Identity/Chunked 分块体解析，支持流式 chunk 回调与 body 完成回调，供协程连接复用。",
+   "tags": [
+    "http",
+    "parser",
+    "state-machine",
+    "chunked",
+    "cpp20"
+   ],
+   "complexity": "complex",
+   "filePath": "net/http/src/http_parser.cpp"
+  },
+  {
+   "id": "function:net/http/src/http_parser.cpp:reset",
+   "type": "function",
+   "name": "reset",
+   "summary": "重置解析器到 REQUEST_LINE 初始状态并清空请求、chunk 缓冲与全部回调。",
+   "tags": [
+    "http",
+    "parser",
+    "parser",
+    "reset"
+   ],
+   "complexity": "simple",
+   "lineRange": [
+    11,
+    27
+   ]
+  },
+  {
+   "id": "function:net/http/src/http_parser.cpp:feed",
+   "type": "function",
+   "name": "feed",
+   "summary": "解析主入口：按当前 ParserState 分发字节到对应 feed_* 状态机函数，返回结果与已消费字节数。",
+   "tags": [
+    "http",
+    "parser",
+    "parser",
+    "state-machine"
+   ],
+   "complexity": "complex",
+   "lineRange": [
+    33,
+    70
+   ]
+  },
+  {
+   "id": "function:net/http/src/http_parser.cpp:feed_request_line",
+   "type": "function",
+   "name": "feed_request_line",
+   "summary": "累积请求行字节，解析 METHOD/PATH/QUERY/HTTP 版本并切换状态。",
+   "tags": [
+    "http",
+    "parser",
+    "request-line",
+    "parser"
+   ],
+   "complexity": "moderate",
+   "lineRange": [
+    74,
+    109
+   ]
+  },
+  {
+   "id": "function:net/http/src/http_parser.cpp:handle_end_of_headers",
+   "type": "function",
+   "name": "handle_end_of_headers",
+   "summary": "头部结束处理：触发 headers_done_cb_、按 Content-Length/Transfer-Encoding 确定 body 模式。",
+   "tags": [
+    "http",
+    "parser",
+    "headers",
+    "parser"
+   ],
+   "complexity": "moderate",
+   "lineRange": [
+    113,
+    151
+   ]
+  },
+  {
+   "id": "function:net/http/src/http_parser.cpp:parse_header_line",
+   "type": "function",
+   "name": "parse_header_line",
+   "summary": "拆分一行头部为 name/value 并存入请求头映射。",
+   "tags": [
+    "http",
+    "parser",
+    "headers",
+    "parser"
+   ],
+   "complexity": "simple",
+   "lineRange": [
+    153,
+    169
+   ]
+  },
+  {
+   "id": "function:net/http/src/http_parser.cpp:feed_headers",
+   "type": "function",
+   "name": "feed_headers",
+   "summary": "累积头部字节，遇空行调 handle_end_of_headers，否则逐行 parse_header_line。",
+   "tags": [
+    "http",
+    "parser",
+    "headers",
+    "parser"
+   ],
+   "complexity": "simple",
+   "lineRange": [
+    171,
+    190
+   ]
+  },
+  {
+   "id": "function:net/http/src/http_parser.cpp:finish_body",
+   "type": "function",
+   "name": "finish_body",
+   "summary": "body 结束收尾：冲刷 chunk 缓冲并调用 body_done 回调（move 语义）。",
+   "tags": [
+    "http",
+    "parser",
+    "body",
+    "parser"
+   ],
+   "complexity": "simple",
+   "lineRange": [
+    204,
+    215
+   ]
+  },
+  {
+   "id": "function:net/http/src/http_parser.cpp:append_body_byte",
+   "type": "function",
+   "name": "append_body_byte",
+   "summary": "追加 body 字节，达流式块尺寸阈值时触发 chunk_handler_。",
+   "tags": [
+    "http",
+    "parser",
+    "body",
+    "streaming"
+   ],
+   "complexity": "simple",
+   "lineRange": [
+    217,
+    226
+   ]
+  },
+  {
+   "id": "function:net/http/src/http_parser.cpp:feed_body_identity",
+   "type": "function",
+   "name": "feed_body_identity",
+   "summary": "按 Content-Length 消费定长 body 字节，读满后 finish_body。",
+   "tags": [
+    "http",
+    "parser",
+    "body",
+    "content-length"
+   ],
+   "complexity": "moderate",
+   "lineRange": [
+    228,
+    249
+   ]
+  },
+  {
+   "id": "function:net/http/src/http_parser.cpp:feed_chunk_size",
+   "type": "function",
+   "name": "feed_chunk_size",
+   "summary": "解析 chunked 编码的分块大小行（支持分号扩展）。",
+   "tags": [
+    "http",
+    "parser",
+    "chunked",
+    "parser"
+   ],
+   "complexity": "moderate",
+   "lineRange": [
+    253,
+    286
+   ]
+  },
+  {
+   "id": "function:net/http/src/http_parser.cpp:feed_chunk_data",
+   "type": "function",
+   "name": "feed_chunk_data",
+   "summary": "消费 chunk 数据字节，追加到 body 并统计已读。",
+   "tags": [
+    "http",
+    "parser",
+    "chunked",
+    "parser"
+   ],
+   "complexity": "moderate",
+   "lineRange": [
+    288,
+    312
+   ]
+  },
+  {
+   "id": "function:net/http/src/http_parser.cpp:feed_chunk_trailer",
+   "type": "function",
+   "name": "feed_chunk_trailer",
+   "summary": "chunked trailer 处理：确认终结块后完成 body。",
+   "tags": [
+    "http",
+    "parser",
+    "chunked",
+    "trailer"
+   ],
+   "complexity": "simple",
+   "lineRange": [
+    314,
+    328
+   ]
+  },
+  {
+   "id": "file:net/http/src/http_request.cpp",
+   "type": "file",
+   "name": "http_request.cpp",
+   "summary": "HTTP 请求工具实现：HttpMethod 枚举与字符串互转（含 UNKNOWN 兜底），以及 HttpRequest::clear 清空全部请求字段并复位认证状态。",
+   "tags": [
+    "http",
+    "request",
+    "enum",
+    "cpp20"
+   ],
+   "complexity": "simple",
+   "filePath": "net/http/src/http_request.cpp"
+  },
+  {
+   "id": "function:net/http/src/http_request.cpp:http_method_to_string",
+   "type": "function",
+   "name": "http_method_to_string",
+   "summary": "将 HttpMethod 枚举映射为对应的 HTTP 方法字符串，未知值返回 UNKNOWN。",
+   "tags": [
+    "http",
+    "method",
+    "string"
+   ],
+   "complexity": "simple",
+   "lineRange": [
+    5,
+    28
+   ]
+  },
+  {
+   "id": "function:net/http/src/http_request.cpp:string_to_http_method",
+   "type": "function",
+   "name": "string_to_http_method",
+   "summary": "将 HTTP 方法字符串解析为 HttpMethod 枚举，匹配失败返回 UNKNOWN。",
+   "tags": [
+    "http",
+    "method",
+    "parse"
+   ],
+   "complexity": "simple",
+   "lineRange": [
+    30,
+    50
+   ]
+  },
+  {
+   "id": "function:net/http/src/http_request.cpp:clear",
+   "type": "function",
+   "name": "clear",
+   "summary": "清空 HttpRequest 的 method/path/query/headers/body/path_params 并复位认证状态（TokenValidationStatus::INVALID）。",
+   "tags": [
+    "http",
+    "request",
+    "reset"
+   ],
+   "complexity": "simple",
+   "lineRange": [
+    52,
+    63
+   ]
+  },
+  {
+   "id": "file:net/http/src/http_server.cpp",
+   "type": "file",
+   "name": "http_server.cpp",
+   "summary": "HTTP 服务器核心：路由注册（get/post/put/del/ws/upload）、连接生命周期管理、WebSocket 升级、文件上传流式处理（分片哈希、初始分片探测、Content-Disposition 文件名解析防注入、UTF-8 校验），并统一 CORS 与错误响应。",
+   "tags": [
+    "http-server",
+    "routing",
+    "websocket",
+    "upload",
+    "cpp20"
+   ],
+   "complexity": "complex",
+   "filePath": "net/http/src/http_server.cpp"
+  },
+  {
+   "id": "function:net/http/src/http_server.cpp:upload_auth_error",
+   "type": "function",
+   "name": "upload_auth_error",
+   "summary": "构造上传鉴权失败响应：设置状态码、Content-Type 与 JSON 错误体。",
+   "tags": [
+    "http-server",
+    "upload",
+    "auth",
+    "response"
+   ],
+   "complexity": "simple",
+   "lineRange": [
+    27,
+    37
+   ]
+  },
+  {
+   "id": "function:net/http/src/http_server.cpp:ascii_iequals",
+   "type": "function",
+   "name": "ascii_iequals",
+   "summary": "大小写不敏感 ASCII 字符串比较（tolower 逐字符），用于 HTTP 头比较。",
+   "tags": [
+    "http-server",
+    "string",
+    "compare",
+    "http"
+   ],
+   "complexity": "simple",
+   "lineRange": [
+    57,
+    69
+   ]
+  },
+  {
+   "id": "function:net/http/src/http_server.cpp:hex_value",
+   "type": "function",
+   "name": "hex_value",
+   "summary": "将十六进制字符转换为数值（0-15），非法字符返回 -1。",
+   "tags": [
+    "http-server",
+    "hex",
+    "decode",
+    "util"
+   ],
+   "complexity": "simple",
+   "lineRange": [
+    71,
+    82
+   ]
+  },
+  {
+   "id": "function:net/http/src/http_server.cpp:valid_utf8",
+   "type": "function",
+   "name": "valid_utf8",
+   "summary": "校验字节序列是否为合法 UTF-8 文本，用于文件名安全校验。",
+   "tags": [
+    "http-server",
+    "utf8",
+    "validation",
+    "security"
+   ],
+   "complexity": "moderate",
+   "lineRange": [
+    84,
+    126
+   ]
+  },
+  {
+   "id": "function:net/http/src/http_server.cpp:safe_file_name",
+   "type": "function",
+   "name": "safe_file_name",
+   "summary": "清洗文件名：移除路径分隔符与不可见字符，先经 valid_utf8 校验，防路径穿越。",
+   "tags": [
+    "http-server",
+    "security",
+    "filename",
+    "sanitize"
+   ],
+   "complexity": "simple",
+   "lineRange": [
+    128,
+    142
+   ]
+  },
+  {
+   "id": "function:net/http/src/http_server.cpp:decode_extended_filename",
+   "type": "function",
+   "name": "decode_extended_filename",
+   "summary": "解析 RFC 5987 filename* 扩展编码（UTF-8''percent-encoding），失败时回退普通文件名。",
+   "tags": [
+    "http-server",
+    "filename",
+    "rfc5987",
+    "decode"
+   ],
+   "complexity": "moderate",
+   "lineRange": [
+    144,
+    174
+   ]
+  },
+  {
+   "id": "function:net/http/src/http_server.cpp:split_disposition_parameters",
+   "type": "function",
+   "name": "split_disposition_parameters",
+   "summary": "将 Content-Disposition 头部按 ';' 切分为参数键值对列表。",
+   "tags": [
+    "http-server",
+    "header",
+    "parse",
+    "upload"
+   ],
+   "complexity": "simple",
+   "lineRange": [
+    181,
+    201
+   ]
+  },
+  {
+   "id": "function:net/http/src/http_server.cpp:decode_parameter_value",
+   "type": "function",
+   "name": "decode_parameter_value",
+   "summary": "解码 disposition 参数值：支持引号剥离与百分号解码（hex_value 辅助）。",
+   "tags": [
+    "http-server",
+    "header",
+    "decode",
+    "upload"
+   ],
+   "complexity": "moderate",
+   "lineRange": [
+    203,
+    228
+   ]
+  },
+  {
+   "id": "function:net/http/src/http_server.cpp:parse_filename_candidates",
+   "type": "function",
+   "name": "parse_filename_candidates",
+   "summary": "从 Content-Disposition 中提取普通与扩展 filename 候选，清洗后优先采用扩展名。",
+   "tags": [
+    "http-server",
+    "filename",
+    "header",
+    "upload"
+   ],
+   "complexity": "moderate",
+   "lineRange": [
+    230,
+    250
+   ]
+  },
+  {
+   "id": "function:net/http/src/http_server.cpp:parse_upload_metadata",
+   "type": "function",
+   "name": "parse_upload_metadata",
+   "summary": "解析上传元数据：从 Content-Disposition 取文件名，必要时使用默认名，保存到上传上下文。",
+   "tags": [
+    "http-server",
+    "upload",
+    "metadata",
+    "filename"
+   ],
+   "complexity": "moderate",
+   "lineRange": [
+    264,
+    289
+   ]
+  },
+  {
+   "id": "function:net/http/src/http_server.cpp:process_upload_data",
+   "type": "function",
+   "name": "process_upload_data",
+   "summary": "处理上传分片：按字节更新 SHA-256 哈希（FileSystem::sha256_hex）并持久化分片数据。",
+   "tags": [
+    "http-server",
+    "upload",
+    "hash",
+    "chunk"
+   ],
+   "complexity": "moderate",
+   "lineRange": [
+    301,
+    330
+   ]
+  },
+  {
+   "id": "function:net/http/src/http_server.cpp:finish_initial_chunk_probe",
+   "type": "function",
+   "name": "finish_initial_chunk_probe",
+   "summary": "完成初始分片探测：设定流式分块大小并转发剩余探测数据给 process_upload_data。",
+   "tags": [
+    "http-server",
+    "upload",
+    "probe",
+    "streaming"
+   ],
+   "complexity": "simple",
+   "lineRange": [
+    332,
+    349
+   ]
+  },
+  {
+   "id": "function:net/http/src/http_server.cpp:process_upload_chunk",
+   "type": "function",
+   "name": "process_upload_chunk",
+   "summary": "流式上传 chunk 回调：追加分片数据，首片先探测再进入常规处理。",
+   "tags": [
+    "http-server",
+    "upload",
+    "streaming",
+    "chunk"
+   ],
+   "complexity": "simple",
+   "lineRange": [
+    351,
+    363
+   ]
+  },
+  {
+   "id": "function:net/http/src/http_server.cpp:set_initial_chunk_probe",
+   "type": "function",
+   "name": "set_initial_chunk_probe",
+   "summary": "配置初始分片探测缓冲大小与回调，用于上传前导数据分析。",
+   "tags": [
+    "http-server",
+    "upload",
+    "probe",
+    "config"
+   ],
+   "complexity": "simple",
+   "lineRange": [
+    390,
+    402
+   ]
+  },
+  {
+   "id": "function:net/http/src/http_server.cpp:upload",
+   "type": "function",
+   "name": "upload",
+   "summary": "注册上传路由：绑定流式解析回调、setup 与 preflight 处理器到路径。",
+   "tags": [
+    "http-server",
+    "routing",
+    "upload",
+    "register"
+   ],
+   "complexity": "moderate",
+   "lineRange": [
+    457,
+    470
+   ]
+  },
+  {
+   "id": "function:net/http/src/http_server.cpp:try_handle_ws_upgrade",
+   "type": "function",
+   "name": "try_handle_ws_upgrade",
+   "summary": "尝试 WebSocket 升级：校验 Upgrade 头并移交到对应 ws handler。",
+   "tags": [
+    "http-server",
+    "websocket",
+    "upgrade",
+    "routing"
+   ],
+   "complexity": "moderate",
+   "lineRange": [
+    491,
+    517
+   ]
+  },
+  {
+   "id": "function:net/http/src/http_server.cpp:on_headers_done",
+   "type": "function",
+   "name": "on_headers_done",
+   "summary": "请求头解析完成回调：解析上传元数据、按鉴权结果选择上传或丢弃模式，绑定流式上传或走普通路由。",
+   "tags": [
+    "http-server",
+    "http",
+    "headers",
+    "dispatch"
+   ],
+   "complexity": "complex",
+   "lineRange": [
+    519,
+    558
+   ]
+  },
+  {
+   "id": "function:net/http/src/http_server.cpp:handle_connection",
+   "type": "function",
+   "name": "handle_connection",
+   "summary": "连接主循环：创建/复用 HttpParser，feed 请求数据，路由分发、鉴权错误处理、WS 升级尝试，循环直至连接关闭。",
+   "tags": [
+    "http-server",
+    "http-server",
+    "connection",
+    "dispatch"
+   ],
+   "complexity": "complex",
+   "lineRange": [
+    561,
+    731
+   ]
+  },
+  {
+   "id": "function:net/http/src/http_server.cpp:send_error",
+   "type": "function",
+   "name": "send_error",
+   "summary": "统一错误响应发送：设置状态码与 JSON 文本并追加到连接写缓冲。",
+   "tags": [
+    "http-server",
+    "http",
+    "error",
+    "response"
+   ],
+   "complexity": "simple",
+   "lineRange": [
+    733,
+    744
+   ]
+  }
+ ],
+ "edges": [
+  {
+   "source": "file:net/file-transfer/include/file_transfer.h",
+   "target": "class:net/file-transfer/include/file_transfer.h:FileTransfer",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:net/file-transfer/include/file_transfer.h",
+   "target": "file:net/file-transfer/include/i_file_transfer.h",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "class:net/file-transfer/include/file_transfer.h:FileTransfer",
+   "target": "class:net/file-transfer/include/i_file_transfer.h:IFileTransfer",
+   "type": "inherits",
+   "direction": "forward",
+   "weight": 0.9
+  },
+  {
+   "source": "file:net/file-transfer/src/file_transfer.cpp",
+   "target": "function:net/file-transfer/src/file_transfer.cpp:transfer_small",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:net/file-transfer/src/file_transfer.cpp",
+   "target": "function:net/file-transfer/src/file_transfer.cpp:transfer_large",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:net/file-transfer/src/file_transfer.cpp",
+   "target": "function:net/file-transfer/src/file_transfer.cpp:setup_listen_socket",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:net/file-transfer/src/file_transfer.cpp",
+   "target": "function:net/file-transfer/src/file_transfer.cpp:accept_and_receive_chunk",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:net/file-transfer/src/file_transfer.cpp",
+   "target": "function:net/file-transfer/src/file_transfer.cpp:receive_file",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "function:net/file-transfer/src/file_transfer.cpp:receive_file",
+   "target": "function:net/file-transfer/src/file_transfer.cpp:setup_listen_socket",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:net/file-transfer/src/file_transfer.cpp:receive_file",
+   "target": "function:net/file-transfer/src/file_transfer.cpp:accept_and_receive_chunk",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:net/http/src/http_parser.cpp",
+   "target": "function:net/http/src/http_parser.cpp:reset",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:net/http/src/http_parser.cpp",
+   "target": "function:net/http/src/http_parser.cpp:feed",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:net/http/src/http_parser.cpp",
+   "target": "function:net/http/src/http_parser.cpp:feed_request_line",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:net/http/src/http_parser.cpp",
+   "target": "function:net/http/src/http_parser.cpp:handle_end_of_headers",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:net/http/src/http_parser.cpp",
+   "target": "function:net/http/src/http_parser.cpp:parse_header_line",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:net/http/src/http_parser.cpp",
+   "target": "function:net/http/src/http_parser.cpp:feed_headers",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:net/http/src/http_parser.cpp",
+   "target": "function:net/http/src/http_parser.cpp:finish_body",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:net/http/src/http_parser.cpp",
+   "target": "function:net/http/src/http_parser.cpp:append_body_byte",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:net/http/src/http_parser.cpp",
+   "target": "function:net/http/src/http_parser.cpp:feed_body_identity",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:net/http/src/http_parser.cpp",
+   "target": "function:net/http/src/http_parser.cpp:feed_chunk_size",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:net/http/src/http_parser.cpp",
+   "target": "function:net/http/src/http_parser.cpp:feed_chunk_data",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:net/http/src/http_parser.cpp",
+   "target": "function:net/http/src/http_parser.cpp:feed_chunk_trailer",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "function:net/http/src/http_parser.cpp:feed",
+   "target": "function:net/http/src/http_parser.cpp:feed_request_line",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:net/http/src/http_parser.cpp:feed",
+   "target": "function:net/http/src/http_parser.cpp:feed_headers",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:net/http/src/http_parser.cpp:feed",
+   "target": "function:net/http/src/http_parser.cpp:feed_body_identity",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:net/http/src/http_parser.cpp:feed",
+   "target": "function:net/http/src/http_parser.cpp:feed_chunk_size",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:net/http/src/http_parser.cpp:feed",
+   "target": "function:net/http/src/http_parser.cpp:feed_chunk_data",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:net/http/src/http_parser.cpp:feed",
+   "target": "function:net/http/src/http_parser.cpp:feed_chunk_trailer",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:net/http/src/http_parser.cpp:handle_end_of_headers",
+   "target": "function:net/http/src/http_parser.cpp:finish_body",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:net/http/src/http_parser.cpp:feed_headers",
+   "target": "function:net/http/src/http_parser.cpp:handle_end_of_headers",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:net/http/src/http_parser.cpp:feed_headers",
+   "target": "function:net/http/src/http_parser.cpp:parse_header_line",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:net/http/src/http_parser.cpp:feed_body_identity",
+   "target": "function:net/http/src/http_parser.cpp:append_body_byte",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:net/http/src/http_parser.cpp:feed_body_identity",
+   "target": "function:net/http/src/http_parser.cpp:finish_body",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:net/http/src/http_parser.cpp:feed_chunk_data",
+   "target": "function:net/http/src/http_parser.cpp:append_body_byte",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:net/http/src/http_parser.cpp:feed_request_line",
+   "target": "function:net/http/src/http_request.cpp:string_to_http_method",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:net/http/src/http_request.cpp",
+   "target": "function:net/http/src/http_request.cpp:http_method_to_string",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:net/http/src/http_request.cpp",
+   "target": "function:net/http/src/http_request.cpp:string_to_http_method",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:net/http/src/http_request.cpp",
+   "target": "function:net/http/src/http_request.cpp:clear",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:net/http/src/http_server.cpp",
+   "target": "function:net/http/src/http_server.cpp:upload_auth_error",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:net/http/src/http_server.cpp",
+   "target": "function:net/http/src/http_server.cpp:ascii_iequals",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:net/http/src/http_server.cpp",
+   "target": "function:net/http/src/http_server.cpp:hex_value",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:net/http/src/http_server.cpp",
+   "target": "function:net/http/src/http_server.cpp:valid_utf8",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:net/http/src/http_server.cpp",
+   "target": "function:net/http/src/http_server.cpp:safe_file_name",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:net/http/src/http_server.cpp",
+   "target": "function:net/http/src/http_server.cpp:decode_extended_filename",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:net/http/src/http_server.cpp",
+   "target": "function:net/http/src/http_server.cpp:split_disposition_parameters",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:net/http/src/http_server.cpp",
+   "target": "function:net/http/src/http_server.cpp:decode_parameter_value",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:net/http/src/http_server.cpp",
+   "target": "function:net/http/src/http_server.cpp:parse_filename_candidates",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:net/http/src/http_server.cpp",
+   "target": "function:net/http/src/http_server.cpp:parse_upload_metadata",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:net/http/src/http_server.cpp",
+   "target": "function:net/http/src/http_server.cpp:process_upload_data",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:net/http/src/http_server.cpp",
+   "target": "function:net/http/src/http_server.cpp:finish_initial_chunk_probe",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:net/http/src/http_server.cpp",
+   "target": "function:net/http/src/http_server.cpp:process_upload_chunk",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:net/http/src/http_server.cpp",
+   "target": "function:net/http/src/http_server.cpp:set_initial_chunk_probe",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:net/http/src/http_server.cpp",
+   "target": "function:net/http/src/http_server.cpp:upload",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:net/http/src/http_server.cpp",
+   "target": "function:net/http/src/http_server.cpp:try_handle_ws_upgrade",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:net/http/src/http_server.cpp",
+   "target": "function:net/http/src/http_server.cpp:on_headers_done",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:net/http/src/http_server.cpp",
+   "target": "function:net/http/src/http_server.cpp:handle_connection",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:net/http/src/http_server.cpp",
+   "target": "function:net/http/src/http_server.cpp:send_error",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "function:net/http/src/http_server.cpp:safe_file_name",
+   "target": "function:net/http/src/http_server.cpp:valid_utf8",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:net/http/src/http_server.cpp:decode_extended_filename",
+   "target": "function:net/http/src/http_server.cpp:hex_value",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:net/http/src/http_server.cpp:decode_extended_filename",
+   "target": "function:net/http/src/http_server.cpp:safe_file_name",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:net/http/src/http_server.cpp:parse_filename_candidates",
+   "target": "function:net/http/src/http_server.cpp:split_disposition_parameters",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:net/http/src/http_server.cpp:parse_filename_candidates",
+   "target": "function:net/http/src/http_server.cpp:decode_parameter_value",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:net/http/src/http_server.cpp:parse_filename_candidates",
+   "target": "function:net/http/src/http_server.cpp:decode_extended_filename",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:net/http/src/http_server.cpp:parse_filename_candidates",
+   "target": "function:net/http/src/http_server.cpp:safe_file_name",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:net/http/src/http_server.cpp:finish_initial_chunk_probe",
+   "target": "function:net/http/src/http_server.cpp:process_upload_data",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:net/http/src/http_server.cpp:process_upload_chunk",
+   "target": "function:net/http/src/http_server.cpp:finish_initial_chunk_probe",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:net/http/src/http_server.cpp:process_upload_chunk",
+   "target": "function:net/http/src/http_server.cpp:process_upload_data",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:net/http/src/http_server.cpp:on_headers_done",
+   "target": "function:net/http/src/http_server.cpp:parse_upload_metadata",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:net/http/src/http_server.cpp:on_headers_done",
+   "target": "function:net/http/src/http_server.cpp:upload_auth_error",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:net/http/src/http_server.cpp:handle_connection",
+   "target": "function:net/http/src/http_server.cpp:on_headers_done",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:net/http/src/http_server.cpp:handle_connection",
+   "target": "function:net/http/src/http_server.cpp:send_error",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:net/http/src/http_server.cpp:handle_connection",
+   "target": "function:net/http/src/http_server.cpp:try_handle_ws_upgrade",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:net/http/src/http_server.cpp:handle_connection",
+   "target": "function:net/http/src/http_parser.cpp:reset",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:net/http/src/http_server.cpp:handle_connection",
+   "target": "function:net/http/src/http_parser.cpp:feed",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  }
+ ]
+}

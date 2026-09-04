@@ -1,0 +1,633 @@
+{
+ "nodes": [
+  {
+   "id": "file:tests/test_upload_policy.cpp",
+   "type": "file",
+   "name": "tests/test_upload_policy.cpp",
+   "summary": "测试上传策略：九种音频扩展名与签名识别、普通/VIP 容量限制、结构化 JSON 错误及 HTTP 层错误映射。",
+   "tags": [
+    "upload-policy",
+    "audio",
+    "http",
+    "unit-test",
+    "cpp"
+   ],
+   "complexity": "complex",
+   "filePath": "tests/test_upload_policy.cpp"
+  },
+  {
+   "id": "function:tests/test_upload_policy.cpp:validate_token",
+   "type": "function",
+   "name": "validate_token",
+   "summary": "测试文件中的辅助函数，为测试用例搭建环境或执行公共逻辑（20 行）。",
+   "tags": [
+    "test-helper",
+    "test-utility",
+    "cpp"
+   ],
+   "complexity": "moderate",
+   "lineRange": [
+    28,
+    47
+   ]
+  },
+  {
+   "id": "function:tests/test_upload_policy.cpp:UploadPolicyHttpTest.HeaderAuthenticationUsesCapabilityAndMapsStorageError",
+   "type": "function",
+   "name": "UploadPolicyHttpTest.HeaderAuthenticationUsesCapabilityAndMapsStorageError",
+   "summary": "gtest 测试用例 UploadPolicyHttpTest.HeaderAuthenticationUsesCapabilityAndMapsStorageError，验证相关生产组件的预期行为（50 行）。",
+   "tags": [
+    "test-case",
+    "gtest",
+    "cpp"
+   ],
+   "complexity": "complex",
+   "lineRange": [
+    61,
+    110
+   ]
+  },
+  {
+   "id": "function:tests/test_upload_policy.cpp:run_preflight",
+   "type": "function",
+   "name": "run_preflight",
+   "summary": "测试文件中的辅助函数，为测试用例搭建环境或执行公共逻辑（10 行）。",
+   "tags": [
+    "test-helper",
+    "test-utility",
+    "cpp"
+   ],
+   "complexity": "simple",
+   "lineRange": [
+    122,
+    131
+   ]
+  },
+  {
+   "id": "function:tests/test_upload_policy.cpp:ogg_signature",
+   "type": "function",
+   "name": "ogg_signature",
+   "summary": "测试文件中的辅助函数，为测试用例搭建环境或执行公共逻辑（14 行）。",
+   "tags": [
+    "test-helper",
+    "test-utility",
+    "cpp"
+   ],
+   "complexity": "simple",
+   "lineRange": [
+    164,
+    177
+   ]
+  },
+  {
+   "id": "function:tests/test_upload_policy.cpp:wav_header",
+   "type": "function",
+   "name": "wav_header",
+   "summary": "测试文件中的辅助函数，为测试用例搭建环境或执行公共逻辑（13 行）。",
+   "tags": [
+    "test-helper",
+    "test-utility",
+    "cpp"
+   ],
+   "complexity": "simple",
+   "lineRange": [
+    179,
+    191
+   ]
+  },
+  {
+   "id": "function:tests/test_upload_policy.cpp:wav_with_optional_chunks_signature",
+   "type": "function",
+   "name": "wav_with_optional_chunks_signature",
+   "summary": "测试文件中的辅助函数，为测试用例搭建环境或执行公共逻辑（16 行）。",
+   "tags": [
+    "test-helper",
+    "test-utility",
+    "cpp"
+   ],
+   "complexity": "moderate",
+   "lineRange": [
+    211,
+    226
+   ]
+  },
+  {
+   "id": "function:tests/test_upload_policy.cpp:wav_with_out_of_bounds_optional_chunk_signature",
+   "type": "function",
+   "name": "wav_with_out_of_bounds_optional_chunk_signature",
+   "summary": "测试文件中的辅助函数，为测试用例搭建环境或执行公共逻辑（11 行）。",
+   "tags": [
+    "test-helper",
+    "test-utility",
+    "cpp"
+   ],
+   "complexity": "simple",
+   "lineRange": [
+    237,
+    247
+   ]
+  },
+  {
+   "id": "function:tests/test_upload_policy.cpp:flac_signature",
+   "type": "function",
+   "name": "flac_signature",
+   "summary": "测试文件中的辅助函数，为测试用例搭建环境或执行公共逻辑（18 行）。",
+   "tags": [
+    "test-helper",
+    "test-utility",
+    "cpp"
+   ],
+   "complexity": "moderate",
+   "lineRange": [
+    249,
+    266
+   ]
+  },
+  {
+   "id": "function:tests/test_upload_policy.cpp:wma_signature",
+   "type": "function",
+   "name": "wma_signature",
+   "summary": "测试文件中的辅助函数，为测试用例搭建环境或执行公共逻辑（24 行）。",
+   "tags": [
+    "test-helper",
+    "test-utility",
+    "cpp"
+   ],
+   "complexity": "moderate",
+   "lineRange": [
+    287,
+    310
+   ]
+  },
+  {
+   "id": "function:tests/test_upload_policy.cpp:ape_signature",
+   "type": "function",
+   "name": "ape_signature",
+   "summary": "测试文件中的辅助函数，为测试用例搭建环境或执行公共逻辑（14 行）。",
+   "tags": [
+    "test-helper",
+    "test-utility",
+    "cpp"
+   ],
+   "complexity": "simple",
+   "lineRange": [
+    312,
+    325
+   ]
+  },
+  {
+   "id": "function:tests/test_upload_policy.cpp:opus_signature",
+   "type": "function",
+   "name": "opus_signature",
+   "summary": "测试文件中的辅助函数，为测试用例搭建环境或执行公共逻辑（11 行）。",
+   "tags": [
+    "test-helper",
+    "test-utility",
+    "cpp"
+   ],
+   "complexity": "simple",
+   "lineRange": [
+    327,
+    337
+   ]
+  },
+  {
+   "id": "function:tests/test_upload_policy.cpp:minimum_audio_signature_cases",
+   "type": "function",
+   "name": "minimum_audio_signature_cases",
+   "summary": "测试文件中的辅助函数，为测试用例搭建环境或执行公共逻辑（11 行）。",
+   "tags": [
+    "test-helper",
+    "test-utility",
+    "cpp"
+   ],
+   "complexity": "simple",
+   "lineRange": [
+    344,
+    354
+   ]
+  },
+  {
+   "id": "function:tests/test_upload_policy.cpp:UploadPolicyTest.RecognizesNineAudioExtensionsCaseInsensitively",
+   "type": "function",
+   "name": "UploadPolicyTest.RecognizesNineAudioExtensionsCaseInsensitively",
+   "summary": "gtest 测试用例 UploadPolicyTest.RecognizesNineAudioExtensionsCaseInsensitively，验证相关生产组件的预期行为（19 行）。",
+   "tags": [
+    "test-case",
+    "gtest",
+    "cpp"
+   ],
+   "complexity": "moderate",
+   "lineRange": [
+    358,
+    376
+   ]
+  },
+  {
+   "id": "function:tests/test_upload_policy.cpp:UploadPolicyTest.RejectsInvalidNameTypeAndEmptyContent",
+   "type": "function",
+   "name": "UploadPolicyTest.RejectsInvalidNameTypeAndEmptyContent",
+   "summary": "gtest 测试用例 UploadPolicyTest.RejectsInvalidNameTypeAndEmptyContent，验证相关生产组件的预期行为（23 行）。",
+   "tags": [
+    "test-case",
+    "gtest",
+    "cpp"
+   ],
+   "complexity": "moderate",
+   "lineRange": [
+    378,
+    400
+   ]
+  },
+  {
+   "id": "function:tests/test_upload_policy.cpp:UploadPolicyTest.AppliesConfiguredNormalAndVipLimitsInclusively",
+   "type": "function",
+   "name": "UploadPolicyTest.AppliesConfiguredNormalAndVipLimitsInclusively",
+   "summary": "gtest 测试用例 UploadPolicyTest.AppliesConfiguredNormalAndVipLimitsInclusively，验证相关生产组件的预期行为（18 行）。",
+   "tags": [
+    "test-case",
+    "gtest",
+    "cpp"
+   ],
+   "complexity": "moderate",
+   "lineRange": [
+    402,
+    419
+   ]
+  },
+  {
+   "id": "function:tests/test_upload_policy.cpp:UploadPolicyTest.AppliesNormalLimitToAdminInclusively",
+   "type": "function",
+   "name": "UploadPolicyTest.AppliesNormalLimitToAdminInclusively",
+   "summary": "gtest 测试用例 UploadPolicyTest.AppliesNormalLimitToAdminInclusively，验证相关生产组件的预期行为（17 行）。",
+   "tags": [
+    "test-case",
+    "gtest",
+    "cpp"
+   ],
+   "complexity": "moderate",
+   "lineRange": [
+    421,
+    437
+   ]
+  },
+  {
+   "id": "function:tests/test_upload_policy.cpp:UploadPolicyTest.BuildsStructuredJsonErrorWithStableCodeAndDetails",
+   "type": "function",
+   "name": "UploadPolicyTest.BuildsStructuredJsonErrorWithStableCodeAndDetails",
+   "summary": "gtest 测试用例 UploadPolicyTest.BuildsStructuredJsonErrorWithStableCodeAndDetails，验证相关生产组件的预期行为（13 行）。",
+   "tags": [
+    "test-case",
+    "gtest",
+    "cpp"
+   ],
+   "complexity": "simple",
+   "lineRange": [
+    439,
+    451
+   ]
+  },
+  {
+   "id": "function:tests/test_upload_policy.cpp:UploadPolicyTest.RejectsTruncatedAndWrongAudioSignaturesForEveryAllowedExtension",
+   "type": "function",
+   "name": "UploadPolicyTest.RejectsTruncatedAndWrongAudioSignaturesForEveryAllowedExtension",
+   "summary": "gtest 测试用例 UploadPolicyTest.RejectsTruncatedAndWrongAudioSignaturesForEveryAllowedExtension，验证相关生产组件的预期行为（27 行）。",
+   "tags": [
+    "test-case",
+    "gtest",
+    "cpp"
+   ],
+   "complexity": "moderate",
+   "lineRange": [
+    463,
+    489
+   ]
+  },
+  {
+   "id": "function:tests/test_upload_policy.cpp:UploadPolicyTest.RejectsTruncatedAndOutOfBoundsWavOptionalChunks",
+   "type": "function",
+   "name": "UploadPolicyTest.RejectsTruncatedAndOutOfBoundsWavOptionalChunks",
+   "summary": "gtest 测试用例 UploadPolicyTest.RejectsTruncatedAndOutOfBoundsWavOptionalChunks，验证相关生产组件的预期行为（13 行）。",
+   "tags": [
+    "test-case",
+    "gtest",
+    "cpp"
+   ],
+   "complexity": "simple",
+   "lineRange": [
+    500,
+    512
+   ]
+  },
+  {
+   "id": "function:tests/test_upload_policy.cpp:UploadPolicyHttpTest.RejectsUnsupportedTypeBeforeSetupStorageAndHandler",
+   "type": "function",
+   "name": "UploadPolicyHttpTest.RejectsUnsupportedTypeBeforeSetupStorageAndHandler",
+   "summary": "gtest 测试用例 UploadPolicyHttpTest.RejectsUnsupportedTypeBeforeSetupStorageAndHandler，验证相关生产组件的预期行为（48 行）。",
+   "tags": [
+    "test-case",
+    "gtest",
+    "cpp"
+   ],
+   "complexity": "complex",
+   "lineRange": [
+    514,
+    561
+   ]
+  },
+  {
+   "id": "function:tests/test_upload_policy.cpp:UploadPolicyHttpTest.RejectsEmptyAudioBeforeSetupAndHashing",
+   "type": "function",
+   "name": "UploadPolicyHttpTest.RejectsEmptyAudioBeforeSetupAndHashing",
+   "summary": "gtest 测试用例 UploadPolicyHttpTest.RejectsEmptyAudioBeforeSetupAndHashing，验证相关生产组件的预期行为（36 行）。",
+   "tags": [
+    "test-case",
+    "gtest",
+    "cpp"
+   ],
+   "complexity": "moderate",
+   "lineRange": [
+    563,
+    598
+   ]
+  },
+  {
+   "id": "function:tests/test_upload_policy.cpp:UploadPolicyHttpTest.RejectsInvalidSignatureBeforeStorageAndHandler",
+   "type": "function",
+   "name": "UploadPolicyHttpTest.RejectsInvalidSignatureBeforeStorageAndHandler",
+   "summary": "gtest 测试用例 UploadPolicyHttpTest.RejectsInvalidSignatureBeforeStorageAndHandler，验证相关生产组件的预期行为（55 行）。",
+   "tags": [
+    "test-case",
+    "gtest",
+    "cpp"
+   ],
+   "complexity": "complex",
+   "lineRange": [
+    600,
+    654
+   ]
+  },
+  {
+   "id": "function:tests/test_upload_policy.cpp:UploadPolicyHttpTest.RejectsTruncatedOggBeforeStorageAndHandler",
+   "type": "function",
+   "name": "UploadPolicyHttpTest.RejectsTruncatedOggBeforeStorageAndHandler",
+   "summary": "gtest 测试用例 UploadPolicyHttpTest.RejectsTruncatedOggBeforeStorageAndHandler，验证相关生产组件的预期行为（55 行）。",
+   "tags": [
+    "test-case",
+    "gtest",
+    "cpp"
+   ],
+   "complexity": "complex",
+   "lineRange": [
+    656,
+    710
+   ]
+  },
+  {
+   "id": "function:tests/test_upload_policy.cpp:UploadPolicyHttpTest.DiscardsRemainingChunkedBodyAfterInvalidSignature",
+   "type": "function",
+   "name": "UploadPolicyHttpTest.DiscardsRemainingChunkedBodyAfterInvalidSignature",
+   "summary": "gtest 测试用例 UploadPolicyHttpTest.DiscardsRemainingChunkedBodyAfterInvalidSignature，验证相关生产组件的预期行为（47 行）。",
+   "tags": [
+    "test-case",
+    "gtest",
+    "cpp"
+   ],
+   "complexity": "complex",
+   "lineRange": [
+    712,
+    758
+   ]
+  },
+  {
+   "id": "function:tests/test_upload_policy.cpp:UploadPolicyHttpTest.PreservesValidBodyAfterInitialSignatureProbe",
+   "type": "function",
+   "name": "UploadPolicyHttpTest.PreservesValidBodyAfterInitialSignatureProbe",
+   "summary": "gtest 测试用例 UploadPolicyHttpTest.PreservesValidBodyAfterInitialSignatureProbe，验证相关生产组件的预期行为（62 行）。",
+   "tags": [
+    "test-case",
+    "gtest",
+    "cpp"
+   ],
+   "complexity": "complex",
+   "lineRange": [
+    760,
+    821
+   ]
+  },
+  {
+   "id": "class:tests/test_upload_policy.cpp:UploadAuthService",
+   "type": "class",
+   "name": "UploadAuthService",
+   "summary": "测试夹具/桩类 UploadAuthService，提供 3 个方法，用于模拟生产依赖（34 行）。",
+   "tags": [
+    "test-fixture",
+    "stub",
+    "cpp"
+   ],
+   "complexity": "simple",
+   "lineRange": [
+    26,
+    59
+   ]
+  }
+ ],
+ "edges": [
+  {
+   "source": "file:tests/test_upload_policy.cpp",
+   "target": "function:tests/test_upload_policy.cpp:validate_token",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "file:tests/test_upload_policy.cpp",
+   "target": "function:tests/test_upload_policy.cpp:UploadPolicyHttpTest.HeaderAuthenticationUsesCapabilityAndMapsStorageError",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "file:tests/test_upload_policy.cpp",
+   "target": "function:tests/test_upload_policy.cpp:run_preflight",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "file:tests/test_upload_policy.cpp",
+   "target": "function:tests/test_upload_policy.cpp:ogg_signature",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "file:tests/test_upload_policy.cpp",
+   "target": "function:tests/test_upload_policy.cpp:wav_header",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "file:tests/test_upload_policy.cpp",
+   "target": "function:tests/test_upload_policy.cpp:wav_with_optional_chunks_signature",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "file:tests/test_upload_policy.cpp",
+   "target": "function:tests/test_upload_policy.cpp:wav_with_out_of_bounds_optional_chunk_signature",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "file:tests/test_upload_policy.cpp",
+   "target": "function:tests/test_upload_policy.cpp:flac_signature",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "file:tests/test_upload_policy.cpp",
+   "target": "function:tests/test_upload_policy.cpp:wma_signature",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "file:tests/test_upload_policy.cpp",
+   "target": "function:tests/test_upload_policy.cpp:ape_signature",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "file:tests/test_upload_policy.cpp",
+   "target": "function:tests/test_upload_policy.cpp:opus_signature",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "file:tests/test_upload_policy.cpp",
+   "target": "function:tests/test_upload_policy.cpp:minimum_audio_signature_cases",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "file:tests/test_upload_policy.cpp",
+   "target": "function:tests/test_upload_policy.cpp:UploadPolicyTest.RecognizesNineAudioExtensionsCaseInsensitively",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "file:tests/test_upload_policy.cpp",
+   "target": "function:tests/test_upload_policy.cpp:UploadPolicyTest.RejectsInvalidNameTypeAndEmptyContent",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "file:tests/test_upload_policy.cpp",
+   "target": "function:tests/test_upload_policy.cpp:UploadPolicyTest.AppliesConfiguredNormalAndVipLimitsInclusively",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "file:tests/test_upload_policy.cpp",
+   "target": "function:tests/test_upload_policy.cpp:UploadPolicyTest.AppliesNormalLimitToAdminInclusively",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "file:tests/test_upload_policy.cpp",
+   "target": "function:tests/test_upload_policy.cpp:UploadPolicyTest.BuildsStructuredJsonErrorWithStableCodeAndDetails",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "file:tests/test_upload_policy.cpp",
+   "target": "function:tests/test_upload_policy.cpp:UploadPolicyTest.RejectsTruncatedAndWrongAudioSignaturesForEveryAllowedExtension",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "file:tests/test_upload_policy.cpp",
+   "target": "function:tests/test_upload_policy.cpp:UploadPolicyTest.RejectsTruncatedAndOutOfBoundsWavOptionalChunks",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "file:tests/test_upload_policy.cpp",
+   "target": "function:tests/test_upload_policy.cpp:UploadPolicyHttpTest.RejectsUnsupportedTypeBeforeSetupStorageAndHandler",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "file:tests/test_upload_policy.cpp",
+   "target": "function:tests/test_upload_policy.cpp:UploadPolicyHttpTest.RejectsEmptyAudioBeforeSetupAndHashing",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "file:tests/test_upload_policy.cpp",
+   "target": "function:tests/test_upload_policy.cpp:UploadPolicyHttpTest.RejectsInvalidSignatureBeforeStorageAndHandler",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "file:tests/test_upload_policy.cpp",
+   "target": "function:tests/test_upload_policy.cpp:UploadPolicyHttpTest.RejectsTruncatedOggBeforeStorageAndHandler",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "file:tests/test_upload_policy.cpp",
+   "target": "function:tests/test_upload_policy.cpp:UploadPolicyHttpTest.DiscardsRemainingChunkedBodyAfterInvalidSignature",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "file:tests/test_upload_policy.cpp",
+   "target": "function:tests/test_upload_policy.cpp:UploadPolicyHttpTest.PreservesValidBodyAfterInitialSignatureProbe",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "file:tests/test_upload_policy.cpp",
+   "target": "class:tests/test_upload_policy.cpp:UploadAuthService",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "file:core/src/upload_policy.cpp",
+   "target": "file:tests/test_upload_policy.cpp",
+   "type": "tested_by",
+   "direction": "forward",
+   "weight": 0.5
+  },
+  {
+   "source": "file:core/src/auth_service.cpp",
+   "target": "file:tests/test_upload_policy.cpp",
+   "type": "tested_by",
+   "direction": "forward",
+   "weight": 0.5
+  }
+ ]
+}

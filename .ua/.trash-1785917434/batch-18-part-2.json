@@ -1,0 +1,1127 @@
+{
+  "nodes": [
+    {
+      "id": "file:scripts/codeql.sh",
+      "type": "file",
+      "name": "scripts/codeql.sh",
+      "filePath": "scripts/codeql.sh",
+      "summary": "CodeQL 静态分析脚本，负责发现并连接 CodeQL 服务器、准备编译数据库、打包并提交源码分析任务、轮询结果并解析 SARIF 报告。",
+      "tags": [
+        "codeql",
+        "static-analysis",
+        "sarif",
+        "security",
+        "bash"
+      ],
+      "complexity": "moderate",
+      "lineRange": "1-548"
+    },
+    {
+      "id": "function:scripts/codeql.sh:usage",
+      "type": "function",
+      "name": "usage",
+      "summary": "打印脚本用法、选项与工作流说明。",
+      "tags": [
+        "usage",
+        "help",
+        "bash"
+      ],
+      "complexity": "simple",
+      "lineRange": "9-27"
+    },
+    {
+      "id": "function:scripts/codeql.sh:codeql_timeout_value",
+      "type": "function",
+      "name": "codeql_timeout_value",
+      "summary": "读取并校验 CodeQL 超时秒数环境变量（含范围限制）。",
+      "tags": [
+        "timeout",
+        "config",
+        "bash"
+      ],
+      "complexity": "simple",
+      "lineRange": "37-48"
+    },
+    {
+      "id": "function:scripts/codeql.sh:codeql_poll_attempts",
+      "type": "function",
+      "name": "codeql_poll_attempts",
+      "summary": "依据超时与间隔计算分析结果轮询次数。",
+      "tags": [
+        "polling",
+        "timeout",
+        "bash"
+      ],
+      "complexity": "moderate",
+      "lineRange": "50-74"
+    },
+    {
+      "id": "function:scripts/codeql.sh:probe_server",
+      "type": "function",
+      "name": "probe_server",
+      "summary": "探测 CodeQL 服务器的连通性。",
+      "tags": [
+        "codeql",
+        "server",
+        "bash"
+      ],
+      "complexity": "simple",
+      "lineRange": "76-85"
+    },
+    {
+      "id": "function:scripts/codeql.sh:discover_server",
+      "type": "function",
+      "name": "discover_server",
+      "summary": "发现并验证 CodeQL 服务器地址（读取配置、探测并校验响应）。",
+      "tags": [
+        "codeql",
+        "server",
+        "config",
+        "bash"
+      ],
+      "complexity": "moderate",
+      "lineRange": "87-147"
+    },
+    {
+      "id": "function:scripts/codeql.sh:ensure_compile_database",
+      "type": "function",
+      "name": "ensure_compile_database",
+      "summary": "确保编译数据库存在，缺失时触发生成。",
+      "tags": [
+        "compile-database",
+        "build",
+        "bash"
+      ],
+      "complexity": "moderate",
+      "lineRange": "149-181"
+    },
+    {
+      "id": "function:scripts/codeql.sh:prepare_compile_database",
+      "type": "function",
+      "name": "prepare_compile_database",
+      "summary": "准备 compile_commands.json 编译数据库供分析使用。",
+      "tags": [
+        "compile-database",
+        "json",
+        "bash"
+      ],
+      "complexity": "moderate",
+      "lineRange": "183-222"
+    },
+    {
+      "id": "function:scripts/codeql.sh:package_source",
+      "type": "function",
+      "name": "package_source",
+      "summary": "打包源码为归档，供上传至 CodeQL 服务器分析。",
+      "tags": [
+        "packaging",
+        "upload",
+        "bash"
+      ],
+      "complexity": "moderate",
+      "lineRange": "224-251"
+    },
+    {
+      "id": "function:scripts/codeql.sh:submit_analysis",
+      "type": "function",
+      "name": "submit_analysis",
+      "summary": "提交 CodeQL 分析任务并解析返回的任务标识。",
+      "tags": [
+        "codeql",
+        "api",
+        "bash"
+      ],
+      "complexity": "moderate",
+      "lineRange": "253-305"
+    },
+    {
+      "id": "function:scripts/codeql.sh:classify_result_response",
+      "type": "function",
+      "name": "classify_result_response",
+      "summary": "对分析结果接口响应进行状态分类。",
+      "tags": [
+        "codeql",
+        "api",
+        "bash"
+      ],
+      "complexity": "simple",
+      "lineRange": "307-333"
+    },
+    {
+      "id": "function:scripts/codeql.sh:parse_sarif",
+      "type": "function",
+      "name": "parse_sarif",
+      "summary": "解析 SARIF 结果文件并输出问题摘要。",
+      "tags": [
+        "sarif",
+        "parsing",
+        "bash"
+      ],
+      "complexity": "complex",
+      "lineRange": "335-431"
+    },
+    {
+      "id": "function:scripts/codeql.sh:poll_result",
+      "type": "function",
+      "name": "poll_result",
+      "summary": "按计算次数轮询分析结果直至完成。",
+      "tags": [
+        "polling",
+        "codeql",
+        "bash"
+      ],
+      "complexity": "complex",
+      "lineRange": "433-500"
+    },
+    {
+      "id": "function:scripts/codeql.sh:main",
+      "type": "function",
+      "name": "main",
+      "summary": "脚本入口：分发子命令或进入交互菜单。",
+      "tags": [
+        "entry",
+        "cli",
+        "bash"
+      ],
+      "complexity": "simple",
+      "lineRange": "534-544"
+    },
+    {
+      "id": "file:scripts/docker.sh",
+      "type": "file",
+      "name": "scripts/docker.sh",
+      "filePath": "scripts/docker.sh",
+      "summary": "基于 Docker Compose 的部署运维脚本，提供 build、image、deploy、restart、status、stop、logs、health、base-url、runtime-fingerprint 等子命令与交互式菜单，含 .env 环境文件校验与端口可用性检查。",
+      "tags": [
+        "docker-compose",
+        "deployment",
+        "health-check",
+        "devops",
+        "bash"
+      ],
+      "complexity": "complex",
+      "lineRange": "1-850"
+    },
+    {
+      "id": "function:scripts/docker.sh:usage",
+      "type": "function",
+      "name": "usage",
+      "summary": "打印脚本用法与全部子命令的功能说明。",
+      "tags": [
+        "usage",
+        "help",
+        "bash"
+      ],
+      "complexity": "simple",
+      "lineRange": "14-37"
+    },
+    {
+      "id": "function:scripts/docker.sh:parse_deployment_options",
+      "type": "function",
+      "name": "parse_deployment_options",
+      "summary": "解析部署子命令的通用选项（项目名、compose 文件等）。",
+      "tags": [
+        "cli",
+        "options",
+        "bash"
+      ],
+      "complexity": "moderate",
+      "lineRange": "63-103"
+    },
+    {
+      "id": "function:scripts/docker.sh:require_docker",
+      "type": "function",
+      "name": "require_docker",
+      "summary": "校验 docker 命令可用，缺失时输出错误。",
+      "tags": [
+        "docker",
+        "tooling",
+        "bash"
+      ],
+      "complexity": "simple",
+      "lineRange": "114-124"
+    },
+    {
+      "id": "function:scripts/docker.sh:require_deploy_tools",
+      "type": "function",
+      "name": "require_deploy_tools",
+      "summary": "校验部署所需工具（docker compose 等）是否可用。",
+      "tags": [
+        "docker",
+        "tooling",
+        "bash"
+      ],
+      "complexity": "simple",
+      "lineRange": "126-137"
+    },
+    {
+      "id": "function:scripts/docker.sh:env_file_value",
+      "type": "function",
+      "name": "env_file_value",
+      "summary": "从 .env 文件读取指定键的值。",
+      "tags": [
+        "env",
+        "config",
+        "bash"
+      ],
+      "complexity": "moderate",
+      "lineRange": "138-159"
+    },
+    {
+      "id": "function:scripts/docker.sh:validate_env_file",
+      "type": "function",
+      "name": "validate_env_file",
+      "summary": "校验 .env 文件格式与必需键，缺失时给出错误指引。",
+      "tags": [
+        "env",
+        "validation",
+        "bash"
+      ],
+      "complexity": "moderate",
+      "lineRange": "161-223"
+    },
+    {
+      "id": "function:scripts/docker.sh:ensure_env_file",
+      "type": "function",
+      "name": "ensure_env_file",
+      "summary": "确保 .env 文件存在，缺失时从模板生成并提示用户修改。",
+      "tags": [
+        "env",
+        "setup",
+        "bash"
+      ],
+      "complexity": "moderate",
+      "lineRange": "226-298"
+    },
+    {
+      "id": "function:scripts/docker.sh:current_project_nginx_uses_port",
+      "type": "function",
+      "name": "current_project_nginx_uses_port",
+      "summary": "检查当前项目 nginx 配置是否占用指定端口。",
+      "tags": [
+        "nginx",
+        "port",
+        "bash"
+      ],
+      "complexity": "simple",
+      "lineRange": "300-318"
+    },
+    {
+      "id": "function:scripts/docker.sh:host_port_is_listening",
+      "type": "function",
+      "name": "host_port_is_listening",
+      "summary": "检查宿主机端口是否正在监听。",
+      "tags": [
+        "port",
+        "network",
+        "bash"
+      ],
+      "complexity": "simple",
+      "lineRange": "320-333"
+    },
+    {
+      "id": "function:scripts/docker.sh:validate_http_port_availability",
+      "type": "function",
+      "name": "validate_http_port_availability",
+      "summary": "校验 HTTP 端口可用性（含 nginx 占用与监听检查）。",
+      "tags": [
+        "port",
+        "validation",
+        "bash"
+      ],
+      "complexity": "moderate",
+      "lineRange": "335-379"
+    },
+    {
+      "id": "function:scripts/docker.sh:cmd_build",
+      "type": "function",
+      "name": "cmd_build",
+      "summary": "构建 Docker 镜像子命令入口。",
+      "tags": [
+        "docker",
+        "build",
+        "bash"
+      ],
+      "complexity": "simple",
+      "lineRange": "381-393"
+    },
+    {
+      "id": "function:scripts/docker.sh:verify_service_health",
+      "type": "function",
+      "name": "verify_service_health",
+      "summary": "校验部署后各服务健康状态并输出结果。",
+      "tags": [
+        "health-check",
+        "deployment",
+        "bash"
+      ],
+      "complexity": "moderate",
+      "lineRange": "416-433"
+    },
+    {
+      "id": "function:scripts/docker.sh:print_backend_runtime_state",
+      "type": "function",
+      "name": "print_backend_runtime_state",
+      "summary": "打印后端运行时状态（进程、端口等）。",
+      "tags": [
+        "runtime",
+        "diagnostics",
+        "bash"
+      ],
+      "complexity": "simple",
+      "lineRange": "435-446"
+    },
+    {
+      "id": "function:scripts/docker.sh:public_base_url",
+      "type": "function",
+      "name": "public_base_url",
+      "summary": "计算服务的公开基础 URL（含端口映射与代理场景判断）。",
+      "tags": [
+        "url",
+        "config",
+        "nginx",
+        "bash"
+      ],
+      "complexity": "complex",
+      "lineRange": "448-518"
+    },
+    {
+      "id": "function:scripts/docker.sh:require_runtime_fingerprint_tools",
+      "type": "function",
+      "name": "require_runtime_fingerprint_tools",
+      "summary": "校验运行时指纹计算所需工具是否可用。",
+      "tags": [
+        "fingerprint",
+        "tooling",
+        "bash"
+      ],
+      "complexity": "moderate",
+      "lineRange": "531-552"
+    },
+    {
+      "id": "function:scripts/docker.sh:configured_service_image",
+      "type": "function",
+      "name": "configured_service_image",
+      "summary": "从 compose 配置读取服务对应的镜像名。",
+      "tags": [
+        "docker-compose",
+        "config",
+        "bash"
+      ],
+      "complexity": "moderate",
+      "lineRange": "554-570"
+    },
+    {
+      "id": "function:scripts/docker.sh:cmd_runtime_fingerprint",
+      "type": "function",
+      "name": "cmd_runtime_fingerprint",
+      "summary": "计算运行中镜像指纹并与配置镜像比对，判断一致性。",
+      "tags": [
+        "fingerprint",
+        "deployment",
+        "bash"
+      ],
+      "complexity": "moderate",
+      "lineRange": "572-625"
+    },
+    {
+      "id": "function:scripts/docker.sh:cmd_health",
+      "type": "function",
+      "name": "cmd_health",
+      "summary": "检查部署健康状态子命令。",
+      "tags": [
+        "health-check",
+        "cli",
+        "bash"
+      ],
+      "complexity": "simple",
+      "lineRange": "627-647"
+    },
+    {
+      "id": "function:scripts/docker.sh:cmd_deploy",
+      "type": "function",
+      "name": "cmd_deploy",
+      "summary": "执行部署：构建、启动容器并做健康校验。",
+      "tags": [
+        "deployment",
+        "docker-compose",
+        "bash"
+      ],
+      "complexity": "moderate",
+      "lineRange": "649-679"
+    },
+    {
+      "id": "function:scripts/docker.sh:cmd_restart",
+      "type": "function",
+      "name": "cmd_restart",
+      "summary": "重启部署服务。",
+      "tags": [
+        "deployment",
+        "cli",
+        "bash"
+      ],
+      "complexity": "simple",
+      "lineRange": "681-690"
+    },
+    {
+      "id": "function:scripts/docker.sh:cmd_status",
+      "type": "function",
+      "name": "cmd_status",
+      "summary": "查看部署服务状态。",
+      "tags": [
+        "status",
+        "cli",
+        "bash"
+      ],
+      "complexity": "simple",
+      "lineRange": "692-706"
+    },
+    {
+      "id": "function:scripts/docker.sh:cmd_stop",
+      "type": "function",
+      "name": "cmd_stop",
+      "summary": "停止部署服务并输出结果。",
+      "tags": [
+        "deployment",
+        "cli",
+        "bash"
+      ],
+      "complexity": "moderate",
+      "lineRange": "708-729"
+    },
+    {
+      "id": "function:scripts/docker.sh:cmd_logs",
+      "type": "function",
+      "name": "cmd_logs",
+      "summary": "查看指定服务的日志。",
+      "tags": [
+        "logs",
+        "cli",
+        "bash"
+      ],
+      "complexity": "moderate",
+      "lineRange": "731-771"
+    },
+    {
+      "id": "function:scripts/docker.sh:handle_menu_choice",
+      "type": "function",
+      "name": "handle_menu_choice",
+      "summary": "将交互菜单选项分发到对应子命令。",
+      "tags": [
+        "menu",
+        "cli",
+        "bash"
+      ],
+      "complexity": "simple",
+      "lineRange": "773-783"
+    },
+    {
+      "id": "function:scripts/docker.sh:menu",
+      "type": "function",
+      "name": "menu",
+      "summary": "无参数时展示交互式菜单入口。",
+      "tags": [
+        "menu",
+        "interactive",
+        "bash"
+      ],
+      "complexity": "simple",
+      "lineRange": "785-795"
+    },
+    {
+      "id": "file:scripts/lint.sh",
+      "type": "file",
+      "name": "scripts/lint.sh",
+      "filePath": "scripts/lint.sh",
+      "summary": "C/C++ 静态检查脚本，支持 --all 全量、--changed Git 变更范围与指定路径检查，调用 clang-tidy 与 cppcheck，含并发数与超时控制。",
+      "tags": [
+        "lint",
+        "clang-tidy",
+        "cppcheck",
+        "static-analysis",
+        "bash"
+      ],
+      "complexity": "moderate",
+      "lineRange": "1-329"
+    },
+    {
+      "id": "function:scripts/lint.sh:usage",
+      "type": "function",
+      "name": "usage",
+      "summary": "打印用法、选项（--all/--changed/-j）与环境变量说明。",
+      "tags": [
+        "usage",
+        "help",
+        "bash"
+      ],
+      "complexity": "simple",
+      "lineRange": "14-30"
+    },
+    {
+      "id": "function:scripts/lint.sh:detect_clang_tidy",
+      "type": "function",
+      "name": "detect_clang_tidy",
+      "summary": "按版本优先级探测可用的 clang-tidy 命令。",
+      "tags": [
+        "tooling",
+        "clang-tidy",
+        "bash"
+      ],
+      "complexity": "simple",
+      "lineRange": "32-41"
+    },
+    {
+      "id": "function:scripts/lint.sh:check_required_tools",
+      "type": "function",
+      "name": "check_required_tools",
+      "summary": "校验 clang-tidy、cppcheck 等工具可用性。",
+      "tags": [
+        "tooling",
+        "check",
+        "bash"
+      ],
+      "complexity": "simple",
+      "lineRange": "43-53"
+    },
+    {
+      "id": "function:scripts/lint.sh:lint_timeout_value",
+      "type": "function",
+      "name": "lint_timeout_value",
+      "summary": "读取并校验 lint 超时秒数环境变量（含范围限制）。",
+      "tags": [
+        "timeout",
+        "config",
+        "bash"
+      ],
+      "complexity": "simple",
+      "lineRange": "55-65"
+    },
+    {
+      "id": "function:scripts/lint.sh:run_frontend_lint",
+      "type": "function",
+      "name": "run_frontend_lint",
+      "summary": "若存在 frontend 目录则运行前端 lint 检查。",
+      "tags": [
+        "frontend",
+        "lint",
+        "bash"
+      ],
+      "complexity": "simple",
+      "lineRange": "67-78"
+    },
+    {
+      "id": "function:scripts/lint.sh:collect_path_sources",
+      "type": "function",
+      "name": "collect_path_sources",
+      "summary": "收集指定路径（文件或目录）下的 C/C++ 源文件。",
+      "tags": [
+        "sources",
+        "collection",
+        "bash"
+      ],
+      "complexity": "moderate",
+      "lineRange": "133-149"
+    },
+    {
+      "id": "function:scripts/lint.sh:collect_changed_sources",
+      "type": "function",
+      "name": "collect_changed_sources",
+      "summary": "收集 Git 变更（含未跟踪）的 C/C++ 源文件。",
+      "tags": [
+        "git",
+        "sources",
+        "bash"
+      ],
+      "complexity": "moderate",
+      "lineRange": "151-170"
+    },
+    {
+      "id": "file:scripts/pipeline.sh",
+      "type": "file",
+      "name": "scripts/pipeline.sh",
+      "filePath": "scripts/pipeline.sh",
+      "summary": "CI 流水线编排脚本，按顺序执行 format → lint → compile → codeql → test 五个阶段，支持单独子命令与交互式菜单。",
+      "tags": [
+        "pipeline",
+        "ci",
+        "bash"
+      ],
+      "complexity": "simple",
+      "lineRange": "1-98"
+    },
+    {
+      "id": "function:scripts/pipeline.sh:usage",
+      "type": "function",
+      "name": "usage",
+      "summary": "打印流水线用法、子命令与执行顺序说明。",
+      "tags": [
+        "usage",
+        "help",
+        "bash"
+      ],
+      "complexity": "simple",
+      "lineRange": "6-22"
+    },
+    {
+      "id": "function:scripts/pipeline.sh:cmd_all",
+      "type": "function",
+      "name": "cmd_all",
+      "summary": "依序调用 run_format、run_lint、run_compile、run_codeql、run_test 完成整条流水线。",
+      "tags": [
+        "pipeline",
+        "orchestration",
+        "bash"
+      ],
+      "complexity": "simple",
+      "lineRange": "45-59"
+    },
+    {
+      "id": "function:scripts/pipeline.sh:handle_menu_choice",
+      "type": "function",
+      "name": "handle_menu_choice",
+      "summary": "将交互菜单选项分发到 cmd_all 或单个阶段函数。",
+      "tags": [
+        "menu",
+        "cli",
+        "bash"
+      ],
+      "complexity": "simple",
+      "lineRange": "61-71"
+    },
+    {
+      "id": "function:scripts/pipeline.sh:menu",
+      "type": "function",
+      "name": "menu",
+      "summary": "无参数时展示流水线交互式菜单。",
+      "tags": [
+        "menu",
+        "interactive",
+        "bash"
+      ],
+      "complexity": "simple",
+      "lineRange": "73-83"
+    }
+  ],
+  "edges": [
+    {
+      "source": "file:scripts/codeql.sh",
+      "target": "function:scripts/codeql.sh:usage",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:scripts/codeql.sh",
+      "target": "function:scripts/codeql.sh:codeql_timeout_value",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:scripts/codeql.sh",
+      "target": "function:scripts/codeql.sh:codeql_poll_attempts",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:scripts/codeql.sh",
+      "target": "function:scripts/codeql.sh:probe_server",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:scripts/codeql.sh",
+      "target": "function:scripts/codeql.sh:discover_server",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:scripts/codeql.sh",
+      "target": "function:scripts/codeql.sh:ensure_compile_database",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:scripts/codeql.sh",
+      "target": "function:scripts/codeql.sh:prepare_compile_database",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:scripts/codeql.sh",
+      "target": "function:scripts/codeql.sh:package_source",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:scripts/codeql.sh",
+      "target": "function:scripts/codeql.sh:submit_analysis",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:scripts/codeql.sh",
+      "target": "function:scripts/codeql.sh:classify_result_response",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:scripts/codeql.sh",
+      "target": "function:scripts/codeql.sh:parse_sarif",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:scripts/codeql.sh",
+      "target": "function:scripts/codeql.sh:poll_result",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:scripts/codeql.sh",
+      "target": "function:scripts/codeql.sh:main",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:scripts/docker.sh",
+      "target": "function:scripts/docker.sh:usage",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:scripts/docker.sh",
+      "target": "function:scripts/docker.sh:parse_deployment_options",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:scripts/docker.sh",
+      "target": "function:scripts/docker.sh:require_docker",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:scripts/docker.sh",
+      "target": "function:scripts/docker.sh:require_deploy_tools",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:scripts/docker.sh",
+      "target": "function:scripts/docker.sh:env_file_value",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:scripts/docker.sh",
+      "target": "function:scripts/docker.sh:validate_env_file",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:scripts/docker.sh",
+      "target": "function:scripts/docker.sh:ensure_env_file",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:scripts/docker.sh",
+      "target": "function:scripts/docker.sh:current_project_nginx_uses_port",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:scripts/docker.sh",
+      "target": "function:scripts/docker.sh:host_port_is_listening",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:scripts/docker.sh",
+      "target": "function:scripts/docker.sh:validate_http_port_availability",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:scripts/docker.sh",
+      "target": "function:scripts/docker.sh:cmd_build",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:scripts/docker.sh",
+      "target": "function:scripts/docker.sh:verify_service_health",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:scripts/docker.sh",
+      "target": "function:scripts/docker.sh:print_backend_runtime_state",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:scripts/docker.sh",
+      "target": "function:scripts/docker.sh:public_base_url",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:scripts/docker.sh",
+      "target": "function:scripts/docker.sh:require_runtime_fingerprint_tools",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:scripts/docker.sh",
+      "target": "function:scripts/docker.sh:configured_service_image",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:scripts/docker.sh",
+      "target": "function:scripts/docker.sh:cmd_runtime_fingerprint",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:scripts/docker.sh",
+      "target": "function:scripts/docker.sh:cmd_health",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:scripts/docker.sh",
+      "target": "function:scripts/docker.sh:cmd_deploy",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:scripts/docker.sh",
+      "target": "function:scripts/docker.sh:cmd_restart",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:scripts/docker.sh",
+      "target": "function:scripts/docker.sh:cmd_status",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:scripts/docker.sh",
+      "target": "function:scripts/docker.sh:cmd_stop",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:scripts/docker.sh",
+      "target": "function:scripts/docker.sh:cmd_logs",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:scripts/docker.sh",
+      "target": "function:scripts/docker.sh:handle_menu_choice",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:scripts/docker.sh",
+      "target": "function:scripts/docker.sh:menu",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:scripts/lint.sh",
+      "target": "function:scripts/lint.sh:usage",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:scripts/lint.sh",
+      "target": "function:scripts/lint.sh:detect_clang_tidy",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:scripts/lint.sh",
+      "target": "function:scripts/lint.sh:check_required_tools",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:scripts/lint.sh",
+      "target": "function:scripts/lint.sh:lint_timeout_value",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:scripts/lint.sh",
+      "target": "function:scripts/lint.sh:run_frontend_lint",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:scripts/lint.sh",
+      "target": "function:scripts/lint.sh:collect_path_sources",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:scripts/lint.sh",
+      "target": "function:scripts/lint.sh:collect_changed_sources",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:scripts/pipeline.sh",
+      "target": "function:scripts/pipeline.sh:usage",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:scripts/pipeline.sh",
+      "target": "function:scripts/pipeline.sh:cmd_all",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:scripts/pipeline.sh",
+      "target": "function:scripts/pipeline.sh:handle_menu_choice",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:scripts/pipeline.sh",
+      "target": "function:scripts/pipeline.sh:menu",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "function:scripts/pipeline.sh:cmd_all",
+      "target": "file:scripts/format.sh",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:scripts/pipeline.sh:cmd_all",
+      "target": "file:scripts/lint.sh",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:scripts/pipeline.sh:cmd_all",
+      "target": "file:scripts/compile.sh",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:scripts/pipeline.sh:cmd_all",
+      "target": "file:scripts/codeql.sh",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:scripts/pipeline.sh:cmd_all",
+      "target": "file:scripts/test.sh",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:scripts/pipeline.sh:handle_menu_choice",
+      "target": "file:scripts/format.sh",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:scripts/pipeline.sh:handle_menu_choice",
+      "target": "file:scripts/lint.sh",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:scripts/pipeline.sh:handle_menu_choice",
+      "target": "file:scripts/compile.sh",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:scripts/pipeline.sh:handle_menu_choice",
+      "target": "file:scripts/codeql.sh",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:scripts/pipeline.sh:handle_menu_choice",
+      "target": "file:scripts/test.sh",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:scripts/pipeline.sh:handle_menu_choice",
+      "target": "function:scripts/pipeline.sh:cmd_all",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    }
+  ]
+}

@@ -1,0 +1,57 @@
+{
+  "projectRoot": "/home/jmj/work-space/projects/high-performance-server",
+  "batchFiles": [
+    {
+      "path": "tests/test_bench_http_server.sh",
+      "language": "shell",
+      "sizeLines": 52,
+      "fileCategory": "script"
+    },
+    {
+      "path": "tests/test_benchmark_script.sh",
+      "language": "shell",
+      "sizeLines": 3359,
+      "fileCategory": "script"
+    },
+    {
+      "path": "tests/test_codeql_discovery.sh",
+      "language": "shell",
+      "sizeLines": 195,
+      "fileCategory": "script"
+    },
+    {
+      "path": "tests/test_docker_admin_env.sh",
+      "language": "shell",
+      "sizeLines": 293,
+      "fileCategory": "script"
+    },
+    {
+      "path": "tests/test_lint_script.sh",
+      "language": "shell",
+      "sizeLines": 145,
+      "fileCategory": "script"
+    },
+    {
+      "path": "tests/test_migrate_legacy_reports.sh",
+      "language": "shell",
+      "sizeLines": 491,
+      "fileCategory": "script"
+    },
+    {
+      "path": "tests/test_test_script.sh",
+      "language": "shell",
+      "sizeLines": 1317,
+      "fileCategory": "script"
+    }
+  ],
+  "batchImportData": {
+    "tests/test_bench_http_server.sh": [],
+    "tests/test_benchmark_script.sh": [],
+    "tests/test_codeql_discovery.sh": [],
+    "tests/test_docker_admin_env.sh": [],
+    "tests/test_lint_script.sh": [],
+    "tests/test_migrate_legacy_reports.sh": [],
+    "tests/test_test_script.sh": []
+  },
+  "neighborMap": {}
+}

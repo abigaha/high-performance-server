@@ -1,0 +1,42 @@
+{
+  "projectRoot": "/home/jmj/work-space/projects/high-performance-server",
+  "batchFiles": [
+    {
+      "path": "core/include/admin_bootstrap.h",
+      "language": "c",
+      "sizeLines": 21,
+      "fileCategory": "code"
+    },
+    {
+      "path": "core/include/authorization.h",
+      "language": "c",
+      "sizeLines": 38,
+      "fileCategory": "code"
+    },
+    {
+      "path": "core/include/main_functions.h",
+      "language": "c",
+      "sizeLines": 35,
+      "fileCategory": "code"
+    },
+    {
+      "path": "core/include/upload_policy.h",
+      "language": "c",
+      "sizeLines": 47,
+      "fileCategory": "code"
+    }
+  ],
+  "batchImportData": {
+    "core/include/admin_bootstrap.h": [],
+    "core/include/authorization.h": [
+      "core/include/main_functions.h"
+    ],
+    "core/include/main_functions.h": [
+      "core/include/admin_bootstrap.h"
+    ],
+    "core/include/upload_policy.h": [
+      "core/include/main_functions.h"
+    ]
+  },
+  "neighborMap": {}
+}

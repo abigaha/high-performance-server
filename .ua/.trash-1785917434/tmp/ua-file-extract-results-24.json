@@ -1,0 +1,3705 @@
+{
+  "scriptCompleted": true,
+  "filesAnalyzed": 11,
+  "filesSkipped": [],
+  "results": [
+    {
+      "path": "net/http/xmake.lua",
+      "language": "lua",
+      "fileCategory": "code",
+      "totalLines": 25,
+      "nonEmptyLines": 24,
+      "metrics": {}
+    },
+    {
+      "path": "net/tcp/tcp_client/src/tcp_client.cpp",
+      "language": "cpp",
+      "fileCategory": "code",
+      "totalLines": 304,
+      "nonEmptyLines": 254,
+      "functions": [
+        {
+          "name": "TcpClient",
+          "startLine": 20,
+          "endLine": 21,
+          "params": [
+            "server_ip",
+            "server_port"
+          ]
+        },
+        {
+          "name": "TcpClient",
+          "startLine": 23,
+          "endLine": 24,
+          "params": [
+            "connect_timeout_ms",
+            "server_ip",
+            "server_port"
+          ]
+        },
+        {
+          "name": "~TcpClient",
+          "startLine": 26,
+          "endLine": 28,
+          "params": []
+        },
+        {
+          "name": "TcpClient",
+          "startLine": 30,
+          "endLine": 37,
+          "params": [
+            "other"
+          ]
+        },
+        {
+          "name": "send_all",
+          "startLine": 52,
+          "endLine": 80,
+          "params": [
+            "fd",
+            "data",
+            "size",
+            "timeout"
+          ]
+        },
+        {
+          "name": "wait_connected",
+          "startLine": 82,
+          "endLine": 96,
+          "params": [
+            "fd",
+            "timeout"
+          ]
+        },
+        {
+          "name": "wait_readable",
+          "startLine": 98,
+          "endLine": 106,
+          "params": [
+            "fd",
+            "timeout"
+          ]
+        },
+        {
+          "name": "connect_to_server",
+          "startLine": 108,
+          "endLine": 156,
+          "params": []
+        },
+        {
+          "name": "disconnect",
+          "startLine": 158,
+          "endLine": 164,
+          "params": []
+        },
+        {
+          "name": "send_message",
+          "startLine": 166,
+          "endLine": 172,
+          "params": [
+            "message"
+          ]
+        },
+        {
+          "name": "receive_message",
+          "startLine": 175,
+          "endLine": 183,
+          "params": [
+            "message",
+            "mode",
+            "read_timeout_ms"
+          ]
+        },
+        {
+          "name": "recv_into_buffer",
+          "startLine": 185,
+          "endLine": 202,
+          "params": [
+            "timeout"
+          ]
+        },
+        {
+          "name": "read_line",
+          "startLine": 204,
+          "endLine": 227,
+          "params": [
+            "line"
+          ]
+        },
+        {
+          "name": "read_raw",
+          "startLine": 229,
+          "endLine": 264,
+          "params": [
+            "data",
+            "timeout_ms"
+          ]
+        },
+        {
+          "name": "send_file",
+          "startLine": 266,
+          "endLine": 294,
+          "params": [
+            "file_path"
+          ]
+        },
+        {
+          "name": "send_file",
+          "startLine": 296,
+          "endLine": 302,
+          "params": [
+            "data",
+            "size"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "TcpClient",
+          "line": 20,
+          "isDefault": false
+        },
+        {
+          "name": "TcpClient",
+          "line": 23,
+          "isDefault": false
+        },
+        {
+          "name": "~TcpClient",
+          "line": 26,
+          "isDefault": false
+        },
+        {
+          "name": "TcpClient",
+          "line": 30,
+          "isDefault": false
+        },
+        {
+          "name": "send_all",
+          "line": 52,
+          "isDefault": false
+        },
+        {
+          "name": "wait_connected",
+          "line": 82,
+          "isDefault": false
+        },
+        {
+          "name": "wait_readable",
+          "line": 98,
+          "isDefault": false
+        },
+        {
+          "name": "connect_to_server",
+          "line": 108,
+          "isDefault": false
+        },
+        {
+          "name": "disconnect",
+          "line": 158,
+          "isDefault": false
+        },
+        {
+          "name": "send_message",
+          "line": 166,
+          "isDefault": false
+        },
+        {
+          "name": "receive_message",
+          "line": 175,
+          "isDefault": false
+        },
+        {
+          "name": "recv_into_buffer",
+          "line": 185,
+          "isDefault": false
+        },
+        {
+          "name": "read_line",
+          "line": 204,
+          "isDefault": false
+        },
+        {
+          "name": "read_raw",
+          "line": 229,
+          "isDefault": false
+        },
+        {
+          "name": "send_file",
+          "line": 266,
+          "isDefault": false
+        },
+        {
+          "name": "send_file",
+          "line": 296,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "~TcpClient",
+          "callee": "TcpClient::disconnect",
+          "lineNumber": 27
+        },
+        {
+          "caller": "TcpClient",
+          "callee": "std::move",
+          "lineNumber": 32
+        },
+        {
+          "caller": "TcpClient",
+          "callee": "std::move",
+          "lineNumber": 35
+        },
+        {
+          "caller": "send_all",
+          "callee": "send",
+          "lineNumber": 56
+        },
+        {
+          "caller": "send_all",
+          "callee": "std::next",
+          "lineNumber": 56
+        },
+        {
+          "caller": "send_all",
+          "callee": "static_cast<std::ptrdiff_t>",
+          "lineNumber": 56
+        },
+        {
+          "caller": "send_all",
+          "callee": "static_cast<std::size_t>",
+          "lineNumber": 58
+        },
+        {
+          "caller": "send_all",
+          "callee": "poll",
+          "lineNumber": 71
+        },
+        {
+          "caller": "send_all",
+          "callee": "static_cast<int>",
+          "lineNumber": 71
+        },
+        {
+          "caller": "wait_connected",
+          "callee": "poll",
+          "lineNumber": 88
+        },
+        {
+          "caller": "wait_connected",
+          "callee": "static_cast<int>",
+          "lineNumber": 88
+        },
+        {
+          "caller": "wait_connected",
+          "callee": "getsockopt",
+          "lineNumber": 95
+        },
+        {
+          "caller": "wait_readable",
+          "callee": "poll",
+          "lineNumber": 104
+        },
+        {
+          "caller": "wait_readable",
+          "callee": "static_cast<int>",
+          "lineNumber": 104
+        },
+        {
+          "caller": "connect_to_server",
+          "callee": "disconnect",
+          "lineNumber": 109
+        },
+        {
+          "caller": "connect_to_server",
+          "callee": "socket",
+          "lineNumber": 111
+        },
+        {
+          "caller": "connect_to_server",
+          "callee": "Logger::_error",
+          "lineNumber": 113
+        },
+        {
+          "caller": "connect_to_server",
+          "callee": "setsockopt",
+          "lineNumber": 118
+        },
+        {
+          "caller": "connect_to_server",
+          "callee": "setsockopt",
+          "lineNumber": 119
+        },
+        {
+          "caller": "connect_to_server",
+          "callee": "std::to_string",
+          "lineNumber": 121
+        },
+        {
+          "caller": "connect_to_server",
+          "callee": "getaddrinfo",
+          "lineNumber": 129
+        },
+        {
+          "caller": "connect_to_server",
+          "callee": "c_str",
+          "lineNumber": 129
+        },
+        {
+          "caller": "connect_to_server",
+          "callee": "c_str",
+          "lineNumber": 129
+        },
+        {
+          "caller": "connect_to_server",
+          "callee": "Logger::_error",
+          "lineNumber": 131
+        },
+        {
+          "caller": "connect_to_server",
+          "callee": "gai_strerror",
+          "lineNumber": 131
+        },
+        {
+          "caller": "connect_to_server",
+          "callee": "disconnect",
+          "lineNumber": 132
+        },
+        {
+          "caller": "connect_to_server",
+          "callee": "connect",
+          "lineNumber": 136
+        },
+        {
+          "caller": "connect_to_server",
+          "callee": "freeaddrinfo",
+          "lineNumber": 137
+        },
+        {
+          "caller": "connect_to_server",
+          "callee": "Logger::_error",
+          "lineNumber": 144
+        },
+        {
+          "caller": "connect_to_server",
+          "callee": "std::to_string",
+          "lineNumber": 144
+        },
+        {
+          "caller": "connect_to_server",
+          "callee": "disconnect",
+          "lineNumber": 145
+        },
+        {
+          "caller": "connect_to_server",
+          "callee": "wait_connected",
+          "lineNumber": 149
+        },
+        {
+          "caller": "connect_to_server",
+          "callee": "Logger::_error",
+          "lineNumber": 150
+        },
+        {
+          "caller": "connect_to_server",
+          "callee": "std::to_string",
+          "lineNumber": 150
+        },
+        {
+          "caller": "connect_to_server",
+          "callee": "disconnect",
+          "lineNumber": 151
+        },
+        {
+          "caller": "disconnect",
+          "callee": "close",
+          "lineNumber": 160
+        },
+        {
+          "caller": "disconnect",
+          "callee": "clear",
+          "lineNumber": 163
+        },
+        {
+          "caller": "send_message",
+          "callee": "Logger::_error",
+          "lineNumber": 168
+        },
+        {
+          "caller": "send_message",
+          "callee": "send_all",
+          "lineNumber": 171
+        },
+        {
+          "caller": "send_message",
+          "callee": "data",
+          "lineNumber": 171
+        },
+        {
+          "caller": "send_message",
+          "callee": "size",
+          "lineNumber": 171
+        },
+        {
+          "caller": "receive_message",
+          "callee": "read_line",
+          "lineNumber": 180
+        },
+        {
+          "caller": "receive_message",
+          "callee": "read_raw",
+          "lineNumber": 182
+        },
+        {
+          "caller": "recv_into_buffer",
+          "callee": "wait_readable",
+          "lineNumber": 186
+        },
+        {
+          "caller": "recv_into_buffer",
+          "callee": "recv",
+          "lineNumber": 191
+        },
+        {
+          "caller": "recv_into_buffer",
+          "callee": "data",
+          "lineNumber": 191
+        },
+        {
+          "caller": "recv_into_buffer",
+          "callee": "size",
+          "lineNumber": 191
+        },
+        {
+          "caller": "recv_into_buffer",
+          "callee": "append",
+          "lineNumber": 193
+        },
+        {
+          "caller": "recv_into_buffer",
+          "callee": "data",
+          "lineNumber": 193
+        },
+        {
+          "caller": "recv_into_buffer",
+          "callee": "static_cast<std::size_t>",
+          "lineNumber": 193
+        },
+        {
+          "caller": "recv_into_buffer",
+          "callee": "disconnect",
+          "lineNumber": 199
+        },
+        {
+          "caller": "read_line",
+          "callee": "find",
+          "lineNumber": 206
+        },
+        {
+          "caller": "read_line",
+          "callee": "assign",
+          "lineNumber": 208
+        },
+        {
+          "caller": "read_line",
+          "callee": "empty",
+          "lineNumber": 209
+        },
+        {
+          "caller": "read_line",
+          "callee": "back",
+          "lineNumber": 209
+        },
+        {
+          "caller": "read_line",
+          "callee": "pop_back",
+          "lineNumber": 210
+        },
+        {
+          "caller": "read_line",
+          "callee": "erase",
+          "lineNumber": 212
+        },
+        {
+          "caller": "read_line",
+          "callee": "recv_into_buffer",
+          "lineNumber": 215
+        },
+        {
+          "caller": "read_line",
+          "callee": "empty",
+          "lineNumber": 219
+        },
+        {
+          "caller": "read_line",
+          "callee": "std::move",
+          "lineNumber": 220
+        },
+        {
+          "caller": "read_line",
+          "callee": "clear",
+          "lineNumber": 221
+        },
+        {
+          "caller": "read_raw",
+          "callee": "std::move",
+          "lineNumber": 230
+        },
+        {
+          "caller": "read_raw",
+          "callee": "clear",
+          "lineNumber": 231
+        },
+        {
+          "caller": "read_raw",
+          "callee": "wait_readable",
+          "lineNumber": 233
+        },
+        {
+          "caller": "read_raw",
+          "callee": "recv",
+          "lineNumber": 235
+        },
+        {
+          "caller": "read_raw",
+          "callee": "data",
+          "lineNumber": 235
+        },
+        {
+          "caller": "read_raw",
+          "callee": "size",
+          "lineNumber": 235
+        },
+        {
+          "caller": "read_raw",
+          "callee": "disconnect",
+          "lineNumber": 239
+        },
+        {
+          "caller": "read_raw",
+          "callee": "empty",
+          "lineNumber": 241
+        },
+        {
+          "caller": "read_raw",
+          "callee": "append",
+          "lineNumber": 243
+        },
+        {
+          "caller": "read_raw",
+          "callee": "data",
+          "lineNumber": 243
+        },
+        {
+          "caller": "read_raw",
+          "callee": "static_cast<std::size_t>",
+          "lineNumber": 243
+        },
+        {
+          "caller": "read_raw",
+          "callee": "recv_into_buffer",
+          "lineNumber": 246
+        },
+        {
+          "caller": "read_raw",
+          "callee": "empty",
+          "lineNumber": 248
+        },
+        {
+          "caller": "read_raw",
+          "callee": "empty",
+          "lineNumber": 250
+        },
+        {
+          "caller": "read_raw",
+          "callee": "clear",
+          "lineNumber": 255
+        },
+        {
+          "caller": "read_raw",
+          "callee": "wait_readable",
+          "lineNumber": 256
+        },
+        {
+          "caller": "read_raw",
+          "callee": "recv_into_buffer",
+          "lineNumber": 259
+        },
+        {
+          "caller": "send_file",
+          "callee": "Logger::_error",
+          "lineNumber": 268
+        },
+        {
+          "caller": "send_file",
+          "callee": "Logger::_error",
+          "lineNumber": 275
+        },
+        {
+          "caller": "send_file",
+          "callee": "read",
+          "lineNumber": 279
+        },
+        {
+          "caller": "send_file",
+          "callee": "data",
+          "lineNumber": 279
+        },
+        {
+          "caller": "send_file",
+          "callee": "size",
+          "lineNumber": 279
+        },
+        {
+          "caller": "send_file",
+          "callee": "send_all",
+          "lineNumber": 280
+        },
+        {
+          "caller": "send_file",
+          "callee": "data",
+          "lineNumber": 280
+        },
+        {
+          "caller": "send_file",
+          "callee": "size",
+          "lineNumber": 280
+        },
+        {
+          "caller": "send_file",
+          "callee": "Logger::_error",
+          "lineNumber": 281
+        },
+        {
+          "caller": "send_file",
+          "callee": "gcount",
+          "lineNumber": 286
+        },
+        {
+          "caller": "send_file",
+          "callee": "send_all",
+          "lineNumber": 288
+        },
+        {
+          "caller": "send_file",
+          "callee": "data",
+          "lineNumber": 288
+        },
+        {
+          "caller": "send_file",
+          "callee": "static_cast<std::size_t>",
+          "lineNumber": 288
+        },
+        {
+          "caller": "send_file",
+          "callee": "Logger::_error",
+          "lineNumber": 289
+        },
+        {
+          "caller": "send_file",
+          "callee": "Logger::_error",
+          "lineNumber": 298
+        },
+        {
+          "caller": "send_file",
+          "callee": "send_all",
+          "lineNumber": 301
+        },
+        {
+          "caller": "send_file",
+          "callee": "data",
+          "lineNumber": 301
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 16,
+        "functionCount": 16,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "net/tcp/tcp_server/src/connection.cpp",
+      "language": "cpp",
+      "fileCategory": "code",
+      "totalLines": 240,
+      "nonEmptyLines": 212,
+      "functions": [
+        {
+          "name": "Connection",
+          "startLine": 15,
+          "endLine": 15,
+          "params": [
+            "fd",
+            "addr"
+          ]
+        },
+        {
+          "name": "~Connection",
+          "startLine": 17,
+          "endLine": 21,
+          "params": []
+        },
+        {
+          "name": "client_ip",
+          "startLine": 23,
+          "endLine": 27,
+          "params": []
+        },
+        {
+          "name": "client_port",
+          "startLine": 29,
+          "endLine": 31,
+          "params": []
+        },
+        {
+          "name": "read_from_fd",
+          "startLine": 33,
+          "endLine": 43,
+          "params": []
+        },
+        {
+          "name": "ssl_read_from_fd",
+          "startLine": 45,
+          "endLine": 77,
+          "params": []
+        },
+        {
+          "name": "plain_read_from_fd",
+          "startLine": 79,
+          "endLine": 110,
+          "params": []
+        },
+        {
+          "name": "ssl_write_to_fd_locked",
+          "startLine": 112,
+          "endLine": 136,
+          "params": []
+        },
+        {
+          "name": "plain_write_to_fd_locked",
+          "startLine": 138,
+          "endLine": 159,
+          "params": []
+        },
+        {
+          "name": "write_to_fd",
+          "startLine": 161,
+          "endLine": 165,
+          "params": []
+        },
+        {
+          "name": "write_to_fd_locked",
+          "startLine": 167,
+          "endLine": 187,
+          "params": []
+        },
+        {
+          "name": "close",
+          "startLine": 189,
+          "endLine": 203,
+          "params": []
+        },
+        {
+          "name": "consume_read_buffer",
+          "startLine": 205,
+          "endLine": 208,
+          "params": [
+            "bytes"
+          ]
+        },
+        {
+          "name": "consume_read_buffer_locked",
+          "startLine": 210,
+          "endLine": 217,
+          "params": [
+            "bytes"
+          ]
+        },
+        {
+          "name": "await_read",
+          "startLine": 222,
+          "endLine": 224,
+          "params": []
+        },
+        {
+          "name": "await_write",
+          "startLine": 226,
+          "endLine": 228,
+          "params": []
+        },
+        {
+          "name": "await_suspend",
+          "startLine": 230,
+          "endLine": 233,
+          "params": [
+            "handle"
+          ]
+        },
+        {
+          "name": "await_suspend",
+          "startLine": 235,
+          "endLine": 238,
+          "params": [
+            "handle"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "Connection",
+          "line": 15,
+          "isDefault": false
+        },
+        {
+          "name": "~Connection",
+          "line": 17,
+          "isDefault": false
+        },
+        {
+          "name": "client_ip",
+          "line": 23,
+          "isDefault": false
+        },
+        {
+          "name": "client_port",
+          "line": 29,
+          "isDefault": false
+        },
+        {
+          "name": "read_from_fd",
+          "line": 33,
+          "isDefault": false
+        },
+        {
+          "name": "ssl_read_from_fd",
+          "line": 45,
+          "isDefault": false
+        },
+        {
+          "name": "plain_read_from_fd",
+          "line": 79,
+          "isDefault": false
+        },
+        {
+          "name": "ssl_write_to_fd_locked",
+          "line": 112,
+          "isDefault": false
+        },
+        {
+          "name": "plain_write_to_fd_locked",
+          "line": 138,
+          "isDefault": false
+        },
+        {
+          "name": "write_to_fd",
+          "line": 161,
+          "isDefault": false
+        },
+        {
+          "name": "write_to_fd_locked",
+          "line": 167,
+          "isDefault": false
+        },
+        {
+          "name": "close",
+          "line": 189,
+          "isDefault": false
+        },
+        {
+          "name": "consume_read_buffer",
+          "line": 205,
+          "isDefault": false
+        },
+        {
+          "name": "consume_read_buffer_locked",
+          "line": 210,
+          "isDefault": false
+        },
+        {
+          "name": "await_read",
+          "line": 222,
+          "isDefault": false
+        },
+        {
+          "name": "await_write",
+          "line": 226,
+          "isDefault": false
+        },
+        {
+          "name": "await_suspend",
+          "line": 230,
+          "isDefault": false
+        },
+        {
+          "name": "await_suspend",
+          "line": 235,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "Connection",
+          "callee": "Clock::now",
+          "lineNumber": 15
+        },
+        {
+          "caller": "~Connection",
+          "callee": "close",
+          "lineNumber": 19
+        },
+        {
+          "caller": "client_ip",
+          "callee": "inet_ntop",
+          "lineNumber": 25
+        },
+        {
+          "caller": "client_ip",
+          "callee": "data",
+          "lineNumber": 25
+        },
+        {
+          "caller": "client_ip",
+          "callee": "size",
+          "lineNumber": 25
+        },
+        {
+          "caller": "client_ip",
+          "callee": "data",
+          "lineNumber": 26
+        },
+        {
+          "caller": "client_port",
+          "callee": "ntohs",
+          "lineNumber": 30
+        },
+        {
+          "caller": "read_from_fd",
+          "callee": "ssl_read_from_fd",
+          "lineNumber": 38
+        },
+        {
+          "caller": "read_from_fd",
+          "callee": "plain_read_from_fd",
+          "lineNumber": 39
+        },
+        {
+          "caller": "read_from_fd",
+          "callee": "update_active",
+          "lineNumber": 41
+        },
+        {
+          "caller": "ssl_read_from_fd",
+          "callee": "size",
+          "lineNumber": 47
+        },
+        {
+          "caller": "ssl_read_from_fd",
+          "callee": "resize",
+          "lineNumber": 48
+        },
+        {
+          "caller": "ssl_read_from_fd",
+          "callee": "SSL_read",
+          "lineNumber": 52
+        },
+        {
+          "caller": "ssl_read_from_fd",
+          "callee": "static_cast<SSL*>",
+          "lineNumber": 52
+        },
+        {
+          "caller": "ssl_read_from_fd",
+          "callee": "data",
+          "lineNumber": 52
+        },
+        {
+          "caller": "ssl_read_from_fd",
+          "callee": "static_cast<int>",
+          "lineNumber": 52
+        },
+        {
+          "caller": "ssl_read_from_fd",
+          "callee": "size",
+          "lineNumber": 52
+        },
+        {
+          "caller": "ssl_read_from_fd",
+          "callee": "append",
+          "lineNumber": 56
+        },
+        {
+          "caller": "ssl_read_from_fd",
+          "callee": "data",
+          "lineNumber": 56
+        },
+        {
+          "caller": "ssl_read_from_fd",
+          "callee": "static_cast<size_t>",
+          "lineNumber": 56
+        },
+        {
+          "caller": "ssl_read_from_fd",
+          "callee": "SSL_get_error",
+          "lineNumber": 60
+        },
+        {
+          "caller": "ssl_read_from_fd",
+          "callee": "static_cast<SSL*>",
+          "lineNumber": 60
+        },
+        {
+          "caller": "ssl_read_from_fd",
+          "callee": "static_cast<int>",
+          "lineNumber": 60
+        },
+        {
+          "caller": "plain_read_from_fd",
+          "callee": "size",
+          "lineNumber": 82
+        },
+        {
+          "caller": "plain_read_from_fd",
+          "callee": "resize",
+          "lineNumber": 83
+        },
+        {
+          "caller": "plain_read_from_fd",
+          "callee": "::read",
+          "lineNumber": 87
+        },
+        {
+          "caller": "plain_read_from_fd",
+          "callee": "data",
+          "lineNumber": 87
+        },
+        {
+          "caller": "plain_read_from_fd",
+          "callee": "size",
+          "lineNumber": 87
+        },
+        {
+          "caller": "plain_read_from_fd",
+          "callee": "append",
+          "lineNumber": 91
+        },
+        {
+          "caller": "plain_read_from_fd",
+          "callee": "data",
+          "lineNumber": 91
+        },
+        {
+          "caller": "plain_read_from_fd",
+          "callee": "static_cast<size_t>",
+          "lineNumber": 91
+        },
+        {
+          "caller": "ssl_write_to_fd_locked",
+          "callee": "size",
+          "lineNumber": 114
+        },
+        {
+          "caller": "ssl_write_to_fd_locked",
+          "callee": "SSL_write",
+          "lineNumber": 115
+        },
+        {
+          "caller": "ssl_write_to_fd_locked",
+          "callee": "static_cast<SSL*>",
+          "lineNumber": 115
+        },
+        {
+          "caller": "ssl_write_to_fd_locked",
+          "callee": "data",
+          "lineNumber": 116
+        },
+        {
+          "caller": "ssl_write_to_fd_locked",
+          "callee": "static_cast<int>",
+          "lineNumber": 117
+        },
+        {
+          "caller": "ssl_write_to_fd_locked",
+          "callee": "size",
+          "lineNumber": 117
+        },
+        {
+          "caller": "ssl_write_to_fd_locked",
+          "callee": "static_cast<size_t>",
+          "lineNumber": 119
+        },
+        {
+          "caller": "ssl_write_to_fd_locked",
+          "callee": "SSL_get_error",
+          "lineNumber": 122
+        },
+        {
+          "caller": "ssl_write_to_fd_locked",
+          "callee": "static_cast<SSL*>",
+          "lineNumber": 122
+        },
+        {
+          "caller": "ssl_write_to_fd_locked",
+          "callee": "static_cast<int>",
+          "lineNumber": 122
+        },
+        {
+          "caller": "plain_write_to_fd_locked",
+          "callee": "size",
+          "lineNumber": 141
+        },
+        {
+          "caller": "plain_write_to_fd_locked",
+          "callee": "::write",
+          "lineNumber": 142
+        },
+        {
+          "caller": "plain_write_to_fd_locked",
+          "callee": "data",
+          "lineNumber": 142
+        },
+        {
+          "caller": "plain_write_to_fd_locked",
+          "callee": "size",
+          "lineNumber": 142
+        },
+        {
+          "caller": "plain_write_to_fd_locked",
+          "callee": "static_cast<size_t>",
+          "lineNumber": 144
+        },
+        {
+          "caller": "write_to_fd",
+          "callee": "write_to_fd_locked",
+          "lineNumber": 164
+        },
+        {
+          "caller": "write_to_fd_locked",
+          "callee": "ssl_write_to_fd_locked",
+          "lineNumber": 172
+        },
+        {
+          "caller": "write_to_fd_locked",
+          "callee": "plain_write_to_fd_locked",
+          "lineNumber": 173
+        },
+        {
+          "caller": "write_to_fd_locked",
+          "callee": "size",
+          "lineNumber": 176
+        },
+        {
+          "caller": "write_to_fd_locked",
+          "callee": "clear",
+          "lineNumber": 177
+        },
+        {
+          "caller": "write_to_fd_locked",
+          "callee": "size",
+          "lineNumber": 179
+        },
+        {
+          "caller": "write_to_fd_locked",
+          "callee": "erase",
+          "lineNumber": 181
+        },
+        {
+          "caller": "write_to_fd_locked",
+          "callee": "update_active",
+          "lineNumber": 185
+        },
+        {
+          "caller": "close",
+          "callee": "SSL_shutdown",
+          "lineNumber": 195
+        },
+        {
+          "caller": "close",
+          "callee": "static_cast<SSL*>",
+          "lineNumber": 195
+        },
+        {
+          "caller": "close",
+          "callee": "SSL_free",
+          "lineNumber": 196
+        },
+        {
+          "caller": "close",
+          "callee": "static_cast<SSL*>",
+          "lineNumber": 196
+        },
+        {
+          "caller": "close",
+          "callee": "::close",
+          "lineNumber": 200
+        },
+        {
+          "caller": "consume_read_buffer",
+          "callee": "consume_read_buffer_locked",
+          "lineNumber": 207
+        },
+        {
+          "caller": "consume_read_buffer_locked",
+          "callee": "size",
+          "lineNumber": 211
+        },
+        {
+          "caller": "consume_read_buffer_locked",
+          "callee": "clear",
+          "lineNumber": 212
+        },
+        {
+          "caller": "consume_read_buffer_locked",
+          "callee": "erase",
+          "lineNumber": 214
+        },
+        {
+          "caller": "consume_read_buffer_locked",
+          "callee": "update_active",
+          "lineNumber": 216
+        },
+        {
+          "caller": "await_suspend",
+          "callee": "read_from_fd",
+          "lineNumber": 231
+        },
+        {
+          "caller": "await_suspend",
+          "callee": "resume",
+          "lineNumber": 232
+        },
+        {
+          "caller": "await_suspend",
+          "callee": "write_to_fd",
+          "lineNumber": 236
+        },
+        {
+          "caller": "await_suspend",
+          "callee": "resume",
+          "lineNumber": 237
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 18,
+        "functionCount": 18,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "net/tcp/tcp_server/src/tcp_server.cpp",
+      "language": "cpp",
+      "fileCategory": "code",
+      "totalLines": 538,
+      "nonEmptyLines": 453,
+      "functions": [
+        {
+          "name": "epoll_ctl_add",
+          "startLine": 36,
+          "endLine": 42,
+          "params": [
+            "epoll_fd",
+            "target",
+            "ev_flags"
+          ]
+        },
+        {
+          "name": "epoll_ctl_mod",
+          "startLine": 44,
+          "endLine": 50,
+          "params": [
+            "epoll_fd",
+            "target",
+            "ev_flags"
+          ]
+        },
+        {
+          "name": "signal_handler",
+          "startLine": 56,
+          "endLine": 61,
+          "params": [
+            "sig"
+          ]
+        },
+        {
+          "name": "TcpServer",
+          "startLine": 63,
+          "endLine": 68,
+          "params": [
+            "config"
+          ]
+        },
+        {
+          "name": "~TcpServer",
+          "startLine": 70,
+          "endLine": 75,
+          "params": []
+        },
+        {
+          "name": "init",
+          "startLine": 77,
+          "endLine": 199,
+          "params": []
+        },
+        {
+          "name": "set_handler",
+          "startLine": 201,
+          "endLine": 203,
+          "params": [
+            "handler"
+          ]
+        },
+        {
+          "name": "start",
+          "startLine": 205,
+          "endLine": 210,
+          "params": []
+        },
+        {
+          "name": "stop",
+          "startLine": 212,
+          "endLine": 223,
+          "params": []
+        },
+        {
+          "name": "event_loop",
+          "startLine": 225,
+          "endLine": 245,
+          "params": []
+        },
+        {
+          "name": "cleanup_resources",
+          "startLine": 247,
+          "endLine": 276,
+          "params": []
+        },
+        {
+          "name": "handle_event",
+          "startLine": 278,
+          "endLine": 303,
+          "params": [
+            "evt"
+          ]
+        },
+        {
+          "name": "handle_accept",
+          "startLine": 305,
+          "endLine": 335,
+          "params": []
+        },
+        {
+          "name": "handle_read",
+          "startLine": 337,
+          "endLine": 380,
+          "params": [
+            "fd"
+          ]
+        },
+        {
+          "name": "handle_write",
+          "startLine": 382,
+          "endLine": 404,
+          "params": [
+            "fd"
+          ]
+        },
+        {
+          "name": "try_ssl_detection",
+          "startLine": 406,
+          "endLine": 429,
+          "params": [
+            "conn",
+            "ev"
+          ]
+        },
+        {
+          "name": "try_ssl_handshake",
+          "startLine": 431,
+          "endLine": 437,
+          "params": [
+            "conn",
+            "ev"
+          ]
+        },
+        {
+          "name": "handle_client_event",
+          "startLine": 439,
+          "endLine": 458,
+          "params": [
+            "fd",
+            "evt"
+          ]
+        },
+        {
+          "name": "handle_ssl_handshake",
+          "startLine": 460,
+          "endLine": 486,
+          "params": [
+            "conn",
+            "ev"
+          ]
+        },
+        {
+          "name": "close_connection",
+          "startLine": 488,
+          "endLine": 502,
+          "params": [
+            "fd"
+          ]
+        },
+        {
+          "name": "notify_wake",
+          "startLine": 504,
+          "endLine": 510,
+          "params": [
+            "wake_fd"
+          ]
+        },
+        {
+          "name": "process_dirty_connections",
+          "startLine": 512,
+          "endLine": 536,
+          "params": []
+        }
+      ],
+      "classes": [
+        {
+          "name": "EpollFd",
+          "startLine": 28,
+          "endLine": 30,
+          "methods": [],
+          "properties": [
+            "fd"
+          ]
+        },
+        {
+          "name": "EpollEvents",
+          "startLine": 32,
+          "endLine": 34,
+          "methods": [],
+          "properties": [
+            "flags"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "EpollFd",
+          "line": 28,
+          "isDefault": false
+        },
+        {
+          "name": "EpollEvents",
+          "line": 32,
+          "isDefault": false
+        },
+        {
+          "name": "epoll_ctl_add",
+          "line": 36,
+          "isDefault": false
+        },
+        {
+          "name": "epoll_ctl_mod",
+          "line": 44,
+          "isDefault": false
+        },
+        {
+          "name": "signal_handler",
+          "line": 56,
+          "isDefault": false
+        },
+        {
+          "name": "TcpServer",
+          "line": 63,
+          "isDefault": false
+        },
+        {
+          "name": "~TcpServer",
+          "line": 70,
+          "isDefault": false
+        },
+        {
+          "name": "init",
+          "line": 77,
+          "isDefault": false
+        },
+        {
+          "name": "set_handler",
+          "line": 201,
+          "isDefault": false
+        },
+        {
+          "name": "start",
+          "line": 205,
+          "isDefault": false
+        },
+        {
+          "name": "stop",
+          "line": 212,
+          "isDefault": false
+        },
+        {
+          "name": "event_loop",
+          "line": 225,
+          "isDefault": false
+        },
+        {
+          "name": "cleanup_resources",
+          "line": 247,
+          "isDefault": false
+        },
+        {
+          "name": "handle_event",
+          "line": 278,
+          "isDefault": false
+        },
+        {
+          "name": "handle_accept",
+          "line": 305,
+          "isDefault": false
+        },
+        {
+          "name": "handle_read",
+          "line": 337,
+          "isDefault": false
+        },
+        {
+          "name": "handle_write",
+          "line": 382,
+          "isDefault": false
+        },
+        {
+          "name": "try_ssl_detection",
+          "line": 406,
+          "isDefault": false
+        },
+        {
+          "name": "try_ssl_handshake",
+          "line": 431,
+          "isDefault": false
+        },
+        {
+          "name": "handle_client_event",
+          "line": 439,
+          "isDefault": false
+        },
+        {
+          "name": "handle_ssl_handshake",
+          "line": 460,
+          "isDefault": false
+        },
+        {
+          "name": "close_connection",
+          "line": 488,
+          "isDefault": false
+        },
+        {
+          "name": "notify_wake",
+          "line": 504,
+          "isDefault": false
+        },
+        {
+          "name": "process_dirty_connections",
+          "line": 512,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "epoll_ctl_add",
+          "callee": "epoll_ctl",
+          "lineNumber": 41
+        },
+        {
+          "caller": "epoll_ctl_mod",
+          "callee": "epoll_ctl",
+          "lineNumber": 49
+        },
+        {
+          "caller": "signal_handler",
+          "callee": "Logger::_warn",
+          "lineNumber": 58
+        },
+        {
+          "caller": "signal_handler",
+          "callee": "std::to_string",
+          "lineNumber": 58
+        },
+        {
+          "caller": "signal_handler",
+          "callee": "stop",
+          "lineNumber": 59
+        },
+        {
+          "caller": "TcpServer",
+          "callee": "Logger::_warn",
+          "lineNumber": 65
+        },
+        {
+          "caller": "TcpServer",
+          "callee": "std::to_string",
+          "lineNumber": 65
+        },
+        {
+          "caller": "~TcpServer",
+          "callee": "TcpServer::stop",
+          "lineNumber": 71
+        },
+        {
+          "caller": "init",
+          "callee": "Logger::_warn",
+          "lineNumber": 79
+        },
+        {
+          "caller": "init",
+          "callee": "Logger::_error",
+          "lineNumber": 84
+        },
+        {
+          "caller": "init",
+          "callee": "socket",
+          "lineNumber": 89
+        },
+        {
+          "caller": "init",
+          "callee": "Logger::_error",
+          "lineNumber": 91
+        },
+        {
+          "caller": "init",
+          "callee": "std::string",
+          "lineNumber": 91
+        },
+        {
+          "caller": "init",
+          "callee": "std::strerror",
+          "lineNumber": 91
+        },
+        {
+          "caller": "init",
+          "callee": "setsockopt",
+          "lineNumber": 96
+        },
+        {
+          "caller": "init",
+          "callee": "Logger::_error",
+          "lineNumber": 97
+        },
+        {
+          "caller": "init",
+          "callee": "std::string",
+          "lineNumber": 97
+        },
+        {
+          "caller": "init",
+          "callee": "std::strerror",
+          "lineNumber": 97
+        },
+        {
+          "caller": "init",
+          "callee": "close",
+          "lineNumber": 98
+        },
+        {
+          "caller": "init",
+          "callee": "htonl",
+          "lineNumber": 106
+        },
+        {
+          "caller": "init",
+          "callee": "htons",
+          "lineNumber": 107
+        },
+        {
+          "caller": "init",
+          "callee": "bind",
+          "lineNumber": 109
+        },
+        {
+          "caller": "init",
+          "callee": "reinterpret_cast<struct sockaddr*>",
+          "lineNumber": 109
+        },
+        {
+          "caller": "init",
+          "callee": "Logger::_error",
+          "lineNumber": 110
+        },
+        {
+          "caller": "init",
+          "callee": "std::string",
+          "lineNumber": 110
+        },
+        {
+          "caller": "init",
+          "callee": "std::strerror",
+          "lineNumber": 110
+        },
+        {
+          "caller": "init",
+          "callee": "close",
+          "lineNumber": 111
+        },
+        {
+          "caller": "init",
+          "callee": "getsockname",
+          "lineNumber": 120
+        },
+        {
+          "caller": "init",
+          "callee": "reinterpret_cast<struct sockaddr*>",
+          "lineNumber": 120
+        },
+        {
+          "caller": "init",
+          "callee": "ntohs",
+          "lineNumber": 121
+        },
+        {
+          "caller": "init",
+          "callee": "listen",
+          "lineNumber": 127
+        },
+        {
+          "caller": "init",
+          "callee": "static_cast<int>",
+          "lineNumber": 127
+        },
+        {
+          "caller": "init",
+          "callee": "Logger::_error",
+          "lineNumber": 128
+        },
+        {
+          "caller": "init",
+          "callee": "std::string",
+          "lineNumber": 128
+        },
+        {
+          "caller": "init",
+          "callee": "std::strerror",
+          "lineNumber": 128
+        },
+        {
+          "caller": "init",
+          "callee": "close",
+          "lineNumber": 129
+        },
+        {
+          "caller": "init",
+          "callee": "epoll_create1",
+          "lineNumber": 134
+        },
+        {
+          "caller": "init",
+          "callee": "Logger::_error",
+          "lineNumber": 136
+        },
+        {
+          "caller": "init",
+          "callee": "std::string",
+          "lineNumber": 136
+        },
+        {
+          "caller": "init",
+          "callee": "std::strerror",
+          "lineNumber": 136
+        },
+        {
+          "caller": "init",
+          "callee": "close",
+          "lineNumber": 137
+        },
+        {
+          "caller": "init",
+          "callee": "eventfd",
+          "lineNumber": 142
+        },
+        {
+          "caller": "init",
+          "callee": "Logger::_error",
+          "lineNumber": 144
+        },
+        {
+          "caller": "init",
+          "callee": "std::string",
+          "lineNumber": 144
+        },
+        {
+          "caller": "init",
+          "callee": "std::strerror",
+          "lineNumber": 144
+        },
+        {
+          "caller": "init",
+          "callee": "close",
+          "lineNumber": 145
+        },
+        {
+          "caller": "init",
+          "callee": "close",
+          "lineNumber": 147
+        },
+        {
+          "caller": "init",
+          "callee": "epoll_ctl_add",
+          "lineNumber": 152
+        },
+        {
+          "caller": "init",
+          "callee": "Logger::_error",
+          "lineNumber": 153
+        },
+        {
+          "caller": "init",
+          "callee": "std::string",
+          "lineNumber": 153
+        },
+        {
+          "caller": "init",
+          "callee": "std::strerror",
+          "lineNumber": 153
+        },
+        {
+          "caller": "init",
+          "callee": "close",
+          "lineNumber": 154
+        },
+        {
+          "caller": "init",
+          "callee": "close",
+          "lineNumber": 156
+        },
+        {
+          "caller": "init",
+          "callee": "close",
+          "lineNumber": 158
+        },
+        {
+          "caller": "init",
+          "callee": "epoll_ctl_add",
+          "lineNumber": 163
+        },
+        {
+          "caller": "init",
+          "callee": "Logger::_error",
+          "lineNumber": 164
+        },
+        {
+          "caller": "init",
+          "callee": "std::string",
+          "lineNumber": 164
+        },
+        {
+          "caller": "init",
+          "callee": "std::strerror",
+          "lineNumber": 164
+        },
+        {
+          "caller": "init",
+          "callee": "close",
+          "lineNumber": 165
+        },
+        {
+          "caller": "init",
+          "callee": "close",
+          "lineNumber": 167
+        },
+        {
+          "caller": "init",
+          "callee": "close",
+          "lineNumber": 169
+        },
+        {
+          "caller": "init",
+          "callee": "sigemptyset",
+          "lineNumber": 177
+        },
+        {
+          "caller": "init",
+          "callee": "sigaction",
+          "lineNumber": 179
+        },
+        {
+          "caller": "init",
+          "callee": "sigaction",
+          "lineNumber": 180
+        },
+        {
+          "caller": "init",
+          "callee": "std::make_unique<LockFreeThreadPool>",
+          "lineNumber": 182
+        },
+        {
+          "caller": "init",
+          "callee": "std::make_unique<SslContext>",
+          "lineNumber": 186
+        },
+        {
+          "caller": "init",
+          "callee": "Logger::_error",
+          "lineNumber": 188
+        },
+        {
+          "caller": "init",
+          "callee": "std::string",
+          "lineNumber": 188
+        },
+        {
+          "caller": "init",
+          "callee": "what",
+          "lineNumber": 188
+        },
+        {
+          "caller": "init",
+          "callee": "cleanup_resources",
+          "lineNumber": 189
+        },
+        {
+          "caller": "init",
+          "callee": "Logger::_info",
+          "lineNumber": 192
+        },
+        {
+          "caller": "init",
+          "callee": "Logger::_info",
+          "lineNumber": 195
+        },
+        {
+          "caller": "init",
+          "callee": "std::to_string",
+          "lineNumber": 195
+        },
+        {
+          "caller": "init",
+          "callee": "std::to_string",
+          "lineNumber": 196
+        },
+        {
+          "caller": "set_handler",
+          "callee": "std::move",
+          "lineNumber": 202
+        },
+        {
+          "caller": "start",
+          "callee": "exchange",
+          "lineNumber": 206
+        },
+        {
+          "caller": "start",
+          "callee": "Logger::_info",
+          "lineNumber": 207
+        },
+        {
+          "caller": "start",
+          "callee": "event_loop",
+          "lineNumber": 208
+        },
+        {
+          "caller": "stop",
+          "callee": "exchange",
+          "lineNumber": 213
+        },
+        {
+          "caller": "stop",
+          "callee": "Logger::_info",
+          "lineNumber": 217
+        },
+        {
+          "caller": "stop",
+          "callee": "write",
+          "lineNumber": 221
+        },
+        {
+          "caller": "event_loop",
+          "callee": "load",
+          "lineNumber": 228
+        },
+        {
+          "caller": "event_loop",
+          "callee": "epoll_wait",
+          "lineNumber": 229
+        },
+        {
+          "caller": "event_loop",
+          "callee": "data",
+          "lineNumber": 229
+        },
+        {
+          "caller": "event_loop",
+          "callee": "static_cast<int>",
+          "lineNumber": 229
+        },
+        {
+          "caller": "event_loop",
+          "callee": "size",
+          "lineNumber": 229
+        },
+        {
+          "caller": "event_loop",
+          "callee": "Logger::_error",
+          "lineNumber": 234
+        },
+        {
+          "caller": "event_loop",
+          "callee": "std::string",
+          "lineNumber": 234
+        },
+        {
+          "caller": "event_loop",
+          "callee": "std::strerror",
+          "lineNumber": 234
+        },
+        {
+          "caller": "event_loop",
+          "callee": "handle_event",
+          "lineNumber": 239
+        },
+        {
+          "caller": "event_loop",
+          "callee": "at",
+          "lineNumber": 239
+        },
+        {
+          "caller": "event_loop",
+          "callee": "static_cast<size_t>",
+          "lineNumber": 239
+        },
+        {
+          "caller": "event_loop",
+          "callee": "cleanup_resources",
+          "lineNumber": 243
+        },
+        {
+          "caller": "event_loop",
+          "callee": "Logger::_info",
+          "lineNumber": 244
+        },
+        {
+          "caller": "cleanup_resources",
+          "callee": "stop",
+          "lineNumber": 249
+        },
+        {
+          "caller": "cleanup_resources",
+          "callee": "close",
+          "lineNumber": 253
+        },
+        {
+          "caller": "cleanup_resources",
+          "callee": "close_handler_",
+          "lineNumber": 255
+        },
+        {
+          "caller": "cleanup_resources",
+          "callee": "get",
+          "lineNumber": 255
+        },
+        {
+          "caller": "cleanup_resources",
+          "callee": "epoll_ctl",
+          "lineNumber": 257
+        },
+        {
+          "caller": "cleanup_resources",
+          "callee": "clear",
+          "lineNumber": 259
+        },
+        {
+          "caller": "cleanup_resources",
+          "callee": "close",
+          "lineNumber": 262
+        },
+        {
+          "caller": "cleanup_resources",
+          "callee": "close",
+          "lineNumber": 266
+        },
+        {
+          "caller": "cleanup_resources",
+          "callee": "close",
+          "lineNumber": 270
+        },
+        {
+          "caller": "cleanup_resources",
+          "callee": "signal",
+          "lineNumber": 274
+        },
+        {
+          "caller": "cleanup_resources",
+          "callee": "signal",
+          "lineNumber": 275
+        },
+        {
+          "caller": "handle_event",
+          "callee": "handle_accept",
+          "lineNumber": 283
+        },
+        {
+          "caller": "handle_event",
+          "callee": "Logger::_error",
+          "lineNumber": 284
+        },
+        {
+          "caller": "handle_event",
+          "callee": "read",
+          "lineNumber": 289
+        },
+        {
+          "caller": "handle_event",
+          "callee": "process_dirty_connections",
+          "lineNumber": 290
+        },
+        {
+          "caller": "handle_event",
+          "callee": "find",
+          "lineNumber": 292
+        },
+        {
+          "caller": "handle_event",
+          "callee": "end",
+          "lineNumber": 293
+        },
+        {
+          "caller": "handle_event",
+          "callee": "try_ssl_detection",
+          "lineNumber": 298
+        },
+        {
+          "caller": "handle_event",
+          "callee": "try_ssl_handshake",
+          "lineNumber": 298
+        },
+        {
+          "caller": "handle_event",
+          "callee": "handle_client_event",
+          "lineNumber": 301
+        },
+        {
+          "caller": "handle_accept",
+          "callee": "accept4",
+          "lineNumber": 312
+        },
+        {
+          "caller": "handle_accept",
+          "callee": "reinterpret_cast<struct sockaddr*>",
+          "lineNumber": 312
+        },
+        {
+          "caller": "handle_accept",
+          "callee": "Logger::_error",
+          "lineNumber": 317
+        },
+        {
+          "caller": "handle_accept",
+          "callee": "std::string",
+          "lineNumber": 317
+        },
+        {
+          "caller": "handle_accept",
+          "callee": "std::strerror",
+          "lineNumber": 317
+        },
+        {
+          "caller": "handle_accept",
+          "callee": "std::make_shared<Connection>",
+          "lineNumber": 321
+        },
+        {
+          "caller": "handle_accept",
+          "callee": "epoll_ctl_add",
+          "lineNumber": 323
+        },
+        {
+          "caller": "handle_accept",
+          "callee": "Logger::_error",
+          "lineNumber": 324
+        },
+        {
+          "caller": "handle_accept",
+          "callee": "std::string",
+          "lineNumber": 324
+        },
+        {
+          "caller": "handle_accept",
+          "callee": "std::strerror",
+          "lineNumber": 324
+        },
+        {
+          "caller": "handle_accept",
+          "callee": "close",
+          "lineNumber": 325
+        },
+        {
+          "caller": "handle_accept",
+          "callee": "Logger::_info",
+          "lineNumber": 330
+        },
+        {
+          "caller": "handle_accept",
+          "callee": "client_ip",
+          "lineNumber": 330
+        },
+        {
+          "caller": "handle_accept",
+          "callee": "std::to_string",
+          "lineNumber": 330
+        },
+        {
+          "caller": "handle_accept",
+          "callee": "client_port",
+          "lineNumber": 330
+        },
+        {
+          "caller": "handle_accept",
+          "callee": "std::to_string",
+          "lineNumber": 331
+        },
+        {
+          "caller": "handle_read",
+          "callee": "find",
+          "lineNumber": 338
+        },
+        {
+          "caller": "handle_read",
+          "callee": "end",
+          "lineNumber": 339
+        },
+        {
+          "caller": "handle_read",
+          "callee": "read_from_fd",
+          "lineNumber": 344
+        },
+        {
+          "caller": "handle_read",
+          "callee": "Logger::_error",
+          "lineNumber": 347
+        },
+        {
+          "caller": "handle_read",
+          "callee": "std::to_string",
+          "lineNumber": 347
+        },
+        {
+          "caller": "handle_read",
+          "callee": "std::string",
+          "lineNumber": 347
+        },
+        {
+          "caller": "handle_read",
+          "callee": "std::strerror",
+          "lineNumber": 347
+        },
+        {
+          "caller": "handle_read",
+          "callee": "Logger::_info",
+          "lineNumber": 352
+        },
+        {
+          "caller": "handle_read",
+          "callee": "std::to_string",
+          "lineNumber": 352
+        },
+        {
+          "caller": "handle_read",
+          "callee": "enqueue",
+          "lineNumber": 357
+        },
+        {
+          "caller": "handle_read",
+          "callee": "handler_",
+          "lineNumber": 358
+        },
+        {
+          "caller": "handle_read",
+          "callee": "write_mutex",
+          "lineNumber": 363
+        },
+        {
+          "caller": "handle_read",
+          "callee": "write_to_fd_locked",
+          "lineNumber": 364
+        },
+        {
+          "caller": "handle_read",
+          "callee": "empty",
+          "lineNumber": 365
+        },
+        {
+          "caller": "handle_read",
+          "callee": "write_buffer",
+          "lineNumber": 365
+        },
+        {
+          "caller": "handle_read",
+          "callee": "push_back",
+          "lineNumber": 372
+        },
+        {
+          "caller": "handle_read",
+          "callee": "fd",
+          "lineNumber": 372
+        },
+        {
+          "caller": "handle_read",
+          "callee": "notify_wake",
+          "lineNumber": 374
+        },
+        {
+          "caller": "handle_write",
+          "callee": "find",
+          "lineNumber": 383
+        },
+        {
+          "caller": "handle_write",
+          "callee": "end",
+          "lineNumber": 384
+        },
+        {
+          "caller": "handle_write",
+          "callee": "write_mutex",
+          "lineNumber": 391
+        },
+        {
+          "caller": "handle_write",
+          "callee": "write_to_fd_locked",
+          "lineNumber": 392
+        },
+        {
+          "caller": "handle_write",
+          "callee": "empty",
+          "lineNumber": 393
+        },
+        {
+          "caller": "handle_write",
+          "callee": "write_buffer",
+          "lineNumber": 393
+        },
+        {
+          "caller": "handle_write",
+          "callee": "epoll_ctl_mod",
+          "lineNumber": 397
+        },
+        {
+          "caller": "handle_write",
+          "callee": "Logger::_info",
+          "lineNumber": 398
+        },
+        {
+          "caller": "handle_write",
+          "callee": "std::to_string",
+          "lineNumber": 398
+        },
+        {
+          "caller": "handle_write",
+          "callee": "Logger::_info",
+          "lineNumber": 400
+        },
+        {
+          "caller": "handle_write",
+          "callee": "std::to_string",
+          "lineNumber": 400
+        },
+        {
+          "caller": "try_ssl_detection",
+          "callee": "ssl_state",
+          "lineNumber": 410
+        },
+        {
+          "caller": "try_ssl_detection",
+          "callee": "::recv",
+          "lineNumber": 418
+        },
+        {
+          "caller": "try_ssl_detection",
+          "callee": "fd",
+          "lineNumber": 418
+        },
+        {
+          "caller": "try_ssl_detection",
+          "callee": "data",
+          "lineNumber": 418
+        },
+        {
+          "caller": "try_ssl_detection",
+          "callee": "static_cast<unsigned char>",
+          "lineNumber": 419
+        },
+        {
+          "caller": "try_ssl_detection",
+          "callee": "create_ssl",
+          "lineNumber": 423
+        },
+        {
+          "caller": "try_ssl_detection",
+          "callee": "set_ssl",
+          "lineNumber": 424
+        },
+        {
+          "caller": "try_ssl_detection",
+          "callee": "SSL_set_fd",
+          "lineNumber": 425
+        },
+        {
+          "caller": "try_ssl_detection",
+          "callee": "static_cast<SSL*>",
+          "lineNumber": 425
+        },
+        {
+          "caller": "try_ssl_detection",
+          "callee": "fd",
+          "lineNumber": 425
+        },
+        {
+          "caller": "try_ssl_detection",
+          "callee": "set_ssl_state",
+          "lineNumber": 426
+        },
+        {
+          "caller": "try_ssl_detection",
+          "callee": "handle_ssl_handshake",
+          "lineNumber": 427
+        },
+        {
+          "caller": "try_ssl_handshake",
+          "callee": "ssl_state",
+          "lineNumber": 432
+        },
+        {
+          "caller": "try_ssl_handshake",
+          "callee": "handle_ssl_handshake",
+          "lineNumber": 435
+        },
+        {
+          "caller": "handle_client_event",
+          "callee": "handle_read",
+          "lineNumber": 443
+        },
+        {
+          "caller": "handle_client_event",
+          "callee": "close_connection",
+          "lineNumber": 444
+        },
+        {
+          "caller": "handle_client_event",
+          "callee": "close_connection",
+          "lineNumber": 448
+        },
+        {
+          "caller": "handle_client_event",
+          "callee": "handle_read",
+          "lineNumber": 450
+        },
+        {
+          "caller": "handle_client_event",
+          "callee": "close_connection",
+          "lineNumber": 451
+        },
+        {
+          "caller": "handle_client_event",
+          "callee": "handle_write",
+          "lineNumber": 454
+        },
+        {
+          "caller": "handle_client_event",
+          "callee": "close_connection",
+          "lineNumber": 455
+        },
+        {
+          "caller": "handle_ssl_handshake",
+          "callee": "SSL_accept",
+          "lineNumber": 461
+        },
+        {
+          "caller": "handle_ssl_handshake",
+          "callee": "static_cast<SSL*>",
+          "lineNumber": 461
+        },
+        {
+          "caller": "handle_ssl_handshake",
+          "callee": "ssl",
+          "lineNumber": 461
+        },
+        {
+          "caller": "handle_ssl_handshake",
+          "callee": "set_ssl_state",
+          "lineNumber": 463
+        },
+        {
+          "caller": "handle_ssl_handshake",
+          "callee": "epoll_ctl_mod",
+          "lineNumber": 464
+        },
+        {
+          "caller": "handle_ssl_handshake",
+          "callee": "fd",
+          "lineNumber": 464
+        },
+        {
+          "caller": "handle_ssl_handshake",
+          "callee": "Logger::_info",
+          "lineNumber": 465
+        },
+        {
+          "caller": "handle_ssl_handshake",
+          "callee": "std::to_string",
+          "lineNumber": 465
+        },
+        {
+          "caller": "handle_ssl_handshake",
+          "callee": "fd",
+          "lineNumber": 465
+        },
+        {
+          "caller": "handle_ssl_handshake",
+          "callee": "handle_read",
+          "lineNumber": 467
+        },
+        {
+          "caller": "handle_ssl_handshake",
+          "callee": "fd",
+          "lineNumber": 467
+        },
+        {
+          "caller": "handle_ssl_handshake",
+          "callee": "SSL_get_error",
+          "lineNumber": 472
+        },
+        {
+          "caller": "handle_ssl_handshake",
+          "callee": "static_cast<SSL*>",
+          "lineNumber": 472
+        },
+        {
+          "caller": "handle_ssl_handshake",
+          "callee": "ssl",
+          "lineNumber": 472
+        },
+        {
+          "caller": "handle_ssl_handshake",
+          "callee": "epoll_ctl_mod",
+          "lineNumber": 477
+        },
+        {
+          "caller": "handle_ssl_handshake",
+          "callee": "fd",
+          "lineNumber": 477
+        },
+        {
+          "caller": "handle_ssl_handshake",
+          "callee": "ERR_get_error",
+          "lineNumber": 481
+        },
+        {
+          "caller": "handle_ssl_handshake",
+          "callee": "ERR_error_string_n",
+          "lineNumber": 483
+        },
+        {
+          "caller": "handle_ssl_handshake",
+          "callee": "data",
+          "lineNumber": 483
+        },
+        {
+          "caller": "handle_ssl_handshake",
+          "callee": "size",
+          "lineNumber": 483
+        },
+        {
+          "caller": "handle_ssl_handshake",
+          "callee": "Logger::_error",
+          "lineNumber": 484
+        },
+        {
+          "caller": "handle_ssl_handshake",
+          "callee": "std::to_string",
+          "lineNumber": 484
+        },
+        {
+          "caller": "handle_ssl_handshake",
+          "callee": "fd",
+          "lineNumber": 484
+        },
+        {
+          "caller": "handle_ssl_handshake",
+          "callee": "std::string",
+          "lineNumber": 484
+        },
+        {
+          "caller": "handle_ssl_handshake",
+          "callee": "data",
+          "lineNumber": 484
+        },
+        {
+          "caller": "handle_ssl_handshake",
+          "callee": "close_connection",
+          "lineNumber": 485
+        },
+        {
+          "caller": "handle_ssl_handshake",
+          "callee": "fd",
+          "lineNumber": 485
+        },
+        {
+          "caller": "close_connection",
+          "callee": "find",
+          "lineNumber": 489
+        },
+        {
+          "caller": "close_connection",
+          "callee": "end",
+          "lineNumber": 490
+        },
+        {
+          "caller": "close_connection",
+          "callee": "Logger::_info",
+          "lineNumber": 494
+        },
+        {
+          "caller": "close_connection",
+          "callee": "std::to_string",
+          "lineNumber": 494
+        },
+        {
+          "caller": "close_connection",
+          "callee": "close",
+          "lineNumber": 496
+        },
+        {
+          "caller": "close_connection",
+          "callee": "close_handler_",
+          "lineNumber": 498
+        },
+        {
+          "caller": "close_connection",
+          "callee": "get",
+          "lineNumber": 498
+        },
+        {
+          "caller": "close_connection",
+          "callee": "epoll_ctl",
+          "lineNumber": 500
+        },
+        {
+          "caller": "close_connection",
+          "callee": "erase",
+          "lineNumber": 501
+        },
+        {
+          "caller": "notify_wake",
+          "callee": "write",
+          "lineNumber": 509
+        },
+        {
+          "caller": "process_dirty_connections",
+          "callee": "swap",
+          "lineNumber": 516
+        },
+        {
+          "caller": "process_dirty_connections",
+          "callee": "contains",
+          "lineNumber": 520
+        },
+        {
+          "caller": "process_dirty_connections",
+          "callee": "write_mutex",
+          "lineNumber": 526
+        },
+        {
+          "caller": "process_dirty_connections",
+          "callee": "write_to_fd_locked",
+          "lineNumber": 527
+        },
+        {
+          "caller": "process_dirty_connections",
+          "callee": "empty",
+          "lineNumber": 528
+        },
+        {
+          "caller": "process_dirty_connections",
+          "callee": "write_buffer",
+          "lineNumber": 528
+        },
+        {
+          "caller": "process_dirty_connections",
+          "callee": "epoll_ctl_mod",
+          "lineNumber": 533
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 24,
+        "functionCount": 22,
+        "classCount": 2
+      }
+    },
+    {
+      "path": "net/thread-pool/src/locked_thread_pool.cpp",
+      "language": "cpp",
+      "fileCategory": "code",
+      "totalLines": 83,
+      "nonEmptyLines": 74,
+      "functions": [
+        {
+          "name": "LockedThreadPool",
+          "startLine": 7,
+          "endLine": 12,
+          "params": [
+            "num_threads"
+          ]
+        },
+        {
+          "name": "~LockedThreadPool",
+          "startLine": 14,
+          "endLine": 18,
+          "params": []
+        },
+        {
+          "name": "worker",
+          "startLine": 20,
+          "endLine": 49,
+          "params": [
+            "stop_token"
+          ]
+        },
+        {
+          "name": "wait_impl",
+          "startLine": 51,
+          "endLine": 57,
+          "params": []
+        },
+        {
+          "name": "wait_for",
+          "startLine": 59,
+          "endLine": 62,
+          "params": [
+            "timeout"
+          ]
+        },
+        {
+          "name": "stop_impl",
+          "startLine": 64,
+          "endLine": 81,
+          "params": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "LockedThreadPool",
+          "line": 7,
+          "isDefault": false
+        },
+        {
+          "name": "~LockedThreadPool",
+          "line": 14,
+          "isDefault": false
+        },
+        {
+          "name": "worker",
+          "line": 20,
+          "isDefault": false
+        },
+        {
+          "name": "wait_impl",
+          "line": 51,
+          "isDefault": false
+        },
+        {
+          "name": "wait_for",
+          "line": 59,
+          "isDefault": false
+        },
+        {
+          "name": "stop_impl",
+          "line": 64,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "LockedThreadPool",
+          "callee": "reserve",
+          "lineNumber": 8
+        },
+        {
+          "caller": "LockedThreadPool",
+          "callee": "emplace_back",
+          "lineNumber": 10
+        },
+        {
+          "caller": "LockedThreadPool",
+          "callee": "worker",
+          "lineNumber": 10
+        },
+        {
+          "caller": "LockedThreadPool",
+          "callee": "std::move",
+          "lineNumber": 10
+        },
+        {
+          "caller": "~LockedThreadPool",
+          "callee": "stop_impl",
+          "lineNumber": 16
+        },
+        {
+          "caller": "worker",
+          "callee": "stop_requested",
+          "lineNumber": 21
+        },
+        {
+          "caller": "worker",
+          "callee": "wait",
+          "lineNumber": 25
+        },
+        {
+          "caller": "worker",
+          "callee": "empty",
+          "lineNumber": 25
+        },
+        {
+          "caller": "worker",
+          "callee": "stop_requested",
+          "lineNumber": 25
+        },
+        {
+          "caller": "worker",
+          "callee": "stop_requested",
+          "lineNumber": 26
+        },
+        {
+          "caller": "worker",
+          "callee": "empty",
+          "lineNumber": 29
+        },
+        {
+          "caller": "worker",
+          "callee": "std::move",
+          "lineNumber": 32
+        },
+        {
+          "caller": "worker",
+          "callee": "front",
+          "lineNumber": 32
+        },
+        {
+          "caller": "worker",
+          "callee": "pop",
+          "lineNumber": 33
+        },
+        {
+          "caller": "worker",
+          "callee": "task",
+          "lineNumber": 36
+        },
+        {
+          "caller": "worker",
+          "callee": "Logger::_error",
+          "lineNumber": 38
+        },
+        {
+          "caller": "worker",
+          "callee": "std::string",
+          "lineNumber": 38
+        },
+        {
+          "caller": "worker",
+          "callee": "what",
+          "lineNumber": 38
+        },
+        {
+          "caller": "worker",
+          "callee": "Logger::_error",
+          "lineNumber": 40
+        },
+        {
+          "caller": "worker",
+          "callee": "fetch_sub",
+          "lineNumber": 42
+        },
+        {
+          "caller": "worker",
+          "callee": "notify_all",
+          "lineNumber": 44
+        },
+        {
+          "caller": "worker",
+          "callee": "notify_one",
+          "lineNumber": 46
+        },
+        {
+          "caller": "wait_impl",
+          "callee": "wait",
+          "lineNumber": 56
+        },
+        {
+          "caller": "wait_impl",
+          "callee": "load",
+          "lineNumber": 56
+        },
+        {
+          "caller": "wait_for",
+          "callee": "wait_for",
+          "lineNumber": 61
+        },
+        {
+          "caller": "wait_for",
+          "callee": "load",
+          "lineNumber": 61
+        },
+        {
+          "caller": "stop_impl",
+          "callee": "std::swap",
+          "lineNumber": 69
+        },
+        {
+          "caller": "stop_impl",
+          "callee": "store",
+          "lineNumber": 70
+        },
+        {
+          "caller": "stop_impl",
+          "callee": "notify_all",
+          "lineNumber": 72
+        },
+        {
+          "caller": "stop_impl",
+          "callee": "request_stop",
+          "lineNumber": 74
+        },
+        {
+          "caller": "stop_impl",
+          "callee": "joinable",
+          "lineNumber": 77
+        },
+        {
+          "caller": "stop_impl",
+          "callee": "join",
+          "lineNumber": 78
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 6,
+        "functionCount": 6,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "net/thread-pool/src/thread_pool.cpp",
+      "language": "cpp",
+      "fileCategory": "code",
+      "totalLines": 99,
+      "nonEmptyLines": 81,
+      "functions": [
+        {
+          "name": "LockFreeThreadPool",
+          "startLine": 8,
+          "endLine": 12,
+          "params": [
+            "numThreads"
+          ]
+        },
+        {
+          "name": "~LockFreeThreadPool",
+          "startLine": 14,
+          "endLine": 16,
+          "params": []
+        },
+        {
+          "name": "stop_impl",
+          "startLine": 18,
+          "endLine": 40,
+          "params": []
+        },
+        {
+          "name": "worker",
+          "startLine": 42,
+          "endLine": 71,
+          "params": [
+            "stop_token"
+          ]
+        },
+        {
+          "name": "wait_impl",
+          "startLine": 73,
+          "endLine": 76,
+          "params": []
+        },
+        {
+          "name": "finish_enqueue",
+          "startLine": 78,
+          "endLine": 97,
+          "params": [
+            "task_enqueued"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "LockFreeThreadPool",
+          "line": 8,
+          "isDefault": false
+        },
+        {
+          "name": "~LockFreeThreadPool",
+          "line": 14,
+          "isDefault": false
+        },
+        {
+          "name": "stop_impl",
+          "line": 18,
+          "isDefault": false
+        },
+        {
+          "name": "worker",
+          "line": 42,
+          "isDefault": false
+        },
+        {
+          "name": "wait_impl",
+          "line": 73,
+          "isDefault": false
+        },
+        {
+          "name": "finish_enqueue",
+          "line": 78,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "LockFreeThreadPool",
+          "callee": "emplace_back",
+          "lineNumber": 10
+        },
+        {
+          "caller": "LockFreeThreadPool",
+          "callee": "worker",
+          "lineNumber": 10
+        },
+        {
+          "caller": "~LockFreeThreadPool",
+          "callee": "stop_impl",
+          "lineNumber": 15
+        },
+        {
+          "caller": "stop_impl",
+          "callee": "wait",
+          "lineNumber": 28
+        },
+        {
+          "caller": "stop_impl",
+          "callee": "notify_all",
+          "lineNumber": 32
+        },
+        {
+          "caller": "stop_impl",
+          "callee": "joinable",
+          "lineNumber": 34
+        },
+        {
+          "caller": "stop_impl",
+          "callee": "join",
+          "lineNumber": 35
+        },
+        {
+          "caller": "stop_impl",
+          "callee": "stop",
+          "lineNumber": 39
+        },
+        {
+          "caller": "worker",
+          "callee": "wait",
+          "lineNumber": 48
+        },
+        {
+          "caller": "worker",
+          "callee": "try_pop",
+          "lineNumber": 55
+        },
+        {
+          "caller": "worker",
+          "callee": "std::terminate",
+          "lineNumber": 56
+        },
+        {
+          "caller": "worker",
+          "callee": "task",
+          "lineNumber": 59
+        },
+        {
+          "caller": "worker",
+          "callee": "notify_all",
+          "lineNumber": 68
+        },
+        {
+          "caller": "wait_impl",
+          "callee": "wait",
+          "lineNumber": 75
+        },
+        {
+          "caller": "finish_enqueue",
+          "callee": "notify_all",
+          "lineNumber": 90
+        },
+        {
+          "caller": "finish_enqueue",
+          "callee": "notify_one",
+          "lineNumber": 92
+        },
+        {
+          "caller": "finish_enqueue",
+          "callee": "notify_all",
+          "lineNumber": 95
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 6,
+        "functionCount": 6,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "net/websocket/src/ws_connection.cpp",
+      "language": "cpp",
+      "fileCategory": "code",
+      "totalLines": 169,
+      "nonEmptyLines": 145,
+      "functions": [
+        {
+          "name": "WsConnection",
+          "startLine": 17,
+          "endLine": 18,
+          "params": [
+            "conn",
+            "on_message",
+            "on_close"
+          ]
+        },
+        {
+          "name": "send",
+          "startLine": 20,
+          "endLine": 26,
+          "params": [
+            "opcode",
+            "payload",
+            "fin"
+          ]
+        },
+        {
+          "name": "close",
+          "startLine": 28,
+          "endLine": 42,
+          "params": [
+            "code",
+            "reason"
+          ]
+        },
+        {
+          "name": "calc_frame_size",
+          "startLine": 46,
+          "endLine": 62,
+          "params": [
+            "data"
+          ]
+        },
+        {
+          "name": "handle_frame",
+          "startLine": 64,
+          "endLine": 92,
+          "params": [
+            "frame",
+            "on_message",
+            "on_close",
+            "do_send",
+            "closed"
+          ]
+        },
+        {
+          "name": "start_event_loop",
+          "startLine": 96,
+          "endLine": 161,
+          "params": []
+        },
+        {
+          "name": "do_send",
+          "startLine": 163,
+          "endLine": 167,
+          "params": [
+            "frame"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "WsConnection",
+          "line": 17,
+          "isDefault": false
+        },
+        {
+          "name": "send",
+          "line": 20,
+          "isDefault": false
+        },
+        {
+          "name": "close",
+          "line": 28,
+          "isDefault": false
+        },
+        {
+          "name": "calc_frame_size",
+          "line": 46,
+          "isDefault": false
+        },
+        {
+          "name": "handle_frame",
+          "line": 64,
+          "isDefault": false
+        },
+        {
+          "name": "start_event_loop",
+          "line": 96,
+          "isDefault": false
+        },
+        {
+          "name": "do_send",
+          "line": 163,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "WsConnection",
+          "callee": "std::move",
+          "lineNumber": 18
+        },
+        {
+          "caller": "WsConnection",
+          "callee": "std::move",
+          "lineNumber": 18
+        },
+        {
+          "caller": "WsConnection",
+          "callee": "std::move",
+          "lineNumber": 18
+        },
+        {
+          "caller": "send",
+          "callee": "ws_encode_frame",
+          "lineNumber": 24
+        },
+        {
+          "caller": "send",
+          "callee": "do_send",
+          "lineNumber": 25
+        },
+        {
+          "caller": "close",
+          "callee": "size",
+          "lineNumber": 33
+        },
+        {
+          "caller": "close",
+          "callee": "static_cast<char>",
+          "lineNumber": 34
+        },
+        {
+          "caller": "close",
+          "callee": "static_cast<uint32_t>",
+          "lineNumber": 34
+        },
+        {
+          "caller": "close",
+          "callee": "static_cast<char>",
+          "lineNumber": 35
+        },
+        {
+          "caller": "close",
+          "callee": "empty",
+          "lineNumber": 36
+        },
+        {
+          "caller": "close",
+          "callee": "std::memcpy",
+          "lineNumber": 37
+        },
+        {
+          "caller": "close",
+          "callee": "data",
+          "lineNumber": 37
+        },
+        {
+          "caller": "close",
+          "callee": "data",
+          "lineNumber": 37
+        },
+        {
+          "caller": "close",
+          "callee": "size",
+          "lineNumber": 37
+        },
+        {
+          "caller": "close",
+          "callee": "ws_encode_frame",
+          "lineNumber": 39
+        },
+        {
+          "caller": "close",
+          "callee": "do_send",
+          "lineNumber": 40
+        },
+        {
+          "caller": "close",
+          "callee": "close",
+          "lineNumber": 41
+        },
+        {
+          "caller": "calc_frame_size",
+          "callee": "size",
+          "lineNumber": 47
+        },
+        {
+          "caller": "calc_frame_size",
+          "callee": "static_cast<uint8_t>",
+          "lineNumber": 50
+        },
+        {
+          "caller": "calc_frame_size",
+          "callee": "static_cast<uint64_t>",
+          "lineNumber": 52
+        },
+        {
+          "caller": "calc_frame_size",
+          "callee": "static_cast<std::size_t>",
+          "lineNumber": 61
+        },
+        {
+          "caller": "handle_frame",
+          "callee": "ws_close_code",
+          "lineNumber": 70
+        },
+        {
+          "caller": "handle_frame",
+          "callee": "on_close",
+          "lineNumber": 73
+        },
+        {
+          "caller": "handle_frame",
+          "callee": "value_or",
+          "lineNumber": 73
+        },
+        {
+          "caller": "handle_frame",
+          "callee": "ws_encode_frame",
+          "lineNumber": 79
+        },
+        {
+          "caller": "handle_frame",
+          "callee": "do_send",
+          "lineNumber": 80
+        },
+        {
+          "caller": "handle_frame",
+          "callee": "on_message",
+          "lineNumber": 89
+        },
+        {
+          "caller": "handle_frame",
+          "callee": "std::move",
+          "lineNumber": 89
+        },
+        {
+          "caller": "start_event_loop",
+          "callee": "fd",
+          "lineNumber": 101
+        },
+        {
+          "caller": "start_event_loop",
+          "callee": "poll",
+          "lineNumber": 103
+        },
+        {
+          "caller": "start_event_loop",
+          "callee": "read_from_fd",
+          "lineNumber": 109
+        },
+        {
+          "caller": "start_event_loop",
+          "callee": "Logger::_error",
+          "lineNumber": 111
+        },
+        {
+          "caller": "start_event_loop",
+          "callee": "Logger::_info",
+          "lineNumber": 115
+        },
+        {
+          "caller": "start_event_loop",
+          "callee": "read_mutex",
+          "lineNumber": 121
+        },
+        {
+          "caller": "start_event_loop",
+          "callee": "read_buffer",
+          "lineNumber": 122
+        },
+        {
+          "caller": "start_event_loop",
+          "callee": "consume_read_buffer_locked",
+          "lineNumber": 123
+        },
+        {
+          "caller": "start_event_loop",
+          "callee": "size",
+          "lineNumber": 123
+        },
+        {
+          "caller": "start_event_loop",
+          "callee": "swap",
+          "lineNumber": 126
+        },
+        {
+          "caller": "start_event_loop",
+          "callee": "append",
+          "lineNumber": 127
+        },
+        {
+          "caller": "start_event_loop",
+          "callee": "data",
+          "lineNumber": 127
+        },
+        {
+          "caller": "start_event_loop",
+          "callee": "size",
+          "lineNumber": 127
+        },
+        {
+          "caller": "start_event_loop",
+          "callee": "empty",
+          "lineNumber": 129
+        },
+        {
+          "caller": "start_event_loop",
+          "callee": "ws_decode_frame",
+          "lineNumber": 130
+        },
+        {
+          "caller": "start_event_loop",
+          "callee": "has_value",
+          "lineNumber": 131
+        },
+        {
+          "caller": "start_event_loop",
+          "callee": "std::move",
+          "lineNumber": 132
+        },
+        {
+          "caller": "start_event_loop",
+          "callee": "calc_frame_size",
+          "lineNumber": 136
+        },
+        {
+          "caller": "start_event_loop",
+          "callee": "std::move",
+          "lineNumber": 137
+        },
+        {
+          "caller": "start_event_loop",
+          "callee": "size",
+          "lineNumber": 139
+        },
+        {
+          "caller": "start_event_loop",
+          "callee": "substr",
+          "lineNumber": 140
+        },
+        {
+          "caller": "start_event_loop",
+          "callee": "clear",
+          "lineNumber": 142
+        },
+        {
+          "caller": "start_event_loop",
+          "callee": "handle_frame",
+          "lineNumber": 146
+        },
+        {
+          "caller": "start_event_loop",
+          "callee": "do_send",
+          "lineNumber": 146
+        },
+        {
+          "caller": "start_event_loop",
+          "callee": "close",
+          "lineNumber": 148
+        },
+        {
+          "caller": "start_event_loop",
+          "callee": "on_close_",
+          "lineNumber": 157
+        },
+        {
+          "caller": "start_event_loop",
+          "callee": "close",
+          "lineNumber": 159
+        },
+        {
+          "caller": "do_send",
+          "callee": "write_mutex",
+          "lineNumber": 164
+        },
+        {
+          "caller": "do_send",
+          "callee": "append",
+          "lineNumber": 165
+        },
+        {
+          "caller": "do_send",
+          "callee": "write_buffer",
+          "lineNumber": 165
+        },
+        {
+          "caller": "do_send",
+          "callee": "data",
+          "lineNumber": 165
+        },
+        {
+          "caller": "do_send",
+          "callee": "size",
+          "lineNumber": 165
+        },
+        {
+          "caller": "do_send",
+          "callee": "write_to_fd_locked",
+          "lineNumber": 166
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 7,
+        "functionCount": 7,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "net/websocket/xmake.lua",
+      "language": "lua",
+      "fileCategory": "code",
+      "totalLines": 13,
+      "nonEmptyLines": 13,
+      "metrics": {}
+    },
+    {
+      "path": "scripts/lib/common.sh",
+      "language": "shell",
+      "fileCategory": "script",
+      "totalLines": 117,
+      "nonEmptyLines": 106,
+      "functions": [
+        {
+          "name": "frontend_dependency_stamp",
+          "startLine": 31,
+          "endLine": 36,
+          "params": []
+        },
+        {
+          "name": "ensure_frontend_dependencies",
+          "startLine": 39,
+          "endLine": 69,
+          "params": []
+        },
+        {
+          "name": "show_menu",
+          "startLine": 73,
+          "endLine": 85,
+          "params": []
+        },
+        {
+          "name": "menu_loop",
+          "startLine": 90,
+          "endLine": 108,
+          "params": []
+        },
+        {
+          "name": "require_cmd",
+          "startLine": 111,
+          "endLine": 117,
+          "params": []
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 5,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "scripts/lib/isolated_docker_env.sh",
+      "language": "shell",
+      "fileCategory": "script",
+      "totalLines": 273,
+      "nonEmptyLines": 251,
+      "functions": [
+        {
+          "name": "_hps_canonical_path",
+          "startLine": 17,
+          "endLine": 19,
+          "params": []
+        },
+        {
+          "name": "_hps_path_is_within",
+          "startLine": 21,
+          "endLine": 29,
+          "params": []
+        },
+        {
+          "name": "_hps_safe_temp_root",
+          "startLine": 31,
+          "endLine": 45,
+          "params": []
+        },
+        {
+          "name": "hps_start_isolated_environment",
+          "startLine": 50,
+          "endLine": 184,
+          "params": []
+        },
+        {
+          "name": "hps_cleanup_isolated_environment",
+          "startLine": 189,
+          "endLine": 258,
+          "params": []
+        },
+        {
+          "name": "hps_restart_isolated_environment",
+          "startLine": 260,
+          "endLine": 267,
+          "params": []
+        },
+        {
+          "name": "hps_runtime_fingerprint",
+          "startLine": 270,
+          "endLine": 273,
+          "params": []
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 7,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "tests/.clang-tidy",
+      "language": "unknown",
+      "fileCategory": "code",
+      "totalLines": 79,
+      "nonEmptyLines": 78,
+      "metrics": {}
+    }
+  ]
+}

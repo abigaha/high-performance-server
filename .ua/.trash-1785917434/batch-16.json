@@ -1,0 +1,281 @@
+{
+  "nodes": [
+    {
+      "id": "document:plan/benchmark-report-restructure.md",
+      "type": "document",
+      "name": "plan/benchmark-report-restructure.md",
+      "filePath": "plan/benchmark-report-restructure.md",
+      "summary": "基准测试报告分层与续跑实施计划：将基准测试报告重构为模块级报告与清单，支持续跑与新结构对比，建立隔离 Docker 测试环境生命周期，实现 RPS 多 profile、单元级续跑、托管环境与静态分析长任务超时策略，并迁移历史报告为只读资料。",
+      "tags": ["benchmark", "报告重构", "续跑", "质量门禁", "docker-测试"],
+      "complexity": "complex"
+    },
+    {
+      "id": "document:plan/bugfix-concurrent-uploads.md",
+      "type": "document",
+      "name": "plan/bugfix-concurrent-uploads.md",
+      "filePath": "plan/bugfix-concurrent-uploads.md",
+      "summary": "大并发上传堆内存崩溃与 Keep-Alive 上传请求污染两个 Bug 的根因分析与修复方案：为 read_buffer_ 无锁跨线程访问加互斥量、锁定/非锁定双版本擦除、拷贝缓冲区避免持锁操作，并处理 upload_ctx 复用污染。",
+      "tags": ["bugfix", "并发上传", "内存安全", "互斥锁", "keep-alive"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "document:plan/bugfix-memory-pool-thread-pool.md",
+      "type": "document",
+      "name": "plan/bugfix-memory-pool-thread-pool.md",
+      "filePath": "plan/bugfix-memory-pool-thread-pool.md",
+      "summary": "MemoryPool 死锁与 LockFreeThreadPool/LockFreeQueue 高负载卡死修复计划：含链表遍历循环检测、try_merge_and_promote 迭代化、page_index_of 二分查找、简化合并循环与连带优化，并附回归验证清单。",
+      "tags": ["bugfix", "内存池", "线程池", "无锁队列", "死锁"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "document:plan/bugfix-step17-runtime-regressions.md",
+      "type": "document",
+      "name": "plan/bugfix-step17-runtime-regressions.md",
+      "filePath": "plan/bugfix-step17-runtime-regressions.md",
+      "summary": "Step 17 运行时回归 Bug 修复计划：覆盖流播处理器悬空引用、chunked 上传在流式/丢弃模式下仍累计正文、CodeQL 服务探测顺序、音频类型仅查扩展名、下载文件名响应头生成不安全与空闲 CPU 忙等待六类问题，按阶段实施并附完整测试矩阵。",
+      "tags": ["bugfix", "运行时回归", "流播", "安全", "部署验收"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "document:plan/development_plan.md",
+      "type": "document",
+      "name": "plan/development_plan.md",
+      "filePath": "plan/development_plan.md",
+      "summary": "项目整体开发计划文档：以 Step 进度总览、Step 17-19 阶段划分、性能与质量收尾、稳定入口、端口约定与最终质量门禁跟踪开发里程碑与要求。",
+      "tags": ["开发计划", "里程碑", "质量门禁", "端口约定", "step"],
+      "complexity": "simple"
+    },
+    {
+      "id": "document:plan/docker-deployment.md",
+      "type": "document",
+      "name": "plan/docker-deployment.md",
+      "filePath": "plan/docker-deployment.md",
+      "summary": "Docker 部署说明：描述当前架构、后端镜像、Compose 服务、部署配置、使用流程与验收边界。",
+      "tags": ["docker", "部署", "compose", "镜像", "验收"],
+      "complexity": "simple"
+    },
+    {
+      "id": "document:plan/end-to-end-verification.md",
+      "type": "document",
+      "name": "plan/end-to-end-verification.md",
+      "filePath": "plan/end-to-end-verification.md",
+      "summary": "端到端验证指南：定义验证分层、推荐执行顺序（先后端前端测试、部署真实服务、运行 Playwright、检查服务日志、结束部署）与验收标准。",
+      "tags": ["e2e", "验证指南", "playwright", "验收标准", "测试"],
+      "complexity": "simple"
+    },
+    {
+      "id": "document:plan/fix-prepared-statement.md",
+      "type": "document",
+      "name": "plan/fix-prepared-statement.md",
+      "filePath": "plan/fix-prepared-statement.md",
+      "summary": "Boost MySQL Prepared Statement 查询失败修复方案（已完成）：增强所有 catch 块诊断、调整 bind API 兼容性，并记录 field_view 生命周期等历史根因排查过程与回退方案。",
+      "tags": ["bugfix", "mysql", "prepared-statement", "boost", "诊断"],
+      "complexity": "simple"
+    },
+    {
+      "id": "document:plan/step-11-main-integration.md",
+      "type": "document",
+      "name": "plan/step-11-main-integration.md",
+      "filePath": "plan/step-11-main-integration.md",
+      "summary": "Step 11 main.cpp 整合启动计划：描述服务器启动流程、路由注册、配置管理、文件清单与质量门禁。",
+      "tags": ["main", "启动流程", "路由注册", "配置管理", "step-11"],
+      "complexity": "simple"
+    },
+    {
+      "id": "document:plan/step-14-file-upload-improvement.md",
+      "type": "document",
+      "name": "plan/step-14-file-upload-improvement.md",
+      "filePath": "plan/step-14-file-upload-improvement.md",
+      "summary": "Step 14 文件上传功能改进计划：定义当前存储模型、上传请求契约、上传策略、扩展名白名单、认证与大小限制、错误响应与重要安全边界。",
+      "tags": ["文件上传", "契约", "安全边界", "扩展名白名单", "step-14"],
+      "complexity": "simple"
+    },
+    {
+      "id": "document:plan/step-15-frontend.md",
+      "type": "document",
+      "name": "plan/step-15-frontend.md",
+      "filePath": "plan/step-15-frontend.md",
+      "summary": "Step 15 配套前端 Web 界面第一版历史计划：说明当前技术栈、目录结构、路由与能力、接口契约（认证、上传、下载播放）、设计现状与构建测试部署入口。",
+      "tags": ["前端", "react", "接口契约", "技术栈", "step-15"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "document:plan/step-16-backend-music.md",
+      "type": "document",
+      "name": "plan/step-16-backend-music.md",
+      "filePath": "plan/step-16-backend-music.md",
+      "summary": "Step 16 后端数据库重构与音乐库/歌单 API 计划：含 3NF 范式优化、核心索引与查询 AST 优化、C++ 数据模型、IDatabasePool 接口扩展、完整建表 DDL、精确 API 端点设计、CORS、Content-Type 自动检测与音频流播分块实现。",
+      "tags": ["数据库重构", "音乐库", "歌单", "3nf", "step-16"],
+      "complexity": "complex"
+    },
+    {
+      "id": "document:plan/step-17-frontend-optimization.md",
+      "type": "document",
+      "name": "plan/step-17-frontend-optimization.md",
+      "filePath": "plan/step-17-frontend-optimization.md",
+      "summary": "Step 17 前端体验与上传链路优化计划：定义上传策略与接口契约、服务端预检与失败清理、实施阶段（契约纠偏、上传页重构、响应式壳层、核心工作流补强、自动化测试与浏览器验收）、测试矩阵与交付定义。",
+      "tags": ["前端优化", "上传链路", "响应式", "自动化测试", "step-17"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "document:plan/step-18-ui-visual-restoration.md",
+      "type": "document",
+      "name": "plan/step-18-ui-visual-restoration.md",
+      "filePath": "plan/step-18-ui-visual-restoration.md",
+      "summary": "Step 18 Crystal Music UI 视觉还原计划：定义色彩令牌、材质与布局合同、字体与静态资源合同、接口合同、区域行为与文件职责、Vitest/Playwright 测试规格及 Task 1-11 实施追踪。",
+      "tags": ["ui视觉", "设计令牌", "前端", "playwright", "step-18"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "document:plan/step-19-user-feature-completion.md",
+      "type": "document",
+      "name": "plan/step-19-user-feature-completion.md",
+      "filePath": "plan/step-19-user-feature-completion.md",
+      "summary": "Step 19 用户功能闭环、VIP 生命周期与管理员治理计划：定义 C++ 角色能力与权限矩阵、UTC 与数据迁移、VIP 写入规则、唯一管理员、精确 REST API、pending 分片删除消费器、播放队列与隔离 E2E 夹具。",
+      "tags": ["用户功能", "vip", "管理员", "rest-api", "step-19"],
+      "complexity": "complex"
+    }
+  ],
+  "edges": [
+    {
+      "source": "document:plan/development_plan.md",
+      "target": "document:plan/step-11-main-integration.md",
+      "type": "related",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:plan/development_plan.md",
+      "target": "document:plan/step-14-file-upload-improvement.md",
+      "type": "related",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:plan/development_plan.md",
+      "target": "document:plan/step-15-frontend.md",
+      "type": "related",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:plan/development_plan.md",
+      "target": "document:plan/step-16-backend-music.md",
+      "type": "related",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:plan/development_plan.md",
+      "target": "document:plan/step-17-frontend-optimization.md",
+      "type": "related",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:plan/development_plan.md",
+      "target": "document:plan/step-18-ui-visual-restoration.md",
+      "type": "related",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:plan/development_plan.md",
+      "target": "document:plan/step-19-user-feature-completion.md",
+      "type": "related",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:plan/development_plan.md",
+      "target": "document:plan/bugfix-concurrent-uploads.md",
+      "type": "related",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:plan/development_plan.md",
+      "target": "document:plan/bugfix-memory-pool-thread-pool.md",
+      "type": "related",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:plan/development_plan.md",
+      "target": "document:plan/bugfix-step17-runtime-regressions.md",
+      "type": "related",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:plan/development_plan.md",
+      "target": "document:plan/benchmark-report-restructure.md",
+      "type": "related",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:plan/step-14-file-upload-improvement.md",
+      "target": "document:plan/bugfix-concurrent-uploads.md",
+      "type": "related",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:plan/step-14-file-upload-improvement.md",
+      "target": "document:plan/step-17-frontend-optimization.md",
+      "type": "related",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:plan/step-16-backend-music.md",
+      "target": "document:plan/fix-prepared-statement.md",
+      "type": "related",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:plan/step-17-frontend-optimization.md",
+      "target": "document:plan/bugfix-step17-runtime-regressions.md",
+      "type": "related",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:plan/step-18-ui-visual-restoration.md",
+      "target": "document:plan/step-17-frontend-optimization.md",
+      "type": "related",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:plan/step-19-user-feature-completion.md",
+      "target": "document:plan/step-16-backend-music.md",
+      "type": "related",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:plan/docker-deployment.md",
+      "target": "document:plan/end-to-end-verification.md",
+      "type": "related",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:plan/docker-deployment.md",
+      "target": "document:plan/step-19-user-feature-completion.md",
+      "type": "related",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:plan/benchmark-report-restructure.md",
+      "target": "document:plan/end-to-end-verification.md",
+      "type": "related",
+      "direction": "forward",
+      "weight": 0.5
+    }
+  ]
+}

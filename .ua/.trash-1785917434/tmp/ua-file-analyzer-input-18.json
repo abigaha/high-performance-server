@@ -1,0 +1,64 @@
+{
+  "projectRoot": "/home/jmj/work-space/projects/high-performance-server",
+  "batchFiles": [
+    {
+      "path": "scripts/benchmark.sh",
+      "language": "shell",
+      "sizeLines": 2943,
+      "fileCategory": "script"
+    },
+    {
+      "path": "scripts/codeql.sh",
+      "language": "shell",
+      "sizeLines": 548,
+      "fileCategory": "script"
+    },
+    {
+      "path": "scripts/compile.sh",
+      "language": "shell",
+      "sizeLines": 71,
+      "fileCategory": "script"
+    },
+    {
+      "path": "scripts/docker.sh",
+      "language": "shell",
+      "sizeLines": 850,
+      "fileCategory": "script"
+    },
+    {
+      "path": "scripts/format.sh",
+      "language": "shell",
+      "sizeLines": 94,
+      "fileCategory": "script"
+    },
+    {
+      "path": "scripts/lint.sh",
+      "language": "shell",
+      "sizeLines": 329,
+      "fileCategory": "script"
+    },
+    {
+      "path": "scripts/pipeline.sh",
+      "language": "shell",
+      "sizeLines": 98,
+      "fileCategory": "script"
+    },
+    {
+      "path": "scripts/test.sh",
+      "language": "shell",
+      "sizeLines": 261,
+      "fileCategory": "script"
+    }
+  ],
+  "batchImportData": {
+    "scripts/benchmark.sh": [],
+    "scripts/codeql.sh": [],
+    "scripts/compile.sh": [],
+    "scripts/docker.sh": [],
+    "scripts/format.sh": [],
+    "scripts/lint.sh": [],
+    "scripts/pipeline.sh": [],
+    "scripts/test.sh": []
+  },
+  "neighborMap": {}
+}

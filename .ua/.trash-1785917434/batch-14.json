@@ -1,0 +1,186 @@
+{
+  "nodes": [
+    {
+      "id": "document:benchmark/reports/load_20260718_171912.txt",
+      "type": "document",
+      "name": "load_20260718_171912.txt",
+      "summary": "2026-07-18 的 HTTP 端点负载测试报告，记录各 API 端点在多级并发下的 RPS、平均延迟与 p50/p90/p99 分位延迟。",
+      "tags": ["load-test", "benchmark-report", "http-endpoints", "latency", "rps"],
+      "complexity": "simple",
+      "filePath": "benchmark/reports/load_20260718_171912.txt"
+    },
+    {
+      "id": "document:benchmark/reports/load_20260718_181105.txt",
+      "type": "document",
+      "name": "load_20260718_181105.txt",
+      "summary": "2026-07-18 的 HTTP 端点负载测试报告（Git 7cc5224），覆盖 /api/health、/api/users、/api/files 等端点从并发 1 到 10000 的 RPS 与延迟表现。",
+      "tags": ["load-test", "benchmark-report", "http-endpoints", "latency", "rps"],
+      "complexity": "simple",
+      "filePath": "benchmark/reports/load_20260718_181105.txt"
+    },
+    {
+      "id": "document:benchmark/reports/load_debug_20260715_172228.txt",
+      "type": "document",
+      "name": "load_debug_20260715_172228.txt",
+      "summary": "2026-07-15 Debug 模式构建的负载测试报告（Git f800f85），记录 HTTP 端点在不同并发下的 RPS 与延迟指标，用于对比构建模式性能差异。",
+      "tags": ["load-test", "benchmark-report", "debug-build", "latency"],
+      "complexity": "simple",
+      "filePath": "benchmark/reports/load_debug_20260715_172228.txt"
+    },
+    {
+      "id": "document:benchmark/reports/load_debug_20260715_175124.txt",
+      "type": "document",
+      "name": "load_debug_20260715_175124.txt",
+      "summary": "2026-07-15 Debug 模式构建的第二份负载测试报告，与同目录 debug 报告对照，记录 HTTP 端点并发压测下的 RPS 与延迟分布。",
+      "tags": ["load-test", "benchmark-report", "debug-build", "latency"],
+      "complexity": "simple",
+      "filePath": "benchmark/reports/load_debug_20260715_175124.txt"
+    },
+    {
+      "id": "document:benchmark/reports/load_release_20260715_173855.txt",
+      "type": "document",
+      "name": "load_release_20260715_173855.txt",
+      "summary": "2026-07-15 Release 模式构建的负载测试报告（Git f800f85），记录 HTTP 端点在多级并发下的 RPS 与延迟，用于与 Debug 模式结果对比。",
+      "tags": ["load-test", "benchmark-report", "release-build", "latency"],
+      "complexity": "simple",
+      "filePath": "benchmark/reports/load_release_20260715_173855.txt"
+    },
+    {
+      "id": "document:benchmark/reports/micro_20260717_142320.txt",
+      "type": "document",
+      "name": "micro_20260717_142320.txt",
+      "summary": "2026-07-17 的微基准测试报告，包含 ChunkHeader 编解码、协程创建运行、数据库连接池、文件系统 SHA-256 等核心组件的耗时数据。",
+      "tags": ["micro-benchmark", "benchmark-report", "chunk-header", "coroutine", "sha256"],
+      "complexity": "simple",
+      "filePath": "benchmark/reports/micro_20260717_142320.txt"
+    },
+    {
+      "id": "document:benchmark/reports/micro_20260717_145119.txt",
+      "type": "document",
+      "name": "micro_20260717_145119.txt",
+      "summary": "2026-07-17 的微基准测试报告（第二组），记录 ChunkHeader、协程、数据库连接池与文件系统等核心操作的基准耗时。",
+      "tags": ["micro-benchmark", "benchmark-report", "chunk-header", "coroutine", "sha256"],
+      "complexity": "simple",
+      "filePath": "benchmark/reports/micro_20260717_145119.txt"
+    },
+    {
+      "id": "document:benchmark/reports/micro_20260718_153451.txt",
+      "type": "document",
+      "name": "micro_20260718_153451.txt",
+      "summary": "2026-07-18 的微基准测试报告，覆盖 ChunkHeader 序列化、协程、数据库连接池与文件系统操作的基准性能数据。",
+      "tags": ["micro-benchmark", "benchmark-report", "chunk-header", "coroutine", "sha256"],
+      "complexity": "simple",
+      "filePath": "benchmark/reports/micro_20260718_153451.txt"
+    },
+    {
+      "id": "document:benchmark/reports/micro_20260718_184759.txt",
+      "type": "document",
+      "name": "micro_20260718_184759.txt",
+      "summary": "2026-07-18 晚间的微基准测试报告，记录核心组件基准操作耗时，用于跟踪性能回归或优化进展。",
+      "tags": ["micro-benchmark", "benchmark-report", "performance"],
+      "complexity": "simple",
+      "filePath": "benchmark/reports/micro_20260718_184759.txt"
+    },
+    {
+      "id": "document:benchmark/reports/micro_20260718_185114.txt",
+      "type": "document",
+      "name": "micro_20260718_185114.txt",
+      "summary": "2026-07-18 的微基准测试报告（Git 7cc5224），含 ChunkHeader 编解码、协程创建运行、数据库连接池、文件系统 SHA-256 等基准数据。",
+      "tags": ["micro-benchmark", "benchmark-report", "chunk-header", "coroutine", "sha256"],
+      "complexity": "simple",
+      "filePath": "benchmark/reports/micro_20260718_185114.txt"
+    },
+    {
+      "id": "document:benchmark/reports/micro_release_20260715_174645.txt",
+      "type": "document",
+      "name": "micro_release_20260715_174645.txt",
+      "summary": "2026-07-15 Release 模式的微基准测试报告（Git f800f85），记录核心组件在优化构建下的基准耗时。",
+      "tags": ["micro-benchmark", "benchmark-report", "release-build", "performance"],
+      "complexity": "simple",
+      "filePath": "benchmark/reports/micro_release_20260715_174645.txt"
+    },
+    {
+      "id": "document:benchmark/reports/qps_20260717_151330.txt",
+      "type": "document",
+      "name": "qps_20260717_151330.txt",
+      "summary": "2026-07-17 的 QPS 与压力测试报告（749 行，Git fbdf859），记录 ChunkHeader 网络编解码在不同并发下的 QPS 与 P50/P90/P99 延迟分布。",
+      "tags": ["qps-test", "stress-test", "benchmark-report", "chunk-header", "latency"],
+      "complexity": "simple",
+      "filePath": "benchmark/reports/qps_20260717_151330.txt"
+    },
+    {
+      "id": "document:benchmark/reports/qps_20260718_162217.txt",
+      "type": "document",
+      "name": "qps_20260718_162217.txt",
+      "summary": "2026-07-18 的 QPS 与压力测试报告（Git 4ccf1e8），记录 ChunkHeader To/From Network 在并发 1-1024 下的 QPS 与延迟分位数，峰值约 2680 万 QPS。",
+      "tags": ["qps-test", "stress-test", "benchmark-report", "chunk-header", "latency"],
+      "complexity": "simple",
+      "filePath": "benchmark/reports/qps_20260718_162217.txt"
+    }
+  ],
+  "edges": [
+    {
+      "source": "document:benchmark/reports/load_20260718_171912.txt",
+      "target": "document:benchmark/reports/load_20260718_181105.txt",
+      "type": "related",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:benchmark/reports/load_debug_20260715_172228.txt",
+      "target": "document:benchmark/reports/load_debug_20260715_175124.txt",
+      "type": "related",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:benchmark/reports/load_debug_20260715_172228.txt",
+      "target": "document:benchmark/reports/load_release_20260715_173855.txt",
+      "type": "related",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:benchmark/reports/micro_20260717_142320.txt",
+      "target": "document:benchmark/reports/micro_20260717_145119.txt",
+      "type": "related",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:benchmark/reports/micro_20260717_145119.txt",
+      "target": "document:benchmark/reports/micro_20260718_153451.txt",
+      "type": "related",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:benchmark/reports/micro_20260718_153451.txt",
+      "target": "document:benchmark/reports/micro_20260718_184759.txt",
+      "type": "related",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:benchmark/reports/micro_20260718_184759.txt",
+      "target": "document:benchmark/reports/micro_20260718_185114.txt",
+      "type": "related",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:benchmark/reports/micro_release_20260715_174645.txt",
+      "target": "document:benchmark/reports/micro_20260717_142320.txt",
+      "type": "related",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:benchmark/reports/qps_20260717_151330.txt",
+      "target": "document:benchmark/reports/qps_20260718_162217.txt",
+      "type": "related",
+      "direction": "forward",
+      "weight": 0.5
+    }
+  ]
+}

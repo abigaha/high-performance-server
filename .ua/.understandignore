@@ -102,3 +102,9 @@
 # **/*_test.py
 # **/tests.py
 # **/conftest.py
+
+# --- 排除数据噪声（用户确认 2026-08-05） ---
+
+benchmark/report/
+.ua/
+core.*

@@ -1,0 +1,99 @@
+{
+  "projectRoot": "/home/jmj/work-space/projects/high-performance-server",
+  "batchFiles": [
+    {
+      "path": "db/include/boost_mysql_connection.h",
+      "language": "c",
+      "sizeLines": 30,
+      "fileCategory": "code"
+    },
+    {
+      "path": "db/include/chunk_lifecycle_coordinator.h",
+      "language": "c",
+      "sizeLines": 180,
+      "fileCategory": "code"
+    },
+    {
+      "path": "db/include/database_pool.h",
+      "language": "c",
+      "sizeLines": 124,
+      "fileCategory": "code"
+    },
+    {
+      "path": "db/include/iconnection.h",
+      "language": "c",
+      "sizeLines": 45,
+      "fileCategory": "code"
+    },
+    {
+      "path": "db/include/idatabase_pool.h",
+      "language": "c",
+      "sizeLines": 228,
+      "fileCategory": "code"
+    },
+    {
+      "path": "db/include/mock_connection.h",
+      "language": "c",
+      "sizeLines": 83,
+      "fileCategory": "code"
+    },
+    {
+      "path": "db/include/models.h",
+      "language": "c",
+      "sizeLines": 188,
+      "fileCategory": "code"
+    }
+  ],
+  "batchImportData": {
+    "db/include/boost_mysql_connection.h": [
+      "db/include/iconnection.h"
+    ],
+    "db/include/chunk_lifecycle_coordinator.h": [],
+    "db/include/database_pool.h": [
+      "db/include/iconnection.h",
+      "db/include/idatabase_pool.h"
+    ],
+    "db/include/iconnection.h": [
+      "db/include/db_config.h"
+    ],
+    "db/include/idatabase_pool.h": [
+      "db/include/chunk_lifecycle_coordinator.h",
+      "db/include/db_config.h",
+      "db/include/models.h"
+    ],
+    "db/include/mock_connection.h": [
+      "db/include/db_config.h",
+      "db/include/iconnection.h"
+    ],
+    "db/include/models.h": []
+  },
+  "neighborMap": {
+    "db/include/iconnection.h": [
+      {
+        "path": "db/include/db_config.h",
+        "batchIndex": 6,
+        "symbols": [
+          "DbConfig"
+        ]
+      }
+    ],
+    "db/include/idatabase_pool.h": [
+      {
+        "path": "db/include/db_config.h",
+        "batchIndex": 6,
+        "symbols": [
+          "DbConfig"
+        ]
+      }
+    ],
+    "db/include/mock_connection.h": [
+      {
+        "path": "db/include/db_config.h",
+        "batchIndex": 6,
+        "symbols": [
+          "DbConfig"
+        ]
+      }
+    ]
+  }
+}

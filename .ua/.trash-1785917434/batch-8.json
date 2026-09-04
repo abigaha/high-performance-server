@@ -1,0 +1,268 @@
+{
+  "nodes": [
+    {
+      "id": "file:core/include/admin_bootstrap.h",
+      "type": "file",
+      "name": "admin_bootstrap.h",
+      "summary": "管理员账号引导初始化头文件，包含 IDatabasePool 前向声明与 AdminBootstrapConfig 管理员配置结构，并声明 bootstrap_admin 用于在服务启动时为首次运行创建管理员账号。",
+      "tags": ["admin", "bootstrap", "config", "database", "header"],
+      "complexity": "simple",
+      "filePath": "core/include/admin_bootstrap.h"
+    },
+    {
+      "id": "class:core/include/admin_bootstrap.h:IDatabasePool",
+      "type": "class",
+      "name": "IDatabasePool",
+      "summary": "数据库连接池接口的前向声明，完整定义位于 db 层，供本头文件在 bootstrap_admin 函数签名中引用。",
+      "tags": ["forward-declaration", "interface", "database-pool"],
+      "complexity": "simple",
+      "lineRange": "11-11"
+    },
+    {
+      "id": "class:core/include/admin_bootstrap.h:AdminBootstrapConfig",
+      "type": "class",
+      "name": "AdminBootstrapConfig",
+      "summary": "管理员引导配置结构，通过三个可选字段（用户名、密码、邮箱）描述待创建的管理员账号信息。",
+      "tags": ["config", "struct", "optional"],
+      "complexity": "simple",
+      "lineRange": "13-17"
+    },
+    {
+      "id": "file:core/include/authorization.h",
+      "type": "file",
+      "name": "authorization.h",
+      "summary": "授权与权限判定头文件，定义 Capability 权限枚举，声明基于用户角色与会员状态计算有效身份、会员有效期及角色大小上限的接口，并内联实现 has_capability 权限校验。",
+      "tags": ["authorization", "capability", "role", "vip", "header"],
+      "complexity": "moderate",
+      "filePath": "core/include/authorization.h"
+    },
+    {
+      "id": "function:core/include/authorization.h:has_capability",
+      "type": "function",
+      "name": "has_capability",
+      "summary": "内联权限检查函数，根据有效身份的角色与会员状态判断是否具备指定能力：认证功能对普通/VIP/管理员开放，VIP 权益仅限活跃 VIP，用户管理与文件删除仅限管理员。",
+      "tags": ["inline", "permission-check", "switch", "role-based"],
+      "complexity": "simple",
+      "lineRange": "23-34"
+    },
+    {
+      "id": "file:core/include/main_functions.h",
+      "type": "file",
+      "name": "main_functions.h",
+      "summary": "服务器主配置头文件，定义 ServerConfig 全局配置结构（端口、线程、数据库、SSL、数据目录、认证密钥、管理员配置与上传大小限制），并声明 load_config 从命令行参数加载配置的入口函数。",
+      "tags": ["config", "server", "main", "struct", "header"],
+      "complexity": "simple",
+      "filePath": "core/include/main_functions.h"
+    },
+    {
+      "id": "class:core/include/main_functions.h:ServerConfig",
+      "type": "class",
+      "name": "ServerConfig",
+      "summary": "服务器运行时配置结构，聚合监听端口、线程池参数、MySQL 数据库配置（DbConfig）、SSL 配置（SslConfig）、文件存储根目录、认证密钥、管理员引导配置及普通/VIP 用户上传大小上限等全部服务配置项。",
+      "tags": ["config", "struct", "server", "aggregate"],
+      "complexity": "simple",
+      "lineRange": "12-32"
+    },
+    {
+      "id": "file:core/include/upload_policy.h",
+      "type": "file",
+      "name": "upload_policy.h",
+      "summary": "上传策略校验头文件，定义音频签名探测长度常量与 AudioSignaturePrefix 前缀类、UploadValidationResult 校验结果结构，并声明音频内容类型识别、签名校验、上传校验及响应构造接口。",
+      "tags": ["upload", "validation", "audio", "policy", "header"],
+      "complexity": "simple",
+      "filePath": "core/include/upload_policy.h"
+    },
+    {
+      "id": "class:core/include/upload_policy.h:AudioSignaturePrefix",
+      "type": "class",
+      "name": "AudioSignaturePrefix",
+      "summary": "音频签名前缀封装类，以 string_view 保存文件签名头字节，提供 constexpr 构造与只读访问方法，用于校验上传文件是否匹配期望的音频格式签名。",
+      "tags": ["signature", "constexpr", "string-view", "audio"],
+      "complexity": "simple",
+      "lineRange": "16-24"
+    },
+    {
+      "id": "class:core/include/upload_policy.h:UploadValidationResult",
+      "type": "class",
+      "name": "UploadValidationResult",
+      "summary": "上传校验结果结构，记录是否接受、HTTP 状态码、错误码与错误信息、识别出的内容类型、文件大小及允许的最大大小。",
+      "tags": ["result", "struct", "upload", "validation"],
+      "complexity": "simple",
+      "lineRange": "26-34"
+    },
+    {
+      "id": "function:core/include/upload_policy.h:AudioSignaturePrefix",
+      "type": "function",
+      "name": "AudioSignaturePrefix",
+      "summary": "AudioSignaturePrefix 的 constexpr 构造函数，接收 string_view 形式的前缀字节并拷贝保存。",
+      "tags": ["constructor", "constexpr", "signature"],
+      "complexity": "simple",
+      "lineRange": "18-18"
+    },
+    {
+      "id": "function:core/include/upload_policy.h:value",
+      "type": "function",
+      "name": "value",
+      "summary": "AudioSignaturePrefix 的只读访问器，以 constexpr 方式返回保存的音频签名前缀 string_view。",
+      "tags": ["accessor", "constexpr", "signature"],
+      "complexity": "simple",
+      "lineRange": "20-20"
+    }
+  ],
+  "edges": [
+    {
+      "source": "file:core/include/authorization.h",
+      "target": "file:core/include/main_functions.h",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:core/include/main_functions.h",
+      "target": "file:core/include/admin_bootstrap.h",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:core/include/upload_policy.h",
+      "target": "file:core/include/main_functions.h",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:core/include/admin_bootstrap.h",
+      "target": "class:core/include/admin_bootstrap.h:IDatabasePool",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:core/include/admin_bootstrap.h",
+      "target": "class:core/include/admin_bootstrap.h:AdminBootstrapConfig",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:core/include/authorization.h",
+      "target": "function:core/include/authorization.h:has_capability",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:core/include/main_functions.h",
+      "target": "class:core/include/main_functions.h:ServerConfig",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:core/include/upload_policy.h",
+      "target": "class:core/include/upload_policy.h:AudioSignaturePrefix",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:core/include/upload_policy.h",
+      "target": "class:core/include/upload_policy.h:UploadValidationResult",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:core/include/upload_policy.h",
+      "target": "function:core/include/upload_policy.h:AudioSignaturePrefix",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:core/include/upload_policy.h",
+      "target": "function:core/include/upload_policy.h:value",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "class:core/include/upload_policy.h:AudioSignaturePrefix",
+      "target": "function:core/include/upload_policy.h:AudioSignaturePrefix",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "class:core/include/upload_policy.h:AudioSignaturePrefix",
+      "target": "function:core/include/upload_policy.h:value",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:core/include/admin_bootstrap.h",
+      "target": "class:core/include/admin_bootstrap.h:IDatabasePool",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:core/include/admin_bootstrap.h",
+      "target": "class:core/include/admin_bootstrap.h:AdminBootstrapConfig",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:core/include/authorization.h",
+      "target": "function:core/include/authorization.h:has_capability",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:core/include/main_functions.h",
+      "target": "class:core/include/main_functions.h:ServerConfig",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:core/include/upload_policy.h",
+      "target": "class:core/include/upload_policy.h:AudioSignaturePrefix",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:core/include/upload_policy.h",
+      "target": "class:core/include/upload_policy.h:UploadValidationResult",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:core/include/upload_policy.h",
+      "target": "function:core/include/upload_policy.h:AudioSignaturePrefix",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:core/include/upload_policy.h",
+      "target": "function:core/include/upload_policy.h:value",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "class:core/include/main_functions.h:ServerConfig",
+      "target": "class:core/include/admin_bootstrap.h:AdminBootstrapConfig",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    }
+  ]
+}

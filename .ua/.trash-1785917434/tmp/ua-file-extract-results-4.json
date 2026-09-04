@@ -1,0 +1,3397 @@
+{
+  "scriptCompleted": true,
+  "filesAnalyzed": 20,
+  "filesSkipped": [],
+  "results": [
+    {
+      "path": "frontend/src/api/music.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 113,
+      "nonEmptyLines": 97,
+      "functions": [
+        {
+          "name": "getLibrary",
+          "startLine": 34,
+          "endLine": 43,
+          "params": [
+            "offset",
+            "limit",
+            "search",
+            "signal"
+          ]
+        },
+        {
+          "name": "getMusicDetail",
+          "startLine": 45,
+          "endLine": 65,
+          "params": [
+            "id"
+          ]
+        },
+        {
+          "name": "getUserPlaylists",
+          "startLine": 67,
+          "endLine": 70,
+          "params": [
+            "userId"
+          ]
+        },
+        {
+          "name": "createPlaylist",
+          "startLine": 72,
+          "endLine": 77,
+          "params": [
+            "userId",
+            "name",
+            "description"
+          ]
+        },
+        {
+          "name": "renamePlaylist",
+          "startLine": 79,
+          "endLine": 84,
+          "params": [
+            "playlistId",
+            "name",
+            "description"
+          ]
+        },
+        {
+          "name": "deletePlaylist",
+          "startLine": 86,
+          "endLine": 88,
+          "params": [
+            "playlistId"
+          ]
+        },
+        {
+          "name": "getPlaylistItems",
+          "startLine": 90,
+          "endLine": 93,
+          "params": [
+            "playlistId"
+          ]
+        },
+        {
+          "name": "addToPlaylist",
+          "startLine": 95,
+          "endLine": 100,
+          "params": [
+            "playlistId",
+            "musicId"
+          ]
+        },
+        {
+          "name": "removeFromPlaylist",
+          "startLine": 102,
+          "endLine": 106,
+          "params": [
+            "playlistId",
+            "musicId"
+          ]
+        },
+        {
+          "name": "reorderPlaylist",
+          "startLine": 108,
+          "endLine": 113,
+          "params": [
+            "playlistId",
+            "ids"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "getLibrary",
+          "line": 34,
+          "isDefault": false
+        },
+        {
+          "name": "getMusicDetail",
+          "line": 45,
+          "isDefault": false
+        },
+        {
+          "name": "getUserPlaylists",
+          "line": 67,
+          "isDefault": false
+        },
+        {
+          "name": "createPlaylist",
+          "line": 72,
+          "isDefault": false
+        },
+        {
+          "name": "renamePlaylist",
+          "line": 79,
+          "isDefault": false
+        },
+        {
+          "name": "deletePlaylist",
+          "line": 86,
+          "isDefault": false
+        },
+        {
+          "name": "getPlaylistItems",
+          "line": 90,
+          "isDefault": false
+        },
+        {
+          "name": "addToPlaylist",
+          "line": 95,
+          "isDefault": false
+        },
+        {
+          "name": "removeFromPlaylist",
+          "line": 102,
+          "isDefault": false
+        },
+        {
+          "name": "reorderPlaylist",
+          "line": 108,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "getLibrary",
+          "callee": "String",
+          "lineNumber": 40
+        },
+        {
+          "caller": "getLibrary",
+          "callee": "String",
+          "lineNumber": 40
+        },
+        {
+          "caller": "getLibrary",
+          "callee": "params.set",
+          "lineNumber": 41
+        },
+        {
+          "caller": "getLibrary",
+          "callee": "request",
+          "lineNumber": 42
+        },
+        {
+          "caller": "getMusicDetail",
+          "callee": "await request",
+          "lineNumber": 46
+        },
+        {
+          "caller": "getMusicDetail",
+          "callee": "detail.files?.find",
+          "lineNumber": 47
+        },
+        {
+          "caller": "getMusicDetail",
+          "callee": "candidate.content_type.startsWith",
+          "lineNumber": 47
+        },
+        {
+          "caller": "getUserPlaylists",
+          "callee": "await request",
+          "lineNumber": 68
+        },
+        {
+          "caller": "createPlaylist",
+          "callee": "request",
+          "lineNumber": 73
+        },
+        {
+          "caller": "createPlaylist",
+          "callee": "JSON.stringify",
+          "lineNumber": 75
+        },
+        {
+          "caller": "renamePlaylist",
+          "callee": "request",
+          "lineNumber": 80
+        },
+        {
+          "caller": "renamePlaylist",
+          "callee": "JSON.stringify",
+          "lineNumber": 82
+        },
+        {
+          "caller": "deletePlaylist",
+          "callee": "await request",
+          "lineNumber": 87
+        },
+        {
+          "caller": "getPlaylistItems",
+          "callee": "await request",
+          "lineNumber": 91
+        },
+        {
+          "caller": "addToPlaylist",
+          "callee": "await request",
+          "lineNumber": 96
+        },
+        {
+          "caller": "addToPlaylist",
+          "callee": "JSON.stringify",
+          "lineNumber": 98
+        },
+        {
+          "caller": "removeFromPlaylist",
+          "callee": "await request",
+          "lineNumber": 103
+        },
+        {
+          "caller": "reorderPlaylist",
+          "callee": "await request",
+          "lineNumber": 109
+        },
+        {
+          "caller": "reorderPlaylist",
+          "callee": "JSON.stringify",
+          "lineNumber": 111
+        }
+      ],
+      "metrics": {
+        "importCount": 2,
+        "exportCount": 10,
+        "functionCount": 10,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "frontend/src/components/AudioPlayer.tsx",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 320,
+      "nonEmptyLines": 297,
+      "functions": [
+        {
+          "name": "AudioPlayer",
+          "startLine": 22,
+          "endLine": 309,
+          "params": [
+            "{ mode }"
+          ]
+        },
+        {
+          "name": "formatTime",
+          "startLine": 311,
+          "endLine": 316,
+          "params": [
+            "value"
+          ]
+        },
+        {
+          "name": "errorMessage",
+          "startLine": 318,
+          "endLine": 320,
+          "params": [
+            "error",
+            "fallback"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "AudioPlayer",
+          "line": 22,
+          "isDefault": true
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "AudioPlayer",
+          "callee": "useLocation",
+          "lineNumber": 23
+        },
+        {
+          "caller": "AudioPlayer",
+          "callee": "useRef",
+          "lineNumber": 24
+        },
+        {
+          "caller": "AudioPlayer",
+          "callee": "useRef",
+          "lineNumber": 25
+        },
+        {
+          "caller": "AudioPlayer",
+          "callee": "useState",
+          "lineNumber": 26
+        },
+        {
+          "caller": "AudioPlayer",
+          "callee": "useState",
+          "lineNumber": 27
+        },
+        {
+          "caller": "AudioPlayer",
+          "callee": "usePlayerStore",
+          "lineNumber": 45
+        },
+        {
+          "caller": "AudioPlayer",
+          "callee": "location.pathname.startsWith",
+          "lineNumber": 47
+        },
+        {
+          "caller": "AudioPlayer",
+          "callee": "useEffect",
+          "lineNumber": 50
+        },
+        {
+          "caller": "releaseOwnedUrl",
+          "callee": "audio?.getAttribute",
+          "lineNumber": 57
+        },
+        {
+          "caller": "releaseOwnedUrl",
+          "callee": "audio.pause",
+          "lineNumber": 58
+        },
+        {
+          "caller": "releaseOwnedUrl",
+          "callee": "audio.removeAttribute",
+          "lineNumber": 59
+        },
+        {
+          "caller": "releaseOwnedUrl",
+          "callee": "audio.load",
+          "lineNumber": 60
+        },
+        {
+          "caller": "releaseOwnedUrl",
+          "callee": "URL.revokeObjectURL",
+          "lineNumber": 62
+        },
+        {
+          "caller": "AudioPlayer",
+          "callee": "releaseOwnedUrl",
+          "lineNumber": 65
+        },
+        {
+          "caller": "AudioPlayer",
+          "callee": "setStreamUrl",
+          "lineNumber": 66
+        },
+        {
+          "caller": "AudioPlayer",
+          "callee": "setPlaybackError",
+          "lineNumber": 67
+        },
+        {
+          "caller": "AudioPlayer",
+          "callee": "releaseOwnedUrl",
+          "lineNumber": 72
+        },
+        {
+          "caller": "AudioPlayer",
+          "callee": "capturePlayerGeneration",
+          "lineNumber": 76
+        },
+        {
+          "caller": "AudioPlayer",
+          "callee": "getMusicDetail(currentTrack.music_id)\n        .then((detail) => {\n          if (active && isPlayerGenerationCurrent(playerGeneration)) hydrateTrack(detail);\n        })\n        .catch",
+          "lineNumber": 77
+        },
+        {
+          "caller": "AudioPlayer",
+          "callee": "getMusicDetail(currentTrack.music_id)\n        .then",
+          "lineNumber": 77
+        },
+        {
+          "caller": "AudioPlayer",
+          "callee": "getMusicDetail",
+          "lineNumber": 77
+        },
+        {
+          "caller": "AudioPlayer",
+          "callee": "isPlayerGenerationCurrent",
+          "lineNumber": 79
+        },
+        {
+          "caller": "AudioPlayer",
+          "callee": "hydrateTrack",
+          "lineNumber": 79
+        },
+        {
+          "caller": "AudioPlayer",
+          "callee": "setPlaybackError",
+          "lineNumber": 82
+        },
+        {
+          "caller": "AudioPlayer",
+          "callee": "errorMessage",
+          "lineNumber": 82
+        },
+        {
+          "caller": "AudioPlayer",
+          "callee": "releaseOwnedUrl",
+          "lineNumber": 86
+        },
+        {
+          "caller": "AudioPlayer",
+          "callee": "getFileStreamUrl(streamFileId)\n      .then((url) => {\n        if (!active) {\n          URL.revokeObjectURL(url);\n          return;\n        }\n        releaseOwnedUrl();\n        ownedStreamUrlRef.current = url;\n        setStreamUrl(url);\n      })\n      .catch",
+          "lineNumber": 90
+        },
+        {
+          "caller": "AudioPlayer",
+          "callee": "getFileStreamUrl(streamFileId)\n      .then",
+          "lineNumber": 90
+        },
+        {
+          "caller": "AudioPlayer",
+          "callee": "getFileStreamUrl",
+          "lineNumber": 90
+        },
+        {
+          "caller": "AudioPlayer",
+          "callee": "URL.revokeObjectURL",
+          "lineNumber": 93
+        },
+        {
+          "caller": "AudioPlayer",
+          "callee": "releaseOwnedUrl",
+          "lineNumber": 96
+        },
+        {
+          "caller": "AudioPlayer",
+          "callee": "setStreamUrl",
+          "lineNumber": 98
+        },
+        {
+          "caller": "AudioPlayer",
+          "callee": "setPlaybackError",
+          "lineNumber": 101
+        },
+        {
+          "caller": "AudioPlayer",
+          "callee": "errorMessage",
+          "lineNumber": 101
+        },
+        {
+          "caller": "AudioPlayer",
+          "callee": "releaseOwnedUrl",
+          "lineNumber": 106
+        },
+        {
+          "caller": "AudioPlayer",
+          "callee": "useEffect",
+          "lineNumber": 110
+        },
+        {
+          "caller": "AudioPlayer",
+          "callee": "capturePlayerGeneration",
+          "lineNumber": 114
+        },
+        {
+          "caller": "AudioPlayer",
+          "callee": "usePlayerStore.getState",
+          "lineNumber": 115
+        },
+        {
+          "caller": "isCurrentPlayback",
+          "callee": "usePlayerStore.getState",
+          "lineNumber": 120
+        },
+        {
+          "caller": "isCurrentPlayback",
+          "callee": "audio.getAttribute",
+          "lineNumber": 123
+        },
+        {
+          "caller": "isCurrentPlayback",
+          "callee": "isPlayerGenerationCurrent",
+          "lineNumber": 124
+        },
+        {
+          "caller": "AudioPlayer",
+          "callee": "audio.play().catch",
+          "lineNumber": 131
+        },
+        {
+          "caller": "AudioPlayer",
+          "callee": "audio.play",
+          "lineNumber": 131
+        },
+        {
+          "caller": "AudioPlayer",
+          "callee": "isCurrentPlayback",
+          "lineNumber": 132
+        },
+        {
+          "caller": "AudioPlayer",
+          "callee": "setPlaybackError",
+          "lineNumber": 133
+        },
+        {
+          "caller": "AudioPlayer",
+          "callee": "errorMessage",
+          "lineNumber": 133
+        },
+        {
+          "caller": "AudioPlayer",
+          "callee": "pause",
+          "lineNumber": 134
+        },
+        {
+          "caller": "AudioPlayer",
+          "callee": "audio.pause",
+          "lineNumber": 137
+        },
+        {
+          "caller": "AudioPlayer",
+          "callee": "useEffect",
+          "lineNumber": 144
+        },
+        {
+          "caller": "AudioPlayer",
+          "callee": "Math.max",
+          "lineNumber": 150
+        },
+        {
+          "caller": "AudioPlayer",
+          "callee": "Math.max",
+          "lineNumber": 151
+        },
+        {
+          "caller": "AudioPlayer",
+          "callee": "Math.min",
+          "lineNumber": 152
+        },
+        {
+          "caller": "AudioPlayer",
+          "callee": "Math.max",
+          "lineNumber": 152
+        },
+        {
+          "caller": "handleSeek",
+          "callee": "Math.min",
+          "lineNumber": 158
+        },
+        {
+          "caller": "handleSeek",
+          "callee": "Math.max",
+          "lineNumber": 158
+        },
+        {
+          "caller": "handleSeek",
+          "callee": "seek",
+          "lineNumber": 161
+        },
+        {
+          "caller": "handleLoadedMetadata",
+          "callee": "Number.isFinite",
+          "lineNumber": 167
+        },
+        {
+          "caller": "handleLoadedMetadata",
+          "callee": "setDuration",
+          "lineNumber": 168
+        },
+        {
+          "caller": "AudioPlayer",
+          "callee": "setCurrentTime",
+          "lineNumber": 178
+        },
+        {
+          "caller": "AudioPlayer",
+          "callee": "setPlaybackError",
+          "lineNumber": 181
+        },
+        {
+          "caller": "AudioPlayer",
+          "callee": "pause",
+          "lineNumber": 182
+        },
+        {
+          "caller": "AudioPlayer",
+          "callee": "formatTime",
+          "lineNumber": 189
+        },
+        {
+          "caller": "AudioPlayer",
+          "callee": "formatTime",
+          "lineNumber": 193
+        },
+        {
+          "caller": "AudioPlayer",
+          "callee": "formatTime",
+          "lineNumber": 193
+        },
+        {
+          "caller": "AudioPlayer",
+          "callee": "handleSeek",
+          "lineNumber": 199
+        },
+        {
+          "caller": "AudioPlayer",
+          "callee": "Number",
+          "lineNumber": 199
+        },
+        {
+          "caller": "AudioPlayer",
+          "callee": "formatTime",
+          "lineNumber": 202
+        },
+        {
+          "caller": "AudioPlayer",
+          "callee": "Boolean",
+          "lineNumber": 220
+        },
+        {
+          "caller": "AudioPlayer",
+          "callee": "pause",
+          "lineNumber": 221
+        },
+        {
+          "caller": "AudioPlayer",
+          "callee": "resume",
+          "lineNumber": 221
+        },
+        {
+          "caller": "AudioPlayer",
+          "callee": "getCoverPlaceholder",
+          "lineNumber": 246
+        },
+        {
+          "caller": "AudioPlayer",
+          "callee": "Math.round",
+          "lineNumber": 263
+        },
+        {
+          "caller": "AudioPlayer",
+          "callee": "setVolume",
+          "lineNumber": 268
+        },
+        {
+          "caller": "AudioPlayer",
+          "callee": "Number",
+          "lineNumber": 268
+        },
+        {
+          "caller": "AudioPlayer",
+          "callee": "getCoverPlaceholder",
+          "lineNumber": 282
+        },
+        {
+          "caller": "AudioPlayer",
+          "callee": "Math.round",
+          "lineNumber": 297
+        },
+        {
+          "caller": "AudioPlayer",
+          "callee": "setVolume",
+          "lineNumber": 302
+        },
+        {
+          "caller": "AudioPlayer",
+          "callee": "Number",
+          "lineNumber": 302
+        },
+        {
+          "caller": "formatTime",
+          "callee": "Number.isFinite",
+          "lineNumber": 312
+        },
+        {
+          "caller": "formatTime",
+          "callee": "Math.max",
+          "lineNumber": 312
+        },
+        {
+          "caller": "formatTime",
+          "callee": "Math.floor",
+          "lineNumber": 313
+        },
+        {
+          "caller": "formatTime",
+          "callee": "Math.floor",
+          "lineNumber": 314
+        },
+        {
+          "caller": "formatTime",
+          "callee": "seconds.toString().padStart",
+          "lineNumber": 315
+        },
+        {
+          "caller": "formatTime",
+          "callee": "seconds.toString",
+          "lineNumber": 315
+        }
+      ],
+      "metrics": {
+        "importCount": 5,
+        "exportCount": 1,
+        "functionCount": 3,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "frontend/src/components/MusicCard.tsx",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 90,
+      "nonEmptyLines": 87,
+      "functions": [
+        {
+          "name": "formatDuration",
+          "startLine": 14,
+          "endLine": 18,
+          "params": [
+            "sec"
+          ]
+        },
+        {
+          "name": "MusicCard",
+          "startLine": 20,
+          "endLine": 90,
+          "params": [
+            "{\n  music,\n  inPlaylist,\n  onPlay,\n  onAddToPlaylist,\n  onRemove,\n  busyAction = null,\n}"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "MusicCard",
+          "line": 20,
+          "isDefault": true
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "formatDuration",
+          "callee": "Math.floor",
+          "lineNumber": 15
+        },
+        {
+          "caller": "formatDuration",
+          "callee": "Math.floor",
+          "lineNumber": 16
+        },
+        {
+          "caller": "formatDuration",
+          "callee": "s.toString().padStart",
+          "lineNumber": 17
+        },
+        {
+          "caller": "formatDuration",
+          "callee": "s.toString",
+          "lineNumber": 17
+        },
+        {
+          "caller": "MusicCard",
+          "callee": "getCoverPlaceholder",
+          "lineNumber": 32
+        },
+        {
+          "caller": "MusicCard",
+          "callee": "formatDuration",
+          "lineNumber": 44
+        },
+        {
+          "caller": "MusicCard",
+          "callee": "event.stopPropagation",
+          "lineNumber": 46
+        },
+        {
+          "caller": "MusicCard",
+          "callee": "event.stopPropagation",
+          "lineNumber": 52
+        },
+        {
+          "caller": "MusicCard",
+          "callee": "onPlay",
+          "lineNumber": 53
+        },
+        {
+          "caller": "MusicCard",
+          "callee": "event.stopPropagation",
+          "lineNumber": 65
+        },
+        {
+          "caller": "MusicCard",
+          "callee": "onAddToPlaylist",
+          "lineNumber": 66
+        },
+        {
+          "caller": "MusicCard",
+          "callee": "event.stopPropagation",
+          "lineNumber": 79
+        },
+        {
+          "caller": "MusicCard",
+          "callee": "onRemove",
+          "lineNumber": 80
+        }
+      ],
+      "metrics": {
+        "importCount": 2,
+        "exportCount": 1,
+        "functionCount": 2,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "frontend/src/lib/coverPlaceholder.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 11,
+      "nonEmptyLines": 10,
+      "functions": [
+        {
+          "name": "getCoverPlaceholder",
+          "startLine": 8,
+          "endLine": 11,
+          "params": [
+            "musicId"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "getCoverPlaceholder",
+          "line": 8,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "getCoverPlaceholder",
+          "callee": "Number.isSafeInteger",
+          "lineNumber": 9
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 1,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "frontend/src/pages/MusicLibraryPage.tsx",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 258,
+      "nonEmptyLines": 242,
+      "functions": [
+        {
+          "name": "MusicLibraryPage",
+          "startLine": 20,
+          "endLine": 254,
+          "params": []
+        },
+        {
+          "name": "errorMessage",
+          "startLine": 256,
+          "endLine": 258,
+          "params": [
+            "error",
+            "fallback"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "MusicLibraryPage",
+          "line": 20,
+          "isDefault": true
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "MusicLibraryPage",
+          "callee": "useMusicStore",
+          "lineNumber": 21
+        },
+        {
+          "caller": "MusicLibraryPage",
+          "callee": "useMusicStore",
+          "lineNumber": 22
+        },
+        {
+          "caller": "MusicLibraryPage",
+          "callee": "useMusicStore",
+          "lineNumber": 23
+        },
+        {
+          "caller": "MusicLibraryPage",
+          "callee": "useMusicStore",
+          "lineNumber": 24
+        },
+        {
+          "caller": "MusicLibraryPage",
+          "callee": "useMusicStore",
+          "lineNumber": 25
+        },
+        {
+          "caller": "MusicLibraryPage",
+          "callee": "useMusicStore",
+          "lineNumber": 26
+        },
+        {
+          "caller": "MusicLibraryPage",
+          "callee": "useMusicStore",
+          "lineNumber": 27
+        },
+        {
+          "caller": "MusicLibraryPage",
+          "callee": "useMusicStore",
+          "lineNumber": 28
+        },
+        {
+          "caller": "MusicLibraryPage",
+          "callee": "useAuthStore",
+          "lineNumber": 29
+        },
+        {
+          "caller": "MusicLibraryPage",
+          "callee": "useAuthStore",
+          "lineNumber": 30
+        },
+        {
+          "caller": "MusicLibraryPage",
+          "callee": "usePlayerStore",
+          "lineNumber": 31
+        },
+        {
+          "caller": "MusicLibraryPage",
+          "callee": "useToastStore",
+          "lineNumber": 32
+        },
+        {
+          "caller": "MusicLibraryPage",
+          "callee": "useToastStore",
+          "lineNumber": 33
+        },
+        {
+          "caller": "MusicLibraryPage",
+          "callee": "useNavigate",
+          "lineNumber": 34
+        },
+        {
+          "caller": "MusicLibraryPage",
+          "callee": "useState",
+          "lineNumber": 35
+        },
+        {
+          "caller": "MusicLibraryPage",
+          "callee": "useState",
+          "lineNumber": 36
+        },
+        {
+          "caller": "MusicLibraryPage",
+          "callee": "useState",
+          "lineNumber": 37
+        },
+        {
+          "caller": "MusicLibraryPage",
+          "callee": "useState",
+          "lineNumber": 38
+        },
+        {
+          "caller": "MusicLibraryPage",
+          "callee": "useState",
+          "lineNumber": 39
+        },
+        {
+          "caller": "MusicLibraryPage",
+          "callee": "useState",
+          "lineNumber": 40
+        },
+        {
+          "caller": "MusicLibraryPage",
+          "callee": "useState",
+          "lineNumber": 41
+        },
+        {
+          "caller": "MusicLibraryPage",
+          "callee": "useRef",
+          "lineNumber": 42
+        },
+        {
+          "caller": "MusicLibraryPage",
+          "callee": "useRef",
+          "lineNumber": 43
+        },
+        {
+          "caller": "MusicLibraryPage",
+          "callee": "useRef",
+          "lineNumber": 44
+        },
+        {
+          "caller": "MusicLibraryPage",
+          "callee": "useRef",
+          "lineNumber": 45
+        },
+        {
+          "caller": "MusicLibraryPage",
+          "callee": "useEffect",
+          "lineNumber": 47
+        },
+        {
+          "caller": "MusicLibraryPage",
+          "callee": "addRequestIds.clear",
+          "lineNumber": 54
+        },
+        {
+          "caller": "MusicLibraryPage",
+          "callee": "useEffect",
+          "lineNumber": 58
+        },
+        {
+          "caller": "MusicLibraryPage",
+          "callee": "addRequestIdsRef.current.clear",
+          "lineNumber": 61
+        },
+        {
+          "caller": "MusicLibraryPage",
+          "callee": "setShowPlaylistPicker",
+          "lineNumber": 62
+        },
+        {
+          "caller": "MusicLibraryPage",
+          "callee": "setPlayingMusicId",
+          "lineNumber": 63
+        },
+        {
+          "caller": "MusicLibraryPage",
+          "callee": "setAddingMusicIds",
+          "lineNumber": 64
+        },
+        {
+          "caller": "MusicLibraryPage",
+          "callee": "setActionError",
+          "lineNumber": 65
+        },
+        {
+          "caller": "MusicLibraryPage",
+          "callee": "useCallback",
+          "lineNumber": 68
+        },
+        {
+          "caller": "MusicLibraryPage",
+          "callee": "fetchLibrary",
+          "lineNumber": 70
+        },
+        {
+          "caller": "MusicLibraryPage",
+          "callee": "useEffect",
+          "lineNumber": 73
+        },
+        {
+          "caller": "MusicLibraryPage",
+          "callee": "window.setTimeout",
+          "lineNumber": 74
+        },
+        {
+          "caller": "MusicLibraryPage",
+          "callee": "setDebouncedSearch",
+          "lineNumber": 74
+        },
+        {
+          "caller": "MusicLibraryPage",
+          "callee": "search.trim",
+          "lineNumber": 74
+        },
+        {
+          "caller": "MusicLibraryPage",
+          "callee": "window.clearTimeout",
+          "lineNumber": 75
+        },
+        {
+          "caller": "MusicLibraryPage",
+          "callee": "useEffect",
+          "lineNumber": 78
+        },
+        {
+          "caller": "MusicLibraryPage",
+          "callee": "fetchData",
+          "lineNumber": 79
+        },
+        {
+          "caller": "MusicLibraryPage",
+          "callee": "useEffect",
+          "lineNumber": 82
+        },
+        {
+          "caller": "MusicLibraryPage",
+          "callee": "fetchPlaylists(user.user_id).catch",
+          "lineNumber": 83
+        },
+        {
+          "caller": "MusicLibraryPage",
+          "callee": "fetchPlaylists",
+          "lineNumber": 83
+        },
+        {
+          "caller": "handlePlay",
+          "callee": "captureSessionSnapshot",
+          "lineNumber": 89
+        },
+        {
+          "caller": "handlePlay",
+          "callee": "capturePlayerGeneration",
+          "lineNumber": 90
+        },
+        {
+          "caller": "handlePlay",
+          "callee": "capturePlayerStateRevision",
+          "lineNumber": 91
+        },
+        {
+          "caller": "isActiveRequest",
+          "callee": "isSessionSnapshotCurrent",
+          "lineNumber": 95
+        },
+        {
+          "caller": "canApplyResult",
+          "callee": "isActiveRequest",
+          "lineNumber": 96
+        },
+        {
+          "caller": "canApplyResult",
+          "callee": "isPlayerGenerationCurrent",
+          "lineNumber": 97
+        },
+        {
+          "caller": "canApplyResult",
+          "callee": "capturePlayerStateRevision",
+          "lineNumber": 98
+        },
+        {
+          "caller": "handlePlay",
+          "callee": "setActionError",
+          "lineNumber": 99
+        },
+        {
+          "caller": "handlePlay",
+          "callee": "setPlayingMusicId",
+          "lineNumber": 100
+        },
+        {
+          "caller": "handlePlay",
+          "callee": "getMusicDetail",
+          "lineNumber": 102
+        },
+        {
+          "caller": "handlePlay",
+          "callee": "canApplyResult",
+          "lineNumber": 103
+        },
+        {
+          "caller": "handlePlay",
+          "callee": "play",
+          "lineNumber": 104
+        },
+        {
+          "caller": "handlePlay",
+          "callee": "library.map",
+          "lineNumber": 104
+        },
+        {
+          "caller": "handlePlay",
+          "callee": "navigate",
+          "lineNumber": 108
+        },
+        {
+          "caller": "handlePlay",
+          "callee": "canApplyResult",
+          "lineNumber": 110
+        },
+        {
+          "caller": "handlePlay",
+          "callee": "setActionError",
+          "lineNumber": 111
+        },
+        {
+          "caller": "handlePlay",
+          "callee": "errorMessage",
+          "lineNumber": 111
+        },
+        {
+          "caller": "handlePlay",
+          "callee": "isActiveRequest",
+          "lineNumber": 114
+        },
+        {
+          "caller": "handlePlay",
+          "callee": "setPlayingMusicId",
+          "lineNumber": 114
+        },
+        {
+          "caller": "handleAddToPlaylist",
+          "callee": "showInfo",
+          "lineNumber": 120
+        },
+        {
+          "caller": "handleAddToPlaylist",
+          "callee": "addingMusicIds.has",
+          "lineNumber": 124
+        },
+        {
+          "caller": "handleAddToPlaylist",
+          "callee": "addRequestIdsRef.current.get",
+          "lineNumber": 125
+        },
+        {
+          "caller": "handleAddToPlaylist",
+          "callee": "addRequestIdsRef.current.set",
+          "lineNumber": 126
+        },
+        {
+          "caller": "handleAddToPlaylist",
+          "callee": "captureSessionSnapshot",
+          "lineNumber": 128
+        },
+        {
+          "caller": "isCurrent",
+          "callee": "addRequestIdsRef.current.get",
+          "lineNumber": 130
+        },
+        {
+          "caller": "isCurrent",
+          "callee": "isSessionSnapshotCurrent",
+          "lineNumber": 132
+        },
+        {
+          "caller": "handleAddToPlaylist",
+          "callee": "setActionError",
+          "lineNumber": 133
+        },
+        {
+          "caller": "handleAddToPlaylist",
+          "callee": "setAddingMusicIds",
+          "lineNumber": 134
+        },
+        {
+          "caller": "handleAddToPlaylist",
+          "callee": "new Set(current).add",
+          "lineNumber": 134
+        },
+        {
+          "caller": "handleAddToPlaylist",
+          "callee": "addToPlaylist",
+          "lineNumber": 136
+        },
+        {
+          "caller": "handleAddToPlaylist",
+          "callee": "isCurrent",
+          "lineNumber": 137
+        },
+        {
+          "caller": "handleAddToPlaylist",
+          "callee": "showSuccess",
+          "lineNumber": 137
+        },
+        {
+          "caller": "handleAddToPlaylist",
+          "callee": "isCurrent",
+          "lineNumber": 139
+        },
+        {
+          "caller": "handleAddToPlaylist",
+          "callee": "setActionError",
+          "lineNumber": 139
+        },
+        {
+          "caller": "handleAddToPlaylist",
+          "callee": "errorMessage",
+          "lineNumber": 139
+        },
+        {
+          "caller": "handleAddToPlaylist",
+          "callee": "isCurrent",
+          "lineNumber": 141
+        },
+        {
+          "caller": "handleAddToPlaylist",
+          "callee": "setAddingMusicIds",
+          "lineNumber": 141
+        },
+        {
+          "caller": "handleAddToPlaylist",
+          "callee": "next.delete",
+          "lineNumber": 143
+        },
+        {
+          "caller": "handleAddToPlaylist",
+          "callee": "setShowPlaylistPicker",
+          "lineNumber": 149
+        },
+        {
+          "caller": "handleSelectPlaylist",
+          "callee": "addingMusicIds.has",
+          "lineNumber": 153
+        },
+        {
+          "caller": "handleSelectPlaylist",
+          "callee": "addRequestIdsRef.current.get",
+          "lineNumber": 154
+        },
+        {
+          "caller": "handleSelectPlaylist",
+          "callee": "addRequestIdsRef.current.set",
+          "lineNumber": 155
+        },
+        {
+          "caller": "handleSelectPlaylist",
+          "callee": "captureSessionSnapshot",
+          "lineNumber": 157
+        },
+        {
+          "caller": "isCurrent",
+          "callee": "addRequestIdsRef.current.get",
+          "lineNumber": 159
+        },
+        {
+          "caller": "isCurrent",
+          "callee": "isSessionSnapshotCurrent",
+          "lineNumber": 161
+        },
+        {
+          "caller": "handleSelectPlaylist",
+          "callee": "setActionError",
+          "lineNumber": 162
+        },
+        {
+          "caller": "handleSelectPlaylist",
+          "callee": "setAddingMusicIds",
+          "lineNumber": 163
+        },
+        {
+          "caller": "handleSelectPlaylist",
+          "callee": "new Set(current).add",
+          "lineNumber": 163
+        },
+        {
+          "caller": "handleSelectPlaylist",
+          "callee": "addToPlaylist",
+          "lineNumber": 165
+        },
+        {
+          "caller": "handleSelectPlaylist",
+          "callee": "isCurrent",
+          "lineNumber": 166
+        },
+        {
+          "caller": "handleSelectPlaylist",
+          "callee": "showSuccess",
+          "lineNumber": 167
+        },
+        {
+          "caller": "handleSelectPlaylist",
+          "callee": "setShowPlaylistPicker",
+          "lineNumber": 168
+        },
+        {
+          "caller": "handleSelectPlaylist",
+          "callee": "isCurrent",
+          "lineNumber": 171
+        },
+        {
+          "caller": "handleSelectPlaylist",
+          "callee": "setActionError",
+          "lineNumber": 171
+        },
+        {
+          "caller": "handleSelectPlaylist",
+          "callee": "errorMessage",
+          "lineNumber": 171
+        },
+        {
+          "caller": "handleSelectPlaylist",
+          "callee": "isCurrent",
+          "lineNumber": 173
+        },
+        {
+          "caller": "handleSelectPlaylist",
+          "callee": "setAddingMusicIds",
+          "lineNumber": 173
+        },
+        {
+          "caller": "handleSelectPlaylist",
+          "callee": "next.delete",
+          "lineNumber": 175
+        },
+        {
+          "caller": "MusicLibraryPage",
+          "callee": "setSearch",
+          "lineNumber": 192
+        },
+        {
+          "caller": "MusicLibraryPage",
+          "callee": "setPage",
+          "lineNumber": 193
+        },
+        {
+          "caller": "MusicLibraryPage",
+          "callee": "fetchData",
+          "lineNumber": 206
+        },
+        {
+          "caller": "MusicLibraryPage",
+          "callee": "library.map",
+          "lineNumber": 215
+        },
+        {
+          "caller": "MusicLibraryPage",
+          "callee": "addingMusicIds.has",
+          "lineNumber": 224
+        },
+        {
+          "caller": "MusicLibraryPage",
+          "callee": "userPlaylists.map",
+          "lineNumber": 232
+        },
+        {
+          "caller": "MusicLibraryPage",
+          "callee": "addingMusicIds.has",
+          "lineNumber": 237
+        },
+        {
+          "caller": "MusicLibraryPage",
+          "callee": "handleSelectPlaylist",
+          "lineNumber": 238
+        }
+      ],
+      "metrics": {
+        "importCount": 9,
+        "exportCount": 1,
+        "functionCount": 2,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "frontend/src/pages/PlayerPage.tsx",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 130,
+      "nonEmptyLines": 119,
+      "functions": [
+        {
+          "name": "PlayerPage",
+          "startLine": 15,
+          "endLine": 126,
+          "params": []
+        },
+        {
+          "name": "errorMessage",
+          "startLine": 128,
+          "endLine": 130,
+          "params": [
+            "error",
+            "fallback"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "PlayerPage",
+          "line": 15,
+          "isDefault": true
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "PlayerPage",
+          "callee": "useParams",
+          "lineNumber": 16
+        },
+        {
+          "caller": "PlayerPage",
+          "callee": "usePlayerStore",
+          "lineNumber": 17
+        },
+        {
+          "caller": "PlayerPage",
+          "callee": "usePlayerStore",
+          "lineNumber": 18
+        },
+        {
+          "caller": "PlayerPage",
+          "callee": "usePlayerStore",
+          "lineNumber": 19
+        },
+        {
+          "caller": "PlayerPage",
+          "callee": "useAuthStore",
+          "lineNumber": 20
+        },
+        {
+          "caller": "PlayerPage",
+          "callee": "useNavigate",
+          "lineNumber": 21
+        },
+        {
+          "caller": "PlayerPage",
+          "callee": "useRef",
+          "lineNumber": 22
+        },
+        {
+          "caller": "PlayerPage",
+          "callee": "useRef",
+          "lineNumber": 23
+        },
+        {
+          "caller": "PlayerPage",
+          "callee": "useRef",
+          "lineNumber": 28
+        },
+        {
+          "caller": "PlayerPage",
+          "callee": "useState",
+          "lineNumber": 29
+        },
+        {
+          "caller": "PlayerPage",
+          "callee": "useState",
+          "lineNumber": 30
+        },
+        {
+          "caller": "PlayerPage",
+          "callee": "Number",
+          "lineNumber": 32
+        },
+        {
+          "caller": "PlayerPage",
+          "callee": "Number.isSafeInteger",
+          "lineNumber": 33
+        },
+        {
+          "caller": "PlayerPage",
+          "callee": "useEffect",
+          "lineNumber": 37
+        },
+        {
+          "caller": "PlayerPage",
+          "callee": "Number.isSafeInteger",
+          "lineNumber": 38
+        },
+        {
+          "caller": "PlayerPage",
+          "callee": "setError",
+          "lineNumber": 39
+        },
+        {
+          "caller": "PlayerPage",
+          "callee": "setLoading",
+          "lineNumber": 40
+        },
+        {
+          "caller": "PlayerPage",
+          "callee": "captureSessionSnapshot",
+          "lineNumber": 45
+        },
+        {
+          "caller": "PlayerPage",
+          "callee": "capturePlayerGeneration",
+          "lineNumber": 46
+        },
+        {
+          "caller": "PlayerPage",
+          "callee": "capturePlayerStateRevision",
+          "lineNumber": 47
+        },
+        {
+          "caller": "canApplyResult",
+          "callee": "isActiveRequest",
+          "lineNumber": 54
+        },
+        {
+          "caller": "canApplyResult",
+          "callee": "isSessionSnapshotCurrent",
+          "lineNumber": 55
+        },
+        {
+          "caller": "canApplyResult",
+          "callee": "isPlayerGenerationCurrent",
+          "lineNumber": 56
+        },
+        {
+          "caller": "canApplyResult",
+          "callee": "capturePlayerStateRevision",
+          "lineNumber": 57
+        },
+        {
+          "caller": "PlayerPage",
+          "callee": "setLoading",
+          "lineNumber": 58
+        },
+        {
+          "caller": "PlayerPage",
+          "callee": "setError",
+          "lineNumber": 59
+        },
+        {
+          "caller": "PlayerPage",
+          "callee": "getMusicDetail(musicId)\n      .then((detail) => {\n        if (canApplyResult()) {\n          hydrateTrack(detail);\n        }\n      })\n      .catch((loadError: unknown) => {\n        if (canApplyResult()) {\n          setError(errorMessage(loadError, '音乐详情加载失败，请稍后重试'));\n        }\n      })\n      .finally",
+          "lineNumber": 60
+        },
+        {
+          "caller": "PlayerPage",
+          "callee": "getMusicDetail(musicId)\n      .then((detail) => {\n        if (canApplyResult()) {\n          hydrateTrack(detail);\n        }\n      })\n      .catch",
+          "lineNumber": 60
+        },
+        {
+          "caller": "PlayerPage",
+          "callee": "getMusicDetail(musicId)\n      .then",
+          "lineNumber": 60
+        },
+        {
+          "caller": "PlayerPage",
+          "callee": "getMusicDetail",
+          "lineNumber": 60
+        },
+        {
+          "caller": "PlayerPage",
+          "callee": "canApplyResult",
+          "lineNumber": 62
+        },
+        {
+          "caller": "PlayerPage",
+          "callee": "hydrateTrack",
+          "lineNumber": 63
+        },
+        {
+          "caller": "PlayerPage",
+          "callee": "canApplyResult",
+          "lineNumber": 67
+        },
+        {
+          "caller": "PlayerPage",
+          "callee": "setError",
+          "lineNumber": 68
+        },
+        {
+          "caller": "PlayerPage",
+          "callee": "errorMessage",
+          "lineNumber": 68
+        },
+        {
+          "caller": "PlayerPage",
+          "callee": "isActiveRequest",
+          "lineNumber": 72
+        },
+        {
+          "caller": "PlayerPage",
+          "callee": "setLoading",
+          "lineNumber": 74
+        },
+        {
+          "caller": "PlayerPage",
+          "callee": "useEffect",
+          "lineNumber": 86
+        },
+        {
+          "caller": "PlayerPage",
+          "callee": "setLoading",
+          "lineNumber": 96
+        },
+        {
+          "caller": "PlayerPage",
+          "callee": "navigate",
+          "lineNumber": 103
+        },
+        {
+          "caller": "PlayerPage",
+          "callee": "navigate",
+          "lineNumber": 114
+        }
+      ],
+      "metrics": {
+        "importCount": 5,
+        "exportCount": 1,
+        "functionCount": 2,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "frontend/src/pages/UserPlaylistPage.tsx",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 470,
+      "nonEmptyLines": 446,
+      "functions": [
+        {
+          "name": "UserPlaylistPage",
+          "startLine": 18,
+          "endLine": 438,
+          "params": []
+        },
+        {
+          "name": "toPlaylist",
+          "startLine": 440,
+          "endLine": 452,
+          "params": [
+            "playlist",
+            "userId"
+          ]
+        },
+        {
+          "name": "playlistItemToMusic",
+          "startLine": 454,
+          "endLine": 466,
+          "params": [
+            "item"
+          ]
+        },
+        {
+          "name": "errorMessage",
+          "startLine": 468,
+          "endLine": 470,
+          "params": [
+            "error",
+            "fallback"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "UserPlaylistPage",
+          "line": 18,
+          "isDefault": true
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "UserPlaylistPage",
+          "callee": "useMusicStore",
+          "lineNumber": 19
+        },
+        {
+          "caller": "UserPlaylistPage",
+          "callee": "useMusicStore",
+          "lineNumber": 20
+        },
+        {
+          "caller": "UserPlaylistPage",
+          "callee": "useMusicStore",
+          "lineNumber": 21
+        },
+        {
+          "caller": "UserPlaylistPage",
+          "callee": "useMusicStore",
+          "lineNumber": 22
+        },
+        {
+          "caller": "UserPlaylistPage",
+          "callee": "useMusicStore",
+          "lineNumber": 23
+        },
+        {
+          "caller": "UserPlaylistPage",
+          "callee": "useMusicStore",
+          "lineNumber": 24
+        },
+        {
+          "caller": "UserPlaylistPage",
+          "callee": "useAuthStore",
+          "lineNumber": 25
+        },
+        {
+          "caller": "UserPlaylistPage",
+          "callee": "useAuthStore",
+          "lineNumber": 26
+        },
+        {
+          "caller": "UserPlaylistPage",
+          "callee": "usePlayerStore",
+          "lineNumber": 27
+        },
+        {
+          "caller": "UserPlaylistPage",
+          "callee": "useToastStore",
+          "lineNumber": 28
+        },
+        {
+          "caller": "UserPlaylistPage",
+          "callee": "useNavigate",
+          "lineNumber": 29
+        },
+        {
+          "caller": "UserPlaylistPage",
+          "callee": "useState",
+          "lineNumber": 32
+        },
+        {
+          "caller": "UserPlaylistPage",
+          "callee": "useState",
+          "lineNumber": 33
+        },
+        {
+          "caller": "UserPlaylistPage",
+          "callee": "useState",
+          "lineNumber": 34
+        },
+        {
+          "caller": "UserPlaylistPage",
+          "callee": "useState",
+          "lineNumber": 35
+        },
+        {
+          "caller": "UserPlaylistPage",
+          "callee": "useState",
+          "lineNumber": 36
+        },
+        {
+          "caller": "UserPlaylistPage",
+          "callee": "useState",
+          "lineNumber": 37
+        },
+        {
+          "caller": "UserPlaylistPage",
+          "callee": "useState",
+          "lineNumber": 38
+        },
+        {
+          "caller": "UserPlaylistPage",
+          "callee": "useState",
+          "lineNumber": 39
+        },
+        {
+          "caller": "UserPlaylistPage",
+          "callee": "useState",
+          "lineNumber": 40
+        },
+        {
+          "caller": "UserPlaylistPage",
+          "callee": "useState",
+          "lineNumber": 41
+        },
+        {
+          "caller": "UserPlaylistPage",
+          "callee": "useState",
+          "lineNumber": 42
+        },
+        {
+          "caller": "UserPlaylistPage",
+          "callee": "useState",
+          "lineNumber": 43
+        },
+        {
+          "caller": "UserPlaylistPage",
+          "callee": "useState",
+          "lineNumber": 44
+        },
+        {
+          "caller": "UserPlaylistPage",
+          "callee": "useState",
+          "lineNumber": 45
+        },
+        {
+          "caller": "UserPlaylistPage",
+          "callee": "useState",
+          "lineNumber": 46
+        },
+        {
+          "caller": "UserPlaylistPage",
+          "callee": "useRef",
+          "lineNumber": 47
+        },
+        {
+          "caller": "UserPlaylistPage",
+          "callee": "useRef",
+          "lineNumber": 48
+        },
+        {
+          "caller": "UserPlaylistPage",
+          "callee": "useRef",
+          "lineNumber": 49
+        },
+        {
+          "caller": "UserPlaylistPage",
+          "callee": "useRef",
+          "lineNumber": 50
+        },
+        {
+          "caller": "UserPlaylistPage",
+          "callee": "useRef",
+          "lineNumber": 51
+        },
+        {
+          "caller": "UserPlaylistPage",
+          "callee": "useRef",
+          "lineNumber": 52
+        },
+        {
+          "caller": "startOperation",
+          "callee": "operationIdsRef.current.get",
+          "lineNumber": 55
+        },
+        {
+          "caller": "startOperation",
+          "callee": "operationIdsRef.current.set",
+          "lineNumber": 56
+        },
+        {
+          "caller": "isOperationCurrent",
+          "callee": "operationIdsRef.current.get",
+          "lineNumber": 59
+        },
+        {
+          "caller": "UserPlaylistPage",
+          "callee": "useEffect",
+          "lineNumber": 61
+        },
+        {
+          "caller": "UserPlaylistPage",
+          "callee": "operationIds.clear",
+          "lineNumber": 70
+        },
+        {
+          "caller": "UserPlaylistPage",
+          "callee": "useEffect",
+          "lineNumber": 74
+        },
+        {
+          "caller": "UserPlaylistPage",
+          "callee": "operationIdsRef.current.clear",
+          "lineNumber": 79
+        },
+        {
+          "caller": "UserPlaylistPage",
+          "callee": "setSelectedPlaylist",
+          "lineNumber": 80
+        },
+        {
+          "caller": "UserPlaylistPage",
+          "callee": "setItems",
+          "lineNumber": 81
+        },
+        {
+          "caller": "UserPlaylistPage",
+          "callee": "setShowCreate",
+          "lineNumber": 82
+        },
+        {
+          "caller": "UserPlaylistPage",
+          "callee": "setNewName",
+          "lineNumber": 83
+        },
+        {
+          "caller": "UserPlaylistPage",
+          "callee": "setPlaylistsError",
+          "lineNumber": 84
+        },
+        {
+          "caller": "UserPlaylistPage",
+          "callee": "setItemsError",
+          "lineNumber": 85
+        },
+        {
+          "caller": "UserPlaylistPage",
+          "callee": "setActionError",
+          "lineNumber": 86
+        },
+        {
+          "caller": "UserPlaylistPage",
+          "callee": "setCreating",
+          "lineNumber": 87
+        },
+        {
+          "caller": "UserPlaylistPage",
+          "callee": "setPlayingMusicId",
+          "lineNumber": 88
+        },
+        {
+          "caller": "UserPlaylistPage",
+          "callee": "setRemovingMusicIds",
+          "lineNumber": 89
+        },
+        {
+          "caller": "UserPlaylistPage",
+          "callee": "setDeletingPlaylist",
+          "lineNumber": 90
+        },
+        {
+          "caller": "UserPlaylistPage",
+          "callee": "setRenamingPlaylist",
+          "lineNumber": 91
+        },
+        {
+          "caller": "UserPlaylistPage",
+          "callee": "setRenameName",
+          "lineNumber": 92
+        },
+        {
+          "caller": "UserPlaylistPage",
+          "callee": "useCallback",
+          "lineNumber": 95
+        },
+        {
+          "caller": "UserPlaylistPage",
+          "callee": "setPlaylistsLoading",
+          "lineNumber": 97
+        },
+        {
+          "caller": "UserPlaylistPage",
+          "callee": "captureSessionSnapshot",
+          "lineNumber": 103
+        },
+        {
+          "caller": "isCurrent",
+          "callee": "isSessionSnapshotCurrent",
+          "lineNumber": 107
+        },
+        {
+          "caller": "UserPlaylistPage",
+          "callee": "setPlaylistsLoading",
+          "lineNumber": 108
+        },
+        {
+          "caller": "UserPlaylistPage",
+          "callee": "setPlaylistsError",
+          "lineNumber": 109
+        },
+        {
+          "caller": "UserPlaylistPage",
+          "callee": "fetchPlaylists",
+          "lineNumber": 111
+        },
+        {
+          "caller": "UserPlaylistPage",
+          "callee": "isCurrent",
+          "lineNumber": 113
+        },
+        {
+          "caller": "UserPlaylistPage",
+          "callee": "setPlaylistsError",
+          "lineNumber": 113
+        },
+        {
+          "caller": "UserPlaylistPage",
+          "callee": "errorMessage",
+          "lineNumber": 113
+        },
+        {
+          "caller": "UserPlaylistPage",
+          "callee": "isCurrent",
+          "lineNumber": 115
+        },
+        {
+          "caller": "UserPlaylistPage",
+          "callee": "setPlaylistsLoading",
+          "lineNumber": 115
+        },
+        {
+          "caller": "UserPlaylistPage",
+          "callee": "useEffect",
+          "lineNumber": 119
+        },
+        {
+          "caller": "UserPlaylistPage",
+          "callee": "loadPlaylists",
+          "lineNumber": 120
+        },
+        {
+          "caller": "UserPlaylistPage",
+          "callee": "useCallback",
+          "lineNumber": 123
+        },
+        {
+          "caller": "UserPlaylistPage",
+          "callee": "captureSessionSnapshot",
+          "lineNumber": 126
+        },
+        {
+          "caller": "isCurrent",
+          "callee": "isSessionSnapshotCurrent",
+          "lineNumber": 130
+        },
+        {
+          "caller": "UserPlaylistPage",
+          "callee": "setSelectedPlaylist",
+          "lineNumber": 132
+        },
+        {
+          "caller": "UserPlaylistPage",
+          "callee": "setItemsLoading",
+          "lineNumber": 133
+        },
+        {
+          "caller": "UserPlaylistPage",
+          "callee": "setItemsError",
+          "lineNumber": 134
+        },
+        {
+          "caller": "UserPlaylistPage",
+          "callee": "setActionError",
+          "lineNumber": 135
+        },
+        {
+          "caller": "UserPlaylistPage",
+          "callee": "setRemovingMusicIds",
+          "lineNumber": 136
+        },
+        {
+          "caller": "UserPlaylistPage",
+          "callee": "setDeletingPlaylist",
+          "lineNumber": 137
+        },
+        {
+          "caller": "UserPlaylistPage",
+          "callee": "setRenamingPlaylist",
+          "lineNumber": 138
+        },
+        {
+          "caller": "UserPlaylistPage",
+          "callee": "setRenameName",
+          "lineNumber": 139
+        },
+        {
+          "caller": "UserPlaylistPage",
+          "callee": "getPlaylistItems",
+          "lineNumber": 141
+        },
+        {
+          "caller": "UserPlaylistPage",
+          "callee": "isCurrent",
+          "lineNumber": 142
+        },
+        {
+          "caller": "UserPlaylistPage",
+          "callee": "setItems",
+          "lineNumber": 142
+        },
+        {
+          "caller": "UserPlaylistPage",
+          "callee": "isCurrent",
+          "lineNumber": 144
+        },
+        {
+          "caller": "UserPlaylistPage",
+          "callee": "setItems",
+          "lineNumber": 145
+        },
+        {
+          "caller": "UserPlaylistPage",
+          "callee": "setItemsError",
+          "lineNumber": 146
+        },
+        {
+          "caller": "UserPlaylistPage",
+          "callee": "errorMessage",
+          "lineNumber": 146
+        },
+        {
+          "caller": "UserPlaylistPage",
+          "callee": "isCurrent",
+          "lineNumber": 149
+        },
+        {
+          "caller": "UserPlaylistPage",
+          "callee": "setItemsLoading",
+          "lineNumber": 149
+        },
+        {
+          "caller": "handleCreate",
+          "callee": "event.preventDefault",
+          "lineNumber": 154
+        },
+        {
+          "caller": "handleCreate",
+          "callee": "newName.trim",
+          "lineNumber": 155
+        },
+        {
+          "caller": "handleCreate",
+          "callee": "setActionError",
+          "lineNumber": 158
+        },
+        {
+          "caller": "handleCreate",
+          "callee": "setCreating",
+          "lineNumber": 159
+        },
+        {
+          "caller": "handleCreate",
+          "callee": "startOperation",
+          "lineNumber": 161
+        },
+        {
+          "caller": "handleCreate",
+          "callee": "captureSessionSnapshot",
+          "lineNumber": 163
+        },
+        {
+          "caller": "isCurrent",
+          "callee": "isOperationCurrent",
+          "lineNumber": 166
+        },
+        {
+          "caller": "isCurrent",
+          "callee": "isSessionSnapshotCurrent",
+          "lineNumber": 167
+        },
+        {
+          "caller": "handleCreate",
+          "callee": "createPlaylist",
+          "lineNumber": 169
+        },
+        {
+          "caller": "handleCreate",
+          "callee": "isCurrent",
+          "lineNumber": 170
+        },
+        {
+          "caller": "handleCreate",
+          "callee": "showSuccess",
+          "lineNumber": 171
+        },
+        {
+          "caller": "handleCreate",
+          "callee": "setShowCreate",
+          "lineNumber": 172
+        },
+        {
+          "caller": "handleCreate",
+          "callee": "setNewName",
+          "lineNumber": 173
+        },
+        {
+          "caller": "handleCreate",
+          "callee": "isCurrent",
+          "lineNumber": 175
+        },
+        {
+          "caller": "handleCreate",
+          "callee": "setActionError",
+          "lineNumber": 175
+        },
+        {
+          "caller": "handleCreate",
+          "callee": "errorMessage",
+          "lineNumber": 175
+        },
+        {
+          "caller": "handleCreate",
+          "callee": "isCurrent",
+          "lineNumber": 177
+        },
+        {
+          "caller": "handleCreate",
+          "callee": "setCreating",
+          "lineNumber": 177
+        },
+        {
+          "caller": "handlePlay",
+          "callee": "captureSessionSnapshot",
+          "lineNumber": 184
+        },
+        {
+          "caller": "handlePlay",
+          "callee": "capturePlayerGeneration",
+          "lineNumber": 185
+        },
+        {
+          "caller": "handlePlay",
+          "callee": "capturePlayerStateRevision",
+          "lineNumber": 186
+        },
+        {
+          "caller": "isActiveRequest",
+          "callee": "isSessionSnapshotCurrent",
+          "lineNumber": 190
+        },
+        {
+          "caller": "canApplyResult",
+          "callee": "isActiveRequest",
+          "lineNumber": 191
+        },
+        {
+          "caller": "canApplyResult",
+          "callee": "isPlayerGenerationCurrent",
+          "lineNumber": 192
+        },
+        {
+          "caller": "canApplyResult",
+          "callee": "capturePlayerStateRevision",
+          "lineNumber": 193
+        },
+        {
+          "caller": "handlePlay",
+          "callee": "setActionError",
+          "lineNumber": 194
+        },
+        {
+          "caller": "handlePlay",
+          "callee": "setPlayingMusicId",
+          "lineNumber": 195
+        },
+        {
+          "caller": "handlePlay",
+          "callee": "getMusicDetail",
+          "lineNumber": 197
+        },
+        {
+          "caller": "handlePlay",
+          "callee": "canApplyResult",
+          "lineNumber": 198
+        },
+        {
+          "caller": "handlePlay",
+          "callee": "play",
+          "lineNumber": 199
+        },
+        {
+          "caller": "handlePlay",
+          "callee": "items.map",
+          "lineNumber": 199
+        },
+        {
+          "caller": "handlePlay",
+          "callee": "playlistItemToMusic",
+          "lineNumber": 200
+        },
+        {
+          "caller": "handlePlay",
+          "callee": "navigate",
+          "lineNumber": 203
+        },
+        {
+          "caller": "handlePlay",
+          "callee": "canApplyResult",
+          "lineNumber": 205
+        },
+        {
+          "caller": "handlePlay",
+          "callee": "setActionError",
+          "lineNumber": 206
+        },
+        {
+          "caller": "handlePlay",
+          "callee": "errorMessage",
+          "lineNumber": 206
+        },
+        {
+          "caller": "handlePlay",
+          "callee": "isActiveRequest",
+          "lineNumber": 209
+        },
+        {
+          "caller": "handlePlay",
+          "callee": "setPlayingMusicId",
+          "lineNumber": 209
+        },
+        {
+          "caller": "handleRemove",
+          "callee": "removingMusicIds.has",
+          "lineNumber": 214
+        },
+        {
+          "caller": "handleRemove",
+          "callee": "window.confirm",
+          "lineNumber": 215
+        },
+        {
+          "caller": "handleRemove",
+          "callee": "setActionError",
+          "lineNumber": 217
+        },
+        {
+          "caller": "handleRemove",
+          "callee": "setRemovingMusicIds",
+          "lineNumber": 218
+        },
+        {
+          "caller": "handleRemove",
+          "callee": "new Set(current).add",
+          "lineNumber": 218
+        },
+        {
+          "caller": "handleRemove",
+          "callee": "startOperation",
+          "lineNumber": 220
+        },
+        {
+          "caller": "handleRemove",
+          "callee": "captureSessionSnapshot",
+          "lineNumber": 223
+        },
+        {
+          "caller": "isCurrent",
+          "callee": "isOperationCurrent",
+          "lineNumber": 227
+        },
+        {
+          "caller": "isCurrent",
+          "callee": "isSessionSnapshotCurrent",
+          "lineNumber": 228
+        },
+        {
+          "caller": "handleRemove",
+          "callee": "removeFromPlaylist",
+          "lineNumber": 230
+        },
+        {
+          "caller": "handleRemove",
+          "callee": "isCurrent",
+          "lineNumber": 231
+        },
+        {
+          "caller": "handleRemove",
+          "callee": "setItems",
+          "lineNumber": 232
+        },
+        {
+          "caller": "handleRemove",
+          "callee": "current.filter",
+          "lineNumber": 232
+        },
+        {
+          "caller": "handleRemove",
+          "callee": "showSuccess",
+          "lineNumber": 233
+        },
+        {
+          "caller": "handleRemove",
+          "callee": "isCurrent",
+          "lineNumber": 235
+        },
+        {
+          "caller": "handleRemove",
+          "callee": "setActionError",
+          "lineNumber": 235
+        },
+        {
+          "caller": "handleRemove",
+          "callee": "errorMessage",
+          "lineNumber": 235
+        },
+        {
+          "caller": "handleRemove",
+          "callee": "isCurrent",
+          "lineNumber": 237
+        },
+        {
+          "caller": "handleRemove",
+          "callee": "setRemovingMusicIds",
+          "lineNumber": 237
+        },
+        {
+          "caller": "handleRemove",
+          "callee": "next.delete",
+          "lineNumber": 239
+        },
+        {
+          "caller": "handleDeletePlaylist",
+          "callee": "window.confirm",
+          "lineNumber": 247
+        },
+        {
+          "caller": "handleDeletePlaylist",
+          "callee": "setActionError",
+          "lineNumber": 250
+        },
+        {
+          "caller": "handleDeletePlaylist",
+          "callee": "setDeletingPlaylist",
+          "lineNumber": 251
+        },
+        {
+          "caller": "handleDeletePlaylist",
+          "callee": "startOperation",
+          "lineNumber": 253
+        },
+        {
+          "caller": "handleDeletePlaylist",
+          "callee": "captureSessionSnapshot",
+          "lineNumber": 256
+        },
+        {
+          "caller": "isCurrent",
+          "callee": "isOperationCurrent",
+          "lineNumber": 260
+        },
+        {
+          "caller": "isCurrent",
+          "callee": "isSessionSnapshotCurrent",
+          "lineNumber": 261
+        },
+        {
+          "caller": "handleDeletePlaylist",
+          "callee": "deletePlaylist",
+          "lineNumber": 263
+        },
+        {
+          "caller": "handleDeletePlaylist",
+          "callee": "isCurrent",
+          "lineNumber": 264
+        },
+        {
+          "caller": "handleDeletePlaylist",
+          "callee": "setSelectedPlaylist",
+          "lineNumber": 265
+        },
+        {
+          "caller": "handleDeletePlaylist",
+          "callee": "setItems",
+          "lineNumber": 266
+        },
+        {
+          "caller": "handleDeletePlaylist",
+          "callee": "showSuccess",
+          "lineNumber": 267
+        },
+        {
+          "caller": "handleDeletePlaylist",
+          "callee": "isCurrent",
+          "lineNumber": 269
+        },
+        {
+          "caller": "handleDeletePlaylist",
+          "callee": "setActionError",
+          "lineNumber": 269
+        },
+        {
+          "caller": "handleDeletePlaylist",
+          "callee": "errorMessage",
+          "lineNumber": 269
+        },
+        {
+          "caller": "handleDeletePlaylist",
+          "callee": "isCurrent",
+          "lineNumber": 271
+        },
+        {
+          "caller": "handleDeletePlaylist",
+          "callee": "setDeletingPlaylist",
+          "lineNumber": 271
+        },
+        {
+          "caller": "handleRenamePlaylist",
+          "callee": "event.preventDefault",
+          "lineNumber": 276
+        },
+        {
+          "caller": "handleRenamePlaylist",
+          "callee": "renameName.trim",
+          "lineNumber": 277
+        },
+        {
+          "caller": "handleRenamePlaylist",
+          "callee": "startOperation",
+          "lineNumber": 280
+        },
+        {
+          "caller": "handleRenamePlaylist",
+          "callee": "captureSessionSnapshot",
+          "lineNumber": 283
+        },
+        {
+          "caller": "handleRenamePlaylist",
+          "callee": "renameName.trim",
+          "lineNumber": 284
+        },
+        {
+          "caller": "isCurrent",
+          "callee": "isOperationCurrent",
+          "lineNumber": 288
+        },
+        {
+          "caller": "isCurrent",
+          "callee": "isSessionSnapshotCurrent",
+          "lineNumber": 289
+        },
+        {
+          "caller": "handleRenamePlaylist",
+          "callee": "setRenamingPlaylist",
+          "lineNumber": 290
+        },
+        {
+          "caller": "handleRenamePlaylist",
+          "callee": "setActionError",
+          "lineNumber": 291
+        },
+        {
+          "caller": "handleRenamePlaylist",
+          "callee": "renamePlaylist",
+          "lineNumber": 293
+        },
+        {
+          "caller": "handleRenamePlaylist",
+          "callee": "isCurrent",
+          "lineNumber": 294
+        },
+        {
+          "caller": "handleRenamePlaylist",
+          "callee": "setSelectedPlaylist",
+          "lineNumber": 295
+        },
+        {
+          "caller": "handleRenamePlaylist",
+          "callee": "setRenameName",
+          "lineNumber": 296
+        },
+        {
+          "caller": "handleRenamePlaylist",
+          "callee": "showSuccess",
+          "lineNumber": 297
+        },
+        {
+          "caller": "handleRenamePlaylist",
+          "callee": "isCurrent",
+          "lineNumber": 299
+        },
+        {
+          "caller": "handleRenamePlaylist",
+          "callee": "setActionError",
+          "lineNumber": 299
+        },
+        {
+          "caller": "handleRenamePlaylist",
+          "callee": "errorMessage",
+          "lineNumber": 299
+        },
+        {
+          "caller": "handleRenamePlaylist",
+          "callee": "isCurrent",
+          "lineNumber": 301
+        },
+        {
+          "caller": "handleRenamePlaylist",
+          "callee": "setRenamingPlaylist",
+          "lineNumber": 301
+        },
+        {
+          "caller": "UserPlaylistPage",
+          "callee": "setShowCreate",
+          "lineNumber": 313
+        },
+        {
+          "caller": "UserPlaylistPage",
+          "callee": "handleCreate",
+          "lineNumber": 322
+        },
+        {
+          "caller": "UserPlaylistPage",
+          "callee": "setNewName",
+          "lineNumber": 330
+        },
+        {
+          "caller": "UserPlaylistPage",
+          "callee": "newName.trim",
+          "lineNumber": 334
+        },
+        {
+          "caller": "UserPlaylistPage",
+          "callee": "loadPlaylists",
+          "lineNumber": 345
+        },
+        {
+          "caller": "UserPlaylistPage",
+          "callee": "userPlaylists.map",
+          "lineNumber": 351
+        },
+        {
+          "caller": "UserPlaylistPage",
+          "callee": "toPlaylist",
+          "lineNumber": 352
+        },
+        {
+          "caller": "UserPlaylistPage",
+          "callee": "loadPlaylistItems",
+          "lineNumber": 358
+        },
+        {
+          "caller": "UserPlaylistPage",
+          "callee": "loadPlaylistItems",
+          "lineNumber": 381
+        },
+        {
+          "caller": "UserPlaylistPage",
+          "callee": "setRenameName",
+          "lineNumber": 384
+        },
+        {
+          "caller": "UserPlaylistPage",
+          "callee": "handleDeletePlaylist",
+          "lineNumber": 384
+        },
+        {
+          "caller": "UserPlaylistPage",
+          "callee": "handleRenamePlaylist",
+          "lineNumber": 384
+        },
+        {
+          "caller": "UserPlaylistPage",
+          "callee": "setRenameName",
+          "lineNumber": 384
+        },
+        {
+          "caller": "UserPlaylistPage",
+          "callee": "renameName.trim",
+          "lineNumber": 384
+        },
+        {
+          "caller": "UserPlaylistPage",
+          "callee": "setRenameName",
+          "lineNumber": 389
+        },
+        {
+          "caller": "UserPlaylistPage",
+          "callee": "handleDeletePlaylist",
+          "lineNumber": 389
+        },
+        {
+          "caller": "UserPlaylistPage",
+          "callee": "handleRenamePlaylist",
+          "lineNumber": 391
+        },
+        {
+          "caller": "UserPlaylistPage",
+          "callee": "setRenameName",
+          "lineNumber": 391
+        },
+        {
+          "caller": "UserPlaylistPage",
+          "callee": "renameName.trim",
+          "lineNumber": 391
+        },
+        {
+          "caller": "UserPlaylistPage",
+          "callee": "items.map",
+          "lineNumber": 393
+        },
+        {
+          "caller": "UserPlaylistPage",
+          "callee": "getCoverPlaceholder",
+          "lineNumber": 399
+        },
+        {
+          "caller": "UserPlaylistPage",
+          "callee": "removingMusicIds.has",
+          "lineNumber": 412
+        },
+        {
+          "caller": "UserPlaylistPage",
+          "callee": "handlePlay",
+          "lineNumber": 413
+        },
+        {
+          "caller": "UserPlaylistPage",
+          "callee": "removingMusicIds.has",
+          "lineNumber": 422
+        },
+        {
+          "caller": "UserPlaylistPage",
+          "callee": "handleRemove",
+          "lineNumber": 423
+        },
+        {
+          "caller": "UserPlaylistPage",
+          "callee": "removingMusicIds.has",
+          "lineNumber": 427
+        }
+      ],
+      "metrics": {
+        "importCount": 8,
+        "exportCount": 1,
+        "functionCount": 4,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "frontend/src/session/clearUserSession.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 11,
+      "nonEmptyLines": 10,
+      "functions": [
+        {
+          "name": "clearUserSession",
+          "startLine": 6,
+          "endLine": 11,
+          "params": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "clearUserSession",
+          "line": 6,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "clearUserSession",
+          "callee": "useAuthStore.getState().reset",
+          "lineNumber": 7
+        },
+        {
+          "caller": "clearUserSession",
+          "callee": "useAuthStore.getState",
+          "lineNumber": 7
+        },
+        {
+          "caller": "clearUserSession",
+          "callee": "useMusicStore.getState().reset",
+          "lineNumber": 8
+        },
+        {
+          "caller": "clearUserSession",
+          "callee": "useMusicStore.getState",
+          "lineNumber": 8
+        },
+        {
+          "caller": "clearUserSession",
+          "callee": "usePlayerStore.getState().reset",
+          "lineNumber": 9
+        },
+        {
+          "caller": "clearUserSession",
+          "callee": "usePlayerStore.getState",
+          "lineNumber": 9
+        },
+        {
+          "caller": "clearUserSession",
+          "callee": "useToastStore.getState().reset",
+          "lineNumber": 10
+        },
+        {
+          "caller": "clearUserSession",
+          "callee": "useToastStore.getState",
+          "lineNumber": 10
+        }
+      ],
+      "metrics": {
+        "importCount": 4,
+        "exportCount": 1,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "frontend/src/stores/music.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 214,
+      "nonEmptyLines": 204,
+      "functions": [
+        {
+          "name": "startMutation",
+          "startLine": 40,
+          "endLine": 44,
+          "params": [
+            "key"
+          ]
+        },
+        {
+          "name": "isMutationCurrent",
+          "startLine": 46,
+          "endLine": 48,
+          "params": [
+            "key",
+            "id"
+          ]
+        },
+        {
+          "name": "errorMessage",
+          "startLine": 59,
+          "endLine": 61,
+          "params": [
+            "error",
+            "fallback"
+          ]
+        },
+        {
+          "name": "toStoredPlaylist",
+          "startLine": 63,
+          "endLine": 69,
+          "params": [
+            "playlist"
+          ]
+        },
+        {
+          "name": "invalidatePendingPlaylistPlayback",
+          "startLine": 71,
+          "endLine": 73,
+          "params": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "useMusicStore",
+          "line": 75,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "startMutation",
+          "callee": "mutationIds.get",
+          "lineNumber": 41
+        },
+        {
+          "caller": "startMutation",
+          "callee": "mutationIds.set",
+          "lineNumber": 42
+        },
+        {
+          "caller": "isMutationCurrent",
+          "callee": "mutationIds.get",
+          "lineNumber": 47
+        },
+        {
+          "caller": "invalidatePendingPlaylistPlayback",
+          "callee": "usePlayerStore.setState",
+          "lineNumber": 72
+        }
+      ],
+      "metrics": {
+        "importCount": 4,
+        "exportCount": 1,
+        "functionCount": 5,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "frontend/src/stores/player.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 193,
+      "nonEmptyLines": 180,
+      "functions": [
+        {
+          "name": "capturePlayerGeneration",
+          "startLine": 51,
+          "endLine": 53,
+          "params": []
+        },
+        {
+          "name": "isPlayerGenerationCurrent",
+          "startLine": 55,
+          "endLine": 57,
+          "params": [
+            "generation"
+          ]
+        },
+        {
+          "name": "capturePlayerStateRevision",
+          "startLine": 59,
+          "endLine": 61,
+          "params": []
+        },
+        {
+          "name": "singleSource",
+          "startLine": 63,
+          "endLine": 63,
+          "params": []
+        },
+        {
+          "name": "sameSource",
+          "startLine": 65,
+          "endLine": 67,
+          "params": [
+            "left",
+            "right"
+          ]
+        },
+        {
+          "name": "copyEntry",
+          "startLine": 69,
+          "endLine": 74,
+          "params": [
+            "entry"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "capturePlayerGeneration",
+          "line": 51,
+          "isDefault": false
+        },
+        {
+          "name": "isPlayerGenerationCurrent",
+          "line": 55,
+          "isDefault": false
+        },
+        {
+          "name": "capturePlayerStateRevision",
+          "line": 59,
+          "isDefault": false
+        },
+        {
+          "name": "usePlayerStore",
+          "line": 76,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "capturePlayerStateRevision",
+          "callee": "usePlayerStore.getState",
+          "lineNumber": 60
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 4,
+        "functionCount": 6,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "frontend/src/stores/toast.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 57,
+      "nonEmptyLines": 52,
+      "functions": [
+        {
+          "name": "scheduleRemoval",
+          "startLine": 21,
+          "endLine": 29,
+          "params": [
+            "id",
+            "delay",
+            "generation"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "useToastStore",
+          "line": 31,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "scheduleRemoval",
+          "callee": "setTimeout",
+          "lineNumber": 22
+        },
+        {
+          "caller": "scheduleRemoval",
+          "callee": "useToastStore.setState",
+          "lineNumber": 24
+        },
+        {
+          "caller": "scheduleRemoval",
+          "callee": "state.messages.filter",
+          "lineNumber": 25
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 1,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "frontend/tests/components/AudioPlayer.test.tsx",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 285,
+      "nonEmptyLines": 249,
+      "functions": [
+        {
+          "name": "setTrack",
+          "startLine": 41,
+          "endLine": 51,
+          "params": [
+            "currentTrack",
+            "playing"
+          ]
+        },
+        {
+          "name": "deferred",
+          "startLine": 53,
+          "endLine": 61,
+          "params": []
+        },
+        {
+          "name": "renderPlayer",
+          "startLine": 63,
+          "endLine": 69,
+          "params": [
+            "mode",
+            "route"
+          ]
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "setTrack",
+          "callee": "usePlayerStore.setState",
+          "lineNumber": 42
+        },
+        {
+          "caller": "renderPlayer",
+          "callee": "render",
+          "lineNumber": 64
+        },
+        {
+          "caller": "expectReleaseSequence",
+          "callee": "teardownEvents.indexOf",
+          "lineNumber": 227
+        },
+        {
+          "caller": "expectReleaseSequence",
+          "callee": "expect(revokeIndex).toBeGreaterThanOrEqual",
+          "lineNumber": 228
+        },
+        {
+          "caller": "expectReleaseSequence",
+          "callee": "expect",
+          "lineNumber": 228
+        },
+        {
+          "caller": "expectReleaseSequence",
+          "callee": "expect(teardownEvents.slice(revokeIndex - 3, revokeIndex + 1)).toEqual",
+          "lineNumber": 229
+        },
+        {
+          "caller": "expectReleaseSequence",
+          "callee": "expect",
+          "lineNumber": 229
+        },
+        {
+          "caller": "expectReleaseSequence",
+          "callee": "teardownEvents.slice",
+          "lineNumber": 229
+        }
+      ],
+      "metrics": {
+        "importCount": 3,
+        "exportCount": 0,
+        "functionCount": 3,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "frontend/tests/components/MusicCard.test.tsx",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 37,
+      "nonEmptyLines": 34,
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "frontend/tests/lib/coverPlaceholder.test.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 35,
+      "nonEmptyLines": 30,
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "frontend/tests/pages/FileListPage.test.tsx",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 347,
+      "nonEmptyLines": 290,
+      "functions": [
+        {
+          "name": "deferred",
+          "startLine": 38,
+          "endLine": 44,
+          "params": []
+        }
+      ],
+      "metrics": {
+        "importCount": 3,
+        "exportCount": 0,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "frontend/tests/pages/MusicLibraryPage.test.tsx",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 264,
+      "nonEmptyLines": 232,
+      "functions": [
+        {
+          "name": "music",
+          "startLine": 23,
+          "endLine": 33,
+          "params": [
+            "musicId"
+          ]
+        },
+        {
+          "name": "deferred",
+          "startLine": 41,
+          "endLine": 49,
+          "params": []
+        },
+        {
+          "name": "playable",
+          "startLine": 51,
+          "endLine": 53,
+          "params": [
+            "musicId"
+          ]
+        },
+        {
+          "name": "renderPage",
+          "startLine": 55,
+          "endLine": 66,
+          "params": []
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "playable",
+          "callee": "music",
+          "lineNumber": 52
+        },
+        {
+          "caller": "renderPage",
+          "callee": "render",
+          "lineNumber": 56
+        }
+      ],
+      "metrics": {
+        "importCount": 7,
+        "exportCount": 0,
+        "functionCount": 4,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "frontend/tests/pages/PlayerPage.test.tsx",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 290,
+      "nonEmptyLines": 248,
+      "functions": [
+        {
+          "name": "deferred",
+          "startLine": 25,
+          "endLine": 33,
+          "params": []
+        },
+        {
+          "name": "renderPlayerPage",
+          "startLine": 35,
+          "endLine": 45,
+          "params": [
+            "path"
+          ]
+        },
+        {
+          "name": "playableTrack",
+          "startLine": 277,
+          "endLine": 290,
+          "params": [
+            "musicId"
+          ]
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "renderPlayerPage",
+          "callee": "render",
+          "lineNumber": 36
+        }
+      ],
+      "metrics": {
+        "importCount": 4,
+        "exportCount": 0,
+        "functionCount": 3,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "frontend/tests/pages/UserPlaylistPage.test.tsx",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 511,
+      "nonEmptyLines": 449,
+      "functions": [
+        {
+          "name": "deferred",
+          "startLine": 31,
+          "endLine": 39,
+          "params": []
+        },
+        {
+          "name": "playable",
+          "startLine": 41,
+          "endLine": 54,
+          "params": [
+            "musicId"
+          ]
+        },
+        {
+          "name": "renderPage",
+          "startLine": 56,
+          "endLine": 67,
+          "params": []
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "renderPage",
+          "callee": "render",
+          "lineNumber": 57
+        }
+      ],
+      "metrics": {
+        "importCount": 6,
+        "exportCount": 0,
+        "functionCount": 3,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "frontend/tests/session/clearUserSession.test.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 166,
+      "nonEmptyLines": 148,
+      "metrics": {
+        "importCount": 8,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "frontend/tests/stores/music.test.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 485,
+      "nonEmptyLines": 407,
+      "functions": [
+        {
+          "name": "deferred",
+          "startLine": 26,
+          "endLine": 34,
+          "params": []
+        },
+        {
+          "name": "response",
+          "startLine": 36,
+          "endLine": 53,
+          "params": [
+            "title"
+          ]
+        }
+      ],
+      "metrics": {
+        "importCount": 3,
+        "exportCount": 0,
+        "functionCount": 2,
+        "classCount": 0
+      }
+    }
+  ]
+}

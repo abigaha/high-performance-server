@@ -1,0 +1,43 @@
+{
+  "projectRoot": "/home/jmj/work-space/projects/high-performance-server",
+  "batchFiles": [
+    {
+      "path": ".env.example",
+      "language": "config",
+      "sizeLines": 13,
+      "fileCategory": "config"
+    },
+    {
+      "path": "README.md",
+      "language": "markdown",
+      "sizeLines": 551,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "config.json",
+      "language": "json",
+      "sizeLines": 29,
+      "fileCategory": "config"
+    },
+    {
+      "path": "goal.md",
+      "language": "markdown",
+      "sizeLines": 738,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "setup.sh",
+      "language": "shell",
+      "sizeLines": 180,
+      "fileCategory": "script"
+    }
+  ],
+  "batchImportData": {
+    ".env.example": [],
+    "README.md": [],
+    "config.json": [],
+    "goal.md": [],
+    "setup.sh": []
+  },
+  "neighborMap": {}
+}

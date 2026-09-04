@@ -1,0 +1,992 @@
+{
+ "nodes": [
+  {
+   "id": "file:core/src/vip_admin_routes.cpp",
+   "type": "file",
+   "name": "core/src/vip_admin_routes.cpp",
+   "summary": "实现 VIP 会员与管理 HTTP 路由：套餐查询、激活会员、管理员授予/撤销 VIP、用户列表与查询解析。",
+   "tags": [
+    "vip",
+    "admin",
+    "routes",
+    "membership",
+    "http"
+   ],
+   "complexity": "complex",
+   "filePath": "core/src/vip_admin_routes.cpp"
+  },
+  {
+   "id": "function:core/src/vip_admin_routes.cpp:json_error",
+   "type": "function",
+   "name": "json_error",
+   "summary": "构造 VIP/管理接口的 JSON 错误响应（按状态码映射消息）。",
+   "tags": [
+    "vip",
+    "error",
+    "json",
+    "http"
+   ],
+   "complexity": "moderate",
+   "filePath": "core/src/vip_admin_routes.cpp",
+   "lineRange": [
+    26,
+    57
+   ]
+  },
+  {
+   "id": "function:core/src/vip_admin_routes.cpp:require_authenticated",
+   "type": "function",
+   "name": "require_authenticated",
+   "summary": "校验请求认证，失败返回 401 错误。",
+   "tags": [
+    "auth",
+    "middleware",
+    "vip"
+   ],
+   "complexity": "simple",
+   "filePath": "core/src/vip_admin_routes.cpp",
+   "lineRange": [
+    66,
+    76
+   ]
+  },
+  {
+   "id": "function:core/src/vip_admin_routes.cpp:require_admin",
+   "type": "function",
+   "name": "require_admin",
+   "summary": "校验请求认证且角色为管理员，否则返回 403。",
+   "tags": [
+    "admin",
+    "middleware",
+    "role"
+   ],
+   "complexity": "simple",
+   "filePath": "core/src/vip_admin_routes.cpp",
+   "lineRange": [
+    78,
+    87
+   ]
+  },
+  {
+   "id": "function:core/src/vip_admin_routes.cpp:role_name",
+   "type": "function",
+   "name": "role_name",
+   "summary": "将角色枚举映射为字符串。",
+   "tags": [
+    "role",
+    "name",
+    "mapping"
+   ],
+   "complexity": "simple",
+   "filePath": "core/src/vip_admin_routes.cpp",
+   "lineRange": [
+    89,
+    101
+   ]
+  },
+  {
+   "id": "function:core/src/vip_admin_routes.cpp:vip_status_name",
+   "type": "function",
+   "name": "vip_status_name",
+   "summary": "将 VIP 状态映射为字符串。",
+   "tags": [
+    "vip",
+    "status",
+    "mapping"
+   ],
+   "complexity": "simple",
+   "filePath": "core/src/vip_admin_routes.cpp",
+   "lineRange": [
+    103,
+    113
+   ]
+  },
+  {
+   "id": "function:core/src/vip_admin_routes.cpp:remaining_seconds",
+   "type": "function",
+   "name": "remaining_seconds",
+   "summary": "计算会员到期剩余秒数（支持永久会员）。",
+   "tags": [
+    "vip",
+    "expiry",
+    "duration"
+   ],
+   "complexity": "moderate",
+   "filePath": "core/src/vip_admin_routes.cpp",
+   "lineRange": [
+    122,
+    142
+   ]
+  },
+  {
+   "id": "function:core/src/vip_admin_routes.cpp:admin_user_json",
+   "type": "function",
+   "name": "admin_user_json",
+   "summary": "将用户记录序列化为管理员视角的会员信息 JSON。",
+   "tags": [
+    "admin",
+    "serialize",
+    "user",
+    "vip"
+   ],
+   "complexity": "moderate",
+   "filePath": "core/src/vip_admin_routes.cpp",
+   "lineRange": [
+    153,
+    166
+   ]
+  },
+  {
+   "id": "function:core/src/vip_admin_routes.cpp:parse_duration",
+   "type": "function",
+   "name": "parse_duration",
+   "summary": "解析 VIP 时长参数（秒数或永久），校验取值范围。",
+   "tags": [
+    "vip",
+    "duration",
+    "parse",
+    "validation"
+   ],
+   "complexity": "moderate",
+   "filePath": "core/src/vip_admin_routes.cpp",
+   "lineRange": [
+    168,
+    185
+   ]
+  },
+  {
+   "id": "function:core/src/vip_admin_routes.cpp:parse_positive_id",
+   "type": "function",
+   "name": "parse_positive_id",
+   "summary": "从请求参数解析正整数用户 id。",
+   "tags": [
+    "parse",
+    "id",
+    "validation"
+   ],
+   "complexity": "moderate",
+   "filePath": "core/src/vip_admin_routes.cpp",
+   "lineRange": [
+    187,
+    202
+   ]
+  },
+  {
+   "id": "function:core/src/vip_admin_routes.cpp:url_decode",
+   "type": "function",
+   "name": "url_decode",
+   "summary": "URL 百分号解码（含 UTF-8 处理）。",
+   "tags": [
+    "url",
+    "decode",
+    "percent"
+   ],
+   "complexity": "moderate",
+   "filePath": "core/src/vip_admin_routes.cpp",
+   "lineRange": [
+    204,
+    240
+   ]
+  },
+  {
+   "id": "class:core/src/vip_admin_routes.cpp:AdminQuery",
+   "type": "class",
+   "name": "AdminQuery",
+   "summary": "管理员用户列表查询结构体：查询词、偏移与数量。",
+   "tags": [
+    "admin",
+    "query",
+    "pagination",
+    "struct"
+   ],
+   "complexity": "simple",
+   "filePath": "core/src/vip_admin_routes.cpp",
+   "lineRange": [
+    242,
+    246
+   ]
+  },
+  {
+   "id": "function:core/src/vip_admin_routes.cpp:parse_admin_query",
+   "type": "function",
+   "name": "parse_admin_query",
+   "summary": "解析管理员查询字符串为 AdminQuery（查询词/偏移/数量）。",
+   "tags": [
+    "admin",
+    "query",
+    "parse",
+    "pagination"
+   ],
+   "complexity": "moderate",
+   "filePath": "core/src/vip_admin_routes.cpp",
+   "lineRange": [
+    258,
+    292
+   ]
+  },
+  {
+   "id": "function:core/src/vip_admin_routes.cpp:mutation_error",
+   "type": "function",
+   "name": "mutation_error",
+   "summary": "将数据库写操作错误映射为 HTTP 错误响应。",
+   "tags": [
+    "admin",
+    "error",
+    "mapping",
+    "mutation"
+   ],
+   "complexity": "moderate",
+   "filePath": "core/src/vip_admin_routes.cpp",
+   "lineRange": [
+    294,
+    311
+   ]
+  },
+  {
+   "id": "function:core/src/vip_admin_routes.cpp:handle_get_vip_plans",
+   "type": "function",
+   "name": "handle_get_vip_plans",
+   "summary": "处理查询 VIP 套餐列表请求。",
+   "tags": [
+    "vip",
+    "plans",
+    "handler"
+   ],
+   "complexity": "moderate",
+   "filePath": "core/src/vip_admin_routes.cpp",
+   "lineRange": [
+    313,
+    326
+   ]
+  },
+  {
+   "id": "function:core/src/vip_admin_routes.cpp:handle_get_vip_membership",
+   "type": "function",
+   "name": "handle_get_vip_membership",
+   "summary": "处理查询当前用户会员信息请求。",
+   "tags": [
+    "vip",
+    "membership",
+    "handler"
+   ],
+   "complexity": "moderate",
+   "filePath": "core/src/vip_admin_routes.cpp",
+   "lineRange": [
+    328,
+    361
+   ]
+  },
+  {
+   "id": "function:core/src/vip_admin_routes.cpp:handle_activate_vip",
+   "type": "function",
+   "name": "handle_activate_vip",
+   "summary": "处理激活 VIP 请求（按套餐时长更新会员状态）。",
+   "tags": [
+    "vip",
+    "activate",
+    "handler"
+   ],
+   "complexity": "moderate",
+   "filePath": "core/src/vip_admin_routes.cpp",
+   "lineRange": [
+    363,
+    389
+   ]
+  },
+  {
+   "id": "function:core/src/vip_admin_routes.cpp:handle_admin_list_users",
+   "type": "function",
+   "name": "handle_admin_list_users",
+   "summary": "处理管理员列出用户请求（查询词、分页与会员信息）。",
+   "tags": [
+    "admin",
+    "users",
+    "list",
+    "handler"
+   ],
+   "complexity": "moderate",
+   "filePath": "core/src/vip_admin_routes.cpp",
+   "lineRange": [
+    391,
+    423
+   ]
+  },
+  {
+   "id": "function:core/src/vip_admin_routes.cpp:handle_admin_grant_vip",
+   "type": "function",
+   "name": "handle_admin_grant_vip",
+   "summary": "处理管理员授予 VIP 请求。",
+   "tags": [
+    "admin",
+    "vip",
+    "grant",
+    "handler"
+   ],
+   "complexity": "moderate",
+   "filePath": "core/src/vip_admin_routes.cpp",
+   "lineRange": [
+    425,
+    451
+   ]
+  },
+  {
+   "id": "function:core/src/vip_admin_routes.cpp:handle_admin_revoke_vip",
+   "type": "function",
+   "name": "handle_admin_revoke_vip",
+   "summary": "处理管理员撤销 VIP 请求。",
+   "tags": [
+    "admin",
+    "vip",
+    "revoke",
+    "handler"
+   ],
+   "complexity": "moderate",
+   "filePath": "core/src/vip_admin_routes.cpp",
+   "lineRange": [
+    453,
+    474
+   ]
+  },
+  {
+   "id": "function:core/src/vip_admin_routes.cpp:register_vip_routes",
+   "type": "function",
+   "name": "register_vip_routes",
+   "summary": "注册 VIP 路由到 HTTP 服务器。",
+   "tags": [
+    "vip",
+    "routes",
+    "register"
+   ],
+   "complexity": "moderate",
+   "filePath": "core/src/vip_admin_routes.cpp",
+   "lineRange": [
+    478,
+    487
+   ]
+  },
+  {
+   "id": "function:core/src/vip_admin_routes.cpp:register_admin_routes",
+   "type": "function",
+   "name": "register_admin_routes",
+   "summary": "注册管理员路由到 HTTP 服务器。",
+   "tags": [
+    "admin",
+    "routes",
+    "register"
+   ],
+   "complexity": "moderate",
+   "filePath": "core/src/vip_admin_routes.cpp",
+   "lineRange": [
+    489,
+    499
+   ]
+  },
+  {
+   "id": "file:db/include/detail/mysql_field_to_string.h",
+   "type": "file",
+   "name": "db/include/detail/mysql_field_to_string.h",
+   "summary": "声明 MySQL field_view 转字符串辅助函数（hps::detail 命名空间）。",
+   "tags": [
+    "mysql",
+    "field",
+    "string",
+    "detail",
+    "header"
+   ],
+   "complexity": "simple",
+   "filePath": "db/include/detail/mysql_field_to_string.h"
+  },
+  {
+   "id": "function:db/include/detail/mysql_field_to_string.h:mysql_field_to_string",
+   "type": "function",
+   "name": "mysql_field_to_string",
+   "summary": "将 MySQL field_view 值转换为字符串（hps::detail 内部辅助）。",
+   "tags": [
+    "mysql",
+    "field",
+    "string",
+    "convert"
+   ],
+   "complexity": "simple",
+   "filePath": "db/include/detail/mysql_field_to_string.h",
+   "lineRange": [
+    11,
+    11
+   ]
+  },
+  {
+   "id": "file:db/include/playlist_validation.h",
+   "type": "file",
+   "name": "db/include/playlist_validation.h",
+   "summary": "内联实现歌单文本校验：按 UTF-8 码点长度约束校验名称与描述。",
+   "tags": [
+    "playlist",
+    "validation",
+    "utf8",
+    "header",
+    "inline"
+   ],
+   "complexity": "simple",
+   "filePath": "db/include/playlist_validation.h"
+  },
+  {
+   "id": "function:db/include/playlist_validation.h:has_utf8_code_point_length",
+   "type": "function",
+   "name": "has_utf8_code_point_length",
+   "summary": "校验 UTF-8 字符串码点长度在最小与最大值之间。",
+   "tags": [
+    "utf8",
+    "validation",
+    "length"
+   ],
+   "complexity": "moderate",
+   "filePath": "db/include/playlist_validation.h",
+   "lineRange": [
+    8,
+    47
+   ]
+  },
+  {
+   "id": "function:db/include/playlist_validation.h:is_valid_playlist_text",
+   "type": "function",
+   "name": "is_valid_playlist_text",
+   "summary": "校验歌单名称与描述的码点长度约束。",
+   "tags": [
+    "playlist",
+    "validation",
+    "text"
+   ],
+   "complexity": "simple",
+   "filePath": "db/include/playlist_validation.h",
+   "lineRange": [
+    49,
+    51
+   ]
+  },
+  {
+   "id": "file:db/include/prepared_statement_guard.h",
+   "type": "file",
+   "name": "db/include/prepared_statement_guard.h",
+   "summary": "模板 RAII 守卫：作用域内自动关闭 MySQL 预处理语句句柄（含异常路径），禁止拷贝。",
+   "tags": [
+    "mysql",
+    "prepared-statement",
+    "raii",
+    "guard",
+    "header"
+   ],
+   "complexity": "simple",
+   "filePath": "db/include/prepared_statement_guard.h"
+  },
+  {
+   "id": "class:db/include/prepared_statement_guard.h:PreparedStatementGuard",
+   "type": "class",
+   "name": "PreparedStatementGuard",
+   "summary": "模板 RAII 守卫类：析构时自动关闭 MySQL 预处理语句句柄（含异常路径），禁止拷贝。",
+   "tags": [
+    "mysql",
+    "prepared-statement",
+    "raii",
+    "guard"
+   ],
+   "complexity": "simple",
+   "filePath": "db/include/prepared_statement_guard.h",
+   "lineRange": [
+    11,
+    38
+   ]
+  },
+  {
+   "id": "file:core/xmake.lua",
+   "type": "file",
+   "name": "core/xmake.lua",
+   "summary": "xmake 构建目标定义：编译 core/src 全部源文件为 high-performance-server 可执行文件，依赖 logger/http/db/file-system 库。",
+   "tags": [
+    "build",
+    "xmake",
+    "target",
+    "link"
+   ],
+   "complexity": "simple",
+   "filePath": "core/xmake.lua"
+  }
+ ],
+ "edges": [
+  {
+   "source": "function:core/src/vip_admin_routes.cpp:require_authenticated",
+   "target": "function:core/src/vip_admin_routes.cpp:json_error",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:core/src/vip_admin_routes.cpp:require_admin",
+   "target": "function:core/src/vip_admin_routes.cpp:require_authenticated",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:core/src/vip_admin_routes.cpp:require_admin",
+   "target": "function:core/src/vip_admin_routes.cpp:json_error",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:core/src/vip_admin_routes.cpp:admin_user_json",
+   "target": "function:core/src/vip_admin_routes.cpp:role_name",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:core/src/vip_admin_routes.cpp:admin_user_json",
+   "target": "function:core/src/vip_admin_routes.cpp:vip_status_name",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:core/src/vip_admin_routes.cpp:parse_duration",
+   "target": "function:core/src/vip_admin_routes.cpp:json_error",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:core/src/vip_admin_routes.cpp:parse_positive_id",
+   "target": "function:core/src/vip_admin_routes.cpp:json_error",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:core/src/vip_admin_routes.cpp:parse_admin_query",
+   "target": "function:core/src/vip_admin_routes.cpp:url_decode",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:core/src/vip_admin_routes.cpp:mutation_error",
+   "target": "function:core/src/vip_admin_routes.cpp:json_error",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:core/src/vip_admin_routes.cpp:handle_get_vip_plans",
+   "target": "function:core/src/vip_admin_routes.cpp:require_authenticated",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:core/src/vip_admin_routes.cpp:handle_get_vip_plans",
+   "target": "function:core/src/vip_admin_routes.cpp:json_error",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:core/src/vip_admin_routes.cpp:handle_get_vip_membership",
+   "target": "function:core/src/vip_admin_routes.cpp:require_authenticated",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:core/src/vip_admin_routes.cpp:handle_get_vip_membership",
+   "target": "function:core/src/vip_admin_routes.cpp:json_error",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:core/src/vip_admin_routes.cpp:handle_activate_vip",
+   "target": "function:core/src/vip_admin_routes.cpp:require_authenticated",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:core/src/vip_admin_routes.cpp:handle_activate_vip",
+   "target": "function:core/src/vip_admin_routes.cpp:json_error",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:core/src/vip_admin_routes.cpp:handle_activate_vip",
+   "target": "function:core/src/vip_admin_routes.cpp:parse_duration",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:core/src/vip_admin_routes.cpp:handle_activate_vip",
+   "target": "function:core/src/vip_admin_routes.cpp:mutation_error",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:core/src/vip_admin_routes.cpp:handle_admin_list_users",
+   "target": "function:core/src/vip_admin_routes.cpp:require_admin",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:core/src/vip_admin_routes.cpp:handle_admin_list_users",
+   "target": "function:core/src/vip_admin_routes.cpp:parse_admin_query",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:core/src/vip_admin_routes.cpp:handle_admin_list_users",
+   "target": "function:core/src/vip_admin_routes.cpp:json_error",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:core/src/vip_admin_routes.cpp:handle_admin_list_users",
+   "target": "function:core/src/vip_admin_routes.cpp:admin_user_json",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:core/src/vip_admin_routes.cpp:handle_admin_grant_vip",
+   "target": "function:core/src/vip_admin_routes.cpp:require_admin",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:core/src/vip_admin_routes.cpp:handle_admin_grant_vip",
+   "target": "function:core/src/vip_admin_routes.cpp:parse_positive_id",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:core/src/vip_admin_routes.cpp:handle_admin_grant_vip",
+   "target": "function:core/src/vip_admin_routes.cpp:parse_duration",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:core/src/vip_admin_routes.cpp:handle_admin_grant_vip",
+   "target": "function:core/src/vip_admin_routes.cpp:mutation_error",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:core/src/vip_admin_routes.cpp:handle_admin_grant_vip",
+   "target": "function:core/src/vip_admin_routes.cpp:admin_user_json",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:core/src/vip_admin_routes.cpp:handle_admin_grant_vip",
+   "target": "function:core/src/vip_admin_routes.cpp:json_error",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:core/src/vip_admin_routes.cpp:handle_admin_revoke_vip",
+   "target": "function:core/src/vip_admin_routes.cpp:require_admin",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:core/src/vip_admin_routes.cpp:handle_admin_revoke_vip",
+   "target": "function:core/src/vip_admin_routes.cpp:parse_positive_id",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:core/src/vip_admin_routes.cpp:handle_admin_revoke_vip",
+   "target": "function:core/src/vip_admin_routes.cpp:mutation_error",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:core/src/vip_admin_routes.cpp:handle_admin_revoke_vip",
+   "target": "function:core/src/vip_admin_routes.cpp:admin_user_json",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:core/src/vip_admin_routes.cpp:handle_admin_revoke_vip",
+   "target": "function:core/src/vip_admin_routes.cpp:json_error",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:core/src/vip_admin_routes.cpp:register_vip_routes",
+   "target": "function:core/src/vip_admin_routes.cpp:handle_get_vip_plans",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:core/src/vip_admin_routes.cpp:register_vip_routes",
+   "target": "function:core/src/vip_admin_routes.cpp:handle_get_vip_membership",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:core/src/vip_admin_routes.cpp:register_vip_routes",
+   "target": "function:core/src/vip_admin_routes.cpp:handle_activate_vip",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:core/src/vip_admin_routes.cpp:register_admin_routes",
+   "target": "function:core/src/vip_admin_routes.cpp:handle_admin_list_users",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:core/src/vip_admin_routes.cpp:register_admin_routes",
+   "target": "function:core/src/vip_admin_routes.cpp:handle_admin_grant_vip",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:core/src/vip_admin_routes.cpp:register_admin_routes",
+   "target": "function:core/src/vip_admin_routes.cpp:handle_admin_revoke_vip",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:core/src/vip_admin_routes.cpp",
+   "target": "function:core/src/vip_admin_routes.cpp:json_error",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:core/src/vip_admin_routes.cpp",
+   "target": "function:core/src/vip_admin_routes.cpp:require_authenticated",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:core/src/vip_admin_routes.cpp",
+   "target": "function:core/src/vip_admin_routes.cpp:require_admin",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:core/src/vip_admin_routes.cpp",
+   "target": "function:core/src/vip_admin_routes.cpp:role_name",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:core/src/vip_admin_routes.cpp",
+   "target": "function:core/src/vip_admin_routes.cpp:vip_status_name",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:core/src/vip_admin_routes.cpp",
+   "target": "function:core/src/vip_admin_routes.cpp:remaining_seconds",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:core/src/vip_admin_routes.cpp",
+   "target": "function:core/src/vip_admin_routes.cpp:admin_user_json",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:core/src/vip_admin_routes.cpp",
+   "target": "function:core/src/vip_admin_routes.cpp:parse_duration",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:core/src/vip_admin_routes.cpp",
+   "target": "function:core/src/vip_admin_routes.cpp:parse_positive_id",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:core/src/vip_admin_routes.cpp",
+   "target": "function:core/src/vip_admin_routes.cpp:url_decode",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:core/src/vip_admin_routes.cpp",
+   "target": "class:core/src/vip_admin_routes.cpp:AdminQuery",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:core/src/vip_admin_routes.cpp",
+   "target": "function:core/src/vip_admin_routes.cpp:parse_admin_query",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:core/src/vip_admin_routes.cpp",
+   "target": "function:core/src/vip_admin_routes.cpp:mutation_error",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:core/src/vip_admin_routes.cpp",
+   "target": "function:core/src/vip_admin_routes.cpp:handle_get_vip_plans",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:core/src/vip_admin_routes.cpp",
+   "target": "function:core/src/vip_admin_routes.cpp:handle_get_vip_membership",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:core/src/vip_admin_routes.cpp",
+   "target": "function:core/src/vip_admin_routes.cpp:handle_activate_vip",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:core/src/vip_admin_routes.cpp",
+   "target": "function:core/src/vip_admin_routes.cpp:handle_admin_list_users",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:core/src/vip_admin_routes.cpp",
+   "target": "function:core/src/vip_admin_routes.cpp:handle_admin_grant_vip",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:core/src/vip_admin_routes.cpp",
+   "target": "function:core/src/vip_admin_routes.cpp:handle_admin_revoke_vip",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:core/src/vip_admin_routes.cpp",
+   "target": "function:core/src/vip_admin_routes.cpp:register_vip_routes",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:core/src/vip_admin_routes.cpp",
+   "target": "function:core/src/vip_admin_routes.cpp:register_admin_routes",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:db/include/detail/mysql_field_to_string.h",
+   "target": "function:db/include/detail/mysql_field_to_string.h:mysql_field_to_string",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:db/include/detail/mysql_field_to_string.h",
+   "target": "function:db/include/detail/mysql_field_to_string.h:mysql_field_to_string",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:db/include/playlist_validation.h:is_valid_playlist_text",
+   "target": "function:db/include/playlist_validation.h:has_utf8_code_point_length",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:db/include/playlist_validation.h",
+   "target": "function:db/include/playlist_validation.h:has_utf8_code_point_length",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:db/include/playlist_validation.h",
+   "target": "function:db/include/playlist_validation.h:is_valid_playlist_text",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:db/include/playlist_validation.h",
+   "target": "function:db/include/playlist_validation.h:has_utf8_code_point_length",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:db/include/playlist_validation.h",
+   "target": "function:db/include/playlist_validation.h:is_valid_playlist_text",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:db/include/prepared_statement_guard.h",
+   "target": "class:db/include/prepared_statement_guard.h:PreparedStatementGuard",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:db/include/prepared_statement_guard.h",
+   "target": "class:db/include/prepared_statement_guard.h:PreparedStatementGuard",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  }
+ ]
+}

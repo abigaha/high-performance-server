@@ -1,0 +1,186 @@
+{
+  "projectRoot": "/home/jmj/work-space/projects/high-performance-server",
+  "batchFiles": [
+    {
+      "path": "db/schema.sql",
+      "language": "sql",
+      "sizeLines": 145,
+      "fileCategory": "data"
+    },
+    {
+      "path": "db/src/boost_mysql_connection.cpp",
+      "language": "cpp",
+      "sizeLines": 450,
+      "fileCategory": "code"
+    },
+    {
+      "path": "db/src/database_pool.cpp",
+      "language": "cpp",
+      "sizeLines": 2128,
+      "fileCategory": "code"
+    },
+    {
+      "path": "db/xmake.lua",
+      "language": "lua",
+      "sizeLines": 9,
+      "fileCategory": "code"
+    },
+    {
+      "path": "deploy/nginx-main.conf",
+      "language": "conf",
+      "sizeLines": 14,
+      "fileCategory": "code"
+    },
+    {
+      "path": "deploy/nginx.conf",
+      "language": "conf",
+      "sizeLines": 48,
+      "fileCategory": "code"
+    },
+    {
+      "path": "file-system/include/file_system.h",
+      "language": "c",
+      "sizeLines": 47,
+      "fileCategory": "code"
+    },
+    {
+      "path": "file-system/include/i_file_system.h",
+      "language": "c",
+      "sizeLines": 58,
+      "fileCategory": "code"
+    },
+    {
+      "path": "file-system/src/file_system.cpp",
+      "language": "cpp",
+      "sizeLines": 232,
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend/playwright.config.ts",
+      "language": "typescript",
+      "sizeLines": 117,
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend/public/covers/crystal-cover-01.webp",
+      "language": "webp",
+      "sizeLines": 118,
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend/public/covers/crystal-cover-02.webp",
+      "language": "webp",
+      "sizeLines": 91,
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend/public/covers/crystal-cover-03.webp",
+      "language": "webp",
+      "sizeLines": 102,
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend/public/covers/crystal-cover-04.webp",
+      "language": "webp",
+      "sizeLines": 24,
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend/src/index.css",
+      "language": "css",
+      "sizeLines": 491,
+      "fileCategory": "markup"
+    },
+    {
+      "path": "frontend/src/pages/UserManagePage.tsx",
+      "language": "typescript",
+      "sizeLines": 33,
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend/tests/api/admin.test.ts",
+      "language": "typescript",
+      "sizeLines": 57,
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend/tests/api/auth.test.ts",
+      "language": "typescript",
+      "sizeLines": 105,
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend/tests/api/music.test.ts",
+      "language": "typescript",
+      "sizeLines": 156,
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend/tests/api/vip.test.ts",
+      "language": "typescript",
+      "sizeLines": 50,
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend/tests/e2e/deployment.spec.ts",
+      "language": "typescript",
+      "sizeLines": 412,
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend/tests/e2e/user-governance.spec.ts",
+      "language": "typescript",
+      "sizeLines": 469,
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend/tests/e2e/visual.spec.ts",
+      "language": "typescript",
+      "sizeLines": 677,
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend/tests/setup.ts",
+      "language": "typescript",
+      "sizeLines": 13,
+      "fileCategory": "code"
+    }
+  ],
+  "batchImportData": {
+    "db/schema.sql": [],
+    "db/src/boost_mysql_connection.cpp": [],
+    "db/src/database_pool.cpp": [],
+    "db/xmake.lua": [],
+    "deploy/nginx-main.conf": [],
+    "deploy/nginx.conf": [],
+    "file-system/include/file_system.h": [
+      "file-system/include/i_file_system.h"
+    ],
+    "file-system/include/i_file_system.h": [],
+    "file-system/src/file_system.cpp": [],
+    "frontend/playwright.config.ts": [],
+    "frontend/public/covers/crystal-cover-01.webp": [],
+    "frontend/public/covers/crystal-cover-02.webp": [],
+    "frontend/public/covers/crystal-cover-03.webp": [],
+    "frontend/public/covers/crystal-cover-04.webp": [],
+    "frontend/src/index.css": [],
+    "frontend/src/pages/UserManagePage.tsx": [],
+    "frontend/tests/api/admin.test.ts": [],
+    "frontend/tests/api/auth.test.ts": [],
+    "frontend/tests/api/music.test.ts": [],
+    "frontend/tests/api/vip.test.ts": [],
+    "frontend/tests/e2e/deployment.spec.ts": [],
+    "frontend/tests/e2e/user-governance.spec.ts": [],
+    "frontend/tests/e2e/visual.spec.ts": [],
+    "frontend/tests/setup.ts": []
+  },
+  "neighborMap": {
+    "frontend/src/index.css": [
+      {
+        "path": "frontend/src/main.tsx",
+        "batchIndex": 2,
+        "symbols": []
+      }
+    ]
+  }
+}

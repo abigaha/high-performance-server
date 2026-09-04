@@ -1,0 +1,111 @@
+{
+  "nodes": [
+    {
+      "id": "config:frontend/.oxlintrc.json",
+      "type": "config",
+      "name": ".oxlintrc.json",
+      "filePath": "frontend/.oxlintrc.json",
+      "summary": "Oxlint 代码检查配置：启用 react、typescript、oxc 插件，将 react/rules-of-hooks 设为 error，对 react/only-export-components 发出警告。",
+      "tags": ["oxlint", "linter", "react", "typescript", "配置"],
+      "complexity": "simple"
+    },
+    {
+      "id": "document:frontend/README.md",
+      "type": "document",
+      "name": "README.md",
+      "filePath": "frontend/README.md",
+      "summary": "前端开发说明文档：介绍 React 19、TypeScript 6、Vite 8、Tailwind 4 技术栈，涵盖环境准备、VITE_API_URL 接口地址、常用 npm 命令、上传下载鉴权行为与目录结构。",
+      "tags": ["文档", "前端", "react", "vite", "开发指南"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:frontend/index.html",
+      "type": "file",
+      "name": "index.html",
+      "filePath": "frontend/index.html",
+      "summary": "Vite 应用的 HTML 入口页：包含语言、meta、favicon 与 Crystal Music 标题，提供 root 挂载点并通过模块脚本加载 /src/main.tsx。",
+      "tags": ["html", "vite", "入口页", "前端"],
+      "complexity": "simple"
+    },
+    {
+      "id": "config:frontend/package.json",
+      "type": "config",
+      "name": "package.json",
+      "filePath": "frontend/package.json",
+      "summary": "前端项目配置：定义 dev/build/lint/preview/test 等 npm 脚本，声明 React 19、React Router 7、Zustand 5 依赖及 Vite 8、Vitest 4、Playwright、Tailwind 4 等开发依赖。",
+      "tags": ["npm", "react", "vite", "vitest", "配置"],
+      "complexity": "simple"
+    },
+    {
+      "id": "config:frontend/tsconfig.app.json",
+      "type": "config",
+      "name": "tsconfig.app.json",
+      "filePath": "frontend/tsconfig.app.json",
+      "summary": "前端应用代码的 TypeScript 编译配置：target es2023、bundler 模块解析、react-jsx、verbatimModuleSyntax 与严格未使用检查，include 覆盖 src 目录。",
+      "tags": ["typescript", "tsconfig", "编译配置", "前端"],
+      "complexity": "simple"
+    },
+    {
+      "id": "config:frontend/tsconfig.json",
+      "type": "config",
+      "name": "tsconfig.json",
+      "filePath": "frontend/tsconfig.json",
+      "summary": "TypeScript 项目根配置：files 为空，通过 references 引用 tsconfig.app.json 与 tsconfig.node.json 组成项目引用构建。",
+      "tags": ["typescript", "tsconfig", "项目引用", "配置"],
+      "complexity": "simple"
+    },
+    {
+      "id": "config:frontend/tsconfig.node.json",
+      "type": "config",
+      "name": "tsconfig.node.json",
+      "filePath": "frontend/tsconfig.node.json",
+      "summary": "Node 侧工具链的 TypeScript 编译配置：target es2023、nodenext 模块、types 为 node，include 覆盖 vite.config.ts。",
+      "tags": ["typescript", "tsconfig", "node", "vite", "配置"],
+      "complexity": "simple"
+    }
+  ],
+  "edges": [
+    {
+      "source": "document:frontend/README.md",
+      "target": "config:frontend/package.json",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "config:frontend/package.json",
+      "target": "file:frontend/index.html",
+      "type": "configures",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "config:frontend/package.json",
+      "target": "config:frontend/tsconfig.app.json",
+      "type": "related",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "config:frontend/package.json",
+      "target": "config:frontend/.oxlintrc.json",
+      "type": "related",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "config:frontend/tsconfig.json",
+      "target": "config:frontend/tsconfig.app.json",
+      "type": "related",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "config:frontend/tsconfig.json",
+      "target": "config:frontend/tsconfig.node.json",
+      "type": "related",
+      "direction": "forward",
+      "weight": 0.5
+    }
+  ]
+}

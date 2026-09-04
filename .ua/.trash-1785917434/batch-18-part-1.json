@@ -1,0 +1,1098 @@
+{
+  "nodes": [
+    {
+      "id": "file:scripts/benchmark.sh",
+      "type": "file",
+      "name": "scripts/benchmark.sh",
+      "filePath": "scripts/benchmark.sh",
+      "summary": "基准测试总入口脚本，提供 Google Benchmark 微基准（micro）、模块 QPS 测试（qps）、端到端 HTTP RPS 压测（rps）与报告对比（diff）等子命令，内置可恢复的运行清单（manifest）机制与交互式菜单。",
+      "tags": [
+        "benchmark",
+        "qps",
+        "rps",
+        "reports",
+        "bash"
+      ],
+      "complexity": "complex",
+      "lineRange": "1-2943"
+    },
+    {
+      "id": "function:scripts/benchmark.sh:has_untracked_business_files",
+      "type": "function",
+      "name": "has_untracked_business_files",
+      "summary": "检查 Git 是否存在未跟踪的业务文件（排除 benchmark/report 目录），用于判断工作区是否干净。",
+      "tags": [
+        "git",
+        "untracked",
+        "check",
+        "bash"
+      ],
+      "complexity": "simple",
+      "lineRange": "22-31"
+    },
+    {
+      "id": "function:scripts/benchmark.sh:require_tools",
+      "type": "function",
+      "name": "require_tools",
+      "summary": "校验一组命令是否全部可用，缺失时输出错误并以非零状态返回。",
+      "tags": [
+        "tooling",
+        "check",
+        "bash"
+      ],
+      "complexity": "simple",
+      "lineRange": "40-50"
+    },
+    {
+      "id": "function:scripts/benchmark.sh:is_finite_positive_number",
+      "type": "function",
+      "name": "is_finite_positive_number",
+      "summary": "校验参数是否为有限的非负数字。",
+      "tags": [
+        "validation",
+        "number",
+        "bash"
+      ],
+      "complexity": "simple",
+      "lineRange": "60-71"
+    },
+    {
+      "id": "function:scripts/benchmark.sh:read_default_rps_port",
+      "type": "function",
+      "name": "read_default_rps_port",
+      "summary": "读取 .env 中 HPS_HTTP_PORT 作为默认 RPS 端口，未配置时回退 18080，并拒绝默认端口 8080。",
+      "tags": [
+        "rps",
+        "config",
+        "port",
+        "bash"
+      ],
+      "complexity": "moderate",
+      "lineRange": "73-116"
+    },
+    {
+      "id": "function:scripts/benchmark.sh:parse_integer_list",
+      "type": "function",
+      "name": "parse_integer_list",
+      "summary": "解析以逗号或空格分隔的整数列表并校验。",
+      "tags": [
+        "parsing",
+        "validation",
+        "bash"
+      ],
+      "complexity": "simple",
+      "lineRange": "118-134"
+    },
+    {
+      "id": "function:scripts/benchmark.sh:write_report_header",
+      "type": "function",
+      "name": "write_report_header",
+      "summary": "向报告文件写入运行环境头部信息（时间戳、Git 哈希、CPU 型号与核数、内存等）。",
+      "tags": [
+        "report",
+        "metadata",
+        "bash"
+      ],
+      "complexity": "simple",
+      "lineRange": "136-151"
+    },
+    {
+      "id": "function:scripts/benchmark.sh:parse_run_options",
+      "type": "function",
+      "name": "parse_run_options",
+      "summary": "解析 run 子命令的通用选项（--run-id、--resume、--debug）并校验组合合法性。",
+      "tags": [
+        "cli",
+        "options",
+        "validation",
+        "bash"
+      ],
+      "complexity": "moderate",
+      "lineRange": "157-221"
+    },
+    {
+      "id": "function:scripts/benchmark.sh:ensure_new_run_available",
+      "type": "function",
+      "name": "ensure_new_run_available",
+      "summary": "检查请求的 run-id 是否可用，防止覆盖已有运行。",
+      "tags": [
+        "run-id",
+        "safety",
+        "bash"
+      ],
+      "complexity": "simple",
+      "lineRange": "223-237"
+    },
+    {
+      "id": "function:scripts/benchmark.sh:report_run_dir_is_safe",
+      "type": "function",
+      "name": "report_run_dir_is_safe",
+      "summary": "校验报告运行目录路径安全（防路径穿越），确保仅操作预期的报告结构。",
+      "tags": [
+        "safety",
+        "path",
+        "validation",
+        "bash"
+      ],
+      "complexity": "moderate",
+      "lineRange": "243-297"
+    },
+    {
+      "id": "function:scripts/benchmark.sh:create_artifact_temp_file",
+      "type": "function",
+      "name": "create_artifact_temp_file",
+      "summary": "在报告目标目录创建临时文件，用于后续原子发布产物。",
+      "tags": [
+        "artifact",
+        "atomic-write",
+        "bash"
+      ],
+      "complexity": "simple",
+      "lineRange": "313-328"
+    },
+    {
+      "id": "function:scripts/benchmark.sh:artifact_destination_is_replaceable",
+      "type": "function",
+      "name": "artifact_destination_is_replaceable",
+      "summary": "判断产物目标位置是否可安全替换（普通文件或可删除目录）。",
+      "tags": [
+        "artifact",
+        "safety",
+        "bash"
+      ],
+      "complexity": "moderate",
+      "lineRange": "330-351"
+    },
+    {
+      "id": "function:scripts/benchmark.sh:publish_artifact_file",
+      "type": "function",
+      "name": "publish_artifact_file",
+      "summary": "以原子方式发布产物文件（重命名临时文件并校验结果）。",
+      "tags": [
+        "artifact",
+        "atomic-write",
+        "bash"
+      ],
+      "complexity": "moderate",
+      "lineRange": "361-381"
+    },
+    {
+      "id": "function:scripts/benchmark.sh:prepare_target_run_dir",
+      "type": "function",
+      "name": "prepare_target_run_dir",
+      "summary": "准备目标 run 目录结构与临时目录。",
+      "tags": [
+        "report",
+        "directories",
+        "bash"
+      ],
+      "complexity": "moderate",
+      "lineRange": "383-401"
+    },
+    {
+      "id": "function:scripts/benchmark.sh:make_run_fingerprint",
+      "type": "function",
+      "name": "make_run_fingerprint",
+      "summary": "基于运行参数生成运行指纹，用于清单校验。",
+      "tags": [
+        "fingerprint",
+        "manifest",
+        "bash"
+      ],
+      "complexity": "simple",
+      "lineRange": "403-416"
+    },
+    {
+      "id": "function:scripts/benchmark.sh:validate_bench_flags",
+      "type": "function",
+      "name": "validate_bench_flags",
+      "summary": "校验用户传入的 BENCH_FLAGS 白名单，拒绝危险参数。",
+      "tags": [
+        "validation",
+        "safety",
+        "bash"
+      ],
+      "complexity": "moderate",
+      "lineRange": "427-449"
+    },
+    {
+      "id": "function:scripts/benchmark.sh:next_manifest_attempt",
+      "type": "function",
+      "name": "next_manifest_attempt",
+      "summary": "计算清单中条目下一个尝试序号，支持失败重试逻辑。",
+      "tags": [
+        "manifest",
+        "retry",
+        "bash"
+      ],
+      "complexity": "moderate",
+      "lineRange": "451-513"
+    },
+    {
+      "id": "function:scripts/benchmark.sh:manifest_is_complete",
+      "type": "function",
+      "name": "manifest_is_complete",
+      "summary": "校验运行清单中所有条目是否已完整执行（含目标、结果与失败处理）。",
+      "tags": [
+        "manifest",
+        "validation",
+        "bash"
+      ],
+      "complexity": "complex",
+      "lineRange": "515-656"
+    },
+    {
+      "id": "function:scripts/benchmark.sh:write_manifest",
+      "type": "function",
+      "name": "write_manifest",
+      "summary": "用内嵌 Python 生成运行清单 JSON，记录各目标结果与机器可读信息。",
+      "tags": [
+        "manifest",
+        "json",
+        "report",
+        "bash"
+      ],
+      "complexity": "complex",
+      "lineRange": "662-811"
+    },
+    {
+      "id": "function:scripts/benchmark.sh:cmd_build",
+      "type": "function",
+      "name": "cmd_build",
+      "summary": "编译 benchmark 二进制（xmake，可选 debug 配置）。",
+      "tags": [
+        "build",
+        "xmake",
+        "bash"
+      ],
+      "complexity": "simple",
+      "lineRange": "813-823"
+    },
+    {
+      "id": "function:scripts/benchmark.sh:cmd_micro",
+      "type": "function",
+      "name": "cmd_micro",
+      "summary": "运行 Google Benchmark 微基准测试，支持 debug 与 run-id/resume 恢复机制。",
+      "tags": [
+        "benchmark",
+        "micro",
+        "google-benchmark",
+        "bash"
+      ],
+      "complexity": "complex",
+      "lineRange": "825-935"
+    },
+    {
+      "id": "function:scripts/benchmark.sh:validate_qps_artifacts",
+      "type": "function",
+      "name": "validate_qps_artifacts",
+      "summary": "校验 QPS 构建产物与源文件同步，识别缺失或陈旧的产物目标。",
+      "tags": [
+        "qps",
+        "build",
+        "validation",
+        "bash"
+      ],
+      "complexity": "moderate",
+      "lineRange": "945-963"
+    },
+    {
+      "id": "function:scripts/benchmark.sh:cmd_qps",
+      "type": "function",
+      "name": "cmd_qps",
+      "summary": "运行模块 QPS 测试（smoke/full），先编译并严格拒绝缺失或陈旧产物。",
+      "tags": [
+        "qps",
+        "benchmark",
+        "build",
+        "bash"
+      ],
+      "complexity": "complex",
+      "lineRange": "965-1096"
+    },
+    {
+      "id": "function:scripts/benchmark.sh:create_wrk_lua",
+      "type": "function",
+      "name": "create_wrk_lua",
+      "summary": "生成 wrk 压测用的 Lua 脚本（请求构造、认证头等）。",
+      "tags": [
+        "wrk",
+        "lua",
+        "load-testing",
+        "bash"
+      ],
+      "complexity": "complex",
+      "lineRange": "1098-1242"
+    },
+    {
+      "id": "function:scripts/benchmark.sh:rps_create_raw_temp_file",
+      "type": "function",
+      "name": "rps_create_raw_temp_file",
+      "summary": "为 RPS 原始数据创建安全临时文件。",
+      "tags": [
+        "rps",
+        "temporary",
+        "bash"
+      ],
+      "complexity": "simple",
+      "lineRange": "1256-1267"
+    },
+    {
+      "id": "function:scripts/benchmark.sh:rps_publish_raw_file",
+      "type": "function",
+      "name": "rps_publish_raw_file",
+      "summary": "将 RPS 原始数据临时文件发布到目标位置。",
+      "tags": [
+        "rps",
+        "artifact",
+        "bash"
+      ],
+      "complexity": "simple",
+      "lineRange": "1269-1278"
+    },
+    {
+      "id": "function:scripts/benchmark.sh:rps_make_cell_record",
+      "type": "function",
+      "name": "rps_make_cell_record",
+      "summary": "构造 RPS 测试单元（cell）的记录数据（并发度与指标占位）。",
+      "tags": [
+        "rps",
+        "data-model",
+        "bash"
+      ],
+      "complexity": "moderate",
+      "lineRange": "1280-1314"
+    },
+    {
+      "id": "function:scripts/benchmark.sh:run_rps_cell",
+      "type": "function",
+      "name": "run_rps_cell",
+      "summary": "执行单个 RPS 测试单元：按并发度组合运行 wrk 压测并采集指标。",
+      "tags": [
+        "rps",
+        "wrk",
+        "load-testing",
+        "bash"
+      ],
+      "complexity": "complex",
+      "lineRange": "1316-1463"
+    },
+    {
+      "id": "function:scripts/benchmark.sh:write_rps_reports",
+      "type": "function",
+      "name": "write_rps_reports",
+      "summary": "汇总 RPS 单元结果并写出人类可读报告与 JSON 报告。",
+      "tags": [
+        "rps",
+        "report",
+        "bash"
+      ],
+      "complexity": "complex",
+      "lineRange": "1465-1617"
+    },
+    {
+      "id": "function:scripts/benchmark.sh:rps_prepare_run_dir",
+      "type": "function",
+      "name": "rps_prepare_run_dir",
+      "summary": "准备 RPS 运行目录（含校验与指纹记录）。",
+      "tags": [
+        "rps",
+        "directories",
+        "bash"
+      ],
+      "complexity": "moderate",
+      "lineRange": "1627-1643"
+    },
+    {
+      "id": "function:scripts/benchmark.sh:rps_prepare_artifact",
+      "type": "function",
+      "name": "rps_prepare_artifact",
+      "summary": "准备 RPS 产物文件并做安全性检查。",
+      "tags": [
+        "rps",
+        "artifact",
+        "safety",
+        "bash"
+      ],
+      "complexity": "moderate",
+      "lineRange": "1645-1664"
+    },
+    {
+      "id": "function:scripts/benchmark.sh:rps_publish_artifact",
+      "type": "function",
+      "name": "rps_publish_artifact",
+      "summary": "发布 RPS 产物文件（原子替换）。",
+      "tags": [
+        "rps",
+        "artifact",
+        "bash"
+      ],
+      "complexity": "simple",
+      "lineRange": "1666-1677"
+    },
+    {
+      "id": "function:scripts/benchmark.sh:rps_manifest_matches_fingerprint",
+      "type": "function",
+      "name": "rps_manifest_matches_fingerprint",
+      "summary": "校验现有清单指纹与当前运行参数是否一致，决定恢复或重跑。",
+      "tags": [
+        "rps",
+        "manifest",
+        "fingerprint",
+        "bash"
+      ],
+      "complexity": "moderate",
+      "lineRange": "1679-1711"
+    },
+    {
+      "id": "function:scripts/benchmark.sh:rps_write_manifest",
+      "type": "function",
+      "name": "rps_write_manifest",
+      "summary": "写出 RPS 清单 JSON，记录各测试单元的状态、指标与结果。",
+      "tags": [
+        "rps",
+        "manifest",
+        "json",
+        "bash"
+      ],
+      "complexity": "complex",
+      "lineRange": "1713-1869"
+    },
+    {
+      "id": "function:scripts/benchmark.sh:rps_cell_is_complete",
+      "type": "function",
+      "name": "rps_cell_is_complete",
+      "summary": "校验 RPS 测试单元是否已完整执行（含重试与失败判定）。",
+      "tags": [
+        "rps",
+        "validation",
+        "bash"
+      ],
+      "complexity": "complex",
+      "lineRange": "1871-1961"
+    },
+    {
+      "id": "function:scripts/benchmark.sh:rps_prune_manifest_cells_to_expected",
+      "type": "function",
+      "name": "rps_prune_manifest_cells_to_expected",
+      "summary": "将清单裁剪到期望的测试单元集合，剔除多余条目。",
+      "tags": [
+        "rps",
+        "manifest",
+        "bash"
+      ],
+      "complexity": "complex",
+      "lineRange": "1963-2015"
+    },
+    {
+      "id": "function:scripts/benchmark.sh:rps_rebuild_results_from_manifest",
+      "type": "function",
+      "name": "rps_rebuild_results_from_manifest",
+      "summary": "依据清单重建 RPS 汇总结果（含 JSON 报告与退出码计算）。",
+      "tags": [
+        "rps",
+        "report",
+        "bash"
+      ],
+      "complexity": "complex",
+      "lineRange": "2017-2129"
+    },
+    {
+      "id": "function:scripts/benchmark.sh:rps_update_cell_manifest",
+      "type": "function",
+      "name": "rps_update_cell_manifest",
+      "summary": "更新单个测试单元在清单中的记录。",
+      "tags": [
+        "rps",
+        "manifest",
+        "bash"
+      ],
+      "complexity": "simple",
+      "lineRange": "2131-2142"
+    },
+    {
+      "id": "function:scripts/benchmark.sh:rps_finalize_active_cell_for_signal",
+      "type": "function",
+      "name": "rps_finalize_active_cell_for_signal",
+      "summary": "收到终止信号时收尾当前活动测试单元并落盘清单。",
+      "tags": [
+        "rps",
+        "signal",
+        "cleanup",
+        "bash"
+      ],
+      "complexity": "moderate",
+      "lineRange": "2190-2209"
+    },
+    {
+      "id": "function:scripts/benchmark.sh:rps_auth_payload",
+      "type": "function",
+      "name": "rps_auth_payload",
+      "summary": "构造认证请求载荷（用户名密码或 token）。",
+      "tags": [
+        "rps",
+        "auth",
+        "bash"
+      ],
+      "complexity": "moderate",
+      "lineRange": "2218-2236"
+    },
+    {
+      "id": "function:scripts/benchmark.sh:rps_authenticate",
+      "type": "function",
+      "name": "rps_authenticate",
+      "summary": "通过 HTTP 接口认证并获取访问 token 供压测请求使用。",
+      "tags": [
+        "rps",
+        "auth",
+        "http",
+        "bash"
+      ],
+      "complexity": "moderate",
+      "lineRange": "2238-2278"
+    },
+    {
+      "id": "function:scripts/benchmark.sh:rps_run_profile",
+      "type": "function",
+      "name": "rps_run_profile",
+      "summary": "执行完整 RPS profile（smoke/full/overload），含并发矩阵、认证、信号处理与清单维护。",
+      "tags": [
+        "rps",
+        "load-testing",
+        "profiles",
+        "bash"
+      ],
+      "complexity": "complex",
+      "lineRange": "2280-2498"
+    },
+    {
+      "id": "function:scripts/benchmark.sh:rps_finish_command",
+      "type": "function",
+      "name": "rps_finish_command",
+      "summary": "收尾 RPS 命令：发布报告、清理临时文件并返回结果。",
+      "tags": [
+        "rps",
+        "cleanup",
+        "bash"
+      ],
+      "complexity": "simple",
+      "lineRange": "2500-2515"
+    },
+    {
+      "id": "function:scripts/benchmark.sh:rps_defer_managed_cleanup",
+      "type": "function",
+      "name": "rps_defer_managed_cleanup",
+      "summary": "注册受管理的清理动作，确保命令退出时执行。",
+      "tags": [
+        "rps",
+        "cleanup",
+        "bash"
+      ],
+      "complexity": "simple",
+      "lineRange": "2517-2531"
+    },
+    {
+      "id": "function:scripts/benchmark.sh:rps_write_startup_failure_reports",
+      "type": "function",
+      "name": "rps_write_startup_failure_reports",
+      "summary": "启动前检失败时写出失败报告与清单。",
+      "tags": [
+        "rps",
+        "report",
+        "bash"
+      ],
+      "complexity": "moderate",
+      "lineRange": "2533-2554"
+    },
+    {
+      "id": "function:scripts/benchmark.sh:rps_write_unstarted_profile_failure_reports",
+      "type": "function",
+      "name": "rps_write_unstarted_profile_failure_reports",
+      "summary": "为未能启动的 profile 写出失败报告。",
+      "tags": [
+        "rps",
+        "report",
+        "bash"
+      ],
+      "complexity": "simple",
+      "lineRange": "2556-2569"
+    },
+    {
+      "id": "function:scripts/benchmark.sh:rps_signal_handler",
+      "type": "function",
+      "name": "rps_signal_handler",
+      "summary": "RPS 压测的信号处理函数（INT/TERM 时收尾当前单元）。",
+      "tags": [
+        "rps",
+        "signal",
+        "bash"
+      ],
+      "complexity": "simple",
+      "lineRange": "2571-2582"
+    },
+    {
+      "id": "function:scripts/benchmark.sh:cmd_rps",
+      "type": "function",
+      "name": "cmd_rps",
+      "summary": "RPS 命令入口：解析 profile 参数、执行前检、调用 rps_run_profile 并收尾。",
+      "tags": [
+        "rps",
+        "cli",
+        "bash"
+      ],
+      "complexity": "complex",
+      "lineRange": "2584-2676"
+    },
+    {
+      "id": "function:scripts/benchmark.sh:cmd_diff",
+      "type": "function",
+      "name": "cmd_diff",
+      "summary": "对比最近两个完整 manifest 的报告差异（micro/qps/rps）。",
+      "tags": [
+        "report",
+        "diff",
+        "bash"
+      ],
+      "complexity": "complex",
+      "lineRange": "2678-2810"
+    },
+    {
+      "id": "function:scripts/benchmark.sh:cmd_gen_data",
+      "type": "function",
+      "name": "cmd_gen_data",
+      "summary": "生成 benchmark 测试数据文件（用 dd 写入多规格随机文件）。",
+      "tags": [
+        "data",
+        "benchmark",
+        "bash"
+      ],
+      "complexity": "moderate",
+      "lineRange": "2812-2833"
+    },
+    {
+      "id": "function:scripts/benchmark.sh:cmd_check",
+      "type": "function",
+      "name": "cmd_check",
+      "summary": "离线检查依赖工具与 QPS 目标发现，不访问 RPS 服务。",
+      "tags": [
+        "check",
+        "dependencies",
+        "bash"
+      ],
+      "complexity": "moderate",
+      "lineRange": "2835-2859"
+    },
+    {
+      "id": "function:scripts/benchmark.sh:usage",
+      "type": "function",
+      "name": "usage",
+      "summary": "打印脚本用法、全部子命令与环境变量说明。",
+      "tags": [
+        "usage",
+        "help",
+        "bash"
+      ],
+      "complexity": "simple",
+      "lineRange": "2861-2894"
+    },
+    {
+      "id": "function:scripts/benchmark.sh:handle_menu_choice",
+      "type": "function",
+      "name": "handle_menu_choice",
+      "summary": "将交互菜单选项分发到对应子命令。",
+      "tags": [
+        "menu",
+        "cli",
+        "bash"
+      ],
+      "complexity": "simple",
+      "lineRange": "2896-2907"
+    },
+    {
+      "id": "function:scripts/benchmark.sh:menu",
+      "type": "function",
+      "name": "menu",
+      "summary": "无参数时展示交互式菜单入口。",
+      "tags": [
+        "menu",
+        "interactive",
+        "bash"
+      ],
+      "complexity": "simple",
+      "lineRange": "2909-2920"
+    }
+  ],
+  "edges": [
+    {
+      "source": "file:scripts/benchmark.sh",
+      "target": "function:scripts/benchmark.sh:has_untracked_business_files",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:scripts/benchmark.sh",
+      "target": "function:scripts/benchmark.sh:require_tools",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:scripts/benchmark.sh",
+      "target": "function:scripts/benchmark.sh:is_finite_positive_number",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:scripts/benchmark.sh",
+      "target": "function:scripts/benchmark.sh:read_default_rps_port",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:scripts/benchmark.sh",
+      "target": "function:scripts/benchmark.sh:parse_integer_list",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:scripts/benchmark.sh",
+      "target": "function:scripts/benchmark.sh:write_report_header",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:scripts/benchmark.sh",
+      "target": "function:scripts/benchmark.sh:parse_run_options",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:scripts/benchmark.sh",
+      "target": "function:scripts/benchmark.sh:ensure_new_run_available",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:scripts/benchmark.sh",
+      "target": "function:scripts/benchmark.sh:report_run_dir_is_safe",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:scripts/benchmark.sh",
+      "target": "function:scripts/benchmark.sh:create_artifact_temp_file",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:scripts/benchmark.sh",
+      "target": "function:scripts/benchmark.sh:artifact_destination_is_replaceable",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:scripts/benchmark.sh",
+      "target": "function:scripts/benchmark.sh:publish_artifact_file",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:scripts/benchmark.sh",
+      "target": "function:scripts/benchmark.sh:prepare_target_run_dir",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:scripts/benchmark.sh",
+      "target": "function:scripts/benchmark.sh:make_run_fingerprint",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:scripts/benchmark.sh",
+      "target": "function:scripts/benchmark.sh:validate_bench_flags",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:scripts/benchmark.sh",
+      "target": "function:scripts/benchmark.sh:next_manifest_attempt",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:scripts/benchmark.sh",
+      "target": "function:scripts/benchmark.sh:manifest_is_complete",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:scripts/benchmark.sh",
+      "target": "function:scripts/benchmark.sh:write_manifest",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:scripts/benchmark.sh",
+      "target": "function:scripts/benchmark.sh:cmd_build",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:scripts/benchmark.sh",
+      "target": "function:scripts/benchmark.sh:cmd_micro",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:scripts/benchmark.sh",
+      "target": "function:scripts/benchmark.sh:validate_qps_artifacts",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:scripts/benchmark.sh",
+      "target": "function:scripts/benchmark.sh:cmd_qps",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:scripts/benchmark.sh",
+      "target": "function:scripts/benchmark.sh:create_wrk_lua",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:scripts/benchmark.sh",
+      "target": "function:scripts/benchmark.sh:rps_create_raw_temp_file",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:scripts/benchmark.sh",
+      "target": "function:scripts/benchmark.sh:rps_publish_raw_file",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:scripts/benchmark.sh",
+      "target": "function:scripts/benchmark.sh:rps_make_cell_record",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:scripts/benchmark.sh",
+      "target": "function:scripts/benchmark.sh:run_rps_cell",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:scripts/benchmark.sh",
+      "target": "function:scripts/benchmark.sh:write_rps_reports",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:scripts/benchmark.sh",
+      "target": "function:scripts/benchmark.sh:rps_prepare_run_dir",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:scripts/benchmark.sh",
+      "target": "function:scripts/benchmark.sh:rps_prepare_artifact",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:scripts/benchmark.sh",
+      "target": "function:scripts/benchmark.sh:rps_publish_artifact",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:scripts/benchmark.sh",
+      "target": "function:scripts/benchmark.sh:rps_manifest_matches_fingerprint",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:scripts/benchmark.sh",
+      "target": "function:scripts/benchmark.sh:rps_write_manifest",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:scripts/benchmark.sh",
+      "target": "function:scripts/benchmark.sh:rps_cell_is_complete",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:scripts/benchmark.sh",
+      "target": "function:scripts/benchmark.sh:rps_prune_manifest_cells_to_expected",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:scripts/benchmark.sh",
+      "target": "function:scripts/benchmark.sh:rps_rebuild_results_from_manifest",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:scripts/benchmark.sh",
+      "target": "function:scripts/benchmark.sh:rps_update_cell_manifest",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:scripts/benchmark.sh",
+      "target": "function:scripts/benchmark.sh:rps_finalize_active_cell_for_signal",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:scripts/benchmark.sh",
+      "target": "function:scripts/benchmark.sh:rps_auth_payload",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:scripts/benchmark.sh",
+      "target": "function:scripts/benchmark.sh:rps_authenticate",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:scripts/benchmark.sh",
+      "target": "function:scripts/benchmark.sh:rps_run_profile",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:scripts/benchmark.sh",
+      "target": "function:scripts/benchmark.sh:rps_finish_command",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:scripts/benchmark.sh",
+      "target": "function:scripts/benchmark.sh:rps_defer_managed_cleanup",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:scripts/benchmark.sh",
+      "target": "function:scripts/benchmark.sh:rps_write_startup_failure_reports",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:scripts/benchmark.sh",
+      "target": "function:scripts/benchmark.sh:rps_write_unstarted_profile_failure_reports",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:scripts/benchmark.sh",
+      "target": "function:scripts/benchmark.sh:rps_signal_handler",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:scripts/benchmark.sh",
+      "target": "function:scripts/benchmark.sh:cmd_rps",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:scripts/benchmark.sh",
+      "target": "function:scripts/benchmark.sh:cmd_diff",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:scripts/benchmark.sh",
+      "target": "function:scripts/benchmark.sh:cmd_gen_data",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:scripts/benchmark.sh",
+      "target": "function:scripts/benchmark.sh:cmd_check",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:scripts/benchmark.sh",
+      "target": "function:scripts/benchmark.sh:usage",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:scripts/benchmark.sh",
+      "target": "function:scripts/benchmark.sh:handle_menu_choice",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:scripts/benchmark.sh",
+      "target": "function:scripts/benchmark.sh:menu",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    }
+  ]
+}

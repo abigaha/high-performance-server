@@ -1,0 +1,860 @@
+{
+  "nodes": [
+    {
+      "id": "function:db/src/database_pool.cpp:lookup_user",
+      "type": "function",
+      "name": "lookup_user",
+      "summary": "按给定 SQL 与参数查询单个用户，成功时解析并返回用户，支持管理员 VIP 到期宽松解析。",
+      "tags": ["user", "query", "dao"],
+      "complexity": "moderate",
+      "lineRange": "566-590"
+    },
+    {
+      "id": "function:db/src/database_pool.cpp:get_user_result",
+      "type": "function",
+      "name": "get_user_result",
+      "summary": "按用户 ID 查询并返回用户结果。",
+      "tags": ["user", "query", "by-id"],
+      "complexity": "simple",
+      "lineRange": "592-597"
+    },
+    {
+      "id": "function:db/src/database_pool.cpp:create_user",
+      "type": "function",
+      "name": "create_user",
+      "summary": "创建普通用户：插入用户记录并校验用户名、邮箱唯一性，冲突返回对应错误。",
+      "tags": ["user", "create", "register", "dao"],
+      "complexity": "moderate",
+      "lineRange": "599-626"
+    },
+    {
+      "id": "function:db/src/database_pool.cpp:get_admin_user_result",
+      "type": "function",
+      "name": "get_admin_user_result",
+      "summary": "查询系统管理员用户并返回结果，供初始化与认证使用。",
+      "tags": ["admin", "query", "dao"],
+      "complexity": "simple",
+      "lineRange": "628-633"
+    },
+    {
+      "id": "function:db/src/database_pool.cpp:get_user_by_username_result",
+      "type": "function",
+      "name": "get_user_by_username_result",
+      "summary": "按用户名查询用户并返回结果。",
+      "tags": ["user", "query", "username"],
+      "complexity": "simple",
+      "lineRange": "635-640"
+    },
+    {
+      "id": "function:db/src/database_pool.cpp:get_user_by_email_result",
+      "type": "function",
+      "name": "get_user_by_email_result",
+      "summary": "按邮箱查询用户并返回结果。",
+      "tags": ["user", "query", "email"],
+      "complexity": "simple",
+      "lineRange": "642-647"
+    },
+    {
+      "id": "function:db/src/database_pool.cpp:create_admin_user",
+      "type": "function",
+      "name": "create_admin_user",
+      "summary": "创建管理员账号：插入记录并校验管理员、用户名与邮箱唯一性。",
+      "tags": ["admin", "create", "dao"],
+      "complexity": "moderate",
+      "lineRange": "649-683"
+    },
+    {
+      "id": "function:db/src/database_pool.cpp:update_admin_credentials",
+      "type": "function",
+      "name": "update_admin_credentials",
+      "summary": "更新管理员账号的凭据信息，并校验邮箱唯一性。",
+      "tags": ["admin", "update", "credentials"],
+      "complexity": "moderate",
+      "lineRange": "685-713"
+    },
+    {
+      "id": "function:db/src/database_pool.cpp:grant_or_extend_vip",
+      "type": "function",
+      "name": "grant_or_extend_vip",
+      "summary": "授予或延长用户 VIP：事务内读取用户、计算新到期时间并更新，支持对过期用户的重新授予。",
+      "tags": ["vip", "grant", "transaction", "dao"],
+      "complexity": "complex",
+      "lineRange": "717-789"
+    },
+    {
+      "id": "function:db/src/database_pool.cpp:revoke_vip",
+      "type": "function",
+      "name": "revoke_vip",
+      "summary": "撤销用户 VIP：事务内校验状态并清除 VIP 到期时间，管理员账号不受影响。",
+      "tags": ["vip", "revoke", "transaction"],
+      "complexity": "complex",
+      "lineRange": "791-844"
+    },
+    {
+      "id": "function:db/src/database_pool.cpp:list_admin_users",
+      "type": "function",
+      "name": "list_admin_users",
+      "summary": "分页列出用户（含关键词过滤与角色筛选），返回条目与总数。",
+      "tags": ["admin", "list", "pagination", "dao"],
+      "complexity": "complex",
+      "lineRange": "846-907"
+    },
+    {
+      "id": "function:db/src/database_pool.cpp:get_auth_user_result",
+      "type": "function",
+      "name": "get_auth_user_result",
+      "summary": "按用户名查询登录用户，解析角色、密码哈希与 VIP 信息。",
+      "tags": ["auth", "login", "user"],
+      "complexity": "moderate",
+      "lineRange": "1105-1146"
+    },
+    {
+      "id": "function:db/src/database_pool.cpp:verify_password",
+      "type": "function",
+      "name": "verify_password",
+      "summary": "校验用户名与密码是否匹配，返回用户基本信息或认证失败。",
+      "tags": ["auth", "password", "verify"],
+      "complexity": "simple",
+      "lineRange": "1149-1164"
+    },
+    {
+      "id": "function:db/src/database_pool.cpp:update_user",
+      "type": "function",
+      "name": "update_user",
+      "summary": "更新用户资料：动态拼装 SET 子句，事务内更新并校验邮箱唯一性后返回最新用户。",
+      "tags": ["user", "update", "profile", "dao"],
+      "complexity": "complex",
+      "lineRange": "1167-1243"
+    },
+    {
+      "id": "function:db/src/database_pool.cpp:username_exists",
+      "type": "function",
+      "name": "username_exists",
+      "summary": "检查用户名是否已存在，用于注册与改名的唯一性校验。",
+      "tags": ["user", "unique", "check"],
+      "complexity": "simple",
+      "lineRange": "1245-1255"
+    },
+    {
+      "id": "function:db/src/database_pool.cpp:delete_file_owned",
+      "type": "function",
+      "name": "delete_file_owned",
+      "summary": "删除文件主流程：事务内预览、加锁、收集未共享分块并删除记录、排队清理分块与音乐元数据。",
+      "tags": ["file", "deletion", "transaction", "chunk"],
+      "complexity": "complex",
+      "lineRange": "1372-1402"
+    },
+    {
+      "id": "function:db/src/database_pool.cpp:claim_pending_chunk_deletions",
+      "type": "function",
+      "name": "claim_pending_chunk_deletions",
+      "summary": "认领一批待删除分块：加锁读取、写入认领令牌并更新超时时间，返回本次任务集合。",
+      "tags": ["chunk", "cleanup", "claim", "queue"],
+      "complexity": "complex",
+      "lineRange": "1404-1458"
+    },
+    {
+      "id": "function:db/src/database_pool.cpp:complete_pending_chunk_deletion",
+      "type": "function",
+      "name": "complete_pending_chunk_deletion",
+      "summary": "完成分块删除：校验认领令牌后从待删除队列移除记录。",
+      "tags": ["chunk", "cleanup", "complete"],
+      "complexity": "simple",
+      "lineRange": "1460-1476"
+    },
+    {
+      "id": "function:db/src/database_pool.cpp:release_pending_chunk_deletion",
+      "type": "function",
+      "name": "release_pending_chunk_deletion",
+      "summary": "释放分块删除任务：校验令牌后更新最后错误信息，供失败重试。",
+      "tags": ["chunk", "cleanup", "release", "retry"],
+      "complexity": "moderate",
+      "lineRange": "1478-1498"
+    },
+    {
+      "id": "function:db/src/database_pool.cpp:has_chunk_references",
+      "type": "function",
+      "name": "has_chunk_references",
+      "summary": "检查分块是否仍被文件记录引用，决定删除前是否可安全清理。",
+      "tags": ["chunk", "reference", "check"],
+      "complexity": "simple",
+      "lineRange": "1500-1510"
+    },
+    {
+      "id": "function:db/src/database_pool.cpp:cancel_pending_chunk_deletion",
+      "type": "function",
+      "name": "cancel_pending_chunk_deletion",
+      "summary": "取消待删除分块任务：直接完成处理，防止误删。",
+      "tags": ["chunk", "cleanup", "cancel"],
+      "complexity": "simple",
+      "lineRange": "1512-1515"
+    }
+  ],
+  "edges": [
+    {
+      "source": "file:db/src/database_pool.cpp",
+      "target": "function:db/src/database_pool.cpp:lookup_user",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:db/src/database_pool.cpp",
+      "target": "function:db/src/database_pool.cpp:get_user_result",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:db/src/database_pool.cpp",
+      "target": "function:db/src/database_pool.cpp:create_user",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:db/src/database_pool.cpp",
+      "target": "function:db/src/database_pool.cpp:get_admin_user_result",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:db/src/database_pool.cpp",
+      "target": "function:db/src/database_pool.cpp:get_user_by_username_result",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:db/src/database_pool.cpp",
+      "target": "function:db/src/database_pool.cpp:get_user_by_email_result",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:db/src/database_pool.cpp",
+      "target": "function:db/src/database_pool.cpp:create_admin_user",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:db/src/database_pool.cpp",
+      "target": "function:db/src/database_pool.cpp:update_admin_credentials",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:db/src/database_pool.cpp",
+      "target": "function:db/src/database_pool.cpp:grant_or_extend_vip",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:db/src/database_pool.cpp",
+      "target": "function:db/src/database_pool.cpp:revoke_vip",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:db/src/database_pool.cpp",
+      "target": "function:db/src/database_pool.cpp:list_admin_users",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:db/src/database_pool.cpp",
+      "target": "function:db/src/database_pool.cpp:get_auth_user_result",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:db/src/database_pool.cpp",
+      "target": "function:db/src/database_pool.cpp:verify_password",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:db/src/database_pool.cpp",
+      "target": "function:db/src/database_pool.cpp:update_user",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:db/src/database_pool.cpp",
+      "target": "function:db/src/database_pool.cpp:username_exists",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:db/src/database_pool.cpp",
+      "target": "function:db/src/database_pool.cpp:delete_file_owned",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:db/src/database_pool.cpp",
+      "target": "function:db/src/database_pool.cpp:claim_pending_chunk_deletions",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:db/src/database_pool.cpp",
+      "target": "function:db/src/database_pool.cpp:complete_pending_chunk_deletion",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:db/src/database_pool.cpp",
+      "target": "function:db/src/database_pool.cpp:release_pending_chunk_deletion",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:db/src/database_pool.cpp",
+      "target": "function:db/src/database_pool.cpp:has_chunk_references",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:db/src/database_pool.cpp",
+      "target": "function:db/src/database_pool.cpp:cancel_pending_chunk_deletion",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:db/src/database_pool.cpp",
+      "target": "function:db/src/database_pool.cpp:lookup_user",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:db/src/database_pool.cpp",
+      "target": "function:db/src/database_pool.cpp:get_user_result",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:db/src/database_pool.cpp",
+      "target": "function:db/src/database_pool.cpp:create_user",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:db/src/database_pool.cpp",
+      "target": "function:db/src/database_pool.cpp:get_admin_user_result",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:db/src/database_pool.cpp",
+      "target": "function:db/src/database_pool.cpp:get_user_by_username_result",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:db/src/database_pool.cpp",
+      "target": "function:db/src/database_pool.cpp:get_user_by_email_result",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:db/src/database_pool.cpp",
+      "target": "function:db/src/database_pool.cpp:create_admin_user",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:db/src/database_pool.cpp",
+      "target": "function:db/src/database_pool.cpp:update_admin_credentials",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:db/src/database_pool.cpp",
+      "target": "function:db/src/database_pool.cpp:grant_or_extend_vip",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:db/src/database_pool.cpp",
+      "target": "function:db/src/database_pool.cpp:revoke_vip",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:db/src/database_pool.cpp",
+      "target": "function:db/src/database_pool.cpp:list_admin_users",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:db/src/database_pool.cpp",
+      "target": "function:db/src/database_pool.cpp:get_auth_user_result",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:db/src/database_pool.cpp",
+      "target": "function:db/src/database_pool.cpp:verify_password",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:db/src/database_pool.cpp",
+      "target": "function:db/src/database_pool.cpp:update_user",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:db/src/database_pool.cpp",
+      "target": "function:db/src/database_pool.cpp:username_exists",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:db/src/database_pool.cpp",
+      "target": "function:db/src/database_pool.cpp:delete_file_owned",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:db/src/database_pool.cpp",
+      "target": "function:db/src/database_pool.cpp:claim_pending_chunk_deletions",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:db/src/database_pool.cpp",
+      "target": "function:db/src/database_pool.cpp:complete_pending_chunk_deletion",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:db/src/database_pool.cpp",
+      "target": "function:db/src/database_pool.cpp:release_pending_chunk_deletion",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:db/src/database_pool.cpp",
+      "target": "function:db/src/database_pool.cpp:has_chunk_references",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:db/src/database_pool.cpp",
+      "target": "function:db/src/database_pool.cpp:cancel_pending_chunk_deletion",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:db/src/database_pool.cpp:lookup_user",
+      "target": "function:db/src/database_pool.cpp:get_connection",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:db/src/database_pool.cpp:lookup_user",
+      "target": "function:db/src/database_pool.cpp:release_connection",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:db/src/database_pool.cpp:lookup_user",
+      "target": "function:db/src/database_pool.cpp:parse_user_result",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:db/src/database_pool.cpp:get_user_result",
+      "target": "function:db/src/database_pool.cpp:lookup_user",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:db/src/database_pool.cpp:create_user",
+      "target": "function:db/src/database_pool.cpp:get_user_by_username_result",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:db/src/database_pool.cpp:create_user",
+      "target": "function:db/src/database_pool.cpp:get_user_by_email_result",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:db/src/database_pool.cpp:create_user",
+      "target": "function:db/src/database_pool.cpp:get_connection",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:db/src/database_pool.cpp:create_user",
+      "target": "function:db/src/database_pool.cpp:release_connection",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:db/src/database_pool.cpp:get_admin_user_result",
+      "target": "function:db/src/database_pool.cpp:lookup_user",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:db/src/database_pool.cpp:get_user_by_username_result",
+      "target": "function:db/src/database_pool.cpp:lookup_user",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:db/src/database_pool.cpp:get_user_by_email_result",
+      "target": "function:db/src/database_pool.cpp:lookup_user",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:db/src/database_pool.cpp:create_admin_user",
+      "target": "function:db/src/database_pool.cpp:get_admin_user_result",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:db/src/database_pool.cpp:create_admin_user",
+      "target": "function:db/src/database_pool.cpp:get_user_by_username_result",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:db/src/database_pool.cpp:create_admin_user",
+      "target": "function:db/src/database_pool.cpp:get_user_by_email_result",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:db/src/database_pool.cpp:create_admin_user",
+      "target": "function:db/src/database_pool.cpp:get_connection",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:db/src/database_pool.cpp:create_admin_user",
+      "target": "function:db/src/database_pool.cpp:release_connection",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:db/src/database_pool.cpp:update_admin_credentials",
+      "target": "function:db/src/database_pool.cpp:get_user_by_email_result",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:db/src/database_pool.cpp:update_admin_credentials",
+      "target": "function:db/src/database_pool.cpp:get_connection",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:db/src/database_pool.cpp:update_admin_credentials",
+      "target": "function:db/src/database_pool.cpp:release_connection",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:db/src/database_pool.cpp:grant_or_extend_vip",
+      "target": "function:db/src/database_pool.cpp:with_connection",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:db/src/database_pool.cpp:grant_or_extend_vip",
+      "target": "function:db/src/database_pool.cpp:parse_user_result",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:db/src/database_pool.cpp:grant_or_extend_vip",
+      "target": "function:db/src/boost_mysql_connection.cpp:try_format_mysql_utc_datetime",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:db/src/database_pool.cpp:revoke_vip",
+      "target": "function:db/src/database_pool.cpp:with_connection",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:db/src/database_pool.cpp:revoke_vip",
+      "target": "function:db/src/database_pool.cpp:parse_user_result",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:db/src/database_pool.cpp:list_admin_users",
+      "target": "function:db/src/database_pool.cpp:with_connection",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:db/src/database_pool.cpp:list_admin_users",
+      "target": "function:db/src/database_pool.cpp:escape_like_pattern",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:db/src/database_pool.cpp:list_admin_users",
+      "target": "function:db/src/database_pool.cpp:parse_user_result",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:db/src/database_pool.cpp:get_auth_user_result",
+      "target": "function:db/src/database_pool.cpp:get_connection",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:db/src/database_pool.cpp:get_auth_user_result",
+      "target": "function:db/src/database_pool.cpp:release_connection",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:db/src/database_pool.cpp:get_auth_user_result",
+      "target": "function:db/src/database_pool.cpp:to_user_role",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:db/src/database_pool.cpp:verify_password",
+      "target": "function:db/src/database_pool.cpp:get_connection",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:db/src/database_pool.cpp:verify_password",
+      "target": "function:db/src/database_pool.cpp:release_connection",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:db/src/database_pool.cpp:update_user",
+      "target": "function:db/src/database_pool.cpp:with_connection",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:db/src/database_pool.cpp:update_user",
+      "target": "function:db/src/database_pool.cpp:parse_user_result",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:db/src/database_pool.cpp:update_user",
+      "target": "function:db/src/database_pool.cpp:get_user_by_email_result",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:db/src/database_pool.cpp:update_user",
+      "target": "function:db/src/database_pool.cpp:get_user_result",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:db/src/database_pool.cpp:username_exists",
+      "target": "function:db/src/database_pool.cpp:get_connection",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:db/src/database_pool.cpp:username_exists",
+      "target": "function:db/src/database_pool.cpp:release_connection",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:db/src/database_pool.cpp:delete_file_owned",
+      "target": "function:db/src/database_pool.cpp:with_connection",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:db/src/database_pool.cpp:delete_file_owned",
+      "target": "function:db/src/database_pool.cpp:read_file_deletion_preview",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:db/src/database_pool.cpp:delete_file_owned",
+      "target": "function:db/src/database_pool.cpp:lock_preview_music",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:db/src/database_pool.cpp:delete_file_owned",
+      "target": "function:db/src/database_pool.cpp:lock_file_for_deletion",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:db/src/database_pool.cpp:delete_file_owned",
+      "target": "function:db/src/database_pool.cpp:read_file_chunk_hashes",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:db/src/database_pool.cpp:delete_file_owned",
+      "target": "function:db/src/database_pool.cpp:find_unshared_file_chunks",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:db/src/database_pool.cpp:delete_file_owned",
+      "target": "function:db/src/database_pool.cpp:delete_file_and_queue_chunks",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:db/src/database_pool.cpp:delete_file_owned",
+      "target": "function:db/src/database_pool.cpp:delete_unused_music_meta",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:db/src/database_pool.cpp:claim_pending_chunk_deletions",
+      "target": "function:db/src/database_pool.cpp:with_connection",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:db/src/database_pool.cpp:claim_pending_chunk_deletions",
+      "target": "function:db/src/database_pool.cpp:random_claim_token",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:db/src/database_pool.cpp:claim_pending_chunk_deletions",
+      "target": "function:db/src/boost_mysql_connection.cpp:format_mysql_utc_datetime",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:db/src/database_pool.cpp:complete_pending_chunk_deletion",
+      "target": "function:db/src/database_pool.cpp:with_connection",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:db/src/database_pool.cpp:release_pending_chunk_deletion",
+      "target": "function:db/src/database_pool.cpp:with_connection",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:db/src/database_pool.cpp:has_chunk_references",
+      "target": "function:db/src/database_pool.cpp:with_connection",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:db/src/database_pool.cpp:cancel_pending_chunk_deletion",
+      "target": "function:db/src/database_pool.cpp:complete_pending_chunk_deletion",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    }
+  ]
+}

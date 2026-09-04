@@ -1,0 +1,127 @@
+{
+  "projectRoot": "/home/jmj/work-space/projects/high-performance-server",
+  "batchFiles": [
+    {
+      "path": "tests/test_mysql_field_to_string.cpp",
+      "language": "cpp",
+      "sizeLines": 55,
+      "fileCategory": "code"
+    },
+    {
+      "path": "tests/test_pending_chunk_deletions.cpp",
+      "language": "cpp",
+      "sizeLines": 1064,
+      "fileCategory": "code"
+    },
+    {
+      "path": "tests/test_qps_runner.cpp",
+      "language": "cpp",
+      "sizeLines": 105,
+      "fileCategory": "code"
+    },
+    {
+      "path": "tests/test_range_parser_extreme.cpp",
+      "language": "cpp",
+      "sizeLines": 66,
+      "fileCategory": "code"
+    },
+    {
+      "path": "tests/test_router.cpp",
+      "language": "cpp",
+      "sizeLines": 157,
+      "fileCategory": "code"
+    },
+    {
+      "path": "tests/test_schema_migrations.cpp",
+      "language": "cpp",
+      "sizeLines": 371,
+      "fileCategory": "code"
+    },
+    {
+      "path": "tests/test_ssl_extreme.cpp",
+      "language": "cpp",
+      "sizeLines": 98,
+      "fileCategory": "code"
+    },
+    {
+      "path": "tests/test_step16_api.cpp",
+      "language": "cpp",
+      "sizeLines": 2747,
+      "fileCategory": "code"
+    },
+    {
+      "path": "tests/test_stream_download_utils.cpp",
+      "language": "cpp",
+      "sizeLines": 125,
+      "fileCategory": "code"
+    },
+    {
+      "path": "tests/test_tcp_client.cpp",
+      "language": "cpp",
+      "sizeLines": 277,
+      "fileCategory": "code"
+    },
+    {
+      "path": "tests/test_tcp_server_stress.cpp",
+      "language": "cpp",
+      "sizeLines": 306,
+      "fileCategory": "code"
+    },
+    {
+      "path": "tests/test_tcp_server.cpp",
+      "language": "cpp",
+      "sizeLines": 500,
+      "fileCategory": "code"
+    },
+    {
+      "path": "tests/test_thread_pool_stress.cpp",
+      "language": "cpp",
+      "sizeLines": 244,
+      "fileCategory": "code"
+    },
+    {
+      "path": "tests/test_upload_policy.cpp",
+      "language": "cpp",
+      "sizeLines": 826,
+      "fileCategory": "code"
+    },
+    {
+      "path": "tests/test_url_decode_extreme.cpp",
+      "language": "cpp",
+      "sizeLines": 64,
+      "fileCategory": "code"
+    },
+    {
+      "path": "tests/test_websocket_extreme.cpp",
+      "language": "cpp",
+      "sizeLines": 158,
+      "fileCategory": "code"
+    },
+    {
+      "path": "xmake.lua",
+      "language": "lua",
+      "sizeLines": 151,
+      "fileCategory": "code"
+    }
+  ],
+  "batchImportData": {
+    "tests/test_mysql_field_to_string.cpp": [],
+    "tests/test_pending_chunk_deletions.cpp": [],
+    "tests/test_qps_runner.cpp": [],
+    "tests/test_range_parser_extreme.cpp": [],
+    "tests/test_router.cpp": [],
+    "tests/test_schema_migrations.cpp": [],
+    "tests/test_ssl_extreme.cpp": [],
+    "tests/test_step16_api.cpp": [],
+    "tests/test_stream_download_utils.cpp": [],
+    "tests/test_tcp_client.cpp": [],
+    "tests/test_tcp_server_stress.cpp": [],
+    "tests/test_tcp_server.cpp": [],
+    "tests/test_thread_pool_stress.cpp": [],
+    "tests/test_upload_policy.cpp": [],
+    "tests/test_url_decode_extreme.cpp": [],
+    "tests/test_websocket_extreme.cpp": [],
+    "xmake.lua": []
+  },
+  "neighborMap": {}
+}

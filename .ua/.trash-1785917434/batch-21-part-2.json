@@ -1,0 +1,1013 @@
+{
+ "nodes": [
+  {
+   "id": "file:core/src/config.cpp",
+   "type": "file",
+   "name": "core/src/config.cpp",
+   "summary": "实现配置加载：解析 JSON 配置文件各分段（server/database/ssl/fs）、命令行参数与环境变量覆盖。",
+   "tags": [
+    "config",
+    "json",
+    "env",
+    "cli"
+   ],
+   "complexity": "moderate",
+   "filePath": "core/src/config.cpp"
+  },
+  {
+   "id": "function:core/src/config.cpp:parse_server_section",
+   "type": "function",
+   "name": "parse_server_section",
+   "summary": "解析配置 server 分段：端口、线程数、超时与静态目录等。",
+   "tags": [
+    "config",
+    "server",
+    "parse",
+    "json"
+   ],
+   "complexity": "moderate",
+   "filePath": "core/src/config.cpp",
+   "lineRange": [
+    17,
+    49
+   ]
+  },
+  {
+   "id": "function:core/src/config.cpp:parse_database_section",
+   "type": "function",
+   "name": "parse_database_section",
+   "summary": "解析配置 database 分段：主机、端口、凭据、池大小等。",
+   "tags": [
+    "config",
+    "database",
+    "parse",
+    "json"
+   ],
+   "complexity": "moderate",
+   "filePath": "core/src/config.cpp",
+   "lineRange": [
+    51,
+    80
+   ]
+  },
+  {
+   "id": "function:core/src/config.cpp:parse_ssl_section",
+   "type": "function",
+   "name": "parse_ssl_section",
+   "summary": "解析配置 ssl 分段：证书与私钥路径、开关。",
+   "tags": [
+    "config",
+    "ssl",
+    "tls",
+    "parse"
+   ],
+   "complexity": "moderate",
+   "filePath": "core/src/config.cpp",
+   "lineRange": [
+    82,
+    102
+   ]
+  },
+  {
+   "id": "function:core/src/config.cpp:parse_cmd_args",
+   "type": "function",
+   "name": "parse_cmd_args",
+   "summary": "解析命令行参数（如配置路径、端口覆盖）。",
+   "tags": [
+    "config",
+    "cli",
+    "parse",
+    "args"
+   ],
+   "complexity": "moderate",
+   "filePath": "core/src/config.cpp",
+   "lineRange": [
+    124,
+    165
+   ]
+  },
+  {
+   "id": "function:core/src/config.cpp:parse_json_file",
+   "type": "function",
+   "name": "parse_json_file",
+   "summary": "读取并解析 JSON 配置文件到配置结构。",
+   "tags": [
+    "config",
+    "json",
+    "file",
+    "parse"
+   ],
+   "complexity": "moderate",
+   "filePath": "core/src/config.cpp",
+   "lineRange": [
+    167,
+    182
+   ]
+  },
+  {
+   "id": "function:core/src/config.cpp:apply_env_overrides",
+   "type": "function",
+   "name": "apply_env_overrides",
+   "summary": "应用环境变量覆盖到配置项（端口、数据库、上传配额等）。",
+   "tags": [
+    "config",
+    "env",
+    "override"
+   ],
+   "complexity": "moderate",
+   "filePath": "core/src/config.cpp",
+   "lineRange": [
+    184,
+    224
+   ]
+  },
+  {
+   "id": "function:core/src/config.cpp:load_config",
+   "type": "function",
+   "name": "load_config",
+   "summary": "加载完整配置：命令行参数、JSON 文件与环境变量覆盖的组合入口。",
+   "tags": [
+    "config",
+    "load",
+    "entrypoint"
+   ],
+   "complexity": "moderate",
+   "filePath": "core/src/config.cpp",
+   "lineRange": [
+    228,
+    245
+   ]
+  },
+  {
+   "id": "file:core/src/file_routes.cpp",
+   "type": "file",
+   "name": "core/src/file_routes.cpp",
+   "summary": "实现文件管理 HTTP 路由：文件列表、详情与删除，支持查询参数解析与分片协调删除。",
+   "tags": [
+    "file",
+    "routes",
+    "http",
+    "delete",
+    "query"
+   ],
+   "complexity": "complex",
+   "filePath": "core/src/file_routes.cpp"
+  },
+  {
+   "id": "function:core/src/file_routes.cpp:http_status_text",
+   "type": "function",
+   "name": "http_status_text",
+   "summary": "将 HTTP 状态码映射为原因短语文本。",
+   "tags": [
+    "http",
+    "status",
+    "mapping"
+   ],
+   "complexity": "moderate",
+   "filePath": "core/src/file_routes.cpp",
+   "lineRange": [
+    21,
+    38
+   ]
+  },
+  {
+   "id": "function:core/src/file_routes.cpp:json_error",
+   "type": "function",
+   "name": "json_error",
+   "summary": "构造并发送 JSON 错误响应。",
+   "tags": [
+    "http",
+    "error",
+    "json"
+   ],
+   "complexity": "simple",
+   "filePath": "core/src/file_routes.cpp",
+   "lineRange": [
+    40,
+    47
+   ]
+  },
+  {
+   "id": "function:core/src/file_routes.cpp:authenticated",
+   "type": "function",
+   "name": "authenticated",
+   "summary": "校验请求认证与能力，失败时返回错误响应。",
+   "tags": [
+    "auth",
+    "middleware",
+    "capability"
+   ],
+   "complexity": "simple",
+   "filePath": "core/src/file_routes.cpp",
+   "lineRange": [
+    49,
+    59
+   ]
+  },
+  {
+   "id": "function:core/src/file_routes.cpp:decode",
+   "type": "function",
+   "name": "decode",
+   "summary": "URL 百分号解码字符串。",
+   "tags": [
+    "url",
+    "decode",
+    "percent"
+   ],
+   "complexity": "moderate",
+   "filePath": "core/src/file_routes.cpp",
+   "lineRange": [
+    61,
+    90
+   ]
+  },
+  {
+   "id": "class:core/src/file_routes.cpp:FileQuery",
+   "type": "class",
+   "name": "FileQuery",
+   "summary": "文件列表查询参数结构体：名称、类型、偏移与数量。",
+   "tags": [
+    "file",
+    "query",
+    "pagination",
+    "struct"
+   ],
+   "complexity": "simple",
+   "filePath": "core/src/file_routes.cpp",
+   "lineRange": [
+    97,
+    102
+   ]
+  },
+  {
+   "id": "function:core/src/file_routes.cpp:parse_query",
+   "type": "function",
+   "name": "parse_query",
+   "summary": "解析文件列表查询字符串为 FileQuery（名称/类型过滤与分页）。",
+   "tags": [
+    "query",
+    "parse",
+    "pagination"
+   ],
+   "complexity": "moderate",
+   "filePath": "core/src/file_routes.cpp",
+   "lineRange": [
+    104,
+    141
+   ]
+  },
+  {
+   "id": "function:core/src/file_routes.cpp:parse_id",
+   "type": "function",
+   "name": "parse_id",
+   "summary": "从路径参数解析文件 id。",
+   "tags": [
+    "parse",
+    "id",
+    "file"
+   ],
+   "complexity": "simple",
+   "filePath": "core/src/file_routes.cpp",
+   "lineRange": [
+    143,
+    152
+   ]
+  },
+  {
+   "id": "function:core/src/file_routes.cpp:file_json",
+   "type": "function",
+   "name": "file_json",
+   "summary": "将文件记录序列化为 API JSON（含删除权限）。",
+   "tags": [
+    "file",
+    "serialize",
+    "json"
+   ],
+   "complexity": "moderate",
+   "filePath": "core/src/file_routes.cpp",
+   "lineRange": [
+    154,
+    167
+   ]
+  },
+  {
+   "id": "function:core/src/file_routes.cpp:handle_list_files",
+   "type": "function",
+   "name": "handle_list_files",
+   "summary": "处理文件列表请求：应用查询过滤与分页返回文件数组。",
+   "tags": [
+    "file",
+    "list",
+    "handler"
+   ],
+   "complexity": "moderate",
+   "filePath": "core/src/file_routes.cpp",
+   "lineRange": [
+    169,
+    204
+   ]
+  },
+  {
+   "id": "function:core/src/file_routes.cpp:handle_get_file",
+   "type": "function",
+   "name": "handle_get_file",
+   "summary": "处理文件详情请求并返回文件元数据。",
+   "tags": [
+    "file",
+    "detail",
+    "handler"
+   ],
+   "complexity": "moderate",
+   "filePath": "core/src/file_routes.cpp",
+   "lineRange": [
+    206,
+    242
+   ]
+  },
+  {
+   "id": "function:core/src/file_routes.cpp:handle_delete_file",
+   "type": "function",
+   "name": "handle_delete_file",
+   "summary": "处理文件删除：标记删除并调度分片清理（含清理许可）。",
+   "tags": [
+    "file",
+    "delete",
+    "handler",
+    "chunks"
+   ],
+   "complexity": "complex",
+   "filePath": "core/src/file_routes.cpp",
+   "lineRange": [
+    244,
+    294
+   ]
+  },
+  {
+   "id": "function:core/src/file_routes.cpp:register_file_routes",
+   "type": "function",
+   "name": "register_file_routes",
+   "summary": "向 HTTP 服务器注册文件管理路由。",
+   "tags": [
+    "file",
+    "routes",
+    "register"
+   ],
+   "complexity": "moderate",
+   "filePath": "core/src/file_routes.cpp",
+   "lineRange": [
+    298,
+    314
+   ]
+  },
+  {
+   "id": "file:core/src/main.cpp",
+   "type": "file",
+   "name": "core/src/main.cpp",
+   "summary": "服务入口：加载配置、初始化日志/数据库/文件系统、注册全部路由并启动 HTTP 服务器及后台清理任务。",
+   "tags": [
+    "entrypoint",
+    "main",
+    "bootstrap",
+    "routes",
+    "server"
+   ],
+   "complexity": "complex",
+   "filePath": "core/src/main.cpp"
+  },
+  {
+   "id": "function:core/src/main.cpp:auth_error",
+   "type": "function",
+   "name": "auth_error",
+   "summary": "构造认证/能力错误响应（401/403）。",
+   "tags": [
+    "auth",
+    "error",
+    "http"
+   ],
+   "complexity": "moderate",
+   "filePath": "core/src/main.cpp",
+   "lineRange": [
+    53,
+    85
+   ]
+  },
+  {
+   "id": "function:core/src/main.cpp:check_auth",
+   "type": "function",
+   "name": "check_auth",
+   "summary": "校验请求认证与指定能力，失败时写入错误响应。",
+   "tags": [
+    "auth",
+    "middleware",
+    "capability"
+   ],
+   "complexity": "simple",
+   "filePath": "core/src/main.cpp",
+   "lineRange": [
+    87,
+    101
+   ]
+  },
+  {
+   "id": "function:core/src/main.cpp:register_routes",
+   "type": "function",
+   "name": "register_routes",
+   "summary": "注册全部 HTTP 路由（文件/流播/歌单/VIP/管理员/WebSocket），含回调式鉴权包装。",
+   "tags": [
+    "routes",
+    "register",
+    "http",
+    "streaming"
+   ],
+   "complexity": "complex",
+   "filePath": "core/src/main.cpp",
+   "lineRange": [
+    114,
+    526
+   ]
+  },
+  {
+   "id": "function:core/src/main.cpp:main",
+   "type": "function",
+   "name": "main",
+   "summary": "程序入口：加载配置、初始化日志与数据库、执行 schema 迁移与管理员引导、启动服务器与清理任务。",
+   "tags": [
+    "entrypoint",
+    "main",
+    "bootstrap",
+    "startup"
+   ],
+   "complexity": "complex",
+   "filePath": "core/src/main.cpp",
+   "lineRange": [
+    530,
+    638
+   ]
+  },
+  {
+   "id": "file:core/src/pending_chunk_deletions.cpp",
+   "type": "file",
+   "name": "core/src/pending_chunk_deletions.cpp",
+   "summary": "实现待处理分片删除批处理：单条删除处理（释放分片、标记清理）与带清理许可的受保护批量运行。",
+   "tags": [
+    "chunk-deletion",
+    "cleanup",
+    "batch",
+    "permit"
+   ],
+   "complexity": "moderate",
+   "filePath": "core/src/pending_chunk_deletions.cpp"
+  },
+  {
+   "id": "function:core/src/pending_chunk_deletions.cpp:process_one_deletion",
+   "type": "function",
+   "name": "process_one_deletion",
+   "summary": "处理单条分片删除：校验文件、释放分片占用、删除记录并上报结果。",
+   "tags": [
+    "chunk-deletion",
+    "process",
+    "cleanup"
+   ],
+   "complexity": "complex",
+   "filePath": "core/src/pending_chunk_deletions.cpp",
+   "lineRange": [
+    24,
+    98
+   ]
+  },
+  {
+   "id": "function:core/src/pending_chunk_deletions.cpp:run_pending_chunk_deletions",
+   "type": "function",
+   "name": "run_pending_chunk_deletions",
+   "summary": "对外批量运行分片删除任务（内部获得清理许可后调用受保护版本）。",
+   "tags": [
+    "chunk-deletion",
+    "batch",
+    "entrypoint"
+   ],
+   "complexity": "simple",
+   "filePath": "core/src/pending_chunk_deletions.cpp",
+   "lineRange": [
+    102,
+    108
+   ]
+  },
+  {
+   "id": "function:core/src/pending_chunk_deletions.cpp:run_pending_chunk_deletions_guarded",
+   "type": "function",
+   "name": "run_pending_chunk_deletions_guarded",
+   "summary": "持清理许可批量运行分片删除，逐个处理并处理中止/释放路径。",
+   "tags": [
+    "chunk-deletion",
+    "cleanup",
+    "permit",
+    "batch"
+   ],
+   "complexity": "complex",
+   "filePath": "core/src/pending_chunk_deletions.cpp",
+   "lineRange": [
+    110,
+    181
+   ]
+  }
+ ],
+ "edges": [
+  {
+   "source": "function:core/src/config.cpp:parse_json_file",
+   "target": "function:core/src/config.cpp:parse_server_section",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:core/src/config.cpp:parse_json_file",
+   "target": "function:core/src/config.cpp:parse_database_section",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:core/src/config.cpp:parse_json_file",
+   "target": "function:core/src/config.cpp:parse_ssl_section",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:core/src/config.cpp:load_config",
+   "target": "function:core/src/config.cpp:parse_json_file",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:core/src/config.cpp:load_config",
+   "target": "function:core/src/config.cpp:apply_env_overrides",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:core/src/config.cpp:load_config",
+   "target": "function:core/src/config.cpp:parse_cmd_args",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:core/src/config.cpp",
+   "target": "function:core/src/config.cpp:parse_server_section",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:core/src/config.cpp",
+   "target": "function:core/src/config.cpp:parse_database_section",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:core/src/config.cpp",
+   "target": "function:core/src/config.cpp:parse_ssl_section",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:core/src/config.cpp",
+   "target": "function:core/src/config.cpp:parse_cmd_args",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:core/src/config.cpp",
+   "target": "function:core/src/config.cpp:parse_json_file",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:core/src/config.cpp",
+   "target": "function:core/src/config.cpp:apply_env_overrides",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:core/src/config.cpp",
+   "target": "function:core/src/config.cpp:load_config",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "function:core/src/file_routes.cpp:json_error",
+   "target": "function:core/src/file_routes.cpp:http_status_text",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:core/src/file_routes.cpp:authenticated",
+   "target": "function:core/src/file_routes.cpp:json_error",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:core/src/file_routes.cpp:parse_query",
+   "target": "function:core/src/file_routes.cpp:decode",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:core/src/file_routes.cpp:handle_list_files",
+   "target": "function:core/src/file_routes.cpp:authenticated",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:core/src/file_routes.cpp:handle_list_files",
+   "target": "function:core/src/file_routes.cpp:parse_query",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:core/src/file_routes.cpp:handle_list_files",
+   "target": "function:core/src/file_routes.cpp:json_error",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:core/src/file_routes.cpp:handle_list_files",
+   "target": "function:core/src/file_routes.cpp:file_json",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:core/src/file_routes.cpp:handle_get_file",
+   "target": "function:core/src/file_routes.cpp:authenticated",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:core/src/file_routes.cpp:handle_get_file",
+   "target": "function:core/src/file_routes.cpp:parse_id",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:core/src/file_routes.cpp:handle_get_file",
+   "target": "function:core/src/file_routes.cpp:json_error",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:core/src/file_routes.cpp:handle_get_file",
+   "target": "function:core/src/file_routes.cpp:file_json",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:core/src/file_routes.cpp:handle_delete_file",
+   "target": "function:core/src/file_routes.cpp:authenticated",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:core/src/file_routes.cpp:handle_delete_file",
+   "target": "function:core/src/file_routes.cpp:parse_id",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:core/src/file_routes.cpp:handle_delete_file",
+   "target": "function:core/src/file_routes.cpp:json_error",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:core/src/file_routes.cpp:handle_delete_file",
+   "target": "function:core/src/pending_chunk_deletions.cpp:run_pending_chunk_deletions_guarded",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:core/src/file_routes.cpp:register_file_routes",
+   "target": "function:core/src/file_routes.cpp:handle_list_files",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:core/src/file_routes.cpp:register_file_routes",
+   "target": "function:core/src/file_routes.cpp:handle_get_file",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:core/src/file_routes.cpp:register_file_routes",
+   "target": "function:core/src/file_routes.cpp:handle_delete_file",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:core/src/file_routes.cpp",
+   "target": "function:core/src/file_routes.cpp:http_status_text",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:core/src/file_routes.cpp",
+   "target": "function:core/src/file_routes.cpp:json_error",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:core/src/file_routes.cpp",
+   "target": "function:core/src/file_routes.cpp:authenticated",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:core/src/file_routes.cpp",
+   "target": "function:core/src/file_routes.cpp:decode",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:core/src/file_routes.cpp",
+   "target": "class:core/src/file_routes.cpp:FileQuery",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:core/src/file_routes.cpp",
+   "target": "function:core/src/file_routes.cpp:parse_query",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:core/src/file_routes.cpp",
+   "target": "function:core/src/file_routes.cpp:parse_id",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:core/src/file_routes.cpp",
+   "target": "function:core/src/file_routes.cpp:file_json",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:core/src/file_routes.cpp",
+   "target": "function:core/src/file_routes.cpp:handle_list_files",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:core/src/file_routes.cpp",
+   "target": "function:core/src/file_routes.cpp:handle_get_file",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:core/src/file_routes.cpp",
+   "target": "function:core/src/file_routes.cpp:handle_delete_file",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:core/src/file_routes.cpp",
+   "target": "function:core/src/file_routes.cpp:register_file_routes",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "function:core/src/main.cpp:check_auth",
+   "target": "function:core/src/main.cpp:auth_error",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:core/src/main.cpp:register_routes",
+   "target": "function:core/src/main.cpp:check_auth",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:core/src/main.cpp:register_routes",
+   "target": "function:core/src/main.cpp:auth_error",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:core/src/main.cpp:register_routes",
+   "target": "function:core/src/auth_routes.cpp:register_auth_routes",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:core/src/main.cpp:register_routes",
+   "target": "function:core/src/vip_admin_routes.cpp:register_vip_routes",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:core/src/main.cpp:register_routes",
+   "target": "function:core/src/vip_admin_routes.cpp:register_admin_routes",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:core/src/main.cpp:register_routes",
+   "target": "function:core/src/file_routes.cpp:register_file_routes",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:core/src/main.cpp:register_routes",
+   "target": "function:core/src/playlist_routes.cpp:register_playlist_routes",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:core/src/main.cpp:register_routes",
+   "target": "function:core/include/upload_setup.h:make_upload_setup",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:core/src/main.cpp:register_routes",
+   "target": "function:core/include/stream_download_utils.h:read_stream_file",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:core/src/main.cpp:register_routes",
+   "target": "function:core/include/stream_download_utils.h:read_stream_range",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:core/src/main.cpp:register_routes",
+   "target": "function:core/include/stream_download_utils.h:build_attachment_content_disposition",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:core/src/main.cpp:register_routes",
+   "target": "function:core/src/upload_policy.cpp:make_upload_validation_response",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:core/src/main.cpp:register_routes",
+   "target": "function:core/src/upload_policy.cpp:validate_audio_upload",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:core/src/main.cpp:main",
+   "target": "function:core/src/admin_bootstrap.cpp:bootstrap_admin",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:core/src/main.cpp:main",
+   "target": "function:core/src/auth_service.cpp:create_auth_service",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:core/src/main.cpp:main",
+   "target": "function:core/src/config.cpp:load_config",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:core/src/main.cpp:main",
+   "target": "function:core/src/pending_chunk_deletions.cpp:run_pending_chunk_deletions",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:core/src/main.cpp:main",
+   "target": "function:core/src/schema_migrations.cpp:run_schema_migrations",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:core/src/main.cpp",
+   "target": "function:core/src/main.cpp:auth_error",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:core/src/main.cpp",
+   "target": "function:core/src/main.cpp:check_auth",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:core/src/main.cpp",
+   "target": "function:core/src/main.cpp:register_routes",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:core/src/main.cpp",
+   "target": "function:core/src/main.cpp:main",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "function:core/src/pending_chunk_deletions.cpp:run_pending_chunk_deletions",
+   "target": "function:core/src/pending_chunk_deletions.cpp:run_pending_chunk_deletions_guarded",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:core/src/pending_chunk_deletions.cpp:run_pending_chunk_deletions_guarded",
+   "target": "function:core/src/pending_chunk_deletions.cpp:process_one_deletion",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:core/src/pending_chunk_deletions.cpp",
+   "target": "function:core/src/pending_chunk_deletions.cpp:process_one_deletion",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:core/src/pending_chunk_deletions.cpp",
+   "target": "function:core/src/pending_chunk_deletions.cpp:run_pending_chunk_deletions",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:core/src/pending_chunk_deletions.cpp",
+   "target": "function:core/src/pending_chunk_deletions.cpp:run_pending_chunk_deletions_guarded",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  }
+ ]
+}

@@ -1,0 +1,669 @@
+{
+  "nodes": [
+    {
+      "id": "file:net/http/include/case_insensitive.h",
+      "type": "file",
+      "name": "net/http/include/case_insensitive.h",
+      "filePath": "net/http/include/case_insensitive.h",
+      "summary": "提供大小写不敏感的字符串哈希与等值比较函数对象，并定义 HeaderMap 类型别名，使 Content-Type 与 content-type 等 HTTP 头键视为同一键。",
+      "tags": [
+        "case-insensitive",
+        "http-header",
+        "hash",
+        "utility"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "class:net/http/include/case_insensitive.h:CaseInsensitiveHash",
+      "type": "class",
+      "name": "CaseInsensitiveHash",
+      "summary": "大小写不敏感字符串哈希函数对象，用于 unordered_map 的自定义键哈希。",
+      "tags": [
+        "hash",
+        "case-insensitive",
+        "functor"
+      ],
+      "complexity": "simple",
+      "lineRange": [
+        10,
+        21
+      ]
+    },
+    {
+      "id": "class:net/http/include/case_insensitive.h:CaseInsensitiveEq",
+      "type": "class",
+      "name": "CaseInsensitiveEq",
+      "summary": "大小写不敏感的字符串等值比较函数对象，逐字符转大写后比较，供 HeaderMap 使用。",
+      "tags": [
+        "comparison",
+        "case-insensitive",
+        "functor"
+      ],
+      "complexity": "simple",
+      "lineRange": [
+        24,
+        35
+      ]
+    },
+    {
+      "id": "file:net/http/include/http_parser.h",
+      "type": "file",
+      "name": "net/http/include/http_parser.h",
+      "filePath": "net/http/include/http_parser.h",
+      "summary": "声明流式 HTTP 请求解析器 HttpParser，以状态机解析请求行、头部与 body（identity/chunked 编码），支持流式分片回调；附带解析状态、错误与结果类型定义。",
+      "tags": [
+        "http-parser",
+        "streaming",
+        "chunked-encoding",
+        "state-machine"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "class:net/http/include/http_parser.h:ParserResult",
+      "type": "class",
+      "name": "ParserResult",
+      "summary": "HTTP 解析器单次 feed 的结果结构，携带错误码与已消费字节数。",
+      "tags": [
+        "parser",
+        "result",
+        "error-handling"
+      ],
+      "complexity": "simple",
+      "lineRange": [
+        33,
+        36
+      ]
+    },
+    {
+      "id": "class:net/http/include/http_parser.h:HttpParser",
+      "type": "class",
+      "name": "HttpParser",
+      "summary": "流式 HTTP 请求解析器，维护解析状态机，支持最大 body 限制、流式分片回调、头部完成与 body 完成回调等能力。",
+      "tags": [
+        "http-parser",
+        "streaming",
+        "chunked-encoding",
+        "state-machine"
+      ],
+      "complexity": "complex",
+      "lineRange": [
+        44,
+        111
+      ]
+    },
+    {
+      "id": "file:net/http/include/http_request.h",
+      "type": "file",
+      "name": "net/http/include/http_request.h",
+      "filePath": "net/http/include/http_request.h",
+      "summary": "定义 HttpRequest 请求结构体与 HttpMethod 枚举，携带方法、路径、查询串、大小写不敏感请求头、认证身份等信息，并提供方法字符串互转与重置接口。",
+      "tags": [
+        "http-request",
+        "http-method",
+        "auth-context"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "class:net/http/include/http_request.h:HttpRequest",
+      "type": "class",
+      "name": "HttpRequest",
+      "summary": "HTTP 请求结构体，聚合请求方法、路径、头部、body、路径参数与认证身份信息，提供 clear 重置方法。",
+      "tags": [
+        "http-request",
+        "struct",
+        "auth-context"
+      ],
+      "complexity": "simple",
+      "lineRange": [
+        33,
+        47
+      ]
+    },
+    {
+      "id": "file:net/http/include/http_response.h",
+      "type": "file",
+      "name": "net/http/include/http_response.h",
+      "filePath": "net/http/include/http_response.h",
+      "summary": "定义 HttpResponse 响应结构体，提供设置状态码、响应头、Content-Type、Content-Length 及序列化为完整 HTTP 响应字符串的操作，供各路由处理器复用。",
+      "tags": [
+        "http-response",
+        "serialization",
+        "status-code"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "class:net/http/include/http_response.h:HttpResponse",
+      "type": "class",
+      "name": "HttpResponse",
+      "summary": "HTTP 响应结构体，提供状态码、响应头设置与序列化为 HTTP 响应文本的能力。",
+      "tags": [
+        "http-response",
+        "struct",
+        "serialization"
+      ],
+      "complexity": "simple",
+      "lineRange": [
+        12,
+        43
+      ]
+    },
+    {
+      "id": "file:net/http/include/http_server.h",
+      "type": "file",
+      "name": "net/http/include/http_server.h",
+      "filePath": "net/http/include/http_server.h",
+      "summary": "声明 HttpServer 服务器类与 UploadStreamContext 上传流上下文，封装 TcpServer 与 Router，提供 HTTP 路由注册、WebSocket 升级、分片上传、认证服务注入与连接生命周期管理。",
+      "tags": [
+        "http-server",
+        "upload-stream",
+        "websocket",
+        "routing"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "class:net/http/include/http_server.h:UploadStreamContext",
+      "type": "class",
+      "name": "UploadStreamContext",
+      "summary": "文件分片上传的流式上下文，记录文件名、哈希、总大小与进度，支持分片存储回调、初始分片探测与上传生命周期守卫。",
+      "tags": [
+        "upload",
+        "chunk",
+        "streaming"
+      ],
+      "complexity": "complex",
+      "lineRange": [
+        28,
+        56
+      ]
+    },
+    {
+      "id": "class:net/http/include/http_server.h:HttpServer",
+      "type": "class",
+      "name": "HttpServer",
+      "summary": "HTTP 服务器实现类，继承 IHttpServer，封装 TCP 服务器与路由器，负责连接处理、请求分发、WebSocket 升级、分片上传流程与解析器管理。",
+      "tags": [
+        "http-server",
+        "websocket",
+        "upload-stream",
+        "connection-management"
+      ],
+      "complexity": "complex",
+      "lineRange": [
+        60,
+        116
+      ]
+    },
+    {
+      "id": "file:net/http/include/i_http_server.h",
+      "type": "file",
+      "name": "net/http/include/i_http_server.h",
+      "filePath": "net/http/include/i_http_server.h",
+      "summary": "定义 IHttpServer 抽象接口，抽象 HTTP 服务器的生命周期管理、路由注册、WebSocket 处理与端口查询能力，供 HttpServer 实现。",
+      "tags": [
+        "interface",
+        "abstraction",
+        "http-server"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "class:net/http/include/i_http_server.h:IHttpServer",
+      "type": "class",
+      "name": "IHttpServer",
+      "summary": "HTTP 服务器抽象接口，定义 init/start/stop、get/post/put/del、ws 与 actual_port 等纯虚方法。",
+      "tags": [
+        "interface",
+        "abstract",
+        "http-server"
+      ],
+      "complexity": "simple",
+      "lineRange": [
+        20,
+        39
+      ]
+    },
+    {
+      "id": "file:net/http/include/i_router.h",
+      "type": "file",
+      "name": "net/http/include/i_router.h",
+      "filePath": "net/http/include/i_router.h",
+      "summary": "定义 IRouter 抽象路由接口，约定基于前缀树的路由注册、匹配与路径存在性检查能力，支持静态段与 :name 参数段。",
+      "tags": [
+        "interface",
+        "router",
+        "path-matching"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "class:net/http/include/i_router.h:IRouter",
+      "type": "class",
+      "name": "IRouter",
+      "summary": "HTTP 路由器抽象接口，定义 add/match/path_exists 三个纯虚方法，约定路由注册与匹配行为。",
+      "tags": [
+        "interface",
+        "abstract",
+        "router"
+      ],
+      "complexity": "simple",
+      "lineRange": [
+        19,
+        29
+      ]
+    },
+    {
+      "id": "file:net/http/include/range_parser.h",
+      "type": "file",
+      "name": "net/http/include/range_parser.h",
+      "filePath": "net/http/include/range_parser.h",
+      "summary": "提供 HTTP Range 请求头解析与 206/416 响应构建工具，以及多部分响应 boundary 随机生成函数，用于文件 Range 流播。",
+      "tags": [
+        "range-request",
+        "streaming",
+        "206-partial-content",
+        "multipart"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "class:net/http/include/range_parser.h:RangeInterval",
+      "type": "class",
+      "name": "RangeInterval",
+      "summary": "表示单个 Range 区间的起始与结束字节偏移的简单结构。",
+      "tags": [
+        "range-request",
+        "struct",
+        "byte-range"
+      ],
+      "complexity": "simple",
+      "lineRange": [
+        13,
+        16
+      ]
+    },
+    {
+      "id": "class:net/http/include/range_parser.h:RangeRequest",
+      "type": "class",
+      "name": "RangeRequest",
+      "summary": "解析后的 Range 请求结果，包含区间列表、有效性与可满足性标记。",
+      "tags": [
+        "range-request",
+        "struct",
+        "parser"
+      ],
+      "complexity": "simple",
+      "lineRange": [
+        18,
+        22
+      ]
+    },
+    {
+      "id": "function:net/http/include/range_parser.h:generate_boundary",
+      "type": "function",
+      "name": "generate_boundary",
+      "summary": "生成随机十六进制多部分响应 boundary 字符串，供 206 多段响应分隔使用。",
+      "tags": [
+        "multipart",
+        "boundary",
+        "random"
+      ],
+      "complexity": "simple",
+      "lineRange": [
+        30,
+        39
+      ]
+    },
+    {
+      "id": "file:net/http/include/router.h",
+      "type": "file",
+      "name": "net/http/include/router.h",
+      "filePath": "net/http/include/router.h",
+      "summary": "声明基于前缀树（trie）的 Router 路由实现类，支持静态段与 :name 参数段的路由注册、匹配与路径存在性查询，为 HttpServer 提供请求分发。",
+      "tags": [
+        "router",
+        "trie",
+        "path-parameters",
+        "http-routing"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "class:net/http/include/router.h:Router",
+      "type": "class",
+      "name": "Router",
+      "summary": "基于前缀树的 HTTP 路由器实现，继承 IRouter，支持静态段与参数段路由的插入与搜索。",
+      "tags": [
+        "router",
+        "trie",
+        "path-parameters"
+      ],
+      "complexity": "moderate",
+      "lineRange": [
+        16,
+        53
+      ]
+    }
+  ],
+  "edges": [
+    {
+      "source": "file:net/http/include/http_parser.h",
+      "target": "file:net/http/include/http_request.h",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:net/http/include/http_request.h",
+      "target": "file:net/http/include/case_insensitive.h",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:net/http/include/http_response.h",
+      "target": "file:net/http/include/case_insensitive.h",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:net/http/include/http_server.h",
+      "target": "file:net/http/include/http_parser.h",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:net/http/include/http_server.h",
+      "target": "file:net/http/include/http_request.h",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:net/http/include/http_server.h",
+      "target": "file:net/http/include/http_response.h",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:net/http/include/http_server.h",
+      "target": "file:net/http/include/i_http_server.h",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:net/http/include/http_server.h",
+      "target": "file:net/http/include/router.h",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:net/http/include/i_http_server.h",
+      "target": "file:net/http/include/i_router.h",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:net/http/include/i_router.h",
+      "target": "file:net/http/include/http_request.h",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:net/http/include/i_router.h",
+      "target": "file:net/http/include/http_response.h",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:net/http/include/range_parser.h",
+      "target": "file:net/http/include/http_response.h",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:net/http/include/router.h",
+      "target": "file:net/http/include/http_request.h",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:net/http/include/router.h",
+      "target": "file:net/http/include/http_response.h",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:net/http/include/router.h",
+      "target": "file:net/http/include/i_router.h",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:net/http/include/case_insensitive.h",
+      "target": "class:net/http/include/case_insensitive.h:CaseInsensitiveHash",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:net/http/include/case_insensitive.h",
+      "target": "class:net/http/include/case_insensitive.h:CaseInsensitiveHash",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:net/http/include/case_insensitive.h",
+      "target": "class:net/http/include/case_insensitive.h:CaseInsensitiveEq",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:net/http/include/case_insensitive.h",
+      "target": "class:net/http/include/case_insensitive.h:CaseInsensitiveEq",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:net/http/include/http_parser.h",
+      "target": "class:net/http/include/http_parser.h:ParserResult",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:net/http/include/http_parser.h",
+      "target": "class:net/http/include/http_parser.h:ParserResult",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:net/http/include/http_parser.h",
+      "target": "class:net/http/include/http_parser.h:HttpParser",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:net/http/include/http_parser.h",
+      "target": "class:net/http/include/http_parser.h:HttpParser",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:net/http/include/http_request.h",
+      "target": "class:net/http/include/http_request.h:HttpRequest",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:net/http/include/http_request.h",
+      "target": "class:net/http/include/http_request.h:HttpRequest",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:net/http/include/http_response.h",
+      "target": "class:net/http/include/http_response.h:HttpResponse",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:net/http/include/http_response.h",
+      "target": "class:net/http/include/http_response.h:HttpResponse",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:net/http/include/http_server.h",
+      "target": "class:net/http/include/http_server.h:UploadStreamContext",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:net/http/include/http_server.h",
+      "target": "class:net/http/include/http_server.h:UploadStreamContext",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:net/http/include/http_server.h",
+      "target": "class:net/http/include/http_server.h:HttpServer",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:net/http/include/http_server.h",
+      "target": "class:net/http/include/http_server.h:HttpServer",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:net/http/include/i_http_server.h",
+      "target": "class:net/http/include/i_http_server.h:IHttpServer",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:net/http/include/i_http_server.h",
+      "target": "class:net/http/include/i_http_server.h:IHttpServer",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:net/http/include/i_router.h",
+      "target": "class:net/http/include/i_router.h:IRouter",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:net/http/include/i_router.h",
+      "target": "class:net/http/include/i_router.h:IRouter",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:net/http/include/range_parser.h",
+      "target": "class:net/http/include/range_parser.h:RangeInterval",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:net/http/include/range_parser.h",
+      "target": "class:net/http/include/range_parser.h:RangeInterval",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:net/http/include/range_parser.h",
+      "target": "class:net/http/include/range_parser.h:RangeRequest",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:net/http/include/range_parser.h",
+      "target": "class:net/http/include/range_parser.h:RangeRequest",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:net/http/include/range_parser.h",
+      "target": "function:net/http/include/range_parser.h:generate_boundary",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:net/http/include/range_parser.h",
+      "target": "function:net/http/include/range_parser.h:generate_boundary",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:net/http/include/router.h",
+      "target": "class:net/http/include/router.h:Router",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:net/http/include/router.h",
+      "target": "class:net/http/include/router.h:Router",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "class:net/http/include/http_server.h:HttpServer",
+      "target": "class:net/http/include/i_http_server.h:IHttpServer",
+      "type": "inherits",
+      "direction": "forward",
+      "weight": 0.9
+    },
+    {
+      "source": "class:net/http/include/router.h:Router",
+      "target": "class:net/http/include/i_router.h:IRouter",
+      "type": "inherits",
+      "direction": "forward",
+      "weight": 0.9
+    }
+  ]
+}

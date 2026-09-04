@@ -1,0 +1,928 @@
+{
+  "nodes": [
+    {
+      "id": "file:db/include/boost_mysql_connection.h",
+      "type": "file",
+      "name": "boost_mysql_connection.h",
+      "filePath": "db/include/boost_mysql_connection.h",
+      "summary": "基于 Boost.MySQL 实现 IConnection 接口的数据库连接类声明，采用 PIMPL 隐藏实现细节并禁用拷贝与移动操作。",
+      "tags": ["mysql", "database", "connection", "pimpl", "interface"],
+      "complexity": "simple"
+    },
+    {
+      "id": "class:db/include/boost_mysql_connection.h:BoostMySqlConnection",
+      "type": "class",
+      "name": "BoostMySqlConnection",
+      "summary": "实现 IConnection 的 MySQL 连接类，通过 PIMPL 封装 Boost.MySQL 客户端，提供 connect、query、execute 等数据库操作。",
+      "tags": ["mysql", "connection", "pimpl", "database"],
+      "complexity": "simple",
+      "lineRange": [7, 28]
+    },
+    {
+      "id": "file:db/include/chunk_lifecycle_coordinator.h",
+      "type": "file",
+      "name": "chunk_lifecycle_coordinator.h",
+      "filePath": "db/include/chunk_lifecycle_coordinator.h",
+      "summary": "分片上传与清理的生命周期协调器，用互斥锁与条件变量保证清理任务与上传操作互斥执行，并提供 RAII 守卫与清理许可。",
+      "tags": ["chunk", "concurrency", "mutex", "condition-variable", "lifecycle"],
+      "complexity": "complex"
+    },
+    {
+      "id": "class:db/include/chunk_lifecycle_coordinator.h:ChunkLifecycleCoordinator",
+      "type": "class",
+      "name": "ChunkLifecycleCoordinator",
+      "summary": "协调分片上传与清理互斥的线程安全类，通过 UploadGuard、CleanupGuard 与 CleanupPermit 实现 RAII 语义，维护线程级上传计数与等待清理队列。",
+      "tags": ["concurrency", "synchronization", "raii", "chunk", "upload"],
+      "complexity": "complex",
+      "lineRange": [13, 178]
+    },
+    {
+      "id": "function:db/include/chunk_lifecycle_coordinator.h:acquire_upload_guard",
+      "type": "function",
+      "name": "acquire_upload_guard",
+      "summary": "获取上传守卫：等待无清理进行后登记当前线程的上传计数，返回 RAII 的 UploadGuard 对象。",
+      "tags": ["upload", "guard", "synchronization"],
+      "complexity": "simple",
+      "lineRange": [105, 115]
+    },
+    {
+      "id": "function:db/include/chunk_lifecycle_coordinator.h:acquire_cleanup_guard",
+      "type": "function",
+      "name": "acquire_cleanup_guard",
+      "summary": "获取清理守卫：等待所有上传结束且无清理进行，标记清理活动状态与归属线程，异常时回退等待计数并唤醒。",
+      "tags": ["cleanup", "guard", "synchronization"],
+      "complexity": "complex",
+      "lineRange": [117, 139]
+    },
+    {
+      "id": "function:db/include/chunk_lifecycle_coordinator.h:release_upload",
+      "type": "function",
+      "name": "release_upload",
+      "summary": "释放指定线程的一次上传计数，当活跃上传归零时唤醒所有等待清理的线程。",
+      "tags": ["upload", "release", "synchronization"],
+      "complexity": "simple",
+      "lineRange": [152, 162]
+    },
+    {
+      "id": "file:db/include/database_pool.h",
+      "type": "file",
+      "name": "database_pool.h",
+      "filePath": "db/include/database_pool.h",
+      "summary": "DatabasePool 连接池类声明，实现 IDatabasePool 接口，覆盖用户、文件分片、音乐库与歌单的完整数据操作契约。",
+      "tags": ["database", "connection-pool", "mysql", "crud"],
+      "complexity": "complex"
+    },
+    {
+      "id": "class:db/include/database_pool.h:DatabasePool",
+      "type": "class",
+      "name": "DatabasePool",
+      "summary": "线程安全的数据库连接池实现，管理连接工厂与空闲队列，提供用户认证、文件记录与分片、延迟分块删除、音乐与歌单的 CRUD 方法。",
+      "tags": ["connection-pool", "thread-safety", "crud", "mysql"],
+      "complexity": "complex",
+      "lineRange": [15, 122]
+    },
+    {
+      "id": "file:db/include/iconnection.h",
+      "type": "file",
+      "name": "iconnection.h",
+      "filePath": "db/include/iconnection.h",
+      "summary": "数据库连接抽象接口 IConnection 与查询结果结构 QueryResult 的定义，并声明 MySQL UTC 时间的格式化与解析工具函数。",
+      "tags": ["interface", "database", "connection", "mysql", "utc"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "class:db/include/iconnection.h:IConnection",
+      "type": "class",
+      "name": "IConnection",
+      "summary": "数据库连接抽象基类，定义 connect、ping、query、execute、last_insert_id 与 close 等纯虚接口，query 支持参数化查询。",
+      "tags": ["interface", "connection", "database", "abstraction"],
+      "complexity": "simple",
+      "lineRange": [19, 37]
+    },
+    {
+      "id": "class:db/include/iconnection.h:QueryResult",
+      "type": "class",
+      "name": "QueryResult",
+      "summary": "查询结果结构体，包含列名字符串数组与二维字符串行数据，用于返回通用查询结果。",
+      "tags": ["query", "result", "data-structure"],
+      "complexity": "simple",
+      "lineRange": [14, 17]
+    },
+    {
+      "id": "file:db/include/idatabase_pool.h",
+      "type": "file",
+      "name": "idatabase_pool.h",
+      "filePath": "db/include/idatabase_pool.h",
+      "summary": "数据库连接池抽象接口 IDatabasePool 声明，定义用户、文件分片、音乐库与歌单的完整数据访问契约，并内置分块生命周期协调器绑定机制。",
+      "tags": ["interface", "database-pool", "abstraction", "chunk", "crud"],
+      "complexity": "complex"
+    },
+    {
+      "id": "class:db/include/idatabase_pool.h:IDatabasePool",
+      "type": "class",
+      "name": "IDatabasePool",
+      "summary": "数据库连接池纯虚接口，定义用户认证、文件记录与分片、延迟分块删除、音乐元数据与歌单的访问契约，并持有分块生命周期协调器的绑定关系。",
+      "tags": ["interface", "database-pool", "chunk", "abstraction"],
+      "complexity": "complex",
+      "lineRange": [18, 226]
+    },
+    {
+      "id": "function:db/include/idatabase_pool.h:list_files",
+      "type": "function",
+      "name": "list_files",
+      "summary": "按名称模式与类型过滤分页列出文件记录的接口默认实现，接收 offset 与 limit 返回 FilePage。",
+      "tags": ["file", "pagination", "interface"],
+      "complexity": "simple",
+      "lineRange": [119, 128]
+    },
+    {
+      "id": "function:db/include/idatabase_pool.h:delete_file_owned",
+      "type": "function",
+      "name": "delete_file_owned",
+      "summary": "校验清理许可后删除文件的接口默认实现，校验 CleanupPermit 归属，返回文件删除计划或清理许可无效错误。",
+      "tags": ["file", "delete", "cleanup-permit"],
+      "complexity": "simple",
+      "lineRange": [132, 143]
+    },
+    {
+      "id": "file:db/include/mock_connection.h",
+      "type": "file",
+      "name": "mock_connection.h",
+      "filePath": "db/include/mock_connection.h",
+      "summary": "用于测试的 MockConnection 模拟连接实现，支持预设返回结果、注入回调钩子并记录调用计数与最近 SQL。",
+      "tags": ["testing", "mock", "connection", "database"],
+      "complexity": "simple"
+    },
+    {
+      "id": "class:db/include/mock_connection.h:MockConnection",
+      "type": "class",
+      "name": "MockConnection",
+      "summary": "实现 IConnection 的测试替身，可配置 connect、query、execute 等返回值，注入钩子回调，并记录各方法调用次数与最近执行的 SQL。",
+      "tags": ["mock", "testing", "connection", "hook"],
+      "complexity": "simple",
+      "lineRange": [14, 81]
+    },
+    {
+      "id": "file:db/include/models.h",
+      "type": "file",
+      "name": "models.h",
+      "filePath": "db/include/models.h",
+      "summary": "数据模型定义集合：用户、文件记录、文件分片、音乐元数据、歌单及认证相关的全部数据结构体。",
+      "tags": ["models", "data-structures", "user", "file", "music"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "class:db/include/models.h:User",
+      "type": "class",
+      "name": "User",
+      "summary": "用户模型结构体，包含用户 ID、用户名、密码哈希、盐、角色、邮箱与 VIP 到期时间等字段。",
+      "tags": ["user", "model", "authentication"],
+      "complexity": "simple",
+      "lineRange": [49, 58]
+    },
+    {
+      "id": "class:db/include/models.h:AdminUserPage",
+      "type": "class",
+      "name": "AdminUserPage",
+      "summary": "管理员用户分页结果结构体，包含条目列表、总数与偏移分页信息。",
+      "tags": ["user", "pagination", "model"],
+      "complexity": "simple",
+      "lineRange": [64, 69]
+    },
+    {
+      "id": "class:db/include/models.h:EffectiveIdentity",
+      "type": "class",
+      "name": "EffectiveIdentity",
+      "summary": "有效身份信息结构体，含用户 ID、用户名、角色、VIP 状态与到期时间。",
+      "tags": ["identity", "vip", "model"],
+      "complexity": "simple",
+      "lineRange": [71, 77]
+    },
+    {
+      "id": "class:db/include/models.h:AuthenticatedUserProfile",
+      "type": "class",
+      "name": "AuthenticatedUserProfile",
+      "summary": "认证用户公开资料结构体，含用户 ID、用户名、邮箱与创建时间。",
+      "tags": ["user", "profile", "model"],
+      "complexity": "simple",
+      "lineRange": [81, 86]
+    },
+    {
+      "id": "class:db/include/models.h:TokenValidationResult",
+      "type": "class",
+      "name": "TokenValidationResult",
+      "summary": "令牌校验结果结构体，包含校验状态、有效身份与用户资料。",
+      "tags": ["token", "validation", "model"],
+      "complexity": "simple",
+      "lineRange": [95, 99]
+    },
+    {
+      "id": "class:db/include/models.h:FileRecord",
+      "type": "class",
+      "name": "FileRecord",
+      "summary": "文件记录模型，含文件 ID、音乐 ID、文件名、哈希、大小、内容类型、分片大小与上传者等字段。",
+      "tags": ["file", "model", "storage"],
+      "complexity": "simple",
+      "lineRange": [101, 111]
+    },
+    {
+      "id": "class:db/include/models.h:FilePage",
+      "type": "class",
+      "name": "FilePage",
+      "summary": "文件分页结果结构体，含文件条目列表、总数与分页信息。",
+      "tags": ["file", "pagination", "model"],
+      "complexity": "simple",
+      "lineRange": [113, 118]
+    },
+    {
+      "id": "class:db/include/models.h:FileChunkRecord",
+      "type": "class",
+      "name": "FileChunkRecord",
+      "summary": "文件分片记录，含文件哈希、分片索引、分片哈希、偏移与大小。",
+      "tags": ["chunk", "file", "model"],
+      "complexity": "simple",
+      "lineRange": [120, 126]
+    },
+    {
+      "id": "class:db/include/models.h:FileDeletionPlan",
+      "type": "class",
+      "name": "FileDeletionPlan",
+      "summary": "文件删除计划，含文件 ID 与待删除的分片数量。",
+      "tags": ["file", "deletion", "model"],
+      "complexity": "simple",
+      "lineRange": [128, 131]
+    },
+    {
+      "id": "class:db/include/models.h:PendingChunkDeletion",
+      "type": "class",
+      "name": "PendingChunkDeletion",
+      "summary": "待处理的分片删除记录，含分片哈希、认领令牌与重试计数。",
+      "tags": ["chunk", "deletion", "model"],
+      "complexity": "simple",
+      "lineRange": [133, 137]
+    },
+    {
+      "id": "class:db/include/models.h:AuthUser",
+      "type": "class",
+      "name": "AuthUser",
+      "summary": "认证用户简要信息结构体，含用户 ID、用户名与角色。",
+      "tags": ["authentication", "user", "model"],
+      "complexity": "simple",
+      "lineRange": [139, 143]
+    },
+    {
+      "id": "class:db/include/models.h:AuthenticationResult",
+      "type": "class",
+      "name": "AuthenticationResult",
+      "summary": "认证结果结构体，包含认证状态与用户信息。",
+      "tags": ["authentication", "result", "model"],
+      "complexity": "simple",
+      "lineRange": [151, 154]
+    },
+    {
+      "id": "class:db/include/models.h:MusicMeta",
+      "type": "class",
+      "name": "MusicMeta",
+      "summary": "音乐元数据模型，含音乐 ID、标题、艺术家、专辑、流派、时长、曲目号与创建更新时间。",
+      "tags": ["music", "metadata", "model"],
+      "complexity": "simple",
+      "lineRange": [156, 166]
+    },
+    {
+      "id": "class:db/include/models.h:Playlist",
+      "type": "class",
+      "name": "Playlist",
+      "summary": "歌单模型，含歌单 ID、所属用户、名称、描述、条目计数与创建时间。",
+      "tags": ["playlist", "music", "model"],
+      "complexity": "simple",
+      "lineRange": [168, 175]
+    },
+    {
+      "id": "class:db/include/models.h:PlaylistItem",
+      "type": "class",
+      "name": "PlaylistItem",
+      "summary": "歌单条目模型，含音乐 ID、标题、艺术家、文件哈希、排序号与添加时间。",
+      "tags": ["playlist", "music", "model"],
+      "complexity": "simple",
+      "lineRange": [177, 186]
+    }
+  ],
+  "edges": [
+    {
+      "source": "file:db/include/boost_mysql_connection.h",
+      "target": "file:db/include/iconnection.h",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:db/include/database_pool.h",
+      "target": "file:db/include/iconnection.h",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:db/include/database_pool.h",
+      "target": "file:db/include/idatabase_pool.h",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:db/include/iconnection.h",
+      "target": "file:db/include/db_config.h",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:db/include/idatabase_pool.h",
+      "target": "file:db/include/chunk_lifecycle_coordinator.h",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:db/include/idatabase_pool.h",
+      "target": "file:db/include/db_config.h",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:db/include/idatabase_pool.h",
+      "target": "file:db/include/models.h",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:db/include/mock_connection.h",
+      "target": "file:db/include/db_config.h",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:db/include/mock_connection.h",
+      "target": "file:db/include/iconnection.h",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:db/include/boost_mysql_connection.h",
+      "target": "class:db/include/boost_mysql_connection.h:BoostMySqlConnection",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:db/include/chunk_lifecycle_coordinator.h",
+      "target": "class:db/include/chunk_lifecycle_coordinator.h:ChunkLifecycleCoordinator",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:db/include/chunk_lifecycle_coordinator.h",
+      "target": "function:db/include/chunk_lifecycle_coordinator.h:acquire_upload_guard",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:db/include/chunk_lifecycle_coordinator.h",
+      "target": "function:db/include/chunk_lifecycle_coordinator.h:acquire_cleanup_guard",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:db/include/chunk_lifecycle_coordinator.h",
+      "target": "function:db/include/chunk_lifecycle_coordinator.h:release_upload",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:db/include/database_pool.h",
+      "target": "class:db/include/database_pool.h:DatabasePool",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:db/include/iconnection.h",
+      "target": "class:db/include/iconnection.h:IConnection",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:db/include/iconnection.h",
+      "target": "class:db/include/iconnection.h:QueryResult",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:db/include/idatabase_pool.h",
+      "target": "class:db/include/idatabase_pool.h:IDatabasePool",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:db/include/idatabase_pool.h",
+      "target": "function:db/include/idatabase_pool.h:list_files",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:db/include/idatabase_pool.h",
+      "target": "function:db/include/idatabase_pool.h:delete_file_owned",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:db/include/mock_connection.h",
+      "target": "class:db/include/mock_connection.h:MockConnection",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:db/include/models.h",
+      "target": "class:db/include/models.h:User",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:db/include/models.h",
+      "target": "class:db/include/models.h:AdminUserPage",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:db/include/models.h",
+      "target": "class:db/include/models.h:EffectiveIdentity",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:db/include/models.h",
+      "target": "class:db/include/models.h:AuthenticatedUserProfile",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:db/include/models.h",
+      "target": "class:db/include/models.h:TokenValidationResult",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:db/include/models.h",
+      "target": "class:db/include/models.h:FileRecord",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:db/include/models.h",
+      "target": "class:db/include/models.h:FilePage",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:db/include/models.h",
+      "target": "class:db/include/models.h:FileChunkRecord",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:db/include/models.h",
+      "target": "class:db/include/models.h:FileDeletionPlan",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:db/include/models.h",
+      "target": "class:db/include/models.h:PendingChunkDeletion",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:db/include/models.h",
+      "target": "class:db/include/models.h:AuthUser",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:db/include/models.h",
+      "target": "class:db/include/models.h:AuthenticationResult",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:db/include/models.h",
+      "target": "class:db/include/models.h:MusicMeta",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:db/include/models.h",
+      "target": "class:db/include/models.h:Playlist",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:db/include/models.h",
+      "target": "class:db/include/models.h:PlaylistItem",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:db/include/boost_mysql_connection.h",
+      "target": "class:db/include/boost_mysql_connection.h:BoostMySqlConnection",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:db/include/chunk_lifecycle_coordinator.h",
+      "target": "class:db/include/chunk_lifecycle_coordinator.h:ChunkLifecycleCoordinator",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:db/include/chunk_lifecycle_coordinator.h",
+      "target": "function:db/include/chunk_lifecycle_coordinator.h:acquire_upload_guard",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:db/include/chunk_lifecycle_coordinator.h",
+      "target": "function:db/include/chunk_lifecycle_coordinator.h:acquire_cleanup_guard",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:db/include/database_pool.h",
+      "target": "class:db/include/database_pool.h:DatabasePool",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:db/include/iconnection.h",
+      "target": "class:db/include/iconnection.h:IConnection",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:db/include/iconnection.h",
+      "target": "class:db/include/iconnection.h:QueryResult",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:db/include/idatabase_pool.h",
+      "target": "class:db/include/idatabase_pool.h:IDatabasePool",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:db/include/idatabase_pool.h",
+      "target": "function:db/include/idatabase_pool.h:list_files",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:db/include/idatabase_pool.h",
+      "target": "function:db/include/idatabase_pool.h:delete_file_owned",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:db/include/mock_connection.h",
+      "target": "class:db/include/mock_connection.h:MockConnection",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:db/include/models.h",
+      "target": "class:db/include/models.h:User",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:db/include/models.h",
+      "target": "class:db/include/models.h:AdminUserPage",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:db/include/models.h",
+      "target": "class:db/include/models.h:EffectiveIdentity",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:db/include/models.h",
+      "target": "class:db/include/models.h:AuthenticatedUserProfile",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:db/include/models.h",
+      "target": "class:db/include/models.h:TokenValidationResult",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:db/include/models.h",
+      "target": "class:db/include/models.h:FileRecord",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:db/include/models.h",
+      "target": "class:db/include/models.h:FilePage",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:db/include/models.h",
+      "target": "class:db/include/models.h:FileChunkRecord",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:db/include/models.h",
+      "target": "class:db/include/models.h:FileDeletionPlan",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:db/include/models.h",
+      "target": "class:db/include/models.h:PendingChunkDeletion",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:db/include/models.h",
+      "target": "class:db/include/models.h:AuthUser",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:db/include/models.h",
+      "target": "class:db/include/models.h:AuthenticationResult",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:db/include/models.h",
+      "target": "class:db/include/models.h:MusicMeta",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:db/include/models.h",
+      "target": "class:db/include/models.h:Playlist",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:db/include/models.h",
+      "target": "class:db/include/models.h:PlaylistItem",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "class:db/include/boost_mysql_connection.h:BoostMySqlConnection",
+      "target": "class:db/include/iconnection.h:IConnection",
+      "type": "implements",
+      "direction": "forward",
+      "weight": 0.9
+    },
+    {
+      "source": "class:db/include/mock_connection.h:MockConnection",
+      "target": "class:db/include/iconnection.h:IConnection",
+      "type": "implements",
+      "direction": "forward",
+      "weight": 0.9
+    },
+    {
+      "source": "class:db/include/database_pool.h:DatabasePool",
+      "target": "class:db/include/idatabase_pool.h:IDatabasePool",
+      "type": "implements",
+      "direction": "forward",
+      "weight": 0.9
+    },
+    {
+      "source": "class:db/include/iconnection.h:IConnection",
+      "target": "class:db/include/db_config.h:DbConfig",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "class:db/include/idatabase_pool.h:IDatabasePool",
+      "target": "class:db/include/db_config.h:DbConfig",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "class:db/include/mock_connection.h:MockConnection",
+      "target": "class:db/include/db_config.h:DbConfig",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "class:db/include/boost_mysql_connection.h:BoostMySqlConnection",
+      "target": "class:db/include/db_config.h:DbConfig",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "class:db/include/database_pool.h:DatabasePool",
+      "target": "class:db/include/db_config.h:DbConfig",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "class:db/include/idatabase_pool.h:IDatabasePool",
+      "target": "class:db/include/chunk_lifecycle_coordinator.h:ChunkLifecycleCoordinator",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "class:db/include/database_pool.h:DatabasePool",
+      "target": "class:db/include/chunk_lifecycle_coordinator.h:ChunkLifecycleCoordinator",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "class:db/include/database_pool.h:DatabasePool",
+      "target": "class:db/include/iconnection.h:IConnection",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "class:db/include/idatabase_pool.h:IDatabasePool",
+      "target": "class:db/include/models.h:User",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "class:db/include/idatabase_pool.h:IDatabasePool",
+      "target": "class:db/include/models.h:AdminUserPage",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "class:db/include/idatabase_pool.h:IDatabasePool",
+      "target": "class:db/include/models.h:FileRecord",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "class:db/include/idatabase_pool.h:IDatabasePool",
+      "target": "class:db/include/models.h:FilePage",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "class:db/include/idatabase_pool.h:IDatabasePool",
+      "target": "class:db/include/models.h:FileChunkRecord",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "class:db/include/idatabase_pool.h:IDatabasePool",
+      "target": "class:db/include/models.h:FileDeletionPlan",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "class:db/include/idatabase_pool.h:IDatabasePool",
+      "target": "class:db/include/models.h:PendingChunkDeletion",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "class:db/include/idatabase_pool.h:IDatabasePool",
+      "target": "class:db/include/models.h:AuthUser",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "class:db/include/idatabase_pool.h:IDatabasePool",
+      "target": "class:db/include/models.h:MusicMeta",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "class:db/include/idatabase_pool.h:IDatabasePool",
+      "target": "class:db/include/models.h:Playlist",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "class:db/include/idatabase_pool.h:IDatabasePool",
+      "target": "class:db/include/models.h:PlaylistItem",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "class:db/include/database_pool.h:DatabasePool",
+      "target": "class:db/include/models.h:User",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "class:db/include/database_pool.h:DatabasePool",
+      "target": "class:db/include/models.h:FileRecord",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "class:db/include/database_pool.h:DatabasePool",
+      "target": "class:db/include/models.h:MusicMeta",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "class:db/include/database_pool.h:DatabasePool",
+      "target": "class:db/include/models.h:Playlist",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    }
+  ]
+}

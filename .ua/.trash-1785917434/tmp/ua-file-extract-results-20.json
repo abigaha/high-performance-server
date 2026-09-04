@@ -1,0 +1,6114 @@
+{
+  "scriptCompleted": true,
+  "filesAnalyzed": 24,
+  "filesSkipped": [],
+  "results": [
+    {
+      "path": "benchmark/.clang-tidy",
+      "language": "unknown",
+      "fileCategory": "code",
+      "totalLines": 91,
+      "nonEmptyLines": 90,
+      "metrics": {}
+    },
+    {
+      "path": "benchmark/bench_auth_service.cpp",
+      "language": "cpp",
+      "fileCategory": "code",
+      "totalLines": 119,
+      "nonEmptyLines": 106,
+      "functions": [
+        {
+          "name": "AuthBenchFixture",
+          "startLine": 19,
+          "endLine": 67,
+          "params": []
+        },
+        {
+          "name": "BM_AuthRegister",
+          "startLine": 72,
+          "endLine": 87,
+          "params": [
+            "state"
+          ]
+        },
+        {
+          "name": "BM_AuthAuthenticate",
+          "startLine": 91,
+          "endLine": 101,
+          "params": [
+            "state"
+          ]
+        },
+        {
+          "name": "BM_AuthValidateToken",
+          "startLine": 105,
+          "endLine": 115,
+          "params": [
+            "state"
+          ]
+        }
+      ],
+      "classes": [
+        {
+          "name": "AuthBenchFixture",
+          "startLine": 14,
+          "endLine": 68,
+          "methods": [
+            "AuthBenchFixture"
+          ],
+          "properties": [
+            "pool",
+            "auth",
+            "test_token"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "AuthBenchFixture",
+          "line": 19,
+          "isDefault": false
+        },
+        {
+          "name": "AuthBenchFixture",
+          "line": 14,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "AuthBenchFixture",
+          "callee": "std::make_unique<hps::MockConnection>",
+          "lineNumber": 21
+        },
+        {
+          "caller": "AuthBenchFixture",
+          "callee": "find",
+          "lineNumber": 29
+        },
+        {
+          "caller": "AuthBenchFixture",
+          "callee": "find",
+          "lineNumber": 35
+        },
+        {
+          "caller": "AuthBenchFixture",
+          "callee": "find",
+          "lineNumber": 42
+        },
+        {
+          "caller": "AuthBenchFixture",
+          "callee": "init",
+          "lineNumber": 60
+        },
+        {
+          "caller": "AuthBenchFixture",
+          "callee": "hps::create_auth_service",
+          "lineNumber": 61
+        },
+        {
+          "caller": "AuthBenchFixture",
+          "callee": "generate_token",
+          "lineNumber": 66
+        },
+        {
+          "caller": "BM_AuthRegister",
+          "callee": "range",
+          "lineNumber": 74
+        },
+        {
+          "caller": "BM_AuthRegister",
+          "callee": "std::to_string",
+          "lineNumber": 81
+        },
+        {
+          "caller": "BM_AuthRegister",
+          "callee": "create_user",
+          "lineNumber": 82
+        },
+        {
+          "caller": "BM_AuthRegister",
+          "callee": "benchmark::DoNotOptimize",
+          "lineNumber": 83
+        },
+        {
+          "caller": "BM_AuthRegister",
+          "callee": "SetItemsProcessed",
+          "lineNumber": 86
+        },
+        {
+          "caller": "BM_AuthRegister",
+          "callee": "iterations",
+          "lineNumber": 86
+        },
+        {
+          "caller": "BM_AuthAuthenticate",
+          "callee": "range",
+          "lineNumber": 93
+        },
+        {
+          "caller": "BM_AuthAuthenticate",
+          "callee": "authenticate",
+          "lineNumber": 96
+        },
+        {
+          "caller": "BM_AuthAuthenticate",
+          "callee": "benchmark::DoNotOptimize",
+          "lineNumber": 97
+        },
+        {
+          "caller": "BM_AuthAuthenticate",
+          "callee": "SetItemsProcessed",
+          "lineNumber": 100
+        },
+        {
+          "caller": "BM_AuthAuthenticate",
+          "callee": "iterations",
+          "lineNumber": 100
+        },
+        {
+          "caller": "BM_AuthValidateToken",
+          "callee": "range",
+          "lineNumber": 107
+        },
+        {
+          "caller": "BM_AuthValidateToken",
+          "callee": "validate_token",
+          "lineNumber": 110
+        },
+        {
+          "caller": "BM_AuthValidateToken",
+          "callee": "benchmark::DoNotOptimize",
+          "lineNumber": 111
+        },
+        {
+          "caller": "BM_AuthValidateToken",
+          "callee": "SetItemsProcessed",
+          "lineNumber": 114
+        },
+        {
+          "caller": "BM_AuthValidateToken",
+          "callee": "iterations",
+          "lineNumber": 114
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 2,
+        "functionCount": 4,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "benchmark/bench_chunk_header.cpp",
+      "language": "cpp",
+      "fileCategory": "code",
+      "totalLines": 63,
+      "nonEmptyLines": 54,
+      "functions": [
+        {
+          "name": "BM_ChunkHeader_ToNetwork",
+          "startLine": 9,
+          "endLine": 21,
+          "params": [
+            "state"
+          ]
+        },
+        {
+          "name": "BM_ChunkHeader_FromNetwork",
+          "startLine": 25,
+          "endLine": 38,
+          "params": [
+            "state"
+          ]
+        },
+        {
+          "name": "BM_ChunkHeader_Serialize",
+          "startLine": 42,
+          "endLine": 59,
+          "params": [
+            "state"
+          ]
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "BM_ChunkHeader_ToNetwork",
+          "callee": "to_network",
+          "lineNumber": 17
+        },
+        {
+          "caller": "BM_ChunkHeader_ToNetwork",
+          "callee": "benchmark::DoNotOptimize",
+          "lineNumber": 18
+        },
+        {
+          "caller": "BM_ChunkHeader_ToNetwork",
+          "callee": "from_network",
+          "lineNumber": 19
+        },
+        {
+          "caller": "BM_ChunkHeader_FromNetwork",
+          "callee": "to_network",
+          "lineNumber": 32
+        },
+        {
+          "caller": "BM_ChunkHeader_FromNetwork",
+          "callee": "from_network",
+          "lineNumber": 34
+        },
+        {
+          "caller": "BM_ChunkHeader_FromNetwork",
+          "callee": "benchmark::DoNotOptimize",
+          "lineNumber": 35
+        },
+        {
+          "caller": "BM_ChunkHeader_FromNetwork",
+          "callee": "to_network",
+          "lineNumber": 36
+        },
+        {
+          "caller": "BM_ChunkHeader_Serialize",
+          "callee": "to_network",
+          "lineNumber": 49
+        },
+        {
+          "caller": "BM_ChunkHeader_Serialize",
+          "callee": "std::memcpy",
+          "lineNumber": 52
+        },
+        {
+          "caller": "BM_ChunkHeader_Serialize",
+          "callee": "data",
+          "lineNumber": 52
+        },
+        {
+          "caller": "BM_ChunkHeader_Serialize",
+          "callee": "std::memcpy",
+          "lineNumber": 53
+        },
+        {
+          "caller": "BM_ChunkHeader_Serialize",
+          "callee": "data",
+          "lineNumber": 53
+        },
+        {
+          "caller": "BM_ChunkHeader_Serialize",
+          "callee": "std::memcpy",
+          "lineNumber": 54
+        },
+        {
+          "caller": "BM_ChunkHeader_Serialize",
+          "callee": "data",
+          "lineNumber": 54
+        },
+        {
+          "caller": "BM_ChunkHeader_Serialize",
+          "callee": "std::memcpy",
+          "lineNumber": 55
+        },
+        {
+          "caller": "BM_ChunkHeader_Serialize",
+          "callee": "data",
+          "lineNumber": 55
+        },
+        {
+          "caller": "BM_ChunkHeader_Serialize",
+          "callee": "std::memcpy",
+          "lineNumber": 56
+        },
+        {
+          "caller": "BM_ChunkHeader_Serialize",
+          "callee": "data",
+          "lineNumber": 56
+        },
+        {
+          "caller": "BM_ChunkHeader_Serialize",
+          "callee": "benchmark::DoNotOptimize",
+          "lineNumber": 57
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 3,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "benchmark/bench_coroutine.cpp",
+      "language": "cpp",
+      "fileCategory": "code",
+      "totalLines": 168,
+      "nonEmptyLines": 117,
+      "functions": [
+        {
+          "name": "CoroutineBench",
+          "startLine": 35,
+          "endLine": 35,
+          "params": [
+            "h"
+          ]
+        },
+        {
+          "name": "CoroutineBench",
+          "startLine": 37,
+          "endLine": 37,
+          "params": [
+            "other"
+          ]
+        },
+        {
+          "name": "~CoroutineBench",
+          "startLine": 39,
+          "endLine": 42,
+          "params": []
+        },
+        {
+          "name": "bench_coro_impl",
+          "startLine": 48,
+          "endLine": 50,
+          "params": []
+        },
+        {
+          "name": "BM_Coroutine_CreateAndRun",
+          "startLine": 54,
+          "endLine": 59,
+          "params": [
+            "state"
+          ]
+        },
+        {
+          "name": "await_ready",
+          "startLine": 65,
+          "endLine": 65,
+          "params": []
+        },
+        {
+          "name": "await_suspend",
+          "startLine": 67,
+          "endLine": 67,
+          "params": [
+            "handle"
+          ]
+        },
+        {
+          "name": "await_resume",
+          "startLine": 69,
+          "endLine": 69,
+          "params": []
+        },
+        {
+          "name": "CoroReadWriteTask",
+          "startLine": 87,
+          "endLine": 87,
+          "params": [
+            "h"
+          ]
+        },
+        {
+          "name": "CoroReadWriteTask",
+          "startLine": 89,
+          "endLine": 89,
+          "params": [
+            "other"
+          ]
+        },
+        {
+          "name": "~CoroReadWriteTask",
+          "startLine": 91,
+          "endLine": 94,
+          "params": []
+        },
+        {
+          "name": "bench_await_readwrite",
+          "startLine": 100,
+          "endLine": 105,
+          "params": []
+        },
+        {
+          "name": "BM_Coro_AwaitReadWrite",
+          "startLine": 107,
+          "endLine": 112,
+          "params": [
+            "state"
+          ]
+        },
+        {
+          "name": "await_ready",
+          "startLine": 117,
+          "endLine": 117,
+          "params": []
+        },
+        {
+          "name": "await_suspend",
+          "startLine": 119,
+          "endLine": 119,
+          "params": [
+            "handle"
+          ]
+        },
+        {
+          "name": "await_resume",
+          "startLine": 121,
+          "endLine": 121,
+          "params": []
+        },
+        {
+          "name": "CoroSwitchTask",
+          "startLine": 139,
+          "endLine": 139,
+          "params": [
+            "h"
+          ]
+        },
+        {
+          "name": "CoroSwitchTask",
+          "startLine": 141,
+          "endLine": 141,
+          "params": [
+            "other"
+          ]
+        },
+        {
+          "name": "~CoroSwitchTask",
+          "startLine": 143,
+          "endLine": 146,
+          "params": []
+        },
+        {
+          "name": "bench_switch_impl",
+          "startLine": 152,
+          "endLine": 156,
+          "params": [
+            "depth"
+          ]
+        },
+        {
+          "name": "BM_Coro_SwitchingOverhead",
+          "startLine": 158,
+          "endLine": 164,
+          "params": [
+            "state"
+          ]
+        }
+      ],
+      "classes": [
+        {
+          "name": "CoroutineBench",
+          "startLine": 10,
+          "endLine": 46,
+          "methods": [
+            "CoroutineBench",
+            "CoroutineBench",
+            "~CoroutineBench"
+          ],
+          "properties": [
+            "handle_"
+          ]
+        },
+        {
+          "name": "CoroReadWriteAwaiter",
+          "startLine": 63,
+          "endLine": 70,
+          "methods": [
+            "await_ready",
+            "await_suspend",
+            "await_resume"
+          ],
+          "properties": []
+        },
+        {
+          "name": "CoroReadWriteTask",
+          "startLine": 72,
+          "endLine": 98,
+          "methods": [
+            "CoroReadWriteTask",
+            "CoroReadWriteTask",
+            "~CoroReadWriteTask"
+          ],
+          "properties": [
+            "handle_"
+          ]
+        },
+        {
+          "name": "CoroSwitchAwaiter",
+          "startLine": 116,
+          "endLine": 122,
+          "methods": [
+            "await_ready",
+            "await_suspend",
+            "await_resume"
+          ],
+          "properties": []
+        },
+        {
+          "name": "CoroSwitchTask",
+          "startLine": 124,
+          "endLine": 150,
+          "methods": [
+            "CoroSwitchTask",
+            "CoroSwitchTask",
+            "~CoroSwitchTask"
+          ],
+          "properties": [
+            "handle_"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "CoroutineBench",
+          "line": 35,
+          "isDefault": false
+        },
+        {
+          "name": "CoroutineBench",
+          "line": 37,
+          "isDefault": false
+        },
+        {
+          "name": "~CoroutineBench",
+          "line": 39,
+          "isDefault": false
+        },
+        {
+          "name": "CoroutineBench",
+          "line": 10,
+          "isDefault": false
+        },
+        {
+          "name": "bench_coro_impl",
+          "line": 48,
+          "isDefault": false
+        },
+        {
+          "name": "await_ready",
+          "line": 65,
+          "isDefault": false
+        },
+        {
+          "name": "await_suspend",
+          "line": 67,
+          "isDefault": false
+        },
+        {
+          "name": "await_resume",
+          "line": 69,
+          "isDefault": false
+        },
+        {
+          "name": "CoroReadWriteAwaiter",
+          "line": 63,
+          "isDefault": false
+        },
+        {
+          "name": "CoroReadWriteTask",
+          "line": 87,
+          "isDefault": false
+        },
+        {
+          "name": "CoroReadWriteTask",
+          "line": 89,
+          "isDefault": false
+        },
+        {
+          "name": "~CoroReadWriteTask",
+          "line": 91,
+          "isDefault": false
+        },
+        {
+          "name": "CoroReadWriteTask",
+          "line": 72,
+          "isDefault": false
+        },
+        {
+          "name": "bench_await_readwrite",
+          "line": 100,
+          "isDefault": false
+        },
+        {
+          "name": "await_ready",
+          "line": 117,
+          "isDefault": false
+        },
+        {
+          "name": "await_suspend",
+          "line": 119,
+          "isDefault": false
+        },
+        {
+          "name": "await_resume",
+          "line": 121,
+          "isDefault": false
+        },
+        {
+          "name": "CoroSwitchAwaiter",
+          "line": 116,
+          "isDefault": false
+        },
+        {
+          "name": "CoroSwitchTask",
+          "line": 139,
+          "isDefault": false
+        },
+        {
+          "name": "CoroSwitchTask",
+          "line": 141,
+          "isDefault": false
+        },
+        {
+          "name": "~CoroSwitchTask",
+          "line": 143,
+          "isDefault": false
+        },
+        {
+          "name": "CoroSwitchTask",
+          "line": 124,
+          "isDefault": false
+        },
+        {
+          "name": "bench_switch_impl",
+          "line": 152,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "await_suspend",
+          "callee": "resume",
+          "lineNumber": 16
+        },
+        {
+          "caller": "get_return_object",
+          "callee": "CoroutineBench",
+          "lineNumber": 22
+        },
+        {
+          "caller": "get_return_object",
+          "callee": "std::coroutine_handle<Promise>::from_promise",
+          "lineNumber": 22
+        },
+        {
+          "caller": "~CoroutineBench",
+          "callee": "destroy",
+          "lineNumber": 41
+        },
+        {
+          "caller": "BM_Coroutine_CreateAndRun",
+          "callee": "bench_coro_impl",
+          "lineNumber": 56
+        },
+        {
+          "caller": "BM_Coroutine_CreateAndRun",
+          "callee": "benchmark::DoNotOptimize",
+          "lineNumber": 57
+        },
+        {
+          "caller": "await_suspend",
+          "callee": "resume",
+          "lineNumber": 67
+        },
+        {
+          "caller": "get_return_object",
+          "callee": "CoroReadWriteTask",
+          "lineNumber": 75
+        },
+        {
+          "caller": "get_return_object",
+          "callee": "std::coroutine_handle<promise_type>::from_promise",
+          "lineNumber": 75
+        },
+        {
+          "caller": "~CoroReadWriteTask",
+          "callee": "destroy",
+          "lineNumber": 93
+        },
+        {
+          "caller": "bench_await_readwrite",
+          "callee": "benchmark::DoNotOptimize",
+          "lineNumber": 103
+        },
+        {
+          "caller": "bench_await_readwrite",
+          "callee": "benchmark::DoNotOptimize",
+          "lineNumber": 104
+        },
+        {
+          "caller": "BM_Coro_AwaitReadWrite",
+          "callee": "bench_await_readwrite",
+          "lineNumber": 109
+        },
+        {
+          "caller": "BM_Coro_AwaitReadWrite",
+          "callee": "benchmark::DoNotOptimize",
+          "lineNumber": 110
+        },
+        {
+          "caller": "await_suspend",
+          "callee": "resume",
+          "lineNumber": 119
+        },
+        {
+          "caller": "get_return_object",
+          "callee": "CoroSwitchTask",
+          "lineNumber": 127
+        },
+        {
+          "caller": "get_return_object",
+          "callee": "std::coroutine_handle<promise_type>::from_promise",
+          "lineNumber": 127
+        },
+        {
+          "caller": "~CoroSwitchTask",
+          "callee": "destroy",
+          "lineNumber": 145
+        },
+        {
+          "caller": "BM_Coro_SwitchingOverhead",
+          "callee": "range",
+          "lineNumber": 159
+        },
+        {
+          "caller": "BM_Coro_SwitchingOverhead",
+          "callee": "bench_switch_impl",
+          "lineNumber": 161
+        },
+        {
+          "caller": "BM_Coro_SwitchingOverhead",
+          "callee": "benchmark::DoNotOptimize",
+          "lineNumber": 162
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 23,
+        "functionCount": 21,
+        "classCount": 5
+      }
+    },
+    {
+      "path": "benchmark/bench_database_pool.cpp",
+      "language": "cpp",
+      "fileCategory": "code",
+      "totalLines": 139,
+      "nonEmptyLines": 120,
+      "functions": [
+        {
+          "name": "DbBenchFixture",
+          "startLine": 18,
+          "endLine": 30,
+          "params": []
+        },
+        {
+          "name": "BM_DatabasePool_GetUser",
+          "startLine": 35,
+          "endLine": 41,
+          "params": [
+            "state"
+          ]
+        },
+        {
+          "name": "BM_DatabasePool_CreateUser",
+          "startLine": 45,
+          "endLine": 55,
+          "params": [
+            "state"
+          ]
+        },
+        {
+          "name": "BM_DatabasePool_GetFileRecord",
+          "startLine": 59,
+          "endLine": 65,
+          "params": [
+            "state"
+          ]
+        },
+        {
+          "name": "BM_DatabasePool_StoreFileRecord",
+          "startLine": 69,
+          "endLine": 79,
+          "params": [
+            "state"
+          ]
+        },
+        {
+          "name": "BM_DBPool_GetReturnConnection",
+          "startLine": 83,
+          "endLine": 104,
+          "params": [
+            "state"
+          ]
+        },
+        {
+          "name": "BM_DBPool_PoolExhaustion",
+          "startLine": 108,
+          "endLine": 135,
+          "params": [
+            "state"
+          ]
+        }
+      ],
+      "classes": [
+        {
+          "name": "DbBenchFixture",
+          "startLine": 15,
+          "endLine": 31,
+          "methods": [
+            "DbBenchFixture"
+          ],
+          "properties": [
+            "pool"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "DbBenchFixture",
+          "line": 18,
+          "isDefault": false
+        },
+        {
+          "name": "DbBenchFixture",
+          "line": 15,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "DbBenchFixture",
+          "callee": "std::make_unique<hps::MockConnection>",
+          "lineNumber": 20
+        },
+        {
+          "caller": "DbBenchFixture",
+          "callee": "init",
+          "lineNumber": 29
+        },
+        {
+          "caller": "BM_DatabasePool_GetUser",
+          "callee": "get_user",
+          "lineNumber": 38
+        },
+        {
+          "caller": "BM_DatabasePool_GetUser",
+          "callee": "benchmark::DoNotOptimize",
+          "lineNumber": 39
+        },
+        {
+          "caller": "BM_DatabasePool_CreateUser",
+          "callee": "create_user",
+          "lineNumber": 52
+        },
+        {
+          "caller": "BM_DatabasePool_CreateUser",
+          "callee": "benchmark::DoNotOptimize",
+          "lineNumber": 53
+        },
+        {
+          "caller": "BM_DatabasePool_GetFileRecord",
+          "callee": "get_file_record_by_hash",
+          "lineNumber": 62
+        },
+        {
+          "caller": "BM_DatabasePool_GetFileRecord",
+          "callee": "benchmark::DoNotOptimize",
+          "lineNumber": 63
+        },
+        {
+          "caller": "BM_DatabasePool_StoreFileRecord",
+          "callee": "store_file_record",
+          "lineNumber": 76
+        },
+        {
+          "caller": "BM_DatabasePool_StoreFileRecord",
+          "callee": "benchmark::DoNotOptimize",
+          "lineNumber": 77
+        },
+        {
+          "caller": "BM_DBPool_GetReturnConnection",
+          "callee": "range",
+          "lineNumber": 84
+        },
+        {
+          "caller": "BM_DBPool_GetReturnConnection",
+          "callee": "std::make_unique<hps::MockConnection>",
+          "lineNumber": 90
+        },
+        {
+          "caller": "BM_DBPool_GetReturnConnection",
+          "callee": "init",
+          "lineNumber": 95
+        },
+        {
+          "caller": "BM_DBPool_GetReturnConnection",
+          "callee": "get_user",
+          "lineNumber": 98
+        },
+        {
+          "caller": "BM_DBPool_GetReturnConnection",
+          "callee": "benchmark::DoNotOptimize",
+          "lineNumber": 99
+        },
+        {
+          "caller": "BM_DBPool_GetReturnConnection",
+          "callee": "close",
+          "lineNumber": 102
+        },
+        {
+          "caller": "BM_DBPool_GetReturnConnection",
+          "callee": "SetItemsProcessed",
+          "lineNumber": 103
+        },
+        {
+          "caller": "BM_DBPool_GetReturnConnection",
+          "callee": "iterations",
+          "lineNumber": 103
+        },
+        {
+          "caller": "BM_DBPool_PoolExhaustion",
+          "callee": "range",
+          "lineNumber": 109
+        },
+        {
+          "caller": "BM_DBPool_PoolExhaustion",
+          "callee": "range",
+          "lineNumber": 110
+        },
+        {
+          "caller": "BM_DBPool_PoolExhaustion",
+          "callee": "static_cast<std::size_t>",
+          "lineNumber": 112
+        },
+        {
+          "caller": "BM_DBPool_PoolExhaustion",
+          "callee": "std::make_unique<hps::MockConnection>",
+          "lineNumber": 116
+        },
+        {
+          "caller": "BM_DBPool_PoolExhaustion",
+          "callee": "init",
+          "lineNumber": 121
+        },
+        {
+          "caller": "BM_DBPool_PoolExhaustion",
+          "callee": "reserve",
+          "lineNumber": 124
+        },
+        {
+          "caller": "BM_DBPool_PoolExhaustion",
+          "callee": "static_cast<std::size_t>",
+          "lineNumber": 124
+        },
+        {
+          "caller": "BM_DBPool_PoolExhaustion",
+          "callee": "static_cast<std::size_t>",
+          "lineNumber": 124
+        },
+        {
+          "caller": "BM_DBPool_PoolExhaustion",
+          "callee": "emplace_back",
+          "lineNumber": 126
+        },
+        {
+          "caller": "BM_DBPool_PoolExhaustion",
+          "callee": "get_user",
+          "lineNumber": 127
+        },
+        {
+          "caller": "BM_DBPool_PoolExhaustion",
+          "callee": "benchmark::DoNotOptimize",
+          "lineNumber": 128
+        },
+        {
+          "caller": "BM_DBPool_PoolExhaustion",
+          "callee": "join",
+          "lineNumber": 131
+        },
+        {
+          "caller": "BM_DBPool_PoolExhaustion",
+          "callee": "close",
+          "lineNumber": 133
+        },
+        {
+          "caller": "BM_DBPool_PoolExhaustion",
+          "callee": "SetItemsProcessed",
+          "lineNumber": 134
+        },
+        {
+          "caller": "BM_DBPool_PoolExhaustion",
+          "callee": "iterations",
+          "lineNumber": 134
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 2,
+        "functionCount": 7,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "benchmark/bench_file_system.cpp",
+      "language": "cpp",
+      "fileCategory": "code",
+      "totalLines": 140,
+      "nonEmptyLines": 122,
+      "functions": [
+        {
+          "name": "create_temp_file",
+          "startLine": 14,
+          "endLine": 29,
+          "params": [
+            "size"
+          ]
+        },
+        {
+          "name": "BM_FileSystem_Sha256",
+          "startLine": 33,
+          "endLine": 47,
+          "params": [
+            "state"
+          ]
+        },
+        {
+          "name": "BM_FileSystem_Sha256SmallData",
+          "startLine": 51,
+          "endLine": 58,
+          "params": [
+            "state"
+          ]
+        },
+        {
+          "name": "BM_FileSystem_SplitFile",
+          "startLine": 62,
+          "endLine": 75,
+          "params": [
+            "state"
+          ]
+        },
+        {
+          "name": "BM_FileSystem_StoreRead",
+          "startLine": 79,
+          "endLine": 91,
+          "params": [
+            "state"
+          ]
+        },
+        {
+          "name": "BM_FileSystem_ConcurrentStoreRead",
+          "startLine": 95,
+          "endLine": 115,
+          "params": [
+            "state"
+          ]
+        },
+        {
+          "name": "BM_FileSystem_ResolvePath",
+          "startLine": 119,
+          "endLine": 136,
+          "params": [
+            "state"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "create_temp_file",
+          "line": 14,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "create_temp_file",
+          "callee": "mkstemp",
+          "lineNumber": 16
+        },
+        {
+          "caller": "create_temp_file",
+          "callee": "static_cast<ssize_t>",
+          "lineNumber": 21
+        },
+        {
+          "caller": "create_temp_file",
+          "callee": "write",
+          "lineNumber": 22
+        },
+        {
+          "caller": "create_temp_file",
+          "callee": "data",
+          "lineNumber": 22
+        },
+        {
+          "caller": "create_temp_file",
+          "callee": "static_cast<std::size_t>",
+          "lineNumber": 22
+        },
+        {
+          "caller": "create_temp_file",
+          "callee": "close",
+          "lineNumber": 27
+        },
+        {
+          "caller": "create_temp_file",
+          "callee": "std::string",
+          "lineNumber": 28
+        },
+        {
+          "caller": "BM_FileSystem_Sha256",
+          "callee": "static_cast<std::size_t>",
+          "lineNumber": 34
+        },
+        {
+          "caller": "BM_FileSystem_Sha256",
+          "callee": "range",
+          "lineNumber": 34
+        },
+        {
+          "caller": "BM_FileSystem_Sha256",
+          "callee": "create_temp_file",
+          "lineNumber": 35
+        },
+        {
+          "caller": "BM_FileSystem_Sha256",
+          "callee": "empty",
+          "lineNumber": 36
+        },
+        {
+          "caller": "BM_FileSystem_Sha256",
+          "callee": "SkipWithError",
+          "lineNumber": 37
+        },
+        {
+          "caller": "BM_FileSystem_Sha256",
+          "callee": "compute_file_hash",
+          "lineNumber": 42
+        },
+        {
+          "caller": "BM_FileSystem_Sha256",
+          "callee": "benchmark::DoNotOptimize",
+          "lineNumber": 43
+        },
+        {
+          "caller": "BM_FileSystem_Sha256",
+          "callee": "SetBytesProcessed",
+          "lineNumber": 45
+        },
+        {
+          "caller": "BM_FileSystem_Sha256",
+          "callee": "iterations",
+          "lineNumber": 45
+        },
+        {
+          "caller": "BM_FileSystem_Sha256",
+          "callee": "std::remove",
+          "lineNumber": 46
+        },
+        {
+          "caller": "BM_FileSystem_Sha256",
+          "callee": "c_str",
+          "lineNumber": 46
+        },
+        {
+          "caller": "BM_FileSystem_Sha256SmallData",
+          "callee": "static_cast<std::size_t>",
+          "lineNumber": 52
+        },
+        {
+          "caller": "BM_FileSystem_Sha256SmallData",
+          "callee": "range",
+          "lineNumber": 52
+        },
+        {
+          "caller": "BM_FileSystem_Sha256SmallData",
+          "callee": "hps::FileSystem::sha256_hex",
+          "lineNumber": 54
+        },
+        {
+          "caller": "BM_FileSystem_Sha256SmallData",
+          "callee": "data",
+          "lineNumber": 54
+        },
+        {
+          "caller": "BM_FileSystem_Sha256SmallData",
+          "callee": "size",
+          "lineNumber": 54
+        },
+        {
+          "caller": "BM_FileSystem_Sha256SmallData",
+          "callee": "benchmark::DoNotOptimize",
+          "lineNumber": 55
+        },
+        {
+          "caller": "BM_FileSystem_Sha256SmallData",
+          "callee": "SetBytesProcessed",
+          "lineNumber": 57
+        },
+        {
+          "caller": "BM_FileSystem_Sha256SmallData",
+          "callee": "iterations",
+          "lineNumber": 57
+        },
+        {
+          "caller": "BM_FileSystem_Sha256SmallData",
+          "callee": "range",
+          "lineNumber": 57
+        },
+        {
+          "caller": "BM_FileSystem_SplitFile",
+          "callee": "static_cast<std::size_t>",
+          "lineNumber": 63
+        },
+        {
+          "caller": "BM_FileSystem_SplitFile",
+          "callee": "range",
+          "lineNumber": 63
+        },
+        {
+          "caller": "BM_FileSystem_SplitFile",
+          "callee": "create_temp_file",
+          "lineNumber": 64
+        },
+        {
+          "caller": "BM_FileSystem_SplitFile",
+          "callee": "empty",
+          "lineNumber": 65
+        },
+        {
+          "caller": "BM_FileSystem_SplitFile",
+          "callee": "SkipWithError",
+          "lineNumber": 66
+        },
+        {
+          "caller": "BM_FileSystem_SplitFile",
+          "callee": "split_file",
+          "lineNumber": 71
+        },
+        {
+          "caller": "BM_FileSystem_SplitFile",
+          "callee": "benchmark::DoNotOptimize",
+          "lineNumber": 72
+        },
+        {
+          "caller": "BM_FileSystem_SplitFile",
+          "callee": "std::remove",
+          "lineNumber": 74
+        },
+        {
+          "caller": "BM_FileSystem_SplitFile",
+          "callee": "c_str",
+          "lineNumber": 74
+        },
+        {
+          "caller": "BM_FileSystem_StoreRead",
+          "callee": "static_cast<std::size_t>",
+          "lineNumber": 80
+        },
+        {
+          "caller": "BM_FileSystem_StoreRead",
+          "callee": "range",
+          "lineNumber": 80
+        },
+        {
+          "caller": "BM_FileSystem_StoreRead",
+          "callee": "store_file",
+          "lineNumber": 85
+        },
+        {
+          "caller": "BM_FileSystem_StoreRead",
+          "callee": "read_file",
+          "lineNumber": 86
+        },
+        {
+          "caller": "BM_FileSystem_StoreRead",
+          "callee": "benchmark::DoNotOptimize",
+          "lineNumber": 87
+        },
+        {
+          "caller": "BM_FileSystem_StoreRead",
+          "callee": "delete_file",
+          "lineNumber": 89
+        },
+        {
+          "caller": "BM_FileSystem_StoreRead",
+          "callee": "SetBytesProcessed",
+          "lineNumber": 90
+        },
+        {
+          "caller": "BM_FileSystem_StoreRead",
+          "callee": "iterations",
+          "lineNumber": 90
+        },
+        {
+          "caller": "BM_FileSystem_ConcurrentStoreRead",
+          "callee": "static_cast<std::size_t>",
+          "lineNumber": 96
+        },
+        {
+          "caller": "BM_FileSystem_ConcurrentStoreRead",
+          "callee": "range",
+          "lineNumber": 96
+        },
+        {
+          "caller": "BM_FileSystem_ConcurrentStoreRead",
+          "callee": "range",
+          "lineNumber": 97
+        },
+        {
+          "caller": "BM_FileSystem_ConcurrentStoreRead",
+          "callee": "reserve",
+          "lineNumber": 102
+        },
+        {
+          "caller": "BM_FileSystem_ConcurrentStoreRead",
+          "callee": "static_cast<std::size_t>",
+          "lineNumber": 102
+        },
+        {
+          "caller": "BM_FileSystem_ConcurrentStoreRead",
+          "callee": "emplace_back",
+          "lineNumber": 104
+        },
+        {
+          "caller": "BM_FileSystem_ConcurrentStoreRead",
+          "callee": "std::to_string",
+          "lineNumber": 105
+        },
+        {
+          "caller": "BM_FileSystem_ConcurrentStoreRead",
+          "callee": "store_file",
+          "lineNumber": 106
+        },
+        {
+          "caller": "BM_FileSystem_ConcurrentStoreRead",
+          "callee": "read_file",
+          "lineNumber": 107
+        },
+        {
+          "caller": "BM_FileSystem_ConcurrentStoreRead",
+          "callee": "delete_file",
+          "lineNumber": 108
+        },
+        {
+          "caller": "BM_FileSystem_ConcurrentStoreRead",
+          "callee": "benchmark::DoNotOptimize",
+          "lineNumber": 109
+        },
+        {
+          "caller": "BM_FileSystem_ConcurrentStoreRead",
+          "callee": "join",
+          "lineNumber": 112
+        },
+        {
+          "caller": "BM_FileSystem_ConcurrentStoreRead",
+          "callee": "SetBytesProcessed",
+          "lineNumber": 114
+        },
+        {
+          "caller": "BM_FileSystem_ConcurrentStoreRead",
+          "callee": "iterations",
+          "lineNumber": 114
+        },
+        {
+          "caller": "BM_FileSystem_ResolvePath",
+          "callee": "store_file",
+          "lineNumber": 129
+        },
+        {
+          "caller": "BM_FileSystem_ResolvePath",
+          "callee": "read_file",
+          "lineNumber": 130
+        },
+        {
+          "caller": "BM_FileSystem_ResolvePath",
+          "callee": "delete_file",
+          "lineNumber": 131
+        },
+        {
+          "caller": "BM_FileSystem_ResolvePath",
+          "callee": "benchmark::DoNotOptimize",
+          "lineNumber": 132
+        },
+        {
+          "caller": "BM_FileSystem_ResolvePath",
+          "callee": "SetItemsProcessed",
+          "lineNumber": 135
+        },
+        {
+          "caller": "BM_FileSystem_ResolvePath",
+          "callee": "iterations",
+          "lineNumber": 135
+        },
+        {
+          "caller": "BM_FileSystem_ResolvePath",
+          "callee": "static_cast<int64_t>",
+          "lineNumber": 135
+        },
+        {
+          "caller": "BM_FileSystem_ResolvePath",
+          "callee": "size",
+          "lineNumber": 135
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 1,
+        "functionCount": 7,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "benchmark/bench_http_parser.cpp",
+      "language": "cpp",
+      "fileCategory": "code",
+      "totalLines": 121,
+      "nonEmptyLines": 102,
+      "functions": [
+        {
+          "name": "make_get_request",
+          "startLine": 11,
+          "endLine": 20,
+          "params": [
+            "path"
+          ]
+        },
+        {
+          "name": "make_post_request",
+          "startLine": 22,
+          "endLine": 34,
+          "params": [
+            "path",
+            "body"
+          ]
+        },
+        {
+          "name": "BM_HttpParser_GetShortPath",
+          "startLine": 38,
+          "endLine": 45,
+          "params": [
+            "state"
+          ]
+        },
+        {
+          "name": "BM_HttpParser_GetLongPath",
+          "startLine": 49,
+          "endLine": 57,
+          "params": [
+            "state"
+          ]
+        },
+        {
+          "name": "BM_HttpParser_PostSmallBody",
+          "startLine": 61,
+          "endLine": 69,
+          "params": [
+            "state"
+          ]
+        },
+        {
+          "name": "BM_HttpParser_PostLargeBody",
+          "startLine": 73,
+          "endLine": 81,
+          "params": [
+            "state"
+          ]
+        },
+        {
+          "name": "BM_HttpParser_ResetReuse",
+          "startLine": 85,
+          "endLine": 92,
+          "params": [
+            "state"
+          ]
+        },
+        {
+          "name": "BM_HttpParser_ManyHeaders",
+          "startLine": 96,
+          "endLine": 117,
+          "params": [
+            "state"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "make_get_request",
+          "line": 11,
+          "isDefault": false
+        },
+        {
+          "name": "make_post_request",
+          "line": 22,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "make_get_request",
+          "callee": "std::string",
+          "lineNumber": 12
+        },
+        {
+          "caller": "make_post_request",
+          "callee": "std::string",
+          "lineNumber": 23
+        },
+        {
+          "caller": "make_post_request",
+          "callee": "std::to_string",
+          "lineNumber": 28
+        },
+        {
+          "caller": "make_post_request",
+          "callee": "size",
+          "lineNumber": 28
+        },
+        {
+          "caller": "BM_HttpParser_GetShortPath",
+          "callee": "make_get_request",
+          "lineNumber": 39
+        },
+        {
+          "caller": "BM_HttpParser_GetShortPath",
+          "callee": "feed",
+          "lineNumber": 42
+        },
+        {
+          "caller": "BM_HttpParser_GetShortPath",
+          "callee": "benchmark::DoNotOptimize",
+          "lineNumber": 43
+        },
+        {
+          "caller": "BM_HttpParser_GetLongPath",
+          "callee": "make_get_request",
+          "lineNumber": 51
+        },
+        {
+          "caller": "BM_HttpParser_GetLongPath",
+          "callee": "feed",
+          "lineNumber": 54
+        },
+        {
+          "caller": "BM_HttpParser_GetLongPath",
+          "callee": "benchmark::DoNotOptimize",
+          "lineNumber": 55
+        },
+        {
+          "caller": "BM_HttpParser_PostSmallBody",
+          "callee": "make_post_request",
+          "lineNumber": 63
+        },
+        {
+          "caller": "BM_HttpParser_PostSmallBody",
+          "callee": "feed",
+          "lineNumber": 66
+        },
+        {
+          "caller": "BM_HttpParser_PostSmallBody",
+          "callee": "benchmark::DoNotOptimize",
+          "lineNumber": 67
+        },
+        {
+          "caller": "BM_HttpParser_PostLargeBody",
+          "callee": "range",
+          "lineNumber": 74
+        },
+        {
+          "caller": "BM_HttpParser_PostLargeBody",
+          "callee": "make_post_request",
+          "lineNumber": 75
+        },
+        {
+          "caller": "BM_HttpParser_PostLargeBody",
+          "callee": "feed",
+          "lineNumber": 78
+        },
+        {
+          "caller": "BM_HttpParser_PostLargeBody",
+          "callee": "SetBytesProcessed",
+          "lineNumber": 80
+        },
+        {
+          "caller": "BM_HttpParser_PostLargeBody",
+          "callee": "iterations",
+          "lineNumber": 80
+        },
+        {
+          "caller": "BM_HttpParser_PostLargeBody",
+          "callee": "range",
+          "lineNumber": 80
+        },
+        {
+          "caller": "BM_HttpParser_ResetReuse",
+          "callee": "make_get_request",
+          "lineNumber": 86
+        },
+        {
+          "caller": "BM_HttpParser_ResetReuse",
+          "callee": "feed",
+          "lineNumber": 89
+        },
+        {
+          "caller": "BM_HttpParser_ResetReuse",
+          "callee": "reset",
+          "lineNumber": 90
+        },
+        {
+          "caller": "BM_HttpParser_ManyHeaders",
+          "callee": "feed",
+          "lineNumber": 113
+        },
+        {
+          "caller": "BM_HttpParser_ManyHeaders",
+          "callee": "benchmark::DoNotOptimize",
+          "lineNumber": 115
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 2,
+        "functionCount": 8,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "benchmark/bench_http_server.cpp",
+      "language": "cpp",
+      "fileCategory": "code",
+      "totalLines": 158,
+      "nonEmptyLines": 139,
+      "functions": [
+        {
+          "name": "SetUp",
+          "startLine": 19,
+          "endLine": 40,
+          "params": []
+        },
+        {
+          "name": "TearDown",
+          "startLine": 42,
+          "endLine": 47,
+          "params": []
+        },
+        {
+          "name": "make_get",
+          "startLine": 49,
+          "endLine": 54,
+          "params": []
+        },
+        {
+          "name": "make_post",
+          "startLine": 56,
+          "endLine": 66,
+          "params": [
+            "body"
+          ]
+        },
+        {
+          "name": "make_pipelined",
+          "startLine": 68,
+          "endLine": 78,
+          "params": [
+            "count"
+          ]
+        },
+        {
+          "name": "BENCHMARK_DEFINE_F(HttpServerBench, HttpGet)",
+          "startLine": 85,
+          "endLine": 97,
+          "params": [
+            "state"
+          ]
+        },
+        {
+          "name": "BENCHMARK_DEFINE_F(HttpServerBench, HttpPost)",
+          "startLine": 101,
+          "endLine": 114,
+          "params": [
+            "state"
+          ]
+        },
+        {
+          "name": "BENCHMARK_DEFINE_F(HttpServerBench, HttpPostLargeBody)",
+          "startLine": 118,
+          "endLine": 132,
+          "params": [
+            "state"
+          ]
+        },
+        {
+          "name": "BENCHMARK_DEFINE_F(HttpServerBench, HttpPipelined)",
+          "startLine": 136,
+          "endLine": 152,
+          "params": [
+            "state"
+          ]
+        }
+      ],
+      "classes": [
+        {
+          "name": "HttpServerBench",
+          "startLine": 17,
+          "endLine": 83,
+          "methods": [
+            "SetUp",
+            "TearDown",
+            "make_get",
+            "make_post",
+            "make_pipelined"
+          ],
+          "properties": [
+            "server_",
+            "server_thread_",
+            "port_"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "SetUp",
+          "line": 19,
+          "isDefault": false
+        },
+        {
+          "name": "TearDown",
+          "line": 42,
+          "isDefault": false
+        },
+        {
+          "name": "make_get",
+          "line": 49,
+          "isDefault": false
+        },
+        {
+          "name": "make_post",
+          "line": 56,
+          "isDefault": false
+        },
+        {
+          "name": "make_pipelined",
+          "line": 68,
+          "isDefault": false
+        },
+        {
+          "name": "HttpServerBench",
+          "line": 17,
+          "isDefault": false
+        },
+        {
+          "name": "BENCHMARK_DEFINE_F(HttpServerBench, HttpGet)",
+          "line": 85,
+          "isDefault": false
+        },
+        {
+          "name": "BENCHMARK_DEFINE_F(HttpServerBench, HttpPost)",
+          "line": 101,
+          "isDefault": false
+        },
+        {
+          "name": "BENCHMARK_DEFINE_F(HttpServerBench, HttpPostLargeBody)",
+          "line": 118,
+          "isDefault": false
+        },
+        {
+          "name": "BENCHMARK_DEFINE_F(HttpServerBench, HttpPipelined)",
+          "line": 136,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "SetUp",
+          "callee": "std::make_unique<hps::HttpServer>",
+          "lineNumber": 23
+        },
+        {
+          "caller": "SetUp",
+          "callee": "get",
+          "lineNumber": 24
+        },
+        {
+          "caller": "SetUp",
+          "callee": "set_status",
+          "lineNumber": 25
+        },
+        {
+          "caller": "SetUp",
+          "callee": "set_header",
+          "lineNumber": 26
+        },
+        {
+          "caller": "SetUp",
+          "callee": "post",
+          "lineNumber": 29
+        },
+        {
+          "caller": "SetUp",
+          "callee": "set_status",
+          "lineNumber": 30
+        },
+        {
+          "caller": "SetUp",
+          "callee": "set_header",
+          "lineNumber": 31
+        },
+        {
+          "caller": "SetUp",
+          "callee": "init",
+          "lineNumber": 34
+        },
+        {
+          "caller": "SetUp",
+          "callee": "std::exit",
+          "lineNumber": 36
+        },
+        {
+          "caller": "SetUp",
+          "callee": "actual_port",
+          "lineNumber": 38
+        },
+        {
+          "caller": "SetUp",
+          "callee": "std::thread",
+          "lineNumber": 39
+        },
+        {
+          "caller": "SetUp",
+          "callee": "start",
+          "lineNumber": 39
+        },
+        {
+          "caller": "TearDown",
+          "callee": "stop",
+          "lineNumber": 43
+        },
+        {
+          "caller": "TearDown",
+          "callee": "joinable",
+          "lineNumber": 44
+        },
+        {
+          "caller": "TearDown",
+          "callee": "join",
+          "lineNumber": 45
+        },
+        {
+          "caller": "TearDown",
+          "callee": "reset",
+          "lineNumber": 46
+        },
+        {
+          "caller": "make_post",
+          "callee": "std::to_string",
+          "lineNumber": 61
+        },
+        {
+          "caller": "make_post",
+          "callee": "size",
+          "lineNumber": 61
+        },
+        {
+          "caller": "BENCHMARK_DEFINE_F(HttpServerBench, HttpGet)",
+          "callee": "make_get",
+          "lineNumber": 86
+        },
+        {
+          "caller": "BENCHMARK_DEFINE_F(HttpServerBench, HttpGet)",
+          "callee": "connect_to_server",
+          "lineNumber": 89
+        },
+        {
+          "caller": "BENCHMARK_DEFINE_F(HttpServerBench, HttpGet)",
+          "callee": "send_message",
+          "lineNumber": 91
+        },
+        {
+          "caller": "BENCHMARK_DEFINE_F(HttpServerBench, HttpGet)",
+          "callee": "receive_message",
+          "lineNumber": 93
+        },
+        {
+          "caller": "BENCHMARK_DEFINE_F(HttpServerBench, HttpGet)",
+          "callee": "disconnect",
+          "lineNumber": 94
+        },
+        {
+          "caller": "BENCHMARK_DEFINE_F(HttpServerBench, HttpGet)",
+          "callee": "benchmark::DoNotOptimize",
+          "lineNumber": 95
+        },
+        {
+          "caller": "BENCHMARK_DEFINE_F(HttpServerBench, HttpPost)",
+          "callee": "make_post",
+          "lineNumber": 103
+        },
+        {
+          "caller": "BENCHMARK_DEFINE_F(HttpServerBench, HttpPost)",
+          "callee": "connect_to_server",
+          "lineNumber": 106
+        },
+        {
+          "caller": "BENCHMARK_DEFINE_F(HttpServerBench, HttpPost)",
+          "callee": "send_message",
+          "lineNumber": 108
+        },
+        {
+          "caller": "BENCHMARK_DEFINE_F(HttpServerBench, HttpPost)",
+          "callee": "receive_message",
+          "lineNumber": 110
+        },
+        {
+          "caller": "BENCHMARK_DEFINE_F(HttpServerBench, HttpPost)",
+          "callee": "disconnect",
+          "lineNumber": 111
+        },
+        {
+          "caller": "BENCHMARK_DEFINE_F(HttpServerBench, HttpPost)",
+          "callee": "benchmark::DoNotOptimize",
+          "lineNumber": 112
+        },
+        {
+          "caller": "BENCHMARK_DEFINE_F(HttpServerBench, HttpPostLargeBody)",
+          "callee": "static_cast<std::size_t>",
+          "lineNumber": 119
+        },
+        {
+          "caller": "BENCHMARK_DEFINE_F(HttpServerBench, HttpPostLargeBody)",
+          "callee": "range",
+          "lineNumber": 119
+        },
+        {
+          "caller": "BENCHMARK_DEFINE_F(HttpServerBench, HttpPostLargeBody)",
+          "callee": "make_post",
+          "lineNumber": 120
+        },
+        {
+          "caller": "BENCHMARK_DEFINE_F(HttpServerBench, HttpPostLargeBody)",
+          "callee": "connect_to_server",
+          "lineNumber": 123
+        },
+        {
+          "caller": "BENCHMARK_DEFINE_F(HttpServerBench, HttpPostLargeBody)",
+          "callee": "send_message",
+          "lineNumber": 125
+        },
+        {
+          "caller": "BENCHMARK_DEFINE_F(HttpServerBench, HttpPostLargeBody)",
+          "callee": "receive_message",
+          "lineNumber": 127
+        },
+        {
+          "caller": "BENCHMARK_DEFINE_F(HttpServerBench, HttpPostLargeBody)",
+          "callee": "disconnect",
+          "lineNumber": 128
+        },
+        {
+          "caller": "BENCHMARK_DEFINE_F(HttpServerBench, HttpPostLargeBody)",
+          "callee": "benchmark::DoNotOptimize",
+          "lineNumber": 129
+        },
+        {
+          "caller": "BENCHMARK_DEFINE_F(HttpServerBench, HttpPostLargeBody)",
+          "callee": "SetBytesProcessed",
+          "lineNumber": 131
+        },
+        {
+          "caller": "BENCHMARK_DEFINE_F(HttpServerBench, HttpPostLargeBody)",
+          "callee": "iterations",
+          "lineNumber": 131
+        },
+        {
+          "caller": "BENCHMARK_DEFINE_F(HttpServerBench, HttpPostLargeBody)",
+          "callee": "range",
+          "lineNumber": 131
+        },
+        {
+          "caller": "BENCHMARK_DEFINE_F(HttpServerBench, HttpPipelined)",
+          "callee": "range",
+          "lineNumber": 137
+        },
+        {
+          "caller": "BENCHMARK_DEFINE_F(HttpServerBench, HttpPipelined)",
+          "callee": "make_pipelined",
+          "lineNumber": 138
+        },
+        {
+          "caller": "BENCHMARK_DEFINE_F(HttpServerBench, HttpPipelined)",
+          "callee": "connect_to_server",
+          "lineNumber": 141
+        },
+        {
+          "caller": "BENCHMARK_DEFINE_F(HttpServerBench, HttpPipelined)",
+          "callee": "send_message",
+          "lineNumber": 143
+        },
+        {
+          "caller": "BENCHMARK_DEFINE_F(HttpServerBench, HttpPipelined)",
+          "callee": "receive_message",
+          "lineNumber": 146
+        },
+        {
+          "caller": "BENCHMARK_DEFINE_F(HttpServerBench, HttpPipelined)",
+          "callee": "benchmark::DoNotOptimize",
+          "lineNumber": 147
+        },
+        {
+          "caller": "BENCHMARK_DEFINE_F(HttpServerBench, HttpPipelined)",
+          "callee": "disconnect",
+          "lineNumber": 149
+        },
+        {
+          "caller": "BENCHMARK_DEFINE_F(HttpServerBench, HttpPipelined)",
+          "callee": "SetItemsProcessed",
+          "lineNumber": 151
+        },
+        {
+          "caller": "BENCHMARK_DEFINE_F(HttpServerBench, HttpPipelined)",
+          "callee": "iterations",
+          "lineNumber": 151
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 10,
+        "functionCount": 9,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "benchmark/bench_lock_free_queue.cpp",
+      "language": "cpp",
+      "fileCategory": "code",
+      "totalLines": 145,
+      "nonEmptyLines": 125,
+      "functions": [
+        {
+          "name": "BM_LockFreeQueue_SPSC_1k",
+          "startLine": 52,
+          "endLine": 54,
+          "params": [
+            "state"
+          ]
+        },
+        {
+          "name": "BM_LockFreeQueue_SPSC_10k",
+          "startLine": 58,
+          "endLine": 60,
+          "params": [
+            "state"
+          ]
+        },
+        {
+          "name": "BM_LFQ_MPSC_Contention",
+          "startLine": 64,
+          "endLine": 107,
+          "params": [
+            "state"
+          ]
+        },
+        {
+          "name": "BM_LFQ_HighContention",
+          "startLine": 114,
+          "endLine": 141,
+          "params": [
+            "state"
+          ]
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "spsc_bench",
+          "callee": "push",
+          "lineNumber": 25
+        },
+        {
+          "caller": "spsc_bench",
+          "callee": "std::move",
+          "lineNumber": 25
+        },
+        {
+          "caller": "spsc_bench",
+          "callee": "fetch_add",
+          "lineNumber": 27
+        },
+        {
+          "caller": "spsc_bench",
+          "callee": "try_pop",
+          "lineNumber": 35
+        },
+        {
+          "caller": "spsc_bench",
+          "callee": "fetch_add",
+          "lineNumber": 37
+        },
+        {
+          "caller": "spsc_bench",
+          "callee": "join",
+          "lineNumber": 42
+        },
+        {
+          "caller": "spsc_bench",
+          "callee": "join",
+          "lineNumber": 43
+        },
+        {
+          "caller": "spsc_bench",
+          "callee": "benchmark::DoNotOptimize",
+          "lineNumber": 44
+        },
+        {
+          "caller": "spsc_bench",
+          "callee": "load",
+          "lineNumber": 44
+        },
+        {
+          "caller": "spsc_bench",
+          "callee": "benchmark::DoNotOptimize",
+          "lineNumber": 45
+        },
+        {
+          "caller": "spsc_bench",
+          "callee": "load",
+          "lineNumber": 45
+        },
+        {
+          "caller": "spsc_bench",
+          "callee": "SetItemsProcessed",
+          "lineNumber": 47
+        },
+        {
+          "caller": "spsc_bench",
+          "callee": "iterations",
+          "lineNumber": 47
+        },
+        {
+          "caller": "BM_LockFreeQueue_SPSC_1k",
+          "callee": "spsc_bench<int>",
+          "lineNumber": 53
+        },
+        {
+          "caller": "BM_LockFreeQueue_SPSC_10k",
+          "callee": "spsc_bench<int>",
+          "lineNumber": 59
+        },
+        {
+          "caller": "BM_LFQ_MPSC_Contention",
+          "callee": "range",
+          "lineNumber": 65
+        },
+        {
+          "caller": "BM_LFQ_MPSC_Contention",
+          "callee": "range",
+          "lineNumber": 66
+        },
+        {
+          "caller": "BM_LFQ_MPSC_Contention",
+          "callee": "range",
+          "lineNumber": 67
+        },
+        {
+          "caller": "BM_LFQ_MPSC_Contention",
+          "callee": "reserve",
+          "lineNumber": 75
+        },
+        {
+          "caller": "BM_LFQ_MPSC_Contention",
+          "callee": "static_cast<std::size_t>",
+          "lineNumber": 75
+        },
+        {
+          "caller": "BM_LFQ_MPSC_Contention",
+          "callee": "emplace_back",
+          "lineNumber": 77
+        },
+        {
+          "caller": "BM_LFQ_MPSC_Contention",
+          "callee": "push",
+          "lineNumber": 80
+        },
+        {
+          "caller": "BM_LFQ_MPSC_Contention",
+          "callee": "fetch_add",
+          "lineNumber": 82
+        },
+        {
+          "caller": "BM_LFQ_MPSC_Contention",
+          "callee": "reserve",
+          "lineNumber": 88
+        },
+        {
+          "caller": "BM_LFQ_MPSC_Contention",
+          "callee": "static_cast<std::size_t>",
+          "lineNumber": 88
+        },
+        {
+          "caller": "BM_LFQ_MPSC_Contention",
+          "callee": "emplace_back",
+          "lineNumber": 91
+        },
+        {
+          "caller": "BM_LFQ_MPSC_Contention",
+          "callee": "load",
+          "lineNumber": 93
+        },
+        {
+          "caller": "BM_LFQ_MPSC_Contention",
+          "callee": "pop",
+          "lineNumber": 94
+        },
+        {
+          "caller": "BM_LFQ_MPSC_Contention",
+          "callee": "fetch_add",
+          "lineNumber": 95
+        },
+        {
+          "caller": "BM_LFQ_MPSC_Contention",
+          "callee": "join",
+          "lineNumber": 101
+        },
+        {
+          "caller": "BM_LFQ_MPSC_Contention",
+          "callee": "join",
+          "lineNumber": 102
+        },
+        {
+          "caller": "BM_LFQ_MPSC_Contention",
+          "callee": "benchmark::DoNotOptimize",
+          "lineNumber": 103
+        },
+        {
+          "caller": "BM_LFQ_MPSC_Contention",
+          "callee": "load",
+          "lineNumber": 103
+        },
+        {
+          "caller": "BM_LFQ_MPSC_Contention",
+          "callee": "benchmark::DoNotOptimize",
+          "lineNumber": 104
+        },
+        {
+          "caller": "BM_LFQ_MPSC_Contention",
+          "callee": "load",
+          "lineNumber": 104
+        },
+        {
+          "caller": "BM_LFQ_MPSC_Contention",
+          "callee": "SetItemsProcessed",
+          "lineNumber": 106
+        },
+        {
+          "caller": "BM_LFQ_MPSC_Contention",
+          "callee": "iterations",
+          "lineNumber": 106
+        },
+        {
+          "caller": "BM_LFQ_HighContention",
+          "callee": "range",
+          "lineNumber": 115
+        },
+        {
+          "caller": "BM_LFQ_HighContention",
+          "callee": "range",
+          "lineNumber": 116
+        },
+        {
+          "caller": "BM_LFQ_HighContention",
+          "callee": "reserve",
+          "lineNumber": 121
+        },
+        {
+          "caller": "BM_LFQ_HighContention",
+          "callee": "static_cast<std::size_t>",
+          "lineNumber": 121
+        },
+        {
+          "caller": "BM_LFQ_HighContention",
+          "callee": "emplace_back",
+          "lineNumber": 123
+        },
+        {
+          "caller": "BM_LFQ_HighContention",
+          "callee": "push",
+          "lineNumber": 126
+        },
+        {
+          "caller": "BM_LFQ_HighContention",
+          "callee": "pop",
+          "lineNumber": 130
+        },
+        {
+          "caller": "BM_LFQ_HighContention",
+          "callee": "fetch_add",
+          "lineNumber": 133
+        },
+        {
+          "caller": "BM_LFQ_HighContention",
+          "callee": "join",
+          "lineNumber": 137
+        },
+        {
+          "caller": "BM_LFQ_HighContention",
+          "callee": "benchmark::DoNotOptimize",
+          "lineNumber": 138
+        },
+        {
+          "caller": "BM_LFQ_HighContention",
+          "callee": "load",
+          "lineNumber": 138
+        },
+        {
+          "caller": "BM_LFQ_HighContention",
+          "callee": "SetItemsProcessed",
+          "lineNumber": 140
+        },
+        {
+          "caller": "BM_LFQ_HighContention",
+          "callee": "iterations",
+          "lineNumber": 140
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 4,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "benchmark/bench_logger.cpp",
+      "language": "cpp",
+      "fileCategory": "code",
+      "totalLines": 77,
+      "nonEmptyLines": 62,
+      "functions": [
+        {
+          "name": "SetUp",
+          "startLine": 13,
+          "endLine": 13,
+          "params": []
+        },
+        {
+          "name": "TearDown",
+          "startLine": 15,
+          "endLine": 15,
+          "params": []
+        },
+        {
+          "name": "BENCHMARK_DEFINE_F(LoggerBench, Info)",
+          "startLine": 18,
+          "endLine": 26,
+          "params": [
+            "state"
+          ]
+        },
+        {
+          "name": "BENCHMARK_DEFINE_F(LoggerBench, Error)",
+          "startLine": 30,
+          "endLine": 38,
+          "params": [
+            "state"
+          ]
+        },
+        {
+          "name": "BENCHMARK_DEFINE_F(LoggerBench, Multithreaded)",
+          "startLine": 42,
+          "endLine": 58,
+          "params": [
+            "state"
+          ]
+        },
+        {
+          "name": "BENCHMARK_DEFINE_F(LoggerBench, Format)",
+          "startLine": 62,
+          "endLine": 71,
+          "params": [
+            "state"
+          ]
+        }
+      ],
+      "classes": [
+        {
+          "name": "LoggerBench",
+          "startLine": 11,
+          "endLine": 16,
+          "methods": [
+            "SetUp",
+            "TearDown"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "SetUp",
+          "line": 13,
+          "isDefault": false
+        },
+        {
+          "name": "TearDown",
+          "line": 15,
+          "isDefault": false
+        },
+        {
+          "name": "LoggerBench",
+          "line": 11,
+          "isDefault": false
+        },
+        {
+          "name": "BENCHMARK_DEFINE_F(LoggerBench, Info)",
+          "line": 18,
+          "isDefault": false
+        },
+        {
+          "name": "BENCHMARK_DEFINE_F(LoggerBench, Error)",
+          "line": 30,
+          "isDefault": false
+        },
+        {
+          "name": "BENCHMARK_DEFINE_F(LoggerBench, Multithreaded)",
+          "line": 42,
+          "isDefault": false
+        },
+        {
+          "name": "BENCHMARK_DEFINE_F(LoggerBench, Format)",
+          "line": 62,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "SetUp",
+          "callee": "hps::Logger::init",
+          "lineNumber": 13
+        },
+        {
+          "caller": "TearDown",
+          "callee": "hps::Logger::shutdown",
+          "lineNumber": 15
+        },
+        {
+          "caller": "BENCHMARK_DEFINE_F(LoggerBench, Info)",
+          "callee": "range",
+          "lineNumber": 19
+        },
+        {
+          "caller": "BENCHMARK_DEFINE_F(LoggerBench, Info)",
+          "callee": "hps::Logger::_info",
+          "lineNumber": 22
+        },
+        {
+          "caller": "BENCHMARK_DEFINE_F(LoggerBench, Info)",
+          "callee": "SetItemsProcessed",
+          "lineNumber": 25
+        },
+        {
+          "caller": "BENCHMARK_DEFINE_F(LoggerBench, Info)",
+          "callee": "iterations",
+          "lineNumber": 25
+        },
+        {
+          "caller": "BENCHMARK_DEFINE_F(LoggerBench, Error)",
+          "callee": "range",
+          "lineNumber": 31
+        },
+        {
+          "caller": "BENCHMARK_DEFINE_F(LoggerBench, Error)",
+          "callee": "hps::Logger::_error",
+          "lineNumber": 34
+        },
+        {
+          "caller": "BENCHMARK_DEFINE_F(LoggerBench, Error)",
+          "callee": "SetItemsProcessed",
+          "lineNumber": 37
+        },
+        {
+          "caller": "BENCHMARK_DEFINE_F(LoggerBench, Error)",
+          "callee": "iterations",
+          "lineNumber": 37
+        },
+        {
+          "caller": "BENCHMARK_DEFINE_F(LoggerBench, Multithreaded)",
+          "callee": "range",
+          "lineNumber": 43
+        },
+        {
+          "caller": "BENCHMARK_DEFINE_F(LoggerBench, Multithreaded)",
+          "callee": "static_cast<int>",
+          "lineNumber": 44
+        },
+        {
+          "caller": "BENCHMARK_DEFINE_F(LoggerBench, Multithreaded)",
+          "callee": "range",
+          "lineNumber": 44
+        },
+        {
+          "caller": "BENCHMARK_DEFINE_F(LoggerBench, Multithreaded)",
+          "callee": "reserve",
+          "lineNumber": 47
+        },
+        {
+          "caller": "BENCHMARK_DEFINE_F(LoggerBench, Multithreaded)",
+          "callee": "static_cast<std::size_t>",
+          "lineNumber": 47
+        },
+        {
+          "caller": "BENCHMARK_DEFINE_F(LoggerBench, Multithreaded)",
+          "callee": "emplace_back",
+          "lineNumber": 49
+        },
+        {
+          "caller": "BENCHMARK_DEFINE_F(LoggerBench, Multithreaded)",
+          "callee": "hps::Logger::_info",
+          "lineNumber": 51
+        },
+        {
+          "caller": "BENCHMARK_DEFINE_F(LoggerBench, Multithreaded)",
+          "callee": "join",
+          "lineNumber": 55
+        },
+        {
+          "caller": "BENCHMARK_DEFINE_F(LoggerBench, Multithreaded)",
+          "callee": "SetItemsProcessed",
+          "lineNumber": 57
+        },
+        {
+          "caller": "BENCHMARK_DEFINE_F(LoggerBench, Multithreaded)",
+          "callee": "iterations",
+          "lineNumber": 57
+        },
+        {
+          "caller": "BENCHMARK_DEFINE_F(LoggerBench, Format)",
+          "callee": "range",
+          "lineNumber": 63
+        },
+        {
+          "caller": "BENCHMARK_DEFINE_F(LoggerBench, Format)",
+          "callee": "std::to_string",
+          "lineNumber": 66
+        },
+        {
+          "caller": "BENCHMARK_DEFINE_F(LoggerBench, Format)",
+          "callee": "std::to_string",
+          "lineNumber": 66
+        },
+        {
+          "caller": "BENCHMARK_DEFINE_F(LoggerBench, Format)",
+          "callee": "hps::Logger::_info",
+          "lineNumber": 67
+        },
+        {
+          "caller": "BENCHMARK_DEFINE_F(LoggerBench, Format)",
+          "callee": "SetItemsProcessed",
+          "lineNumber": 70
+        },
+        {
+          "caller": "BENCHMARK_DEFINE_F(LoggerBench, Format)",
+          "callee": "iterations",
+          "lineNumber": 70
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 7,
+        "functionCount": 6,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "benchmark/bench_memory_pool.cpp",
+      "language": "cpp",
+      "fileCategory": "code",
+      "totalLines": 127,
+      "nonEmptyLines": 109,
+      "functions": [
+        {
+          "name": "BM_MemoryPool_AllocateDeallocate",
+          "startLine": 18,
+          "endLine": 26,
+          "params": [
+            "state"
+          ]
+        },
+        {
+          "name": "BM_MemoryPool_BatchAllocate",
+          "startLine": 30,
+          "endLine": 45,
+          "params": [
+            "state"
+          ]
+        },
+        {
+          "name": "BM_MemoryPool_MixedSizes",
+          "startLine": 49,
+          "endLine": 63,
+          "params": [
+            "state"
+          ]
+        },
+        {
+          "name": "BM_MemoryPool_CompareMalloc",
+          "startLine": 67,
+          "endLine": 74,
+          "params": [
+            "state"
+          ]
+        },
+        {
+          "name": "BM_MemoryPool_MultiThreadAlloc",
+          "startLine": 78,
+          "endLine": 98,
+          "params": [
+            "state"
+          ]
+        },
+        {
+          "name": "BM_MemoryPool_CrossThreadReturn",
+          "startLine": 102,
+          "endLine": 123,
+          "params": [
+            "state"
+          ]
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "BM_MemoryPool_AllocateDeallocate",
+          "callee": "hps::CreateMemoryPool",
+          "lineNumber": 19
+        },
+        {
+          "caller": "BM_MemoryPool_AllocateDeallocate",
+          "callee": "static_cast<std::size_t>",
+          "lineNumber": 20
+        },
+        {
+          "caller": "BM_MemoryPool_AllocateDeallocate",
+          "callee": "range",
+          "lineNumber": 20
+        },
+        {
+          "caller": "BM_MemoryPool_AllocateDeallocate",
+          "callee": "allocate",
+          "lineNumber": 22
+        },
+        {
+          "caller": "BM_MemoryPool_AllocateDeallocate",
+          "callee": "benchmark::DoNotOptimize",
+          "lineNumber": 23
+        },
+        {
+          "caller": "BM_MemoryPool_AllocateDeallocate",
+          "callee": "deallocate",
+          "lineNumber": 24
+        },
+        {
+          "caller": "BM_MemoryPool_BatchAllocate",
+          "callee": "hps::CreateMemoryPool",
+          "lineNumber": 31
+        },
+        {
+          "caller": "BM_MemoryPool_BatchAllocate",
+          "callee": "static_cast<std::size_t>",
+          "lineNumber": 32
+        },
+        {
+          "caller": "BM_MemoryPool_BatchAllocate",
+          "callee": "range",
+          "lineNumber": 32
+        },
+        {
+          "caller": "BM_MemoryPool_BatchAllocate",
+          "callee": "range",
+          "lineNumber": 33
+        },
+        {
+          "caller": "BM_MemoryPool_BatchAllocate",
+          "callee": "static_cast<std::size_t>",
+          "lineNumber": 37
+        },
+        {
+          "caller": "BM_MemoryPool_BatchAllocate",
+          "callee": "allocate",
+          "lineNumber": 37
+        },
+        {
+          "caller": "BM_MemoryPool_BatchAllocate",
+          "callee": "deallocate",
+          "lineNumber": 40
+        },
+        {
+          "caller": "BM_MemoryPool_BatchAllocate",
+          "callee": "static_cast<std::size_t>",
+          "lineNumber": 40
+        },
+        {
+          "caller": "BM_MemoryPool_BatchAllocate",
+          "callee": "benchmark::ClobberMemory",
+          "lineNumber": 42
+        },
+        {
+          "caller": "BM_MemoryPool_BatchAllocate",
+          "callee": "SetItemsProcessed",
+          "lineNumber": 44
+        },
+        {
+          "caller": "BM_MemoryPool_BatchAllocate",
+          "callee": "iterations",
+          "lineNumber": 44
+        },
+        {
+          "caller": "BM_MemoryPool_MixedSizes",
+          "callee": "hps::CreateMemoryPool",
+          "lineNumber": 50
+        },
+        {
+          "caller": "BM_MemoryPool_MixedSizes",
+          "callee": "size",
+          "lineNumber": 52
+        },
+        {
+          "caller": "BM_MemoryPool_MixedSizes",
+          "callee": "size",
+          "lineNumber": 54
+        },
+        {
+          "caller": "BM_MemoryPool_MixedSizes",
+          "callee": "allocate",
+          "lineNumber": 55
+        },
+        {
+          "caller": "BM_MemoryPool_MixedSizes",
+          "callee": "size",
+          "lineNumber": 57
+        },
+        {
+          "caller": "BM_MemoryPool_MixedSizes",
+          "callee": "deallocate",
+          "lineNumber": 58
+        },
+        {
+          "caller": "BM_MemoryPool_MixedSizes",
+          "callee": "benchmark::ClobberMemory",
+          "lineNumber": 60
+        },
+        {
+          "caller": "BM_MemoryPool_MixedSizes",
+          "callee": "SetItemsProcessed",
+          "lineNumber": 62
+        },
+        {
+          "caller": "BM_MemoryPool_MixedSizes",
+          "callee": "iterations",
+          "lineNumber": 62
+        },
+        {
+          "caller": "BM_MemoryPool_MixedSizes",
+          "callee": "size",
+          "lineNumber": 62
+        },
+        {
+          "caller": "BM_MemoryPool_CompareMalloc",
+          "callee": "static_cast<std::size_t>",
+          "lineNumber": 68
+        },
+        {
+          "caller": "BM_MemoryPool_CompareMalloc",
+          "callee": "range",
+          "lineNumber": 68
+        },
+        {
+          "caller": "BM_MemoryPool_CompareMalloc",
+          "callee": "std::malloc",
+          "lineNumber": 70
+        },
+        {
+          "caller": "BM_MemoryPool_CompareMalloc",
+          "callee": "benchmark::DoNotOptimize",
+          "lineNumber": 71
+        },
+        {
+          "caller": "BM_MemoryPool_CompareMalloc",
+          "callee": "std::free",
+          "lineNumber": 72
+        },
+        {
+          "caller": "BM_MemoryPool_MultiThreadAlloc",
+          "callee": "hps::CreateMemoryPool",
+          "lineNumber": 79
+        },
+        {
+          "caller": "BM_MemoryPool_MultiThreadAlloc",
+          "callee": "static_cast<std::size_t>",
+          "lineNumber": 80
+        },
+        {
+          "caller": "BM_MemoryPool_MultiThreadAlloc",
+          "callee": "range",
+          "lineNumber": 80
+        },
+        {
+          "caller": "BM_MemoryPool_MultiThreadAlloc",
+          "callee": "static_cast<int>",
+          "lineNumber": 81
+        },
+        {
+          "caller": "BM_MemoryPool_MultiThreadAlloc",
+          "callee": "range",
+          "lineNumber": 81
+        },
+        {
+          "caller": "BM_MemoryPool_MultiThreadAlloc",
+          "callee": "static_cast<int>",
+          "lineNumber": 82
+        },
+        {
+          "caller": "BM_MemoryPool_MultiThreadAlloc",
+          "callee": "range",
+          "lineNumber": 82
+        },
+        {
+          "caller": "BM_MemoryPool_MultiThreadAlloc",
+          "callee": "reserve",
+          "lineNumber": 85
+        },
+        {
+          "caller": "BM_MemoryPool_MultiThreadAlloc",
+          "callee": "static_cast<std::size_t>",
+          "lineNumber": 85
+        },
+        {
+          "caller": "BM_MemoryPool_MultiThreadAlloc",
+          "callee": "emplace_back",
+          "lineNumber": 87
+        },
+        {
+          "caller": "BM_MemoryPool_MultiThreadAlloc",
+          "callee": "allocate",
+          "lineNumber": 89
+        },
+        {
+          "caller": "BM_MemoryPool_MultiThreadAlloc",
+          "callee": "deallocate",
+          "lineNumber": 90
+        },
+        {
+          "caller": "BM_MemoryPool_MultiThreadAlloc",
+          "callee": "join",
+          "lineNumber": 94
+        },
+        {
+          "caller": "BM_MemoryPool_MultiThreadAlloc",
+          "callee": "benchmark::ClobberMemory",
+          "lineNumber": 95
+        },
+        {
+          "caller": "BM_MemoryPool_MultiThreadAlloc",
+          "callee": "SetItemsProcessed",
+          "lineNumber": 97
+        },
+        {
+          "caller": "BM_MemoryPool_MultiThreadAlloc",
+          "callee": "iterations",
+          "lineNumber": 97
+        },
+        {
+          "caller": "BM_MemoryPool_CrossThreadReturn",
+          "callee": "hps::CreateMemoryPool",
+          "lineNumber": 103
+        },
+        {
+          "caller": "BM_MemoryPool_CrossThreadReturn",
+          "callee": "static_cast<std::size_t>",
+          "lineNumber": 104
+        },
+        {
+          "caller": "BM_MemoryPool_CrossThreadReturn",
+          "callee": "range",
+          "lineNumber": 104
+        },
+        {
+          "caller": "BM_MemoryPool_CrossThreadReturn",
+          "callee": "range",
+          "lineNumber": 105
+        },
+        {
+          "caller": "BM_MemoryPool_CrossThreadReturn",
+          "callee": "static_cast<std::size_t>",
+          "lineNumber": 110
+        },
+        {
+          "caller": "BM_MemoryPool_CrossThreadReturn",
+          "callee": "allocate",
+          "lineNumber": 110
+        },
+        {
+          "caller": "BM_MemoryPool_CrossThreadReturn",
+          "callee": "join",
+          "lineNumber": 113
+        },
+        {
+          "caller": "BM_MemoryPool_CrossThreadReturn",
+          "callee": "deallocate",
+          "lineNumber": 116
+        },
+        {
+          "caller": "BM_MemoryPool_CrossThreadReturn",
+          "callee": "static_cast<std::size_t>",
+          "lineNumber": 116
+        },
+        {
+          "caller": "BM_MemoryPool_CrossThreadReturn",
+          "callee": "join",
+          "lineNumber": 119
+        },
+        {
+          "caller": "BM_MemoryPool_CrossThreadReturn",
+          "callee": "benchmark::ClobberMemory",
+          "lineNumber": 120
+        },
+        {
+          "caller": "BM_MemoryPool_CrossThreadReturn",
+          "callee": "SetItemsProcessed",
+          "lineNumber": 122
+        },
+        {
+          "caller": "BM_MemoryPool_CrossThreadReturn",
+          "callee": "iterations",
+          "lineNumber": 122
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 6,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "benchmark/bench_move_only_function.cpp",
+      "language": "cpp",
+      "fileCategory": "code",
+      "totalLines": 77,
+      "nonEmptyLines": 59,
+      "functions": [
+        {
+          "name": "BM_MoveOnlyFunction_ConstructVoid",
+          "startLine": 18,
+          "endLine": 23,
+          "params": [
+            "state"
+          ]
+        },
+        {
+          "name": "BM_MoveOnlyFunction_ConstructWithCapture",
+          "startLine": 27,
+          "endLine": 33,
+          "params": [
+            "state"
+          ]
+        },
+        {
+          "name": "BM_MoveOnlyFunction_ConstructLargeCapture",
+          "startLine": 37,
+          "endLine": 43,
+          "params": [
+            "state"
+          ]
+        },
+        {
+          "name": "BM_MoveOnlyFunction_Invoke",
+          "startLine": 47,
+          "endLine": 54,
+          "params": [
+            "state"
+          ]
+        },
+        {
+          "name": "BM_MoveOnlyFunction_MoveConstruct",
+          "startLine": 58,
+          "endLine": 64,
+          "params": [
+            "state"
+          ]
+        },
+        {
+          "name": "BM_StdFunction_Compare",
+          "startLine": 68,
+          "endLine": 73,
+          "params": [
+            "state"
+          ]
+        }
+      ],
+      "classes": [
+        {
+          "name": "BigObject",
+          "startLine": 11,
+          "endLine": 14,
+          "methods": [],
+          "properties": [
+            "data",
+            "value"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "BigObject",
+          "line": 11,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "BM_MoveOnlyFunction_ConstructVoid",
+          "callee": "benchmark::DoNotOptimize",
+          "lineNumber": 21
+        },
+        {
+          "caller": "BM_MoveOnlyFunction_ConstructWithCapture",
+          "callee": "benchmark::DoNotOptimize",
+          "lineNumber": 31
+        },
+        {
+          "caller": "BM_MoveOnlyFunction_ConstructLargeCapture",
+          "callee": "benchmark::DoNotOptimize",
+          "lineNumber": 41
+        },
+        {
+          "caller": "BM_MoveOnlyFunction_Invoke",
+          "callee": "f",
+          "lineNumber": 51
+        },
+        {
+          "caller": "BM_MoveOnlyFunction_Invoke",
+          "callee": "benchmark::DoNotOptimize",
+          "lineNumber": 52
+        },
+        {
+          "caller": "BM_MoveOnlyFunction_MoveConstruct",
+          "callee": "benchmark::DoNotOptimize",
+          "lineNumber": 62
+        },
+        {
+          "caller": "BM_StdFunction_Compare",
+          "callee": "benchmark::DoNotOptimize",
+          "lineNumber": 71
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 1,
+        "functionCount": 6,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "benchmark/bench_router.cpp",
+      "language": "cpp",
+      "fileCategory": "code",
+      "totalLines": 106,
+      "nonEmptyLines": 87,
+      "functions": [
+        {
+          "name": "RouterWithRoutes",
+          "startLine": 19,
+          "endLine": 28,
+          "params": [
+            "num_routes"
+          ]
+        },
+        {
+          "name": "BM_Router_MatchStatic",
+          "startLine": 33,
+          "endLine": 42,
+          "params": [
+            "state"
+          ]
+        },
+        {
+          "name": "BM_Router_MatchParam",
+          "startLine": 46,
+          "endLine": 55,
+          "params": [
+            "state"
+          ]
+        },
+        {
+          "name": "BM_Router_MatchNotFound",
+          "startLine": 59,
+          "endLine": 67,
+          "params": [
+            "state"
+          ]
+        },
+        {
+          "name": "BM_Router_PathExists",
+          "startLine": 71,
+          "endLine": 77,
+          "params": [
+            "state"
+          ]
+        },
+        {
+          "name": "BM_Router_MatchLongPath",
+          "startLine": 81,
+          "endLine": 89,
+          "params": [
+            "state"
+          ]
+        },
+        {
+          "name": "BM_Router_MatchLargeTable",
+          "startLine": 93,
+          "endLine": 102,
+          "params": [
+            "state"
+          ]
+        }
+      ],
+      "classes": [
+        {
+          "name": "RouterWithRoutes",
+          "startLine": 16,
+          "endLine": 29,
+          "methods": [
+            "RouterWithRoutes"
+          ],
+          "properties": [
+            "router"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "RouterWithRoutes",
+          "line": 19,
+          "isDefault": false
+        },
+        {
+          "name": "RouterWithRoutes",
+          "line": 16,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "RouterWithRoutes",
+          "callee": "std::to_string",
+          "lineNumber": 21
+        },
+        {
+          "caller": "RouterWithRoutes",
+          "callee": "add",
+          "lineNumber": 22
+        },
+        {
+          "caller": "RouterWithRoutes",
+          "callee": "add",
+          "lineNumber": 24
+        },
+        {
+          "caller": "RouterWithRoutes",
+          "callee": "add",
+          "lineNumber": 25
+        },
+        {
+          "caller": "RouterWithRoutes",
+          "callee": "add",
+          "lineNumber": 26
+        },
+        {
+          "caller": "RouterWithRoutes",
+          "callee": "add",
+          "lineNumber": 27
+        },
+        {
+          "caller": "BM_Router_MatchStatic",
+          "callee": "match",
+          "lineNumber": 38
+        },
+        {
+          "caller": "BM_Router_MatchStatic",
+          "callee": "benchmark::DoNotOptimize",
+          "lineNumber": 39
+        },
+        {
+          "caller": "BM_Router_MatchStatic",
+          "callee": "benchmark::DoNotOptimize",
+          "lineNumber": 40
+        },
+        {
+          "caller": "BM_Router_MatchParam",
+          "callee": "match",
+          "lineNumber": 51
+        },
+        {
+          "caller": "BM_Router_MatchParam",
+          "callee": "benchmark::DoNotOptimize",
+          "lineNumber": 52
+        },
+        {
+          "caller": "BM_Router_MatchParam",
+          "callee": "benchmark::DoNotOptimize",
+          "lineNumber": 53
+        },
+        {
+          "caller": "BM_Router_MatchNotFound",
+          "callee": "match",
+          "lineNumber": 64
+        },
+        {
+          "caller": "BM_Router_MatchNotFound",
+          "callee": "benchmark::DoNotOptimize",
+          "lineNumber": 65
+        },
+        {
+          "caller": "BM_Router_PathExists",
+          "callee": "path_exists",
+          "lineNumber": 74
+        },
+        {
+          "caller": "BM_Router_PathExists",
+          "callee": "benchmark::DoNotOptimize",
+          "lineNumber": 75
+        },
+        {
+          "caller": "BM_Router_MatchLongPath",
+          "callee": "match",
+          "lineNumber": 86
+        },
+        {
+          "caller": "BM_Router_MatchLongPath",
+          "callee": "benchmark::DoNotOptimize",
+          "lineNumber": 87
+        },
+        {
+          "caller": "BM_Router_MatchLargeTable",
+          "callee": "std::to_string",
+          "lineNumber": 97
+        },
+        {
+          "caller": "BM_Router_MatchLargeTable",
+          "callee": "static_cast<std::size_t>",
+          "lineNumber": 97
+        },
+        {
+          "caller": "BM_Router_MatchLargeTable",
+          "callee": "match",
+          "lineNumber": 99
+        },
+        {
+          "caller": "BM_Router_MatchLargeTable",
+          "callee": "benchmark::DoNotOptimize",
+          "lineNumber": 100
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 2,
+        "functionCount": 7,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "benchmark/bench_ssl.cpp",
+      "language": "cpp",
+      "fileCategory": "code",
+      "totalLines": 77,
+      "nonEmptyLines": 62,
+      "functions": [
+        {
+          "name": "SslBenchFixture",
+          "startLine": 14,
+          "endLine": 18,
+          "params": []
+        },
+        {
+          "name": "BM_SslContext_Create",
+          "startLine": 23,
+          "endLine": 29,
+          "params": [
+            "state"
+          ]
+        },
+        {
+          "name": "BM_SslContext_NotEnabled",
+          "startLine": 33,
+          "endLine": 42,
+          "params": [
+            "state"
+          ]
+        },
+        {
+          "name": "BM_SSL_ReadWriteThroughput",
+          "startLine": 46,
+          "endLine": 60,
+          "params": [
+            "state"
+          ]
+        },
+        {
+          "name": "BM_SSL_HandshakeLatency",
+          "startLine": 64,
+          "endLine": 73,
+          "params": [
+            "state"
+          ]
+        }
+      ],
+      "classes": [
+        {
+          "name": "SslBenchFixture",
+          "startLine": 11,
+          "endLine": 19,
+          "methods": [
+            "SslBenchFixture"
+          ],
+          "properties": [
+            "config"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "SslBenchFixture",
+          "line": 14,
+          "isDefault": false
+        },
+        {
+          "name": "SslBenchFixture",
+          "line": 11,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "SslBenchFixture",
+          "callee": "clear",
+          "lineNumber": 16
+        },
+        {
+          "caller": "SslBenchFixture",
+          "callee": "clear",
+          "lineNumber": 17
+        },
+        {
+          "caller": "BM_SslContext_Create",
+          "callee": "benchmark::DoNotOptimize",
+          "lineNumber": 27
+        },
+        {
+          "caller": "BM_SslContext_NotEnabled",
+          "callee": "create_ssl",
+          "lineNumber": 37
+        },
+        {
+          "caller": "BM_SslContext_NotEnabled",
+          "callee": "accept",
+          "lineNumber": 38
+        },
+        {
+          "caller": "BM_SslContext_NotEnabled",
+          "callee": "shutdown_and_free",
+          "lineNumber": 39
+        },
+        {
+          "caller": "BM_SslContext_NotEnabled",
+          "callee": "benchmark::DoNotOptimize",
+          "lineNumber": 40
+        },
+        {
+          "caller": "BM_SSL_ReadWriteThroughput",
+          "callee": "static_cast<std::size_t>",
+          "lineNumber": 47
+        },
+        {
+          "caller": "BM_SSL_ReadWriteThroughput",
+          "callee": "range",
+          "lineNumber": 47
+        },
+        {
+          "caller": "BM_SSL_ReadWriteThroughput",
+          "callee": "create_ssl",
+          "lineNumber": 52
+        },
+        {
+          "caller": "BM_SSL_ReadWriteThroughput",
+          "callee": "hps::SslContext::write",
+          "lineNumber": 54
+        },
+        {
+          "caller": "BM_SSL_ReadWriteThroughput",
+          "callee": "data",
+          "lineNumber": 54
+        },
+        {
+          "caller": "BM_SSL_ReadWriteThroughput",
+          "callee": "size",
+          "lineNumber": 54
+        },
+        {
+          "caller": "BM_SSL_ReadWriteThroughput",
+          "callee": "benchmark::DoNotOptimize",
+          "lineNumber": 55
+        },
+        {
+          "caller": "BM_SSL_ReadWriteThroughput",
+          "callee": "shutdown_and_free",
+          "lineNumber": 56
+        },
+        {
+          "caller": "BM_SSL_ReadWriteThroughput",
+          "callee": "SetBytesProcessed",
+          "lineNumber": 59
+        },
+        {
+          "caller": "BM_SSL_ReadWriteThroughput",
+          "callee": "iterations",
+          "lineNumber": 59
+        },
+        {
+          "caller": "BM_SSL_HandshakeLatency",
+          "callee": "create_ssl",
+          "lineNumber": 68
+        },
+        {
+          "caller": "BM_SSL_HandshakeLatency",
+          "callee": "accept",
+          "lineNumber": 69
+        },
+        {
+          "caller": "BM_SSL_HandshakeLatency",
+          "callee": "shutdown_and_free",
+          "lineNumber": 70
+        },
+        {
+          "caller": "BM_SSL_HandshakeLatency",
+          "callee": "benchmark::DoNotOptimize",
+          "lineNumber": 71
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 2,
+        "functionCount": 5,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "benchmark/bench_tcp_server.cpp",
+      "language": "cpp",
+      "fileCategory": "code",
+      "totalLines": 131,
+      "nonEmptyLines": 115,
+      "functions": [
+        {
+          "name": "SetUp",
+          "startLine": 20,
+          "endLine": 44,
+          "params": []
+        },
+        {
+          "name": "TearDown",
+          "startLine": 46,
+          "endLine": 51,
+          "params": []
+        },
+        {
+          "name": "BENCHMARK_DEFINE_F(TcpServerBench, Connect)",
+          "startLine": 60,
+          "endLine": 68,
+          "params": [
+            "state"
+          ]
+        },
+        {
+          "name": "BENCHMARK_DEFINE_F(TcpServerBench, SendReceive)",
+          "startLine": 72,
+          "endLine": 86,
+          "params": [
+            "state"
+          ]
+        },
+        {
+          "name": "BENCHMARK_DEFINE_F(TcpServerBench, ConcurrentConnections)",
+          "startLine": 90,
+          "endLine": 106,
+          "params": [
+            "state"
+          ]
+        },
+        {
+          "name": "BENCHMARK_DEFINE_F(TcpServerBench, Throughput)",
+          "startLine": 110,
+          "endLine": 125,
+          "params": [
+            "state"
+          ]
+        }
+      ],
+      "classes": [
+        {
+          "name": "TcpServerBench",
+          "startLine": 18,
+          "endLine": 57,
+          "methods": [
+            "SetUp",
+            "TearDown"
+          ],
+          "properties": [
+            "config_",
+            "server_",
+            "server_thread_",
+            "port_"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "SetUp",
+          "line": 20,
+          "isDefault": false
+        },
+        {
+          "name": "TearDown",
+          "line": 46,
+          "isDefault": false
+        },
+        {
+          "name": "TcpServerBench",
+          "line": 18,
+          "isDefault": false
+        },
+        {
+          "name": "BENCHMARK_DEFINE_F(TcpServerBench, Connect)",
+          "line": 60,
+          "isDefault": false
+        },
+        {
+          "name": "BENCHMARK_DEFINE_F(TcpServerBench, SendReceive)",
+          "line": 72,
+          "isDefault": false
+        },
+        {
+          "name": "BENCHMARK_DEFINE_F(TcpServerBench, ConcurrentConnections)",
+          "line": 90,
+          "isDefault": false
+        },
+        {
+          "name": "BENCHMARK_DEFINE_F(TcpServerBench, Throughput)",
+          "line": 110,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "SetUp",
+          "callee": "std::make_unique<hps::TcpServer>",
+          "lineNumber": 23
+        },
+        {
+          "caller": "SetUp",
+          "callee": "set_handler",
+          "lineNumber": 24
+        },
+        {
+          "caller": "SetUp",
+          "callee": "read_mutex",
+          "lineNumber": 27
+        },
+        {
+          "caller": "SetUp",
+          "callee": "read_buffer",
+          "lineNumber": 28
+        },
+        {
+          "caller": "SetUp",
+          "callee": "consume_read_buffer_locked",
+          "lineNumber": 29
+        },
+        {
+          "caller": "SetUp",
+          "callee": "size",
+          "lineNumber": 29
+        },
+        {
+          "caller": "SetUp",
+          "callee": "empty",
+          "lineNumber": 31
+        },
+        {
+          "caller": "SetUp",
+          "callee": "write_mutex",
+          "lineNumber": 32
+        },
+        {
+          "caller": "SetUp",
+          "callee": "append",
+          "lineNumber": 33
+        },
+        {
+          "caller": "SetUp",
+          "callee": "write_buffer",
+          "lineNumber": 33
+        },
+        {
+          "caller": "SetUp",
+          "callee": "init",
+          "lineNumber": 36
+        },
+        {
+          "caller": "SetUp",
+          "callee": "std::runtime_error",
+          "lineNumber": 37
+        },
+        {
+          "caller": "SetUp",
+          "callee": "actual_port",
+          "lineNumber": 39
+        },
+        {
+          "caller": "SetUp",
+          "callee": "std::runtime_error",
+          "lineNumber": 41
+        },
+        {
+          "caller": "SetUp",
+          "callee": "std::thread",
+          "lineNumber": 43
+        },
+        {
+          "caller": "SetUp",
+          "callee": "start",
+          "lineNumber": 43
+        },
+        {
+          "caller": "TearDown",
+          "callee": "stop",
+          "lineNumber": 47
+        },
+        {
+          "caller": "TearDown",
+          "callee": "joinable",
+          "lineNumber": 48
+        },
+        {
+          "caller": "TearDown",
+          "callee": "join",
+          "lineNumber": 49
+        },
+        {
+          "caller": "TearDown",
+          "callee": "reset",
+          "lineNumber": 50
+        },
+        {
+          "caller": "BENCHMARK_DEFINE_F(TcpServerBench, Connect)",
+          "callee": "connect_to_server",
+          "lineNumber": 63
+        },
+        {
+          "caller": "BENCHMARK_DEFINE_F(TcpServerBench, Connect)",
+          "callee": "disconnect",
+          "lineNumber": 65
+        },
+        {
+          "caller": "BENCHMARK_DEFINE_F(TcpServerBench, Connect)",
+          "callee": "benchmark::DoNotOptimize",
+          "lineNumber": 66
+        },
+        {
+          "caller": "BENCHMARK_DEFINE_F(TcpServerBench, SendReceive)",
+          "callee": "static_cast<std::size_t>",
+          "lineNumber": 73
+        },
+        {
+          "caller": "BENCHMARK_DEFINE_F(TcpServerBench, SendReceive)",
+          "callee": "range",
+          "lineNumber": 73
+        },
+        {
+          "caller": "BENCHMARK_DEFINE_F(TcpServerBench, SendReceive)",
+          "callee": "connect_to_server",
+          "lineNumber": 76
+        },
+        {
+          "caller": "BENCHMARK_DEFINE_F(TcpServerBench, SendReceive)",
+          "callee": "send_message",
+          "lineNumber": 78
+        },
+        {
+          "caller": "BENCHMARK_DEFINE_F(TcpServerBench, SendReceive)",
+          "callee": "receive_message",
+          "lineNumber": 80
+        },
+        {
+          "caller": "BENCHMARK_DEFINE_F(TcpServerBench, SendReceive)",
+          "callee": "disconnect",
+          "lineNumber": 81
+        },
+        {
+          "caller": "BENCHMARK_DEFINE_F(TcpServerBench, SendReceive)",
+          "callee": "benchmark::DoNotOptimize",
+          "lineNumber": 82
+        },
+        {
+          "caller": "BENCHMARK_DEFINE_F(TcpServerBench, SendReceive)",
+          "callee": "benchmark::DoNotOptimize",
+          "lineNumber": 83
+        },
+        {
+          "caller": "BENCHMARK_DEFINE_F(TcpServerBench, SendReceive)",
+          "callee": "SetBytesProcessed",
+          "lineNumber": 85
+        },
+        {
+          "caller": "BENCHMARK_DEFINE_F(TcpServerBench, SendReceive)",
+          "callee": "iterations",
+          "lineNumber": 85
+        },
+        {
+          "caller": "BENCHMARK_DEFINE_F(TcpServerBench, SendReceive)",
+          "callee": "range",
+          "lineNumber": 85
+        },
+        {
+          "caller": "BENCHMARK_DEFINE_F(TcpServerBench, ConcurrentConnections)",
+          "callee": "range",
+          "lineNumber": 91
+        },
+        {
+          "caller": "BENCHMARK_DEFINE_F(TcpServerBench, ConcurrentConnections)",
+          "callee": "reserve",
+          "lineNumber": 94
+        },
+        {
+          "caller": "BENCHMARK_DEFINE_F(TcpServerBench, ConcurrentConnections)",
+          "callee": "static_cast<std::size_t>",
+          "lineNumber": 94
+        },
+        {
+          "caller": "BENCHMARK_DEFINE_F(TcpServerBench, ConcurrentConnections)",
+          "callee": "emplace_back",
+          "lineNumber": 96
+        },
+        {
+          "caller": "BENCHMARK_DEFINE_F(TcpServerBench, ConcurrentConnections)",
+          "callee": "connect_to_server",
+          "lineNumber": 99
+        },
+        {
+          "caller": "BENCHMARK_DEFINE_F(TcpServerBench, ConcurrentConnections)",
+          "callee": "disconnect",
+          "lineNumber": 102
+        },
+        {
+          "caller": "BENCHMARK_DEFINE_F(TcpServerBench, ConcurrentConnections)",
+          "callee": "SetItemsProcessed",
+          "lineNumber": 105
+        },
+        {
+          "caller": "BENCHMARK_DEFINE_F(TcpServerBench, ConcurrentConnections)",
+          "callee": "iterations",
+          "lineNumber": 105
+        },
+        {
+          "caller": "BENCHMARK_DEFINE_F(TcpServerBench, Throughput)",
+          "callee": "range",
+          "lineNumber": 111
+        },
+        {
+          "caller": "BENCHMARK_DEFINE_F(TcpServerBench, Throughput)",
+          "callee": "static_cast<std::size_t>",
+          "lineNumber": 112
+        },
+        {
+          "caller": "BENCHMARK_DEFINE_F(TcpServerBench, Throughput)",
+          "callee": "connect_to_server",
+          "lineNumber": 116
+        },
+        {
+          "caller": "BENCHMARK_DEFINE_F(TcpServerBench, Throughput)",
+          "callee": "send_message",
+          "lineNumber": 118
+        },
+        {
+          "caller": "BENCHMARK_DEFINE_F(TcpServerBench, Throughput)",
+          "callee": "receive_message",
+          "lineNumber": 120
+        },
+        {
+          "caller": "BENCHMARK_DEFINE_F(TcpServerBench, Throughput)",
+          "callee": "disconnect",
+          "lineNumber": 121
+        },
+        {
+          "caller": "BENCHMARK_DEFINE_F(TcpServerBench, Throughput)",
+          "callee": "static_cast<int64_t>",
+          "lineNumber": 122
+        },
+        {
+          "caller": "BENCHMARK_DEFINE_F(TcpServerBench, Throughput)",
+          "callee": "size",
+          "lineNumber": 122
+        },
+        {
+          "caller": "BENCHMARK_DEFINE_F(TcpServerBench, Throughput)",
+          "callee": "size",
+          "lineNumber": 122
+        },
+        {
+          "caller": "BENCHMARK_DEFINE_F(TcpServerBench, Throughput)",
+          "callee": "SetBytesProcessed",
+          "lineNumber": 124
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 7,
+        "functionCount": 6,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "benchmark/bench_thread_pool.cpp",
+      "language": "cpp",
+      "fileCategory": "code",
+      "totalLines": 109,
+      "nonEmptyLines": 93,
+      "functions": [
+        {
+          "name": "do_work",
+          "startLine": 14,
+          "endLine": 26,
+          "params": [
+            "state",
+            "pool"
+          ]
+        },
+        {
+          "name": "BM_LockFreeThreadPool_Tasks",
+          "startLine": 30,
+          "endLine": 34,
+          "params": [
+            "state"
+          ]
+        },
+        {
+          "name": "BM_LockedThreadPool_Tasks",
+          "startLine": 38,
+          "endLine": 42,
+          "params": [
+            "state"
+          ]
+        },
+        {
+          "name": "BM_LockFreeThreadPool_HeavyTask",
+          "startLine": 46,
+          "endLine": 62,
+          "params": [
+            "state"
+          ]
+        },
+        {
+          "name": "BM_LockedThreadPool_HeavyTask",
+          "startLine": 66,
+          "endLine": 82,
+          "params": [
+            "state"
+          ]
+        },
+        {
+          "name": "BM_LockedThreadPool_EnqueueDelay",
+          "startLine": 86,
+          "endLine": 105,
+          "params": [
+            "state"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "do_work",
+          "line": 14,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "do_work",
+          "callee": "static_cast<int>",
+          "lineNumber": 16
+        },
+        {
+          "caller": "do_work",
+          "callee": "range",
+          "lineNumber": 16
+        },
+        {
+          "caller": "do_work",
+          "callee": "store",
+          "lineNumber": 18
+        },
+        {
+          "caller": "do_work",
+          "callee": "enqueue",
+          "lineNumber": 20
+        },
+        {
+          "caller": "do_work",
+          "callee": "fetch_add",
+          "lineNumber": 20
+        },
+        {
+          "caller": "do_work",
+          "callee": "wait_for_all_tasks",
+          "lineNumber": 22
+        },
+        {
+          "caller": "do_work",
+          "callee": "benchmark::DoNotOptimize",
+          "lineNumber": 23
+        },
+        {
+          "caller": "do_work",
+          "callee": "load",
+          "lineNumber": 23
+        },
+        {
+          "caller": "do_work",
+          "callee": "SetItemsProcessed",
+          "lineNumber": 25
+        },
+        {
+          "caller": "do_work",
+          "callee": "iterations",
+          "lineNumber": 25
+        },
+        {
+          "caller": "BM_LockFreeThreadPool_Tasks",
+          "callee": "do_work",
+          "lineNumber": 32
+        },
+        {
+          "caller": "BM_LockFreeThreadPool_Tasks",
+          "callee": "stop",
+          "lineNumber": 33
+        },
+        {
+          "caller": "BM_LockedThreadPool_Tasks",
+          "callee": "do_work",
+          "lineNumber": 40
+        },
+        {
+          "caller": "BM_LockedThreadPool_Tasks",
+          "callee": "stop",
+          "lineNumber": 41
+        },
+        {
+          "caller": "BM_LockFreeThreadPool_HeavyTask",
+          "callee": "enqueue",
+          "lineNumber": 51
+        },
+        {
+          "caller": "BM_LockFreeThreadPool_HeavyTask",
+          "callee": "benchmark::DoNotOptimize",
+          "lineNumber": 54
+        },
+        {
+          "caller": "BM_LockFreeThreadPool_HeavyTask",
+          "callee": "fetch_add",
+          "lineNumber": 55
+        },
+        {
+          "caller": "BM_LockFreeThreadPool_HeavyTask",
+          "callee": "wait_for_all_tasks",
+          "lineNumber": 58
+        },
+        {
+          "caller": "BM_LockFreeThreadPool_HeavyTask",
+          "callee": "benchmark::DoNotOptimize",
+          "lineNumber": 59
+        },
+        {
+          "caller": "BM_LockFreeThreadPool_HeavyTask",
+          "callee": "load",
+          "lineNumber": 59
+        },
+        {
+          "caller": "BM_LockFreeThreadPool_HeavyTask",
+          "callee": "stop",
+          "lineNumber": 61
+        },
+        {
+          "caller": "BM_LockedThreadPool_HeavyTask",
+          "callee": "enqueue",
+          "lineNumber": 71
+        },
+        {
+          "caller": "BM_LockedThreadPool_HeavyTask",
+          "callee": "benchmark::DoNotOptimize",
+          "lineNumber": 74
+        },
+        {
+          "caller": "BM_LockedThreadPool_HeavyTask",
+          "callee": "fetch_add",
+          "lineNumber": 75
+        },
+        {
+          "caller": "BM_LockedThreadPool_HeavyTask",
+          "callee": "wait_for_all_tasks",
+          "lineNumber": 78
+        },
+        {
+          "caller": "BM_LockedThreadPool_HeavyTask",
+          "callee": "benchmark::DoNotOptimize",
+          "lineNumber": 79
+        },
+        {
+          "caller": "BM_LockedThreadPool_HeavyTask",
+          "callee": "load",
+          "lineNumber": 79
+        },
+        {
+          "caller": "BM_LockedThreadPool_HeavyTask",
+          "callee": "stop",
+          "lineNumber": 81
+        },
+        {
+          "caller": "BM_LockedThreadPool_EnqueueDelay",
+          "callee": "range",
+          "lineNumber": 87
+        },
+        {
+          "caller": "BM_LockedThreadPool_EnqueueDelay",
+          "callee": "reserve",
+          "lineNumber": 90
+        },
+        {
+          "caller": "BM_LockedThreadPool_EnqueueDelay",
+          "callee": "static_cast<std::size_t>",
+          "lineNumber": 90
+        },
+        {
+          "caller": "BM_LockedThreadPool_EnqueueDelay",
+          "callee": "clear",
+          "lineNumber": 92
+        },
+        {
+          "caller": "BM_LockedThreadPool_EnqueueDelay",
+          "callee": "std::chrono::steady_clock::now",
+          "lineNumber": 94
+        },
+        {
+          "caller": "BM_LockedThreadPool_EnqueueDelay",
+          "callee": "enqueue",
+          "lineNumber": 95
+        },
+        {
+          "caller": "BM_LockedThreadPool_EnqueueDelay",
+          "callee": "std::chrono::steady_clock::now",
+          "lineNumber": 96
+        },
+        {
+          "caller": "BM_LockedThreadPool_EnqueueDelay",
+          "callee": "push_back",
+          "lineNumber": 97
+        },
+        {
+          "caller": "BM_LockedThreadPool_EnqueueDelay",
+          "callee": "count",
+          "lineNumber": 97
+        },
+        {
+          "caller": "BM_LockedThreadPool_EnqueueDelay",
+          "callee": "std::chrono::duration_cast<std::chrono::nanoseconds>",
+          "lineNumber": 97
+        },
+        {
+          "caller": "BM_LockedThreadPool_EnqueueDelay",
+          "callee": "wait_for_all_tasks",
+          "lineNumber": 99
+        },
+        {
+          "caller": "BM_LockedThreadPool_EnqueueDelay",
+          "callee": "std::sort",
+          "lineNumber": 100
+        },
+        {
+          "caller": "BM_LockedThreadPool_EnqueueDelay",
+          "callee": "begin",
+          "lineNumber": 100
+        },
+        {
+          "caller": "BM_LockedThreadPool_EnqueueDelay",
+          "callee": "end",
+          "lineNumber": 100
+        },
+        {
+          "caller": "BM_LockedThreadPool_EnqueueDelay",
+          "callee": "benchmark::DoNotOptimize",
+          "lineNumber": 101
+        },
+        {
+          "caller": "BM_LockedThreadPool_EnqueueDelay",
+          "callee": "size",
+          "lineNumber": 101
+        },
+        {
+          "caller": "BM_LockedThreadPool_EnqueueDelay",
+          "callee": "stop",
+          "lineNumber": 103
+        },
+        {
+          "caller": "BM_LockedThreadPool_EnqueueDelay",
+          "callee": "SetItemsProcessed",
+          "lineNumber": 104
+        },
+        {
+          "caller": "BM_LockedThreadPool_EnqueueDelay",
+          "callee": "iterations",
+          "lineNumber": 104
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 1,
+        "functionCount": 6,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "benchmark/bench_websocket.cpp",
+      "language": "cpp",
+      "fileCategory": "code",
+      "totalLines": 88,
+      "nonEmptyLines": 73,
+      "functions": [
+        {
+          "name": "BM_WebSocket_EncodeText",
+          "startLine": 12,
+          "endLine": 19,
+          "params": [
+            "state"
+          ]
+        },
+        {
+          "name": "BM_WebSocket_DecodeFrame",
+          "startLine": 23,
+          "endLine": 32,
+          "params": [
+            "state"
+          ]
+        },
+        {
+          "name": "BM_WebSocket_EncodeBinary",
+          "startLine": 36,
+          "endLine": 43,
+          "params": [
+            "state"
+          ]
+        },
+        {
+          "name": "BM_WebSocket_DecodeWithMask",
+          "startLine": 47,
+          "endLine": 56,
+          "params": [
+            "state"
+          ]
+        },
+        {
+          "name": "BM_WebSocket_ContinuousFrames",
+          "startLine": 60,
+          "endLine": 71,
+          "params": [
+            "state"
+          ]
+        },
+        {
+          "name": "BM_WebSocket_LargePayload",
+          "startLine": 75,
+          "endLine": 84,
+          "params": [
+            "state"
+          ]
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "BM_WebSocket_EncodeText",
+          "callee": "static_cast<std::size_t>",
+          "lineNumber": 13
+        },
+        {
+          "caller": "BM_WebSocket_EncodeText",
+          "callee": "range",
+          "lineNumber": 13
+        },
+        {
+          "caller": "BM_WebSocket_EncodeText",
+          "callee": "hps::ws_encode_frame",
+          "lineNumber": 15
+        },
+        {
+          "caller": "BM_WebSocket_EncodeText",
+          "callee": "benchmark::DoNotOptimize",
+          "lineNumber": 16
+        },
+        {
+          "caller": "BM_WebSocket_EncodeText",
+          "callee": "SetBytesProcessed",
+          "lineNumber": 18
+        },
+        {
+          "caller": "BM_WebSocket_EncodeText",
+          "callee": "iterations",
+          "lineNumber": 18
+        },
+        {
+          "caller": "BM_WebSocket_EncodeText",
+          "callee": "range",
+          "lineNumber": 18
+        },
+        {
+          "caller": "BM_WebSocket_DecodeFrame",
+          "callee": "static_cast<std::size_t>",
+          "lineNumber": 24
+        },
+        {
+          "caller": "BM_WebSocket_DecodeFrame",
+          "callee": "range",
+          "lineNumber": 24
+        },
+        {
+          "caller": "BM_WebSocket_DecodeFrame",
+          "callee": "hps::ws_encode_frame",
+          "lineNumber": 25
+        },
+        {
+          "caller": "BM_WebSocket_DecodeFrame",
+          "callee": "data",
+          "lineNumber": 26
+        },
+        {
+          "caller": "BM_WebSocket_DecodeFrame",
+          "callee": "size",
+          "lineNumber": 26
+        },
+        {
+          "caller": "BM_WebSocket_DecodeFrame",
+          "callee": "hps::ws_decode_frame",
+          "lineNumber": 28
+        },
+        {
+          "caller": "BM_WebSocket_DecodeFrame",
+          "callee": "benchmark::DoNotOptimize",
+          "lineNumber": 29
+        },
+        {
+          "caller": "BM_WebSocket_DecodeFrame",
+          "callee": "SetBytesProcessed",
+          "lineNumber": 31
+        },
+        {
+          "caller": "BM_WebSocket_DecodeFrame",
+          "callee": "iterations",
+          "lineNumber": 31
+        },
+        {
+          "caller": "BM_WebSocket_DecodeFrame",
+          "callee": "range",
+          "lineNumber": 31
+        },
+        {
+          "caller": "BM_WebSocket_EncodeBinary",
+          "callee": "static_cast<std::size_t>",
+          "lineNumber": 37
+        },
+        {
+          "caller": "BM_WebSocket_EncodeBinary",
+          "callee": "range",
+          "lineNumber": 37
+        },
+        {
+          "caller": "BM_WebSocket_EncodeBinary",
+          "callee": "hps::ws_encode_frame",
+          "lineNumber": 39
+        },
+        {
+          "caller": "BM_WebSocket_EncodeBinary",
+          "callee": "benchmark::DoNotOptimize",
+          "lineNumber": 40
+        },
+        {
+          "caller": "BM_WebSocket_EncodeBinary",
+          "callee": "SetBytesProcessed",
+          "lineNumber": 42
+        },
+        {
+          "caller": "BM_WebSocket_EncodeBinary",
+          "callee": "iterations",
+          "lineNumber": 42
+        },
+        {
+          "caller": "BM_WebSocket_EncodeBinary",
+          "callee": "range",
+          "lineNumber": 42
+        },
+        {
+          "caller": "BM_WebSocket_DecodeWithMask",
+          "callee": "static_cast<std::size_t>",
+          "lineNumber": 48
+        },
+        {
+          "caller": "BM_WebSocket_DecodeWithMask",
+          "callee": "range",
+          "lineNumber": 48
+        },
+        {
+          "caller": "BM_WebSocket_DecodeWithMask",
+          "callee": "hps::ws_encode_frame",
+          "lineNumber": 49
+        },
+        {
+          "caller": "BM_WebSocket_DecodeWithMask",
+          "callee": "data",
+          "lineNumber": 50
+        },
+        {
+          "caller": "BM_WebSocket_DecodeWithMask",
+          "callee": "size",
+          "lineNumber": 50
+        },
+        {
+          "caller": "BM_WebSocket_DecodeWithMask",
+          "callee": "hps::ws_decode_frame",
+          "lineNumber": 52
+        },
+        {
+          "caller": "BM_WebSocket_DecodeWithMask",
+          "callee": "benchmark::DoNotOptimize",
+          "lineNumber": 53
+        },
+        {
+          "caller": "BM_WebSocket_DecodeWithMask",
+          "callee": "SetBytesProcessed",
+          "lineNumber": 55
+        },
+        {
+          "caller": "BM_WebSocket_DecodeWithMask",
+          "callee": "iterations",
+          "lineNumber": 55
+        },
+        {
+          "caller": "BM_WebSocket_DecodeWithMask",
+          "callee": "range",
+          "lineNumber": 55
+        },
+        {
+          "caller": "BM_WebSocket_ContinuousFrames",
+          "callee": "range",
+          "lineNumber": 61
+        },
+        {
+          "caller": "BM_WebSocket_ContinuousFrames",
+          "callee": "hps::ws_encode_frame",
+          "lineNumber": 65
+        },
+        {
+          "caller": "BM_WebSocket_ContinuousFrames",
+          "callee": "hps::ws_decode_frame",
+          "lineNumber": 66
+        },
+        {
+          "caller": "BM_WebSocket_ContinuousFrames",
+          "callee": "std::string_view",
+          "lineNumber": 66
+        },
+        {
+          "caller": "BM_WebSocket_ContinuousFrames",
+          "callee": "data",
+          "lineNumber": 66
+        },
+        {
+          "caller": "BM_WebSocket_ContinuousFrames",
+          "callee": "size",
+          "lineNumber": 66
+        },
+        {
+          "caller": "BM_WebSocket_ContinuousFrames",
+          "callee": "benchmark::DoNotOptimize",
+          "lineNumber": 67
+        },
+        {
+          "caller": "BM_WebSocket_ContinuousFrames",
+          "callee": "SetItemsProcessed",
+          "lineNumber": 70
+        },
+        {
+          "caller": "BM_WebSocket_ContinuousFrames",
+          "callee": "iterations",
+          "lineNumber": 70
+        },
+        {
+          "caller": "BM_WebSocket_LargePayload",
+          "callee": "static_cast<std::size_t>",
+          "lineNumber": 76
+        },
+        {
+          "caller": "BM_WebSocket_LargePayload",
+          "callee": "range",
+          "lineNumber": 76
+        },
+        {
+          "caller": "BM_WebSocket_LargePayload",
+          "callee": "hps::ws_encode_frame",
+          "lineNumber": 79
+        },
+        {
+          "caller": "BM_WebSocket_LargePayload",
+          "callee": "hps::ws_decode_frame",
+          "lineNumber": 80
+        },
+        {
+          "caller": "BM_WebSocket_LargePayload",
+          "callee": "std::string_view",
+          "lineNumber": 80
+        },
+        {
+          "caller": "BM_WebSocket_LargePayload",
+          "callee": "data",
+          "lineNumber": 80
+        },
+        {
+          "caller": "BM_WebSocket_LargePayload",
+          "callee": "size",
+          "lineNumber": 80
+        },
+        {
+          "caller": "BM_WebSocket_LargePayload",
+          "callee": "benchmark::DoNotOptimize",
+          "lineNumber": 81
+        },
+        {
+          "caller": "BM_WebSocket_LargePayload",
+          "callee": "SetBytesProcessed",
+          "lineNumber": 83
+        },
+        {
+          "caller": "BM_WebSocket_LargePayload",
+          "callee": "iterations",
+          "lineNumber": 83
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 6,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "benchmark/README.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 212,
+      "nonEmptyLines": 150,
+      "sections": [
+        {
+          "heading": "性能基准测试",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "测试分层",
+          "level": 2,
+          "line": 3
+        },
+        {
+          "heading": "依赖",
+          "level": 2,
+          "line": 17
+        },
+        {
+          "heading": "微基准",
+          "level": 2,
+          "line": 31
+        },
+        {
+          "heading": "模块 QPS",
+          "level": 2,
+          "line": 52
+        },
+        {
+          "heading": "端到端 RPS",
+          "level": 2,
+          "line": 81
+        },
+        {
+          "heading": "预检",
+          "level": 3,
+          "line": 103
+        },
+        {
+          "heading": "场景",
+          "level": 3,
+          "line": 112
+        },
+        {
+          "heading": "Profile",
+          "level": 3,
+          "line": 126
+        },
+        {
+          "heading": "报告",
+          "level": 2,
+          "line": 156
+        },
+        {
+          "heading": "2026-08-04 实测记录",
+          "level": 3,
+          "line": 186
+        },
+        {
+          "heading": "历史报告迁移",
+          "level": 2,
+          "line": 193
+        },
+        {
+          "heading": "测试数据",
+          "level": 2,
+          "line": 204
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 13
+      }
+    },
+    {
+      "path": "benchmark/tools/migrate_legacy_reports.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 479,
+      "nonEmptyLines": 413,
+      "functions": [
+        {
+          "name": "parse_args",
+          "startLine": 64,
+          "endLine": 73,
+          "params": []
+        },
+        {
+          "name": "discover_targets",
+          "startLine": 76,
+          "endLine": 81,
+          "params": [
+            "project_root"
+          ]
+        },
+        {
+          "name": "normalize_section_target",
+          "startLine": 84,
+          "endLine": 91,
+          "params": [
+            "kind",
+            "title",
+            "targets"
+          ]
+        },
+        {
+          "name": "is_legacy_report_header",
+          "startLine": 94,
+          "endLine": 118,
+          "params": [
+            "legacy_kind",
+            "preamble"
+          ]
+        },
+        {
+          "name": "aggregate_entry",
+          "startLine": 121,
+          "endLine": 141,
+          "params": [
+            "source_path",
+            "source_relative_path",
+            "kind",
+            "timestamp",
+            "source_sha256",
+            "content"
+          ]
+        },
+        {
+          "name": "split_entries",
+          "startLine": 144,
+          "endLine": 194,
+          "params": [
+            "source_path",
+            "source_relative_path",
+            "legacy_kind",
+            "timestamp",
+            "targets"
+          ]
+        },
+        {
+          "name": "discover_entries",
+          "startLine": 197,
+          "endLine": 210,
+          "params": [
+            "source_dir",
+            "project_root"
+          ]
+        },
+        {
+          "name": "resolve_safe_destination_dir",
+          "startLine": 213,
+          "endLine": 229,
+          "params": [
+            "destination"
+          ]
+        },
+        {
+          "name": "open_child_directory",
+          "startLine": 232,
+          "endLine": 243,
+          "params": [
+            "parent_fd",
+            "name",
+            "create"
+          ]
+        },
+        {
+          "name": "open_safe_directory",
+          "startLine": 246,
+          "endLine": 258,
+          "params": [
+            "path",
+            "create"
+          ]
+        },
+        {
+          "name": "open_safe_relative_directory",
+          "startLine": 261,
+          "endLine": 273,
+          "params": [
+            "root_fd",
+            "relative_path",
+            "create"
+          ]
+        },
+        {
+          "name": "verify_relative_directory",
+          "startLine": 276,
+          "endLine": 284,
+          "params": [
+            "root_fd",
+            "relative_path",
+            "expected_fd"
+          ]
+        },
+        {
+          "name": "unlink_owned_file",
+          "startLine": 287,
+          "endLine": 293,
+          "params": [
+            "directory_fd",
+            "filename",
+            "device",
+            "inode"
+          ]
+        },
+        {
+          "name": "create_temporary_file",
+          "startLine": 296,
+          "endLine": 304,
+          "params": [
+            "directory_fd",
+            "filename"
+          ]
+        },
+        {
+          "name": "atomic_write",
+          "startLine": 307,
+          "endLine": 362,
+          "params": [
+            "destination_root_fd",
+            "destination_relative_path",
+            "content",
+            "no_clobber"
+          ]
+        },
+        {
+          "name": "destination_conflicts",
+          "startLine": 365,
+          "endLine": 369,
+          "params": [
+            "destination_dir",
+            "entries"
+          ]
+        },
+        {
+          "name": "write_index",
+          "startLine": 372,
+          "endLine": 395,
+          "params": [
+            "destination_root_fd",
+            "entries",
+            "migrated_at",
+            "no_clobber"
+          ]
+        },
+        {
+          "name": "cleanup_published_files",
+          "startLine": 398,
+          "endLine": 405,
+          "params": [
+            "published_files"
+          ]
+        },
+        {
+          "name": "close_published_files",
+          "startLine": 408,
+          "endLine": 410,
+          "params": [
+            "published_files"
+          ]
+        },
+        {
+          "name": "main",
+          "startLine": 413,
+          "endLine": 475,
+          "params": []
+        }
+      ],
+      "classes": [
+        {
+          "name": "MigrationEntry",
+          "startLine": 42,
+          "endLine": 52,
+          "methods": [],
+          "properties": [
+            "kind",
+            "source_path",
+            "source_relative_path",
+            "source_sha256",
+            "timestamp",
+            "byte_start",
+            "byte_end",
+            "section_title",
+            "destination_relative_path",
+            "content"
+          ]
+        },
+        {
+          "name": "PublishedFile",
+          "startLine": 56,
+          "endLine": 61,
+          "methods": [],
+          "properties": [
+            "directory_fd",
+            "filename",
+            "display_path",
+            "device",
+            "inode"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "MigrationEntry",
+          "line": 41,
+          "isDefault": false
+        },
+        {
+          "name": "PublishedFile",
+          "line": 55,
+          "isDefault": false
+        },
+        {
+          "name": "parse_args",
+          "line": 64,
+          "isDefault": false
+        },
+        {
+          "name": "discover_targets",
+          "line": 76,
+          "isDefault": false
+        },
+        {
+          "name": "normalize_section_target",
+          "line": 84,
+          "isDefault": false
+        },
+        {
+          "name": "is_legacy_report_header",
+          "line": 94,
+          "isDefault": false
+        },
+        {
+          "name": "aggregate_entry",
+          "line": 121,
+          "isDefault": false
+        },
+        {
+          "name": "split_entries",
+          "line": 144,
+          "isDefault": false
+        },
+        {
+          "name": "discover_entries",
+          "line": 197,
+          "isDefault": false
+        },
+        {
+          "name": "resolve_safe_destination_dir",
+          "line": 213,
+          "isDefault": false
+        },
+        {
+          "name": "open_child_directory",
+          "line": 232,
+          "isDefault": false
+        },
+        {
+          "name": "open_safe_directory",
+          "line": 246,
+          "isDefault": false
+        },
+        {
+          "name": "open_safe_relative_directory",
+          "line": 261,
+          "isDefault": false
+        },
+        {
+          "name": "verify_relative_directory",
+          "line": 276,
+          "isDefault": false
+        },
+        {
+          "name": "unlink_owned_file",
+          "line": 287,
+          "isDefault": false
+        },
+        {
+          "name": "create_temporary_file",
+          "line": 296,
+          "isDefault": false
+        },
+        {
+          "name": "atomic_write",
+          "line": 307,
+          "isDefault": false
+        },
+        {
+          "name": "destination_conflicts",
+          "line": 365,
+          "isDefault": false
+        },
+        {
+          "name": "write_index",
+          "line": 372,
+          "isDefault": false
+        },
+        {
+          "name": "cleanup_published_files",
+          "line": 398,
+          "isDefault": false
+        },
+        {
+          "name": "close_published_files",
+          "line": 408,
+          "isDefault": false
+        },
+        {
+          "name": "main",
+          "line": 413,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "parse_args",
+          "callee": "Path(__file__).resolve",
+          "lineNumber": 65
+        },
+        {
+          "caller": "parse_args",
+          "callee": "Path",
+          "lineNumber": 65
+        },
+        {
+          "caller": "parse_args",
+          "callee": "argparse.ArgumentParser",
+          "lineNumber": 66
+        },
+        {
+          "caller": "parse_args",
+          "callee": "parser.add_argument",
+          "lineNumber": 67
+        },
+        {
+          "caller": "parse_args",
+          "callee": "parser.add_argument",
+          "lineNumber": 68
+        },
+        {
+          "caller": "parse_args",
+          "callee": "parser.add_mutually_exclusive_group",
+          "lineNumber": 69
+        },
+        {
+          "caller": "parse_args",
+          "callee": "mode.add_argument",
+          "lineNumber": 70
+        },
+        {
+          "caller": "parse_args",
+          "callee": "mode.add_argument",
+          "lineNumber": 71
+        },
+        {
+          "caller": "parse_args",
+          "callee": "parser.add_argument",
+          "lineNumber": 72
+        },
+        {
+          "caller": "parse_args",
+          "callee": "parser.parse_args",
+          "lineNumber": 73
+        },
+        {
+          "caller": "discover_targets",
+          "callee": "benchmark_dir.glob",
+          "lineNumber": 79
+        },
+        {
+          "caller": "discover_targets",
+          "callee": "path.is_file",
+          "lineNumber": 79
+        },
+        {
+          "caller": "discover_targets",
+          "callee": "benchmark_dir.glob",
+          "lineNumber": 80
+        },
+        {
+          "caller": "discover_targets",
+          "callee": "path.is_file",
+          "lineNumber": 80
+        },
+        {
+          "caller": "normalize_section_target",
+          "callee": "title.startswith",
+          "lineNumber": 87
+        },
+        {
+          "caller": "normalize_section_target",
+          "callee": "len",
+          "lineNumber": 88
+        },
+        {
+          "caller": "is_legacy_report_header",
+          "callee": "preamble.decode(\"utf-8\").splitlines",
+          "lineNumber": 97
+        },
+        {
+          "caller": "is_legacy_report_header",
+          "callee": "preamble.decode",
+          "lineNumber": 97
+        },
+        {
+          "caller": "is_legacy_report_header",
+          "callee": "len",
+          "lineNumber": 104
+        },
+        {
+          "caller": "is_legacy_report_header",
+          "callee": "len",
+          "lineNumber": 104
+        },
+        {
+          "caller": "is_legacy_report_header",
+          "callee": "len",
+          "lineNumber": 104
+        },
+        {
+          "caller": "is_legacy_report_header",
+          "callee": "LEGACY_HEADER_TITLES.get",
+          "lineNumber": 108
+        },
+        {
+          "caller": "is_legacy_report_header",
+          "callee": "frozenset",
+          "lineNumber": 108
+        },
+        {
+          "caller": "is_legacy_report_header",
+          "callee": "zip",
+          "lineNumber": 111
+        },
+        {
+          "caller": "is_legacy_report_header",
+          "callee": "len",
+          "lineNumber": 111
+        },
+        {
+          "caller": "is_legacy_report_header",
+          "callee": "line.startswith",
+          "lineNumber": 112
+        },
+        {
+          "caller": "is_legacy_report_header",
+          "callee": "len",
+          "lineNumber": 115
+        },
+        {
+          "caller": "is_legacy_report_header",
+          "callee": "len",
+          "lineNumber": 115
+        },
+        {
+          "caller": "is_legacy_report_header",
+          "callee": "header_lines[-2].startswith",
+          "lineNumber": 117
+        },
+        {
+          "caller": "aggregate_entry",
+          "callee": "Path",
+          "lineNumber": 129
+        },
+        {
+          "caller": "aggregate_entry",
+          "callee": "MigrationEntry",
+          "lineNumber": 130
+        },
+        {
+          "caller": "aggregate_entry",
+          "callee": "len",
+          "lineNumber": 137
+        },
+        {
+          "caller": "split_entries",
+          "callee": "source_path.read_bytes",
+          "lineNumber": 151
+        },
+        {
+          "caller": "split_entries",
+          "callee": "hashlib.sha256(content).hexdigest",
+          "lineNumber": 152
+        },
+        {
+          "caller": "split_entries",
+          "callee": "hashlib.sha256",
+          "lineNumber": 152
+        },
+        {
+          "caller": "split_entries",
+          "callee": "aggregate_entry",
+          "lineNumber": 155
+        },
+        {
+          "caller": "split_entries",
+          "callee": "list",
+          "lineNumber": 157
+        },
+        {
+          "caller": "split_entries",
+          "callee": "SECTION_PATTERN.finditer",
+          "lineNumber": 157
+        },
+        {
+          "caller": "split_entries",
+          "callee": "is_legacy_report_header",
+          "lineNumber": 158
+        },
+        {
+          "caller": "split_entries",
+          "callee": "matches[0].start",
+          "lineNumber": 158
+        },
+        {
+          "caller": "split_entries",
+          "callee": "aggregate_entry",
+          "lineNumber": 159
+        },
+        {
+          "caller": "split_entries",
+          "callee": "set",
+          "lineNumber": 162
+        },
+        {
+          "caller": "split_entries",
+          "callee": "enumerate",
+          "lineNumber": 163
+        },
+        {
+          "caller": "split_entries",
+          "callee": "match.group(1).decode",
+          "lineNumber": 165
+        },
+        {
+          "caller": "split_entries",
+          "callee": "match.group",
+          "lineNumber": 165
+        },
+        {
+          "caller": "split_entries",
+          "callee": "aggregate_entry",
+          "lineNumber": 167
+        },
+        {
+          "caller": "split_entries",
+          "callee": "normalize_section_target",
+          "lineNumber": 168
+        },
+        {
+          "caller": "split_entries",
+          "callee": "aggregate_entry",
+          "lineNumber": 170
+        },
+        {
+          "caller": "split_entries",
+          "callee": "seen_targets.add",
+          "lineNumber": 171
+        },
+        {
+          "caller": "split_entries",
+          "callee": "matches[index + 1].start",
+          "lineNumber": 172
+        },
+        {
+          "caller": "split_entries",
+          "callee": "len",
+          "lineNumber": 172
+        },
+        {
+          "caller": "split_entries",
+          "callee": "len",
+          "lineNumber": 172
+        },
+        {
+          "caller": "split_entries",
+          "callee": "sections.append",
+          "lineNumber": 173
+        },
+        {
+          "caller": "split_entries",
+          "callee": "match.start",
+          "lineNumber": 173
+        },
+        {
+          "caller": "split_entries",
+          "callee": "aggregate_entry",
+          "lineNumber": 178
+        },
+        {
+          "caller": "split_entries",
+          "callee": "Path",
+          "lineNumber": 179
+        },
+        {
+          "caller": "split_entries",
+          "callee": "entries.append",
+          "lineNumber": 180
+        },
+        {
+          "caller": "split_entries",
+          "callee": "MigrationEntry",
+          "lineNumber": 181
+        },
+        {
+          "caller": "discover_entries",
+          "callee": "discover_targets",
+          "lineNumber": 198
+        },
+        {
+          "caller": "discover_entries",
+          "callee": "sorted",
+          "lineNumber": 200
+        },
+        {
+          "caller": "discover_entries",
+          "callee": "source_dir.rglob",
+          "lineNumber": 200
+        },
+        {
+          "caller": "discover_entries",
+          "callee": "source_path.is_file",
+          "lineNumber": 201
+        },
+        {
+          "caller": "discover_entries",
+          "callee": "source_path.is_symlink",
+          "lineNumber": 201
+        },
+        {
+          "caller": "discover_entries",
+          "callee": "FILENAME_PATTERN.fullmatch",
+          "lineNumber": 203
+        },
+        {
+          "caller": "discover_entries",
+          "callee": "print",
+          "lineNumber": 205
+        },
+        {
+          "caller": "discover_entries",
+          "callee": "source_path.relative_to",
+          "lineNumber": 205
+        },
+        {
+          "caller": "discover_entries",
+          "callee": "match.groups",
+          "lineNumber": 207
+        },
+        {
+          "caller": "discover_entries",
+          "callee": "source_path.relative_to(source_dir).as_posix",
+          "lineNumber": 208
+        },
+        {
+          "caller": "discover_entries",
+          "callee": "source_path.relative_to",
+          "lineNumber": 208
+        },
+        {
+          "caller": "discover_entries",
+          "callee": "entries.extend",
+          "lineNumber": 209
+        },
+        {
+          "caller": "discover_entries",
+          "callee": "split_entries",
+          "lineNumber": 209
+        },
+        {
+          "caller": "discover_entries",
+          "callee": "targets.get",
+          "lineNumber": 209
+        },
+        {
+          "caller": "discover_entries",
+          "callee": "set",
+          "lineNumber": 209
+        },
+        {
+          "caller": "resolve_safe_destination_dir",
+          "callee": "destination.expanduser",
+          "lineNumber": 215
+        },
+        {
+          "caller": "resolve_safe_destination_dir",
+          "callee": "expanded.is_absolute",
+          "lineNumber": 216
+        },
+        {
+          "caller": "resolve_safe_destination_dir",
+          "callee": "Path.cwd",
+          "lineNumber": 216
+        },
+        {
+          "caller": "resolve_safe_destination_dir",
+          "callee": "Path",
+          "lineNumber": 217
+        },
+        {
+          "caller": "resolve_safe_destination_dir",
+          "callee": "current.is_symlink",
+          "lineNumber": 222
+        },
+        {
+          "caller": "resolve_safe_destination_dir",
+          "callee": "ValueError",
+          "lineNumber": 223
+        },
+        {
+          "caller": "resolve_safe_destination_dir",
+          "callee": "current.is_symlink",
+          "lineNumber": 227
+        },
+        {
+          "caller": "resolve_safe_destination_dir",
+          "callee": "current.exists",
+          "lineNumber": 227
+        },
+        {
+          "caller": "resolve_safe_destination_dir",
+          "callee": "current.is_dir",
+          "lineNumber": 227
+        },
+        {
+          "caller": "resolve_safe_destination_dir",
+          "callee": "ValueError",
+          "lineNumber": 228
+        },
+        {
+          "caller": "open_child_directory",
+          "callee": "os.open",
+          "lineNumber": 235
+        },
+        {
+          "caller": "open_child_directory",
+          "callee": "os.mkdir",
+          "lineNumber": 240
+        },
+        {
+          "caller": "open_child_directory",
+          "callee": "os.open",
+          "lineNumber": 243
+        },
+        {
+          "caller": "open_safe_directory",
+          "callee": "path.is_absolute",
+          "lineNumber": 247
+        },
+        {
+          "caller": "open_safe_directory",
+          "callee": "ValueError",
+          "lineNumber": 248
+        },
+        {
+          "caller": "open_safe_directory",
+          "callee": "os.open",
+          "lineNumber": 249
+        },
+        {
+          "caller": "open_safe_directory",
+          "callee": "open_child_directory",
+          "lineNumber": 252
+        },
+        {
+          "caller": "open_safe_directory",
+          "callee": "os.close",
+          "lineNumber": 253
+        },
+        {
+          "caller": "open_safe_directory",
+          "callee": "os.close",
+          "lineNumber": 257
+        },
+        {
+          "caller": "open_safe_relative_directory",
+          "callee": "relative_path.is_absolute",
+          "lineNumber": 262
+        },
+        {
+          "caller": "open_safe_relative_directory",
+          "callee": "any",
+          "lineNumber": 262
+        },
+        {
+          "caller": "open_safe_relative_directory",
+          "callee": "ValueError",
+          "lineNumber": 263
+        },
+        {
+          "caller": "open_safe_relative_directory",
+          "callee": "os.dup",
+          "lineNumber": 264
+        },
+        {
+          "caller": "open_safe_relative_directory",
+          "callee": "open_child_directory",
+          "lineNumber": 267
+        },
+        {
+          "caller": "open_safe_relative_directory",
+          "callee": "os.close",
+          "lineNumber": 268
+        },
+        {
+          "caller": "open_safe_relative_directory",
+          "callee": "os.close",
+          "lineNumber": 272
+        },
+        {
+          "caller": "verify_relative_directory",
+          "callee": "open_safe_relative_directory",
+          "lineNumber": 277
+        },
+        {
+          "caller": "verify_relative_directory",
+          "callee": "os.fstat",
+          "lineNumber": 279
+        },
+        {
+          "caller": "verify_relative_directory",
+          "callee": "os.fstat",
+          "lineNumber": 280
+        },
+        {
+          "caller": "verify_relative_directory",
+          "callee": "ValueError",
+          "lineNumber": 282
+        },
+        {
+          "caller": "verify_relative_directory",
+          "callee": "os.close",
+          "lineNumber": 284
+        },
+        {
+          "caller": "unlink_owned_file",
+          "callee": "os.stat",
+          "lineNumber": 289
+        },
+        {
+          "caller": "unlink_owned_file",
+          "callee": "os.unlink",
+          "lineNumber": 291
+        },
+        {
+          "caller": "create_temporary_file",
+          "callee": "range",
+          "lineNumber": 298
+        },
+        {
+          "caller": "create_temporary_file",
+          "callee": "secrets.token_hex",
+          "lineNumber": 299
+        },
+        {
+          "caller": "create_temporary_file",
+          "callee": "os.open",
+          "lineNumber": 301
+        },
+        {
+          "caller": "create_temporary_file",
+          "callee": "FileExistsError",
+          "lineNumber": 304
+        },
+        {
+          "caller": "atomic_write",
+          "callee": "destination_relative_path.is_absolute",
+          "lineNumber": 310
+        },
+        {
+          "caller": "atomic_write",
+          "callee": "ValueError",
+          "lineNumber": 311
+        },
+        {
+          "caller": "atomic_write",
+          "callee": "open_safe_relative_directory",
+          "lineNumber": 315
+        },
+        {
+          "caller": "atomic_write",
+          "callee": "create_temporary_file",
+          "lineNumber": 319
+        },
+        {
+          "caller": "atomic_write",
+          "callee": "os.fdopen",
+          "lineNumber": 320
+        },
+        {
+          "caller": "atomic_write",
+          "callee": "stream.write",
+          "lineNumber": 321
+        },
+        {
+          "caller": "atomic_write",
+          "callee": "stream.flush",
+          "lineNumber": 322
+        },
+        {
+          "caller": "atomic_write",
+          "callee": "os.fchmod",
+          "lineNumber": 323
+        },
+        {
+          "caller": "atomic_write",
+          "callee": "stream.fileno",
+          "lineNumber": 323
+        },
+        {
+          "caller": "atomic_write",
+          "callee": "os.fsync",
+          "lineNumber": 324
+        },
+        {
+          "caller": "atomic_write",
+          "callee": "stream.fileno",
+          "lineNumber": 324
+        },
+        {
+          "caller": "atomic_write",
+          "callee": "os.fstat",
+          "lineNumber": 325
+        },
+        {
+          "caller": "atomic_write",
+          "callee": "stream.fileno",
+          "lineNumber": 325
+        },
+        {
+          "caller": "atomic_write",
+          "callee": "verify_relative_directory",
+          "lineNumber": 327
+        },
+        {
+          "caller": "atomic_write",
+          "callee": "os.link",
+          "lineNumber": 329
+        },
+        {
+          "caller": "atomic_write",
+          "callee": "os.replace",
+          "lineNumber": 337
+        },
+        {
+          "caller": "atomic_write",
+          "callee": "verify_relative_directory",
+          "lineNumber": 341
+        },
+        {
+          "caller": "atomic_write",
+          "callee": "unlink_owned_file",
+          "lineNumber": 344
+        },
+        {
+          "caller": "atomic_write",
+          "callee": "PublishedFile",
+          "lineNumber": 349
+        },
+        {
+          "caller": "atomic_write",
+          "callee": "os.unlink",
+          "lineNumber": 358
+        },
+        {
+          "caller": "atomic_write",
+          "callee": "os.close",
+          "lineNumber": 362
+        },
+        {
+          "caller": "destination_conflicts",
+          "callee": "destinations.count",
+          "lineNumber": 367
+        },
+        {
+          "caller": "destination_conflicts",
+          "callee": "os.path.lexists",
+          "lineNumber": 368
+        },
+        {
+          "caller": "destination_conflicts",
+          "callee": "sorted",
+          "lineNumber": 369
+        },
+        {
+          "caller": "destination_conflicts",
+          "callee": "set",
+          "lineNumber": 369
+        },
+        {
+          "caller": "write_index",
+          "callee": "Path",
+          "lineNumber": 375
+        },
+        {
+          "caller": "write_index",
+          "callee": "datetime.now",
+          "lineNumber": 375
+        },
+        {
+          "caller": "write_index",
+          "callee": "entry.destination_relative_path.as_posix",
+          "lineNumber": 387
+        },
+        {
+          "caller": "write_index",
+          "callee": "atomic_write",
+          "lineNumber": 392
+        },
+        {
+          "caller": "write_index",
+          "callee": "(json.dumps(data, ensure_ascii=False, indent=2) + \"\\n\").encode",
+          "lineNumber": 393
+        },
+        {
+          "caller": "write_index",
+          "callee": "json.dumps",
+          "lineNumber": 393
+        },
+        {
+          "caller": "cleanup_published_files",
+          "callee": "reversed",
+          "lineNumber": 399
+        },
+        {
+          "caller": "cleanup_published_files",
+          "callee": "unlink_owned_file",
+          "lineNumber": 401
+        },
+        {
+          "caller": "cleanup_published_files",
+          "callee": "print",
+          "lineNumber": 405
+        },
+        {
+          "caller": "close_published_files",
+          "callee": "os.close",
+          "lineNumber": 410
+        },
+        {
+          "caller": "main",
+          "callee": "parse_args",
+          "lineNumber": 414
+        },
+        {
+          "caller": "main",
+          "callee": "args.source.resolve",
+          "lineNumber": 415
+        },
+        {
+          "caller": "main",
+          "callee": "Path(__file__).resolve",
+          "lineNumber": 416
+        },
+        {
+          "caller": "main",
+          "callee": "Path",
+          "lineNumber": 416
+        },
+        {
+          "caller": "main",
+          "callee": "source_dir.is_dir",
+          "lineNumber": 417
+        },
+        {
+          "caller": "main",
+          "callee": "source_dir.is_symlink",
+          "lineNumber": 417
+        },
+        {
+          "caller": "main",
+          "callee": "print",
+          "lineNumber": 418
+        },
+        {
+          "caller": "main",
+          "callee": "resolve_safe_destination_dir",
+          "lineNumber": 421
+        },
+        {
+          "caller": "main",
+          "callee": "print",
+          "lineNumber": 423
+        },
+        {
+          "caller": "main",
+          "callee": "discover_entries",
+          "lineNumber": 426
+        },
+        {
+          "caller": "main",
+          "callee": "print",
+          "lineNumber": 428
+        },
+        {
+          "caller": "main",
+          "callee": "print",
+          "lineNumber": 433
+        },
+        {
+          "caller": "main",
+          "callee": "entry.destination_relative_path.as_posix",
+          "lineNumber": 435
+        },
+        {
+          "caller": "main",
+          "callee": "print",
+          "lineNumber": 439
+        },
+        {
+          "caller": "main",
+          "callee": "len",
+          "lineNumber": 439
+        },
+        {
+          "caller": "main",
+          "callee": "destination_conflicts",
+          "lineNumber": 443
+        },
+        {
+          "caller": "main",
+          "callee": "print",
+          "lineNumber": 445
+        },
+        {
+          "caller": "main",
+          "callee": "print",
+          "lineNumber": 447
+        },
+        {
+          "caller": "main",
+          "callee": "open_safe_directory",
+          "lineNumber": 453
+        },
+        {
+          "caller": "main",
+          "callee": "atomic_write",
+          "lineNumber": 455
+        },
+        {
+          "caller": "main",
+          "callee": "published_files.append",
+          "lineNumber": 459
+        },
+        {
+          "caller": "main",
+          "callee": "datetime.now(timezone.utc).isoformat().replace",
+          "lineNumber": 460
+        },
+        {
+          "caller": "main",
+          "callee": "datetime.now(timezone.utc).isoformat",
+          "lineNumber": 460
+        },
+        {
+          "caller": "main",
+          "callee": "datetime.now",
+          "lineNumber": 460
+        },
+        {
+          "caller": "main",
+          "callee": "write_index",
+          "lineNumber": 461
+        },
+        {
+          "caller": "main",
+          "callee": "published_files.append",
+          "lineNumber": 463
+        },
+        {
+          "caller": "main",
+          "callee": "cleanup_published_files",
+          "lineNumber": 466
+        },
+        {
+          "caller": "main",
+          "callee": "print",
+          "lineNumber": 467
+        },
+        {
+          "caller": "main",
+          "callee": "os.close",
+          "lineNumber": 471
+        },
+        {
+          "caller": "main",
+          "callee": "close_published_files",
+          "lineNumber": 472
+        },
+        {
+          "caller": "main",
+          "callee": "print",
+          "lineNumber": 474
+        },
+        {
+          "caller": "main",
+          "callee": "len",
+          "lineNumber": 474
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 22,
+        "functionCount": 20,
+        "classCount": 2
+      }
+    },
+    {
+      "path": "core/include/api_datetime.h",
+      "language": "c",
+      "fileCategory": "code",
+      "totalLines": 19,
+      "nonEmptyLines": 14,
+      "functions": [
+        {
+          "name": "format_api_datetime",
+          "startLine": 11,
+          "endLine": 17,
+          "params": [
+            "mysql_datetime"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "format_api_datetime",
+          "line": 11,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "format_api_datetime",
+          "callee": "parse_mysql_utc_datetime",
+          "lineNumber": 12
+        },
+        {
+          "caller": "format_api_datetime",
+          "callee": "format_rfc3339_utc",
+          "lineNumber": 16
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 1,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "core/include/auth_routes.h",
+      "language": "c",
+      "fileCategory": "code",
+      "totalLines": 11,
+      "nonEmptyLines": 7,
+      "classes": [
+        {
+          "name": "IDatabasePool",
+          "startLine": 5,
+          "endLine": 5,
+          "methods": [],
+          "properties": []
+        },
+        {
+          "name": "IAuthService",
+          "startLine": 6,
+          "endLine": 6,
+          "methods": [],
+          "properties": []
+        },
+        {
+          "name": "IHttpServer",
+          "startLine": 7,
+          "endLine": 7,
+          "methods": [],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "IDatabasePool",
+          "line": 5,
+          "isDefault": false
+        },
+        {
+          "name": "IAuthService",
+          "line": 6,
+          "isDefault": false
+        },
+        {
+          "name": "IHttpServer",
+          "line": 7,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 3,
+        "functionCount": 0,
+        "classCount": 3
+      }
+    },
+    {
+      "path": "core/include/email_validation.h",
+      "language": "c",
+      "fileCategory": "code",
+      "totalLines": 26,
+      "nonEmptyLines": 21,
+      "functions": [
+        {
+          "name": "is_valid_email",
+          "startLine": 11,
+          "endLine": 24,
+          "params": [
+            "email"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "is_valid_email",
+          "line": 11,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "is_valid_email",
+          "callee": "empty",
+          "lineNumber": 12
+        },
+        {
+          "caller": "is_valid_email",
+          "callee": "size",
+          "lineNumber": 12
+        },
+        {
+          "caller": "is_valid_email",
+          "callee": "std::ranges::any_of",
+          "lineNumber": 13
+        },
+        {
+          "caller": "is_valid_email",
+          "callee": "std::isspace",
+          "lineNumber": 13
+        },
+        {
+          "caller": "is_valid_email",
+          "callee": "find",
+          "lineNumber": 16
+        },
+        {
+          "caller": "is_valid_email",
+          "callee": "size",
+          "lineNumber": 17
+        },
+        {
+          "caller": "is_valid_email",
+          "callee": "find",
+          "lineNumber": 18
+        },
+        {
+          "caller": "is_valid_email",
+          "callee": "substr",
+          "lineNumber": 21
+        },
+        {
+          "caller": "is_valid_email",
+          "callee": "find",
+          "lineNumber": 22
+        },
+        {
+          "caller": "is_valid_email",
+          "callee": "size",
+          "lineNumber": 23
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 1,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "core/include/file_routes.h",
+      "language": "c",
+      "fileCategory": "code",
+      "totalLines": 15,
+      "nonEmptyLines": 11,
+      "classes": [
+        {
+          "name": "IDatabasePool",
+          "startLine": 5,
+          "endLine": 5,
+          "methods": [],
+          "properties": []
+        },
+        {
+          "name": "IFileSystem",
+          "startLine": 6,
+          "endLine": 6,
+          "methods": [],
+          "properties": []
+        },
+        {
+          "name": "IHttpServer",
+          "startLine": 7,
+          "endLine": 7,
+          "methods": [],
+          "properties": []
+        },
+        {
+          "name": "ChunkLifecycleCoordinator",
+          "startLine": 8,
+          "endLine": 8,
+          "methods": [],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "IDatabasePool",
+          "line": 5,
+          "isDefault": false
+        },
+        {
+          "name": "IFileSystem",
+          "line": 6,
+          "isDefault": false
+        },
+        {
+          "name": "IHttpServer",
+          "line": 7,
+          "isDefault": false
+        },
+        {
+          "name": "ChunkLifecycleCoordinator",
+          "line": 8,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 4,
+        "functionCount": 0,
+        "classCount": 4
+      }
+    },
+    {
+      "path": "core/include/password_validation.h",
+      "language": "c",
+      "fileCategory": "code",
+      "totalLines": 15,
+      "nonEmptyLines": 10,
+      "functions": [
+        {
+          "name": "is_valid_user_password",
+          "startLine": 11,
+          "endLine": 13,
+          "params": [
+            "password"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "is_valid_user_password",
+          "line": 11,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "is_valid_user_password",
+          "callee": "size",
+          "lineNumber": 12
+        },
+        {
+          "caller": "is_valid_user_password",
+          "callee": "size",
+          "lineNumber": 12
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 1,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    }
+  ]
+}

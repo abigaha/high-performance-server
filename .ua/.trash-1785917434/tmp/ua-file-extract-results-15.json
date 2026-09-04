@@ -1,0 +1,241 @@
+{
+  "scriptCompleted": true,
+  "filesAnalyzed": 7,
+  "filesSkipped": [],
+  "results": [
+    {
+      "path": "frontend/.oxlintrc.json",
+      "language": "json",
+      "fileCategory": "config",
+      "totalLines": 8,
+      "nonEmptyLines": 8,
+      "sections": [
+        {
+          "heading": "$schema",
+          "level": 1,
+          "line": 2
+        },
+        {
+          "heading": "plugins",
+          "level": 1,
+          "line": 3
+        },
+        {
+          "heading": "rules",
+          "level": 1,
+          "line": 4
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 3
+      }
+    },
+    {
+      "path": "frontend/README.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 163,
+      "nonEmptyLines": 111,
+      "sections": [
+        {
+          "heading": "前端开发说明",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "环境准备",
+          "level": 2,
+          "line": 7
+        },
+        {
+          "heading": "接口地址",
+          "level": 2,
+          "line": 18
+        },
+        {
+          "heading": "常用命令",
+          "level": 2,
+          "line": 37
+        },
+        {
+          "heading": "与根目录脚本的关系",
+          "level": 2,
+          "line": 60
+        },
+        {
+          "heading": "Crystal Music 视觉资源",
+          "level": 2,
+          "line": 88
+        },
+        {
+          "heading": "视觉验收",
+          "level": 2,
+          "line": 94
+        },
+        {
+          "heading": "上传行为",
+          "level": 2,
+          "line": 126
+        },
+        {
+          "heading": "下载与播放鉴权",
+          "level": 2,
+          "line": 134
+        },
+        {
+          "heading": "目录结构",
+          "level": 2,
+          "line": 138
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 10
+      }
+    },
+    {
+      "path": "frontend/index.html",
+      "language": "html",
+      "fileCategory": "markup",
+      "totalLines": 13,
+      "nonEmptyLines": 13,
+      "metrics": {}
+    },
+    {
+      "path": "frontend/package.json",
+      "language": "json",
+      "fileCategory": "config",
+      "totalLines": 41,
+      "nonEmptyLines": 41,
+      "sections": [
+        {
+          "heading": "name",
+          "level": 1,
+          "line": 2
+        },
+        {
+          "heading": "private",
+          "level": 1,
+          "line": 3
+        },
+        {
+          "heading": "version",
+          "level": 1,
+          "line": 4
+        },
+        {
+          "heading": "type",
+          "level": 1,
+          "line": 5
+        },
+        {
+          "heading": "scripts",
+          "level": 1,
+          "line": 6
+        },
+        {
+          "heading": "dependencies",
+          "level": 1,
+          "line": 14
+        },
+        {
+          "heading": "devDependencies",
+          "level": 1,
+          "line": 23
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 7
+      }
+    },
+    {
+      "path": "frontend/tsconfig.app.json",
+      "language": "json",
+      "fileCategory": "config",
+      "totalLines": 26,
+      "nonEmptyLines": 24,
+      "sections": [
+        {
+          "heading": "compilerOptions",
+          "level": 1,
+          "line": 2
+        },
+        {
+          "heading": "include",
+          "level": 1,
+          "line": 25
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 2
+      }
+    },
+    {
+      "path": "frontend/tsconfig.json",
+      "language": "json",
+      "fileCategory": "config",
+      "totalLines": 7,
+      "nonEmptyLines": 7,
+      "sections": [
+        {
+          "heading": "files",
+          "level": 1,
+          "line": 2
+        },
+        {
+          "heading": "references",
+          "level": 1,
+          "line": 3
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 2
+      }
+    },
+    {
+      "path": "frontend/tsconfig.node.json",
+      "language": "json",
+      "fileCategory": "config",
+      "totalLines": 23,
+      "nonEmptyLines": 21,
+      "sections": [
+        {
+          "heading": "compilerOptions",
+          "level": 1,
+          "line": 2
+        },
+        {
+          "heading": "include",
+          "level": 1,
+          "line": 22
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 2
+      }
+    }
+  ]
+}

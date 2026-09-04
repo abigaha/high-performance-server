@@ -1,0 +1,113 @@
+{
+  "projectRoot": "/home/jmj/work-space/projects/high-performance-server",
+  "batchFiles": [
+    {
+      "path": "plan/benchmark-report-restructure.md",
+      "language": "markdown",
+      "sizeLines": 553,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "plan/bugfix-concurrent-uploads.md",
+      "language": "markdown",
+      "sizeLines": 175,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "plan/bugfix-memory-pool-thread-pool.md",
+      "language": "markdown",
+      "sizeLines": 350,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "plan/bugfix-step17-runtime-regressions.md",
+      "language": "markdown",
+      "sizeLines": 303,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "plan/development_plan.md",
+      "language": "markdown",
+      "sizeLines": 115,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "plan/docker-deployment.md",
+      "language": "markdown",
+      "sizeLines": 97,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "plan/end-to-end-verification.md",
+      "language": "markdown",
+      "sizeLines": 111,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "plan/fix-prepared-statement.md",
+      "language": "markdown",
+      "sizeLines": 99,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "plan/step-11-main-integration.md",
+      "language": "markdown",
+      "sizeLines": 86,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "plan/step-14-file-upload-improvement.md",
+      "language": "markdown",
+      "sizeLines": 146,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "plan/step-15-frontend.md",
+      "language": "markdown",
+      "sizeLines": 188,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "plan/step-16-backend-music.md",
+      "language": "markdown",
+      "sizeLines": 928,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "plan/step-17-frontend-optimization.md",
+      "language": "markdown",
+      "sizeLines": 262,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "plan/step-18-ui-visual-restoration.md",
+      "language": "markdown",
+      "sizeLines": 339,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "plan/step-19-user-feature-completion.md",
+      "language": "markdown",
+      "sizeLines": 724,
+      "fileCategory": "docs"
+    }
+  ],
+  "batchImportData": {
+    "plan/benchmark-report-restructure.md": [],
+    "plan/bugfix-concurrent-uploads.md": [],
+    "plan/bugfix-memory-pool-thread-pool.md": [],
+    "plan/bugfix-step17-runtime-regressions.md": [],
+    "plan/development_plan.md": [],
+    "plan/docker-deployment.md": [],
+    "plan/end-to-end-verification.md": [],
+    "plan/fix-prepared-statement.md": [],
+    "plan/step-11-main-integration.md": [],
+    "plan/step-14-file-upload-improvement.md": [],
+    "plan/step-15-frontend.md": [],
+    "plan/step-16-backend-music.md": [],
+    "plan/step-17-frontend-optimization.md": [],
+    "plan/step-18-ui-visual-restoration.md": [],
+    "plan/step-19-user-feature-completion.md": []
+  },
+  "neighborMap": {}
+}

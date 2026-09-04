@@ -1,0 +1,211 @@
+{
+  "scriptCompleted": true,
+  "filesAnalyzed": 4,
+  "filesSkipped": [],
+  "results": [
+    {
+      "path": "core/include/admin_bootstrap.h",
+      "language": "c",
+      "fileCategory": "code",
+      "totalLines": 21,
+      "nonEmptyLines": 14,
+      "classes": [
+        {
+          "name": "IDatabasePool",
+          "startLine": 11,
+          "endLine": 11,
+          "methods": [],
+          "properties": []
+        },
+        {
+          "name": "AdminBootstrapConfig",
+          "startLine": 13,
+          "endLine": 17,
+          "methods": [],
+          "properties": [
+            "username",
+            "password",
+            "email"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "IDatabasePool",
+          "line": 11,
+          "isDefault": false
+        },
+        {
+          "name": "AdminBootstrapConfig",
+          "line": 13,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 2,
+        "functionCount": 0,
+        "classCount": 2
+      }
+    },
+    {
+      "path": "core/include/authorization.h",
+      "language": "c",
+      "fileCategory": "code",
+      "totalLines": 38,
+      "nonEmptyLines": 30,
+      "functions": [
+        {
+          "name": "has_capability",
+          "startLine": 23,
+          "endLine": 34,
+          "params": [
+            "identity",
+            "capability"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "has_capability",
+          "line": 23,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 1,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "core/include/main_functions.h",
+      "language": "c",
+      "fileCategory": "code",
+      "totalLines": 35,
+      "nonEmptyLines": 29,
+      "classes": [
+        {
+          "name": "ServerConfig",
+          "startLine": 12,
+          "endLine": 32,
+          "methods": [],
+          "properties": [
+            "port",
+            "threads",
+            "db_host",
+            "db_port",
+            "db_user",
+            "db_password",
+            "db_name",
+            "data_dir",
+            "thread_count",
+            "backlog",
+            "epoll_timeout_ms",
+            "db",
+            "ssl",
+            "fs_root_dir",
+            "auth_secret",
+            "admin",
+            "normal_max_size",
+            "vip_max_size"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "ServerConfig",
+          "line": 12,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 1,
+        "functionCount": 0,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "core/include/upload_policy.h",
+      "language": "c",
+      "fileCategory": "code",
+      "totalLines": 47,
+      "nonEmptyLines": 34,
+      "functions": [
+        {
+          "name": "AudioSignaturePrefix",
+          "startLine": 18,
+          "endLine": 18,
+          "params": [
+            "value"
+          ]
+        },
+        {
+          "name": "value",
+          "startLine": 20,
+          "endLine": 20,
+          "params": []
+        }
+      ],
+      "classes": [
+        {
+          "name": "AudioSignaturePrefix",
+          "startLine": 16,
+          "endLine": 24,
+          "methods": [
+            "AudioSignaturePrefix",
+            "value"
+          ],
+          "properties": [
+            "value_"
+          ]
+        },
+        {
+          "name": "UploadValidationResult",
+          "startLine": 26,
+          "endLine": 34,
+          "methods": [],
+          "properties": [
+            "accepted",
+            "status_code",
+            "code",
+            "error",
+            "content_type",
+            "file_size",
+            "max_size"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "AudioSignaturePrefix",
+          "line": 18,
+          "isDefault": false
+        },
+        {
+          "name": "value",
+          "line": 20,
+          "isDefault": false
+        },
+        {
+          "name": "AudioSignaturePrefix",
+          "line": 16,
+          "isDefault": false
+        },
+        {
+          "name": "UploadValidationResult",
+          "line": 26,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 4,
+        "functionCount": 2,
+        "classCount": 2
+      }
+    }
+  ]
+}

@@ -1,0 +1,494 @@
+{
+  "nodes": [
+    {
+      "id": "file:frontend/playwright.config.ts",
+      "type": "file",
+      "name": "frontend/playwright.config.ts",
+      "summary": "Playwright 端到端测试配置：定义浏览器项目、运行目录解析与时间戳命名规则，支持并行 worker 与截图产物目录管理。",
+      "tags": ["playwright", "e2e", "config", "testing"],
+      "complexity": "moderate",
+      "filePath": "frontend/playwright.config.ts"
+    },
+    {
+      "id": "function:frontend/playwright.config.ts:formatTimestamp",
+      "type": "function",
+      "name": "formatTimestamp",
+      "summary": "将日期格式化为 yyyy_MM_dd_HH_mm_ss 时间戳，用于测试运行 ID。",
+      "tags": ["timestamp", "format", "utility"],
+      "complexity": "simple",
+      "lineRange": "4-15"
+    },
+    {
+      "id": "function:frontend/playwright.config.ts:resolveRunDirectory",
+      "type": "function",
+      "name": "resolveRunDirectory",
+      "summary": "解析测试产物运行目录，处理 latest 符号链接并决定是否创建独立运行目录。",
+      "tags": ["directory", "output", "playwright"],
+      "complexity": "simple",
+      "lineRange": "40-50"
+    },
+    {
+      "id": "file:frontend/public/covers/crystal-cover-01.webp",
+      "type": "file",
+      "name": "frontend/public/covers/crystal-cover-01.webp",
+      "summary": "前端静态资源：水晶主题音乐封面图（WEBP 格式），用于音乐库曲目封面展示。",
+      "tags": ["asset", "image", "webp", "cover"],
+      "complexity": "simple",
+      "filePath": "frontend/public/covers/crystal-cover-01.webp"
+    },
+    {
+      "id": "file:frontend/public/covers/crystal-cover-02.webp",
+      "type": "file",
+      "name": "frontend/public/covers/crystal-cover-02.webp",
+      "summary": "前端静态资源：水晶主题音乐封面图（WEBP 格式），用于音乐库曲目封面展示。",
+      "tags": ["asset", "image", "webp", "cover"],
+      "complexity": "simple",
+      "filePath": "frontend/public/covers/crystal-cover-02.webp"
+    },
+    {
+      "id": "file:frontend/public/covers/crystal-cover-03.webp",
+      "type": "file",
+      "name": "frontend/public/covers/crystal-cover-03.webp",
+      "summary": "前端静态资源：水晶主题音乐封面图（WEBP 格式），用于音乐库曲目封面展示。",
+      "tags": ["asset", "image", "webp", "cover"],
+      "complexity": "simple",
+      "filePath": "frontend/public/covers/crystal-cover-03.webp"
+    },
+    {
+      "id": "file:frontend/public/covers/crystal-cover-04.webp",
+      "type": "file",
+      "name": "frontend/public/covers/crystal-cover-04.webp",
+      "summary": "前端静态资源：水晶主题音乐封面图（WEBP 格式），用于音乐库曲目封面展示。",
+      "tags": ["asset", "image", "webp", "cover"],
+      "complexity": "simple",
+      "filePath": "frontend/public/covers/crystal-cover-04.webp"
+    },
+    {
+      "id": "file:frontend/src/index.css",
+      "type": "file",
+      "name": "frontend/src/index.css",
+      "summary": "前端全局样式表：定义设计令牌（CSS 自定义属性）、明暗主题、布局与组件通用样式，约 500 行。",
+      "tags": ["css", "theme", "design-tokens", "styles"],
+      "complexity": "moderate",
+      "filePath": "frontend/src/index.css"
+    },
+    {
+      "id": "file:frontend/src/pages/UserManagePage.tsx",
+      "type": "file",
+      "name": "frontend/src/pages/UserManagePage.tsx",
+      "summary": "用户管理页面组件：展示 VIP 专属入口说明，服务端暂未开放用户列表接口，提供返回文件列表的导航按钮。",
+      "tags": ["react", "page", "user", "frontend"],
+      "complexity": "simple",
+      "filePath": "frontend/src/pages/UserManagePage.tsx"
+    },
+    {
+      "id": "function:frontend/src/pages/UserManagePage.tsx:UserManagePage",
+      "type": "function",
+      "name": "UserManagePage",
+      "summary": "默认导出的页面组件：渲染用户管理状态卡片，使用 useNavigate 跳转文件列表页。",
+      "tags": ["react", "component", "page"],
+      "complexity": "simple",
+      "lineRange": "4-33"
+    },
+    {
+      "id": "file:frontend/tests/api/admin.test.ts",
+      "type": "file",
+      "name": "frontend/tests/api/admin.test.ts",
+      "summary": "管理员 API 单元测试：mock fetch 验证管理员用户列表的分页、过滤与编码行为。",
+      "tags": ["vitest", "api-test", "admin", "mock"],
+      "complexity": "simple",
+      "filePath": "frontend/tests/api/admin.test.ts"
+    },
+    {
+      "id": "file:frontend/tests/api/auth.test.ts",
+      "type": "file",
+      "name": "frontend/tests/api/auth.test.ts",
+      "summary": "认证 API 单元测试：mock fetch 验证登录、注册与 token 相关调用行为。",
+      "tags": ["vitest", "api-test", "auth", "mock"],
+      "complexity": "simple",
+      "filePath": "frontend/tests/api/auth.test.ts"
+    },
+    {
+      "id": "file:frontend/tests/api/music.test.ts",
+      "type": "file",
+      "name": "frontend/tests/api/music.test.ts",
+      "summary": "音乐 API 单元测试：mock fetch 验证音乐库分页查询与播放列表等接口行为。",
+      "tags": ["vitest", "api-test", "music", "mock"],
+      "complexity": "simple",
+      "filePath": "frontend/tests/api/music.test.ts"
+    },
+    {
+      "id": "file:frontend/tests/api/vip.test.ts",
+      "type": "file",
+      "name": "frontend/tests/api/vip.test.ts",
+      "summary": "VIP API 单元测试：mock fetch 验证 VIP 授予与撤销接口调用行为。",
+      "tags": ["vitest", "api-test", "vip", "mock"],
+      "complexity": "simple",
+      "filePath": "frontend/tests/api/vip.test.ts"
+    },
+    {
+      "id": "file:frontend/tests/e2e/deployment.spec.ts",
+      "type": "file",
+      "name": "frontend/tests/e2e/deployment.spec.ts",
+      "summary": "部署形态端到端测试：验证上传流程、响应式导航、媒体解码与截图产物，覆盖多项目浏览器配置。",
+      "tags": ["playwright", "e2e", "deployment", "upload"],
+      "complexity": "complex",
+      "filePath": "frontend/tests/e2e/deployment.spec.ts"
+    },
+    {
+      "id": "function:frontend/tests/e2e/deployment.spec.ts:formatTimestamp",
+      "type": "function",
+      "name": "formatTimestamp",
+      "summary": "生成时间戳字符串，用于测试数据唯一标识。",
+      "tags": ["timestamp", "utility", "identity"],
+      "complexity": "simple",
+      "lineRange": "45-56"
+    },
+    {
+      "id": "function:frontend/tests/e2e/deployment.spec.ts:createUniqueIdentity",
+      "type": "function",
+      "name": "createUniqueIdentity",
+      "summary": "基于时间戳、随机字节与项目名生成唯一测试身份标识。",
+      "tags": ["identity", "random", "unique"],
+      "complexity": "simple",
+      "lineRange": "58-69"
+    },
+    {
+      "id": "function:frontend/tests/e2e/deployment.spec.ts:createWavFixture",
+      "type": "function",
+      "name": "createWavFixture",
+      "summary": "内存构造合法 WAV 文件字节缓冲，作为上传测试夹具。",
+      "tags": ["wav", "fixture", "buffer"],
+      "complexity": "simple",
+      "lineRange": "71-95"
+    },
+    {
+      "id": "function:frontend/tests/e2e/deployment.spec.ts:expectNoHorizontalOverflow",
+      "type": "function",
+      "name": "expectNoHorizontalOverflow",
+      "summary": "断言页面内容宽度不超过视口宽度，检测横向溢出布局问题。",
+      "tags": ["layout", "overflow", "assert"],
+      "complexity": "simple",
+      "lineRange": "97-108"
+    },
+    {
+      "id": "function:frontend/tests/e2e/deployment.spec.ts:openUploadThroughResponsiveNavigation",
+      "type": "function",
+      "name": "openUploadThroughResponsiveNavigation",
+      "summary": "在窄视口下通过侧边导航菜单打开上传页并截图，验证响应式导航可用性。",
+      "tags": ["responsive", "navigation", "upload", "e2e"],
+      "complexity": "moderate",
+      "lineRange": "118-145"
+    },
+    {
+      "id": "file:frontend/tests/e2e/user-governance.spec.ts",
+      "type": "file",
+      "name": "frontend/tests/e2e/user-governance.spec.ts",
+      "summary": "用户治理端到端测试：覆盖注册登录、VIP 授予、文件上传、用户列表分页与键盘可访问性检查。",
+      "tags": ["playwright", "e2e", "user", "governance"],
+      "complexity": "complex",
+      "filePath": "frontend/tests/e2e/user-governance.spec.ts"
+    },
+    {
+      "id": "function:frontend/tests/e2e/user-governance.spec.ts:register",
+      "type": "function",
+      "name": "register",
+      "summary": "通过 API 注册新用户并断言返回角色，供测试夹具使用。",
+      "tags": ["register", "api", "fixture"],
+      "complexity": "simple",
+      "lineRange": "60-69"
+    },
+    {
+      "id": "function:frontend/tests/e2e/user-governance.spec.ts:wav",
+      "type": "function",
+      "name": "wav",
+      "summary": "按种子生成确定性 WAV 字节缓冲，作为上传测试文件。",
+      "tags": ["wav", "fixture", "buffer"],
+      "complexity": "simple",
+      "lineRange": "71-80"
+    },
+    {
+      "id": "function:frontend/tests/e2e/user-governance.spec.ts:upload",
+      "type": "function",
+      "name": "upload",
+      "summary": "通过 API 上传 WAV 文件并断言音乐库出现对应曲目。",
+      "tags": ["upload", "api", "music"],
+      "complexity": "moderate",
+      "lineRange": "82-95"
+    },
+    {
+      "id": "function:frontend/tests/e2e/user-governance.spec.ts:createFixture",
+      "type": "function",
+      "name": "createFixture",
+      "summary": "搭建完整测试夹具：管理员登录、注册分页用户、授予 VIP 并上传测试文件。",
+      "tags": ["fixture", "setup", "admin", "e2e"],
+      "complexity": "complex",
+      "lineRange": "97-133"
+    },
+    {
+      "id": "file:frontend/tests/e2e/visual.spec.ts",
+      "type": "file",
+      "name": "frontend/tests/e2e/visual.spec.ts",
+      "summary": "视觉回归端到端测试：通过路由拦截注入 API fixture，校验布局溢出、重叠、主题变量、截图与图片加载。",
+      "tags": ["playwright", "e2e", "visual", "regression"],
+      "complexity": "complex",
+      "filePath": "frontend/tests/e2e/visual.spec.ts"
+    },
+    {
+      "id": "function:frontend/tests/e2e/visual.spec.ts:expectNoHorizontalOverflow",
+      "type": "function",
+      "name": "expectNoHorizontalOverflow",
+      "summary": "断言页面内容无横向溢出，用于布局回归检查。",
+      "tags": ["layout", "overflow", "assert"],
+      "complexity": "simple",
+      "lineRange": "98-109"
+    },
+    {
+      "id": "function:frontend/tests/e2e/visual.spec.ts:expectNoOverlap",
+      "type": "function",
+      "name": "expectNoOverlap",
+      "summary": "断言两个元素的 DOMRect 交集面积为 0，检测元素重叠问题。",
+      "tags": ["layout", "overlap", "assert"],
+      "complexity": "simple",
+      "lineRange": "111-124"
+    },
+    {
+      "id": "function:frontend/tests/e2e/visual.spec.ts:expectAndConsumeBrowserError",
+      "type": "function",
+      "name": "expectAndConsumeBrowserError",
+      "summary": "轮询断言出现唯一的预期浏览器错误消息并将其从记录中消费。",
+      "tags": ["browser-error", "assert", "polling"],
+      "complexity": "simple",
+      "lineRange": "141-156"
+    },
+    {
+      "id": "function:frontend/tests/e2e/visual.spec.ts:installVisualApiFixtures",
+      "type": "function",
+      "name": "installVisualApiFixtures",
+      "summary": "拦截 /api 路由注入文件、音乐、歌单等固定响应，使视觉测试不依赖真实后端。",
+      "tags": ["mock", "route-intercept", "fixture", "visual"],
+      "complexity": "complex",
+      "lineRange": "158-254"
+    },
+    {
+      "id": "function:frontend/tests/e2e/visual.spec.ts:expectInsideViewport",
+      "type": "function",
+      "name": "expectInsideViewport",
+      "summary": "断言元素边界框完整位于视口内，检测布局越界。",
+      "tags": ["viewport", "layout", "assert"],
+      "complexity": "simple",
+      "lineRange": "270-287"
+    },
+    {
+      "id": "function:frontend/tests/e2e/visual.spec.ts:disableAnimations",
+      "type": "function",
+      "name": "disableAnimations",
+      "summary": "注入样式禁用页面动画，保证截图稳定性。",
+      "tags": ["animation", "screenshot", "stability"],
+      "complexity": "simple",
+      "lineRange": "304-319"
+    },
+    {
+      "id": "function:frontend/tests/e2e/visual.spec.ts:createWavFixture",
+      "type": "function",
+      "name": "createWavFixture",
+      "summary": "构造 WAV 字节缓冲作为文件流 mock 响应数据。",
+      "tags": ["wav", "fixture", "mock"],
+      "complexity": "simple",
+      "lineRange": "331-350"
+    },
+    {
+      "id": "file:frontend/tests/setup.ts",
+      "type": "file",
+      "name": "frontend/tests/setup.ts",
+      "summary": "Vitest 全局测试初始化：mock localStorage 存储并接入 jest-dom 匹配器。",
+      "tags": ["vitest", "setup", "mock", "localstorage"],
+      "complexity": "simple",
+      "filePath": "frontend/tests/setup.ts"
+    }
+  ],
+  "edges": [
+    {
+      "source": "file:frontend/playwright.config.ts",
+      "target": "function:frontend/playwright.config.ts:formatTimestamp",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:frontend/playwright.config.ts",
+      "target": "function:frontend/playwright.config.ts:resolveRunDirectory",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:frontend/src/pages/UserManagePage.tsx",
+      "target": "function:frontend/src/pages/UserManagePage.tsx:UserManagePage",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:frontend/src/pages/UserManagePage.tsx",
+      "target": "function:frontend/src/pages/UserManagePage.tsx:UserManagePage",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/tests/e2e/deployment.spec.ts",
+      "target": "function:frontend/tests/e2e/deployment.spec.ts:formatTimestamp",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:frontend/tests/e2e/deployment.spec.ts",
+      "target": "function:frontend/tests/e2e/deployment.spec.ts:createUniqueIdentity",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:frontend/tests/e2e/deployment.spec.ts",
+      "target": "function:frontend/tests/e2e/deployment.spec.ts:createWavFixture",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:frontend/tests/e2e/deployment.spec.ts",
+      "target": "function:frontend/tests/e2e/deployment.spec.ts:expectNoHorizontalOverflow",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:frontend/tests/e2e/deployment.spec.ts",
+      "target": "function:frontend/tests/e2e/deployment.spec.ts:openUploadThroughResponsiveNavigation",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "function:frontend/tests/e2e/deployment.spec.ts:createUniqueIdentity",
+      "target": "function:frontend/tests/e2e/deployment.spec.ts:formatTimestamp",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:frontend/tests/e2e/deployment.spec.ts:openUploadThroughResponsiveNavigation",
+      "target": "function:frontend/tests/e2e/deployment.spec.ts:expectNoHorizontalOverflow",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/tests/e2e/user-governance.spec.ts",
+      "target": "function:frontend/tests/e2e/user-governance.spec.ts:register",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:frontend/tests/e2e/user-governance.spec.ts",
+      "target": "function:frontend/tests/e2e/user-governance.spec.ts:wav",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:frontend/tests/e2e/user-governance.spec.ts",
+      "target": "function:frontend/tests/e2e/user-governance.spec.ts:upload",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:frontend/tests/e2e/user-governance.spec.ts",
+      "target": "function:frontend/tests/e2e/user-governance.spec.ts:createFixture",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "function:frontend/tests/e2e/user-governance.spec.ts:upload",
+      "target": "function:frontend/tests/e2e/user-governance.spec.ts:wav",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:frontend/tests/e2e/user-governance.spec.ts:createFixture",
+      "target": "function:frontend/tests/e2e/user-governance.spec.ts:register",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:frontend/tests/e2e/user-governance.spec.ts:createFixture",
+      "target": "function:frontend/tests/e2e/user-governance.spec.ts:upload",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/tests/e2e/visual.spec.ts",
+      "target": "function:frontend/tests/e2e/visual.spec.ts:expectNoHorizontalOverflow",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:frontend/tests/e2e/visual.spec.ts",
+      "target": "function:frontend/tests/e2e/visual.spec.ts:expectNoOverlap",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:frontend/tests/e2e/visual.spec.ts",
+      "target": "function:frontend/tests/e2e/visual.spec.ts:expectAndConsumeBrowserError",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:frontend/tests/e2e/visual.spec.ts",
+      "target": "function:frontend/tests/e2e/visual.spec.ts:installVisualApiFixtures",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:frontend/tests/e2e/visual.spec.ts",
+      "target": "function:frontend/tests/e2e/visual.spec.ts:expectInsideViewport",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:frontend/tests/e2e/visual.spec.ts",
+      "target": "function:frontend/tests/e2e/visual.spec.ts:disableAnimations",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:frontend/tests/e2e/visual.spec.ts",
+      "target": "function:frontend/tests/e2e/visual.spec.ts:createWavFixture",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "function:frontend/tests/e2e/visual.spec.ts:installVisualApiFixtures",
+      "target": "function:frontend/tests/e2e/visual.spec.ts:createWavFixture",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    }
+  ]
+}

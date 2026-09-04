@@ -1,0 +1,414 @@
+{
+  "nodes": [
+    {
+      "id": "file:net/http/include/auth_middleware.h",
+      "type": "file",
+      "name": "auth_middleware.h",
+      "filePath": "net/http/include/auth_middleware.h",
+      "summary": "HTTP 认证中间件头文件，提供静态方法 apply 从请求 Authorization 头解析 Bearer token，调用 IAuthService 验证并将认证状态与身份写入 HttpRequest。",
+      "tags": ["auth", "middleware", "bearer-token", "http", "header"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "class:net/http/include/auth_middleware.h:AuthMiddleware",
+      "type": "class",
+      "name": "AuthMiddleware",
+      "lineRange": [11, 45],
+      "summary": "认证中间件类，通过静态方法 apply 对每个请求执行 Bearer token 解析与验证，填充请求的认证状态、用户身份和公开资料。",
+      "tags": ["auth", "middleware", "token-validation"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:net/http/include/auth_middleware.h:apply",
+      "type": "function",
+      "name": "apply",
+      "lineRange": [13, 44],
+      "summary": "提取 Authorization 头中的 Bearer token 并调用 IAuthService::validate_token 验证，将验证结果状态、身份与用户资料写入 HttpRequest，异常时标记存储错误。",
+      "tags": ["auth", "token", "http-header"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:net/http/include/auth_service.h",
+      "type": "file",
+      "name": "auth_service.h",
+      "filePath": "net/http/include/auth_service.h",
+      "summary": "认证服务接口头文件，定义 IAuthService 纯虚接口（token 验证、生成、用户名密码认证）以及认证结果序列化、密码加盐哈希等工具函数声明。",
+      "tags": ["auth", "interface", "token", "password-hash", "service"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "class:net/http/include/auth_service.h:IDatabasePool",
+      "type": "class",
+      "name": "IDatabasePool",
+      "lineRange": [14, 14],
+      "summary": "数据库连接池接口的前向声明，用于 create_auth_service 工厂函数的参数类型。",
+      "tags": ["database", "forward-declaration", "interface"],
+      "complexity": "simple"
+    },
+    {
+      "id": "class:net/http/include/auth_service.h:IAuthService",
+      "type": "class",
+      "name": "IAuthService",
+      "lineRange": [16, 23],
+      "summary": "认证服务抽象接口，声明 validate_token、generate_token 与 authenticate 三个纯虚方法，并提供 create_auth_service 工厂创建具体实现。",
+      "tags": ["auth", "interface", "abstract", "service"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:net/http/include/http_parser.h",
+      "type": "file",
+      "name": "http_parser.h",
+      "filePath": "net/http/include/http_parser.h",
+      "summary": "HTTP 请求流式解析器头文件，HttpParser 状态机支持请求行、头、identity 与 chunked body 解析，可切换为 2MB 分片的流式回调模式。",
+      "tags": ["http", "parser", "streaming", "state-machine", "chunked"],
+      "complexity": "complex"
+    },
+    {
+      "id": "class:net/http/include/http_parser.h:ParserResult",
+      "type": "class",
+      "name": "ParserResult",
+      "lineRange": [33, 36],
+      "summary": "解析结果结构体，包含错误码（OK、INCOMPLETE、BAD_REQUEST、PAYLOAD_TOO_LARGE）与本次消费的字节数。",
+      "tags": ["parser", "result", "error-code"],
+      "complexity": "simple"
+    },
+    {
+      "id": "class:net/http/include/http_parser.h:HttpParser",
+      "type": "class",
+      "name": "HttpParser",
+      "lineRange": [44, 111],
+      "summary": "HTTP 请求状态机解析器，按字节流处理请求行、头部与 body（identity 或 chunked），支持流式分片回调、body 大小上限与头/体完成回调。",
+      "tags": ["http", "parser", "streaming", "state-machine"],
+      "complexity": "complex"
+    },
+    {
+      "id": "file:net/http/include/http_request.h",
+      "type": "file",
+      "name": "http_request.h",
+      "filePath": "net/http/include/http_request.h",
+      "summary": "HTTP 请求数据模型头文件，定义 HttpMethod 枚举、方法字符串互转函数以及携带大小写不敏感请求头与认证状态的 HttpRequest 结构体。",
+      "tags": ["http", "request", "model", "enum"],
+      "complexity": "simple"
+    },
+    {
+      "id": "class:net/http/include/http_request.h:HttpRequest",
+      "type": "class",
+      "name": "HttpRequest",
+      "lineRange": [33, 47],
+      "summary": "HTTP 请求结构体，保存方法、路径、查询串、大小写不敏感请求头、body、路由参数及认证状态、用户身份和公开资料，提供 clear 重置方法。",
+      "tags": ["http", "request", "model"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:net/http/include/http_server.h",
+      "type": "file",
+      "name": "http_server.h",
+      "filePath": "net/http/include/http_server.h",
+      "summary": "核心 HTTP 服务器头文件，HttpServer 基于 TcpServer 与 Router 提供路由注册、WebSocket、流式分片上传与认证注入，定义 UploadStreamContext 上传上下文。",
+      "tags": ["http", "server", "router", "upload", "websocket"],
+      "complexity": "complex"
+    },
+    {
+      "id": "class:net/http/include/http_server.h:WsConnection",
+      "type": "class",
+      "name": "WsConnection",
+      "lineRange": [26, 26],
+      "summary": "WebSocket 连接类型的前向声明，用于 HttpServer 中 WS 路由处理的回调签名。",
+      "tags": ["websocket", "forward-declaration", "connection"],
+      "complexity": "simple"
+    },
+    {
+      "id": "class:net/http/include/http_server.h:UploadStreamContext",
+      "type": "class",
+      "name": "UploadStreamContext",
+      "lineRange": [28, 56],
+      "summary": "流式分片上传上下文，跟踪文件名、文件哈希、分片进度与校验状态，支持分片存储回调、初始分片探测与拒绝响应。",
+      "tags": ["upload", "streaming", "chunk", "hash"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "class:net/http/include/http_server.h:HttpServer",
+      "type": "class",
+      "name": "HttpServer",
+      "lineRange": [60, 116],
+      "summary": "HTTP 服务器实现类，继承 IHttpServer，提供 get/post/put/del/ws/upload 路由注册、连接解析器管理、连接级互斥与认证服务注入。",
+      "tags": ["http", "server", "router", "connection", "upload"],
+      "complexity": "complex"
+    }
+  ],
+  "edges": [
+    {
+      "source": "file:net/http/include/auth_middleware.h",
+      "target": "file:net/http/include/auth_service.h",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:net/http/include/auth_middleware.h",
+      "target": "file:net/http/include/http_request.h",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:net/http/include/http_parser.h",
+      "target": "file:net/http/include/http_request.h",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:net/http/include/http_request.h",
+      "target": "file:net/http/include/case_insensitive.h",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:net/http/include/http_server.h",
+      "target": "file:net/http/include/auth_middleware.h",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:net/http/include/http_server.h",
+      "target": "file:net/http/include/auth_service.h",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:net/http/include/http_server.h",
+      "target": "file:net/http/include/http_parser.h",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:net/http/include/http_server.h",
+      "target": "file:net/http/include/http_request.h",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:net/http/include/http_server.h",
+      "target": "file:net/http/include/http_response.h",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:net/http/include/http_server.h",
+      "target": "file:net/http/include/i_http_server.h",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:net/http/include/http_server.h",
+      "target": "file:net/http/include/router.h",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:net/http/include/auth_middleware.h",
+      "target": "class:net/http/include/auth_middleware.h:AuthMiddleware",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:net/http/include/auth_middleware.h",
+      "target": "function:net/http/include/auth_middleware.h:apply",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "class:net/http/include/auth_middleware.h:AuthMiddleware",
+      "target": "function:net/http/include/auth_middleware.h:apply",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:net/http/include/auth_middleware.h",
+      "target": "class:net/http/include/auth_middleware.h:AuthMiddleware",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:net/http/include/auth_middleware.h",
+      "target": "function:net/http/include/auth_middleware.h:apply",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:net/http/include/auth_service.h",
+      "target": "class:net/http/include/auth_service.h:IDatabasePool",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:net/http/include/auth_service.h",
+      "target": "class:net/http/include/auth_service.h:IAuthService",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:net/http/include/auth_service.h",
+      "target": "class:net/http/include/auth_service.h:IDatabasePool",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:net/http/include/auth_service.h",
+      "target": "class:net/http/include/auth_service.h:IAuthService",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:net/http/include/http_parser.h",
+      "target": "class:net/http/include/http_parser.h:ParserResult",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:net/http/include/http_parser.h",
+      "target": "class:net/http/include/http_parser.h:HttpParser",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:net/http/include/http_parser.h",
+      "target": "class:net/http/include/http_parser.h:ParserResult",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:net/http/include/http_parser.h",
+      "target": "class:net/http/include/http_parser.h:HttpParser",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "class:net/http/include/http_parser.h:HttpParser",
+      "target": "class:net/http/include/http_request.h:HttpRequest",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "file:net/http/include/http_request.h",
+      "target": "class:net/http/include/http_request.h:HttpRequest",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:net/http/include/http_request.h",
+      "target": "class:net/http/include/http_request.h:HttpRequest",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:net/http/include/http_server.h",
+      "target": "class:net/http/include/http_server.h:WsConnection",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:net/http/include/http_server.h",
+      "target": "class:net/http/include/http_server.h:UploadStreamContext",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:net/http/include/http_server.h",
+      "target": "class:net/http/include/http_server.h:HttpServer",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:net/http/include/http_server.h",
+      "target": "class:net/http/include/http_server.h:WsConnection",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:net/http/include/http_server.h",
+      "target": "class:net/http/include/http_server.h:UploadStreamContext",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:net/http/include/http_server.h",
+      "target": "class:net/http/include/http_server.h:HttpServer",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:net/http/include/auth_middleware.h:apply",
+      "target": "class:net/http/include/auth_service.h:IAuthService",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "class:net/http/include/http_server.h:HttpServer",
+      "target": "class:net/http/include/i_http_server.h:IHttpServer",
+      "type": "inherits",
+      "direction": "forward",
+      "weight": 0.9
+    },
+    {
+      "source": "class:net/http/include/http_server.h:HttpServer",
+      "target": "class:net/http/include/router.h:Router",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "class:net/http/include/http_server.h:HttpServer",
+      "target": "class:net/http/include/http_parser.h:HttpParser",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "class:net/http/include/http_server.h:HttpServer",
+      "target": "class:net/http/include/auth_service.h:IAuthService",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "class:net/http/include/http_server.h:UploadStreamContext",
+      "target": "class:net/http/include/http_response.h:HttpResponse",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    }
+  ]
+}

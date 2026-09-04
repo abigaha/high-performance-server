@@ -1,0 +1,1212 @@
+{
+ "nodes": [
+  {
+   "id": "file:frontend/src/api/music.ts",
+   "type": "file",
+   "name": "music.ts",
+   "summary": "音乐 API 模块：封装音乐库查询、歌曲详情、歌单 CRUD 及歌单内曲目操作，全部经由 client.request 发起 HTTP 请求。",
+   "tags": [
+    "api",
+    "music",
+    "playlist",
+    "http",
+    "typescript"
+   ],
+   "complexity": "simple",
+   "filePath": "frontend/src/api/music.ts"
+  },
+  {
+   "id": "function:frontend/src/api/music.ts:getLibrary",
+   "type": "function",
+   "name": "getLibrary",
+   "summary": "分页查询音乐库，支持偏移、数量、搜索关键字与取消信号。",
+   "tags": [
+    "api",
+    "music",
+    "pagination",
+    "search"
+   ],
+   "complexity": "simple",
+   "lineRange": [
+    34,
+    43
+   ]
+  },
+  {
+   "id": "function:frontend/src/api/music.ts:getMusicDetail",
+   "type": "function",
+   "name": "getMusicDetail",
+   "summary": "获取单曲详情，从歌曲文件列表中挑选音频类型文件作为可流播文件。",
+   "tags": [
+    "api",
+    "music",
+    "detail"
+   ],
+   "complexity": "moderate",
+   "lineRange": [
+    45,
+    65
+   ]
+  },
+  {
+   "id": "function:frontend/src/api/music.ts:getUserPlaylists",
+   "type": "function",
+   "name": "getUserPlaylists",
+   "summary": "查询指定用户的歌单列表。",
+   "tags": [
+    "api",
+    "playlist",
+    "query"
+   ],
+   "complexity": "simple",
+   "lineRange": [
+    67,
+    70
+   ]
+  },
+  {
+   "id": "function:frontend/src/api/music.ts:createPlaylist",
+   "type": "function",
+   "name": "createPlaylist",
+   "summary": "创建新歌单并返回其信息。",
+   "tags": [
+    "api",
+    "playlist",
+    "create"
+   ],
+   "complexity": "simple",
+   "lineRange": [
+    72,
+    77
+   ]
+  },
+  {
+   "id": "function:frontend/src/api/music.ts:renamePlaylist",
+   "type": "function",
+   "name": "renamePlaylist",
+   "summary": "重命名歌单并更新描述。",
+   "tags": [
+    "api",
+    "playlist",
+    "rename"
+   ],
+   "complexity": "simple",
+   "lineRange": [
+    79,
+    84
+   ]
+  },
+  {
+   "id": "function:frontend/src/api/music.ts:deletePlaylist",
+   "type": "function",
+   "name": "deletePlaylist",
+   "summary": "删除指定歌单。",
+   "tags": [
+    "api",
+    "playlist",
+    "delete"
+   ],
+   "complexity": "simple",
+   "lineRange": [
+    86,
+    88
+   ]
+  },
+  {
+   "id": "function:frontend/src/api/music.ts:getPlaylistItems",
+   "type": "function",
+   "name": "getPlaylistItems",
+   "summary": "获取歌单内曲目列表。",
+   "tags": [
+    "api",
+    "playlist",
+    "query"
+   ],
+   "complexity": "simple",
+   "lineRange": [
+    90,
+    93
+   ]
+  },
+  {
+   "id": "function:frontend/src/api/music.ts:addToPlaylist",
+   "type": "function",
+   "name": "addToPlaylist",
+   "summary": "将指定音乐加入歌单。",
+   "tags": [
+    "api",
+    "playlist",
+    "music"
+   ],
+   "complexity": "simple",
+   "lineRange": [
+    95,
+    100
+   ]
+  },
+  {
+   "id": "function:frontend/src/api/music.ts:removeFromPlaylist",
+   "type": "function",
+   "name": "removeFromPlaylist",
+   "summary": "从歌单中移除指定音乐。",
+   "tags": [
+    "api",
+    "playlist",
+    "music"
+   ],
+   "complexity": "simple",
+   "lineRange": [
+    102,
+    106
+   ]
+  },
+  {
+   "id": "function:frontend/src/api/music.ts:reorderPlaylist",
+   "type": "function",
+   "name": "reorderPlaylist",
+   "summary": "按给定 ID 顺序重排歌单内曲目。",
+   "tags": [
+    "api",
+    "playlist",
+    "reorder"
+   ],
+   "complexity": "simple",
+   "lineRange": [
+    108,
+    113
+   ]
+  },
+  {
+   "id": "file:frontend/src/components/MusicCard.tsx",
+   "type": "file",
+   "name": "MusicCard.tsx",
+   "summary": "音乐卡片组件：展示音乐封面、标题、歌手与时长，提供播放、加入歌单、移除等操作按钮。",
+   "tags": [
+    "react",
+    "ui-component",
+    "music",
+    "frontend"
+   ],
+   "complexity": "simple",
+   "filePath": "frontend/src/components/MusicCard.tsx"
+  },
+  {
+   "id": "function:frontend/src/components/MusicCard.tsx:MusicCard",
+   "type": "function",
+   "name": "MusicCard",
+   "summary": "渲染单首音乐卡片，通过回调把播放/加歌单/移除操作上抛给父组件。",
+   "tags": [
+    "react",
+    "music",
+    "card"
+   ],
+   "complexity": "moderate",
+   "lineRange": [
+    20,
+    90
+   ]
+  },
+  {
+   "id": "file:frontend/src/lib/coverPlaceholder.ts",
+   "type": "file",
+   "name": "coverPlaceholder.ts",
+   "summary": "封面占位工具：根据音乐 ID 生成确定性的渐变占位封面。",
+   "tags": [
+    "utils",
+    "placeholder",
+    "cover"
+   ],
+   "complexity": "simple",
+   "filePath": "frontend/src/lib/coverPlaceholder.ts"
+  },
+  {
+   "id": "function:frontend/src/lib/coverPlaceholder.ts:getCoverPlaceholder",
+   "type": "function",
+   "name": "getCoverPlaceholder",
+   "summary": "由音乐 ID 计算稳定的渐变色作为封面占位。",
+   "tags": [
+    "utils",
+    "placeholder",
+    "cover"
+   ],
+   "complexity": "simple",
+   "lineRange": [
+    8,
+    11
+   ]
+  },
+  {
+   "id": "file:frontend/src/session/clearUserSession.ts",
+   "type": "file",
+   "name": "clearUserSession.ts",
+   "summary": "清理用户会话：统一重置 auth、music、player、toast 四个 store 的状态。",
+   "tags": [
+    "session",
+    "auth",
+    "reset",
+    "frontend"
+   ],
+   "complexity": "simple",
+   "filePath": "frontend/src/session/clearUserSession.ts"
+  },
+  {
+   "id": "function:frontend/src/session/clearUserSession.ts:clearUserSession",
+   "type": "function",
+   "name": "clearUserSession",
+   "summary": "依次调用各 store 的 reset 清除登录态与本地数据。",
+   "tags": [
+    "session",
+    "auth",
+    "reset"
+   ],
+   "complexity": "simple",
+   "lineRange": [
+    6,
+    11
+   ]
+  },
+  {
+   "id": "file:frontend/src/stores/music.ts",
+   "type": "file",
+   "name": "music.ts",
+   "summary": "音乐 Zustand store：管理音乐库与歌单数据，提供 fetch/create/rename/delete/reorder 等动作，内部用请求 ID、代次与会话快照防止过期结果覆盖。",
+   "tags": [
+    "zustand",
+    "store",
+    "music",
+    "async",
+    "frontend"
+   ],
+   "complexity": "moderate",
+   "filePath": "frontend/src/stores/music.ts"
+  },
+  {
+   "id": "function:frontend/src/stores/music.ts:useMusicStore",
+   "type": "function",
+   "name": "useMusicStore",
+   "summary": "音乐 store 主体：暴露音乐库与歌单数据及各异步动作，并同步播放器状态版本。",
+   "tags": [
+    "zustand",
+    "store",
+    "music"
+   ],
+   "complexity": "complex",
+   "lineRange": [
+    75,
+    214
+   ]
+  },
+  {
+   "id": "file:frontend/src/stores/player.ts",
+   "type": "file",
+   "name": "player.ts",
+   "summary": "播放器 Zustand store：管理当前曲目、队列、播放/暂停/seek/音量等状态，提供代次与状态版本快照 API 供组件做竞态判断。",
+   "tags": [
+    "zustand",
+    "store",
+    "player",
+    "queue",
+    "frontend"
+   ],
+   "complexity": "moderate",
+   "filePath": "frontend/src/stores/player.ts"
+  },
+  {
+   "id": "function:frontend/src/stores/player.ts:capturePlayerGeneration",
+   "type": "function",
+   "name": "capturePlayerGeneration",
+   "summary": "返回当前播放器代次，用于判断异步结果是否过期。",
+   "tags": [
+    "player",
+    "generation",
+    "race"
+   ],
+   "complexity": "simple",
+   "lineRange": [
+    51,
+    53
+   ]
+  },
+  {
+   "id": "function:frontend/src/stores/player.ts:isPlayerGenerationCurrent",
+   "type": "function",
+   "name": "isPlayerGenerationCurrent",
+   "summary": "判断给定代次是否仍为最新。",
+   "tags": [
+    "player",
+    "generation",
+    "race"
+   ],
+   "complexity": "simple",
+   "lineRange": [
+    55,
+    57
+   ]
+  },
+  {
+   "id": "function:frontend/src/stores/player.ts:capturePlayerStateRevision",
+   "type": "function",
+   "name": "capturePlayerStateRevision",
+   "summary": "捕获当前播放器状态版本号。",
+   "tags": [
+    "player",
+    "revision",
+    "race"
+   ],
+   "complexity": "simple",
+   "lineRange": [
+    59,
+    61
+   ]
+  },
+  {
+   "id": "function:frontend/src/stores/player.ts:usePlayerStore",
+   "type": "function",
+   "name": "usePlayerStore",
+   "summary": "播放器 store 主体：播放/暂停/seek/上下曲/音量/曲目水合与队列管理。",
+   "tags": [
+    "zustand",
+    "store",
+    "player"
+   ],
+   "complexity": "complex",
+   "lineRange": [
+    76,
+    193
+   ]
+  },
+  {
+   "id": "file:frontend/src/stores/toast.ts",
+   "type": "file",
+   "name": "toast.ts",
+   "summary": "轻量通知 Zustand store：管理成功/错误/信息三类提示消息并定时自动移除。",
+   "tags": [
+    "zustand",
+    "store",
+    "toast",
+    "ui",
+    "frontend"
+   ],
+   "complexity": "simple",
+   "filePath": "frontend/src/stores/toast.ts"
+  },
+  {
+   "id": "function:frontend/src/stores/toast.ts:useToastStore",
+   "type": "function",
+   "name": "useToastStore",
+   "summary": "toast store 主体：push 消息与定时移除逻辑。",
+   "tags": [
+    "zustand",
+    "store",
+    "toast"
+   ],
+   "complexity": "moderate",
+   "lineRange": [
+    31,
+    57
+   ]
+  },
+  {
+   "id": "file:frontend/tests/components/AudioPlayer.test.tsx",
+   "type": "file",
+   "name": "AudioPlayer.test.tsx",
+   "summary": "AudioPlayer 组件测试：验证流 URL 生命周期、对象 URL 释放顺序与播放状态交互。",
+   "tags": [
+    "test",
+    "react",
+    "audio-player",
+    "vitest"
+   ],
+   "complexity": "moderate",
+   "filePath": "frontend/tests/components/AudioPlayer.test.tsx"
+  },
+  {
+   "id": "function:frontend/tests/components/AudioPlayer.test.tsx:setTrack",
+   "type": "function",
+   "name": "setTrack",
+   "summary": "通过 player store 设置当前曲目供测试驱动。",
+   "tags": [
+    "test",
+    "helper",
+    "player"
+   ],
+   "complexity": "simple",
+   "lineRange": [
+    41,
+    51
+   ]
+  },
+  {
+   "id": "file:frontend/tests/components/MusicCard.test.tsx",
+   "type": "file",
+   "name": "MusicCard.test.tsx",
+   "summary": "MusicCard 组件渲染与操作回调测试。",
+   "tags": [
+    "test",
+    "react",
+    "music"
+   ],
+   "complexity": "simple",
+   "filePath": "frontend/tests/components/MusicCard.test.tsx"
+  },
+  {
+   "id": "file:frontend/tests/lib/coverPlaceholder.test.ts",
+   "type": "file",
+   "name": "coverPlaceholder.test.ts",
+   "summary": "封面占位工具的单元测试。",
+   "tags": [
+    "test",
+    "utils",
+    "placeholder"
+   ],
+   "complexity": "simple",
+   "filePath": "frontend/tests/lib/coverPlaceholder.test.ts"
+  },
+  {
+   "id": "file:frontend/tests/session/clearUserSession.test.ts",
+   "type": "file",
+   "name": "clearUserSession.test.ts",
+   "summary": "会话清理测试：验证各 store 被重置。",
+   "tags": [
+    "test",
+    "session",
+    "auth"
+   ],
+   "complexity": "simple",
+   "filePath": "frontend/tests/session/clearUserSession.test.ts"
+  },
+  {
+   "id": "file:frontend/tests/stores/music.test.ts",
+   "type": "file",
+   "name": "music.test.ts",
+   "summary": "音乐 store 测试：异步请求竞态、失败回滚与 store 状态变化。",
+   "tags": [
+    "test",
+    "store",
+    "music",
+    "race",
+    "vitest"
+   ],
+   "complexity": "complex",
+   "filePath": "frontend/tests/stores/music.test.ts"
+  },
+  {
+   "id": "function:frontend/tests/stores/music.test.ts:response",
+   "type": "function",
+   "name": "response",
+   "summary": "构造分页响应数据工厂。",
+   "tags": [
+    "test",
+    "helper",
+    "fixture"
+   ],
+   "complexity": "simple",
+   "lineRange": [
+    36,
+    53
+   ]
+  }
+ ],
+ "edges": [
+  {
+   "source": "file:frontend/src/api/music.ts",
+   "target": "file:frontend/src/api/client.ts",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:frontend/src/api/music.ts",
+   "target": "file:frontend/src/types/api.ts",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:frontend/src/components/MusicCard.tsx",
+   "target": "file:frontend/src/lib/coverPlaceholder.ts",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:frontend/src/components/MusicCard.tsx",
+   "target": "file:frontend/src/types/api.ts",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:frontend/src/session/clearUserSession.ts",
+   "target": "file:frontend/src/stores/auth.ts",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:frontend/src/session/clearUserSession.ts",
+   "target": "file:frontend/src/stores/music.ts",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:frontend/src/session/clearUserSession.ts",
+   "target": "file:frontend/src/stores/player.ts",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:frontend/src/session/clearUserSession.ts",
+   "target": "file:frontend/src/stores/toast.ts",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:frontend/src/stores/music.ts",
+   "target": "file:frontend/src/api/client.ts",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:frontend/src/stores/music.ts",
+   "target": "file:frontend/src/api/music.ts",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:frontend/src/stores/music.ts",
+   "target": "file:frontend/src/stores/player.ts",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:frontend/src/stores/music.ts",
+   "target": "file:frontend/src/types/api.ts",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:frontend/src/stores/player.ts",
+   "target": "file:frontend/src/types/api.ts",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:frontend/tests/components/AudioPlayer.test.tsx",
+   "target": "file:frontend/src/api/music.ts",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:frontend/tests/components/AudioPlayer.test.tsx",
+   "target": "file:frontend/src/components/AudioPlayer.tsx",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:frontend/tests/components/AudioPlayer.test.tsx",
+   "target": "file:frontend/src/stores/player.ts",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:frontend/tests/components/MusicCard.test.tsx",
+   "target": "file:frontend/src/components/MusicCard.tsx",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:frontend/tests/lib/coverPlaceholder.test.ts",
+   "target": "file:frontend/src/lib/coverPlaceholder.ts",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:frontend/tests/session/clearUserSession.test.ts",
+   "target": "file:frontend/src/api/client.ts",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:frontend/tests/session/clearUserSession.test.ts",
+   "target": "file:frontend/src/session/clearUserSession.ts",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:frontend/tests/session/clearUserSession.test.ts",
+   "target": "file:frontend/src/session/createUnauthorizedHandler.ts",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:frontend/tests/session/clearUserSession.test.ts",
+   "target": "file:frontend/src/stores/auth.ts",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:frontend/tests/session/clearUserSession.test.ts",
+   "target": "file:frontend/src/stores/music.ts",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:frontend/tests/session/clearUserSession.test.ts",
+   "target": "file:frontend/src/stores/player.ts",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:frontend/tests/session/clearUserSession.test.ts",
+   "target": "file:frontend/src/stores/toast.ts",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:frontend/tests/session/clearUserSession.test.ts",
+   "target": "file:frontend/src/types/api.ts",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:frontend/tests/stores/music.test.ts",
+   "target": "file:frontend/src/stores/music.ts",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:frontend/tests/stores/music.test.ts",
+   "target": "file:frontend/src/stores/player.ts",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:frontend/tests/stores/music.test.ts",
+   "target": "file:frontend/src/types/api.ts",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:frontend/src/api/music.ts",
+   "target": "function:frontend/src/api/music.ts:getLibrary",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "file:frontend/src/api/music.ts",
+   "target": "function:frontend/src/api/music.ts:getLibrary",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:frontend/src/api/music.ts",
+   "target": "function:frontend/src/api/music.ts:getMusicDetail",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "file:frontend/src/api/music.ts",
+   "target": "function:frontend/src/api/music.ts:getMusicDetail",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:frontend/src/api/music.ts",
+   "target": "function:frontend/src/api/music.ts:getUserPlaylists",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "file:frontend/src/api/music.ts",
+   "target": "function:frontend/src/api/music.ts:getUserPlaylists",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:frontend/src/api/music.ts",
+   "target": "function:frontend/src/api/music.ts:createPlaylist",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "file:frontend/src/api/music.ts",
+   "target": "function:frontend/src/api/music.ts:createPlaylist",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:frontend/src/api/music.ts",
+   "target": "function:frontend/src/api/music.ts:renamePlaylist",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "file:frontend/src/api/music.ts",
+   "target": "function:frontend/src/api/music.ts:renamePlaylist",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:frontend/src/api/music.ts",
+   "target": "function:frontend/src/api/music.ts:deletePlaylist",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "file:frontend/src/api/music.ts",
+   "target": "function:frontend/src/api/music.ts:deletePlaylist",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:frontend/src/api/music.ts",
+   "target": "function:frontend/src/api/music.ts:getPlaylistItems",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "file:frontend/src/api/music.ts",
+   "target": "function:frontend/src/api/music.ts:getPlaylistItems",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:frontend/src/api/music.ts",
+   "target": "function:frontend/src/api/music.ts:addToPlaylist",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "file:frontend/src/api/music.ts",
+   "target": "function:frontend/src/api/music.ts:addToPlaylist",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:frontend/src/api/music.ts",
+   "target": "function:frontend/src/api/music.ts:removeFromPlaylist",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "file:frontend/src/api/music.ts",
+   "target": "function:frontend/src/api/music.ts:removeFromPlaylist",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:frontend/src/api/music.ts",
+   "target": "function:frontend/src/api/music.ts:reorderPlaylist",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "file:frontend/src/api/music.ts",
+   "target": "function:frontend/src/api/music.ts:reorderPlaylist",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:frontend/src/components/MusicCard.tsx",
+   "target": "function:frontend/src/components/MusicCard.tsx:MusicCard",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "file:frontend/src/components/MusicCard.tsx",
+   "target": "function:frontend/src/components/MusicCard.tsx:MusicCard",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:frontend/src/lib/coverPlaceholder.ts",
+   "target": "function:frontend/src/lib/coverPlaceholder.ts:getCoverPlaceholder",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "file:frontend/src/lib/coverPlaceholder.ts",
+   "target": "function:frontend/src/lib/coverPlaceholder.ts:getCoverPlaceholder",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:frontend/src/session/clearUserSession.ts",
+   "target": "function:frontend/src/session/clearUserSession.ts:clearUserSession",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "file:frontend/src/session/clearUserSession.ts",
+   "target": "function:frontend/src/session/clearUserSession.ts:clearUserSession",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:frontend/src/stores/music.ts",
+   "target": "function:frontend/src/stores/music.ts:useMusicStore",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "file:frontend/src/stores/music.ts",
+   "target": "function:frontend/src/stores/music.ts:useMusicStore",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:frontend/src/stores/player.ts",
+   "target": "function:frontend/src/stores/player.ts:capturePlayerGeneration",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "file:frontend/src/stores/player.ts",
+   "target": "function:frontend/src/stores/player.ts:capturePlayerGeneration",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:frontend/src/stores/player.ts",
+   "target": "function:frontend/src/stores/player.ts:isPlayerGenerationCurrent",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "file:frontend/src/stores/player.ts",
+   "target": "function:frontend/src/stores/player.ts:isPlayerGenerationCurrent",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:frontend/src/stores/player.ts",
+   "target": "function:frontend/src/stores/player.ts:capturePlayerStateRevision",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "file:frontend/src/stores/player.ts",
+   "target": "function:frontend/src/stores/player.ts:capturePlayerStateRevision",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:frontend/src/stores/player.ts",
+   "target": "function:frontend/src/stores/player.ts:usePlayerStore",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "file:frontend/src/stores/player.ts",
+   "target": "function:frontend/src/stores/player.ts:usePlayerStore",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:frontend/src/stores/toast.ts",
+   "target": "function:frontend/src/stores/toast.ts:useToastStore",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "file:frontend/src/stores/toast.ts",
+   "target": "function:frontend/src/stores/toast.ts:useToastStore",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:frontend/tests/components/AudioPlayer.test.tsx",
+   "target": "function:frontend/tests/components/AudioPlayer.test.tsx:setTrack",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "file:frontend/tests/stores/music.test.ts",
+   "target": "function:frontend/tests/stores/music.test.ts:response",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "function:frontend/src/api/music.ts:getLibrary",
+   "target": "function:frontend/src/api/client.ts:request",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:frontend/src/api/music.ts:getMusicDetail",
+   "target": "function:frontend/src/api/client.ts:request",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:frontend/src/api/music.ts:getUserPlaylists",
+   "target": "function:frontend/src/api/client.ts:request",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:frontend/src/api/music.ts:createPlaylist",
+   "target": "function:frontend/src/api/client.ts:request",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:frontend/src/api/music.ts:renamePlaylist",
+   "target": "function:frontend/src/api/client.ts:request",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:frontend/src/api/music.ts:deletePlaylist",
+   "target": "function:frontend/src/api/client.ts:request",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:frontend/src/api/music.ts:getPlaylistItems",
+   "target": "function:frontend/src/api/client.ts:request",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:frontend/src/api/music.ts:addToPlaylist",
+   "target": "function:frontend/src/api/client.ts:request",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:frontend/src/api/music.ts:removeFromPlaylist",
+   "target": "function:frontend/src/api/client.ts:request",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:frontend/src/api/music.ts:reorderPlaylist",
+   "target": "function:frontend/src/api/client.ts:request",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:frontend/src/components/MusicCard.tsx:MusicCard",
+   "target": "function:frontend/src/lib/coverPlaceholder.ts:getCoverPlaceholder",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:frontend/src/session/clearUserSession.ts:clearUserSession",
+   "target": "function:frontend/src/stores/music.ts:useMusicStore",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:frontend/src/session/clearUserSession.ts:clearUserSession",
+   "target": "function:frontend/src/stores/player.ts:usePlayerStore",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:frontend/src/session/clearUserSession.ts:clearUserSession",
+   "target": "function:frontend/src/stores/toast.ts:useToastStore",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:frontend/src/session/clearUserSession.ts:clearUserSession",
+   "target": "function:frontend/src/stores/auth.ts:useAuthStore",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:frontend/src/stores/music.ts:useMusicStore",
+   "target": "function:frontend/src/api/music.ts:getLibrary",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:frontend/src/stores/music.ts:useMusicStore",
+   "target": "function:frontend/src/api/music.ts:getUserPlaylists",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:frontend/src/stores/music.ts:useMusicStore",
+   "target": "function:frontend/src/api/music.ts:createPlaylist",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:frontend/src/stores/music.ts:useMusicStore",
+   "target": "function:frontend/src/api/music.ts:renamePlaylist",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:frontend/src/stores/music.ts:useMusicStore",
+   "target": "function:frontend/src/api/music.ts:deletePlaylist",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:frontend/src/stores/music.ts:useMusicStore",
+   "target": "function:frontend/src/api/music.ts:addToPlaylist",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:frontend/src/stores/music.ts:useMusicStore",
+   "target": "function:frontend/src/api/music.ts:removeFromPlaylist",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:frontend/src/stores/music.ts:useMusicStore",
+   "target": "function:frontend/src/api/music.ts:reorderPlaylist",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:frontend/src/stores/music.ts:useMusicStore",
+   "target": "function:frontend/src/stores/player.ts:usePlayerStore",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:frontend/src/stores/music.ts:useMusicStore",
+   "target": "function:frontend/src/api/client.ts:captureSessionSnapshot",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:frontend/src/stores/music.ts:useMusicStore",
+   "target": "function:frontend/src/api/client.ts:isSessionSnapshotCurrent",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:frontend/tests/components/AudioPlayer.test.tsx:setTrack",
+   "target": "function:frontend/src/stores/player.ts:usePlayerStore",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:frontend/src/components/MusicCard.tsx",
+   "target": "file:frontend/tests/components/MusicCard.test.tsx",
+   "type": "tested_by",
+   "direction": "forward",
+   "weight": 0.5
+  },
+  {
+   "source": "file:frontend/src/lib/coverPlaceholder.ts",
+   "target": "file:frontend/tests/lib/coverPlaceholder.test.ts",
+   "type": "tested_by",
+   "direction": "forward",
+   "weight": 0.5
+  },
+  {
+   "source": "file:frontend/src/session/clearUserSession.ts",
+   "target": "file:frontend/tests/session/clearUserSession.test.ts",
+   "type": "tested_by",
+   "direction": "forward",
+   "weight": 0.5
+  },
+  {
+   "source": "file:frontend/src/stores/music.ts",
+   "target": "file:frontend/tests/stores/music.test.ts",
+   "type": "tested_by",
+   "direction": "forward",
+   "weight": 0.5
+  }
+ ]
+}

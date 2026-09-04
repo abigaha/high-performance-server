@@ -1,0 +1,99 @@
+{
+  "projectRoot": "/home/jmj/work-space/projects/high-performance-server",
+  "batchFiles": [
+    {
+      "path": "benchmark/reports/load_20260718_171912.txt",
+      "language": "txt",
+      "sizeLines": 39,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "benchmark/reports/load_20260718_181105.txt",
+      "language": "txt",
+      "sizeLines": 52,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "benchmark/reports/load_debug_20260715_172228.txt",
+      "language": "txt",
+      "sizeLines": 23,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "benchmark/reports/load_debug_20260715_175124.txt",
+      "language": "txt",
+      "sizeLines": 23,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "benchmark/reports/load_release_20260715_173855.txt",
+      "language": "txt",
+      "sizeLines": 23,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "benchmark/reports/micro_20260717_142320.txt",
+      "language": "txt",
+      "sizeLines": 126,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "benchmark/reports/micro_20260717_145119.txt",
+      "language": "txt",
+      "sizeLines": 126,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "benchmark/reports/micro_20260718_153451.txt",
+      "language": "txt",
+      "sizeLines": 123,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "benchmark/reports/micro_20260718_184759.txt",
+      "language": "txt",
+      "sizeLines": 99,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "benchmark/reports/micro_20260718_185114.txt",
+      "language": "txt",
+      "sizeLines": 123,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "benchmark/reports/micro_release_20260715_174645.txt",
+      "language": "txt",
+      "sizeLines": 87,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "benchmark/reports/qps_20260717_151330.txt",
+      "language": "txt",
+      "sizeLines": 749,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "benchmark/reports/qps_20260718_162217.txt",
+      "language": "txt",
+      "sizeLines": 492,
+      "fileCategory": "docs"
+    }
+  ],
+  "batchImportData": {
+    "benchmark/reports/load_20260718_171912.txt": [],
+    "benchmark/reports/load_20260718_181105.txt": [],
+    "benchmark/reports/load_debug_20260715_172228.txt": [],
+    "benchmark/reports/load_debug_20260715_175124.txt": [],
+    "benchmark/reports/load_release_20260715_173855.txt": [],
+    "benchmark/reports/micro_20260717_142320.txt": [],
+    "benchmark/reports/micro_20260717_145119.txt": [],
+    "benchmark/reports/micro_20260718_153451.txt": [],
+    "benchmark/reports/micro_20260718_184759.txt": [],
+    "benchmark/reports/micro_20260718_185114.txt": [],
+    "benchmark/reports/micro_release_20260715_174645.txt": [],
+    "benchmark/reports/qps_20260717_151330.txt": [],
+    "benchmark/reports/qps_20260718_162217.txt": []
+  },
+  "neighborMap": {}
+}

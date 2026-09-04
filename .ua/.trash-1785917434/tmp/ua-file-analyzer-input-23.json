@@ -1,0 +1,89 @@
+{
+  "projectRoot": "/home/jmj/work-space/projects/high-performance-server",
+  "batchFiles": [
+    {
+      "path": "frontend/tests/styles/designTokens.test.ts",
+      "language": "typescript",
+      "sizeLines": 106,
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend/vite.config.ts",
+      "language": "typescript",
+      "sizeLines": 14,
+      "fileCategory": "code"
+    },
+    {
+      "path": "logger/src/logger.cpp",
+      "language": "cpp",
+      "sizeLines": 153,
+      "fileCategory": "code"
+    },
+    {
+      "path": "memory-pool/src/tiered_memory_pool.cpp",
+      "language": "cpp",
+      "sizeLines": 307,
+      "fileCategory": "code"
+    },
+    {
+      "path": "net/file-transfer/include/file_transfer.h",
+      "language": "c",
+      "sizeLines": 30,
+      "fileCategory": "code"
+    },
+    {
+      "path": "net/file-transfer/src/file_transfer.cpp",
+      "language": "cpp",
+      "sizeLines": 273,
+      "fileCategory": "code"
+    },
+    {
+      "path": "net/http/src/http_parser.cpp",
+      "language": "cpp",
+      "sizeLines": 330,
+      "fileCategory": "code"
+    },
+    {
+      "path": "net/http/src/http_request.cpp",
+      "language": "cpp",
+      "sizeLines": 65,
+      "fileCategory": "code"
+    },
+    {
+      "path": "net/http/src/http_server.cpp",
+      "language": "cpp",
+      "sizeLines": 746,
+      "fileCategory": "code"
+    }
+  ],
+  "batchImportData": {
+    "frontend/tests/styles/designTokens.test.ts": [],
+    "frontend/vite.config.ts": [],
+    "logger/src/logger.cpp": [],
+    "memory-pool/src/tiered_memory_pool.cpp": [],
+    "net/file-transfer/include/file_transfer.h": [
+      "net/file-transfer/include/i_file_transfer.h"
+    ],
+    "net/file-transfer/src/file_transfer.cpp": [],
+    "net/http/src/http_parser.cpp": [],
+    "net/http/src/http_request.cpp": [],
+    "net/http/src/http_server.cpp": []
+  },
+  "neighborMap": {
+    "net/file-transfer/include/file_transfer.h": [
+      {
+        "path": "net/file-transfer/include/i_file_transfer.h",
+        "batchIndex": 23,
+        "symbols": [
+          "ITcpClient",
+          "ITcpServer",
+          "~IFileTransfer",
+          "transfer_small",
+          "transfer_large",
+          "receive_file",
+          "IFileTransfer"
+        ]
+      }
+    ]
+  }
+}

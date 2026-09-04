@@ -1,0 +1,550 @@
+{
+  "nodes": [
+    {
+      "id": "file:benchmark/bench_auth_service.cpp",
+      "type": "file",
+      "name": "bench_auth_service.cpp",
+      "filePath": "benchmark/bench_auth_service.cpp",
+      "summary": "基于 Google Benchmark 的认证服务微基准，覆盖用户注册、认证与令牌校验三类操作的性能测量。",
+      "tags": ["benchmark", "auth", "google-benchmark", "performance"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "class:benchmark/bench_auth_service.cpp:AuthBenchFixture",
+      "type": "class",
+      "name": "AuthBenchFixture",
+      "summary": "认证基准夹具，创建 MockConnection、认证服务并生成测试用令牌，为各基准提供统一入口数据。",
+      "tags": ["auth", "fixture", "benchmark", "test-setup"],
+      "complexity": "moderate",
+      "lineRange": [14, 68]
+    },
+    {
+      "id": "function:benchmark/bench_auth_service.cpp:BM_AuthRegister",
+      "type": "function",
+      "name": "BM_AuthRegister",
+      "summary": "测量 create_user 注册用户操作在不同用户量下的吞吐。",
+      "tags": ["benchmark", "register", "auth", "throughput"],
+      "complexity": "simple",
+      "lineRange": [72, 87]
+    },
+    {
+      "id": "function:benchmark/bench_auth_service.cpp:BM_AuthAuthenticate",
+      "type": "function",
+      "name": "BM_AuthAuthenticate",
+      "summary": "测量 authenticate 认证操作在认证量递增时的性能。",
+      "tags": ["benchmark", "authenticate", "auth", "performance"],
+      "complexity": "simple",
+      "lineRange": [91, 101]
+    },
+    {
+      "id": "function:benchmark/bench_auth_service.cpp:BM_AuthValidateToken",
+      "type": "function",
+      "name": "BM_AuthValidateToken",
+      "summary": "测量 validate_token 令牌校验操作在令牌量递增时的性能。",
+      "tags": ["benchmark", "token", "validation", "performance"],
+      "complexity": "simple",
+      "lineRange": [105, 115]
+    },
+    {
+      "id": "file:benchmark/bench_chunk_header.cpp",
+      "type": "file",
+      "name": "bench_chunk_header.cpp",
+      "filePath": "benchmark/bench_chunk_header.cpp",
+      "summary": "对分片头部 ChunkHeader 的网络序转换（to_network/from_network）与序列化过程进行基准测试。",
+      "tags": ["benchmark", "chunk-header", "serialization", "performance"],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:benchmark/bench_chunk_header.cpp:BM_ChunkHeader_ToNetwork",
+      "type": "function",
+      "name": "BM_ChunkHeader_ToNetwork",
+      "summary": "测量 ChunkHeader 转网络字节序再转回本地序的往返开销。",
+      "tags": ["benchmark", "chunk-header", "network-order"],
+      "complexity": "simple",
+      "lineRange": [9, 21]
+    },
+    {
+      "id": "function:benchmark/bench_chunk_header.cpp:BM_ChunkHeader_FromNetwork",
+      "type": "function",
+      "name": "BM_ChunkHeader_FromNetwork",
+      "summary": "测量从网络字节序解析 ChunkHeader 的开销。",
+      "tags": ["benchmark", "chunk-header", "parsing"],
+      "complexity": "simple",
+      "lineRange": [25, 38]
+    },
+    {
+      "id": "function:benchmark/bench_chunk_header.cpp:BM_ChunkHeader_Serialize",
+      "type": "function",
+      "name": "BM_ChunkHeader_Serialize",
+      "summary": "测量 ChunkHeader 逐字段 memcpy 序列化到缓冲区的性能。",
+      "tags": ["benchmark", "chunk-header", "serialize"],
+      "complexity": "simple",
+      "lineRange": [42, 59]
+    },
+    {
+      "id": "file:benchmark/bench_coroutine.cpp",
+      "type": "file",
+      "name": "bench_coroutine.cpp",
+      "filePath": "benchmark/bench_coroutine.cpp",
+      "summary": "协程框架微基准，验证协程创建运行、读写挂起（await）与协程切换三种场景的开销与吞吐。",
+      "tags": ["benchmark", "coroutine", "async", "performance"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "class:benchmark/bench_coroutine.cpp:CoroutineBench",
+      "type": "class",
+      "name": "CoroutineBench",
+      "summary": "最小协程 promise 类型，封装 coroutine_handle 并演示创建与销毁过程。",
+      "tags": ["coroutine", "promise", "benchmark"],
+      "complexity": "simple",
+      "lineRange": [10, 46]
+    },
+    {
+      "id": "class:benchmark/bench_coroutine.cpp:CoroReadWriteAwaiter",
+      "type": "class",
+      "name": "CoroReadWriteAwaiter",
+      "summary": "等待器对象，模拟读写挂起时的 suspend/resume 行为。",
+      "tags": ["coroutine", "awaiter", "benchmark"],
+      "complexity": "simple",
+      "lineRange": [63, 70]
+    },
+    {
+      "id": "class:benchmark/bench_coroutine.cpp:CoroReadWriteTask",
+      "type": "class",
+      "name": "CoroReadWriteTask",
+      "summary": "带 promise 的读写任务协程类型，用于测量带挂起恢复的协程遍历成本。",
+      "tags": ["coroutine", "task", "benchmark"],
+      "complexity": "simple",
+      "lineRange": [72, 98]
+    },
+    {
+      "id": "class:benchmark/bench_coroutine.cpp:CoroSwitchAwaiter",
+      "type": "class",
+      "name": "CoroSwitchAwaiter",
+      "summary": "用于协程切换基准的等待器，模拟挂起后由外部 resume。",
+      "tags": ["coroutine", "awaiter", "switch"],
+      "complexity": "simple",
+      "lineRange": [116, 122]
+    },
+    {
+      "id": "class:benchmark/bench_coroutine.cpp:CoroSwitchTask",
+      "type": "class",
+      "name": "CoroSwitchTask",
+      "summary": "协程切换基准使用的任务类型，承载 switch 开销测量的状态。",
+      "tags": ["coroutine", "task", "switch"],
+      "complexity": "simple",
+      "lineRange": [124, 150]
+    },
+    {
+      "id": "function:benchmark/bench_coroutine.cpp:bench_coro_impl",
+      "type": "function",
+      "name": "bench_coro_impl",
+      "summary": "协程创建与运行的实现体，被创建基准调用以测量协程分配成本。",
+      "tags": ["coroutine", "benchmark", "impl"],
+      "complexity": "simple",
+      "lineRange": [48, 50]
+    },
+    {
+      "id": "function:benchmark/bench_coroutine.cpp:BM_Coroutine_CreateAndRun",
+      "type": "function",
+      "name": "BM_Coroutine_CreateAndRun",
+      "summary": "测量协程创建并立即运行的整体开销。",
+      "tags": ["benchmark", "coroutine", "create"],
+      "complexity": "simple",
+      "lineRange": [54, 59]
+    },
+    {
+      "id": "function:benchmark/bench_coroutine.cpp:bench_await_readwrite",
+      "type": "function",
+      "name": "bench_await_readwrite",
+      "summary": "协程读写的实现体，通过刻意挂起让出执行以模拟 IO 等待。",
+      "tags": ["coroutine", "benchmark", "read-write"],
+      "complexity": "simple",
+      "lineRange": [100, 105]
+    },
+    {
+      "id": "function:benchmark/bench_coroutine.cpp:BM_Coro_AwaitReadWrite",
+      "type": "function",
+      "name": "BM_Coro_AwaitReadWrite",
+      "summary": "测量协程等待读写的整体开销。",
+      "tags": ["benchmark", "coroutine", "await"],
+      "complexity": "simple",
+      "lineRange": [107, 112]
+    },
+    {
+      "id": "function:benchmark/bench_coroutine.cpp:bench_switch_impl",
+      "type": "function",
+      "name": "bench_switch_impl",
+      "summary": "递归执行协程切换的辅助实现，统计切换次数。",
+      "tags": ["coroutine", "benchmark", "switch"],
+      "complexity": "simple",
+      "lineRange": [152, 156]
+    },
+    {
+      "id": "function:benchmark/bench_coroutine.cpp:BM_Coro_SwitchingOverhead",
+      "type": "function",
+      "name": "BM_Coro_SwitchingOverhead",
+      "summary": "测量指定深度下的协程切换开销。",
+      "tags": ["benchmark", "coroutine", "switch-overhead"],
+      "complexity": "simple",
+      "lineRange": [158, 164]
+    },
+    {
+      "id": "file:benchmark/bench_database_pool.cpp",
+      "type": "file",
+      "name": "bench_database_pool.cpp",
+      "filePath": "benchmark/bench_database_pool.cpp",
+      "summary": "数据库连接池基准，覆盖用户/文件记录的读写、连接获取释放与池耗尽等高负载场景。",
+      "tags": ["benchmark", "database-pool", "mysql", "performance"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "class:benchmark/bench_database_pool.cpp:DbBenchFixture",
+      "type": "class",
+      "name": "DbBenchFixture",
+      "summary": "数据库基准夹具，创建基于 MockConnection 的连接池并初始化。",
+      "tags": ["database-pool", "fixture", "benchmark"],
+      "complexity": "simple",
+      "lineRange": [15, 31]
+    },
+    {
+      "id": "function:benchmark/bench_database_pool.cpp:BM_DatabasePool_CreateUser",
+      "type": "function",
+      "name": "BM_DatabasePool_CreateUser",
+      "summary": "测量通过池化连接创建用户的吞吐。",
+      "tags": ["benchmark", "database-pool", "create-user"],
+      "complexity": "simple",
+      "lineRange": [45, 55]
+    },
+    {
+      "id": "function:benchmark/bench_database_pool.cpp:BM_DatabasePool_StoreFileRecord",
+      "type": "function",
+      "name": "BM_DatabasePool_StoreFileRecord",
+      "summary": "测量写入文件记录到数据库的性能。",
+      "tags": ["benchmark", "database-pool", "file-record"],
+      "complexity": "simple",
+      "lineRange": [69, 79]
+    },
+    {
+      "id": "function:benchmark/bench_database_pool.cpp:BM_DBPool_GetReturnConnection",
+      "type": "function",
+      "name": "BM_DBPool_GetReturnConnection",
+      "summary": "测量连接获取、使用并归还连接的往返成本。",
+      "tags": ["benchmark", "database-pool", "connection"],
+      "complexity": "moderate",
+      "lineRange": [83, 104]
+    },
+    {
+      "id": "function:benchmark/bench_database_pool.cpp:BM_DBPool_PoolExhaustion",
+      "type": "function",
+      "name": "BM_DBPool_PoolExhaustion",
+      "summary": "测量多个线程并发占满连接池导致耗尽的延迟与恢复表现。",
+      "tags": ["benchmark", "database-pool", "contention", "exhaustion"],
+      "complexity": "complex",
+      "lineRange": [108, 135]
+    },
+    {
+      "id": "file:benchmark/bench_file_system.cpp",
+      "type": "file",
+      "name": "bench_file_system.cpp",
+      "filePath": "benchmark/bench_file_system.cpp",
+      "summary": "文件系统微基准，覆盖 SHA256 哈希、文件分片、存储读写、并发读写与路径解析。",
+      "tags": ["benchmark", "file-system", "sha256", "storage"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:benchmark/bench_file_system.cpp:create_temp_file",
+      "type": "function",
+      "name": "create_temp_file",
+      "summary": "创建指定大小的临时文件用于基准输入，返回文件路径。",
+      "tags": ["file-system", "temporary-file", "helper"],
+      "complexity": "simple",
+      "lineRange": [14, 29]
+    },
+    {
+      "id": "function:benchmark/bench_file_system.cpp:BM_FileSystem_Sha256",
+      "type": "function",
+      "name": "BM_FileSystem_Sha256",
+      "summary": "测量大文件 SHA256 哈希计算的吞吐。",
+      "tags": ["benchmark", "sha256", "file-hash"],
+      "complexity": "moderate",
+      "lineRange": [33, 47]
+    },
+    {
+      "id": "function:benchmark/bench_file_system.cpp:BM_FileSystem_SplitFile",
+      "type": "function",
+      "name": "BM_FileSystem_SplitFile",
+      "summary": "测量将文件按分片大小切分（split_file）的性能。",
+      "tags": ["benchmark", "file-system", "split-file"],
+      "complexity": "moderate",
+      "lineRange": [62, 75]
+    },
+    {
+      "id": "function:benchmark/bench_file_system.cpp:BM_FileSystem_StoreRead",
+      "type": "function",
+      "name": "BM_FileSystem_StoreRead",
+      "summary": "测量文件存储写入与读取完整往返的性能。",
+      "tags": ["benchmark", "file-system", "store-read"],
+      "complexity": "moderate",
+      "lineRange": [79, 91]
+    },
+    {
+      "id": "function:benchmark/bench_file_system.cpp:BM_FileSystem_ConcurrentStoreRead",
+      "type": "function",
+      "name": "BM_FileSystem_ConcurrentStoreRead",
+      "summary": "测量多线程并发存储与读取文件的吞吐。",
+      "tags": ["benchmark", "file-system", "concurrent", "thread"],
+      "complexity": "complex",
+      "lineRange": [95, 115]
+    },
+    {
+      "id": "function:benchmark/bench_file_system.cpp:BM_FileSystem_ResolvePath",
+      "type": "function",
+      "name": "BM_FileSystem_ResolvePath",
+      "summary": "测量路径解析、存储读取与删除全链路的性能。",
+      "tags": ["benchmark", "file-system", "path-resolution"],
+      "complexity": "moderate",
+      "lineRange": [119, 136]
+    },
+    {
+      "id": "file:benchmark/bench_http_parser.cpp",
+      "type": "file",
+      "name": "bench_http_parser.cpp",
+      "filePath": "benchmark/bench_http_parser.cpp",
+      "summary": "HTTP 解析器微基准，测量短长路径、大小请求体及多头部场景下 feed 解析的性能。",
+      "tags": ["benchmark", "http-parser", "http", "performance"],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:benchmark/bench_http_parser.cpp:make_get_request",
+      "type": "function",
+      "name": "make_get_request",
+      "summary": "构造 GET 请求原始字节串作为解析基准输入。",
+      "tags": ["http", "http-parser", "request-builder"],
+      "complexity": "simple",
+      "lineRange": [11, 20]
+    },
+    {
+      "id": "function:benchmark/bench_http_parser.cpp:make_post_request",
+      "type": "function",
+      "name": "make_post_request",
+      "summary": "构造带指定请求体的 POST 请求字节串作为解析基准输入。",
+      "tags": ["http", "http-parser", "request-builder"],
+      "complexity": "simple",
+      "lineRange": [22, 34]
+    },
+    {
+      "id": "function:benchmark/bench_http_parser.cpp:BM_HttpParser_ManyHeaders",
+      "type": "function",
+      "name": "BM_HttpParser_ManyHeaders",
+      "summary": "测量包含大量头部字段的请求解析性能。",
+      "tags": ["benchmark", "http-parser", "headers"],
+      "complexity": "moderate",
+      "lineRange": [96, 117]
+    },
+    {
+      "id": "file:benchmark/bench_http_server.cpp",
+      "type": "file",
+      "name": "bench_http_server.cpp",
+      "filePath": "benchmark/bench_http_server.cpp",
+      "summary": "端到端 HTTP 服务器基准，通过真实 TCP 连接测量 GET/POST/大请求体/HTTP 流水线处理的吞吐与 RPS。",
+      "tags": ["benchmark", "http-server", "end-to-end", "rps"],
+      "complexity": "complex"
+    },
+    {
+      "id": "class:benchmark/bench_http_server.cpp:HttpServerBench",
+      "type": "class",
+      "name": "HttpServerBench",
+      "summary": "HTTP 服务器基准夹具，启动真实 HttpServer、注册路由并维护连接工具方法。",
+      "tags": ["http-server", "fixture", "benchmark"],
+      "complexity": "complex",
+      "lineRange": [17, 83]
+    },
+    {
+      "id": "function:benchmark/bench_http_server.cpp:SetUp",
+      "type": "function",
+      "name": "SetUp",
+      "summary": "启动 HTTP 服务器并注册 GET/POST 测试路由，记录实际监听端口。",
+      "tags": ["fixture", "setup", "http-server"],
+      "complexity": "moderate",
+      "lineRange": [19, 40]
+    },
+    {
+      "id": "function:benchmark/bench_http_server.cpp:TearDown",
+      "type": "function",
+      "name": "TearDown",
+      "summary": "停止服务器并回收线程与端口资源。",
+      "tags": ["fixture", "teardown", "http-server"],
+      "complexity": "simple",
+      "lineRange": [42, 47]
+    },
+    {
+      "id": "function:benchmark/bench_http_server.cpp:make_get",
+      "type": "function",
+      "name": "make_get",
+      "summary": "构造 GET 请求字节串。",
+      "tags": ["http", "request-builder", "benchmark-input"],
+      "complexity": "simple",
+      "lineRange": [49, 54]
+    },
+    {
+      "id": "function:benchmark/bench_http_server.cpp:make_post",
+      "type": "function",
+      "name": "make_post",
+      "summary": "构造带请求体的 POST 请求字节串。",
+      "tags": ["http", "request-builder", "benchmark-input"],
+      "complexity": "simple",
+      "lineRange": [56, 66]
+    },
+    {
+      "id": "function:benchmark/bench_http_server.cpp:make_pipelined",
+      "type": "function",
+      "name": "make_pipelined",
+      "summary": "构造指定数量的流水线（pipelined）请求拼接字节串。",
+      "tags": ["http", "pipelining", "request-builder"],
+      "complexity": "simple",
+      "lineRange": [68, 78]
+    },
+    {
+      "id": "function:benchmark/bench_http_server.cpp:BENCHMARK_DEFINE_F(HttpServerBench, HttpGet)",
+      "type": "function",
+      "name": "BENCHMARK_DEFINE_F(HttpServerBench, HttpGet)",
+      "summary": "测量单次 HTTP GET 请求-响应往返的 RPS。",
+      "tags": ["benchmark", "http-get", "rps"],
+      "complexity": "moderate",
+      "lineRange": [85, 97]
+    },
+    {
+      "id": "function:benchmark/bench_http_server.cpp:BENCHMARK_DEFINE_F(HttpServerBench, HttpPost)",
+      "type": "function",
+      "name": "BENCHMARK_DEFINE_F(HttpServerBench, HttpPost)",
+      "summary": "测量单次 HTTP POST 请求-响应往返的性能。",
+      "tags": ["benchmark", "http-post", "rps"],
+      "complexity": "moderate",
+      "lineRange": [101, 114]
+    },
+    {
+      "id": "function:benchmark/bench_http_server.cpp:BENCHMARK_DEFINE_F(HttpServerBench, HttpPostLargeBody)",
+      "type": "function",
+      "name": "BENCHMARK_DEFINE_F(HttpServerBench, HttpPostLargeBody)",
+      "summary": "测量携带大请求体的 POST 请求吞吐，按实际字节数统计。",
+      "tags": ["benchmark", "http-post", "large-body", "throughput"],
+      "complexity": "moderate",
+      "lineRange": [118, 132]
+    },
+    {
+      "id": "function:benchmark/bench_http_server.cpp:BENCHMARK_DEFINE_F(HttpServerBench, HttpPipelined)",
+      "type": "function",
+      "name": "BENCHMARK_DEFINE_F(HttpServerBench, HttpPipelined)",
+      "summary": "测量单连接多请求流水线处理下的 RPS。",
+      "tags": ["benchmark", "pipelining", "rps"],
+      "complexity": "moderate",
+      "lineRange": [136, 152]
+    },
+    {
+      "id": "file:benchmark/bench_lock_free_queue.cpp",
+      "type": "file",
+      "name": "bench_lock_free_queue.cpp",
+      "filePath": "benchmark/bench_lock_free_queue.cpp",
+      "summary": "无锁队列微基准，覆盖单生产者单消费者（SPSC）与高竞争下的多线程推拉场景。",
+      "tags": ["benchmark", "lock-free-queue", "concurrency", "performance"],
+      "complexity": "complex"
+    },
+    {
+      "id": "function:benchmark/bench_lock_free_queue.cpp:BM_LFQ_MPSC_Contention",
+      "type": "function",
+      "name": "BM_LFQ_MPSC_Contention",
+      "summary": "测量多生产者-多消费者高竞争下队列推送与弹出的吞吐。",
+      "tags": ["benchmark", "lock-free-queue", "contention", "mpsc"],
+      "complexity": "complex",
+      "lineRange": [64, 107]
+    },
+    {
+      "id": "function:benchmark/bench_lock_free_queue.cpp:BM_LFQ_HighContention",
+      "type": "function",
+      "name": "BM_LFQ_HighContention",
+      "summary": "测量线程数与消息量递增时的极端竞争吞吐表现。",
+      "tags": ["benchmark", "lock-free-queue", "high-contention"],
+      "complexity": "complex",
+      "lineRange": [114, 141]
+    }
+  ],
+  "edges": [
+    {"source": "file:benchmark/bench_auth_service.cpp", "target": "class:benchmark/bench_auth_service.cpp:AuthBenchFixture", "type": "contains", "direction": "forward", "weight": 1.0},
+    {"source": "file:benchmark/bench_auth_service.cpp", "target": "function:benchmark/bench_auth_service.cpp:BM_AuthRegister", "type": "contains", "direction": "forward", "weight": 1.0},
+    {"source": "file:benchmark/bench_auth_service.cpp", "target": "function:benchmark/bench_auth_service.cpp:BM_AuthAuthenticate", "type": "contains", "direction": "forward", "weight": 1.0},
+    {"source": "file:benchmark/bench_auth_service.cpp", "target": "function:benchmark/bench_auth_service.cpp:BM_AuthValidateToken", "type": "contains", "direction": "forward", "weight": 1.0},
+    {"source": "file:benchmark/bench_auth_service.cpp", "target": "class:benchmark/bench_auth_service.cpp:AuthBenchFixture", "type": "exports", "direction": "forward", "weight": 0.8},
+    {"source": "file:benchmark/bench_chunk_header.cpp", "target": "function:benchmark/bench_chunk_header.cpp:BM_ChunkHeader_ToNetwork", "type": "contains", "direction": "forward", "weight": 1.0},
+    {"source": "file:benchmark/bench_chunk_header.cpp", "target": "function:benchmark/bench_chunk_header.cpp:BM_ChunkHeader_FromNetwork", "type": "contains", "direction": "forward", "weight": 1.0},
+    {"source": "file:benchmark/bench_chunk_header.cpp", "target": "function:benchmark/bench_chunk_header.cpp:BM_ChunkHeader_Serialize", "type": "contains", "direction": "forward", "weight": 1.0},
+    {"source": "file:benchmark/bench_coroutine.cpp", "target": "class:benchmark/bench_coroutine.cpp:CoroutineBench", "type": "contains", "direction": "forward", "weight": 1.0},
+    {"source": "file:benchmark/bench_coroutine.cpp", "target": "class:benchmark/bench_coroutine.cpp:CoroReadWriteAwaiter", "type": "contains", "direction": "forward", "weight": 1.0},
+    {"source": "file:benchmark/bench_coroutine.cpp", "target": "class:benchmark/bench_coroutine.cpp:CoroReadWriteTask", "type": "contains", "direction": "forward", "weight": 1.0},
+    {"source": "file:benchmark/bench_coroutine.cpp", "target": "class:benchmark/bench_coroutine.cpp:CoroSwitchAwaiter", "type": "contains", "direction": "forward", "weight": 1.0},
+    {"source": "file:benchmark/bench_coroutine.cpp", "target": "class:benchmark/bench_coroutine.cpp:CoroSwitchTask", "type": "contains", "direction": "forward", "weight": 1.0},
+    {"source": "file:benchmark/bench_coroutine.cpp", "target": "function:benchmark/bench_coroutine.cpp:bench_coro_impl", "type": "contains", "direction": "forward", "weight": 1.0},
+    {"source": "file:benchmark/bench_coroutine.cpp", "target": "function:benchmark/bench_coroutine.cpp:BM_Coroutine_CreateAndRun", "type": "contains", "direction": "forward", "weight": 1.0},
+    {"source": "file:benchmark/bench_coroutine.cpp", "target": "function:benchmark/bench_coroutine.cpp:bench_await_readwrite", "type": "contains", "direction": "forward", "weight": 1.0},
+    {"source": "file:benchmark/bench_coroutine.cpp", "target": "function:benchmark/bench_coroutine.cpp:BM_Coro_AwaitReadWrite", "type": "contains", "direction": "forward", "weight": 1.0},
+    {"source": "file:benchmark/bench_coroutine.cpp", "target": "function:benchmark/bench_coroutine.cpp:bench_switch_impl", "type": "contains", "direction": "forward", "weight": 1.0},
+    {"source": "file:benchmark/bench_coroutine.cpp", "target": "function:benchmark/bench_coroutine.cpp:BM_Coro_SwitchingOverhead", "type": "contains", "direction": "forward", "weight": 1.0},
+    {"source": "file:benchmark/bench_coroutine.cpp", "target": "class:benchmark/bench_coroutine.cpp:CoroutineBench", "type": "exports", "direction": "forward", "weight": 0.8},
+    {"source": "file:benchmark/bench_coroutine.cpp", "target": "class:benchmark/bench_coroutine.cpp:CoroReadWriteAwaiter", "type": "exports", "direction": "forward", "weight": 0.8},
+    {"source": "file:benchmark/bench_coroutine.cpp", "target": "class:benchmark/bench_coroutine.cpp:CoroReadWriteTask", "type": "exports", "direction": "forward", "weight": 0.8},
+    {"source": "file:benchmark/bench_coroutine.cpp", "target": "class:benchmark/bench_coroutine.cpp:CoroSwitchAwaiter", "type": "exports", "direction": "forward", "weight": 0.8},
+    {"source": "file:benchmark/bench_coroutine.cpp", "target": "class:benchmark/bench_coroutine.cpp:CoroSwitchTask", "type": "exports", "direction": "forward", "weight": 0.8},
+    {"source": "file:benchmark/bench_coroutine.cpp", "target": "function:benchmark/bench_coroutine.cpp:bench_coro_impl", "type": "exports", "direction": "forward", "weight": 0.8},
+    {"source": "file:benchmark/bench_coroutine.cpp", "target": "function:benchmark/bench_coroutine.cpp:bench_await_readwrite", "type": "exports", "direction": "forward", "weight": 0.8},
+    {"source": "file:benchmark/bench_coroutine.cpp", "target": "function:benchmark/bench_coroutine.cpp:bench_switch_impl", "type": "exports", "direction": "forward", "weight": 0.8},
+    {"source": "function:benchmark/bench_coroutine.cpp:BM_Coroutine_CreateAndRun", "target": "function:benchmark/bench_coroutine.cpp:bench_coro_impl", "type": "calls", "direction": "forward", "weight": 0.8},
+    {"source": "function:benchmark/bench_coroutine.cpp:BM_Coro_AwaitReadWrite", "target": "function:benchmark/bench_coroutine.cpp:bench_await_readwrite", "type": "calls", "direction": "forward", "weight": 0.8},
+    {"source": "function:benchmark/bench_coroutine.cpp:BM_Coro_SwitchingOverhead", "target": "function:benchmark/bench_coroutine.cpp:bench_switch_impl", "type": "calls", "direction": "forward", "weight": 0.8},
+    {"source": "file:benchmark/bench_database_pool.cpp", "target": "class:benchmark/bench_database_pool.cpp:DbBenchFixture", "type": "contains", "direction": "forward", "weight": 1.0},
+    {"source": "file:benchmark/bench_database_pool.cpp", "target": "function:benchmark/bench_database_pool.cpp:BM_DatabasePool_CreateUser", "type": "contains", "direction": "forward", "weight": 1.0},
+    {"source": "file:benchmark/bench_database_pool.cpp", "target": "function:benchmark/bench_database_pool.cpp:BM_DatabasePool_StoreFileRecord", "type": "contains", "direction": "forward", "weight": 1.0},
+    {"source": "file:benchmark/bench_database_pool.cpp", "target": "function:benchmark/bench_database_pool.cpp:BM_DBPool_GetReturnConnection", "type": "contains", "direction": "forward", "weight": 1.0},
+    {"source": "file:benchmark/bench_database_pool.cpp", "target": "function:benchmark/bench_database_pool.cpp:BM_DBPool_PoolExhaustion", "type": "contains", "direction": "forward", "weight": 1.0},
+    {"source": "file:benchmark/bench_database_pool.cpp", "target": "class:benchmark/bench_database_pool.cpp:DbBenchFixture", "type": "exports", "direction": "forward", "weight": 0.8},
+    {"source": "file:benchmark/bench_file_system.cpp", "target": "function:benchmark/bench_file_system.cpp:create_temp_file", "type": "contains", "direction": "forward", "weight": 1.0},
+    {"source": "file:benchmark/bench_file_system.cpp", "target": "function:benchmark/bench_file_system.cpp:BM_FileSystem_Sha256", "type": "contains", "direction": "forward", "weight": 1.0},
+    {"source": "file:benchmark/bench_file_system.cpp", "target": "function:benchmark/bench_file_system.cpp:BM_FileSystem_SplitFile", "type": "contains", "direction": "forward", "weight": 1.0},
+    {"source": "file:benchmark/bench_file_system.cpp", "target": "function:benchmark/bench_file_system.cpp:BM_FileSystem_StoreRead", "type": "contains", "direction": "forward", "weight": 1.0},
+    {"source": "file:benchmark/bench_file_system.cpp", "target": "function:benchmark/bench_file_system.cpp:BM_FileSystem_ConcurrentStoreRead", "type": "contains", "direction": "forward", "weight": 1.0},
+    {"source": "file:benchmark/bench_file_system.cpp", "target": "function:benchmark/bench_file_system.cpp:BM_FileSystem_ResolvePath", "type": "contains", "direction": "forward", "weight": 1.0},
+    {"source": "file:benchmark/bench_file_system.cpp", "target": "function:benchmark/bench_file_system.cpp:create_temp_file", "type": "exports", "direction": "forward", "weight": 0.8},
+    {"source": "function:benchmark/bench_file_system.cpp:BM_FileSystem_Sha256", "target": "function:benchmark/bench_file_system.cpp:create_temp_file", "type": "calls", "direction": "forward", "weight": 0.8},
+    {"source": "function:benchmark/bench_file_system.cpp:BM_FileSystem_SplitFile", "target": "function:benchmark/bench_file_system.cpp:create_temp_file", "type": "calls", "direction": "forward", "weight": 0.8},
+    {"source": "file:benchmark/bench_http_parser.cpp", "target": "function:benchmark/bench_http_parser.cpp:make_get_request", "type": "contains", "direction": "forward", "weight": 1.0},
+    {"source": "file:benchmark/bench_http_parser.cpp", "target": "function:benchmark/bench_http_parser.cpp:make_post_request", "type": "contains", "direction": "forward", "weight": 1.0},
+    {"source": "file:benchmark/bench_http_parser.cpp", "target": "function:benchmark/bench_http_parser.cpp:BM_HttpParser_ManyHeaders", "type": "contains", "direction": "forward", "weight": 1.0},
+    {"source": "file:benchmark/bench_http_parser.cpp", "target": "function:benchmark/bench_http_parser.cpp:make_get_request", "type": "exports", "direction": "forward", "weight": 0.8},
+    {"source": "file:benchmark/bench_http_parser.cpp", "target": "function:benchmark/bench_http_parser.cpp:make_post_request", "type": "exports", "direction": "forward", "weight": 0.8},
+    {"source": "file:benchmark/bench_http_server.cpp", "target": "class:benchmark/bench_http_server.cpp:HttpServerBench", "type": "contains", "direction": "forward", "weight": 1.0},
+    {"source": "file:benchmark/bench_http_server.cpp", "target": "function:benchmark/bench_http_server.cpp:SetUp", "type": "contains", "direction": "forward", "weight": 1.0},
+    {"source": "file:benchmark/bench_http_server.cpp", "target": "function:benchmark/bench_http_server.cpp:TearDown", "type": "contains", "direction": "forward", "weight": 1.0},
+    {"source": "file:benchmark/bench_http_server.cpp", "target": "function:benchmark/bench_http_server.cpp:make_get", "type": "contains", "direction": "forward", "weight": 1.0},
+    {"source": "file:benchmark/bench_http_server.cpp", "target": "function:benchmark/bench_http_server.cpp:make_post", "type": "contains", "direction": "forward", "weight": 1.0},
+    {"source": "file:benchmark/bench_http_server.cpp", "target": "function:benchmark/bench_http_server.cpp:make_pipelined", "type": "contains", "direction": "forward", "weight": 1.0},
+    {"source": "file:benchmark/bench_http_server.cpp", "target": "function:benchmark/bench_http_server.cpp:BENCHMARK_DEFINE_F(HttpServerBench, HttpGet)", "type": "contains", "direction": "forward", "weight": 1.0},
+    {"source": "file:benchmark/bench_http_server.cpp", "target": "function:benchmark/bench_http_server.cpp:BENCHMARK_DEFINE_F(HttpServerBench, HttpPost)", "type": "contains", "direction": "forward", "weight": 1.0},
+    {"source": "file:benchmark/bench_http_server.cpp", "target": "function:benchmark/bench_http_server.cpp:BENCHMARK_DEFINE_F(HttpServerBench, HttpPostLargeBody)", "type": "contains", "direction": "forward", "weight": 1.0},
+    {"source": "file:benchmark/bench_http_server.cpp", "target": "function:benchmark/bench_http_server.cpp:BENCHMARK_DEFINE_F(HttpServerBench, HttpPipelined)", "type": "contains", "direction": "forward", "weight": 1.0},
+    {"source": "file:benchmark/bench_http_server.cpp", "target": "class:benchmark/bench_http_server.cpp:HttpServerBench", "type": "exports", "direction": "forward", "weight": 0.8},
+    {"source": "file:benchmark/bench_http_server.cpp", "target": "function:benchmark/bench_http_server.cpp:SetUp", "type": "exports", "direction": "forward", "weight": 0.8},
+    {"source": "file:benchmark/bench_http_server.cpp", "target": "function:benchmark/bench_http_server.cpp:TearDown", "type": "exports", "direction": "forward", "weight": 0.8},
+    {"source": "file:benchmark/bench_http_server.cpp", "target": "function:benchmark/bench_http_server.cpp:make_get", "type": "exports", "direction": "forward", "weight": 0.8},
+    {"source": "file:benchmark/bench_http_server.cpp", "target": "function:benchmark/bench_http_server.cpp:make_post", "type": "exports", "direction": "forward", "weight": 0.8},
+    {"source": "file:benchmark/bench_http_server.cpp", "target": "function:benchmark/bench_http_server.cpp:make_pipelined", "type": "exports", "direction": "forward", "weight": 0.8},
+    {"source": "file:benchmark/bench_http_server.cpp", "target": "function:benchmark/bench_http_server.cpp:BENCHMARK_DEFINE_F(HttpServerBench, HttpGet)", "type": "exports", "direction": "forward", "weight": 0.8},
+    {"source": "file:benchmark/bench_http_server.cpp", "target": "function:benchmark/bench_http_server.cpp:BENCHMARK_DEFINE_F(HttpServerBench, HttpPost)", "type": "exports", "direction": "forward", "weight": 0.8},
+    {"source": "file:benchmark/bench_http_server.cpp", "target": "function:benchmark/bench_http_server.cpp:BENCHMARK_DEFINE_F(HttpServerBench, HttpPostLargeBody)", "type": "exports", "direction": "forward", "weight": 0.8},
+    {"source": "file:benchmark/bench_http_server.cpp", "target": "function:benchmark/bench_http_server.cpp:BENCHMARK_DEFINE_F(HttpServerBench, HttpPipelined)", "type": "exports", "direction": "forward", "weight": 0.8},
+    {"source": "function:benchmark/bench_http_server.cpp:BENCHMARK_DEFINE_F(HttpServerBench, HttpGet)", "target": "function:benchmark/bench_http_server.cpp:make_get", "type": "calls", "direction": "forward", "weight": 0.8},
+    {"source": "function:benchmark/bench_http_server.cpp:BENCHMARK_DEFINE_F(HttpServerBench, HttpPost)", "target": "function:benchmark/bench_http_server.cpp:make_post", "type": "calls", "direction": "forward", "weight": 0.8},
+    {"source": "function:benchmark/bench_http_server.cpp:BENCHMARK_DEFINE_F(HttpServerBench, HttpPostLargeBody)", "target": "function:benchmark/bench_http_server.cpp:make_post", "type": "calls", "direction": "forward", "weight": 0.8},
+    {"source": "function:benchmark/bench_http_server.cpp:BENCHMARK_DEFINE_F(HttpServerBench, HttpPipelined)", "target": "function:benchmark/bench_http_server.cpp:make_pipelined", "type": "calls", "direction": "forward", "weight": 0.8},
+    {"source": "file:benchmark/bench_lock_free_queue.cpp", "target": "function:benchmark/bench_lock_free_queue.cpp:BM_LFQ_MPSC_Contention", "type": "contains", "direction": "forward", "weight": 1.0},
+    {"source": "file:benchmark/bench_lock_free_queue.cpp", "target": "function:benchmark/bench_lock_free_queue.cpp:BM_LFQ_HighContention", "type": "contains", "direction": "forward", "weight": 1.0}
+  ]
+}

@@ -1,0 +1,4444 @@
+{
+  "scriptCompleted": true,
+  "filesAnalyzed": 9,
+  "filesSkipped": [],
+  "results": [
+    {
+      "path": "frontend/tests/styles/designTokens.test.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 106,
+      "nonEmptyLines": 90,
+      "functions": [
+        {
+          "name": "cssBlock",
+          "startLine": 8,
+          "endLine": 11,
+          "params": [
+            "selector"
+          ]
+        },
+        {
+          "name": "token",
+          "startLine": 13,
+          "endLine": 15,
+          "params": [
+            "block",
+            "name"
+          ]
+        },
+        {
+          "name": "relativeLuminance",
+          "startLine": 17,
+          "endLine": 21,
+          "params": [
+            "hex"
+          ]
+        },
+        {
+          "name": "contrast",
+          "startLine": 23,
+          "endLine": 27,
+          "params": [
+            "foreground",
+            "background"
+          ]
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "cssBlock",
+          "callee": "selector.replace",
+          "lineNumber": 9
+        },
+        {
+          "caller": "cssBlock",
+          "callee": "css.match",
+          "lineNumber": 10
+        },
+        {
+          "caller": "token",
+          "callee": "block.match",
+          "lineNumber": 14
+        },
+        {
+          "caller": "relativeLuminance",
+          "callee": "hex.slice(1).match(/.{2}/g)?.map",
+          "lineNumber": 18
+        },
+        {
+          "caller": "relativeLuminance",
+          "callee": "hex.slice(1).match",
+          "lineNumber": 18
+        },
+        {
+          "caller": "relativeLuminance",
+          "callee": "hex.slice",
+          "lineNumber": 18
+        },
+        {
+          "caller": "relativeLuminance",
+          "callee": "Number.parseInt",
+          "lineNumber": 18
+        },
+        {
+          "caller": "relativeLuminance",
+          "callee": "channels.map",
+          "lineNumber": 19
+        },
+        {
+          "caller": "contrast",
+          "callee": "Math.max",
+          "lineNumber": 24
+        },
+        {
+          "caller": "contrast",
+          "callee": "relativeLuminance",
+          "lineNumber": 24
+        },
+        {
+          "caller": "contrast",
+          "callee": "relativeLuminance",
+          "lineNumber": 24
+        },
+        {
+          "caller": "contrast",
+          "callee": "Math.min",
+          "lineNumber": 25
+        },
+        {
+          "caller": "contrast",
+          "callee": "relativeLuminance",
+          "lineNumber": 25
+        },
+        {
+          "caller": "contrast",
+          "callee": "relativeLuminance",
+          "lineNumber": 25
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 4,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "frontend/vite.config.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 14,
+      "nonEmptyLines": 13,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "logger/src/logger.cpp",
+      "language": "cpp",
+      "fileCategory": "code",
+      "totalLines": 153,
+      "nonEmptyLines": 124,
+      "functions": [
+        {
+          "name": "LogEvent",
+          "startLine": 28,
+          "endLine": 50,
+          "params": [
+            "content",
+            "logger_name",
+            "loc"
+          ]
+        },
+        {
+          "name": "Logger",
+          "startLine": 52,
+          "endLine": 52,
+          "params": [
+            "name"
+          ]
+        },
+        {
+          "name": "createEvent",
+          "startLine": 54,
+          "endLine": 56,
+          "params": [
+            "content",
+            "loc"
+          ]
+        },
+        {
+          "name": "allocCoroutineId",
+          "startLine": 58,
+          "endLine": 60,
+          "params": []
+        },
+        {
+          "name": "setCurrentCoroutineId",
+          "startLine": 62,
+          "endLine": 64,
+          "params": [
+            "id"
+          ]
+        },
+        {
+          "name": "getCurrentCoroutineId",
+          "startLine": 66,
+          "endLine": 68,
+          "params": []
+        },
+        {
+          "name": "CoroutineScope::CoroutineScope",
+          "startLine": 70,
+          "endLine": 72,
+          "params": [
+            "id"
+          ]
+        },
+        {
+          "name": "CoroutineScope::~CoroutineScope",
+          "startLine": 74,
+          "endLine": 76,
+          "params": []
+        },
+        {
+          "name": "log",
+          "startLine": 78,
+          "endLine": 90,
+          "params": [
+            "level",
+            "event"
+          ]
+        },
+        {
+          "name": "debug",
+          "startLine": 92,
+          "endLine": 94,
+          "params": [
+            "msg",
+            "loc"
+          ]
+        },
+        {
+          "name": "info",
+          "startLine": 96,
+          "endLine": 98,
+          "params": [
+            "msg",
+            "loc"
+          ]
+        },
+        {
+          "name": "warn",
+          "startLine": 100,
+          "endLine": 102,
+          "params": [
+            "msg",
+            "loc"
+          ]
+        },
+        {
+          "name": "error",
+          "startLine": 104,
+          "endLine": 106,
+          "params": [
+            "msg",
+            "loc"
+          ]
+        },
+        {
+          "name": "fatal",
+          "startLine": 108,
+          "endLine": 110,
+          "params": [
+            "msg",
+            "loc"
+          ]
+        },
+        {
+          "name": "addAppender",
+          "startLine": 112,
+          "endLine": 118,
+          "params": [
+            "appender"
+          ]
+        },
+        {
+          "name": "delAppender",
+          "startLine": 120,
+          "endLine": 126,
+          "params": [
+            "appender"
+          ]
+        },
+        {
+          "name": "init",
+          "startLine": 131,
+          "endLine": 140,
+          "params": [
+            "name"
+          ]
+        },
+        {
+          "name": "shutdown",
+          "startLine": 142,
+          "endLine": 144,
+          "params": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "LogEvent",
+          "line": 28,
+          "isDefault": false
+        },
+        {
+          "name": "Logger",
+          "line": 52,
+          "isDefault": false
+        },
+        {
+          "name": "createEvent",
+          "line": 54,
+          "isDefault": false
+        },
+        {
+          "name": "allocCoroutineId",
+          "line": 58,
+          "isDefault": false
+        },
+        {
+          "name": "setCurrentCoroutineId",
+          "line": 62,
+          "isDefault": false
+        },
+        {
+          "name": "getCurrentCoroutineId",
+          "line": 66,
+          "isDefault": false
+        },
+        {
+          "name": "CoroutineScope::CoroutineScope",
+          "line": 70,
+          "isDefault": false
+        },
+        {
+          "name": "CoroutineScope::~CoroutineScope",
+          "line": 74,
+          "isDefault": false
+        },
+        {
+          "name": "log",
+          "line": 78,
+          "isDefault": false
+        },
+        {
+          "name": "debug",
+          "line": 92,
+          "isDefault": false
+        },
+        {
+          "name": "info",
+          "line": 96,
+          "isDefault": false
+        },
+        {
+          "name": "warn",
+          "line": 100,
+          "isDefault": false
+        },
+        {
+          "name": "error",
+          "line": 104,
+          "isDefault": false
+        },
+        {
+          "name": "fatal",
+          "line": 108,
+          "isDefault": false
+        },
+        {
+          "name": "addAppender",
+          "line": 112,
+          "isDefault": false
+        },
+        {
+          "name": "delAppender",
+          "line": 120,
+          "isDefault": false
+        },
+        {
+          "name": "init",
+          "line": 131,
+          "isDefault": false
+        },
+        {
+          "name": "shutdown",
+          "line": 142,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "LogEvent",
+          "callee": "file_name",
+          "lineNumber": 29
+        },
+        {
+          "caller": "LogEvent",
+          "callee": "static_cast<int32_t>",
+          "lineNumber": 30
+        },
+        {
+          "caller": "LogEvent",
+          "callee": "line",
+          "lineNumber": 30
+        },
+        {
+          "caller": "LogEvent",
+          "callee": "Logger::getCurrentCoroutineId",
+          "lineNumber": 31
+        },
+        {
+          "caller": "LogEvent",
+          "callee": "std::this_thread::get_id",
+          "lineNumber": 36
+        },
+        {
+          "caller": "LogEvent",
+          "callee": "static_cast<uint32_t>",
+          "lineNumber": 39
+        },
+        {
+          "caller": "LogEvent",
+          "callee": "std::hash<std::string>{}",
+          "lineNumber": 39
+        },
+        {
+          "caller": "LogEvent",
+          "callee": "str",
+          "lineNumber": 39
+        },
+        {
+          "caller": "LogEvent",
+          "callee": "std::chrono::system_clock::now",
+          "lineNumber": 44
+        },
+        {
+          "caller": "LogEvent",
+          "callee": "std::chrono::system_clock::to_time_t",
+          "lineNumber": 45
+        },
+        {
+          "caller": "LogEvent",
+          "callee": "std::chrono::high_resolution_clock::now",
+          "lineNumber": 48
+        },
+        {
+          "caller": "LogEvent",
+          "callee": "count",
+          "lineNumber": 49
+        },
+        {
+          "caller": "LogEvent",
+          "callee": "std::chrono::duration_cast<std::chrono::milliseconds>",
+          "lineNumber": 49
+        },
+        {
+          "caller": "createEvent",
+          "callee": "std::make_shared<LogEvent>",
+          "lineNumber": 55
+        },
+        {
+          "caller": "allocCoroutineId",
+          "callee": "fetch_add",
+          "lineNumber": 59
+        },
+        {
+          "caller": "CoroutineScope::CoroutineScope",
+          "callee": "Logger::getCurrentCoroutineId",
+          "lineNumber": 70
+        },
+        {
+          "caller": "CoroutineScope::CoroutineScope",
+          "callee": "Logger::setCurrentCoroutineId",
+          "lineNumber": 71
+        },
+        {
+          "caller": "CoroutineScope::~CoroutineScope",
+          "callee": "Logger::setCurrentCoroutineId",
+          "lineNumber": 75
+        },
+        {
+          "caller": "log",
+          "callee": "load",
+          "lineNumber": 79
+        },
+        {
+          "caller": "log",
+          "callee": "assign",
+          "lineNumber": 85
+        },
+        {
+          "caller": "log",
+          "callee": "begin",
+          "lineNumber": 85
+        },
+        {
+          "caller": "log",
+          "callee": "end",
+          "lineNumber": 85
+        },
+        {
+          "caller": "log",
+          "callee": "log",
+          "lineNumber": 88
+        },
+        {
+          "caller": "debug",
+          "callee": "log",
+          "lineNumber": 93
+        },
+        {
+          "caller": "debug",
+          "callee": "createEvent",
+          "lineNumber": 93
+        },
+        {
+          "caller": "info",
+          "callee": "log",
+          "lineNumber": 97
+        },
+        {
+          "caller": "info",
+          "callee": "createEvent",
+          "lineNumber": 97
+        },
+        {
+          "caller": "warn",
+          "callee": "log",
+          "lineNumber": 101
+        },
+        {
+          "caller": "warn",
+          "callee": "createEvent",
+          "lineNumber": 101
+        },
+        {
+          "caller": "error",
+          "callee": "log",
+          "lineNumber": 105
+        },
+        {
+          "caller": "error",
+          "callee": "createEvent",
+          "lineNumber": 105
+        },
+        {
+          "caller": "fatal",
+          "callee": "log",
+          "lineNumber": 109
+        },
+        {
+          "caller": "fatal",
+          "callee": "createEvent",
+          "lineNumber": 109
+        },
+        {
+          "caller": "addAppender",
+          "callee": "emplace_back",
+          "lineNumber": 117
+        },
+        {
+          "caller": "delAppender",
+          "callee": "std::ranges::find",
+          "lineNumber": 122
+        },
+        {
+          "caller": "delAppender",
+          "callee": "end",
+          "lineNumber": 123
+        },
+        {
+          "caller": "delAppender",
+          "callee": "erase",
+          "lineNumber": 124
+        },
+        {
+          "caller": "init",
+          "callee": "std::call_once",
+          "lineNumber": 132
+        },
+        {
+          "caller": "init",
+          "callee": "std::unique_ptr<Logger>",
+          "lineNumber": 133
+        },
+        {
+          "caller": "init",
+          "callee": "std::make_shared<StdoutLogAppender>",
+          "lineNumber": 134
+        },
+        {
+          "caller": "init",
+          "callee": "std::make_shared<LogFormatter>",
+          "lineNumber": 135
+        },
+        {
+          "caller": "init",
+          "callee": "setFormatter",
+          "lineNumber": 136
+        },
+        {
+          "caller": "init",
+          "callee": "addAppender",
+          "lineNumber": 137
+        },
+        {
+          "caller": "init",
+          "callee": "setLevel",
+          "lineNumber": 138
+        },
+        {
+          "caller": "shutdown",
+          "callee": "reset",
+          "lineNumber": 143
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 18,
+        "functionCount": 18,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "memory-pool/src/tiered_memory_pool.cpp",
+      "language": "cpp",
+      "fileCategory": "code",
+      "totalLines": 307,
+      "nonEmptyLines": 256,
+      "functions": [
+        {
+          "name": "~TieredMemoryPool",
+          "startLine": 14,
+          "endLine": 26,
+          "params": []
+        },
+        {
+          "name": "ensure_registered",
+          "startLine": 28,
+          "endLine": 39,
+          "params": [
+            "cache"
+          ]
+        },
+        {
+          "name": "deallocate_impl",
+          "startLine": 88,
+          "endLine": 132,
+          "params": [
+            "ptr",
+            "size"
+          ]
+        },
+        {
+          "name": "central_allocate_batch",
+          "startLine": 134,
+          "endLine": 157,
+          "params": [
+            "classIdx"
+          ]
+        },
+        {
+          "name": "return_batch_to_central",
+          "startLine": 159,
+          "endLine": 182,
+          "params": [
+            "classIdx",
+            "head",
+            "count"
+          ]
+        },
+        {
+          "name": "try_merge_and_promote",
+          "startLine": 184,
+          "endLine": 206,
+          "params": [
+            "cache",
+            "classIdx"
+          ]
+        },
+        {
+          "name": "try_merge_in_list",
+          "startLine": 208,
+          "endLine": 253,
+          "params": [
+            "list",
+            "count",
+            "blockSize",
+            "outMerged"
+          ]
+        },
+        {
+          "name": "try_merge_central",
+          "startLine": 256,
+          "endLine": 290,
+          "params": [
+            "classIdx"
+          ]
+        },
+        {
+          "name": "page_index_of",
+          "startLine": 292,
+          "endLine": 305,
+          "params": [
+            "ptr",
+            "idx"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "~TieredMemoryPool",
+          "line": 14,
+          "isDefault": false
+        },
+        {
+          "name": "ensure_registered",
+          "line": 28,
+          "isDefault": false
+        },
+        {
+          "name": "deallocate_impl",
+          "line": 88,
+          "isDefault": false
+        },
+        {
+          "name": "central_allocate_batch",
+          "line": 134,
+          "isDefault": false
+        },
+        {
+          "name": "return_batch_to_central",
+          "line": 159,
+          "isDefault": false
+        },
+        {
+          "name": "try_merge_and_promote",
+          "line": 184,
+          "isDefault": false
+        },
+        {
+          "name": "try_merge_in_list",
+          "line": 208,
+          "isDefault": false
+        },
+        {
+          "name": "try_merge_central",
+          "line": 256,
+          "isDefault": false
+        },
+        {
+          "name": "page_index_of",
+          "line": 292,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "~TieredMemoryPool",
+          "callee": "store",
+          "lineNumber": 15
+        },
+        {
+          "caller": "~TieredMemoryPool",
+          "callee": "::operator delete",
+          "lineNumber": 23
+        },
+        {
+          "caller": "~TieredMemoryPool",
+          "callee": "clear",
+          "lineNumber": 25
+        },
+        {
+          "caller": "deallocate_impl",
+          "callee": "load",
+          "lineNumber": 93
+        },
+        {
+          "caller": "deallocate_impl",
+          "callee": "::operator delete",
+          "lineNumber": 94
+        },
+        {
+          "caller": "deallocate_impl",
+          "callee": "size_class_index",
+          "lineNumber": 98
+        },
+        {
+          "caller": "deallocate_impl",
+          "callee": "ensure_registered",
+          "lineNumber": 100
+        },
+        {
+          "caller": "deallocate_impl",
+          "callee": "static_cast<FreeNode*>",
+          "lineNumber": 102
+        },
+        {
+          "caller": "deallocate_impl",
+          "callee": "try_merge_and_promote",
+          "lineNumber": 108
+        },
+        {
+          "caller": "deallocate_impl",
+          "callee": "return_batch_to_central",
+          "lineNumber": 128
+        },
+        {
+          "caller": "central_allocate_batch",
+          "callee": "size_class_size",
+          "lineNumber": 135
+        },
+        {
+          "caller": "central_allocate_batch",
+          "callee": "::operator new",
+          "lineNumber": 137
+        },
+        {
+          "caller": "central_allocate_batch",
+          "callee": "std::lower_bound",
+          "lineNumber": 140
+        },
+        {
+          "caller": "central_allocate_batch",
+          "callee": "begin",
+          "lineNumber": 141
+        },
+        {
+          "caller": "central_allocate_batch",
+          "callee": "end",
+          "lineNumber": 141
+        },
+        {
+          "caller": "central_allocate_batch",
+          "callee": "static_cast<const char*>",
+          "lineNumber": 142
+        },
+        {
+          "caller": "central_allocate_batch",
+          "callee": "insert",
+          "lineNumber": 143
+        },
+        {
+          "caller": "central_allocate_batch",
+          "callee": "reinterpret_cast<FreeNode*>",
+          "lineNumber": 150
+        },
+        {
+          "caller": "central_allocate_batch",
+          "callee": "std::span",
+          "lineNumber": 151
+        },
+        {
+          "caller": "central_allocate_batch",
+          "callee": "static_cast<char*>",
+          "lineNumber": 151
+        },
+        {
+          "caller": "return_batch_to_central",
+          "callee": "try_merge_central",
+          "lineNumber": 180
+        },
+        {
+          "caller": "try_merge_and_promote",
+          "callee": "try_merge_in_list",
+          "lineNumber": 191
+        },
+        {
+          "caller": "try_merge_and_promote",
+          "callee": "size_class_size",
+          "lineNumber": 192
+        },
+        {
+          "caller": "try_merge_in_list",
+          "callee": "std::swap",
+          "lineNumber": 234
+        },
+        {
+          "caller": "try_merge_in_list",
+          "callee": "page_index_of",
+          "lineNumber": 239
+        },
+        {
+          "caller": "try_merge_in_list",
+          "callee": "page_index_of",
+          "lineNumber": 239
+        },
+        {
+          "caller": "try_merge_in_list",
+          "callee": "static_cast<char*>",
+          "lineNumber": 241
+        },
+        {
+          "caller": "try_merge_in_list",
+          "callee": "static_cast<char*>",
+          "lineNumber": 241
+        },
+        {
+          "caller": "try_merge_in_list",
+          "callee": "static_cast<FreeNode*>",
+          "lineNumber": 245
+        },
+        {
+          "caller": "try_merge_central",
+          "callee": "try_merge_in_list",
+          "lineNumber": 271
+        },
+        {
+          "caller": "try_merge_central",
+          "callee": "size_class_size",
+          "lineNumber": 271
+        },
+        {
+          "caller": "try_merge_central",
+          "callee": "try_merge_central",
+          "lineNumber": 287
+        },
+        {
+          "caller": "page_index_of",
+          "callee": "std::lower_bound",
+          "lineNumber": 296
+        },
+        {
+          "caller": "page_index_of",
+          "callee": "begin",
+          "lineNumber": 296
+        },
+        {
+          "caller": "page_index_of",
+          "callee": "end",
+          "lineNumber": 296
+        },
+        {
+          "caller": "page_index_of",
+          "callee": "static_cast<const char*>",
+          "lineNumber": 297
+        },
+        {
+          "caller": "page_index_of",
+          "callee": "end",
+          "lineNumber": 299
+        },
+        {
+          "caller": "page_index_of",
+          "callee": "static_cast<const char*>",
+          "lineNumber": 300
+        },
+        {
+          "caller": "page_index_of",
+          "callee": "static_cast<std::size_t>",
+          "lineNumber": 301
+        },
+        {
+          "caller": "page_index_of",
+          "callee": "std::distance",
+          "lineNumber": 301
+        },
+        {
+          "caller": "page_index_of",
+          "callee": "begin",
+          "lineNumber": 301
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 9,
+        "functionCount": 9,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "net/file-transfer/include/file_transfer.h",
+      "language": "c",
+      "fileCategory": "code",
+      "totalLines": 30,
+      "nonEmptyLines": 19,
+      "classes": [
+        {
+          "name": "IFileSystem",
+          "startLine": 10,
+          "endLine": 10,
+          "methods": [],
+          "properties": []
+        },
+        {
+          "name": "FileTransfer",
+          "startLine": 12,
+          "endLine": 28,
+          "methods": [
+            "transfer_small",
+            "transfer_large",
+            "receive_file"
+          ],
+          "properties": [
+            "kDefaultChunkSize",
+            "kMaxConcurrency",
+            "fs_",
+            "chunk_size_"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "IFileSystem",
+          "line": 10,
+          "isDefault": false
+        },
+        {
+          "name": "transfer_small",
+          "line": 16,
+          "isDefault": false
+        },
+        {
+          "name": "transfer_large",
+          "line": 18,
+          "isDefault": false
+        },
+        {
+          "name": "receive_file",
+          "line": 20,
+          "isDefault": false
+        },
+        {
+          "name": "FileTransfer",
+          "line": 12,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 5,
+        "functionCount": 0,
+        "classCount": 2
+      }
+    },
+    {
+      "path": "net/file-transfer/src/file_transfer.cpp",
+      "language": "cpp",
+      "fileCategory": "code",
+      "totalLines": 273,
+      "nonEmptyLines": 231,
+      "functions": [
+        {
+          "name": "FileTransfer",
+          "startLine": 24,
+          "endLine": 25,
+          "params": [
+            "fs",
+            "chunk_size"
+          ]
+        },
+        {
+          "name": "transfer_small",
+          "startLine": 27,
+          "endLine": 38,
+          "params": [
+            "path",
+            "client"
+          ]
+        },
+        {
+          "name": "transfer_large",
+          "startLine": 40,
+          "endLine": 110,
+          "params": [
+            "path",
+            "peer_ip",
+            "peer_port"
+          ]
+        },
+        {
+          "name": "setup_listen_socket",
+          "startLine": 115,
+          "endLine": 148,
+          "params": [
+            "listen_fd",
+            "port"
+          ]
+        },
+        {
+          "name": "accept_and_receive_chunk",
+          "startLine": 151,
+          "endLine": 232,
+          "params": [
+            "listen_fd",
+            "file_fd"
+          ]
+        },
+        {
+          "name": "receive_file",
+          "startLine": 236,
+          "endLine": 271,
+          "params": [
+            "save_path"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "FileTransfer",
+          "line": 24,
+          "isDefault": false
+        },
+        {
+          "name": "transfer_small",
+          "line": 27,
+          "isDefault": false
+        },
+        {
+          "name": "transfer_large",
+          "line": 40,
+          "isDefault": false
+        },
+        {
+          "name": "setup_listen_socket",
+          "line": 115,
+          "isDefault": false
+        },
+        {
+          "name": "accept_and_receive_chunk",
+          "line": 151,
+          "isDefault": false
+        },
+        {
+          "name": "receive_file",
+          "line": 236,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "FileTransfer",
+          "callee": "std::move",
+          "lineNumber": 25
+        },
+        {
+          "caller": "transfer_small",
+          "callee": "is_connected",
+          "lineNumber": 28
+        },
+        {
+          "caller": "transfer_small",
+          "callee": "Logger::_error",
+          "lineNumber": 29
+        },
+        {
+          "caller": "transfer_small",
+          "callee": "read_file",
+          "lineNumber": 32
+        },
+        {
+          "caller": "transfer_small",
+          "callee": "Logger::_error",
+          "lineNumber": 34
+        },
+        {
+          "caller": "transfer_small",
+          "callee": "send_message",
+          "lineNumber": 37
+        },
+        {
+          "caller": "transfer_small",
+          "callee": "std::string",
+          "lineNumber": 37
+        },
+        {
+          "caller": "transfer_small",
+          "callee": "data",
+          "lineNumber": 37
+        },
+        {
+          "caller": "transfer_small",
+          "callee": "size",
+          "lineNumber": 37
+        },
+        {
+          "caller": "transfer_large",
+          "callee": "split_file",
+          "lineNumber": 41
+        },
+        {
+          "caller": "transfer_large",
+          "callee": "empty",
+          "lineNumber": 42
+        },
+        {
+          "caller": "transfer_large",
+          "callee": "Logger::_error",
+          "lineNumber": 43
+        },
+        {
+          "caller": "transfer_large",
+          "callee": "std::accumulate",
+          "lineNumber": 48
+        },
+        {
+          "caller": "transfer_large",
+          "callee": "cbegin",
+          "lineNumber": 48
+        },
+        {
+          "caller": "transfer_large",
+          "callee": "cend",
+          "lineNumber": 48
+        },
+        {
+          "caller": "transfer_large",
+          "callee": "size",
+          "lineNumber": 53
+        },
+        {
+          "caller": "transfer_large",
+          "callee": "size",
+          "lineNumber": 54
+        },
+        {
+          "caller": "transfer_large",
+          "callee": "str",
+          "lineNumber": 57
+        },
+        {
+          "caller": "transfer_large",
+          "callee": "pipe",
+          "lineNumber": 61
+        },
+        {
+          "caller": "transfer_large",
+          "callee": "data",
+          "lineNumber": 61
+        },
+        {
+          "caller": "transfer_large",
+          "callee": "Logger::_error",
+          "lineNumber": 62
+        },
+        {
+          "caller": "transfer_large",
+          "callee": "std::string",
+          "lineNumber": 62
+        },
+        {
+          "caller": "transfer_large",
+          "callee": "std::strerror",
+          "lineNumber": 62
+        },
+        {
+          "caller": "transfer_large",
+          "callee": "fork",
+          "lineNumber": 66
+        },
+        {
+          "caller": "transfer_large",
+          "callee": "Logger::_error",
+          "lineNumber": 68
+        },
+        {
+          "caller": "transfer_large",
+          "callee": "std::string",
+          "lineNumber": 68
+        },
+        {
+          "caller": "transfer_large",
+          "callee": "std::strerror",
+          "lineNumber": 68
+        },
+        {
+          "caller": "transfer_large",
+          "callee": "close",
+          "lineNumber": 69
+        },
+        {
+          "caller": "transfer_large",
+          "callee": "close",
+          "lineNumber": 70
+        },
+        {
+          "caller": "transfer_large",
+          "callee": "close",
+          "lineNumber": 75
+        },
+        {
+          "caller": "transfer_large",
+          "callee": "dup2",
+          "lineNumber": 76
+        },
+        {
+          "caller": "transfer_large",
+          "callee": "close",
+          "lineNumber": 77
+        },
+        {
+          "caller": "transfer_large",
+          "callee": "close",
+          "lineNumber": 79
+        },
+        {
+          "caller": "transfer_large",
+          "callee": "execlp",
+          "lineNumber": 82
+        },
+        {
+          "caller": "transfer_large",
+          "callee": "Logger::_error",
+          "lineNumber": 83
+        },
+        {
+          "caller": "transfer_large",
+          "callee": "std::string",
+          "lineNumber": 83
+        },
+        {
+          "caller": "transfer_large",
+          "callee": "std::strerror",
+          "lineNumber": 83
+        },
+        {
+          "caller": "transfer_large",
+          "callee": "_exit",
+          "lineNumber": 84
+        },
+        {
+          "caller": "transfer_large",
+          "callee": "close",
+          "lineNumber": 87
+        },
+        {
+          "caller": "transfer_large",
+          "callee": "c_str",
+          "lineNumber": 88
+        },
+        {
+          "caller": "transfer_large",
+          "callee": "size",
+          "lineNumber": 89
+        },
+        {
+          "caller": "transfer_large",
+          "callee": "write",
+          "lineNumber": 91
+        },
+        {
+          "caller": "transfer_large",
+          "callee": "static_cast<std::size_t>",
+          "lineNumber": 98
+        },
+        {
+          "caller": "transfer_large",
+          "callee": "close",
+          "lineNumber": 100
+        },
+        {
+          "caller": "transfer_large",
+          "callee": "waitpid",
+          "lineNumber": 103
+        },
+        {
+          "caller": "transfer_large",
+          "callee": "WIFEXITED",
+          "lineNumber": 105
+        },
+        {
+          "caller": "transfer_large",
+          "callee": "WEXITSTATUS",
+          "lineNumber": 105
+        },
+        {
+          "caller": "transfer_large",
+          "callee": "Logger::_error",
+          "lineNumber": 106
+        },
+        {
+          "caller": "transfer_large",
+          "callee": "std::to_string",
+          "lineNumber": 106
+        },
+        {
+          "caller": "setup_listen_socket",
+          "callee": "socket",
+          "lineNumber": 116
+        },
+        {
+          "caller": "setup_listen_socket",
+          "callee": "setsockopt",
+          "lineNumber": 121
+        },
+        {
+          "caller": "setup_listen_socket",
+          "callee": "htonl",
+          "lineNumber": 126
+        },
+        {
+          "caller": "setup_listen_socket",
+          "callee": "bind",
+          "lineNumber": 129
+        },
+        {
+          "caller": "setup_listen_socket",
+          "callee": "reinterpret_cast<struct sockaddr*>",
+          "lineNumber": 129
+        },
+        {
+          "caller": "setup_listen_socket",
+          "callee": "close",
+          "lineNumber": 130
+        },
+        {
+          "caller": "setup_listen_socket",
+          "callee": "getsockname",
+          "lineNumber": 137
+        },
+        {
+          "caller": "setup_listen_socket",
+          "callee": "reinterpret_cast<struct sockaddr*>",
+          "lineNumber": 137
+        },
+        {
+          "caller": "setup_listen_socket",
+          "callee": "close",
+          "lineNumber": 138
+        },
+        {
+          "caller": "setup_listen_socket",
+          "callee": "ntohs",
+          "lineNumber": 141
+        },
+        {
+          "caller": "setup_listen_socket",
+          "callee": "listen",
+          "lineNumber": 143
+        },
+        {
+          "caller": "setup_listen_socket",
+          "callee": "close",
+          "lineNumber": 144
+        },
+        {
+          "caller": "accept_and_receive_chunk",
+          "callee": "accept4",
+          "lineNumber": 155
+        },
+        {
+          "caller": "accept_and_receive_chunk",
+          "callee": "reinterpret_cast<struct sockaddr*>",
+          "lineNumber": 155
+        },
+        {
+          "caller": "accept_and_receive_chunk",
+          "callee": "poll",
+          "lineNumber": 162
+        },
+        {
+          "caller": "accept_and_receive_chunk",
+          "callee": "data",
+          "lineNumber": 170
+        },
+        {
+          "caller": "accept_and_receive_chunk",
+          "callee": "read",
+          "lineNumber": 172
+        },
+        {
+          "caller": "accept_and_receive_chunk",
+          "callee": "poll",
+          "lineNumber": 178
+        },
+        {
+          "caller": "accept_and_receive_chunk",
+          "callee": "close",
+          "lineNumber": 181
+        },
+        {
+          "caller": "accept_and_receive_chunk",
+          "callee": "static_cast<std::size_t>",
+          "lineNumber": 185
+        },
+        {
+          "caller": "accept_and_receive_chunk",
+          "callee": "std::memcpy",
+          "lineNumber": 189
+        },
+        {
+          "caller": "accept_and_receive_chunk",
+          "callee": "data",
+          "lineNumber": 189
+        },
+        {
+          "caller": "accept_and_receive_chunk",
+          "callee": "std::memcpy",
+          "lineNumber": 190
+        },
+        {
+          "caller": "accept_and_receive_chunk",
+          "callee": "data",
+          "lineNumber": 190
+        },
+        {
+          "caller": "accept_and_receive_chunk",
+          "callee": "std::memcpy",
+          "lineNumber": 191
+        },
+        {
+          "caller": "accept_and_receive_chunk",
+          "callee": "data",
+          "lineNumber": 191
+        },
+        {
+          "caller": "accept_and_receive_chunk",
+          "callee": "std::memcpy",
+          "lineNumber": 192
+        },
+        {
+          "caller": "accept_and_receive_chunk",
+          "callee": "data",
+          "lineNumber": 192
+        },
+        {
+          "caller": "accept_and_receive_chunk",
+          "callee": "std::memcpy",
+          "lineNumber": 193
+        },
+        {
+          "caller": "accept_and_receive_chunk",
+          "callee": "data",
+          "lineNumber": 193
+        },
+        {
+          "caller": "accept_and_receive_chunk",
+          "callee": "from_network",
+          "lineNumber": 194
+        },
+        {
+          "caller": "accept_and_receive_chunk",
+          "callee": "Logger::_error",
+          "lineNumber": 197
+        },
+        {
+          "caller": "accept_and_receive_chunk",
+          "callee": "close",
+          "lineNumber": 198
+        },
+        {
+          "caller": "accept_and_receive_chunk",
+          "callee": "data",
+          "lineNumber": 204
+        },
+        {
+          "caller": "accept_and_receive_chunk",
+          "callee": "read",
+          "lineNumber": 206
+        },
+        {
+          "caller": "accept_and_receive_chunk",
+          "callee": "poll",
+          "lineNumber": 212
+        },
+        {
+          "caller": "accept_and_receive_chunk",
+          "callee": "close",
+          "lineNumber": 215
+        },
+        {
+          "caller": "accept_and_receive_chunk",
+          "callee": "static_cast<std::size_t>",
+          "lineNumber": 219
+        },
+        {
+          "caller": "accept_and_receive_chunk",
+          "callee": "pwrite",
+          "lineNumber": 222
+        },
+        {
+          "caller": "accept_and_receive_chunk",
+          "callee": "data",
+          "lineNumber": 222
+        },
+        {
+          "caller": "accept_and_receive_chunk",
+          "callee": "static_cast<off_t>",
+          "lineNumber": 222
+        },
+        {
+          "caller": "accept_and_receive_chunk",
+          "callee": "static_cast<std::size_t>",
+          "lineNumber": 223
+        },
+        {
+          "caller": "accept_and_receive_chunk",
+          "callee": "close",
+          "lineNumber": 224
+        },
+        {
+          "caller": "accept_and_receive_chunk",
+          "callee": "close",
+          "lineNumber": 228
+        },
+        {
+          "caller": "accept_and_receive_chunk",
+          "callee": "Logger::_info",
+          "lineNumber": 230
+        },
+        {
+          "caller": "accept_and_receive_chunk",
+          "callee": "std::to_string",
+          "lineNumber": 230
+        },
+        {
+          "caller": "accept_and_receive_chunk",
+          "callee": "std::to_string",
+          "lineNumber": 230
+        },
+        {
+          "caller": "receive_file",
+          "callee": "setup_listen_socket",
+          "lineNumber": 239
+        },
+        {
+          "caller": "receive_file",
+          "callee": "Logger::_error",
+          "lineNumber": 240
+        },
+        {
+          "caller": "receive_file",
+          "callee": "Logger::_info",
+          "lineNumber": 244
+        },
+        {
+          "caller": "receive_file",
+          "callee": "std::to_string",
+          "lineNumber": 244
+        },
+        {
+          "caller": "receive_file",
+          "callee": "open",
+          "lineNumber": 248
+        },
+        {
+          "caller": "receive_file",
+          "callee": "c_str",
+          "lineNumber": 248
+        },
+        {
+          "caller": "receive_file",
+          "callee": "Logger::_error",
+          "lineNumber": 250
+        },
+        {
+          "caller": "receive_file",
+          "callee": "close",
+          "lineNumber": 251
+        },
+        {
+          "caller": "receive_file",
+          "callee": "accept_and_receive_chunk",
+          "lineNumber": 257
+        },
+        {
+          "caller": "receive_file",
+          "callee": "close",
+          "lineNumber": 263
+        },
+        {
+          "caller": "receive_file",
+          "callee": "close",
+          "lineNumber": 264
+        },
+        {
+          "caller": "receive_file",
+          "callee": "unlink",
+          "lineNumber": 267
+        },
+        {
+          "caller": "receive_file",
+          "callee": "c_str",
+          "lineNumber": 267
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 6,
+        "functionCount": 6,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "net/http/src/http_parser.cpp",
+      "language": "cpp",
+      "fileCategory": "code",
+      "totalLines": 330,
+      "nonEmptyLines": 305,
+      "functions": [
+        {
+          "name": "HttpParser",
+          "startLine": 7,
+          "endLine": 9,
+          "params": []
+        },
+        {
+          "name": "reset",
+          "startLine": 11,
+          "endLine": 27,
+          "params": []
+        },
+        {
+          "name": "reset_line_buf",
+          "startLine": 29,
+          "endLine": 31,
+          "params": []
+        },
+        {
+          "name": "feed",
+          "startLine": 33,
+          "endLine": 70,
+          "params": [
+            "data"
+          ]
+        },
+        {
+          "name": "feed_request_line",
+          "startLine": 74,
+          "endLine": 109,
+          "params": [
+            "c"
+          ]
+        },
+        {
+          "name": "handle_end_of_headers",
+          "startLine": 113,
+          "endLine": 151,
+          "params": []
+        },
+        {
+          "name": "parse_header_line",
+          "startLine": 153,
+          "endLine": 169,
+          "params": []
+        },
+        {
+          "name": "feed_headers",
+          "startLine": 171,
+          "endLine": 190,
+          "params": [
+            "c"
+          ]
+        },
+        {
+          "name": "flush_chunk_buf",
+          "startLine": 194,
+          "endLine": 202,
+          "params": []
+        },
+        {
+          "name": "finish_body",
+          "startLine": 204,
+          "endLine": 215,
+          "params": []
+        },
+        {
+          "name": "append_body_byte",
+          "startLine": 217,
+          "endLine": 226,
+          "params": [
+            "c"
+          ]
+        },
+        {
+          "name": "feed_body_identity",
+          "startLine": 228,
+          "endLine": 249,
+          "params": [
+            "c"
+          ]
+        },
+        {
+          "name": "feed_chunk_size",
+          "startLine": 253,
+          "endLine": 286,
+          "params": [
+            "c"
+          ]
+        },
+        {
+          "name": "feed_chunk_data",
+          "startLine": 288,
+          "endLine": 312,
+          "params": [
+            "c"
+          ]
+        },
+        {
+          "name": "feed_chunk_trailer",
+          "startLine": 314,
+          "endLine": 328,
+          "params": [
+            "c"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "HttpParser",
+          "line": 7,
+          "isDefault": false
+        },
+        {
+          "name": "reset",
+          "line": 11,
+          "isDefault": false
+        },
+        {
+          "name": "reset_line_buf",
+          "line": 29,
+          "isDefault": false
+        },
+        {
+          "name": "feed",
+          "line": 33,
+          "isDefault": false
+        },
+        {
+          "name": "feed_request_line",
+          "line": 74,
+          "isDefault": false
+        },
+        {
+          "name": "handle_end_of_headers",
+          "line": 113,
+          "isDefault": false
+        },
+        {
+          "name": "parse_header_line",
+          "line": 153,
+          "isDefault": false
+        },
+        {
+          "name": "feed_headers",
+          "line": 171,
+          "isDefault": false
+        },
+        {
+          "name": "flush_chunk_buf",
+          "line": 194,
+          "isDefault": false
+        },
+        {
+          "name": "finish_body",
+          "line": 204,
+          "isDefault": false
+        },
+        {
+          "name": "append_body_byte",
+          "line": 217,
+          "isDefault": false
+        },
+        {
+          "name": "feed_body_identity",
+          "line": 228,
+          "isDefault": false
+        },
+        {
+          "name": "feed_chunk_size",
+          "line": 253,
+          "isDefault": false
+        },
+        {
+          "name": "feed_chunk_data",
+          "line": 288,
+          "isDefault": false
+        },
+        {
+          "name": "feed_chunk_trailer",
+          "line": 314,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "HttpParser",
+          "callee": "reset",
+          "lineNumber": 8
+        },
+        {
+          "caller": "reset",
+          "callee": "clear",
+          "lineNumber": 14
+        },
+        {
+          "caller": "reset",
+          "callee": "reset_line_buf",
+          "lineNumber": 15
+        },
+        {
+          "caller": "reset",
+          "callee": "clear",
+          "lineNumber": 25
+        },
+        {
+          "caller": "reset",
+          "callee": "static_cast<std::size_t>",
+          "lineNumber": 26
+        },
+        {
+          "caller": "reset_line_buf",
+          "callee": "clear",
+          "lineNumber": 30
+        },
+        {
+          "caller": "feed",
+          "callee": "size",
+          "lineNumber": 38
+        },
+        {
+          "caller": "feed",
+          "callee": "feed_request_line",
+          "lineNumber": 42
+        },
+        {
+          "caller": "feed",
+          "callee": "feed_headers",
+          "lineNumber": 45
+        },
+        {
+          "caller": "feed",
+          "callee": "feed_body_identity",
+          "lineNumber": 48
+        },
+        {
+          "caller": "feed",
+          "callee": "feed_chunk_size",
+          "lineNumber": 51
+        },
+        {
+          "caller": "feed",
+          "callee": "feed_chunk_data",
+          "lineNumber": 54
+        },
+        {
+          "caller": "feed",
+          "callee": "feed_chunk_trailer",
+          "lineNumber": 57
+        },
+        {
+          "caller": "feed_request_line",
+          "callee": "empty",
+          "lineNumber": 76
+        },
+        {
+          "caller": "feed_request_line",
+          "callee": "back",
+          "lineNumber": 76
+        },
+        {
+          "caller": "feed_request_line",
+          "callee": "pop_back",
+          "lineNumber": 77
+        },
+        {
+          "caller": "feed_request_line",
+          "callee": "find",
+          "lineNumber": 79
+        },
+        {
+          "caller": "feed_request_line",
+          "callee": "string_to_http_method",
+          "lineNumber": 84
+        },
+        {
+          "caller": "feed_request_line",
+          "callee": "std::string_view",
+          "lineNumber": 84
+        },
+        {
+          "caller": "feed_request_line",
+          "callee": "data",
+          "lineNumber": 84
+        },
+        {
+          "caller": "feed_request_line",
+          "callee": "find",
+          "lineNumber": 86
+        },
+        {
+          "caller": "feed_request_line",
+          "callee": "substr",
+          "lineNumber": 92
+        },
+        {
+          "caller": "feed_request_line",
+          "callee": "find",
+          "lineNumber": 93
+        },
+        {
+          "caller": "feed_request_line",
+          "callee": "substr",
+          "lineNumber": 95
+        },
+        {
+          "caller": "feed_request_line",
+          "callee": "substr",
+          "lineNumber": 96
+        },
+        {
+          "caller": "feed_request_line",
+          "callee": "substr",
+          "lineNumber": 101
+        },
+        {
+          "caller": "feed_request_line",
+          "callee": "reset_line_buf",
+          "lineNumber": 104
+        },
+        {
+          "caller": "feed_request_line",
+          "callee": "push_back",
+          "lineNumber": 106
+        },
+        {
+          "caller": "handle_end_of_headers",
+          "callee": "headers_done_cb_",
+          "lineNumber": 115
+        },
+        {
+          "caller": "handle_end_of_headers",
+          "callee": "find",
+          "lineNumber": 118
+        },
+        {
+          "caller": "handle_end_of_headers",
+          "callee": "end",
+          "lineNumber": 119
+        },
+        {
+          "caller": "handle_end_of_headers",
+          "callee": "std::stoull",
+          "lineNumber": 122
+        },
+        {
+          "caller": "handle_end_of_headers",
+          "callee": "finish_body",
+          "lineNumber": 134
+        },
+        {
+          "caller": "handle_end_of_headers",
+          "callee": "find",
+          "lineNumber": 144
+        },
+        {
+          "caller": "handle_end_of_headers",
+          "callee": "end",
+          "lineNumber": 145
+        },
+        {
+          "caller": "handle_end_of_headers",
+          "callee": "find",
+          "lineNumber": 145
+        },
+        {
+          "caller": "handle_end_of_headers",
+          "callee": "reset_line_buf",
+          "lineNumber": 147
+        },
+        {
+          "caller": "parse_header_line",
+          "callee": "find",
+          "lineNumber": 154
+        },
+        {
+          "caller": "parse_header_line",
+          "callee": "data",
+          "lineNumber": 159
+        },
+        {
+          "caller": "parse_header_line",
+          "callee": "size",
+          "lineNumber": 161
+        },
+        {
+          "caller": "parse_header_line",
+          "callee": "size",
+          "lineNumber": 163
+        },
+        {
+          "caller": "parse_header_line",
+          "callee": "substr",
+          "lineNumber": 166
+        },
+        {
+          "caller": "parse_header_line",
+          "callee": "std::move",
+          "lineNumber": 168
+        },
+        {
+          "caller": "parse_header_line",
+          "callee": "std::move",
+          "lineNumber": 168
+        },
+        {
+          "caller": "feed_headers",
+          "callee": "empty",
+          "lineNumber": 173
+        },
+        {
+          "caller": "feed_headers",
+          "callee": "back",
+          "lineNumber": 173
+        },
+        {
+          "caller": "feed_headers",
+          "callee": "pop_back",
+          "lineNumber": 174
+        },
+        {
+          "caller": "feed_headers",
+          "callee": "empty",
+          "lineNumber": 176
+        },
+        {
+          "caller": "feed_headers",
+          "callee": "handle_end_of_headers",
+          "lineNumber": 177
+        },
+        {
+          "caller": "feed_headers",
+          "callee": "reset_line_buf",
+          "lineNumber": 178
+        },
+        {
+          "caller": "feed_headers",
+          "callee": "parse_header_line",
+          "lineNumber": 181
+        },
+        {
+          "caller": "feed_headers",
+          "callee": "reset_line_buf",
+          "lineNumber": 182
+        },
+        {
+          "caller": "feed_headers",
+          "callee": "push_back",
+          "lineNumber": 187
+        },
+        {
+          "caller": "flush_chunk_buf",
+          "callee": "empty",
+          "lineNumber": 195
+        },
+        {
+          "caller": "flush_chunk_buf",
+          "callee": "chunk_handler_",
+          "lineNumber": 198
+        },
+        {
+          "caller": "flush_chunk_buf",
+          "callee": "clear",
+          "lineNumber": 201
+        },
+        {
+          "caller": "finish_body",
+          "callee": "flush_chunk_buf",
+          "lineNumber": 206
+        },
+        {
+          "caller": "finish_body",
+          "callee": "std::move",
+          "lineNumber": 211
+        },
+        {
+          "caller": "finish_body",
+          "callee": "callback",
+          "lineNumber": 212
+        },
+        {
+          "caller": "append_body_byte",
+          "callee": "push_back",
+          "lineNumber": 219
+        },
+        {
+          "caller": "append_body_byte",
+          "callee": "push_back",
+          "lineNumber": 222
+        },
+        {
+          "caller": "append_body_byte",
+          "callee": "size",
+          "lineNumber": 223
+        },
+        {
+          "caller": "append_body_byte",
+          "callee": "flush_chunk_buf",
+          "lineNumber": 224
+        },
+        {
+          "caller": "feed_body_identity",
+          "callee": "append_body_byte",
+          "lineNumber": 230
+        },
+        {
+          "caller": "feed_body_identity",
+          "callee": "finish_body",
+          "lineNumber": 242
+        },
+        {
+          "caller": "feed_chunk_size",
+          "callee": "empty",
+          "lineNumber": 255
+        },
+        {
+          "caller": "feed_chunk_size",
+          "callee": "back",
+          "lineNumber": 255
+        },
+        {
+          "caller": "feed_chunk_size",
+          "callee": "pop_back",
+          "lineNumber": 256
+        },
+        {
+          "caller": "feed_chunk_size",
+          "callee": "find",
+          "lineNumber": 258
+        },
+        {
+          "caller": "feed_chunk_size",
+          "callee": "substr",
+          "lineNumber": 259
+        },
+        {
+          "caller": "feed_chunk_size",
+          "callee": "std::strtoull",
+          "lineNumber": 262
+        },
+        {
+          "caller": "feed_chunk_size",
+          "callee": "c_str",
+          "lineNumber": 262
+        },
+        {
+          "caller": "feed_chunk_size",
+          "callee": "c_str",
+          "lineNumber": 263
+        },
+        {
+          "caller": "feed_chunk_size",
+          "callee": "finish_body",
+          "lineNumber": 269
+        },
+        {
+          "caller": "feed_chunk_size",
+          "callee": "reset_line_buf",
+          "lineNumber": 281
+        },
+        {
+          "caller": "feed_chunk_size",
+          "callee": "push_back",
+          "lineNumber": 283
+        },
+        {
+          "caller": "feed_chunk_data",
+          "callee": "append_body_byte",
+          "lineNumber": 291
+        },
+        {
+          "caller": "feed_chunk_data",
+          "callee": "reset_line_buf",
+          "lineNumber": 308
+        },
+        {
+          "caller": "feed_chunk_trailer",
+          "callee": "empty",
+          "lineNumber": 316
+        },
+        {
+          "caller": "feed_chunk_trailer",
+          "callee": "back",
+          "lineNumber": 316
+        },
+        {
+          "caller": "feed_chunk_trailer",
+          "callee": "pop_back",
+          "lineNumber": 317
+        },
+        {
+          "caller": "feed_chunk_trailer",
+          "callee": "empty",
+          "lineNumber": 319
+        },
+        {
+          "caller": "feed_chunk_trailer",
+          "callee": "reset_line_buf",
+          "lineNumber": 322
+        },
+        {
+          "caller": "feed_chunk_trailer",
+          "callee": "push_back",
+          "lineNumber": 325
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 15,
+        "functionCount": 15,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "net/http/src/http_request.cpp",
+      "language": "cpp",
+      "fileCategory": "code",
+      "totalLines": 65,
+      "nonEmptyLines": 60,
+      "functions": [
+        {
+          "name": "http_method_to_string",
+          "startLine": 5,
+          "endLine": 28,
+          "params": [
+            "m"
+          ]
+        },
+        {
+          "name": "string_to_http_method",
+          "startLine": 30,
+          "endLine": 50,
+          "params": [
+            "s"
+          ]
+        },
+        {
+          "name": "clear",
+          "startLine": 52,
+          "endLine": 63,
+          "params": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "http_method_to_string",
+          "line": 5,
+          "isDefault": false
+        },
+        {
+          "name": "string_to_http_method",
+          "line": 30,
+          "isDefault": false
+        },
+        {
+          "name": "clear",
+          "line": 52,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "clear",
+          "callee": "clear",
+          "lineNumber": 54
+        },
+        {
+          "caller": "clear",
+          "callee": "clear",
+          "lineNumber": 55
+        },
+        {
+          "caller": "clear",
+          "callee": "clear",
+          "lineNumber": 57
+        },
+        {
+          "caller": "clear",
+          "callee": "clear",
+          "lineNumber": 58
+        },
+        {
+          "caller": "clear",
+          "callee": "clear",
+          "lineNumber": 59
+        },
+        {
+          "caller": "clear",
+          "callee": "reset",
+          "lineNumber": 62
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 3,
+        "functionCount": 3,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "net/http/src/http_server.cpp",
+      "language": "cpp",
+      "fileCategory": "code",
+      "totalLines": 746,
+      "nonEmptyLines": 659,
+      "functions": [
+        {
+          "name": "upload_auth_error",
+          "startLine": 27,
+          "endLine": 37,
+          "params": [
+            "status"
+          ]
+        },
+        {
+          "name": "add_cors_headers",
+          "startLine": 39,
+          "endLine": 45,
+          "params": [
+            "resp"
+          ]
+        },
+        {
+          "name": "trim",
+          "startLine": 47,
+          "endLine": 55,
+          "params": [
+            "value"
+          ]
+        },
+        {
+          "name": "ascii_iequals",
+          "startLine": 57,
+          "endLine": 69,
+          "params": [
+            "lhs",
+            "rhs"
+          ]
+        },
+        {
+          "name": "hex_value",
+          "startLine": 71,
+          "endLine": 82,
+          "params": [
+            "value"
+          ]
+        },
+        {
+          "name": "valid_utf8",
+          "startLine": 84,
+          "endLine": 126,
+          "params": [
+            "value"
+          ]
+        },
+        {
+          "name": "safe_file_name",
+          "startLine": 128,
+          "endLine": 142,
+          "params": [
+            "value"
+          ]
+        },
+        {
+          "name": "decode_extended_filename",
+          "startLine": 144,
+          "endLine": 174,
+          "params": [
+            "value"
+          ]
+        },
+        {
+          "name": "split_disposition_parameters",
+          "startLine": 181,
+          "endLine": 201,
+          "params": [
+            "header_value"
+          ]
+        },
+        {
+          "name": "decode_parameter_value",
+          "startLine": 203,
+          "endLine": 228,
+          "params": [
+            "value"
+          ]
+        },
+        {
+          "name": "parse_filename_candidates",
+          "startLine": 230,
+          "endLine": 250,
+          "params": [
+            "header_value"
+          ]
+        },
+        {
+          "name": "enable_discard_mode",
+          "startLine": 252,
+          "endLine": 255,
+          "params": [
+            "parser"
+          ]
+        },
+        {
+          "name": "append_response",
+          "startLine": 257,
+          "endLine": 262,
+          "params": [
+            "conn",
+            "response"
+          ]
+        },
+        {
+          "name": "parse_upload_metadata",
+          "startLine": 264,
+          "endLine": 289,
+          "params": [
+            "request",
+            "context",
+            "use_default_name"
+          ]
+        },
+        {
+          "name": "initialize_upload_hash",
+          "startLine": 291,
+          "endLine": 299,
+          "params": [
+            "context"
+          ]
+        },
+        {
+          "name": "process_upload_data",
+          "startLine": 301,
+          "endLine": 330,
+          "params": [
+            "context",
+            "chunk"
+          ]
+        },
+        {
+          "name": "finish_initial_chunk_probe",
+          "startLine": 332,
+          "endLine": 349,
+          "params": [
+            "context",
+            "parser"
+          ]
+        },
+        {
+          "name": "process_upload_chunk",
+          "startLine": 351,
+          "endLine": 363,
+          "params": [
+            "context",
+            "parser",
+            "chunk"
+          ]
+        },
+        {
+          "name": "finish_upload_stream",
+          "startLine": 365,
+          "endLine": 367,
+          "params": [
+            "context",
+            "parser"
+          ]
+        },
+        {
+          "name": "enable_upload_streaming",
+          "startLine": 369,
+          "endLine": 377,
+          "params": [
+            "parser",
+            "context"
+          ]
+        },
+        {
+          "name": "~UploadStreamContext",
+          "startLine": 381,
+          "endLine": 383,
+          "params": []
+        },
+        {
+          "name": "reset_hash_context",
+          "startLine": 385,
+          "endLine": 388,
+          "params": []
+        },
+        {
+          "name": "set_initial_chunk_probe",
+          "startLine": 390,
+          "endLine": 402,
+          "params": [
+            "probe_size",
+            "probe"
+          ]
+        },
+        {
+          "name": "parse_content_disposition_filename",
+          "startLine": 404,
+          "endLine": 410,
+          "params": [
+            "header_value"
+          ]
+        },
+        {
+          "name": "HttpServer",
+          "startLine": 412,
+          "endLine": 414,
+          "params": [
+            "config"
+          ]
+        },
+        {
+          "name": "~HttpServer",
+          "startLine": 416,
+          "endLine": 418,
+          "params": []
+        },
+        {
+          "name": "init",
+          "startLine": 420,
+          "endLine": 427,
+          "params": []
+        },
+        {
+          "name": "start",
+          "startLine": 429,
+          "endLine": 431,
+          "params": []
+        },
+        {
+          "name": "stop",
+          "startLine": 433,
+          "endLine": 435,
+          "params": []
+        },
+        {
+          "name": "get",
+          "startLine": 437,
+          "endLine": 439,
+          "params": [
+            "path",
+            "handler"
+          ]
+        },
+        {
+          "name": "post",
+          "startLine": 441,
+          "endLine": 443,
+          "params": [
+            "path",
+            "handler"
+          ]
+        },
+        {
+          "name": "put",
+          "startLine": 445,
+          "endLine": 447,
+          "params": [
+            "path",
+            "handler"
+          ]
+        },
+        {
+          "name": "del",
+          "startLine": 449,
+          "endLine": 451,
+          "params": [
+            "path",
+            "handler"
+          ]
+        },
+        {
+          "name": "ws",
+          "startLine": 453,
+          "endLine": 455,
+          "params": [
+            "path",
+            "handler"
+          ]
+        },
+        {
+          "name": "upload",
+          "startLine": 457,
+          "endLine": 470,
+          "params": [
+            "path",
+            "handler",
+            "setup",
+            "preflight"
+          ]
+        },
+        {
+          "name": "cleanup_connection",
+          "startLine": 472,
+          "endLine": 480,
+          "params": [
+            "conn"
+          ]
+        },
+        {
+          "name": "get_conn_mutex",
+          "startLine": 482,
+          "endLine": 489,
+          "params": [
+            "c"
+          ]
+        },
+        {
+          "name": "try_handle_ws_upgrade",
+          "startLine": 491,
+          "endLine": 517,
+          "params": [
+            "conn",
+            "req",
+            "total_consumed"
+          ]
+        },
+        {
+          "name": "on_headers_done",
+          "startLine": 519,
+          "endLine": 558,
+          "params": [
+            "parser",
+            "req",
+            "ctx"
+          ]
+        },
+        {
+          "name": "handle_connection",
+          "startLine": 561,
+          "endLine": 731,
+          "params": [
+            "conn"
+          ]
+        },
+        {
+          "name": "send_error",
+          "startLine": 733,
+          "endLine": 744,
+          "params": [
+            "conn",
+            "status",
+            "text",
+            "detail"
+          ]
+        }
+      ],
+      "classes": [
+        {
+          "name": "FilenameCandidates",
+          "startLine": 176,
+          "endLine": 179,
+          "methods": [],
+          "properties": [
+            "regular",
+            "extended"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "upload_auth_error",
+          "line": 27,
+          "isDefault": false
+        },
+        {
+          "name": "add_cors_headers",
+          "line": 39,
+          "isDefault": false
+        },
+        {
+          "name": "trim",
+          "line": 47,
+          "isDefault": false
+        },
+        {
+          "name": "ascii_iequals",
+          "line": 57,
+          "isDefault": false
+        },
+        {
+          "name": "hex_value",
+          "line": 71,
+          "isDefault": false
+        },
+        {
+          "name": "valid_utf8",
+          "line": 84,
+          "isDefault": false
+        },
+        {
+          "name": "safe_file_name",
+          "line": 128,
+          "isDefault": false
+        },
+        {
+          "name": "decode_extended_filename",
+          "line": 144,
+          "isDefault": false
+        },
+        {
+          "name": "FilenameCandidates",
+          "line": 176,
+          "isDefault": false
+        },
+        {
+          "name": "split_disposition_parameters",
+          "line": 181,
+          "isDefault": false
+        },
+        {
+          "name": "decode_parameter_value",
+          "line": 203,
+          "isDefault": false
+        },
+        {
+          "name": "parse_filename_candidates",
+          "line": 230,
+          "isDefault": false
+        },
+        {
+          "name": "enable_discard_mode",
+          "line": 252,
+          "isDefault": false
+        },
+        {
+          "name": "append_response",
+          "line": 257,
+          "isDefault": false
+        },
+        {
+          "name": "parse_upload_metadata",
+          "line": 264,
+          "isDefault": false
+        },
+        {
+          "name": "initialize_upload_hash",
+          "line": 291,
+          "isDefault": false
+        },
+        {
+          "name": "process_upload_data",
+          "line": 301,
+          "isDefault": false
+        },
+        {
+          "name": "finish_initial_chunk_probe",
+          "line": 332,
+          "isDefault": false
+        },
+        {
+          "name": "process_upload_chunk",
+          "line": 351,
+          "isDefault": false
+        },
+        {
+          "name": "finish_upload_stream",
+          "line": 365,
+          "isDefault": false
+        },
+        {
+          "name": "enable_upload_streaming",
+          "line": 369,
+          "isDefault": false
+        },
+        {
+          "name": "~UploadStreamContext",
+          "line": 381,
+          "isDefault": false
+        },
+        {
+          "name": "reset_hash_context",
+          "line": 385,
+          "isDefault": false
+        },
+        {
+          "name": "set_initial_chunk_probe",
+          "line": 390,
+          "isDefault": false
+        },
+        {
+          "name": "parse_content_disposition_filename",
+          "line": 404,
+          "isDefault": false
+        },
+        {
+          "name": "HttpServer",
+          "line": 412,
+          "isDefault": false
+        },
+        {
+          "name": "~HttpServer",
+          "line": 416,
+          "isDefault": false
+        },
+        {
+          "name": "init",
+          "line": 420,
+          "isDefault": false
+        },
+        {
+          "name": "start",
+          "line": 429,
+          "isDefault": false
+        },
+        {
+          "name": "stop",
+          "line": 433,
+          "isDefault": false
+        },
+        {
+          "name": "get",
+          "line": 437,
+          "isDefault": false
+        },
+        {
+          "name": "post",
+          "line": 441,
+          "isDefault": false
+        },
+        {
+          "name": "put",
+          "line": 445,
+          "isDefault": false
+        },
+        {
+          "name": "del",
+          "line": 449,
+          "isDefault": false
+        },
+        {
+          "name": "ws",
+          "line": 453,
+          "isDefault": false
+        },
+        {
+          "name": "upload",
+          "line": 457,
+          "isDefault": false
+        },
+        {
+          "name": "cleanup_connection",
+          "line": 472,
+          "isDefault": false
+        },
+        {
+          "name": "get_conn_mutex",
+          "line": 482,
+          "isDefault": false
+        },
+        {
+          "name": "try_handle_ws_upgrade",
+          "line": 491,
+          "isDefault": false
+        },
+        {
+          "name": "on_headers_done",
+          "line": 519,
+          "isDefault": false
+        },
+        {
+          "name": "handle_connection",
+          "line": 561,
+          "isDefault": false
+        },
+        {
+          "name": "send_error",
+          "line": 733,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "upload_auth_error",
+          "callee": "set_status",
+          "lineNumber": 30
+        },
+        {
+          "caller": "upload_auth_error",
+          "callee": "set_content_type",
+          "lineNumber": 31
+        },
+        {
+          "caller": "upload_auth_error",
+          "callee": "dump",
+          "lineNumber": 32
+        },
+        {
+          "caller": "upload_auth_error",
+          "callee": "set_content_length",
+          "lineNumber": 35
+        },
+        {
+          "caller": "upload_auth_error",
+          "callee": "size",
+          "lineNumber": 35
+        },
+        {
+          "caller": "add_cors_headers",
+          "callee": "set_header",
+          "lineNumber": 40
+        },
+        {
+          "caller": "add_cors_headers",
+          "callee": "set_header",
+          "lineNumber": 41
+        },
+        {
+          "caller": "add_cors_headers",
+          "callee": "set_header",
+          "lineNumber": 42
+        },
+        {
+          "caller": "add_cors_headers",
+          "callee": "set_header",
+          "lineNumber": 43
+        },
+        {
+          "caller": "add_cors_headers",
+          "callee": "set_header",
+          "lineNumber": 44
+        },
+        {
+          "caller": "trim",
+          "callee": "empty",
+          "lineNumber": 48
+        },
+        {
+          "caller": "trim",
+          "callee": "front",
+          "lineNumber": 48
+        },
+        {
+          "caller": "trim",
+          "callee": "front",
+          "lineNumber": 48
+        },
+        {
+          "caller": "trim",
+          "callee": "remove_prefix",
+          "lineNumber": 49
+        },
+        {
+          "caller": "trim",
+          "callee": "empty",
+          "lineNumber": 51
+        },
+        {
+          "caller": "trim",
+          "callee": "back",
+          "lineNumber": 51
+        },
+        {
+          "caller": "trim",
+          "callee": "back",
+          "lineNumber": 51
+        },
+        {
+          "caller": "trim",
+          "callee": "remove_suffix",
+          "lineNumber": 52
+        },
+        {
+          "caller": "ascii_iequals",
+          "callee": "size",
+          "lineNumber": 58
+        },
+        {
+          "caller": "ascii_iequals",
+          "callee": "size",
+          "lineNumber": 58
+        },
+        {
+          "caller": "ascii_iequals",
+          "callee": "size",
+          "lineNumber": 61
+        },
+        {
+          "caller": "ascii_iequals",
+          "callee": "static_cast<unsigned char>",
+          "lineNumber": 62
+        },
+        {
+          "caller": "ascii_iequals",
+          "callee": "static_cast<unsigned char>",
+          "lineNumber": 63
+        },
+        {
+          "caller": "ascii_iequals",
+          "callee": "std::tolower",
+          "lineNumber": 64
+        },
+        {
+          "caller": "ascii_iequals",
+          "callee": "std::tolower",
+          "lineNumber": 64
+        },
+        {
+          "caller": "hex_value",
+          "callee": "static_cast<unsigned int>",
+          "lineNumber": 73
+        },
+        {
+          "caller": "hex_value",
+          "callee": "static_cast<unsigned int>",
+          "lineNumber": 76
+        },
+        {
+          "caller": "hex_value",
+          "callee": "static_cast<unsigned int>",
+          "lineNumber": 79
+        },
+        {
+          "caller": "valid_utf8",
+          "callee": "size",
+          "lineNumber": 86
+        },
+        {
+          "caller": "valid_utf8",
+          "callee": "static_cast<unsigned char>",
+          "lineNumber": 87
+        },
+        {
+          "caller": "valid_utf8",
+          "callee": "size",
+          "lineNumber": 108
+        },
+        {
+          "caller": "valid_utf8",
+          "callee": "static_cast<unsigned char>",
+          "lineNumber": 112
+        },
+        {
+          "caller": "safe_file_name",
+          "callee": "find_last_of",
+          "lineNumber": 129
+        },
+        {
+          "caller": "safe_file_name",
+          "callee": "erase",
+          "lineNumber": 131
+        },
+        {
+          "caller": "safe_file_name",
+          "callee": "empty",
+          "lineNumber": 133
+        },
+        {
+          "caller": "safe_file_name",
+          "callee": "valid_utf8",
+          "lineNumber": 133
+        },
+        {
+          "caller": "safe_file_name",
+          "callee": "std::ranges::any_of",
+          "lineNumber": 137
+        },
+        {
+          "caller": "decode_extended_filename",
+          "callee": "find",
+          "lineNumber": 145
+        },
+        {
+          "caller": "decode_extended_filename",
+          "callee": "find",
+          "lineNumber": 149
+        },
+        {
+          "caller": "decode_extended_filename",
+          "callee": "ascii_iequals",
+          "lineNumber": 150
+        },
+        {
+          "caller": "decode_extended_filename",
+          "callee": "substr",
+          "lineNumber": 150
+        },
+        {
+          "caller": "decode_extended_filename",
+          "callee": "substr",
+          "lineNumber": 155
+        },
+        {
+          "caller": "decode_extended_filename",
+          "callee": "reserve",
+          "lineNumber": 156
+        },
+        {
+          "caller": "decode_extended_filename",
+          "callee": "size",
+          "lineNumber": 156
+        },
+        {
+          "caller": "decode_extended_filename",
+          "callee": "size",
+          "lineNumber": 157
+        },
+        {
+          "caller": "decode_extended_filename",
+          "callee": "push_back",
+          "lineNumber": 159
+        },
+        {
+          "caller": "decode_extended_filename",
+          "callee": "size",
+          "lineNumber": 162
+        },
+        {
+          "caller": "decode_extended_filename",
+          "callee": "hex_value",
+          "lineNumber": 165
+        },
+        {
+          "caller": "decode_extended_filename",
+          "callee": "hex_value",
+          "lineNumber": 166
+        },
+        {
+          "caller": "decode_extended_filename",
+          "callee": "push_back",
+          "lineNumber": 170
+        },
+        {
+          "caller": "decode_extended_filename",
+          "callee": "static_cast<char>",
+          "lineNumber": 170
+        },
+        {
+          "caller": "decode_extended_filename",
+          "callee": "safe_file_name",
+          "lineNumber": 173
+        },
+        {
+          "caller": "decode_extended_filename",
+          "callee": "std::move",
+          "lineNumber": 173
+        },
+        {
+          "caller": "split_disposition_parameters",
+          "callee": "size",
+          "lineNumber": 186
+        },
+        {
+          "caller": "split_disposition_parameters",
+          "callee": "push_back",
+          "lineNumber": 195
+        },
+        {
+          "caller": "split_disposition_parameters",
+          "callee": "substr",
+          "lineNumber": 195
+        },
+        {
+          "caller": "split_disposition_parameters",
+          "callee": "push_back",
+          "lineNumber": 199
+        },
+        {
+          "caller": "split_disposition_parameters",
+          "callee": "substr",
+          "lineNumber": 199
+        },
+        {
+          "caller": "decode_parameter_value",
+          "callee": "trim",
+          "lineNumber": 204
+        },
+        {
+          "caller": "decode_parameter_value",
+          "callee": "empty",
+          "lineNumber": 205
+        },
+        {
+          "caller": "decode_parameter_value",
+          "callee": "front",
+          "lineNumber": 205
+        },
+        {
+          "caller": "decode_parameter_value",
+          "callee": "std::string",
+          "lineNumber": 206
+        },
+        {
+          "caller": "decode_parameter_value",
+          "callee": "size",
+          "lineNumber": 211
+        },
+        {
+          "caller": "decode_parameter_value",
+          "callee": "push_back",
+          "lineNumber": 214
+        },
+        {
+          "caller": "decode_parameter_value",
+          "callee": "empty",
+          "lineNumber": 219
+        },
+        {
+          "caller": "decode_parameter_value",
+          "callee": "trim",
+          "lineNumber": 219
+        },
+        {
+          "caller": "decode_parameter_value",
+          "callee": "substr",
+          "lineNumber": 219
+        },
+        {
+          "caller": "decode_parameter_value",
+          "callee": "push_back",
+          "lineNumber": 224
+        },
+        {
+          "caller": "parse_filename_candidates",
+          "callee": "split_disposition_parameters",
+          "lineNumber": 232
+        },
+        {
+          "caller": "parse_filename_candidates",
+          "callee": "size",
+          "lineNumber": 233
+        },
+        {
+          "caller": "parse_filename_candidates",
+          "callee": "find",
+          "lineNumber": 234
+        },
+        {
+          "caller": "parse_filename_candidates",
+          "callee": "trim",
+          "lineNumber": 238
+        },
+        {
+          "caller": "parse_filename_candidates",
+          "callee": "substr",
+          "lineNumber": 238
+        },
+        {
+          "caller": "parse_filename_candidates",
+          "callee": "decode_parameter_value",
+          "lineNumber": 239
+        },
+        {
+          "caller": "parse_filename_candidates",
+          "callee": "substr",
+          "lineNumber": 239
+        },
+        {
+          "caller": "parse_filename_candidates",
+          "callee": "ascii_iequals",
+          "lineNumber": 243
+        },
+        {
+          "caller": "parse_filename_candidates",
+          "callee": "decode_extended_filename",
+          "lineNumber": 244
+        },
+        {
+          "caller": "parse_filename_candidates",
+          "callee": "ascii_iequals",
+          "lineNumber": 245
+        },
+        {
+          "caller": "parse_filename_candidates",
+          "callee": "safe_file_name",
+          "lineNumber": 246
+        },
+        {
+          "caller": "parse_filename_candidates",
+          "callee": "std::move",
+          "lineNumber": 246
+        },
+        {
+          "caller": "enable_discard_mode",
+          "callee": "set_streaming_mode",
+          "lineNumber": 253
+        },
+        {
+          "caller": "enable_discard_mode",
+          "callee": "set_chunk_handler",
+          "lineNumber": 254
+        },
+        {
+          "caller": "append_response",
+          "callee": "add_cors_headers",
+          "lineNumber": 258
+        },
+        {
+          "caller": "append_response",
+          "callee": "serialize",
+          "lineNumber": 259
+        },
+        {
+          "caller": "append_response",
+          "callee": "write_mutex",
+          "lineNumber": 260
+        },
+        {
+          "caller": "append_response",
+          "callee": "append",
+          "lineNumber": 261
+        },
+        {
+          "caller": "append_response",
+          "callee": "write_buffer",
+          "lineNumber": 261
+        },
+        {
+          "caller": "parse_upload_metadata",
+          "callee": "find",
+          "lineNumber": 265
+        },
+        {
+          "caller": "parse_upload_metadata",
+          "callee": "end",
+          "lineNumber": 266
+        },
+        {
+          "caller": "parse_upload_metadata",
+          "callee": "parse_content_disposition_filename",
+          "lineNumber": 267
+        },
+        {
+          "caller": "parse_upload_metadata",
+          "callee": "empty",
+          "lineNumber": 272
+        },
+        {
+          "caller": "parse_upload_metadata",
+          "callee": "find",
+          "lineNumber": 276
+        },
+        {
+          "caller": "parse_upload_metadata",
+          "callee": "end",
+          "lineNumber": 277
+        },
+        {
+          "caller": "parse_upload_metadata",
+          "callee": "data",
+          "lineNumber": 281
+        },
+        {
+          "caller": "parse_upload_metadata",
+          "callee": "size",
+          "lineNumber": 282
+        },
+        {
+          "caller": "parse_upload_metadata",
+          "callee": "std::from_chars",
+          "lineNumber": 283
+        },
+        {
+          "caller": "parse_upload_metadata",
+          "callee": "static_cast<uint64_t>",
+          "lineNumber": 285
+        },
+        {
+          "caller": "parse_upload_metadata",
+          "callee": "std::numeric_limits<std::size_t>::max",
+          "lineNumber": 285
+        },
+        {
+          "caller": "parse_upload_metadata",
+          "callee": "static_cast<std::size_t>",
+          "lineNumber": 286
+        },
+        {
+          "caller": "initialize_upload_hash",
+          "callee": "EVP_MD_CTX_new",
+          "lineNumber": 292
+        },
+        {
+          "caller": "initialize_upload_hash",
+          "callee": "EVP_DigestInit_ex",
+          "lineNumber": 293
+        },
+        {
+          "caller": "initialize_upload_hash",
+          "callee": "EVP_sha256",
+          "lineNumber": 293
+        },
+        {
+          "caller": "initialize_upload_hash",
+          "callee": "EVP_MD_CTX_free",
+          "lineNumber": 294
+        },
+        {
+          "caller": "process_upload_data",
+          "callee": "initialize_upload_hash",
+          "lineNumber": 302
+        },
+        {
+          "caller": "process_upload_data",
+          "callee": "static_cast<EVP_MD_CTX*>",
+          "lineNumber": 307
+        },
+        {
+          "caller": "process_upload_data",
+          "callee": "EVP_DigestUpdate",
+          "lineNumber": 308
+        },
+        {
+          "caller": "process_upload_data",
+          "callee": "data",
+          "lineNumber": 308
+        },
+        {
+          "caller": "process_upload_data",
+          "callee": "size",
+          "lineNumber": 308
+        },
+        {
+          "caller": "process_upload_data",
+          "callee": "FileSystem::sha256_hex",
+          "lineNumber": 313
+        },
+        {
+          "caller": "process_upload_data",
+          "callee": "data",
+          "lineNumber": 313
+        },
+        {
+          "caller": "process_upload_data",
+          "callee": "size",
+          "lineNumber": 313
+        },
+        {
+          "caller": "process_upload_data",
+          "callee": "store_chunk_data",
+          "lineNumber": 314
+        },
+        {
+          "caller": "process_upload_data",
+          "callee": "static_cast<int>",
+          "lineNumber": 320
+        },
+        {
+          "caller": "process_upload_data",
+          "callee": "size",
+          "lineNumber": 320
+        },
+        {
+          "caller": "process_upload_data",
+          "callee": "std::move",
+          "lineNumber": 321
+        },
+        {
+          "caller": "process_upload_data",
+          "callee": "static_cast<int>",
+          "lineNumber": 323
+        },
+        {
+          "caller": "process_upload_data",
+          "callee": "size",
+          "lineNumber": 323
+        },
+        {
+          "caller": "process_upload_data",
+          "callee": "size",
+          "lineNumber": 324
+        },
+        {
+          "caller": "process_upload_data",
+          "callee": "push_back",
+          "lineNumber": 328
+        },
+        {
+          "caller": "process_upload_data",
+          "callee": "std::move",
+          "lineNumber": 328
+        },
+        {
+          "caller": "finish_initial_chunk_probe",
+          "callee": "initial_chunk_probe",
+          "lineNumber": 336
+        },
+        {
+          "caller": "finish_initial_chunk_probe",
+          "callee": "clear",
+          "lineNumber": 340
+        },
+        {
+          "caller": "finish_initial_chunk_probe",
+          "callee": "set_stream_chunk_size",
+          "lineNumber": 341
+        },
+        {
+          "caller": "finish_initial_chunk_probe",
+          "callee": "set_stream_chunk_size",
+          "lineNumber": 345
+        },
+        {
+          "caller": "finish_initial_chunk_probe",
+          "callee": "std::move",
+          "lineNumber": 346
+        },
+        {
+          "caller": "finish_initial_chunk_probe",
+          "callee": "clear",
+          "lineNumber": 347
+        },
+        {
+          "caller": "finish_initial_chunk_probe",
+          "callee": "process_upload_data",
+          "lineNumber": 348
+        },
+        {
+          "caller": "process_upload_chunk",
+          "callee": "append",
+          "lineNumber": 356
+        },
+        {
+          "caller": "process_upload_chunk",
+          "callee": "size",
+          "lineNumber": 357
+        },
+        {
+          "caller": "process_upload_chunk",
+          "callee": "finish_initial_chunk_probe",
+          "lineNumber": 360
+        },
+        {
+          "caller": "process_upload_chunk",
+          "callee": "process_upload_data",
+          "lineNumber": 362
+        },
+        {
+          "caller": "finish_upload_stream",
+          "callee": "finish_initial_chunk_probe",
+          "lineNumber": 366
+        },
+        {
+          "caller": "enable_upload_streaming",
+          "callee": "set_streaming_mode",
+          "lineNumber": 370
+        },
+        {
+          "caller": "enable_upload_streaming",
+          "callee": "set_stream_chunk_size",
+          "lineNumber": 372
+        },
+        {
+          "caller": "enable_upload_streaming",
+          "callee": "set_chunk_handler",
+          "lineNumber": 374
+        },
+        {
+          "caller": "enable_upload_streaming",
+          "callee": "process_upload_chunk",
+          "lineNumber": 375
+        },
+        {
+          "caller": "enable_upload_streaming",
+          "callee": "set_body_done_callback",
+          "lineNumber": 376
+        },
+        {
+          "caller": "enable_upload_streaming",
+          "callee": "finish_upload_stream",
+          "lineNumber": 376
+        },
+        {
+          "caller": "~UploadStreamContext",
+          "callee": "reset_hash_context",
+          "lineNumber": 382
+        },
+        {
+          "caller": "reset_hash_context",
+          "callee": "EVP_MD_CTX_free",
+          "lineNumber": 386
+        },
+        {
+          "caller": "reset_hash_context",
+          "callee": "static_cast<EVP_MD_CTX*>",
+          "lineNumber": 386
+        },
+        {
+          "caller": "set_initial_chunk_probe",
+          "callee": "clear",
+          "lineNumber": 394
+        },
+        {
+          "caller": "set_initial_chunk_probe",
+          "callee": "std::move",
+          "lineNumber": 398
+        },
+        {
+          "caller": "set_initial_chunk_probe",
+          "callee": "clear",
+          "lineNumber": 400
+        },
+        {
+          "caller": "parse_content_disposition_filename",
+          "callee": "parse_filename_candidates",
+          "lineNumber": 405
+        },
+        {
+          "caller": "HttpServer",
+          "callee": "set_close_handler",
+          "lineNumber": 413
+        },
+        {
+          "caller": "HttpServer",
+          "callee": "cleanup_connection",
+          "lineNumber": 413
+        },
+        {
+          "caller": "~HttpServer",
+          "callee": "set_close_handler",
+          "lineNumber": 417
+        },
+        {
+          "caller": "init",
+          "callee": "set_handler",
+          "lineNumber": 421
+        },
+        {
+          "caller": "init",
+          "callee": "get_conn_mutex",
+          "lineNumber": 422
+        },
+        {
+          "caller": "init",
+          "callee": "get",
+          "lineNumber": 422
+        },
+        {
+          "caller": "init",
+          "callee": "handle_connection",
+          "lineNumber": 424
+        },
+        {
+          "caller": "init",
+          "callee": "init",
+          "lineNumber": 426
+        },
+        {
+          "caller": "start",
+          "callee": "start",
+          "lineNumber": 430
+        },
+        {
+          "caller": "stop",
+          "callee": "stop",
+          "lineNumber": 434
+        },
+        {
+          "caller": "get",
+          "callee": "add",
+          "lineNumber": 438
+        },
+        {
+          "caller": "get",
+          "callee": "std::move",
+          "lineNumber": 438
+        },
+        {
+          "caller": "post",
+          "callee": "add",
+          "lineNumber": 442
+        },
+        {
+          "caller": "post",
+          "callee": "std::move",
+          "lineNumber": 442
+        },
+        {
+          "caller": "put",
+          "callee": "add",
+          "lineNumber": 446
+        },
+        {
+          "caller": "put",
+          "callee": "std::move",
+          "lineNumber": 446
+        },
+        {
+          "caller": "del",
+          "callee": "add",
+          "lineNumber": 450
+        },
+        {
+          "caller": "del",
+          "callee": "std::move",
+          "lineNumber": 450
+        },
+        {
+          "caller": "ws",
+          "callee": "std::string",
+          "lineNumber": 454
+        },
+        {
+          "caller": "ws",
+          "callee": "std::move",
+          "lineNumber": 454
+        },
+        {
+          "caller": "upload",
+          "callee": "std::string",
+          "lineNumber": 461
+        },
+        {
+          "caller": "upload",
+          "callee": "std::move",
+          "lineNumber": 461
+        },
+        {
+          "caller": "upload",
+          "callee": "std::string",
+          "lineNumber": 463
+        },
+        {
+          "caller": "upload",
+          "callee": "std::move",
+          "lineNumber": 463
+        },
+        {
+          "caller": "upload",
+          "callee": "std::string",
+          "lineNumber": 466
+        },
+        {
+          "caller": "upload",
+          "callee": "std::move",
+          "lineNumber": 466
+        },
+        {
+          "caller": "upload",
+          "callee": "add",
+          "lineNumber": 469
+        },
+        {
+          "caller": "cleanup_connection",
+          "callee": "erase",
+          "lineNumber": 474
+        },
+        {
+          "caller": "cleanup_connection",
+          "callee": "erase",
+          "lineNumber": 475
+        },
+        {
+          "caller": "cleanup_connection",
+          "callee": "erase",
+          "lineNumber": 478
+        },
+        {
+          "caller": "get_conn_mutex",
+          "callee": "std::make_shared<std::mutex>",
+          "lineNumber": 486
+        },
+        {
+          "caller": "try_handle_ws_upgrade",
+          "callee": "find",
+          "lineNumber": 492
+        },
+        {
+          "caller": "try_handle_ws_upgrade",
+          "callee": "end",
+          "lineNumber": 493
+        },
+        {
+          "caller": "try_handle_ws_upgrade",
+          "callee": "ws_server_handshake",
+          "lineNumber": 498
+        },
+        {
+          "caller": "try_handle_ws_upgrade",
+          "callee": "serialize",
+          "lineNumber": 503
+        },
+        {
+          "caller": "try_handle_ws_upgrade",
+          "callee": "write_mutex",
+          "lineNumber": 504
+        },
+        {
+          "caller": "try_handle_ws_upgrade",
+          "callee": "append",
+          "lineNumber": 505
+        },
+        {
+          "caller": "try_handle_ws_upgrade",
+          "callee": "write_buffer",
+          "lineNumber": 505
+        },
+        {
+          "caller": "try_handle_ws_upgrade",
+          "callee": "write_to_fd_locked",
+          "lineNumber": 506
+        },
+        {
+          "caller": "try_handle_ws_upgrade",
+          "callee": "consume_read_buffer",
+          "lineNumber": 508
+        },
+        {
+          "caller": "try_handle_ws_upgrade",
+          "callee": "shared_from_this",
+          "lineNumber": 510
+        },
+        {
+          "caller": "try_handle_ws_upgrade",
+          "callee": "std::make_shared<WsConnection>",
+          "lineNumber": 511
+        },
+        {
+          "caller": "try_handle_ws_upgrade",
+          "callee": "ws_handler",
+          "lineNumber": 514
+        },
+        {
+          "caller": "try_handle_ws_upgrade",
+          "callee": "start_event_loop",
+          "lineNumber": 515
+        },
+        {
+          "caller": "on_headers_done",
+          "callee": "find",
+          "lineNumber": 520
+        },
+        {
+          "caller": "on_headers_done",
+          "callee": "end",
+          "lineNumber": 521
+        },
+        {
+          "caller": "on_headers_done",
+          "callee": "parse_upload_metadata",
+          "lineNumber": 525
+        },
+        {
+          "caller": "on_headers_done",
+          "callee": "contains",
+          "lineNumber": 525
+        },
+        {
+          "caller": "on_headers_done",
+          "callee": "AuthMiddleware::apply",
+          "lineNumber": 529
+        },
+        {
+          "caller": "on_headers_done",
+          "callee": "upload_auth_error",
+          "lineNumber": 531
+        },
+        {
+          "caller": "on_headers_done",
+          "callee": "enable_discard_mode",
+          "lineNumber": 532
+        },
+        {
+          "caller": "on_headers_done",
+          "callee": "has_capability",
+          "lineNumber": 536
+        },
+        {
+          "caller": "on_headers_done",
+          "callee": "upload_auth_error",
+          "lineNumber": 537
+        },
+        {
+          "caller": "on_headers_done",
+          "callee": "enable_discard_mode",
+          "lineNumber": 538
+        },
+        {
+          "caller": "on_headers_done",
+          "callee": "find",
+          "lineNumber": 543
+        },
+        {
+          "caller": "on_headers_done",
+          "callee": "end",
+          "lineNumber": 544
+        },
+        {
+          "caller": "on_headers_done",
+          "callee": "second",
+          "lineNumber": 545
+        },
+        {
+          "caller": "on_headers_done",
+          "callee": "enable_discard_mode",
+          "lineNumber": 547
+        },
+        {
+          "caller": "on_headers_done",
+          "callee": "find",
+          "lineNumber": 552
+        },
+        {
+          "caller": "on_headers_done",
+          "callee": "end",
+          "lineNumber": 553
+        },
+        {
+          "caller": "on_headers_done",
+          "callee": "second",
+          "lineNumber": 554
+        },
+        {
+          "caller": "on_headers_done",
+          "callee": "enable_upload_streaming",
+          "lineNumber": 557
+        },
+        {
+          "caller": "handle_connection",
+          "callee": "state",
+          "lineNumber": 566
+        },
+        {
+          "caller": "handle_connection",
+          "callee": "erase",
+          "lineNumber": 567
+        },
+        {
+          "caller": "handle_connection",
+          "callee": "erase",
+          "lineNumber": 568
+        },
+        {
+          "caller": "handle_connection",
+          "callee": "std::make_shared<HttpParser>",
+          "lineNumber": 573
+        },
+        {
+          "caller": "handle_connection",
+          "callee": "std::make_shared<UploadStreamContext>",
+          "lineNumber": 578
+        },
+        {
+          "caller": "handle_connection",
+          "callee": "reset",
+          "lineNumber": 586
+        },
+        {
+          "caller": "handle_connection",
+          "callee": "std::make_shared<UploadStreamContext>",
+          "lineNumber": 587
+        },
+        {
+          "caller": "handle_connection",
+          "callee": "state",
+          "lineNumber": 589
+        },
+        {
+          "caller": "handle_connection",
+          "callee": "erase",
+          "lineNumber": 595
+        },
+        {
+          "caller": "handle_connection",
+          "callee": "erase",
+          "lineNumber": 596
+        },
+        {
+          "caller": "handle_connection",
+          "callee": "read_mutex",
+          "lineNumber": 601
+        },
+        {
+          "caller": "handle_connection",
+          "callee": "read_buffer",
+          "lineNumber": 602
+        },
+        {
+          "caller": "handle_connection",
+          "callee": "size",
+          "lineNumber": 605
+        },
+        {
+          "caller": "handle_connection",
+          "callee": "set_headers_done_callback",
+          "lineNumber": 606
+        },
+        {
+          "caller": "handle_connection",
+          "callee": "on_headers_done",
+          "lineNumber": 607
+        },
+        {
+          "caller": "handle_connection",
+          "callee": "std::string_view",
+          "lineNumber": 609
+        },
+        {
+          "caller": "handle_connection",
+          "callee": "data",
+          "lineNumber": 609
+        },
+        {
+          "caller": "handle_connection",
+          "callee": "size",
+          "lineNumber": 609
+        },
+        {
+          "caller": "handle_connection",
+          "callee": "feed",
+          "lineNumber": 610
+        },
+        {
+          "caller": "handle_connection",
+          "callee": "append_response",
+          "lineNumber": 619
+        },
+        {
+          "caller": "handle_connection",
+          "callee": "send_error",
+          "lineNumber": 621
+        },
+        {
+          "caller": "handle_connection",
+          "callee": "send_error",
+          "lineNumber": 623
+        },
+        {
+          "caller": "handle_connection",
+          "callee": "consume_read_buffer",
+          "lineNumber": 625
+        },
+        {
+          "caller": "handle_connection",
+          "callee": "erase_connection_state",
+          "lineNumber": 626
+        },
+        {
+          "caller": "handle_connection",
+          "callee": "append_response",
+          "lineNumber": 632
+        },
+        {
+          "caller": "handle_connection",
+          "callee": "send_error",
+          "lineNumber": 634
+        },
+        {
+          "caller": "handle_connection",
+          "callee": "consume_read_buffer",
+          "lineNumber": 636
+        },
+        {
+          "caller": "handle_connection",
+          "callee": "erase_connection_state",
+          "lineNumber": 637
+        },
+        {
+          "caller": "handle_connection",
+          "callee": "state",
+          "lineNumber": 641
+        },
+        {
+          "caller": "handle_connection",
+          "callee": "request",
+          "lineNumber": 645
+        },
+        {
+          "caller": "handle_connection",
+          "callee": "set_status",
+          "lineNumber": 649
+        },
+        {
+          "caller": "handle_connection",
+          "callee": "append_response",
+          "lineNumber": 650
+        },
+        {
+          "caller": "handle_connection",
+          "callee": "std::move",
+          "lineNumber": 650
+        },
+        {
+          "caller": "handle_connection",
+          "callee": "reset_request_state",
+          "lineNumber": 651
+        },
+        {
+          "caller": "handle_connection",
+          "callee": "find",
+          "lineNumber": 655
+        },
+        {
+          "caller": "handle_connection",
+          "callee": "end",
+          "lineNumber": 656
+        },
+        {
+          "caller": "handle_connection",
+          "callee": "try_handle_ws_upgrade",
+          "lineNumber": 657
+        },
+        {
+          "caller": "handle_connection",
+          "callee": "send_error",
+          "lineNumber": 659
+        },
+        {
+          "caller": "handle_connection",
+          "callee": "consume_read_buffer",
+          "lineNumber": 660
+        },
+        {
+          "caller": "handle_connection",
+          "callee": "erase_connection_state",
+          "lineNumber": 662
+        },
+        {
+          "caller": "handle_connection",
+          "callee": "match",
+          "lineNumber": 668
+        },
+        {
+          "caller": "handle_connection",
+          "callee": "path_exists",
+          "lineNumber": 671
+        },
+        {
+          "caller": "handle_connection",
+          "callee": "send_error",
+          "lineNumber": 672
+        },
+        {
+          "caller": "handle_connection",
+          "callee": "send_error",
+          "lineNumber": 674
+        },
+        {
+          "caller": "handle_connection",
+          "callee": "reset_request_state",
+          "lineNumber": 676
+        },
+        {
+          "caller": "handle_connection",
+          "callee": "std::move",
+          "lineNumber": 681
+        },
+        {
+          "caller": "handle_connection",
+          "callee": "AuthMiddleware::apply",
+          "lineNumber": 683
+        },
+        {
+          "caller": "handle_connection",
+          "callee": "find",
+          "lineNumber": 688
+        },
+        {
+          "caller": "handle_connection",
+          "callee": "end",
+          "lineNumber": 689
+        },
+        {
+          "caller": "handle_connection",
+          "callee": "second",
+          "lineNumber": 694
+        },
+        {
+          "caller": "handle_connection",
+          "callee": "Logger::_error",
+          "lineNumber": 696
+        },
+        {
+          "caller": "handle_connection",
+          "callee": "std::string",
+          "lineNumber": 696
+        },
+        {
+          "caller": "handle_connection",
+          "callee": "what",
+          "lineNumber": 696
+        },
+        {
+          "caller": "handle_connection",
+          "callee": "send_error",
+          "lineNumber": 697
+        },
+        {
+          "caller": "handle_connection",
+          "callee": "what",
+          "lineNumber": 697
+        },
+        {
+          "caller": "handle_connection",
+          "callee": "reset_request_state",
+          "lineNumber": 698
+        },
+        {
+          "caller": "handle_connection",
+          "callee": "Logger::_error",
+          "lineNumber": 701
+        },
+        {
+          "caller": "handle_connection",
+          "callee": "send_error",
+          "lineNumber": 702
+        },
+        {
+          "caller": "handle_connection",
+          "callee": "reset_request_state",
+          "lineNumber": 703
+        },
+        {
+          "caller": "handle_connection",
+          "callee": "append_response",
+          "lineNumber": 707
+        },
+        {
+          "caller": "handle_connection",
+          "callee": "std::move",
+          "lineNumber": 707
+        },
+        {
+          "caller": "handle_connection",
+          "callee": "reset_request_state",
+          "lineNumber": 708
+        },
+        {
+          "caller": "handle_connection",
+          "callee": "handler",
+          "lineNumber": 713
+        },
+        {
+          "caller": "handle_connection",
+          "callee": "Logger::_error",
+          "lineNumber": 715
+        },
+        {
+          "caller": "handle_connection",
+          "callee": "std::string",
+          "lineNumber": 715
+        },
+        {
+          "caller": "handle_connection",
+          "callee": "what",
+          "lineNumber": 715
+        },
+        {
+          "caller": "handle_connection",
+          "callee": "send_error",
+          "lineNumber": 716
+        },
+        {
+          "caller": "handle_connection",
+          "callee": "what",
+          "lineNumber": 716
+        },
+        {
+          "caller": "handle_connection",
+          "callee": "reset_request_state",
+          "lineNumber": 717
+        },
+        {
+          "caller": "handle_connection",
+          "callee": "Logger::_error",
+          "lineNumber": 720
+        },
+        {
+          "caller": "handle_connection",
+          "callee": "send_error",
+          "lineNumber": 721
+        },
+        {
+          "caller": "handle_connection",
+          "callee": "reset_request_state",
+          "lineNumber": 722
+        },
+        {
+          "caller": "handle_connection",
+          "callee": "append_response",
+          "lineNumber": 726
+        },
+        {
+          "caller": "handle_connection",
+          "callee": "std::move",
+          "lineNumber": 726
+        },
+        {
+          "caller": "handle_connection",
+          "callee": "reset_request_state",
+          "lineNumber": 727
+        },
+        {
+          "caller": "handle_connection",
+          "callee": "consume_read_buffer",
+          "lineNumber": 730
+        },
+        {
+          "caller": "send_error",
+          "callee": "set_status",
+          "lineNumber": 735
+        },
+        {
+          "caller": "send_error",
+          "callee": "set_content_type",
+          "lineNumber": 736
+        },
+        {
+          "caller": "send_error",
+          "callee": "std::to_string",
+          "lineNumber": 737
+        },
+        {
+          "caller": "send_error",
+          "callee": "std::string",
+          "lineNumber": 737
+        },
+        {
+          "caller": "send_error",
+          "callee": "std::string",
+          "lineNumber": 737
+        },
+        {
+          "caller": "send_error",
+          "callee": "set_content_length",
+          "lineNumber": 738
+        },
+        {
+          "caller": "send_error",
+          "callee": "size",
+          "lineNumber": 738
+        },
+        {
+          "caller": "send_error",
+          "callee": "add_cors_headers",
+          "lineNumber": 739
+        },
+        {
+          "caller": "send_error",
+          "callee": "serialize",
+          "lineNumber": 741
+        },
+        {
+          "caller": "send_error",
+          "callee": "write_mutex",
+          "lineNumber": 742
+        },
+        {
+          "caller": "send_error",
+          "callee": "append",
+          "lineNumber": 743
+        },
+        {
+          "caller": "send_error",
+          "callee": "write_buffer",
+          "lineNumber": 743
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 42,
+        "functionCount": 41,
+        "classCount": 1
+      }
+    }
+  ]
+}

@@ -1,0 +1,596 @@
+{
+  "scriptCompleted": true,
+  "filesAnalyzed": 5,
+  "filesSkipped": [],
+  "results": [
+    {
+      "path": ".env.example",
+      "language": "config",
+      "fileCategory": "config",
+      "totalLines": 13,
+      "nonEmptyLines": 13,
+      "definitions": [
+        {
+          "name": "AUTH_SECRET",
+          "kind": "variable",
+          "fields": [],
+          "startLine": 6,
+          "endLine": 6
+        },
+        {
+          "name": "MYSQL_ROOT_PASSWORD",
+          "kind": "variable",
+          "fields": [],
+          "startLine": 7,
+          "endLine": 7
+        },
+        {
+          "name": "MYSQL_USER",
+          "kind": "variable",
+          "fields": [],
+          "startLine": 8,
+          "endLine": 8
+        },
+        {
+          "name": "MYSQL_PASSWORD",
+          "kind": "variable",
+          "fields": [],
+          "startLine": 9,
+          "endLine": 9
+        },
+        {
+          "name": "HPS_HTTP_PORT",
+          "kind": "variable",
+          "fields": [],
+          "startLine": 10,
+          "endLine": 10
+        },
+        {
+          "name": "ADMIN_USERNAME",
+          "kind": "variable",
+          "fields": [],
+          "startLine": 11,
+          "endLine": 11
+        },
+        {
+          "name": "ADMIN_PASSWORD",
+          "kind": "variable",
+          "fields": [],
+          "startLine": 12,
+          "endLine": 12
+        },
+        {
+          "name": "ADMIN_EMAIL",
+          "kind": "variable",
+          "fields": [],
+          "startLine": 13,
+          "endLine": 13
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "definitionCount": 8
+      }
+    },
+    {
+      "path": "README.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 551,
+      "nonEmptyLines": 410,
+      "sections": [
+        {
+          "heading": "High-Performance Server",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "系统组成",
+          "level": 2,
+          "line": 5
+        },
+        {
+          "heading": "项目结构",
+          "level": 2,
+          "line": 34
+        },
+        {
+          "heading": "首次使用",
+          "level": 2,
+          "line": 66
+        },
+        {
+          "heading": "1. 初始化开发环境",
+          "level": 3,
+          "line": 68
+        },
+        {
+          "heading": "2. 准备数据库和认证密钥",
+          "level": 3,
+          "line": 85
+        },
+        {
+          "heading": "3. 编译",
+          "level": 3,
+          "line": 96
+        },
+        {
+          "heading": "4. 运行后端",
+          "level": 3,
+          "line": 115
+        },
+        {
+          "heading": "5. 运行前端开发服务器",
+          "level": 3,
+          "line": 136
+        },
+        {
+          "heading": "配置",
+          "level": 2,
+          "line": 148
+        },
+        {
+          "heading": "环境变量",
+          "level": 3,
+          "line": 158
+        },
+        {
+          "heading": "命令行参数",
+          "level": 3,
+          "line": 173
+        },
+        {
+          "heading": "JSON 配置",
+          "level": 3,
+          "line": 189
+        },
+        {
+          "heading": "HTTP 与 WebSocket 接口",
+          "level": 2,
+          "line": 227
+        },
+        {
+          "heading": "文件上传约束",
+          "level": 3,
+          "line": 272
+        },
+        {
+          "heading": "脚本总览",
+          "level": 2,
+          "line": 309
+        },
+        {
+          "heading": "编译脚本",
+          "level": 3,
+          "line": 328
+        },
+        {
+          "heading": "格式化脚本",
+          "level": 3,
+          "line": 342
+        },
+        {
+          "heading": "Lint 脚本",
+          "level": 3,
+          "line": 354
+        },
+        {
+          "heading": "测试脚本",
+          "level": 3,
+          "line": 369
+        },
+        {
+          "heading": "CodeQL 脚本",
+          "level": 3,
+          "line": 389
+        },
+        {
+          "heading": "完整流水线",
+          "level": 3,
+          "line": 398
+        },
+        {
+          "heading": "性能脚本",
+          "level": 3,
+          "line": 421
+        },
+        {
+          "heading": "Docker 部署",
+          "level": 2,
+          "line": 460
+        },
+        {
+          "heading": "质量标准",
+          "level": 2,
+          "line": 496
+        },
+        {
+          "heading": "2026-07-22 修复前历史验证快照",
+          "level": 3,
+          "line": 508
+        },
+        {
+          "heading": "2026-07-23 Step 17 最终验证",
+          "level": 3,
+          "line": 521
+        },
+        {
+          "heading": "2026-08-04 性能与质量收尾",
+          "level": 3,
+          "line": 542
+        },
+        {
+          "heading": "许可证",
+          "level": 2,
+          "line": 549
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 29
+      }
+    },
+    {
+      "path": "config.json",
+      "language": "json",
+      "fileCategory": "config",
+      "totalLines": 29,
+      "nonEmptyLines": 29,
+      "sections": [
+        {
+          "heading": "server",
+          "level": 1,
+          "line": 2
+        },
+        {
+          "heading": "database",
+          "level": 1,
+          "line": 10
+        },
+        {
+          "heading": "ssl",
+          "level": 1,
+          "line": 19
+        },
+        {
+          "heading": "filesystem",
+          "level": 1,
+          "line": 26
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 4
+      }
+    },
+    {
+      "path": "goal.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 738,
+      "nonEmptyLines": 622,
+      "sections": [
+        {
+          "heading": "音乐软件 HTTP 服务器 — 项目目标与架构定稿",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "项目概述",
+          "level": 2,
+          "line": 3
+        },
+        {
+          "heading": "技术栈",
+          "level": 3,
+          "line": 7
+        },
+        {
+          "heading": "架构设计原则",
+          "level": 2,
+          "line": 19
+        },
+        {
+          "heading": "模块总览与接口决策",
+          "level": 2,
+          "line": 28
+        },
+        {
+          "heading": "依赖拓扑",
+          "level": 2,
+          "line": 45
+        },
+        {
+          "heading": "各模块详细设计",
+          "level": 2,
+          "line": 70
+        },
+        {
+          "heading": "1. logger — 两阶段强限制单例",
+          "level": 3,
+          "line": 72
+        },
+        {
+          "heading": "2. memory-pool — CRTP + 静态析构 deleter",
+          "level": 3,
+          "line": 98
+        },
+        {
+          "heading": "3. thread-pool — CRTP 接口 + 两实现",
+          "level": 3,
+          "line": 131
+        },
+        {
+          "heading": "4. coroutine — 无接口，与 Connection 耦合",
+          "level": 3,
+          "line": 180
+        },
+        {
+          "heading": "5. tcp_server / tcp_client — 抽象类接口",
+          "level": 3,
+          "line": 190
+        },
+        {
+          "heading": "6. http — 抽象类接口",
+          "level": 3,
+          "line": 214
+        },
+        {
+          "heading": "7. file-system — 抽象类接口",
+          "level": 3,
+          "line": 238
+        },
+        {
+          "heading": "8. file-transfer — 新增模块 + 抽象类接口",
+          "level": 3,
+          "line": 257
+        },
+        {
+          "heading": "9. database — 新增模块 + 抽象类接口",
+          "level": 3,
+          "line": 274
+        },
+        {
+          "heading": "Step 15 — 配套前端 Web 界面（历史第一版）",
+          "level": 2,
+          "line": 295
+        },
+        {
+          "heading": "概述",
+          "level": 3,
+          "line": 297
+        },
+        {
+          "heading": "历史目标",
+          "level": 3,
+          "line": 301
+        },
+        {
+          "heading": "Step 16 — 后端数据库重构 + 音乐库/歌单 API（已完成）",
+          "level": 2,
+          "line": 310
+        },
+        {
+          "heading": "概述",
+          "level": 3,
+          "line": 312
+        },
+        {
+          "heading": "目标",
+          "level": 3,
+          "line": 315
+        },
+        {
+          "heading": "Step 17 — 前端体验与上传链路优化 ✅ 已正式完成",
+          "level": 2,
+          "line": 322
+        },
+        {
+          "heading": "概述",
+          "level": 3,
+          "line": 324
+        },
+        {
+          "heading": "已落地目标",
+          "level": 3,
+          "line": 328
+        },
+        {
+          "heading": "运行时回归修复（2026-07-23）",
+          "level": 3,
+          "line": 338
+        },
+        {
+          "heading": "最终验收（2026-07-23）",
+          "level": 3,
+          "line": 347
+        },
+        {
+          "heading": "历史验收快照（2026-07-22，修复前）",
+          "level": 3,
+          "line": 354
+        },
+        {
+          "heading": "Step 18 — Crystal Music UI 视觉还原 ✅ 已完成",
+          "level": 2,
+          "line": 369
+        },
+        {
+          "heading": "概述",
+          "level": 3,
+          "line": 371
+        },
+        {
+          "heading": "本轮目标",
+          "level": 3,
+          "line": 375
+        },
+        {
+          "heading": "不变边界",
+          "level": 3,
+          "line": 381
+        },
+        {
+          "heading": "最终验收（2026-07-27）",
+          "level": 3,
+          "line": 387
+        },
+        {
+          "heading": "Step 19 — 用户功能闭环、VIP 生命周期与管理员治理 ✅ 已完成",
+          "level": 2,
+          "line": 398
+        },
+        {
+          "heading": "概述",
+          "level": 3,
+          "line": 400
+        },
+        {
+          "heading": "最终验收（2026-08-01）",
+          "level": 3,
+          "line": 404
+        },
+        {
+          "heading": "单例与生命周期",
+          "level": 2,
+          "line": 416
+        },
+        {
+          "heading": "关键设计决策",
+          "level": 2,
+          "line": 433
+        },
+        {
+          "heading": "质量门禁（严格模式）",
+          "level": 2,
+          "line": 448
+        },
+        {
+          "heading": "历史实施进度",
+          "level": 2,
+          "line": 465
+        },
+        {
+          "heading": "Step 13 — Docker 化部署 ✅ 已完成",
+          "level": 2,
+          "line": 655
+        },
+        {
+          "heading": "当前部署形态",
+          "level": 3,
+          "line": 657
+        },
+        {
+          "heading": "当前入口",
+          "level": 3,
+          "line": 665
+        },
+        {
+          "heading": "模块完成度总览",
+          "level": 2,
+          "line": 677
+        },
+        {
+          "heading": "新增模块清单",
+          "level": 2,
+          "line": 698
+        },
+        {
+          "heading": "测试覆盖",
+          "level": 2,
+          "line": 710
+        },
+        {
+          "heading": "运行与端口约定",
+          "level": 2,
+          "line": 729
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 47
+      }
+    },
+    {
+      "path": "setup.sh",
+      "language": "shell",
+      "fileCategory": "script",
+      "totalLines": 180,
+      "nonEmptyLines": 155,
+      "functions": [
+        {
+          "name": "show_usage",
+          "startLine": 9,
+          "endLine": 15,
+          "params": []
+        },
+        {
+          "name": "cleanup",
+          "startLine": 17,
+          "endLine": 21,
+          "params": []
+        },
+        {
+          "name": "fail",
+          "startLine": 23,
+          "endLine": 26,
+          "params": []
+        },
+        {
+          "name": "run_as_root",
+          "startLine": 28,
+          "endLine": 34,
+          "params": []
+        },
+        {
+          "name": "run_apt",
+          "startLine": 36,
+          "endLine": 38,
+          "params": []
+        },
+        {
+          "name": "node_version_supported",
+          "startLine": 40,
+          "endLine": 48,
+          "params": []
+        },
+        {
+          "name": "xmake_version_supported",
+          "startLine": 50,
+          "endLine": 56,
+          "params": []
+        },
+        {
+          "name": "install_nodejs",
+          "startLine": 58,
+          "endLine": 83,
+          "params": []
+        },
+        {
+          "name": "install_xmake",
+          "startLine": 85,
+          "endLine": 102,
+          "params": []
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 9,
+        "classCount": 0
+      }
+    }
+  ]
+}

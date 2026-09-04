@@ -1,0 +1,186 @@
+{
+  "projectRoot": "/home/jmj/work-space/projects/high-performance-server",
+  "batchFiles": [
+    {
+      "path": "benchmark/qps_auth_service.cpp",
+      "language": "cpp",
+      "sizeLines": 96,
+      "fileCategory": "code"
+    },
+    {
+      "path": "benchmark/qps_chunk_header.cpp",
+      "language": "cpp",
+      "sizeLines": 70,
+      "fileCategory": "code"
+    },
+    {
+      "path": "benchmark/qps_coroutine.cpp",
+      "language": "cpp",
+      "sizeLines": 71,
+      "fileCategory": "code"
+    },
+    {
+      "path": "benchmark/qps_database_pool.cpp",
+      "language": "cpp",
+      "sizeLines": 65,
+      "fileCategory": "code"
+    },
+    {
+      "path": "benchmark/qps_file_system.cpp",
+      "language": "cpp",
+      "sizeLines": 72,
+      "fileCategory": "code"
+    },
+    {
+      "path": "benchmark/qps_file_transfer.cpp",
+      "language": "cpp",
+      "sizeLines": 134,
+      "fileCategory": "code"
+    },
+    {
+      "path": "benchmark/qps_http_parser.cpp",
+      "language": "cpp",
+      "sizeLines": 91,
+      "fileCategory": "code"
+    },
+    {
+      "path": "benchmark/qps_http_response.cpp",
+      "language": "cpp",
+      "sizeLines": 124,
+      "fileCategory": "code"
+    },
+    {
+      "path": "benchmark/qps_http_server.cpp",
+      "language": "cpp",
+      "sizeLines": 132,
+      "fileCategory": "code"
+    },
+    {
+      "path": "benchmark/qps_http_utilities.cpp",
+      "language": "cpp",
+      "sizeLines": 92,
+      "fileCategory": "code"
+    },
+    {
+      "path": "benchmark/qps_lock_free_queue.cpp",
+      "language": "cpp",
+      "sizeLines": 117,
+      "fileCategory": "code"
+    },
+    {
+      "path": "benchmark/qps_logger.cpp",
+      "language": "cpp",
+      "sizeLines": 54,
+      "fileCategory": "code"
+    },
+    {
+      "path": "benchmark/qps_memory_pool.cpp",
+      "language": "cpp",
+      "sizeLines": 49,
+      "fileCategory": "code"
+    },
+    {
+      "path": "benchmark/qps_move_only_function.cpp",
+      "language": "cpp",
+      "sizeLines": 43,
+      "fileCategory": "code"
+    },
+    {
+      "path": "benchmark/qps_router.cpp",
+      "language": "cpp",
+      "sizeLines": 84,
+      "fileCategory": "code"
+    },
+    {
+      "path": "benchmark/qps_runner.hpp",
+      "language": "cpp",
+      "sizeLines": 373,
+      "fileCategory": "code"
+    },
+    {
+      "path": "benchmark/qps_ssl.cpp",
+      "language": "cpp",
+      "sizeLines": 48,
+      "fileCategory": "code"
+    },
+    {
+      "path": "benchmark/qps_tcp_server.cpp",
+      "language": "cpp",
+      "sizeLines": 120,
+      "fileCategory": "code"
+    },
+    {
+      "path": "benchmark/qps_thread_pool.cpp",
+      "language": "cpp",
+      "sizeLines": 126,
+      "fileCategory": "code"
+    },
+    {
+      "path": "benchmark/qps_websocket.cpp",
+      "language": "cpp",
+      "sizeLines": 50,
+      "fileCategory": "code"
+    }
+  ],
+  "batchImportData": {
+    "benchmark/qps_auth_service.cpp": [
+      "benchmark/qps_runner.hpp"
+    ],
+    "benchmark/qps_chunk_header.cpp": [
+      "benchmark/qps_runner.hpp"
+    ],
+    "benchmark/qps_coroutine.cpp": [
+      "benchmark/qps_runner.hpp"
+    ],
+    "benchmark/qps_database_pool.cpp": [
+      "benchmark/qps_runner.hpp"
+    ],
+    "benchmark/qps_file_system.cpp": [
+      "benchmark/qps_runner.hpp"
+    ],
+    "benchmark/qps_file_transfer.cpp": [
+      "benchmark/qps_runner.hpp"
+    ],
+    "benchmark/qps_http_parser.cpp": [
+      "benchmark/qps_runner.hpp"
+    ],
+    "benchmark/qps_http_response.cpp": [
+      "benchmark/qps_runner.hpp"
+    ],
+    "benchmark/qps_http_server.cpp": [
+      "benchmark/qps_runner.hpp"
+    ],
+    "benchmark/qps_http_utilities.cpp": [
+      "benchmark/qps_runner.hpp"
+    ],
+    "benchmark/qps_lock_free_queue.cpp": [
+      "benchmark/qps_runner.hpp"
+    ],
+    "benchmark/qps_logger.cpp": [
+      "benchmark/qps_runner.hpp"
+    ],
+    "benchmark/qps_memory_pool.cpp": [
+      "benchmark/qps_runner.hpp"
+    ],
+    "benchmark/qps_move_only_function.cpp": [
+      "benchmark/qps_runner.hpp"
+    ],
+    "benchmark/qps_router.cpp": [
+      "benchmark/qps_runner.hpp"
+    ],
+    "benchmark/qps_runner.hpp": [],
+    "benchmark/qps_ssl.cpp": [
+      "benchmark/qps_runner.hpp"
+    ],
+    "benchmark/qps_tcp_server.cpp": [
+      "benchmark/qps_runner.hpp"
+    ],
+    "benchmark/qps_thread_pool.cpp": [
+      "benchmark/qps_runner.hpp"
+    ],
+    "benchmark/qps_websocket.cpp": [
+      "benchmark/qps_runner.hpp"
+    ]
+  },
+  "neighborMap": {}
+}

@@ -1,0 +1,213 @@
+{
+  "nodes": [
+    {
+      "id": "file:scripts/compile.sh",
+      "type": "file",
+      "name": "scripts/compile.sh",
+      "filePath": "scripts/compile.sh",
+      "summary": "项目编译脚本，通过 xmake 编译 C/C++ 后端（支持 --clean 清缓存），并顺带构建前端（npm run build），无参数时进入交互菜单。",
+      "tags": [
+        "build",
+        "xmake",
+        "frontend",
+        "bash"
+      ],
+      "complexity": "simple",
+      "lineRange": "1-71"
+    },
+    {
+      "id": "function:scripts/compile.sh:usage",
+      "type": "function",
+      "name": "usage",
+      "summary": "打印编译脚本用法与子命令说明。",
+      "tags": [
+        "usage",
+        "help",
+        "bash"
+      ],
+      "complexity": "simple",
+      "lineRange": "6-18"
+    },
+    {
+      "id": "function:scripts/compile.sh:build_frontend",
+      "type": "function",
+      "name": "build_frontend",
+      "summary": "若存在 frontend 目录则先确保依赖，再执行 npm run build 构建前端。",
+      "tags": [
+        "frontend",
+        "build",
+        "npm",
+        "bash"
+      ],
+      "complexity": "simple",
+      "lineRange": "20-33"
+    },
+    {
+      "id": "function:scripts/compile.sh:cmd_build",
+      "type": "function",
+      "name": "cmd_build",
+      "summary": "执行 xmake 编译（可选 --clean 清缓存），完成后调用前端构建。",
+      "tags": [
+        "build",
+        "xmake",
+        "bash"
+      ],
+      "complexity": "simple",
+      "lineRange": "35-44"
+    },
+    {
+      "id": "file:scripts/format.sh",
+      "type": "file",
+      "name": "scripts/format.sh",
+      "filePath": "scripts/format.sh",
+      "summary": "clang-format 格式化脚本，对 C/C++ 源文件执行全量（all）或指定路径格式化，自动探测 clang-format 版本，无参数时进入交互菜单。",
+      "tags": [
+        "clang-format",
+        "formatting",
+        "bash"
+      ],
+      "complexity": "simple",
+      "lineRange": "1-94"
+    },
+    {
+      "id": "function:scripts/format.sh:usage",
+      "type": "function",
+      "name": "usage",
+      "summary": "打印用法与子命令说明（all、路径、--help）。",
+      "tags": [
+        "usage",
+        "help",
+        "bash"
+      ],
+      "complexity": "simple",
+      "lineRange": "6-20"
+    },
+    {
+      "id": "function:scripts/format.sh:cmd_format",
+      "type": "function",
+      "name": "cmd_format",
+      "summary": "自动探测 clang-format，收集全量或指定路径的 C/C++ 文件并执行 -i 格式化。",
+      "tags": [
+        "clang-format",
+        "formatting",
+        "bash"
+      ],
+      "complexity": "moderate",
+      "lineRange": "32-70"
+    },
+    {
+      "id": "file:scripts/test.sh",
+      "type": "file",
+      "name": "scripts/test.sh",
+      "filePath": "scripts/test.sh",
+      "summary": "测试执行脚本，支持全量测试（xmake test + 前端 Vitest + 脚本回归测试）、指定测试目标、frontend 子命令与隔离环境下的 Playwright E2E 测试。",
+      "tags": [
+        "testing",
+        "xmake",
+        "playwright",
+        "e2e",
+        "bash"
+      ],
+      "complexity": "moderate",
+      "lineRange": "1-261"
+    },
+    {
+      "id": "function:scripts/test.sh:run_frontend_tests",
+      "type": "function",
+      "name": "run_frontend_tests",
+      "summary": "运行前端 Vitest 测试（frontend 目录不存在时跳过）。",
+      "tags": [
+        "frontend",
+        "vitest",
+        "bash"
+      ],
+      "complexity": "simple",
+      "lineRange": "8-21"
+    },
+    {
+      "id": "function:scripts/test.sh:run_script_regression_tests",
+      "type": "function",
+      "name": "run_script_regression_tests",
+      "summary": "执行 tests/ 目录下各脚本回归测试。",
+      "tags": [
+        "regression",
+        "tests",
+        "bash"
+      ],
+      "complexity": "simple",
+      "lineRange": "23-33"
+    },
+    {
+      "id": "function:scripts/test.sh:run_e2e_tests",
+      "type": "function",
+      "name": "run_e2e_tests",
+      "summary": "启动隔离 Docker 环境并运行 Playwright E2E 测试，含信号转发、宽限收尾与清理。",
+      "tags": [
+        "e2e",
+        "playwright",
+        "isolated-environment",
+        "bash"
+      ],
+      "complexity": "complex",
+      "lineRange": "49-169"
+    }
+  ],
+  "edges": [
+    {
+      "source": "file:scripts/compile.sh",
+      "target": "function:scripts/compile.sh:usage",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:scripts/compile.sh",
+      "target": "function:scripts/compile.sh:build_frontend",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:scripts/compile.sh",
+      "target": "function:scripts/compile.sh:cmd_build",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:scripts/format.sh",
+      "target": "function:scripts/format.sh:usage",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:scripts/format.sh",
+      "target": "function:scripts/format.sh:cmd_format",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:scripts/test.sh",
+      "target": "function:scripts/test.sh:run_frontend_tests",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:scripts/test.sh",
+      "target": "function:scripts/test.sh:run_script_regression_tests",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:scripts/test.sh",
+      "target": "function:scripts/test.sh:run_e2e_tests",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    }
+  ]
+}

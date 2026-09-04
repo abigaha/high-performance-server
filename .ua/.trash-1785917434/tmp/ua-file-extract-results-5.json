@@ -1,0 +1,697 @@
+{
+  "scriptCompleted": true,
+  "filesAnalyzed": 5,
+  "filesSkipped": [],
+  "results": [
+    {
+      "path": "net/http/include/auth_middleware.h",
+      "language": "c",
+      "fileCategory": "code",
+      "totalLines": 47,
+      "nonEmptyLines": 42,
+      "functions": [
+        {
+          "name": "apply",
+          "startLine": 13,
+          "endLine": 44,
+          "params": [
+            "auth_service",
+            "req"
+          ]
+        }
+      ],
+      "classes": [
+        {
+          "name": "AuthMiddleware",
+          "startLine": 11,
+          "endLine": 45,
+          "methods": [
+            "apply"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "apply",
+          "line": 13,
+          "isDefault": false
+        },
+        {
+          "name": "AuthMiddleware",
+          "line": 11,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "apply",
+          "callee": "find",
+          "lineNumber": 14
+        },
+        {
+          "caller": "apply",
+          "callee": "end",
+          "lineNumber": 15
+        },
+        {
+          "caller": "apply",
+          "callee": "reset",
+          "lineNumber": 18
+        },
+        {
+          "caller": "apply",
+          "callee": "size",
+          "lineNumber": 23
+        },
+        {
+          "caller": "apply",
+          "callee": "size",
+          "lineNumber": 23
+        },
+        {
+          "caller": "apply",
+          "callee": "substr",
+          "lineNumber": 23
+        },
+        {
+          "caller": "apply",
+          "callee": "size",
+          "lineNumber": 23
+        },
+        {
+          "caller": "apply",
+          "callee": "reset",
+          "lineNumber": 26
+        },
+        {
+          "caller": "apply",
+          "callee": "substr",
+          "lineNumber": 29
+        },
+        {
+          "caller": "apply",
+          "callee": "size",
+          "lineNumber": 29
+        },
+        {
+          "caller": "apply",
+          "callee": "validate_token",
+          "lineNumber": 31
+        },
+        {
+          "caller": "apply",
+          "callee": "std::move",
+          "lineNumber": 33
+        },
+        {
+          "caller": "apply",
+          "callee": "std::move",
+          "lineNumber": 35
+        },
+        {
+          "caller": "apply",
+          "callee": "reset",
+          "lineNumber": 37
+        },
+        {
+          "caller": "apply",
+          "callee": "reset",
+          "lineNumber": 42
+        }
+      ],
+      "metrics": {
+        "importCount": 2,
+        "exportCount": 2,
+        "functionCount": 1,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "net/http/include/auth_service.h",
+      "language": "c",
+      "fileCategory": "code",
+      "totalLines": 36,
+      "nonEmptyLines": 26,
+      "functions": [
+        {
+          "name": "~IAuthService",
+          "startLine": 18,
+          "endLine": 18,
+          "params": []
+        }
+      ],
+      "classes": [
+        {
+          "name": "IDatabasePool",
+          "startLine": 14,
+          "endLine": 14,
+          "methods": [],
+          "properties": []
+        },
+        {
+          "name": "IAuthService",
+          "startLine": 16,
+          "endLine": 23,
+          "methods": [
+            "~IAuthService",
+            "validate_token",
+            "generate_token",
+            "authenticate"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "IDatabasePool",
+          "line": 14,
+          "isDefault": false
+        },
+        {
+          "name": "~IAuthService",
+          "line": 18,
+          "isDefault": false
+        },
+        {
+          "name": "validate_token",
+          "line": 20,
+          "isDefault": false
+        },
+        {
+          "name": "generate_token",
+          "line": 21,
+          "isDefault": false
+        },
+        {
+          "name": "authenticate",
+          "line": 22,
+          "isDefault": false
+        },
+        {
+          "name": "IAuthService",
+          "line": 16,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 6,
+        "functionCount": 1,
+        "classCount": 2
+      }
+    },
+    {
+      "path": "net/http/include/http_parser.h",
+      "language": "c",
+      "fileCategory": "code",
+      "totalLines": 113,
+      "nonEmptyLines": 88,
+      "functions": [
+        {
+          "name": "state",
+          "startLine": 57,
+          "endLine": 57,
+          "params": []
+        },
+        {
+          "name": "error",
+          "startLine": 59,
+          "endLine": 59,
+          "params": []
+        },
+        {
+          "name": "set_streaming_mode",
+          "startLine": 65,
+          "endLine": 65,
+          "params": [
+            "enable"
+          ]
+        },
+        {
+          "name": "streaming_mode",
+          "startLine": 67,
+          "endLine": 67,
+          "params": []
+        },
+        {
+          "name": "set_chunk_handler",
+          "startLine": 69,
+          "endLine": 69,
+          "params": [
+            "cb"
+          ]
+        },
+        {
+          "name": "set_stream_chunk_size",
+          "startLine": 71,
+          "endLine": 73,
+          "params": [
+            "size"
+          ]
+        },
+        {
+          "name": "set_body_done_callback",
+          "startLine": 75,
+          "endLine": 75,
+          "params": [
+            "cb"
+          ]
+        },
+        {
+          "name": "set_headers_done_callback",
+          "startLine": 77,
+          "endLine": 77,
+          "params": [
+            "cb"
+          ]
+        }
+      ],
+      "classes": [
+        {
+          "name": "ParserResult",
+          "startLine": 33,
+          "endLine": 36,
+          "methods": [],
+          "properties": [
+            "err",
+            "consumed"
+          ]
+        },
+        {
+          "name": "HttpParser",
+          "startLine": 44,
+          "endLine": 111,
+          "methods": [
+            "feed",
+            "state",
+            "error",
+            "set_streaming_mode",
+            "streaming_mode",
+            "set_chunk_handler",
+            "set_stream_chunk_size",
+            "set_body_done_callback",
+            "set_headers_done_callback",
+            "reset",
+            "reset_line_buf",
+            "flush_chunk_buf",
+            "finish_body",
+            "append_body_byte",
+            "feed_request_line",
+            "feed_headers",
+            "handle_end_of_headers",
+            "parse_header_line",
+            "feed_body_identity",
+            "feed_chunk_size",
+            "feed_chunk_data",
+            "feed_chunk_trailer"
+          ],
+          "properties": [
+            "kMaxBodySize",
+            "kStreamChunkSize",
+            "state_",
+            "error_",
+            "request_",
+            "line_buf_",
+            "body_bytes_remaining_",
+            "chunk_size_",
+            "chunk_bytes_read_",
+            "chunk_need_crlf_",
+            "total_body_bytes_",
+            "streaming_mode_",
+            "chunk_handler_",
+            "body_done_cb_",
+            "headers_done_cb_",
+            "chunk_buf_",
+            "stream_chunk_size_"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "ParserResult",
+          "line": 33,
+          "isDefault": false
+        },
+        {
+          "name": "feed",
+          "line": 55,
+          "isDefault": false
+        },
+        {
+          "name": "state",
+          "line": 57,
+          "isDefault": false
+        },
+        {
+          "name": "error",
+          "line": 59,
+          "isDefault": false
+        },
+        {
+          "name": "set_streaming_mode",
+          "line": 65,
+          "isDefault": false
+        },
+        {
+          "name": "streaming_mode",
+          "line": 67,
+          "isDefault": false
+        },
+        {
+          "name": "set_chunk_handler",
+          "line": 69,
+          "isDefault": false
+        },
+        {
+          "name": "set_stream_chunk_size",
+          "line": 71,
+          "isDefault": false
+        },
+        {
+          "name": "set_body_done_callback",
+          "line": 75,
+          "isDefault": false
+        },
+        {
+          "name": "set_headers_done_callback",
+          "line": 77,
+          "isDefault": false
+        },
+        {
+          "name": "reset",
+          "line": 79,
+          "isDefault": false
+        },
+        {
+          "name": "HttpParser",
+          "line": 44,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "set_chunk_handler",
+          "callee": "std::move",
+          "lineNumber": 69
+        },
+        {
+          "caller": "set_stream_chunk_size",
+          "callee": "static_cast<std::size_t>",
+          "lineNumber": 72
+        },
+        {
+          "caller": "set_body_done_callback",
+          "callee": "std::move",
+          "lineNumber": 75
+        },
+        {
+          "caller": "set_headers_done_callback",
+          "callee": "std::move",
+          "lineNumber": 77
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 12,
+        "functionCount": 8,
+        "classCount": 2
+      }
+    },
+    {
+      "path": "net/http/include/http_request.h",
+      "language": "c",
+      "fileCategory": "code",
+      "totalLines": 49,
+      "nonEmptyLines": 41,
+      "classes": [
+        {
+          "name": "HttpRequest",
+          "startLine": 33,
+          "endLine": 47,
+          "methods": [
+            "clear"
+          ],
+          "properties": [
+            "method",
+            "path",
+            "query_string",
+            "version",
+            "headers",
+            "body",
+            "path_params",
+            "auth_status",
+            "auth_user",
+            "auth_profile"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "clear",
+          "line": 46,
+          "isDefault": false
+        },
+        {
+          "name": "HttpRequest",
+          "line": 33,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 2,
+        "functionCount": 0,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "net/http/include/http_server.h",
+      "language": "c",
+      "fileCategory": "code",
+      "totalLines": 118,
+      "nonEmptyLines": 95,
+      "functions": [
+        {
+          "name": "UploadStreamContext",
+          "startLine": 49,
+          "endLine": 49,
+          "params": []
+        },
+        {
+          "name": "UploadStreamContext",
+          "startLine": 51,
+          "endLine": 51,
+          "params": []
+        },
+        {
+          "name": "HttpServer",
+          "startLine": 71,
+          "endLine": 71,
+          "params": []
+        },
+        {
+          "name": "set_auth_service",
+          "startLine": 89,
+          "endLine": 89,
+          "params": [
+            "auth"
+          ]
+        },
+        {
+          "name": "actual_port",
+          "startLine": 91,
+          "endLine": 91,
+          "params": []
+        }
+      ],
+      "classes": [
+        {
+          "name": "WsConnection",
+          "startLine": 26,
+          "endLine": 26,
+          "methods": [],
+          "properties": []
+        },
+        {
+          "name": "UploadStreamContext",
+          "startLine": 28,
+          "endLine": 56,
+          "methods": [
+            "UploadStreamContext",
+            "UploadStreamContext",
+            "reset_hash_context",
+            "set_initial_chunk_probe"
+          ],
+          "properties": [
+            "file_name",
+            "file_hash",
+            "total_size",
+            "current_offset",
+            "chunks",
+            "hash_ctx",
+            "store_chunk_data",
+            "content_length",
+            "rejection_response",
+            "initial_chunk_probe",
+            "initial_chunk_probe_size",
+            "initial_chunk_probe_data",
+            "initial_chunk_probe_completed",
+            "failed",
+            "size_exceeded",
+            "chunk_lifecycle_guard"
+          ]
+        },
+        {
+          "name": "HttpServer",
+          "startLine": 60,
+          "endLine": 116,
+          "methods": [
+            "HttpServer",
+            "init",
+            "start",
+            "stop",
+            "get",
+            "post",
+            "put",
+            "del",
+            "ws",
+            "upload",
+            "set_auth_service",
+            "actual_port",
+            "handle_connection",
+            "cleanup_connection",
+            "on_headers_done",
+            "try_handle_ws_upgrade",
+            "send_error",
+            "get_conn_mutex"
+          ],
+          "properties": [
+            "server_",
+            "router_",
+            "ws_handlers_",
+            "upload_handlers_",
+            "upload_setups_",
+            "upload_preflights_",
+            "conn_map_mutex_",
+            "conn_mutexes_",
+            "auth_service_",
+            "parsers_mutex_",
+            "parsers_",
+            "upload_contexts_"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "WsConnection",
+          "line": 26,
+          "isDefault": false
+        },
+        {
+          "name": "UploadStreamContext",
+          "line": 49,
+          "isDefault": false
+        },
+        {
+          "name": "UploadStreamContext",
+          "line": 51,
+          "isDefault": false
+        },
+        {
+          "name": "reset_hash_context",
+          "line": 54,
+          "isDefault": false
+        },
+        {
+          "name": "set_initial_chunk_probe",
+          "line": 55,
+          "isDefault": false
+        },
+        {
+          "name": "UploadStreamContext",
+          "line": 28,
+          "isDefault": false
+        },
+        {
+          "name": "HttpServer",
+          "line": 71,
+          "isDefault": false
+        },
+        {
+          "name": "init",
+          "line": 74,
+          "isDefault": false
+        },
+        {
+          "name": "start",
+          "line": 75,
+          "isDefault": false
+        },
+        {
+          "name": "stop",
+          "line": 76,
+          "isDefault": false
+        },
+        {
+          "name": "get",
+          "line": 78,
+          "isDefault": false
+        },
+        {
+          "name": "post",
+          "line": 79,
+          "isDefault": false
+        },
+        {
+          "name": "put",
+          "line": 80,
+          "isDefault": false
+        },
+        {
+          "name": "del",
+          "line": 81,
+          "isDefault": false
+        },
+        {
+          "name": "ws",
+          "line": 83,
+          "isDefault": false
+        },
+        {
+          "name": "upload",
+          "line": 84,
+          "isDefault": false
+        },
+        {
+          "name": "set_auth_service",
+          "line": 89,
+          "isDefault": false
+        },
+        {
+          "name": "actual_port",
+          "line": 91,
+          "isDefault": false
+        },
+        {
+          "name": "HttpServer",
+          "line": 60,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "actual_port",
+          "callee": "actual_port",
+          "lineNumber": 91
+        }
+      ],
+      "metrics": {
+        "importCount": 7,
+        "exportCount": 19,
+        "functionCount": 5,
+        "classCount": 3
+      }
+    }
+  ]
+}

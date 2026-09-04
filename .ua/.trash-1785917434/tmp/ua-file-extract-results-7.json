@@ -1,0 +1,728 @@
+{
+  "scriptCompleted": true,
+  "filesAnalyzed": 3,
+  "filesSkipped": [],
+  "results": [
+    {
+      "path": "net/thread-pool/include/lock_free_queue.hpp",
+      "language": "cpp",
+      "fileCategory": "code",
+      "totalLines": 252,
+      "nonEmptyLines": 227,
+      "callGraph": [
+        {
+          "caller": "is_stopped",
+          "callee": "stop_requested",
+          "lineNumber": 29
+        },
+        {
+          "caller": "get_version",
+          "callee": "static_cast<std::uint32_t>",
+          "lineNumber": 40
+        },
+        {
+          "caller": "get_index",
+          "callee": "static_cast<std::uint32_t>",
+          "lineNumber": 42
+        },
+        {
+          "caller": "make_index",
+          "callee": "static_cast<std::uint64_t>",
+          "lineNumber": 45
+        },
+        {
+          "caller": "increment_index",
+          "callee": "get_version",
+          "lineNumber": 49
+        },
+        {
+          "caller": "increment_index",
+          "callee": "get_index",
+          "lineNumber": 50
+        },
+        {
+          "caller": "increment_index",
+          "callee": "make_index",
+          "lineNumber": 55
+        },
+        {
+          "caller": "LockFreeQueue",
+          "callee": "std::allocator_traits<decltype(allocator_)>::allocate",
+          "lineNumber": 76
+        },
+        {
+          "caller": "LockFreeQueue",
+          "callee": "get_token",
+          "lineNumber": 82
+        },
+        {
+          "caller": "LockFreeQueue",
+          "callee": "store",
+          "lineNumber": 84
+        },
+        {
+          "caller": "~LockFreeQueue",
+          "callee": "empty",
+          "lineNumber": 90
+        },
+        {
+          "caller": "~LockFreeQueue",
+          "callee": "load",
+          "lineNumber": 91
+        },
+        {
+          "caller": "~LockFreeQueue",
+          "callee": "get_index",
+          "lineNumber": 92
+        },
+        {
+          "caller": "~LockFreeQueue",
+          "callee": "std::allocator_traits<decltype(allocator_)>::destroy",
+          "lineNumber": 93
+        },
+        {
+          "caller": "~LockFreeQueue",
+          "callee": "std::next",
+          "lineNumber": 94
+        },
+        {
+          "caller": "~LockFreeQueue",
+          "callee": "static_cast<std::ptrdiff_t>",
+          "lineNumber": 94
+        },
+        {
+          "caller": "~LockFreeQueue",
+          "callee": "store",
+          "lineNumber": 95
+        },
+        {
+          "caller": "~LockFreeQueue",
+          "callee": "store",
+          "lineNumber": 96
+        },
+        {
+          "caller": "~LockFreeQueue",
+          "callee": "increment_index",
+          "lineNumber": 96
+        },
+        {
+          "caller": "~LockFreeQueue",
+          "callee": "std::allocator_traits<decltype(allocator_)>::deallocate",
+          "lineNumber": 98
+        },
+        {
+          "caller": "empty",
+          "callee": "get_index",
+          "lineNumber": 103
+        },
+        {
+          "caller": "empty",
+          "callee": "load",
+          "lineNumber": 103
+        },
+        {
+          "caller": "empty",
+          "callee": "get_index",
+          "lineNumber": 103
+        },
+        {
+          "caller": "empty",
+          "callee": "load",
+          "lineNumber": 103
+        },
+        {
+          "caller": "full",
+          "callee": "get_index",
+          "lineNumber": 108
+        },
+        {
+          "caller": "full",
+          "callee": "load",
+          "lineNumber": 108
+        },
+        {
+          "caller": "full",
+          "callee": "get_index",
+          "lineNumber": 109
+        },
+        {
+          "caller": "full",
+          "callee": "load",
+          "lineNumber": 109
+        },
+        {
+          "caller": "stop",
+          "callee": "request_stop",
+          "lineNumber": 114
+        },
+        {
+          "caller": "emplace",
+          "callee": "stop_requested",
+          "lineNumber": 121
+        },
+        {
+          "caller": "emplace",
+          "callee": "full",
+          "lineNumber": 124
+        },
+        {
+          "caller": "emplace",
+          "callee": "stop_requested",
+          "lineNumber": 125
+        },
+        {
+          "caller": "emplace",
+          "callee": "std::this_thread::yield",
+          "lineNumber": 128
+        },
+        {
+          "caller": "emplace",
+          "callee": "load",
+          "lineNumber": 130
+        },
+        {
+          "caller": "emplace",
+          "callee": "increment_index",
+          "lineNumber": 131
+        },
+        {
+          "caller": "emplace",
+          "callee": "compare_exchange_weak",
+          "lineNumber": 132
+        },
+        {
+          "caller": "emplace",
+          "callee": "get_index",
+          "lineNumber": 133
+        },
+        {
+          "caller": "emplace",
+          "callee": "load",
+          "lineNumber": 134
+        },
+        {
+          "caller": "emplace",
+          "callee": "std::this_thread::yield",
+          "lineNumber": 135
+        },
+        {
+          "caller": "emplace",
+          "callee": "std::allocator_traits<decltype(allocator_)>::construct",
+          "lineNumber": 138
+        },
+        {
+          "caller": "emplace",
+          "callee": "std::next",
+          "lineNumber": 139
+        },
+        {
+          "caller": "emplace",
+          "callee": "static_cast<std::ptrdiff_t>",
+          "lineNumber": 139
+        },
+        {
+          "caller": "emplace",
+          "callee": "std::forward<Args>",
+          "lineNumber": 139
+        },
+        {
+          "caller": "emplace",
+          "callee": "store",
+          "lineNumber": 141
+        },
+        {
+          "caller": "emplace",
+          "callee": "store",
+          "lineNumber": 144
+        },
+        {
+          "caller": "emplace",
+          "callee": "std::this_thread::yield",
+          "lineNumber": 147
+        },
+        {
+          "caller": "push",
+          "callee": "emplace",
+          "lineNumber": 154
+        },
+        {
+          "caller": "push",
+          "callee": "emplace",
+          "lineNumber": 160
+        },
+        {
+          "caller": "push",
+          "callee": "std::forward<T>",
+          "lineNumber": 160
+        },
+        {
+          "caller": "pop",
+          "callee": "stop_requested",
+          "lineNumber": 166
+        },
+        {
+          "caller": "pop",
+          "callee": "empty",
+          "lineNumber": 169
+        },
+        {
+          "caller": "pop",
+          "callee": "stop_requested",
+          "lineNumber": 170
+        },
+        {
+          "caller": "pop",
+          "callee": "std::this_thread::yield",
+          "lineNumber": 173
+        },
+        {
+          "caller": "pop",
+          "callee": "load",
+          "lineNumber": 175
+        },
+        {
+          "caller": "pop",
+          "callee": "get_index",
+          "lineNumber": 176
+        },
+        {
+          "caller": "pop",
+          "callee": "get_index",
+          "lineNumber": 176
+        },
+        {
+          "caller": "pop",
+          "callee": "load",
+          "lineNumber": 176
+        },
+        {
+          "caller": "pop",
+          "callee": "increment_index",
+          "lineNumber": 179
+        },
+        {
+          "caller": "pop",
+          "callee": "compare_exchange_weak",
+          "lineNumber": 180
+        },
+        {
+          "caller": "pop",
+          "callee": "get_index",
+          "lineNumber": 181
+        },
+        {
+          "caller": "pop",
+          "callee": "load",
+          "lineNumber": 182
+        },
+        {
+          "caller": "pop",
+          "callee": "load",
+          "lineNumber": 183
+        },
+        {
+          "caller": "pop",
+          "callee": "store",
+          "lineNumber": 184
+        },
+        {
+          "caller": "pop",
+          "callee": "stop_requested",
+          "lineNumber": 187
+        },
+        {
+          "caller": "pop",
+          "callee": "store",
+          "lineNumber": 188
+        },
+        {
+          "caller": "pop",
+          "callee": "std::this_thread::yield",
+          "lineNumber": 191
+        },
+        {
+          "caller": "pop",
+          "callee": "std::move",
+          "lineNumber": 194
+        },
+        {
+          "caller": "pop",
+          "callee": "std::next",
+          "lineNumber": 194
+        },
+        {
+          "caller": "pop",
+          "callee": "static_cast<std::ptrdiff_t>",
+          "lineNumber": 194
+        },
+        {
+          "caller": "pop",
+          "callee": "store",
+          "lineNumber": 195
+        },
+        {
+          "caller": "pop",
+          "callee": "std::allocator_traits<decltype(allocator_)>::destroy",
+          "lineNumber": 196
+        },
+        {
+          "caller": "pop",
+          "callee": "std::next",
+          "lineNumber": 197
+        },
+        {
+          "caller": "pop",
+          "callee": "static_cast<std::ptrdiff_t>",
+          "lineNumber": 197
+        },
+        {
+          "caller": "pop",
+          "callee": "store",
+          "lineNumber": 198
+        },
+        {
+          "caller": "pop",
+          "callee": "std::this_thread::yield",
+          "lineNumber": 201
+        },
+        {
+          "caller": "try_pop",
+          "callee": "load",
+          "lineNumber": 209
+        },
+        {
+          "caller": "try_pop",
+          "callee": "get_index",
+          "lineNumber": 210
+        },
+        {
+          "caller": "try_pop",
+          "callee": "get_index",
+          "lineNumber": 210
+        },
+        {
+          "caller": "try_pop",
+          "callee": "load",
+          "lineNumber": 210
+        },
+        {
+          "caller": "try_pop",
+          "callee": "increment_index",
+          "lineNumber": 213
+        },
+        {
+          "caller": "try_pop",
+          "callee": "compare_exchange_weak",
+          "lineNumber": 214
+        },
+        {
+          "caller": "try_pop",
+          "callee": "get_index",
+          "lineNumber": 217
+        },
+        {
+          "caller": "try_pop",
+          "callee": "load",
+          "lineNumber": 218
+        },
+        {
+          "caller": "try_pop",
+          "callee": "load",
+          "lineNumber": 219
+        },
+        {
+          "caller": "try_pop",
+          "callee": "store",
+          "lineNumber": 220
+        },
+        {
+          "caller": "try_pop",
+          "callee": "stop_requested",
+          "lineNumber": 223
+        },
+        {
+          "caller": "try_pop",
+          "callee": "store",
+          "lineNumber": 224
+        },
+        {
+          "caller": "try_pop",
+          "callee": "std::this_thread::yield",
+          "lineNumber": 227
+        },
+        {
+          "caller": "try_pop",
+          "callee": "std::move",
+          "lineNumber": 230
+        },
+        {
+          "caller": "try_pop",
+          "callee": "std::next",
+          "lineNumber": 230
+        },
+        {
+          "caller": "try_pop",
+          "callee": "static_cast<std::ptrdiff_t>",
+          "lineNumber": 230
+        },
+        {
+          "caller": "try_pop",
+          "callee": "store",
+          "lineNumber": 231
+        },
+        {
+          "caller": "try_pop",
+          "callee": "std::allocator_traits<decltype(allocator_)>::destroy",
+          "lineNumber": 232
+        },
+        {
+          "caller": "try_pop",
+          "callee": "std::next",
+          "lineNumber": 233
+        },
+        {
+          "caller": "try_pop",
+          "callee": "static_cast<std::ptrdiff_t>",
+          "lineNumber": 233
+        },
+        {
+          "caller": "try_pop",
+          "callee": "store",
+          "lineNumber": 234
+        },
+        {
+          "caller": "pop",
+          "callee": "pop",
+          "lineNumber": 243
+        },
+        {
+          "caller": "pop",
+          "callee": "stop_requested",
+          "lineNumber": 244
+        },
+        {
+          "caller": "pop",
+          "callee": "std::this_thread::yield",
+          "lineNumber": 247
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "net/thread-pool/include/locked_thread_pool.h",
+      "language": "c",
+      "fileCategory": "code",
+      "totalLines": 62,
+      "nonEmptyLines": 50,
+      "functions": [
+        {
+          "name": "LockedThreadPool",
+          "startLine": 24,
+          "endLine": 24,
+          "params": []
+        }
+      ],
+      "classes": [
+        {
+          "name": "LockedThreadPool",
+          "startLine": 19,
+          "endLine": 45,
+          "methods": [
+            "LockedThreadPool",
+            "wait_impl",
+            "stop_impl",
+            "wait_for",
+            "worker"
+          ],
+          "properties": [
+            "workers_",
+            "tasks_",
+            "queue_mutex_",
+            "cv_",
+            "pending_",
+            "stop_"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "LockedThreadPool",
+          "line": 24,
+          "isDefault": false
+        },
+        {
+          "name": "wait_impl",
+          "line": 31,
+          "isDefault": false
+        },
+        {
+          "name": "stop_impl",
+          "line": 32,
+          "isDefault": false
+        },
+        {
+          "name": "wait_for",
+          "line": 34,
+          "isDefault": false
+        },
+        {
+          "name": "LockedThreadPool",
+          "line": 19,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "enqueue_impl",
+          "callee": "std::forward<F>",
+          "lineNumber": 50
+        },
+        {
+          "caller": "enqueue_impl",
+          "callee": "std::forward<Args>",
+          "lineNumber": 50
+        },
+        {
+          "caller": "enqueue_impl",
+          "callee": "f",
+          "lineNumber": 50
+        },
+        {
+          "caller": "enqueue_impl",
+          "callee": "std::move",
+          "lineNumber": 50
+        },
+        {
+          "caller": "enqueue_impl",
+          "callee": "emplace",
+          "lineNumber": 56
+        },
+        {
+          "caller": "enqueue_impl",
+          "callee": "std::move",
+          "lineNumber": 56
+        },
+        {
+          "caller": "enqueue_impl",
+          "callee": "fetch_add",
+          "lineNumber": 57
+        },
+        {
+          "caller": "enqueue_impl",
+          "callee": "notify_one",
+          "lineNumber": 59
+        }
+      ],
+      "metrics": {
+        "importCount": 2,
+        "exportCount": 5,
+        "functionCount": 1,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "net/thread-pool/include/thread_pool.h",
+      "language": "c",
+      "fileCategory": "code",
+      "totalLines": 78,
+      "nonEmptyLines": 66,
+      "classes": [
+        {
+          "name": "LockFreeThreadPool",
+          "startLine": 25,
+          "endLine": 54,
+          "methods": [
+            "wait_impl",
+            "stop_impl",
+            "worker",
+            "finish_enqueue"
+          ],
+          "properties": [
+            "workers_",
+            "tasks_",
+            "state_mutex_",
+            "stop_mutex_",
+            "work_cv_",
+            "idle_cv_",
+            "enqueue_cv_",
+            "queued_tasks_",
+            "pending_tasks_",
+            "enqueuers_",
+            "accepting_tasks_",
+            "stopping_"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "wait_impl",
+          "line": 35,
+          "isDefault": false
+        },
+        {
+          "name": "stop_impl",
+          "line": 36,
+          "isDefault": false
+        },
+        {
+          "name": "LockFreeThreadPool",
+          "line": 25,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "enqueue_impl",
+          "callee": "std::forward<F>",
+          "lineNumber": 59
+        },
+        {
+          "caller": "enqueue_impl",
+          "callee": "std::forward<Args>",
+          "lineNumber": 59
+        },
+        {
+          "caller": "enqueue_impl",
+          "callee": "f",
+          "lineNumber": 59
+        },
+        {
+          "caller": "enqueue_impl",
+          "callee": "std::move",
+          "lineNumber": 59
+        },
+        {
+          "caller": "enqueue_impl",
+          "callee": "finish_enqueue",
+          "lineNumber": 71
+        },
+        {
+          "caller": "enqueue_impl",
+          "callee": "push",
+          "lineNumber": 71
+        },
+        {
+          "caller": "enqueue_impl",
+          "callee": "std::move",
+          "lineNumber": 71
+        },
+        {
+          "caller": "enqueue_impl",
+          "callee": "finish_enqueue",
+          "lineNumber": 73
+        }
+      ],
+      "metrics": {
+        "importCount": 3,
+        "exportCount": 3,
+        "functionCount": 0,
+        "classCount": 1
+      }
+    }
+  ]
+}

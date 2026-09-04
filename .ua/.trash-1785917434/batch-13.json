@@ -1,0 +1,111 @@
+{
+  "nodes": [
+    {
+      "id": "config:.env.example",
+      "type": "config",
+      "name": ".env.example",
+      "filePath": ".env.example",
+      "summary": "Docker 部署用的环境变量模板，含 AUTH_SECRET、MySQL 凭据、HPS_HTTP_PORT 与 ADMIN 三项占位值；scripts/docker.sh deploy 在缺少 .env 时会自动生成安全随机值。",
+      "tags": ["environment-variables", "docker", "mysql", "auth", "template"],
+      "complexity": "simple"
+    },
+    {
+      "id": "document:README.md",
+      "type": "document",
+      "name": "README.md",
+      "filePath": "README.md",
+      "summary": "项目主文档：介绍系统组成与请求链路、项目结构、首次使用步骤（环境初始化/数据库/编译/运行）、配置方式（环境变量、命令行参数、JSON 配置）、HTTP 与 WebSocket 接口、脚本总览、Docker 部署与质量标准。",
+      "tags": ["readme", "documentation", "architecture", "deployment", "api"],
+      "complexity": "complex"
+    },
+    {
+      "id": "config:config.json",
+      "type": "config",
+      "name": "config.json",
+      "filePath": "config.json",
+      "summary": "本地运行配置文件，包含 server（端口/backlog/线程数/epoll 超时/上传大小限制）、database（MySQL 连接与连接池参数）、ssl（TLS 开关与证书路径）和 filesystem（存储根目录）四部分。",
+      "tags": ["configuration", "server", "mysql", "ssl", "json"],
+      "complexity": "simple"
+    },
+    {
+      "id": "document:goal.md",
+      "type": "document",
+      "name": "goal.md",
+      "filePath": "goal.md",
+      "summary": "项目目标与架构定稿文档：定义技术栈、架构设计原则、各模块（logger、memory-pool、thread-pool、coroutine、http、file-system、file-transfer、database）的接口决策与依赖拓扑，并记录历史实施步骤、质量门禁与部署形态。",
+      "tags": ["architecture", "goals", "design", "planning", "spec"],
+      "complexity": "complex"
+    },
+    {
+      "id": "file:setup.sh",
+      "type": "file",
+      "name": "setup.sh",
+      "filePath": "setup.sh",
+      "summary": "Ubuntu/Debian 基础开发环境初始化脚本：安装 C++ 工具链、Git、OpenSSL/Boost、clang-format/clang-tidy/cppcheck、Node.js 22 与 xmake v3，最后拉取 xmake 包依赖；Docker、wrk 等仅提示不自动安装。",
+      "tags": ["shell", "setup", "environment", "apt", "xmake"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:setup.sh:install_nodejs",
+      "type": "function",
+      "name": "install_nodejs",
+      "lineRange": [58, 83],
+      "summary": "安装或复用满足前端要求的 Node.js（20.19+ 或 22.12+）：通过 nodesource 仓库配置并 apt 安装 nodejs，校验版本与 npm 是否可用。",
+      "tags": ["nodejs", "install", "apt", "environment"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:setup.sh:install_xmake",
+      "type": "function",
+      "name": "install_xmake",
+      "lineRange": [85, 102],
+      "summary": "安装或复用 xmake v3：通过官方安装器安装，补充 PATH 并校验版本满足要求，否则报错退出。",
+      "tags": ["xmake", "install", "build-tool", "environment"],
+      "complexity": "simple"
+    }
+  ],
+  "edges": [
+    {
+      "source": "file:setup.sh",
+      "target": "function:setup.sh:install_nodejs",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:setup.sh",
+      "target": "function:setup.sh:install_xmake",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "document:README.md",
+      "target": "file:setup.sh",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:README.md",
+      "target": "config:config.json",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:README.md",
+      "target": "config:.env.example",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:README.md",
+      "target": "document:goal.md",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    }
+  ]
+}

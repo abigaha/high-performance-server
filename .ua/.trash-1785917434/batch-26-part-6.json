@@ -1,0 +1,466 @@
+{
+ "nodes": [
+  {
+   "id": "function:tests/test_step16_api.cpp:Step16ApiTest.RegistrationRejectsPasswordLongerThan128BytesBeforeWriting",
+   "type": "function",
+   "name": "Step16ApiTest.RegistrationRejectsPasswordLongerThan128BytesBeforeWriting",
+   "summary": "gtest 测试用例 Step16ApiTest.RegistrationRejectsPasswordLongerThan128BytesBeforeWriting，验证相关生产组件的预期行为（18 行）。",
+   "tags": [
+    "test-case",
+    "gtest",
+    "cpp"
+   ],
+   "complexity": "moderate",
+   "lineRange": [
+    2092,
+    2109
+   ]
+  },
+  {
+   "id": "function:tests/test_step16_api.cpp:Step16ApiTest.RegistrationMapsConcurrentEmailWinnerToConflictWithoutLeakingEmail",
+   "type": "function",
+   "name": "Step16ApiTest.RegistrationMapsConcurrentEmailWinnerToConflictWithoutLeakingEmail",
+   "summary": "gtest 测试用例 Step16ApiTest.RegistrationMapsConcurrentEmailWinnerToConflictWithoutLeakingEmail，验证相关生产组件的预期行为（35 行）。",
+   "tags": [
+    "test-case",
+    "gtest",
+    "cpp"
+   ],
+   "complexity": "moderate",
+   "lineRange": [
+    2111,
+    2145
+   ]
+  },
+  {
+   "id": "function:tests/test_step16_api.cpp:Step16ApiTest.RegistrationMapsConcurrentUsernameWinnerToConflict",
+   "type": "function",
+   "name": "Step16ApiTest.RegistrationMapsConcurrentUsernameWinnerToConflict",
+   "summary": "gtest 测试用例 Step16ApiTest.RegistrationMapsConcurrentUsernameWinnerToConflict，验证相关生产组件的预期行为（33 行）。",
+   "tags": [
+    "test-case",
+    "gtest",
+    "cpp"
+   ],
+   "complexity": "moderate",
+   "lineRange": [
+    2147,
+    2179
+   ]
+  },
+  {
+   "id": "function:tests/test_step16_api.cpp:Step16ApiTest.RegistrationPrechecksExistingEmailWithoutAttemptingInsert",
+   "type": "function",
+   "name": "Step16ApiTest.RegistrationPrechecksExistingEmailWithoutAttemptingInsert",
+   "summary": "gtest 测试用例 Step16ApiTest.RegistrationPrechecksExistingEmailWithoutAttemptingInsert，验证相关生产组件的预期行为（32 行）。",
+   "tags": [
+    "test-case",
+    "gtest",
+    "cpp"
+   ],
+   "complexity": "moderate",
+   "lineRange": [
+    2181,
+    2212
+   ]
+  },
+  {
+   "id": "function:tests/test_step16_api.cpp:Step16ApiTest.RegistrationMapsNonConflictInsertFailureToPersistenceError",
+   "type": "function",
+   "name": "Step16ApiTest.RegistrationMapsNonConflictInsertFailureToPersistenceError",
+   "summary": "gtest 测试用例 Step16ApiTest.RegistrationMapsNonConflictInsertFailureToPersistenceError，验证相关生产组件的预期行为（18 行）。",
+   "tags": [
+    "test-case",
+    "gtest",
+    "cpp"
+   ],
+   "complexity": "moderate",
+   "lineRange": [
+    2214,
+    2231
+   ]
+  },
+  {
+   "id": "function:tests/test_step16_api.cpp:Step16ApiTest.RegistrationAndLoginRejectEmptyGeneratedTokensAsPersistenceErrors",
+   "type": "function",
+   "name": "Step16ApiTest.RegistrationAndLoginRejectEmptyGeneratedTokensAsPersistenceErrors",
+   "summary": "gtest 测试用例 Step16ApiTest.RegistrationAndLoginRejectEmptyGeneratedTokensAsPersistenceErrors，验证相关生产组件的预期行为（36 行）。",
+   "tags": [
+    "test-case",
+    "gtest",
+    "cpp"
+   ],
+   "complexity": "moderate",
+   "lineRange": [
+    2233,
+    2268
+   ]
+  },
+  {
+   "id": "function:tests/test_step16_api.cpp:Step19VipApiTest.PlansAreFixedAndAvailableOnlyToNormalOrVipUsers",
+   "type": "function",
+   "name": "Step19VipApiTest.PlansAreFixedAndAvailableOnlyToNormalOrVipUsers",
+   "summary": "gtest 测试用例 Step19VipApiTest.PlansAreFixedAndAvailableOnlyToNormalOrVipUsers，验证相关生产组件的预期行为（31 行）。",
+   "tags": [
+    "test-case",
+    "gtest",
+    "cpp"
+   ],
+   "complexity": "moderate",
+   "lineRange": [
+    2270,
+    2300
+   ]
+  },
+  {
+   "id": "function:tests/test_step16_api.cpp:Step19VipApiTest.MembershipUsesInjectedNowAndNeverReturnsNegativeRemainingSeconds",
+   "type": "function",
+   "name": "Step19VipApiTest.MembershipUsesInjectedNowAndNeverReturnsNegativeRemainingSeconds",
+   "summary": "gtest 测试用例 Step19VipApiTest.MembershipUsesInjectedNowAndNeverReturnsNegativeRemainingSeconds，验证相关生产组件的预期行为（27 行）。",
+   "tags": [
+    "test-case",
+    "gtest",
+    "cpp"
+   ],
+   "complexity": "moderate",
+   "lineRange": [
+    2302,
+    2328
+   ]
+  },
+  {
+   "id": "function:tests/test_step16_api.cpp:Step19VipApiTest.MembershipReturnsNoneForNormalUserWithoutExpiry",
+   "type": "function",
+   "name": "Step19VipApiTest.MembershipReturnsNoneForNormalUserWithoutExpiry",
+   "summary": "gtest 测试用例 Step19VipApiTest.MembershipReturnsNoneForNormalUserWithoutExpiry，验证相关生产组件的预期行为（20 行）。",
+   "tags": [
+    "test-case",
+    "gtest",
+    "cpp"
+   ],
+   "complexity": "moderate",
+   "lineRange": [
+    2330,
+    2349
+   ]
+  },
+  {
+   "id": "function:tests/test_step16_api.cpp:Step19VipApiTest.MembershipKeepsPositiveRemainingTimeAcrossClockEndpoints",
+   "type": "function",
+   "name": "Step19VipApiTest.MembershipKeepsPositiveRemainingTimeAcrossClockEndpoints",
+   "summary": "gtest 测试用例 Step19VipApiTest.MembershipKeepsPositiveRemainingTimeAcrossClockEndpoints，验证相关生产组件的预期行为（25 行）。",
+   "tags": [
+    "test-case",
+    "gtest",
+    "cpp"
+   ],
+   "complexity": "moderate",
+   "lineRange": [
+    2351,
+    2375
+   ]
+  },
+  {
+   "id": "function:tests/test_step16_api.cpp:Step19VipApiTest.ExpiryOverflowKeepsTheExistingPublicStateErrorCode",
+   "type": "function",
+   "name": "Step19VipApiTest.ExpiryOverflowKeepsTheExistingPublicStateErrorCode",
+   "summary": "gtest 测试用例 Step19VipApiTest.ExpiryOverflowKeepsTheExistingPublicStateErrorCode，验证相关生产组件的预期行为（19 行）。",
+   "tags": [
+    "test-case",
+    "gtest",
+    "cpp"
+   ],
+   "complexity": "moderate",
+   "lineRange": [
+    2377,
+    2395
+   ]
+  },
+  {
+   "id": "function:tests/test_step16_api.cpp:Step19VipApiTest.MembershipAndActivateRejectPersistedGuestState",
+   "type": "function",
+   "name": "Step19VipApiTest.MembershipAndActivateRejectPersistedGuestState",
+   "summary": "gtest 测试用例 Step19VipApiTest.MembershipAndActivateRejectPersistedGuestState，验证相关生产组件的预期行为（22 行）。",
+   "tags": [
+    "test-case",
+    "gtest",
+    "cpp"
+   ],
+   "complexity": "moderate",
+   "lineRange": [
+    2397,
+    2418
+   ]
+  },
+  {
+   "id": "function:tests/test_step16_api.cpp:Step19VipApiTest.EverySelfServiceEndpointUsesSameAuthenticationMatrix",
+   "type": "function",
+   "name": "Step19VipApiTest.EverySelfServiceEndpointUsesSameAuthenticationMatrix",
+   "summary": "gtest 测试用例 Step19VipApiTest.EverySelfServiceEndpointUsesSameAuthenticationMatrix，验证相关生产组件的预期行为（35 行）。",
+   "tags": [
+    "test-case",
+    "gtest",
+    "cpp"
+   ],
+   "complexity": "moderate",
+   "lineRange": [
+    2420,
+    2454
+   ]
+  },
+  {
+   "id": "function:tests/test_step16_api.cpp:Step19VipApiTest.ActivateUsesSameEndpointForFirstActivationAndRenewal",
+   "type": "function",
+   "name": "Step19VipApiTest.ActivateUsesSameEndpointForFirstActivationAndRenewal",
+   "summary": "gtest 测试用例 Step19VipApiTest.ActivateUsesSameEndpointForFirstActivationAndRenewal，验证相关生产组件的预期行为（43 行）。",
+   "tags": [
+    "test-case",
+    "gtest",
+    "cpp"
+   ],
+   "complexity": "complex",
+   "lineRange": [
+    2456,
+    2498
+   ]
+  },
+  {
+   "id": "function:tests/test_step16_api.cpp:Step19VipApiTest.ActivateRejectsInvalidJsonAndStrictDurationsWithoutThrowing",
+   "type": "function",
+   "name": "Step19VipApiTest.ActivateRejectsInvalidJsonAndStrictDurationsWithoutThrowing",
+   "summary": "gtest 测试用例 Step19VipApiTest.ActivateRejectsInvalidJsonAndStrictDurationsWithoutThrowing，验证相关生产组件的预期行为（20 行）。",
+   "tags": [
+    "test-case",
+    "gtest",
+    "cpp"
+   ],
+   "complexity": "moderate",
+   "lineRange": [
+    2500,
+    2519
+   ]
+  },
+  {
+   "id": "function:tests/test_step16_api.cpp:Step19VipApiTest.ActivateAndAdminGrantUseExactStrictJsonContract",
+   "type": "function",
+   "name": "Step19VipApiTest.ActivateAndAdminGrantUseExactStrictJsonContract",
+   "summary": "gtest 测试用例 Step19VipApiTest.ActivateAndAdminGrantUseExactStrictJsonContract，验证相关生产组件的预期行为（43 行）。",
+   "tags": [
+    "test-case",
+    "gtest",
+    "cpp"
+   ],
+   "complexity": "complex",
+   "lineRange": [
+    2521,
+    2563
+   ]
+  },
+  {
+   "id": "function:tests/test_step16_api.cpp:Step19AdminApiTest.SearchDecodesQueryPaginatesAndReturnsCompleteEffectiveRows",
+   "type": "function",
+   "name": "Step19AdminApiTest.SearchDecodesQueryPaginatesAndReturnsCompleteEffectiveRows",
+   "summary": "gtest 测试用例 Step19AdminApiTest.SearchDecodesQueryPaginatesAndReturnsCompleteEffectiveRows，验证相关生产组件的预期行为（48 行）。",
+   "tags": [
+    "test-case",
+    "gtest",
+    "cpp"
+   ],
+   "complexity": "complex",
+   "lineRange": [
+    2565,
+    2612
+   ]
+  },
+  {
+   "id": "function:tests/test_step16_api.cpp:Step19AdminApiTest.UserListJsonEscapesBackslashesNewlinesAndControlCharacters",
+   "type": "function",
+   "name": "Step19AdminApiTest.UserListJsonEscapesBackslashesNewlinesAndControlCharacters",
+   "summary": "gtest 测试用例 Step19AdminApiTest.UserListJsonEscapesBackslashesNewlinesAndControlCharacters，验证相关生产组件的预期行为（29 行）。",
+   "tags": [
+    "test-case",
+    "gtest",
+    "cpp"
+   ],
+   "complexity": "moderate",
+   "lineRange": [
+    2614,
+    2642
+   ]
+  },
+  {
+   "id": "function:tests/test_step16_api.cpp:Step19AdminApiTest.VipGrantRenewAndRevokeReturnCompleteRows",
+   "type": "function",
+   "name": "Step19AdminApiTest.VipGrantRenewAndRevokeReturnCompleteRows",
+   "summary": "gtest 测试用例 Step19AdminApiTest.VipGrantRenewAndRevokeReturnCompleteRows，验证相关生产组件的预期行为（58 行）。",
+   "tags": [
+    "test-case",
+    "gtest",
+    "cpp"
+   ],
+   "complexity": "complex",
+   "lineRange": [
+    2644,
+    2701
+   ]
+  },
+  {
+   "id": "function:tests/test_step16_api.cpp:Step19AdminApiTest.AuthorizationAdminTargetAndInvalidInputsUseStableErrors",
+   "type": "function",
+   "name": "Step19AdminApiTest.AuthorizationAdminTargetAndInvalidInputsUseStableErrors",
+   "summary": "gtest 测试用例 Step19AdminApiTest.AuthorizationAdminTargetAndInvalidInputsUseStableErrors，验证相关生产组件的预期行为（38 行）。",
+   "tags": [
+    "test-case",
+    "gtest",
+    "cpp"
+   ],
+   "complexity": "moderate",
+   "lineRange": [
+    2703,
+    2740
+   ]
+  }
+ ],
+ "edges": [
+  {
+   "source": "file:tests/test_step16_api.cpp",
+   "target": "function:tests/test_step16_api.cpp:Step16ApiTest.RegistrationRejectsPasswordLongerThan128BytesBeforeWriting",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "file:tests/test_step16_api.cpp",
+   "target": "function:tests/test_step16_api.cpp:Step16ApiTest.RegistrationMapsConcurrentEmailWinnerToConflictWithoutLeakingEmail",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "file:tests/test_step16_api.cpp",
+   "target": "function:tests/test_step16_api.cpp:Step16ApiTest.RegistrationMapsConcurrentUsernameWinnerToConflict",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "file:tests/test_step16_api.cpp",
+   "target": "function:tests/test_step16_api.cpp:Step16ApiTest.RegistrationPrechecksExistingEmailWithoutAttemptingInsert",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "file:tests/test_step16_api.cpp",
+   "target": "function:tests/test_step16_api.cpp:Step16ApiTest.RegistrationMapsNonConflictInsertFailureToPersistenceError",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "file:tests/test_step16_api.cpp",
+   "target": "function:tests/test_step16_api.cpp:Step16ApiTest.RegistrationAndLoginRejectEmptyGeneratedTokensAsPersistenceErrors",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "file:tests/test_step16_api.cpp",
+   "target": "function:tests/test_step16_api.cpp:Step19VipApiTest.PlansAreFixedAndAvailableOnlyToNormalOrVipUsers",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "file:tests/test_step16_api.cpp",
+   "target": "function:tests/test_step16_api.cpp:Step19VipApiTest.MembershipUsesInjectedNowAndNeverReturnsNegativeRemainingSeconds",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "file:tests/test_step16_api.cpp",
+   "target": "function:tests/test_step16_api.cpp:Step19VipApiTest.MembershipReturnsNoneForNormalUserWithoutExpiry",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "file:tests/test_step16_api.cpp",
+   "target": "function:tests/test_step16_api.cpp:Step19VipApiTest.MembershipKeepsPositiveRemainingTimeAcrossClockEndpoints",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "file:tests/test_step16_api.cpp",
+   "target": "function:tests/test_step16_api.cpp:Step19VipApiTest.ExpiryOverflowKeepsTheExistingPublicStateErrorCode",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "file:tests/test_step16_api.cpp",
+   "target": "function:tests/test_step16_api.cpp:Step19VipApiTest.MembershipAndActivateRejectPersistedGuestState",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "file:tests/test_step16_api.cpp",
+   "target": "function:tests/test_step16_api.cpp:Step19VipApiTest.EverySelfServiceEndpointUsesSameAuthenticationMatrix",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "file:tests/test_step16_api.cpp",
+   "target": "function:tests/test_step16_api.cpp:Step19VipApiTest.ActivateUsesSameEndpointForFirstActivationAndRenewal",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "file:tests/test_step16_api.cpp",
+   "target": "function:tests/test_step16_api.cpp:Step19VipApiTest.ActivateRejectsInvalidJsonAndStrictDurationsWithoutThrowing",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "file:tests/test_step16_api.cpp",
+   "target": "function:tests/test_step16_api.cpp:Step19VipApiTest.ActivateAndAdminGrantUseExactStrictJsonContract",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "file:tests/test_step16_api.cpp",
+   "target": "function:tests/test_step16_api.cpp:Step19AdminApiTest.SearchDecodesQueryPaginatesAndReturnsCompleteEffectiveRows",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "file:tests/test_step16_api.cpp",
+   "target": "function:tests/test_step16_api.cpp:Step19AdminApiTest.UserListJsonEscapesBackslashesNewlinesAndControlCharacters",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "file:tests/test_step16_api.cpp",
+   "target": "function:tests/test_step16_api.cpp:Step19AdminApiTest.VipGrantRenewAndRevokeReturnCompleteRows",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "file:tests/test_step16_api.cpp",
+   "target": "function:tests/test_step16_api.cpp:Step19AdminApiTest.AuthorizationAdminTargetAndInvalidInputsUseStableErrors",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  }
+ ]
+}

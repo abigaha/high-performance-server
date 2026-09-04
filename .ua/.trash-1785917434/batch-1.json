@@ -1,0 +1,2829 @@
+{
+  "nodes": [
+    {
+      "id": "file:frontend/src/api/admin.ts",
+      "type": "file",
+      "name": "frontend/src/api/admin.ts",
+      "filePath": "frontend/src/api/admin.ts",
+      "summary": "提供管理员用户管理 API：分页搜索用户列表、授予与撤销 VIP 会员资格。",
+      "tags": [
+        "admin",
+        "user-management",
+        "vip",
+        "api"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:frontend/src/api/admin.ts:getAdminUsers",
+      "type": "function",
+      "name": "getAdminUsers",
+      "summary": "构造查询参数调用 request 获取分页的管理员用户列表。",
+      "tags": [
+        "admin",
+        "users",
+        "pagination"
+      ],
+      "complexity": "simple",
+      "lineRange": [
+        10,
+        20
+      ]
+    },
+    {
+      "id": "function:frontend/src/api/admin.ts:grantUserVip",
+      "type": "function",
+      "name": "grantUserVip",
+      "summary": "调用 request 为用户授予指定天数的 VIP 会员资格。",
+      "tags": [
+        "vip",
+        "grant",
+        "admin"
+      ],
+      "complexity": "simple",
+      "lineRange": [
+        22,
+        27
+      ]
+    },
+    {
+      "id": "function:frontend/src/api/admin.ts:revokeUserVip",
+      "type": "function",
+      "name": "revokeUserVip",
+      "summary": "调用 request 撤销用户的 VIP 会员资格。",
+      "tags": [
+        "vip",
+        "revoke",
+        "admin"
+      ],
+      "complexity": "simple",
+      "lineRange": [
+        29,
+        31
+      ]
+    },
+    {
+      "id": "file:frontend/src/api/auth.ts",
+      "type": "file",
+      "name": "frontend/src/api/auth.ts",
+      "filePath": "frontend/src/api/auth.ts",
+      "summary": "封装登录、注册、登出与获取当前用户等认证接口，并统一规范化响应中的用户角色字段。",
+      "tags": [
+        "auth",
+        "login",
+        "register",
+        "api"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:frontend/src/api/auth.ts:login",
+      "type": "function",
+      "name": "login",
+      "summary": "调用登录接口并规范化返回的认证响应。",
+      "tags": [
+        "auth",
+        "login",
+        "api"
+      ],
+      "complexity": "simple",
+      "lineRange": [
+        21,
+        27
+      ]
+    },
+    {
+      "id": "function:frontend/src/api/auth.ts:register",
+      "type": "function",
+      "name": "register",
+      "summary": "调用注册接口并规范化返回的认证响应。",
+      "tags": [
+        "auth",
+        "register",
+        "api"
+      ],
+      "complexity": "simple",
+      "lineRange": [
+        29,
+        35
+      ]
+    },
+    {
+      "id": "function:frontend/src/api/auth.ts:logout",
+      "type": "function",
+      "name": "logout",
+      "summary": "调用登出接口使当前会话失效。",
+      "tags": [
+        "auth",
+        "logout",
+        "api"
+      ],
+      "complexity": "simple",
+      "lineRange": [
+        37,
+        39
+      ]
+    },
+    {
+      "id": "function:frontend/src/api/auth.ts:getMe",
+      "type": "function",
+      "name": "getMe",
+      "summary": "获取当前登录用户信息并规范化角色字段。",
+      "tags": [
+        "auth",
+        "user",
+        "api"
+      ],
+      "complexity": "simple",
+      "lineRange": [
+        41,
+        44
+      ]
+    },
+    {
+      "id": "file:frontend/src/api/client.ts",
+      "type": "file",
+      "name": "frontend/src/api/client.ts",
+      "filePath": "frontend/src/api/client.ts",
+      "summary": "前端 HTTP 请求核心：注入 Bearer token、处理 401/403 与错误详情解析、会话快照竞态防护及 toast 提示。",
+      "tags": [
+        "http-client",
+        "fetch",
+        "auth",
+        "error-handling",
+        "session"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "function:frontend/src/api/client.ts:ApiError",
+      "type": "function",
+      "name": "ApiError",
+      "summary": "携带 HTTP 状态码与业务错误码的自定义请求异常类型。",
+      "tags": [
+        "error",
+        "exception",
+        "http"
+      ],
+      "complexity": "simple",
+      "lineRange": [
+        3,
+        11
+      ]
+    },
+    {
+      "id": "function:frontend/src/api/client.ts:markSessionChanged",
+      "type": "function",
+      "name": "markSessionChanged",
+      "summary": "递增会话修订号并返回新值，标记会话已发生变化。",
+      "tags": [
+        "session",
+        "revision",
+        "util"
+      ],
+      "complexity": "simple",
+      "lineRange": [
+        30,
+        33
+      ]
+    },
+    {
+      "id": "function:frontend/src/api/client.ts:getSessionRevision",
+      "type": "function",
+      "name": "getSessionRevision",
+      "summary": "返回当前会话修订号。",
+      "tags": [
+        "session",
+        "revision",
+        "util"
+      ],
+      "complexity": "simple",
+      "lineRange": [
+        35,
+        37
+      ]
+    },
+    {
+      "id": "function:frontend/src/api/client.ts:captureSessionSnapshot",
+      "type": "function",
+      "name": "captureSessionSnapshot",
+      "summary": "捕获当前 token 与修订号快照，供异步请求竞态校验。",
+      "tags": [
+        "session",
+        "snapshot",
+        "concurrency"
+      ],
+      "complexity": "simple",
+      "lineRange": [
+        39,
+        41
+      ]
+    },
+    {
+      "id": "function:frontend/src/api/client.ts:isSessionSnapshotCurrent",
+      "type": "function",
+      "name": "isSessionSnapshotCurrent",
+      "summary": "判断会话快照是否仍与当前会话一致。",
+      "tags": [
+        "session",
+        "snapshot",
+        "concurrency"
+      ],
+      "complexity": "simple",
+      "lineRange": [
+        43,
+        45
+      ]
+    },
+    {
+      "id": "function:frontend/src/api/client.ts:injectToast",
+      "type": "function",
+      "name": "injectToast",
+      "summary": "注入全局 toast 反馈函数供请求层提示错误。",
+      "tags": [
+        "toast",
+        "injection",
+        "util"
+      ],
+      "complexity": "simple",
+      "lineRange": [
+        47,
+        49
+      ]
+    },
+    {
+      "id": "function:frontend/src/api/client.ts:injectUnauthorizedHandler",
+      "type": "function",
+      "name": "injectUnauthorizedHandler",
+      "summary": "注入 401 未授权处理回调并重置通知状态。",
+      "tags": [
+        "auth",
+        "401",
+        "injection"
+      ],
+      "complexity": "moderate",
+      "lineRange": [
+        51,
+        59
+      ]
+    },
+    {
+      "id": "function:frontend/src/api/client.ts:notifyUnauthorized",
+      "type": "function",
+      "name": "notifyUnauthorized",
+      "summary": "对 401 响应去重后触发会话清理回调，保证同一修订号只处理一次。",
+      "tags": [
+        "auth",
+        "401",
+        "session"
+      ],
+      "complexity": "moderate",
+      "lineRange": [
+        66,
+        86
+      ]
+    },
+    {
+      "id": "function:frontend/src/api/client.ts:handleUnauthorized",
+      "type": "function",
+      "name": "handleUnauthorized",
+      "summary": "对外暴露的 401 通知入口，使用默认会话快照。",
+      "tags": [
+        "auth",
+        "401",
+        "util"
+      ],
+      "complexity": "simple",
+      "lineRange": [
+        88,
+        90
+      ]
+    },
+    {
+      "id": "function:frontend/src/api/client.ts:parseApiErrorDetails",
+      "type": "function",
+      "name": "parseApiErrorDetails",
+      "summary": "从响应体解析错误信息：优先解析 JSON，其次对 HTML 清洗后提取可读文本。",
+      "tags": [
+        "error",
+        "parsing",
+        "json",
+        "html"
+      ],
+      "complexity": "moderate",
+      "lineRange": [
+        92,
+        120
+      ]
+    },
+    {
+      "id": "function:frontend/src/api/client.ts:request",
+      "type": "function",
+      "name": "request",
+      "summary": "核心请求函数：注入 token、处理 401/403 语义并抛出自定义 ApiError。",
+      "tags": [
+        "http",
+        "fetch",
+        "auth",
+        "error"
+      ],
+      "complexity": "moderate",
+      "lineRange": [
+        130,
+        168
+      ]
+    },
+    {
+      "id": "file:frontend/src/api/files.ts",
+      "type": "file",
+      "name": "frontend/src/api/files.ts",
+      "filePath": "frontend/src/api/files.ts",
+      "summary": "封装文件列表查询、下载与流播 URL 生成、基于 XHR 的分片上传、删除与搜索等文件 API，含会话与 abort 竞态防护。",
+      "tags": [
+        "files",
+        "upload",
+        "download",
+        "streaming",
+        "api"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "function:frontend/src/api/files.ts:getFiles",
+      "type": "function",
+      "name": "getFiles",
+      "summary": "按名称、类型与分页参数查询文件列表。",
+      "tags": [
+        "files",
+        "query",
+        "pagination"
+      ],
+      "complexity": "simple",
+      "lineRange": [
+        20,
+        28
+      ]
+    },
+    {
+      "id": "function:frontend/src/api/files.ts:getFile",
+      "type": "function",
+      "name": "getFile",
+      "summary": "按 id 获取单个文件记录。",
+      "tags": [
+        "files",
+        "detail",
+        "api"
+      ],
+      "complexity": "simple",
+      "lineRange": [
+        30,
+        32
+      ]
+    },
+    {
+      "id": "function:frontend/src/api/files.ts:getFileDownloadUrl",
+      "type": "function",
+      "name": "getFileDownloadUrl",
+      "summary": "将下载响应转为 Blob 并生成临时对象 URL，含 abort 与会话竞态校验。",
+      "tags": [
+        "download",
+        "blob",
+        "url"
+      ],
+      "complexity": "moderate",
+      "lineRange": [
+        40,
+        50
+      ]
+    },
+    {
+      "id": "function:frontend/src/api/files.ts:getFileStreamUrl",
+      "type": "function",
+      "name": "getFileStreamUrl",
+      "summary": "获取文件音频流地址供播放使用。",
+      "tags": [
+        "streaming",
+        "audio",
+        "url"
+      ],
+      "complexity": "simple",
+      "lineRange": [
+        52,
+        59
+      ]
+    },
+    {
+      "id": "function:frontend/src/api/files.ts:uploadFile",
+      "type": "function",
+      "name": "uploadFile",
+      "summary": "基于 XMLHttpRequest 上传文件，带进度回调与取消支持。",
+      "tags": [
+        "upload",
+        "xhr",
+        "progress"
+      ],
+      "complexity": "complex",
+      "lineRange": [
+        61,
+        126
+      ]
+    },
+    {
+      "id": "function:frontend/src/api/files.ts:buildContentDisposition",
+      "type": "function",
+      "name": "buildContentDisposition",
+      "summary": "为下载构造带 RFC 5987 文件名编码的 Content-Disposition 响应头。",
+      "tags": [
+        "header",
+        "filename",
+        "encoding"
+      ],
+      "complexity": "simple",
+      "lineRange": [
+        128,
+        137
+      ]
+    },
+    {
+      "id": "function:frontend/src/api/files.ts:deleteFile",
+      "type": "function",
+      "name": "deleteFile",
+      "summary": "按 id 删除文件。",
+      "tags": [
+        "files",
+        "delete",
+        "api"
+      ],
+      "complexity": "simple",
+      "lineRange": [
+        139,
+        141
+      ]
+    },
+    {
+      "id": "function:frontend/src/api/files.ts:searchFiles",
+      "type": "function",
+      "name": "searchFiles",
+      "summary": "按关键字搜索文件。",
+      "tags": [
+        "files",
+        "search",
+        "api"
+      ],
+      "complexity": "simple",
+      "lineRange": [
+        143,
+        151
+      ]
+    },
+    {
+      "id": "file:frontend/src/api/users.ts",
+      "type": "file",
+      "name": "frontend/src/api/users.ts",
+      "filePath": "frontend/src/api/users.ts",
+      "summary": "提供当前用户资料获取与更新的 API 封装。",
+      "tags": [
+        "users",
+        "profile",
+        "api"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:frontend/src/api/users.ts:getUser",
+      "type": "function",
+      "name": "getUser",
+      "summary": "获取当前用户资料。",
+      "tags": [
+        "users",
+        "profile",
+        "api"
+      ],
+      "complexity": "simple",
+      "lineRange": [
+        4,
+        6
+      ]
+    },
+    {
+      "id": "function:frontend/src/api/users.ts:updateUser",
+      "type": "function",
+      "name": "updateUser",
+      "summary": "更新当前用户资料（昵称、邮箱、密码）。",
+      "tags": [
+        "users",
+        "update",
+        "api"
+      ],
+      "complexity": "simple",
+      "lineRange": [
+        8,
+        13
+      ]
+    },
+    {
+      "id": "file:frontend/src/api/vip.ts",
+      "type": "file",
+      "name": "frontend/src/api/vip.ts",
+      "filePath": "frontend/src/api/vip.ts",
+      "summary": "提供 VIP 套餐列表、会员状态查询与激活会员的 API 封装。",
+      "tags": [
+        "vip",
+        "membership",
+        "api"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:frontend/src/api/vip.ts:getVipPlans",
+      "type": "function",
+      "name": "getVipPlans",
+      "summary": "获取可用 VIP 套餐列表。",
+      "tags": [
+        "vip",
+        "plans",
+        "api"
+      ],
+      "complexity": "simple",
+      "lineRange": [
+        4,
+        7
+      ]
+    },
+    {
+      "id": "function:frontend/src/api/vip.ts:getVipMembership",
+      "type": "function",
+      "name": "getVipMembership",
+      "summary": "查询当前用户的 VIP 会员状态。",
+      "tags": [
+        "vip",
+        "membership",
+        "api"
+      ],
+      "complexity": "simple",
+      "lineRange": [
+        9,
+        11
+      ]
+    },
+    {
+      "id": "function:frontend/src/api/vip.ts:activateVipMembership",
+      "type": "function",
+      "name": "activateVipMembership",
+      "summary": "按指定天数激活 VIP 会员。",
+      "tags": [
+        "vip",
+        "activate",
+        "api"
+      ],
+      "complexity": "simple",
+      "lineRange": [
+        13,
+        18
+      ]
+    },
+    {
+      "id": "file:frontend/src/components/FileCard.tsx",
+      "type": "file",
+      "name": "frontend/src/components/FileCard.tsx",
+      "filePath": "frontend/src/components/FileCard.tsx",
+      "summary": "文件列表卡片组件，展示文件大小与日期，支持下载与删除操作回调及忙碌状态。",
+      "tags": [
+        "component",
+        "file-card",
+        "ui"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:frontend/src/components/FileCard.tsx:FileCard",
+      "type": "function",
+      "name": "FileCard",
+      "summary": "渲染文件卡片：展示大小与日期，提供下载/删除按钮并支持忙碌状态。",
+      "tags": [
+        "component",
+        "file-card",
+        "ui"
+      ],
+      "complexity": "moderate",
+      "lineRange": [
+        23,
+        85
+      ]
+    },
+    {
+      "id": "file:frontend/src/components/Pagination.tsx",
+      "type": "file",
+      "name": "frontend/src/components/Pagination.tsx",
+      "filePath": "frontend/src/components/Pagination.tsx",
+      "summary": "通用分页组件，根据总数与页大小计算页码并触发翻页回调。",
+      "tags": [
+        "component",
+        "pagination",
+        "ui"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:frontend/src/components/Pagination.tsx:Pagination",
+      "type": "function",
+      "name": "Pagination",
+      "summary": "渲染分页控件：计算页码序列、处理省略号并触发翻页回调。",
+      "tags": [
+        "component",
+        "pagination",
+        "ui"
+      ],
+      "complexity": "moderate",
+      "lineRange": [
+        10,
+        55
+      ]
+    },
+    {
+      "id": "file:frontend/src/lib/uploadPolicy.ts",
+      "type": "file",
+      "name": "frontend/src/lib/uploadPolicy.ts",
+      "filePath": "frontend/src/lib/uploadPolicy.ts",
+      "summary": "定义普通/VIP 上传限额与音频扩展名、MIME 白名单，提供上传前校验与文件大小格式化工具。",
+      "tags": [
+        "upload",
+        "policy",
+        "validation",
+        "mime"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:frontend/src/lib/uploadPolicy.ts:getAudioExtension",
+      "type": "function",
+      "name": "getAudioExtension",
+      "summary": "从文件名提取扩展名并校验是否为支持的音频格式。",
+      "tags": [
+        "extension",
+        "audio",
+        "validation"
+      ],
+      "complexity": "simple",
+      "lineRange": [
+        41,
+        49
+      ]
+    },
+    {
+      "id": "function:frontend/src/lib/uploadPolicy.ts:getUploadLimit",
+      "type": "function",
+      "name": "getUploadLimit",
+      "summary": "按用户角色返回上传大小上限。",
+      "tags": [
+        "upload",
+        "limit",
+        "vip"
+      ],
+      "complexity": "simple",
+      "lineRange": [
+        51,
+        53
+      ]
+    },
+    {
+      "id": "function:frontend/src/lib/uploadPolicy.ts:getContentType",
+      "type": "function",
+      "name": "getContentType",
+      "summary": "推断文件 Content-Type，缺失 MIME 时按扩展名回退。",
+      "tags": [
+        "mime",
+        "content-type",
+        "util"
+      ],
+      "complexity": "simple",
+      "lineRange": [
+        55,
+        60
+      ]
+    },
+    {
+      "id": "function:frontend/src/lib/uploadPolicy.ts:validateUploadFile",
+      "type": "function",
+      "name": "validateUploadFile",
+      "summary": "校验扩展名、空文件、MIME 一致性及大小上限，返回校验结果。",
+      "tags": [
+        "upload",
+        "validation",
+        "mime"
+      ],
+      "complexity": "moderate",
+      "lineRange": [
+        62,
+        99
+      ]
+    },
+    {
+      "id": "function:frontend/src/lib/uploadPolicy.ts:formatFileSize",
+      "type": "function",
+      "name": "formatFileSize",
+      "summary": "将字节数格式化为 B/KiB/MiB 可读文本。",
+      "tags": [
+        "format",
+        "size",
+        "util"
+      ],
+      "complexity": "simple",
+      "lineRange": [
+        101,
+        105
+      ]
+    },
+    {
+      "id": "file:frontend/src/pages/AdminUsersPage.tsx",
+      "type": "file",
+      "name": "frontend/src/pages/AdminUsersPage.tsx",
+      "filePath": "frontend/src/pages/AdminUsersPage.tsx",
+      "summary": "管理后台用户管理页：搜索与分页加载用户列表、授予与撤销 VIP，含请求竞态控制与撤销确认对话框。",
+      "tags": [
+        "admin",
+        "users",
+        "vip",
+        "page"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "function:frontend/src/pages/AdminUsersPage.tsx:AdminUsersPage",
+      "type": "function",
+      "name": "AdminUsersPage",
+      "summary": "用户管理页主体：搜索防抖、分页加载、VIP 授予/撤销与键盘可达的撤销确认对话框。",
+      "tags": [
+        "admin",
+        "users",
+        "vip",
+        "page"
+      ],
+      "complexity": "complex",
+      "lineRange": [
+        9,
+        178
+      ]
+    },
+    {
+      "id": "file:frontend/src/pages/FileDetailPage.tsx",
+      "type": "file",
+      "name": "frontend/src/pages/FileDetailPage.tsx",
+      "filePath": "frontend/src/pages/FileDetailPage.tsx",
+      "summary": "文件详情页：展示文件元数据，支持下载与删除操作，含会话快照与下载竞态防护。",
+      "tags": [
+        "file",
+        "detail",
+        "download",
+        "page"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:frontend/src/pages/FileDetailPage.tsx:FileDetailPage",
+      "type": "function",
+      "name": "FileDetailPage",
+      "summary": "文件详情页主体：加载文件、执行下载与删除操作，含会话快照竞态防护。",
+      "tags": [
+        "file",
+        "detail",
+        "page"
+      ],
+      "complexity": "moderate",
+      "lineRange": [
+        15,
+        178
+      ]
+    },
+    {
+      "id": "file:frontend/src/pages/FileListPage.tsx",
+      "type": "file",
+      "name": "frontend/src/pages/FileListPage.tsx",
+      "filePath": "frontend/src/pages/FileListPage.tsx",
+      "summary": "文件列表页：按名称与类型筛选、分页浏览文件，支持下载、删除与跳转详情。",
+      "tags": [
+        "file",
+        "list",
+        "pagination",
+        "download",
+        "page"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "function:frontend/src/pages/FileListPage.tsx:FileListPage",
+      "type": "function",
+      "name": "FileListPage",
+      "summary": "文件列表页主体：筛选分页、下载/删除操作与并发请求防护。",
+      "tags": [
+        "file",
+        "list",
+        "page"
+      ],
+      "complexity": "complex",
+      "lineRange": [
+        13,
+        209
+      ]
+    },
+    {
+      "id": "file:frontend/src/pages/ProfilePage.tsx",
+      "type": "file",
+      "name": "frontend/src/pages/ProfilePage.tsx",
+      "filePath": "frontend/src/pages/ProfilePage.tsx",
+      "summary": "个人资料页：展示用户角色与 VIP 状态，支持编辑昵称、邮箱与修改密码。",
+      "tags": [
+        "profile",
+        "user",
+        "settings",
+        "page"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:frontend/src/pages/ProfilePage.tsx:ProfilePage",
+      "type": "function",
+      "name": "ProfilePage",
+      "summary": "个人资料页主体：加载并展示资料，支持保存资料更新与修改密码。",
+      "tags": [
+        "profile",
+        "page",
+        "settings"
+      ],
+      "complexity": "moderate",
+      "lineRange": [
+        11,
+        99
+      ]
+    },
+    {
+      "id": "file:frontend/src/pages/UploadPage.tsx",
+      "type": "file",
+      "name": "frontend/src/pages/UploadPage.tsx",
+      "filePath": "frontend/src/pages/UploadPage.tsx",
+      "summary": "文件上传页：拖拽或选择多文件、队列限并发上传，支持取消、重试、清空与批次汇总反馈。",
+      "tags": [
+        "upload",
+        "drag-drop",
+        "queue",
+        "page"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "function:frontend/src/pages/UploadPage.tsx:UploadPage",
+      "type": "function",
+      "name": "UploadPage",
+      "summary": "上传页主体：拖拽添加文件、队列限并发上传、进度展示与取消/重试/清空。",
+      "tags": [
+        "upload",
+        "queue",
+        "page"
+      ],
+      "complexity": "complex",
+      "lineRange": [
+        65,
+        406
+      ]
+    },
+    {
+      "id": "file:frontend/src/pages/VipCenterPage.tsx",
+      "type": "file",
+      "name": "frontend/src/pages/VipCenterPage.tsx",
+      "filePath": "frontend/src/pages/VipCenterPage.tsx",
+      "summary": "VIP 中心页：展示套餐并激活会员，基于服务器时间基准校准剩余时长倒计时。",
+      "tags": [
+        "vip",
+        "membership",
+        "countdown",
+        "page"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:frontend/src/pages/VipCenterPage.tsx:VipCenterPage",
+      "type": "function",
+      "name": "VipCenterPage",
+      "summary": "VIP 中心页主体：加载套餐与会员状态、激活会员并展示剩余时长。",
+      "tags": [
+        "vip",
+        "page",
+        "membership"
+      ],
+      "complexity": "moderate",
+      "lineRange": [
+        12,
+        128
+      ]
+    },
+    {
+      "id": "function:frontend/src/pages/VipCenterPage.tsx:measureMembership",
+      "type": "function",
+      "name": "measureMembership",
+      "summary": "结合服务器时钟与本地时钟测量会员剩余秒数，建立时间基准。",
+      "tags": [
+        "membership",
+        "time",
+        "measurement"
+      ],
+      "complexity": "moderate",
+      "lineRange": [
+        137,
+        147
+      ]
+    },
+    {
+      "id": "function:frontend/src/pages/VipCenterPage.tsx:clockAnchor",
+      "type": "function",
+      "name": "clockAnchor",
+      "summary": "以服务器响应时刻校准时钟锚点，消除本地时钟偏差。",
+      "tags": [
+        "clock",
+        "calibration",
+        "time"
+      ],
+      "complexity": "moderate",
+      "lineRange": [
+        148,
+        168
+      ]
+    },
+    {
+      "id": "file:frontend/src/types/api.ts",
+      "type": "file",
+      "name": "frontend/src/types/api.ts",
+      "filePath": "frontend/src/types/api.ts",
+      "summary": "定义前端与后端交互的 API 类型契约：文件、音乐、歌单、分页、VIP 与管理员摘要等。",
+      "tags": [
+        "types",
+        "api-contract",
+        "typescript"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:frontend/src/types/models.ts",
+      "type": "file",
+      "name": "frontend/src/types/models.ts",
+      "filePath": "frontend/src/types/models.ts",
+      "summary": "定义用户角色、VIP 状态、文件、音乐、歌单等领域模型类型，并提供角色值归一化工具。",
+      "tags": [
+        "types",
+        "models",
+        "user-role"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:frontend/src/types/models.ts:normalizeUserRole",
+      "type": "function",
+      "name": "normalizeUserRole",
+      "summary": "将数字、字符串或枚举形式的角色统一归一化为 UserRole。",
+      "tags": [
+        "user-role",
+        "normalize",
+        "util"
+      ],
+      "complexity": "simple",
+      "lineRange": [
+        13,
+        18
+      ]
+    },
+    {
+      "id": "file:frontend/tests/api/client.test.ts",
+      "type": "file",
+      "name": "frontend/tests/api/client.test.ts",
+      "filePath": "frontend/tests/api/client.test.ts",
+      "summary": "覆盖 HTTP 客户端：错误响应解析（JSON/文本/HTML）、401 未授权通知、会话快照与 abort 行为。",
+      "tags": [
+        "test",
+        "http-client",
+        "error-handling"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "file:frontend/tests/api/files.test.ts",
+      "type": "file",
+      "name": "frontend/tests/api/files.test.ts",
+      "filePath": "frontend/tests/api/files.test.ts",
+      "summary": "通过 mock fetch 与 XHR 覆盖文件 API：下载 URL 生成、abort 竞态、分片上传进度与错误解析。",
+      "tags": [
+        "test",
+        "files",
+        "upload",
+        "xhr"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "function:frontend/tests/api/files.test.ts:MockXMLHttpRequest",
+      "type": "function",
+      "name": "MockXMLHttpRequest",
+      "summary": "模拟 XMLHttpRequest 的测试替身，记录请求并触发进度、完成与中止回调。",
+      "tags": [
+        "mock",
+        "xhr",
+        "test"
+      ],
+      "complexity": "moderate",
+      "lineRange": [
+        7,
+        47
+      ]
+    },
+    {
+      "id": "file:frontend/tests/components/ContentControls.test.tsx",
+      "type": "file",
+      "name": "frontend/tests/components/ContentControls.test.tsx",
+      "filePath": "frontend/tests/components/ContentControls.test.tsx",
+      "summary": "组件测试：覆盖 FileCard、MusicCard 与 Pagination 的渲染与交互行为。",
+      "tags": [
+        "test",
+        "component",
+        "ui"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:frontend/tests/lib/uploadPolicy.test.ts",
+      "type": "file",
+      "name": "frontend/tests/lib/uploadPolicy.test.ts",
+      "filePath": "frontend/tests/lib/uploadPolicy.test.ts",
+      "summary": "覆盖上传策略：扩展名识别、MIME 类型校验、上传限额与错误信息。",
+      "tags": [
+        "test",
+        "upload",
+        "policy"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:frontend/tests/pages/AdminUsersPage.test.tsx",
+      "type": "file",
+      "name": "frontend/tests/pages/AdminUsersPage.test.tsx",
+      "filePath": "frontend/tests/pages/AdminUsersPage.test.tsx",
+      "summary": "覆盖管理页中 VIP 授予与撤销的交互流程。",
+      "tags": [
+        "test",
+        "admin",
+        "page"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:frontend/tests/pages/FileDetailPage.test.tsx",
+      "type": "file",
+      "name": "frontend/tests/pages/FileDetailPage.test.tsx",
+      "filePath": "frontend/tests/pages/FileDetailPage.test.tsx",
+      "summary": "覆盖文件详情页的加载、错误提示、下载与删除交互。",
+      "tags": [
+        "test",
+        "file",
+        "page"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:frontend/tests/pages/FileDetailPage.test.tsx:PageRoutes",
+      "type": "function",
+      "name": "PageRoutes",
+      "summary": "测试用路由容器组件，将待测页面渲染进 MemoryRouter 中。",
+      "tags": [
+        "test",
+        "router",
+        "helper"
+      ],
+      "complexity": "simple",
+      "lineRange": [
+        48,
+        57
+      ]
+    },
+    {
+      "id": "file:frontend/tests/pages/ProfilePage.test.tsx",
+      "type": "file",
+      "name": "frontend/tests/pages/ProfilePage.test.tsx",
+      "filePath": "frontend/tests/pages/ProfilePage.test.tsx",
+      "summary": "覆盖个人资料页的资料加载展示与保存更新流程。",
+      "tags": [
+        "test",
+        "profile",
+        "page"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:frontend/tests/pages/UploadPage.test.tsx",
+      "type": "file",
+      "name": "frontend/tests/pages/UploadPage.test.tsx",
+      "filePath": "frontend/tests/pages/UploadPage.test.tsx",
+      "summary": "覆盖上传页拖拽添加文件、校验失败提示等交互。",
+      "tags": [
+        "test",
+        "upload",
+        "page"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:frontend/tests/pages/VipCenterPage.test.tsx",
+      "type": "file",
+      "name": "frontend/tests/pages/VipCenterPage.test.tsx",
+      "filePath": "frontend/tests/pages/VipCenterPage.test.tsx",
+      "summary": "覆盖 VIP 中心页的套餐加载、激活流程与剩余时长显示。",
+      "tags": [
+        "test",
+        "vip",
+        "page"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:frontend/tests/stores/auth.test.ts",
+      "type": "file",
+      "name": "frontend/tests/stores/auth.test.ts",
+      "filePath": "frontend/tests/stores/auth.test.ts",
+      "summary": "覆盖 auth store 的会话竞态：login/logout/restore 交叠下 revision 镜像一致性。",
+      "tags": [
+        "test",
+        "auth",
+        "store",
+        "concurrency"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "function:frontend/tests/stores/auth.test.ts:user",
+      "type": "function",
+      "name": "user",
+      "summary": "测试用用户对象工厂函数，快速构造登录态用户。",
+      "tags": [
+        "test",
+        "fixture",
+        "user"
+      ],
+      "complexity": "simple",
+      "lineRange": [
+        36,
+        47
+      ]
+    },
+    {
+      "id": "file:frontend/tests/stores/player.test.ts",
+      "type": "file",
+      "name": "frontend/tests/stores/player.test.ts",
+      "filePath": "frontend/tests/stores/player.test.ts",
+      "summary": "覆盖 player store 的曲目条目构造与播放列表状态管理。",
+      "tags": [
+        "test",
+        "player",
+        "store"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:frontend/tests/stores/player.test.ts:track",
+      "type": "function",
+      "name": "track",
+      "summary": "测试用曲目条目工厂函数，构造播放器测试数据。",
+      "tags": [
+        "test",
+        "fixture",
+        "track"
+      ],
+      "complexity": "simple",
+      "lineRange": [
+        9,
+        21
+      ]
+    }
+  ],
+  "edges": [
+    {
+      "source": "file:frontend/src/api/admin.ts",
+      "target": "function:frontend/src/api/admin.ts:getAdminUsers",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/api/admin.ts",
+      "target": "function:frontend/src/api/admin.ts:getAdminUsers",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/api/admin.ts",
+      "target": "function:frontend/src/api/admin.ts:grantUserVip",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/api/admin.ts",
+      "target": "function:frontend/src/api/admin.ts:grantUserVip",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/api/admin.ts",
+      "target": "function:frontend/src/api/admin.ts:revokeUserVip",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/api/admin.ts",
+      "target": "function:frontend/src/api/admin.ts:revokeUserVip",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/api/auth.ts",
+      "target": "function:frontend/src/api/auth.ts:login",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/api/auth.ts",
+      "target": "function:frontend/src/api/auth.ts:login",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/api/auth.ts",
+      "target": "function:frontend/src/api/auth.ts:register",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/api/auth.ts",
+      "target": "function:frontend/src/api/auth.ts:register",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/api/auth.ts",
+      "target": "function:frontend/src/api/auth.ts:logout",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/api/auth.ts",
+      "target": "function:frontend/src/api/auth.ts:logout",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/api/auth.ts",
+      "target": "function:frontend/src/api/auth.ts:getMe",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/api/auth.ts",
+      "target": "function:frontend/src/api/auth.ts:getMe",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/api/client.ts",
+      "target": "function:frontend/src/api/client.ts:ApiError",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/api/client.ts",
+      "target": "function:frontend/src/api/client.ts:ApiError",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/api/client.ts",
+      "target": "function:frontend/src/api/client.ts:markSessionChanged",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/api/client.ts",
+      "target": "function:frontend/src/api/client.ts:markSessionChanged",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/api/client.ts",
+      "target": "function:frontend/src/api/client.ts:getSessionRevision",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/api/client.ts",
+      "target": "function:frontend/src/api/client.ts:getSessionRevision",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/api/client.ts",
+      "target": "function:frontend/src/api/client.ts:captureSessionSnapshot",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/api/client.ts",
+      "target": "function:frontend/src/api/client.ts:captureSessionSnapshot",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/api/client.ts",
+      "target": "function:frontend/src/api/client.ts:isSessionSnapshotCurrent",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/api/client.ts",
+      "target": "function:frontend/src/api/client.ts:isSessionSnapshotCurrent",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/api/client.ts",
+      "target": "function:frontend/src/api/client.ts:injectToast",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/api/client.ts",
+      "target": "function:frontend/src/api/client.ts:injectToast",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/api/client.ts",
+      "target": "function:frontend/src/api/client.ts:injectUnauthorizedHandler",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/api/client.ts",
+      "target": "function:frontend/src/api/client.ts:injectUnauthorizedHandler",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/api/client.ts",
+      "target": "function:frontend/src/api/client.ts:notifyUnauthorized",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/api/client.ts",
+      "target": "function:frontend/src/api/client.ts:handleUnauthorized",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/api/client.ts",
+      "target": "function:frontend/src/api/client.ts:handleUnauthorized",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/api/client.ts",
+      "target": "function:frontend/src/api/client.ts:parseApiErrorDetails",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/api/client.ts",
+      "target": "function:frontend/src/api/client.ts:parseApiErrorDetails",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/api/client.ts",
+      "target": "function:frontend/src/api/client.ts:request",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/api/client.ts",
+      "target": "function:frontend/src/api/client.ts:request",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/api/files.ts",
+      "target": "function:frontend/src/api/files.ts:getFiles",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/api/files.ts",
+      "target": "function:frontend/src/api/files.ts:getFiles",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/api/files.ts",
+      "target": "function:frontend/src/api/files.ts:getFile",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/api/files.ts",
+      "target": "function:frontend/src/api/files.ts:getFile",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/api/files.ts",
+      "target": "function:frontend/src/api/files.ts:getFileDownloadUrl",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/api/files.ts",
+      "target": "function:frontend/src/api/files.ts:getFileDownloadUrl",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/api/files.ts",
+      "target": "function:frontend/src/api/files.ts:getFileStreamUrl",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/api/files.ts",
+      "target": "function:frontend/src/api/files.ts:getFileStreamUrl",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/api/files.ts",
+      "target": "function:frontend/src/api/files.ts:uploadFile",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/api/files.ts",
+      "target": "function:frontend/src/api/files.ts:uploadFile",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/api/files.ts",
+      "target": "function:frontend/src/api/files.ts:buildContentDisposition",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/api/files.ts",
+      "target": "function:frontend/src/api/files.ts:deleteFile",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/api/files.ts",
+      "target": "function:frontend/src/api/files.ts:deleteFile",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/api/files.ts",
+      "target": "function:frontend/src/api/files.ts:searchFiles",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/api/files.ts",
+      "target": "function:frontend/src/api/files.ts:searchFiles",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/api/users.ts",
+      "target": "function:frontend/src/api/users.ts:getUser",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/api/users.ts",
+      "target": "function:frontend/src/api/users.ts:getUser",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/api/users.ts",
+      "target": "function:frontend/src/api/users.ts:updateUser",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/api/users.ts",
+      "target": "function:frontend/src/api/users.ts:updateUser",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/api/vip.ts",
+      "target": "function:frontend/src/api/vip.ts:getVipPlans",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/api/vip.ts",
+      "target": "function:frontend/src/api/vip.ts:getVipPlans",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/api/vip.ts",
+      "target": "function:frontend/src/api/vip.ts:getVipMembership",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/api/vip.ts",
+      "target": "function:frontend/src/api/vip.ts:getVipMembership",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/api/vip.ts",
+      "target": "function:frontend/src/api/vip.ts:activateVipMembership",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/api/vip.ts",
+      "target": "function:frontend/src/api/vip.ts:activateVipMembership",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/components/FileCard.tsx",
+      "target": "function:frontend/src/components/FileCard.tsx:FileCard",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/components/FileCard.tsx",
+      "target": "function:frontend/src/components/FileCard.tsx:FileCard",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/components/Pagination.tsx",
+      "target": "function:frontend/src/components/Pagination.tsx:Pagination",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/components/Pagination.tsx",
+      "target": "function:frontend/src/components/Pagination.tsx:Pagination",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/lib/uploadPolicy.ts",
+      "target": "function:frontend/src/lib/uploadPolicy.ts:getAudioExtension",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/lib/uploadPolicy.ts",
+      "target": "function:frontend/src/lib/uploadPolicy.ts:getAudioExtension",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/lib/uploadPolicy.ts",
+      "target": "function:frontend/src/lib/uploadPolicy.ts:getUploadLimit",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/lib/uploadPolicy.ts",
+      "target": "function:frontend/src/lib/uploadPolicy.ts:getUploadLimit",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/lib/uploadPolicy.ts",
+      "target": "function:frontend/src/lib/uploadPolicy.ts:getContentType",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/lib/uploadPolicy.ts",
+      "target": "function:frontend/src/lib/uploadPolicy.ts:getContentType",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/lib/uploadPolicy.ts",
+      "target": "function:frontend/src/lib/uploadPolicy.ts:validateUploadFile",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/lib/uploadPolicy.ts",
+      "target": "function:frontend/src/lib/uploadPolicy.ts:validateUploadFile",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/lib/uploadPolicy.ts",
+      "target": "function:frontend/src/lib/uploadPolicy.ts:formatFileSize",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/lib/uploadPolicy.ts",
+      "target": "function:frontend/src/lib/uploadPolicy.ts:formatFileSize",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/pages/AdminUsersPage.tsx",
+      "target": "function:frontend/src/pages/AdminUsersPage.tsx:AdminUsersPage",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/pages/AdminUsersPage.tsx",
+      "target": "function:frontend/src/pages/AdminUsersPage.tsx:AdminUsersPage",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/pages/FileDetailPage.tsx",
+      "target": "function:frontend/src/pages/FileDetailPage.tsx:FileDetailPage",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/pages/FileDetailPage.tsx",
+      "target": "function:frontend/src/pages/FileDetailPage.tsx:FileDetailPage",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/pages/FileListPage.tsx",
+      "target": "function:frontend/src/pages/FileListPage.tsx:FileListPage",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/pages/FileListPage.tsx",
+      "target": "function:frontend/src/pages/FileListPage.tsx:FileListPage",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/pages/ProfilePage.tsx",
+      "target": "function:frontend/src/pages/ProfilePage.tsx:ProfilePage",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/pages/ProfilePage.tsx",
+      "target": "function:frontend/src/pages/ProfilePage.tsx:ProfilePage",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/pages/UploadPage.tsx",
+      "target": "function:frontend/src/pages/UploadPage.tsx:UploadPage",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/pages/UploadPage.tsx",
+      "target": "function:frontend/src/pages/UploadPage.tsx:UploadPage",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/pages/VipCenterPage.tsx",
+      "target": "function:frontend/src/pages/VipCenterPage.tsx:VipCenterPage",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/pages/VipCenterPage.tsx",
+      "target": "function:frontend/src/pages/VipCenterPage.tsx:VipCenterPage",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/pages/VipCenterPage.tsx",
+      "target": "function:frontend/src/pages/VipCenterPage.tsx:measureMembership",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/pages/VipCenterPage.tsx",
+      "target": "function:frontend/src/pages/VipCenterPage.tsx:clockAnchor",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/types/models.ts",
+      "target": "function:frontend/src/types/models.ts:normalizeUserRole",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/types/models.ts",
+      "target": "function:frontend/src/types/models.ts:normalizeUserRole",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/tests/api/files.test.ts",
+      "target": "function:frontend/tests/api/files.test.ts:MockXMLHttpRequest",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/tests/pages/FileDetailPage.test.tsx",
+      "target": "function:frontend/tests/pages/FileDetailPage.test.tsx:PageRoutes",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/tests/stores/auth.test.ts",
+      "target": "function:frontend/tests/stores/auth.test.ts:user",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/tests/stores/player.test.ts",
+      "target": "function:frontend/tests/stores/player.test.ts:track",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/api/admin.ts",
+      "target": "file:frontend/src/api/client.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/api/admin.ts",
+      "target": "file:frontend/src/types/api.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/api/auth.ts",
+      "target": "file:frontend/src/api/client.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/api/auth.ts",
+      "target": "file:frontend/src/types/api.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/api/auth.ts",
+      "target": "file:frontend/src/types/models.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/api/files.ts",
+      "target": "file:frontend/src/api/client.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/api/files.ts",
+      "target": "file:frontend/src/lib/uploadPolicy.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/api/files.ts",
+      "target": "file:frontend/src/types/api.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/api/users.ts",
+      "target": "file:frontend/src/api/client.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/api/users.ts",
+      "target": "file:frontend/src/types/api.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/api/vip.ts",
+      "target": "file:frontend/src/api/client.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/api/vip.ts",
+      "target": "file:frontend/src/types/api.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/components/FileCard.tsx",
+      "target": "file:frontend/src/types/api.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/lib/uploadPolicy.ts",
+      "target": "file:frontend/src/types/api.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/pages/AdminUsersPage.tsx",
+      "target": "file:frontend/src/api/admin.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/pages/AdminUsersPage.tsx",
+      "target": "file:frontend/src/components/Pagination.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/pages/AdminUsersPage.tsx",
+      "target": "file:frontend/src/types/api.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/pages/FileDetailPage.tsx",
+      "target": "file:frontend/src/api/client.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/pages/FileDetailPage.tsx",
+      "target": "file:frontend/src/api/files.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/pages/FileDetailPage.tsx",
+      "target": "file:frontend/src/stores/auth.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/pages/FileDetailPage.tsx",
+      "target": "file:frontend/src/stores/toast.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/pages/FileDetailPage.tsx",
+      "target": "file:frontend/src/types/api.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/pages/FileListPage.tsx",
+      "target": "file:frontend/src/api/client.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/pages/FileListPage.tsx",
+      "target": "file:frontend/src/api/files.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/pages/FileListPage.tsx",
+      "target": "file:frontend/src/components/FileCard.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/pages/FileListPage.tsx",
+      "target": "file:frontend/src/components/Pagination.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/pages/FileListPage.tsx",
+      "target": "file:frontend/src/stores/auth.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/pages/FileListPage.tsx",
+      "target": "file:frontend/src/stores/toast.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/pages/FileListPage.tsx",
+      "target": "file:frontend/src/types/api.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/pages/ProfilePage.tsx",
+      "target": "file:frontend/src/api/client.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/pages/ProfilePage.tsx",
+      "target": "file:frontend/src/api/users.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/pages/ProfilePage.tsx",
+      "target": "file:frontend/src/stores/auth.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/pages/ProfilePage.tsx",
+      "target": "file:frontend/src/types/api.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/pages/UploadPage.tsx",
+      "target": "file:frontend/src/api/files.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/pages/UploadPage.tsx",
+      "target": "file:frontend/src/lib/uploadPolicy.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/pages/UploadPage.tsx",
+      "target": "file:frontend/src/stores/auth.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/pages/UploadPage.tsx",
+      "target": "file:frontend/src/stores/toast.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/pages/UploadPage.tsx",
+      "target": "file:frontend/src/types/api.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/pages/VipCenterPage.tsx",
+      "target": "file:frontend/src/api/client.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/pages/VipCenterPage.tsx",
+      "target": "file:frontend/src/api/users.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/pages/VipCenterPage.tsx",
+      "target": "file:frontend/src/api/vip.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/pages/VipCenterPage.tsx",
+      "target": "file:frontend/src/stores/auth.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/pages/VipCenterPage.tsx",
+      "target": "file:frontend/src/types/api.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/types/api.ts",
+      "target": "file:frontend/src/types/models.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/tests/api/client.test.ts",
+      "target": "file:frontend/src/api/client.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/tests/api/files.test.ts",
+      "target": "file:frontend/src/api/client.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/tests/components/ContentControls.test.tsx",
+      "target": "file:frontend/src/components/FileCard.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/tests/components/ContentControls.test.tsx",
+      "target": "file:frontend/src/components/MusicCard.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/tests/components/ContentControls.test.tsx",
+      "target": "file:frontend/src/components/Pagination.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/tests/components/ContentControls.test.tsx",
+      "target": "file:frontend/src/types/api.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/tests/lib/uploadPolicy.test.ts",
+      "target": "file:frontend/src/lib/uploadPolicy.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/tests/pages/AdminUsersPage.test.tsx",
+      "target": "file:frontend/src/pages/AdminUsersPage.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/tests/pages/FileDetailPage.test.tsx",
+      "target": "file:frontend/src/pages/FileDetailPage.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/tests/pages/ProfilePage.test.tsx",
+      "target": "file:frontend/src/pages/ProfilePage.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/tests/pages/UploadPage.test.tsx",
+      "target": "file:frontend/src/pages/UploadPage.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/tests/pages/VipCenterPage.test.tsx",
+      "target": "file:frontend/src/pages/VipCenterPage.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/tests/stores/auth.test.ts",
+      "target": "file:frontend/src/api/client.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/tests/stores/auth.test.ts",
+      "target": "file:frontend/src/stores/auth.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/tests/stores/auth.test.ts",
+      "target": "file:frontend/src/types/api.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/tests/stores/player.test.ts",
+      "target": "file:frontend/src/stores/player.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/tests/stores/player.test.ts",
+      "target": "file:frontend/src/types/api.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "function:frontend/src/api/admin.ts:getAdminUsers",
+      "target": "function:frontend/src/api/client.ts:request",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:frontend/src/api/admin.ts:grantUserVip",
+      "target": "function:frontend/src/api/client.ts:request",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:frontend/src/api/admin.ts:revokeUserVip",
+      "target": "function:frontend/src/api/client.ts:request",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:frontend/src/api/auth.ts:login",
+      "target": "function:frontend/src/api/client.ts:request",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:frontend/src/api/auth.ts:register",
+      "target": "function:frontend/src/api/client.ts:request",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:frontend/src/api/auth.ts:logout",
+      "target": "function:frontend/src/api/client.ts:request",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:frontend/src/api/auth.ts:getMe",
+      "target": "function:frontend/src/api/client.ts:request",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:frontend/src/api/client.ts:handleUnauthorized",
+      "target": "function:frontend/src/api/client.ts:notifyUnauthorized",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:frontend/src/api/client.ts:request",
+      "target": "function:frontend/src/api/client.ts:notifyUnauthorized",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:frontend/src/api/client.ts:request",
+      "target": "function:frontend/src/api/client.ts:captureSessionSnapshot",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:frontend/src/api/client.ts:notifyUnauthorized",
+      "target": "function:frontend/src/api/client.ts:isSessionSnapshotCurrent",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:frontend/src/api/files.ts:getFiles",
+      "target": "function:frontend/src/api/client.ts:request",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:frontend/src/api/files.ts:getFile",
+      "target": "function:frontend/src/api/client.ts:request",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:frontend/src/api/files.ts:getFileDownloadUrl",
+      "target": "function:frontend/src/api/client.ts:request",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:frontend/src/api/files.ts:getFileDownloadUrl",
+      "target": "function:frontend/src/api/client.ts:captureSessionSnapshot",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:frontend/src/api/files.ts:getFileStreamUrl",
+      "target": "function:frontend/src/api/client.ts:request",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:frontend/src/api/files.ts:uploadFile",
+      "target": "function:frontend/src/api/client.ts:captureSessionSnapshot",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:frontend/src/api/files.ts:uploadFile",
+      "target": "function:frontend/src/api/files.ts:buildContentDisposition",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:frontend/src/api/files.ts:uploadFile",
+      "target": "function:frontend/src/lib/uploadPolicy.ts:getContentType",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:frontend/src/api/files.ts:deleteFile",
+      "target": "function:frontend/src/api/client.ts:request",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:frontend/src/api/files.ts:searchFiles",
+      "target": "function:frontend/src/api/client.ts:request",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:frontend/src/api/users.ts:getUser",
+      "target": "function:frontend/src/api/client.ts:request",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:frontend/src/api/users.ts:updateUser",
+      "target": "function:frontend/src/api/client.ts:request",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:frontend/src/api/vip.ts:getVipPlans",
+      "target": "function:frontend/src/api/client.ts:request",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:frontend/src/api/vip.ts:getVipMembership",
+      "target": "function:frontend/src/api/client.ts:request",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:frontend/src/api/vip.ts:activateVipMembership",
+      "target": "function:frontend/src/api/client.ts:request",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:frontend/src/lib/uploadPolicy.ts:validateUploadFile",
+      "target": "function:frontend/src/lib/uploadPolicy.ts:getAudioExtension",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:frontend/src/lib/uploadPolicy.ts:validateUploadFile",
+      "target": "function:frontend/src/lib/uploadPolicy.ts:getUploadLimit",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:frontend/src/lib/uploadPolicy.ts:validateUploadFile",
+      "target": "function:frontend/src/lib/uploadPolicy.ts:formatFileSize",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:frontend/src/lib/uploadPolicy.ts:getContentType",
+      "target": "function:frontend/src/lib/uploadPolicy.ts:getAudioExtension",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:frontend/src/pages/AdminUsersPage.tsx:AdminUsersPage",
+      "target": "function:frontend/src/api/admin.ts:getAdminUsers",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:frontend/src/pages/AdminUsersPage.tsx:AdminUsersPage",
+      "target": "function:frontend/src/components/Pagination.tsx:Pagination",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:frontend/src/pages/FileDetailPage.tsx:FileDetailPage",
+      "target": "function:frontend/src/api/files.ts:getFile",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:frontend/src/pages/FileDetailPage.tsx:FileDetailPage",
+      "target": "function:frontend/src/api/files.ts:getFileDownloadUrl",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:frontend/src/pages/FileDetailPage.tsx:FileDetailPage",
+      "target": "function:frontend/src/api/files.ts:deleteFile",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:frontend/src/pages/FileDetailPage.tsx:FileDetailPage",
+      "target": "function:frontend/src/api/client.ts:captureSessionSnapshot",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:frontend/src/pages/FileDetailPage.tsx:FileDetailPage",
+      "target": "function:frontend/src/api/client.ts:isSessionSnapshotCurrent",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:frontend/src/pages/FileDetailPage.tsx:FileDetailPage",
+      "target": "function:frontend/src/stores/auth.ts:useAuthStore",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:frontend/src/pages/FileDetailPage.tsx:FileDetailPage",
+      "target": "function:frontend/src/stores/toast.ts:useToastStore",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:frontend/src/pages/FileListPage.tsx:FileListPage",
+      "target": "function:frontend/src/api/files.ts:getFiles",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:frontend/src/pages/FileListPage.tsx:FileListPage",
+      "target": "function:frontend/src/api/files.ts:getFileDownloadUrl",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:frontend/src/pages/FileListPage.tsx:FileListPage",
+      "target": "function:frontend/src/api/files.ts:deleteFile",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:frontend/src/pages/FileListPage.tsx:FileListPage",
+      "target": "function:frontend/src/api/client.ts:captureSessionSnapshot",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:frontend/src/pages/FileListPage.tsx:FileListPage",
+      "target": "function:frontend/src/api/client.ts:isSessionSnapshotCurrent",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:frontend/src/pages/FileListPage.tsx:FileListPage",
+      "target": "function:frontend/src/stores/auth.ts:useAuthStore",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:frontend/src/pages/FileListPage.tsx:FileListPage",
+      "target": "function:frontend/src/stores/toast.ts:useToastStore",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:frontend/src/pages/FileListPage.tsx:FileListPage",
+      "target": "function:frontend/src/components/FileCard.tsx:FileCard",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:frontend/src/pages/ProfilePage.tsx:ProfilePage",
+      "target": "function:frontend/src/api/users.ts:getUser",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:frontend/src/pages/ProfilePage.tsx:ProfilePage",
+      "target": "function:frontend/src/api/users.ts:updateUser",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:frontend/src/pages/ProfilePage.tsx:ProfilePage",
+      "target": "function:frontend/src/api/client.ts:captureSessionSnapshot",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:frontend/src/pages/ProfilePage.tsx:ProfilePage",
+      "target": "function:frontend/src/api/client.ts:isSessionSnapshotCurrent",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:frontend/src/pages/ProfilePage.tsx:ProfilePage",
+      "target": "function:frontend/src/stores/auth.ts:useAuthStore",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:frontend/src/pages/UploadPage.tsx:UploadPage",
+      "target": "function:frontend/src/api/files.ts:uploadFile",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:frontend/src/pages/UploadPage.tsx:UploadPage",
+      "target": "function:frontend/src/lib/uploadPolicy.ts:validateUploadFile",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:frontend/src/pages/UploadPage.tsx:UploadPage",
+      "target": "function:frontend/src/lib/uploadPolicy.ts:getUploadLimit",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:frontend/src/pages/UploadPage.tsx:UploadPage",
+      "target": "function:frontend/src/lib/uploadPolicy.ts:formatFileSize",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:frontend/src/pages/UploadPage.tsx:UploadPage",
+      "target": "function:frontend/src/stores/auth.ts:useAuthStore",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:frontend/src/pages/UploadPage.tsx:UploadPage",
+      "target": "function:frontend/src/stores/toast.ts:useToastStore",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:frontend/src/pages/VipCenterPage.tsx:VipCenterPage",
+      "target": "function:frontend/src/api/vip.ts:getVipPlans",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:frontend/src/pages/VipCenterPage.tsx:VipCenterPage",
+      "target": "function:frontend/src/pages/VipCenterPage.tsx:measureMembership",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:frontend/src/pages/VipCenterPage.tsx:measureMembership",
+      "target": "function:frontend/src/pages/VipCenterPage.tsx:clockAnchor",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:frontend/src/pages/VipCenterPage.tsx:VipCenterPage",
+      "target": "function:frontend/src/api/client.ts:captureSessionSnapshot",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:frontend/src/pages/VipCenterPage.tsx:VipCenterPage",
+      "target": "function:frontend/src/api/client.ts:isSessionSnapshotCurrent",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:frontend/src/pages/VipCenterPage.tsx:VipCenterPage",
+      "target": "function:frontend/src/stores/auth.ts:useAuthStore",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/api/client.ts",
+      "target": "file:frontend/tests/api/client.test.ts",
+      "type": "tested_by",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "file:frontend/src/api/files.ts",
+      "target": "file:frontend/tests/api/files.test.ts",
+      "type": "tested_by",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "file:frontend/src/components/FileCard.tsx",
+      "target": "file:frontend/tests/components/ContentControls.test.tsx",
+      "type": "tested_by",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "file:frontend/src/components/MusicCard.tsx",
+      "target": "file:frontend/tests/components/ContentControls.test.tsx",
+      "type": "tested_by",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "file:frontend/src/components/Pagination.tsx",
+      "target": "file:frontend/tests/components/ContentControls.test.tsx",
+      "type": "tested_by",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "file:frontend/src/lib/uploadPolicy.ts",
+      "target": "file:frontend/tests/lib/uploadPolicy.test.ts",
+      "type": "tested_by",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "file:frontend/src/pages/AdminUsersPage.tsx",
+      "target": "file:frontend/tests/pages/AdminUsersPage.test.tsx",
+      "type": "tested_by",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "file:frontend/src/pages/FileDetailPage.tsx",
+      "target": "file:frontend/tests/pages/FileDetailPage.test.tsx",
+      "type": "tested_by",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "file:frontend/src/pages/ProfilePage.tsx",
+      "target": "file:frontend/tests/pages/ProfilePage.test.tsx",
+      "type": "tested_by",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "file:frontend/src/pages/UploadPage.tsx",
+      "target": "file:frontend/tests/pages/UploadPage.test.tsx",
+      "type": "tested_by",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "file:frontend/src/pages/VipCenterPage.tsx",
+      "target": "file:frontend/tests/pages/VipCenterPage.test.tsx",
+      "type": "tested_by",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "file:frontend/src/stores/auth.ts",
+      "target": "file:frontend/tests/stores/auth.test.ts",
+      "type": "tested_by",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "file:frontend/src/stores/player.ts",
+      "target": "file:frontend/tests/stores/player.test.ts",
+      "type": "tested_by",
+      "direction": "forward",
+      "weight": 0.5
+    }
+  ]
+}

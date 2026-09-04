@@ -1,0 +1,1125 @@
+{
+ "nodes": [
+  {
+   "id": "file:frontend/src/components/AudioPlayer.tsx",
+   "type": "file",
+   "name": "AudioPlayer.tsx",
+   "summary": "音频播放器组件：订阅 player store，管理音频元素与流媒体 URL 生命周期，提供播放/暂停/进度/音量控制，并用代次与状态快照保护异步竞态。",
+   "tags": [
+    "audio-player",
+    "react",
+    "streaming",
+    "player",
+    "frontend"
+   ],
+   "complexity": "complex",
+   "filePath": "frontend/src/components/AudioPlayer.tsx"
+  },
+  {
+   "id": "function:frontend/src/components/AudioPlayer.tsx:AudioPlayer",
+   "type": "function",
+   "name": "AudioPlayer",
+   "summary": "播放器主组件：加载歌曲详情与流 URL，处理播放/暂停/seek/音量、加载元数据、错误回退与资源释放。",
+   "tags": [
+    "react",
+    "audio-player",
+    "streaming"
+   ],
+   "complexity": "complex",
+   "lineRange": [
+    22,
+    309
+   ]
+  },
+  {
+   "id": "file:frontend/src/pages/MusicLibraryPage.tsx",
+   "type": "file",
+   "name": "MusicLibraryPage.tsx",
+   "summary": "音乐库页面：分页展示音乐库，支持防抖搜索、点击播放与多选加入歌单，带会话快照与请求代次竞态保护。",
+   "tags": [
+    "page",
+    "music-library",
+    "react",
+    "pagination",
+    "frontend"
+   ],
+   "complexity": "complex",
+   "filePath": "frontend/src/pages/MusicLibraryPage.tsx"
+  },
+  {
+   "id": "function:frontend/src/pages/MusicLibraryPage.tsx:MusicLibraryPage",
+   "type": "function",
+   "name": "MusicLibraryPage",
+   "summary": "音乐库主页面：加载并渲染音乐列表与分页器，处理搜索防抖、播放跳转与加入歌单流程。",
+   "tags": [
+    "page",
+    "music-library",
+    "react"
+   ],
+   "complexity": "complex",
+   "lineRange": [
+    20,
+    254
+   ]
+  },
+  {
+   "id": "file:frontend/src/pages/PlayerPage.tsx",
+   "type": "file",
+   "name": "PlayerPage.tsx",
+   "summary": "播放器页面：从 URL 参数解析音乐 ID，加载详情并启动播放器，带加载/错误状态。",
+   "tags": [
+    "page",
+    "player",
+    "react",
+    "frontend"
+   ],
+   "complexity": "moderate",
+   "filePath": "frontend/src/pages/PlayerPage.tsx"
+  },
+  {
+   "id": "function:frontend/src/pages/PlayerPage.tsx:PlayerPage",
+   "type": "function",
+   "name": "PlayerPage",
+   "summary": "校验 URL 中的音乐 ID，异步加载歌曲详情并交给 AudioPlayer 播放。",
+   "tags": [
+    "page",
+    "player",
+    "react"
+   ],
+   "complexity": "moderate",
+   "lineRange": [
+    15,
+    126
+   ]
+  },
+  {
+   "id": "file:frontend/src/pages/UserPlaylistPage.tsx",
+   "type": "file",
+   "name": "UserPlaylistPage.tsx",
+   "summary": "用户歌单页面：管理歌单的创建、重命名、删除、曲目移除与整单播放，所有操作带请求去重与竞态保护。",
+   "tags": [
+    "page",
+    "playlist",
+    "react",
+    "crud",
+    "frontend"
+   ],
+   "complexity": "complex",
+   "filePath": "frontend/src/pages/UserPlaylistPage.tsx"
+  },
+  {
+   "id": "function:frontend/src/pages/UserPlaylistPage.tsx:UserPlaylistPage",
+   "type": "function",
+   "name": "UserPlaylistPage",
+   "summary": "歌单管理页面：加载歌单与曲目，处理创建/重命名/删除/移除/播放等交互。",
+   "tags": [
+    "page",
+    "playlist",
+    "react"
+   ],
+   "complexity": "complex",
+   "lineRange": [
+    18,
+    438
+   ]
+  },
+  {
+   "id": "function:frontend/src/pages/UserPlaylistPage.tsx:toPlaylist",
+   "type": "function",
+   "name": "toPlaylist",
+   "summary": "把歌单原始数据转换为展示所需的轻量结构。",
+   "tags": [
+    "utils",
+    "playlist",
+    "mapping"
+   ],
+   "complexity": "simple",
+   "lineRange": [
+    440,
+    452
+   ]
+  },
+  {
+   "id": "function:frontend/src/pages/UserPlaylistPage.tsx:playlistItemToMusic",
+   "type": "function",
+   "name": "playlistItemToMusic",
+   "summary": "把歌单条目转换为 MusicMeta 结构供播放使用。",
+   "tags": [
+    "utils",
+    "playlist",
+    "mapping"
+   ],
+   "complexity": "simple",
+   "lineRange": [
+    454,
+    466
+   ]
+  },
+  {
+   "id": "file:frontend/tests/pages/FileListPage.test.tsx",
+   "type": "file",
+   "name": "FileListPage.test.tsx",
+   "summary": "文件列表页测试：覆盖列表交互、会话清理与 toast 提示路径。",
+   "tags": [
+    "test",
+    "page",
+    "file",
+    "vitest"
+   ],
+   "complexity": "moderate",
+   "filePath": "frontend/tests/pages/FileListPage.test.tsx"
+  },
+  {
+   "id": "file:frontend/tests/pages/MusicLibraryPage.test.tsx",
+   "type": "file",
+   "name": "MusicLibraryPage.test.tsx",
+   "summary": "音乐库页面测试：分页、搜索、播放与加入歌单等交互。",
+   "tags": [
+    "test",
+    "page",
+    "music-library",
+    "vitest"
+   ],
+   "complexity": "moderate",
+   "filePath": "frontend/tests/pages/MusicLibraryPage.test.tsx"
+  },
+  {
+   "id": "function:frontend/tests/pages/MusicLibraryPage.test.tsx:music",
+   "type": "function",
+   "name": "music",
+   "summary": "构造测试用 MusicMeta 数据。",
+   "tags": [
+    "test",
+    "helper",
+    "fixture"
+   ],
+   "complexity": "simple",
+   "lineRange": [
+    23,
+    33
+   ]
+  },
+  {
+   "id": "function:frontend/tests/pages/MusicLibraryPage.test.tsx:renderPage",
+   "type": "function",
+   "name": "renderPage",
+   "summary": "渲染页面并注入 store 初始状态。",
+   "tags": [
+    "test",
+    "helper",
+    "render"
+   ],
+   "complexity": "simple",
+   "lineRange": [
+    55,
+    66
+   ]
+  },
+  {
+   "id": "file:frontend/tests/pages/PlayerPage.test.tsx",
+   "type": "file",
+   "name": "PlayerPage.test.tsx",
+   "summary": "播放器页面测试：详情加载、错误状态与播放器渲染。",
+   "tags": [
+    "test",
+    "page",
+    "player",
+    "vitest"
+   ],
+   "complexity": "moderate",
+   "filePath": "frontend/tests/pages/PlayerPage.test.tsx"
+  },
+  {
+   "id": "function:frontend/tests/pages/PlayerPage.test.tsx:renderPlayerPage",
+   "type": "function",
+   "name": "renderPlayerPage",
+   "summary": "以指定曲目状态渲染播放器页面。",
+   "tags": [
+    "test",
+    "helper",
+    "render"
+   ],
+   "complexity": "simple",
+   "lineRange": [
+    35,
+    45
+   ]
+  },
+  {
+   "id": "function:frontend/tests/pages/PlayerPage.test.tsx:playableTrack",
+   "type": "function",
+   "name": "playableTrack",
+   "summary": "构造可播放的歌曲数据工厂。",
+   "tags": [
+    "test",
+    "helper",
+    "fixture"
+   ],
+   "complexity": "simple",
+   "lineRange": [
+    277,
+    290
+   ]
+  },
+  {
+   "id": "file:frontend/tests/pages/UserPlaylistPage.test.tsx",
+   "type": "file",
+   "name": "UserPlaylistPage.test.tsx",
+   "summary": "歌单页面测试：歌单 CRUD、曲目移除与播放交互。",
+   "tags": [
+    "test",
+    "page",
+    "playlist",
+    "vitest"
+   ],
+   "complexity": "moderate",
+   "filePath": "frontend/tests/pages/UserPlaylistPage.test.tsx"
+  },
+  {
+   "id": "function:frontend/tests/pages/UserPlaylistPage.test.tsx:playable",
+   "type": "function",
+   "name": "playable",
+   "summary": "构造歌单场景下的音乐数据工厂。",
+   "tags": [
+    "test",
+    "helper",
+    "fixture"
+   ],
+   "complexity": "simple",
+   "lineRange": [
+    41,
+    54
+   ]
+  },
+  {
+   "id": "function:frontend/tests/pages/UserPlaylistPage.test.tsx:renderPage",
+   "type": "function",
+   "name": "renderPage",
+   "summary": "渲染歌单页面并注入 store 初始状态。",
+   "tags": [
+    "test",
+    "helper",
+    "render"
+   ],
+   "complexity": "simple",
+   "lineRange": [
+    56,
+    67
+   ]
+  }
+ ],
+ "edges": [
+  {
+   "source": "file:frontend/src/components/AudioPlayer.tsx",
+   "target": "file:frontend/src/api/files.ts",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:frontend/src/components/AudioPlayer.tsx",
+   "target": "file:frontend/src/api/music.ts",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:frontend/src/components/AudioPlayer.tsx",
+   "target": "file:frontend/src/lib/coverPlaceholder.ts",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:frontend/src/components/AudioPlayer.tsx",
+   "target": "file:frontend/src/stores/player.ts",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:frontend/src/components/AudioPlayer.tsx",
+   "target": "file:frontend/src/types/api.ts",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:frontend/src/pages/MusicLibraryPage.tsx",
+   "target": "file:frontend/src/api/client.ts",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:frontend/src/pages/MusicLibraryPage.tsx",
+   "target": "file:frontend/src/api/music.ts",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:frontend/src/pages/MusicLibraryPage.tsx",
+   "target": "file:frontend/src/components/MusicCard.tsx",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:frontend/src/pages/MusicLibraryPage.tsx",
+   "target": "file:frontend/src/components/Pagination.tsx",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:frontend/src/pages/MusicLibraryPage.tsx",
+   "target": "file:frontend/src/stores/auth.ts",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:frontend/src/pages/MusicLibraryPage.tsx",
+   "target": "file:frontend/src/stores/music.ts",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:frontend/src/pages/MusicLibraryPage.tsx",
+   "target": "file:frontend/src/stores/player.ts",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:frontend/src/pages/MusicLibraryPage.tsx",
+   "target": "file:frontend/src/stores/toast.ts",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:frontend/src/pages/MusicLibraryPage.tsx",
+   "target": "file:frontend/src/types/api.ts",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:frontend/src/pages/PlayerPage.tsx",
+   "target": "file:frontend/src/api/client.ts",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:frontend/src/pages/PlayerPage.tsx",
+   "target": "file:frontend/src/api/music.ts",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:frontend/src/pages/PlayerPage.tsx",
+   "target": "file:frontend/src/components/AudioPlayer.tsx",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:frontend/src/pages/PlayerPage.tsx",
+   "target": "file:frontend/src/stores/auth.ts",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:frontend/src/pages/PlayerPage.tsx",
+   "target": "file:frontend/src/stores/player.ts",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:frontend/src/pages/UserPlaylistPage.tsx",
+   "target": "file:frontend/src/api/client.ts",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:frontend/src/pages/UserPlaylistPage.tsx",
+   "target": "file:frontend/src/api/music.ts",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:frontend/src/pages/UserPlaylistPage.tsx",
+   "target": "file:frontend/src/lib/coverPlaceholder.ts",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:frontend/src/pages/UserPlaylistPage.tsx",
+   "target": "file:frontend/src/stores/auth.ts",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:frontend/src/pages/UserPlaylistPage.tsx",
+   "target": "file:frontend/src/stores/music.ts",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:frontend/src/pages/UserPlaylistPage.tsx",
+   "target": "file:frontend/src/stores/player.ts",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:frontend/src/pages/UserPlaylistPage.tsx",
+   "target": "file:frontend/src/stores/toast.ts",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:frontend/src/pages/UserPlaylistPage.tsx",
+   "target": "file:frontend/src/types/api.ts",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:frontend/tests/pages/FileListPage.test.tsx",
+   "target": "file:frontend/src/pages/FileListPage.tsx",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:frontend/tests/pages/FileListPage.test.tsx",
+   "target": "file:frontend/src/session/clearUserSession.ts",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:frontend/tests/pages/FileListPage.test.tsx",
+   "target": "file:frontend/src/stores/toast.ts",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:frontend/tests/pages/MusicLibraryPage.test.tsx",
+   "target": "file:frontend/src/pages/MusicLibraryPage.tsx",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:frontend/tests/pages/MusicLibraryPage.test.tsx",
+   "target": "file:frontend/src/session/clearUserSession.ts",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:frontend/tests/pages/MusicLibraryPage.test.tsx",
+   "target": "file:frontend/src/stores/auth.ts",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:frontend/tests/pages/MusicLibraryPage.test.tsx",
+   "target": "file:frontend/src/stores/music.ts",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:frontend/tests/pages/MusicLibraryPage.test.tsx",
+   "target": "file:frontend/src/stores/player.ts",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:frontend/tests/pages/MusicLibraryPage.test.tsx",
+   "target": "file:frontend/src/stores/toast.ts",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:frontend/tests/pages/MusicLibraryPage.test.tsx",
+   "target": "file:frontend/src/types/api.ts",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:frontend/tests/pages/PlayerPage.test.tsx",
+   "target": "file:frontend/src/api/client.ts",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:frontend/tests/pages/PlayerPage.test.tsx",
+   "target": "file:frontend/src/pages/PlayerPage.tsx",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:frontend/tests/pages/PlayerPage.test.tsx",
+   "target": "file:frontend/src/session/clearUserSession.ts",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:frontend/tests/pages/PlayerPage.test.tsx",
+   "target": "file:frontend/src/stores/player.ts",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:frontend/tests/pages/UserPlaylistPage.test.tsx",
+   "target": "file:frontend/src/pages/UserPlaylistPage.tsx",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:frontend/tests/pages/UserPlaylistPage.test.tsx",
+   "target": "file:frontend/src/session/clearUserSession.ts",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:frontend/tests/pages/UserPlaylistPage.test.tsx",
+   "target": "file:frontend/src/stores/auth.ts",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:frontend/tests/pages/UserPlaylistPage.test.tsx",
+   "target": "file:frontend/src/stores/music.ts",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:frontend/tests/pages/UserPlaylistPage.test.tsx",
+   "target": "file:frontend/src/stores/player.ts",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:frontend/tests/pages/UserPlaylistPage.test.tsx",
+   "target": "file:frontend/src/stores/toast.ts",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:frontend/src/components/AudioPlayer.tsx",
+   "target": "function:frontend/src/components/AudioPlayer.tsx:AudioPlayer",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "file:frontend/src/components/AudioPlayer.tsx",
+   "target": "function:frontend/src/components/AudioPlayer.tsx:AudioPlayer",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:frontend/src/pages/MusicLibraryPage.tsx",
+   "target": "function:frontend/src/pages/MusicLibraryPage.tsx:MusicLibraryPage",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "file:frontend/src/pages/MusicLibraryPage.tsx",
+   "target": "function:frontend/src/pages/MusicLibraryPage.tsx:MusicLibraryPage",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:frontend/src/pages/PlayerPage.tsx",
+   "target": "function:frontend/src/pages/PlayerPage.tsx:PlayerPage",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "file:frontend/src/pages/PlayerPage.tsx",
+   "target": "function:frontend/src/pages/PlayerPage.tsx:PlayerPage",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:frontend/src/pages/UserPlaylistPage.tsx",
+   "target": "function:frontend/src/pages/UserPlaylistPage.tsx:UserPlaylistPage",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "file:frontend/src/pages/UserPlaylistPage.tsx",
+   "target": "function:frontend/src/pages/UserPlaylistPage.tsx:toPlaylist",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "file:frontend/src/pages/UserPlaylistPage.tsx",
+   "target": "function:frontend/src/pages/UserPlaylistPage.tsx:playlistItemToMusic",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "file:frontend/src/pages/UserPlaylistPage.tsx",
+   "target": "function:frontend/src/pages/UserPlaylistPage.tsx:UserPlaylistPage",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:frontend/tests/pages/MusicLibraryPage.test.tsx",
+   "target": "function:frontend/tests/pages/MusicLibraryPage.test.tsx:music",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "file:frontend/tests/pages/MusicLibraryPage.test.tsx",
+   "target": "function:frontend/tests/pages/MusicLibraryPage.test.tsx:renderPage",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "file:frontend/tests/pages/PlayerPage.test.tsx",
+   "target": "function:frontend/tests/pages/PlayerPage.test.tsx:renderPlayerPage",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "file:frontend/tests/pages/PlayerPage.test.tsx",
+   "target": "function:frontend/tests/pages/PlayerPage.test.tsx:playableTrack",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "file:frontend/tests/pages/UserPlaylistPage.test.tsx",
+   "target": "function:frontend/tests/pages/UserPlaylistPage.test.tsx:playable",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "file:frontend/tests/pages/UserPlaylistPage.test.tsx",
+   "target": "function:frontend/tests/pages/UserPlaylistPage.test.tsx:renderPage",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "function:frontend/src/components/AudioPlayer.tsx:AudioPlayer",
+   "target": "function:frontend/src/api/music.ts:getMusicDetail",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:frontend/src/components/AudioPlayer.tsx:AudioPlayer",
+   "target": "function:frontend/src/api/files.ts:getFileStreamUrl",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:frontend/src/components/AudioPlayer.tsx:AudioPlayer",
+   "target": "function:frontend/src/lib/coverPlaceholder.ts:getCoverPlaceholder",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:frontend/src/components/AudioPlayer.tsx:AudioPlayer",
+   "target": "function:frontend/src/stores/player.ts:capturePlayerGeneration",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:frontend/src/components/AudioPlayer.tsx:AudioPlayer",
+   "target": "function:frontend/src/stores/player.ts:isPlayerGenerationCurrent",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:frontend/src/components/AudioPlayer.tsx:AudioPlayer",
+   "target": "function:frontend/src/stores/player.ts:usePlayerStore",
+   "type": "depends_on",
+   "direction": "forward",
+   "weight": 0.6
+  },
+  {
+   "source": "function:frontend/src/pages/MusicLibraryPage.tsx:MusicLibraryPage",
+   "target": "function:frontend/src/api/music.ts:getMusicDetail",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:frontend/src/pages/MusicLibraryPage.tsx:MusicLibraryPage",
+   "target": "function:frontend/src/api/music.ts:addToPlaylist",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:frontend/src/pages/MusicLibraryPage.tsx:MusicLibraryPage",
+   "target": "function:frontend/src/api/music.ts:fetchPlaylists",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:frontend/src/pages/MusicLibraryPage.tsx:MusicLibraryPage",
+   "target": "function:frontend/src/api/client.ts:captureSessionSnapshot",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:frontend/src/pages/MusicLibraryPage.tsx:MusicLibraryPage",
+   "target": "function:frontend/src/stores/player.ts:capturePlayerGeneration",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:frontend/src/pages/MusicLibraryPage.tsx:MusicLibraryPage",
+   "target": "function:frontend/src/stores/player.ts:capturePlayerStateRevision",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:frontend/src/pages/MusicLibraryPage.tsx:MusicLibraryPage",
+   "target": "function:frontend/src/api/client.ts:isSessionSnapshotCurrent",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:frontend/src/pages/MusicLibraryPage.tsx:MusicLibraryPage",
+   "target": "function:frontend/src/stores/player.ts:isPlayerGenerationCurrent",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:frontend/src/pages/MusicLibraryPage.tsx:MusicLibraryPage",
+   "target": "function:frontend/src/stores/music.ts:useMusicStore",
+   "type": "depends_on",
+   "direction": "forward",
+   "weight": 0.6
+  },
+  {
+   "source": "function:frontend/src/pages/MusicLibraryPage.tsx:MusicLibraryPage",
+   "target": "function:frontend/src/stores/auth.ts:useAuthStore",
+   "type": "depends_on",
+   "direction": "forward",
+   "weight": 0.6
+  },
+  {
+   "source": "function:frontend/src/pages/MusicLibraryPage.tsx:MusicLibraryPage",
+   "target": "function:frontend/src/stores/player.ts:usePlayerStore",
+   "type": "depends_on",
+   "direction": "forward",
+   "weight": 0.6
+  },
+  {
+   "source": "function:frontend/src/pages/MusicLibraryPage.tsx:MusicLibraryPage",
+   "target": "function:frontend/src/stores/toast.ts:useToastStore",
+   "type": "depends_on",
+   "direction": "forward",
+   "weight": 0.6
+  },
+  {
+   "source": "function:frontend/src/pages/MusicLibraryPage.tsx:MusicLibraryPage",
+   "target": "function:frontend/src/components/MusicCard.tsx:MusicCard",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "function:frontend/src/pages/MusicLibraryPage.tsx:MusicLibraryPage",
+   "target": "function:frontend/src/components/Pagination.tsx:Pagination",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "function:frontend/src/pages/PlayerPage.tsx:PlayerPage",
+   "target": "function:frontend/src/api/music.ts:getMusicDetail",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:frontend/src/pages/PlayerPage.tsx:PlayerPage",
+   "target": "function:frontend/src/api/client.ts:captureSessionSnapshot",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:frontend/src/pages/PlayerPage.tsx:PlayerPage",
+   "target": "function:frontend/src/stores/player.ts:capturePlayerGeneration",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:frontend/src/pages/PlayerPage.tsx:PlayerPage",
+   "target": "function:frontend/src/stores/player.ts:capturePlayerStateRevision",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:frontend/src/pages/PlayerPage.tsx:PlayerPage",
+   "target": "function:frontend/src/api/client.ts:isSessionSnapshotCurrent",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:frontend/src/pages/PlayerPage.tsx:PlayerPage",
+   "target": "function:frontend/src/stores/player.ts:isPlayerGenerationCurrent",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:frontend/src/pages/PlayerPage.tsx:PlayerPage",
+   "target": "function:frontend/src/stores/player.ts:usePlayerStore",
+   "type": "depends_on",
+   "direction": "forward",
+   "weight": 0.6
+  },
+  {
+   "source": "function:frontend/src/pages/PlayerPage.tsx:PlayerPage",
+   "target": "function:frontend/src/stores/auth.ts:useAuthStore",
+   "type": "depends_on",
+   "direction": "forward",
+   "weight": 0.6
+  },
+  {
+   "source": "function:frontend/src/pages/PlayerPage.tsx:PlayerPage",
+   "target": "function:frontend/src/components/AudioPlayer.tsx:AudioPlayer",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "function:frontend/src/pages/UserPlaylistPage.tsx:UserPlaylistPage",
+   "target": "function:frontend/src/api/music.ts:fetchPlaylists",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:frontend/src/pages/UserPlaylistPage.tsx:UserPlaylistPage",
+   "target": "function:frontend/src/api/music.ts:getPlaylistItems",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:frontend/src/pages/UserPlaylistPage.tsx:UserPlaylistPage",
+   "target": "function:frontend/src/api/music.ts:createPlaylist",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:frontend/src/pages/UserPlaylistPage.tsx:UserPlaylistPage",
+   "target": "function:frontend/src/api/music.ts:removeFromPlaylist",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:frontend/src/pages/UserPlaylistPage.tsx:UserPlaylistPage",
+   "target": "function:frontend/src/api/music.ts:deletePlaylist",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:frontend/src/pages/UserPlaylistPage.tsx:UserPlaylistPage",
+   "target": "function:frontend/src/api/music.ts:renamePlaylist",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:frontend/src/pages/UserPlaylistPage.tsx:UserPlaylistPage",
+   "target": "function:frontend/src/api/music.ts:getMusicDetail",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:frontend/src/pages/UserPlaylistPage.tsx:UserPlaylistPage",
+   "target": "function:frontend/src/lib/coverPlaceholder.ts:getCoverPlaceholder",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:frontend/src/pages/UserPlaylistPage.tsx:UserPlaylistPage",
+   "target": "function:frontend/src/pages/UserPlaylistPage.tsx:playlistItemToMusic",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:frontend/src/pages/UserPlaylistPage.tsx:UserPlaylistPage",
+   "target": "function:frontend/src/pages/UserPlaylistPage.tsx:toPlaylist",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:frontend/src/pages/UserPlaylistPage.tsx:UserPlaylistPage",
+   "target": "function:frontend/src/api/client.ts:captureSessionSnapshot",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:frontend/src/pages/UserPlaylistPage.tsx:UserPlaylistPage",
+   "target": "function:frontend/src/stores/player.ts:capturePlayerGeneration",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:frontend/src/pages/UserPlaylistPage.tsx:UserPlaylistPage",
+   "target": "function:frontend/src/stores/player.ts:capturePlayerStateRevision",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:frontend/src/pages/UserPlaylistPage.tsx:UserPlaylistPage",
+   "target": "function:frontend/src/api/client.ts:isSessionSnapshotCurrent",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:frontend/src/pages/UserPlaylistPage.tsx:UserPlaylistPage",
+   "target": "function:frontend/src/stores/player.ts:isPlayerGenerationCurrent",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:frontend/src/pages/UserPlaylistPage.tsx:UserPlaylistPage",
+   "target": "function:frontend/src/stores/music.ts:useMusicStore",
+   "type": "depends_on",
+   "direction": "forward",
+   "weight": 0.6
+  },
+  {
+   "source": "function:frontend/src/pages/UserPlaylistPage.tsx:UserPlaylistPage",
+   "target": "function:frontend/src/stores/auth.ts:useAuthStore",
+   "type": "depends_on",
+   "direction": "forward",
+   "weight": 0.6
+  },
+  {
+   "source": "function:frontend/src/pages/UserPlaylistPage.tsx:UserPlaylistPage",
+   "target": "function:frontend/src/stores/player.ts:usePlayerStore",
+   "type": "depends_on",
+   "direction": "forward",
+   "weight": 0.6
+  },
+  {
+   "source": "function:frontend/src/pages/UserPlaylistPage.tsx:UserPlaylistPage",
+   "target": "function:frontend/src/stores/toast.ts:useToastStore",
+   "type": "depends_on",
+   "direction": "forward",
+   "weight": 0.6
+  },
+  {
+   "source": "file:frontend/src/components/AudioPlayer.tsx",
+   "target": "file:frontend/tests/components/AudioPlayer.test.tsx",
+   "type": "tested_by",
+   "direction": "forward",
+   "weight": 0.5
+  },
+  {
+   "source": "file:frontend/src/pages/FileListPage.tsx",
+   "target": "file:frontend/tests/pages/FileListPage.test.tsx",
+   "type": "tested_by",
+   "direction": "forward",
+   "weight": 0.5
+  },
+  {
+   "source": "file:frontend/src/pages/MusicLibraryPage.tsx",
+   "target": "file:frontend/tests/pages/MusicLibraryPage.test.tsx",
+   "type": "tested_by",
+   "direction": "forward",
+   "weight": 0.5
+  },
+  {
+   "source": "file:frontend/src/pages/PlayerPage.tsx",
+   "target": "file:frontend/tests/pages/PlayerPage.test.tsx",
+   "type": "tested_by",
+   "direction": "forward",
+   "weight": 0.5
+  },
+  {
+   "source": "file:frontend/src/pages/UserPlaylistPage.tsx",
+   "target": "file:frontend/tests/pages/UserPlaylistPage.test.tsx",
+   "type": "tested_by",
+   "direction": "forward",
+   "weight": 0.5
+  }
+ ]
+}

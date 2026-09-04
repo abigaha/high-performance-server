@@ -1,0 +1,336 @@
+{
+  "scriptCompleted": true,
+  "filesAnalyzed": 3,
+  "filesSkipped": [
+    "scripts/dev.sh"
+  ],
+  "results": [
+    {
+      "path": "scripts/docker.sh",
+      "language": "shell",
+      "fileCategory": "script",
+      "totalLines": 850,
+      "nonEmptyLines": 788,
+      "functions": [
+        {
+          "name": "usage",
+          "startLine": 14,
+          "endLine": 37,
+          "params": []
+        },
+        {
+          "name": "logs_usage",
+          "startLine": 39,
+          "endLine": 46,
+          "params": []
+        },
+        {
+          "name": "compose",
+          "startLine": 48,
+          "endLine": 53,
+          "params": []
+        },
+        {
+          "name": "compose_control",
+          "startLine": 56,
+          "endLine": 61,
+          "params": []
+        },
+        {
+          "name": "parse_deployment_options",
+          "startLine": 63,
+          "endLine": 103,
+          "params": []
+        },
+        {
+          "name": "reject_unexpected_args",
+          "startLine": 105,
+          "endLine": 112,
+          "params": []
+        },
+        {
+          "name": "require_docker",
+          "startLine": 114,
+          "endLine": 124,
+          "params": []
+        },
+        {
+          "name": "require_deploy_tools",
+          "startLine": 126,
+          "endLine": 137,
+          "params": []
+        },
+        {
+          "name": "env_file_value",
+          "startLine": 138,
+          "endLine": 159,
+          "params": []
+        },
+        {
+          "name": "validate_env_file",
+          "startLine": 161,
+          "endLine": 223,
+          "params": []
+        },
+        {
+          "name": "ensure_env_file",
+          "startLine": 226,
+          "endLine": 298,
+          "params": []
+        },
+        {
+          "name": "current_project_nginx_uses_port",
+          "startLine": 300,
+          "endLine": 318,
+          "params": []
+        },
+        {
+          "name": "host_port_is_listening",
+          "startLine": 320,
+          "endLine": 333,
+          "params": []
+        },
+        {
+          "name": "validate_http_port_availability",
+          "startLine": 335,
+          "endLine": 379,
+          "params": []
+        },
+        {
+          "name": "cmd_build",
+          "startLine": 381,
+          "endLine": 393,
+          "params": []
+        },
+        {
+          "name": "build_image",
+          "startLine": 395,
+          "endLine": 399,
+          "params": []
+        },
+        {
+          "name": "cmd_image",
+          "startLine": 401,
+          "endLine": 407,
+          "params": []
+        },
+        {
+          "name": "deployment_diagnostics",
+          "startLine": 409,
+          "endLine": 414,
+          "params": []
+        },
+        {
+          "name": "verify_service_health",
+          "startLine": 416,
+          "endLine": 433,
+          "params": []
+        },
+        {
+          "name": "print_backend_runtime_state",
+          "startLine": 435,
+          "endLine": 446,
+          "params": []
+        },
+        {
+          "name": "public_base_url",
+          "startLine": 448,
+          "endLine": 518,
+          "params": []
+        },
+        {
+          "name": "public_health_url",
+          "startLine": 520,
+          "endLine": 524,
+          "params": []
+        },
+        {
+          "name": "cmd_base_url",
+          "startLine": 526,
+          "endLine": 529,
+          "params": []
+        },
+        {
+          "name": "require_runtime_fingerprint_tools",
+          "startLine": 531,
+          "endLine": 552,
+          "params": []
+        },
+        {
+          "name": "configured_service_image",
+          "startLine": 554,
+          "endLine": 570,
+          "params": []
+        },
+        {
+          "name": "cmd_runtime_fingerprint",
+          "startLine": 572,
+          "endLine": 625,
+          "params": []
+        },
+        {
+          "name": "cmd_health",
+          "startLine": 627,
+          "endLine": 647,
+          "params": []
+        },
+        {
+          "name": "cmd_deploy",
+          "startLine": 649,
+          "endLine": 679,
+          "params": []
+        },
+        {
+          "name": "cmd_restart",
+          "startLine": 681,
+          "endLine": 690,
+          "params": []
+        },
+        {
+          "name": "cmd_status",
+          "startLine": 692,
+          "endLine": 706,
+          "params": []
+        },
+        {
+          "name": "cmd_stop",
+          "startLine": 708,
+          "endLine": 729,
+          "params": []
+        },
+        {
+          "name": "cmd_logs",
+          "startLine": 731,
+          "endLine": 771,
+          "params": []
+        },
+        {
+          "name": "handle_menu_choice",
+          "startLine": 773,
+          "endLine": 783,
+          "params": []
+        },
+        {
+          "name": "menu",
+          "startLine": 785,
+          "endLine": 795,
+          "params": []
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 34,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "scripts/lint.sh",
+      "language": "shell",
+      "fileCategory": "script",
+      "totalLines": 329,
+      "nonEmptyLines": 297,
+      "functions": [
+        {
+          "name": "usage",
+          "startLine": 14,
+          "endLine": 30,
+          "params": []
+        },
+        {
+          "name": "detect_clang_tidy",
+          "startLine": 32,
+          "endLine": 41,
+          "params": []
+        },
+        {
+          "name": "check_required_tools",
+          "startLine": 43,
+          "endLine": 53,
+          "params": []
+        },
+        {
+          "name": "lint_timeout_value",
+          "startLine": 55,
+          "endLine": 65,
+          "params": []
+        },
+        {
+          "name": "run_frontend_lint",
+          "startLine": 67,
+          "endLine": 78,
+          "params": []
+        },
+        {
+          "name": "collect_all_sources",
+          "startLine": 125,
+          "endLine": 131,
+          "params": []
+        },
+        {
+          "name": "collect_path_sources",
+          "startLine": 133,
+          "endLine": 149,
+          "params": []
+        },
+        {
+          "name": "collect_changed_sources",
+          "startLine": 151,
+          "endLine": 170,
+          "params": []
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 8,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "scripts/test.sh",
+      "language": "shell",
+      "fileCategory": "script",
+      "totalLines": 261,
+      "nonEmptyLines": 241,
+      "functions": [
+        {
+          "name": "run_frontend_tests",
+          "startLine": 8,
+          "endLine": 21,
+          "params": []
+        },
+        {
+          "name": "run_script_regression_tests",
+          "startLine": 23,
+          "endLine": 33,
+          "params": []
+        },
+        {
+          "name": "validate_frontend_test_path",
+          "startLine": 35,
+          "endLine": 40,
+          "params": []
+        },
+        {
+          "name": "validate_e2e_test_path",
+          "startLine": 42,
+          "endLine": 47,
+          "params": []
+        },
+        {
+          "name": "run_e2e_tests",
+          "startLine": 49,
+          "endLine": 169,
+          "params": []
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 5,
+        "classCount": 0
+      }
+    }
+  ]
+}

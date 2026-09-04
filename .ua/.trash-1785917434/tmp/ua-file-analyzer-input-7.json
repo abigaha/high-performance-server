@@ -1,0 +1,77 @@
+{
+  "projectRoot": "/home/jmj/work-space/projects/high-performance-server",
+  "batchFiles": [
+    {
+      "path": "net/thread-pool/include/lock_free_queue.hpp",
+      "language": "cpp",
+      "sizeLines": 252,
+      "fileCategory": "code"
+    },
+    {
+      "path": "net/thread-pool/include/locked_thread_pool.h",
+      "language": "c",
+      "sizeLines": 62,
+      "fileCategory": "code"
+    },
+    {
+      "path": "net/thread-pool/include/thread_pool.h",
+      "language": "c",
+      "sizeLines": 78,
+      "fileCategory": "code"
+    }
+  ],
+  "batchImportData": {
+    "net/thread-pool/include/lock_free_queue.hpp": [],
+    "net/thread-pool/include/locked_thread_pool.h": [
+      "net/thread-pool/include/move_only_function.h",
+      "net/thread-pool/include/thread_pool_base.h"
+    ],
+    "net/thread-pool/include/thread_pool.h": [
+      "net/thread-pool/include/lock_free_queue.hpp",
+      "net/thread-pool/include/move_only_function.h",
+      "net/thread-pool/include/thread_pool_base.h"
+    ]
+  },
+  "neighborMap": {
+    "net/thread-pool/include/locked_thread_pool.h": [
+      {
+        "path": "net/thread-pool/include/move_only_function.h",
+        "batchIndex": 7,
+        "symbols": [
+          "MoveOnlyFunction",
+          "~MoveOnlyFunction",
+          "MoveOnlyFunction",
+          "MoveOnlyFunction",
+          "operator()",
+          "reset",
+          "MoveOnlyFunction"
+        ]
+      },
+      {
+        "path": "net/thread-pool/include/thread_pool_base.h",
+        "batchIndex": 7,
+        "symbols": []
+      }
+    ],
+    "net/thread-pool/include/thread_pool.h": [
+      {
+        "path": "net/thread-pool/include/move_only_function.h",
+        "batchIndex": 7,
+        "symbols": [
+          "MoveOnlyFunction",
+          "~MoveOnlyFunction",
+          "MoveOnlyFunction",
+          "MoveOnlyFunction",
+          "operator()",
+          "reset",
+          "MoveOnlyFunction"
+        ]
+      },
+      {
+        "path": "net/thread-pool/include/thread_pool_base.h",
+        "batchIndex": 7,
+        "symbols": []
+      }
+    ]
+  }
+}

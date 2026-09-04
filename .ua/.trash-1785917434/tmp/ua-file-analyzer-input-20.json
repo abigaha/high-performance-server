@@ -1,0 +1,176 @@
+{
+  "projectRoot": "/home/jmj/work-space/projects/high-performance-server",
+  "batchFiles": [
+    {
+      "path": "benchmark/.clang-tidy",
+      "language": "unknown",
+      "sizeLines": 91,
+      "fileCategory": "code"
+    },
+    {
+      "path": "benchmark/bench_auth_service.cpp",
+      "language": "cpp",
+      "sizeLines": 119,
+      "fileCategory": "code"
+    },
+    {
+      "path": "benchmark/bench_chunk_header.cpp",
+      "language": "cpp",
+      "sizeLines": 63,
+      "fileCategory": "code"
+    },
+    {
+      "path": "benchmark/bench_coroutine.cpp",
+      "language": "cpp",
+      "sizeLines": 168,
+      "fileCategory": "code"
+    },
+    {
+      "path": "benchmark/bench_database_pool.cpp",
+      "language": "cpp",
+      "sizeLines": 139,
+      "fileCategory": "code"
+    },
+    {
+      "path": "benchmark/bench_file_system.cpp",
+      "language": "cpp",
+      "sizeLines": 140,
+      "fileCategory": "code"
+    },
+    {
+      "path": "benchmark/bench_http_parser.cpp",
+      "language": "cpp",
+      "sizeLines": 121,
+      "fileCategory": "code"
+    },
+    {
+      "path": "benchmark/bench_http_server.cpp",
+      "language": "cpp",
+      "sizeLines": 158,
+      "fileCategory": "code"
+    },
+    {
+      "path": "benchmark/bench_lock_free_queue.cpp",
+      "language": "cpp",
+      "sizeLines": 145,
+      "fileCategory": "code"
+    },
+    {
+      "path": "benchmark/bench_logger.cpp",
+      "language": "cpp",
+      "sizeLines": 77,
+      "fileCategory": "code"
+    },
+    {
+      "path": "benchmark/bench_memory_pool.cpp",
+      "language": "cpp",
+      "sizeLines": 127,
+      "fileCategory": "code"
+    },
+    {
+      "path": "benchmark/bench_move_only_function.cpp",
+      "language": "cpp",
+      "sizeLines": 77,
+      "fileCategory": "code"
+    },
+    {
+      "path": "benchmark/bench_router.cpp",
+      "language": "cpp",
+      "sizeLines": 106,
+      "fileCategory": "code"
+    },
+    {
+      "path": "benchmark/bench_ssl.cpp",
+      "language": "cpp",
+      "sizeLines": 77,
+      "fileCategory": "code"
+    },
+    {
+      "path": "benchmark/bench_tcp_server.cpp",
+      "language": "cpp",
+      "sizeLines": 131,
+      "fileCategory": "code"
+    },
+    {
+      "path": "benchmark/bench_thread_pool.cpp",
+      "language": "cpp",
+      "sizeLines": 109,
+      "fileCategory": "code"
+    },
+    {
+      "path": "benchmark/bench_websocket.cpp",
+      "language": "cpp",
+      "sizeLines": 88,
+      "fileCategory": "code"
+    },
+    {
+      "path": "benchmark/README.md",
+      "language": "markdown",
+      "sizeLines": 212,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "benchmark/tools/migrate_legacy_reports.py",
+      "language": "python",
+      "sizeLines": 479,
+      "fileCategory": "code"
+    },
+    {
+      "path": "core/include/api_datetime.h",
+      "language": "c",
+      "sizeLines": 19,
+      "fileCategory": "code"
+    },
+    {
+      "path": "core/include/auth_routes.h",
+      "language": "c",
+      "sizeLines": 11,
+      "fileCategory": "code"
+    },
+    {
+      "path": "core/include/email_validation.h",
+      "language": "c",
+      "sizeLines": 26,
+      "fileCategory": "code"
+    },
+    {
+      "path": "core/include/file_routes.h",
+      "language": "c",
+      "sizeLines": 15,
+      "fileCategory": "code"
+    },
+    {
+      "path": "core/include/password_validation.h",
+      "language": "c",
+      "sizeLines": 15,
+      "fileCategory": "code"
+    }
+  ],
+  "batchImportData": {
+    "benchmark/.clang-tidy": [],
+    "benchmark/bench_auth_service.cpp": [],
+    "benchmark/bench_chunk_header.cpp": [],
+    "benchmark/bench_coroutine.cpp": [],
+    "benchmark/bench_database_pool.cpp": [],
+    "benchmark/bench_file_system.cpp": [],
+    "benchmark/bench_http_parser.cpp": [],
+    "benchmark/bench_http_server.cpp": [],
+    "benchmark/bench_lock_free_queue.cpp": [],
+    "benchmark/bench_logger.cpp": [],
+    "benchmark/bench_memory_pool.cpp": [],
+    "benchmark/bench_move_only_function.cpp": [],
+    "benchmark/bench_router.cpp": [],
+    "benchmark/bench_ssl.cpp": [],
+    "benchmark/bench_tcp_server.cpp": [],
+    "benchmark/bench_thread_pool.cpp": [],
+    "benchmark/bench_websocket.cpp": [],
+    "benchmark/README.md": [],
+    "benchmark/tools/migrate_legacy_reports.py": [],
+    "core/include/api_datetime.h": [],
+    "core/include/auth_routes.h": [],
+    "core/include/email_validation.h": [],
+    "core/include/file_routes.h": [],
+    "core/include/password_validation.h": []
+  },
+  "neighborMap": {}
+}

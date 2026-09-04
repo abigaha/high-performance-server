@@ -1,0 +1,176 @@
+{
+  "projectRoot": "/home/jmj/work-space/projects/high-performance-server",
+  "batchFiles": [
+    {
+      "path": "core/include/pending_chunk_deletions.h",
+      "language": "c",
+      "sizeLines": 22,
+      "fileCategory": "code"
+    },
+    {
+      "path": "core/include/playlist_routes.h",
+      "language": "c",
+      "sizeLines": 15,
+      "fileCategory": "code"
+    },
+    {
+      "path": "core/include/schema_migrations.h",
+      "language": "c",
+      "sizeLines": 14,
+      "fileCategory": "code"
+    },
+    {
+      "path": "core/include/stream_download_utils.h",
+      "language": "c",
+      "sizeLines": 122,
+      "fileCategory": "code"
+    },
+    {
+      "path": "core/include/strict_json.h",
+      "language": "c",
+      "sizeLines": 115,
+      "fileCategory": "code"
+    },
+    {
+      "path": "core/include/upload_setup.h",
+      "language": "c",
+      "sizeLines": 15,
+      "fileCategory": "code"
+    },
+    {
+      "path": "core/include/vip_admin_routes.h",
+      "language": "c",
+      "sizeLines": 17,
+      "fileCategory": "code"
+    },
+    {
+      "path": "core/src/admin_bootstrap.cpp",
+      "language": "cpp",
+      "sizeLines": 134,
+      "fileCategory": "code"
+    },
+    {
+      "path": "core/src/auth_routes.cpp",
+      "language": "cpp",
+      "sizeLines": 368,
+      "fileCategory": "code"
+    },
+    {
+      "path": "core/src/auth_service.cpp",
+      "language": "cpp",
+      "sizeLines": 367,
+      "fileCategory": "code"
+    },
+    {
+      "path": "core/src/authorization.cpp",
+      "language": "cpp",
+      "sizeLines": 49,
+      "fileCategory": "code"
+    },
+    {
+      "path": "core/src/config.cpp",
+      "language": "cpp",
+      "sizeLines": 247,
+      "fileCategory": "code"
+    },
+    {
+      "path": "core/src/file_routes.cpp",
+      "language": "cpp",
+      "sizeLines": 316,
+      "fileCategory": "code"
+    },
+    {
+      "path": "core/src/main.cpp",
+      "language": "cpp",
+      "sizeLines": 638,
+      "fileCategory": "code"
+    },
+    {
+      "path": "core/src/pending_chunk_deletions.cpp",
+      "language": "cpp",
+      "sizeLines": 183,
+      "fileCategory": "code"
+    },
+    {
+      "path": "core/src/playlist_routes.cpp",
+      "language": "cpp",
+      "sizeLines": 397,
+      "fileCategory": "code"
+    },
+    {
+      "path": "core/src/schema_migrations.cpp",
+      "language": "cpp",
+      "sizeLines": 152,
+      "fileCategory": "code"
+    },
+    {
+      "path": "core/src/upload_policy.cpp",
+      "language": "cpp",
+      "sizeLines": 514,
+      "fileCategory": "code"
+    },
+    {
+      "path": "core/src/upload_setup.cpp",
+      "language": "cpp",
+      "sizeLines": 39,
+      "fileCategory": "code"
+    },
+    {
+      "path": "core/src/vip_admin_routes.cpp",
+      "language": "cpp",
+      "sizeLines": 501,
+      "fileCategory": "code"
+    },
+    {
+      "path": "core/xmake.lua",
+      "language": "lua",
+      "sizeLines": 19,
+      "fileCategory": "code"
+    },
+    {
+      "path": "db/include/detail/mysql_field_to_string.h",
+      "language": "c",
+      "sizeLines": 13,
+      "fileCategory": "code"
+    },
+    {
+      "path": "db/include/playlist_validation.h",
+      "language": "c",
+      "sizeLines": 53,
+      "fileCategory": "code"
+    },
+    {
+      "path": "db/include/prepared_statement_guard.h",
+      "language": "c",
+      "sizeLines": 39,
+      "fileCategory": "code"
+    }
+  ],
+  "batchImportData": {
+    "core/include/pending_chunk_deletions.h": [],
+    "core/include/playlist_routes.h": [],
+    "core/include/schema_migrations.h": [],
+    "core/include/stream_download_utils.h": [],
+    "core/include/strict_json.h": [],
+    "core/include/upload_setup.h": [],
+    "core/include/vip_admin_routes.h": [],
+    "core/src/admin_bootstrap.cpp": [],
+    "core/src/auth_routes.cpp": [],
+    "core/src/auth_service.cpp": [],
+    "core/src/authorization.cpp": [],
+    "core/src/config.cpp": [],
+    "core/src/file_routes.cpp": [],
+    "core/src/main.cpp": [],
+    "core/src/pending_chunk_deletions.cpp": [],
+    "core/src/playlist_routes.cpp": [],
+    "core/src/schema_migrations.cpp": [],
+    "core/src/upload_policy.cpp": [],
+    "core/src/upload_setup.cpp": [],
+    "core/src/vip_admin_routes.cpp": [],
+    "core/xmake.lua": [],
+    "db/include/detail/mysql_field_to_string.h": [],
+    "db/include/playlist_validation.h": [],
+    "db/include/prepared_statement_guard.h": []
+  },
+  "neighborMap": {}
+}

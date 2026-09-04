@@ -1,0 +1,129 @@
+{
+  "scriptCompleted": true,
+  "filesAnalyzed": 3,
+  "filesSkipped": [],
+  "results": [
+    {
+      "path": ".dockerignore",
+      "language": "unknown",
+      "fileCategory": "infra",
+      "totalLines": 57,
+      "nonEmptyLines": 48,
+      "metrics": {}
+    },
+    {
+      "path": "docker-compose.yml",
+      "language": "yaml",
+      "fileCategory": "infra",
+      "totalLines": 89,
+      "nonEmptyLines": 86,
+      "sections": [
+        {
+          "heading": "services",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "volumes",
+          "level": 1,
+          "line": 87
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 2
+      }
+    },
+    {
+      "path": "Dockerfile",
+      "language": "dockerfile",
+      "fileCategory": "infra",
+      "totalLines": 33,
+      "nonEmptyLines": 23,
+      "services": [
+        {
+          "name": "ubuntu",
+          "image": "ubuntu:24.04",
+          "ports": [
+            9090
+          ],
+          "startLine": 1,
+          "endLine": 34
+        }
+      ],
+      "steps": [
+        {
+          "name": "FROM ubuntu:24.04",
+          "startLine": 1,
+          "endLine": 1
+        },
+        {
+          "name": "RUN apt-get update && apt-get install -y --no-install-recommends",
+          "startLine": 3,
+          "endLine": 3
+        },
+        {
+          "name": "RUN groupadd --system --gid 10001 hps \\",
+          "startLine": 9,
+          "endLine": 9
+        },
+        {
+          "name": "WORKDIR /app",
+          "startLine": 12,
+          "endLine": 12
+        },
+        {
+          "name": "RUN mkdir -p /app/data && chown -R hps:hps /app",
+          "startLine": 14,
+          "endLine": 14
+        },
+        {
+          "name": "COPY --chown=hps:hps bin/high-performance-server \\",
+          "startLine": 16,
+          "endLine": 16
+        },
+        {
+          "name": "COPY --chown=hps:hps lib/ ./lib/",
+          "startLine": 20,
+          "endLine": 20
+        },
+        {
+          "name": "ENV PATH=\"/app:${PATH}\" \\",
+          "startLine": 22,
+          "endLine": 22
+        },
+        {
+          "name": "EXPOSE 9090",
+          "startLine": 25,
+          "endLine": 25
+        },
+        {
+          "name": "HEALTHCHECK --interval=10s --timeout=3s --retries=3 \\",
+          "startLine": 27,
+          "endLine": 27
+        },
+        {
+          "name": "USER hps",
+          "startLine": 31,
+          "endLine": 31
+        },
+        {
+          "name": "CMD [\"./high-performance-server\"]",
+          "startLine": 33,
+          "endLine": 33
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "serviceCount": 1,
+        "stepCount": 12
+      }
+    }
+  ]
+}

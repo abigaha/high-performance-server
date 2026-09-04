@@ -1,0 +1,233 @@
+{
+  "nodes": [
+    {
+      "id": "file:db/schema.sql",
+      "type": "table",
+      "name": "db/schema.sql",
+      "summary": "MySQL 数据库总模式：定义用户、文件分片存储、音乐元数据与歌单共 8 张表，支撑认证、文件去重与音乐库业务。",
+      "tags": ["mysql", "schema", "database", "ddl"],
+      "complexity": "complex",
+      "filePath": "db/schema.sql"
+    },
+    {
+      "id": "table:db/schema.sql:users",
+      "type": "table",
+      "name": "users",
+      "summary": "用户表：存储用户名、邮箱、密码哈希、角色与 VIP 到期时间，支持普通用户与管理员两种角色。",
+      "tags": ["user", "auth", "vip", "mysql-table"],
+      "complexity": "moderate",
+      "lineRange": "7-12"
+    },
+    {
+      "id": "table:db/schema.sql:schema_migrations",
+      "type": "table",
+      "name": "schema_migrations",
+      "summary": "数据库迁移记录表，记录已执行的迁移版本以便增量升级模式。",
+      "tags": ["migration", "schema", "mysql-table"],
+      "complexity": "simple",
+      "lineRange": "23-28"
+    },
+    {
+      "id": "table:db/schema.sql:pending_chunk_deletions",
+      "type": "table",
+      "name": "pending_chunk_deletions",
+      "summary": "待删除分块队列表：记录待清理的分块哈希、认领令牌与错误信息，支持延迟异步删除。",
+      "tags": ["chunk", "cleanup", "deletion", "mysql-table"],
+      "complexity": "simple",
+      "lineRange": "28-33"
+    },
+    {
+      "id": "table:db/schema.sql:music_meta",
+      "type": "table",
+      "name": "music_meta",
+      "summary": "音乐元数据表：标题、艺术家、专辑、流派、时长与内容类型，关联文件哈希。",
+      "tags": ["music", "meta", "library", "mysql-table"],
+      "complexity": "simple",
+      "lineRange": "41-46"
+    },
+    {
+      "id": "table:db/schema.sql:file_records",
+      "type": "table",
+      "name": "file_records",
+      "summary": "文件记录表：文件名、SHA-256 哈希、大小、所有者与上传时间，支持按哈希去重。",
+      "tags": ["file", "hash", "dedup", "mysql-table"],
+      "complexity": "simple",
+      "lineRange": "57-62"
+    },
+    {
+      "id": "table:db/schema.sql:file_chunks",
+      "type": "table",
+      "name": "file_chunks",
+      "summary": "文件分块表：记录每个文件的分块哈希与序号，多个文件可共享同一分块实现去重。",
+      "tags": ["chunk", "file", "dedup", "mysql-table"],
+      "complexity": "simple",
+      "lineRange": "74-79"
+    },
+    {
+      "id": "table:db/schema.sql:user_playlists",
+      "type": "table",
+      "name": "user_playlists",
+      "summary": "用户歌单表：歌单名称、描述与所有者，支持用户创建私有歌单。",
+      "tags": ["playlist", "user", "music", "mysql-table"],
+      "complexity": "simple",
+      "lineRange": "85-90"
+    },
+    {
+      "id": "table:db/schema.sql:playlist_items",
+      "type": "table",
+      "name": "playlist_items",
+      "summary": "歌单条目表：歌单内音乐项及排序号，支持歌单内曲目排序与增删。",
+      "tags": ["playlist", "music", "ordering", "mysql-table"],
+      "complexity": "simple",
+      "lineRange": "95-100"
+    },
+    {
+      "id": "file:db/xmake.lua",
+      "type": "file",
+      "name": "db/xmake.lua",
+      "summary": "db 模块的 xmake 构建脚本，声明数据库模块的编译目标与依赖。",
+      "tags": ["xmake", "build", "database"],
+      "complexity": "simple",
+      "filePath": "db/xmake.lua"
+    },
+    {
+      "id": "file:deploy/nginx-main.conf",
+      "type": "file",
+      "name": "deploy/nginx-main.conf",
+      "summary": "nginx 主配置：worker 进程数、连接数限制与 http 全局块，引入 conf.d 下的站点配置。",
+      "tags": ["nginx", "config", "deploy", "infra"],
+      "complexity": "simple",
+      "filePath": "deploy/nginx-main.conf"
+    },
+    {
+      "id": "file:deploy/nginx.conf",
+      "type": "file",
+      "name": "deploy/nginx.conf",
+      "summary": "nginx 站点配置：反向代理 /api 到后端 keepalive 连接池，托管前端静态文件并关闭代理缓冲以支持流式传输。",
+      "tags": ["nginx", "reverse-proxy", "deploy", "streaming"],
+      "complexity": "moderate",
+      "filePath": "deploy/nginx.conf"
+    }
+  ],
+  "edges": [
+    {
+      "source": "file:db/schema.sql",
+      "target": "table:db/schema.sql:users",
+      "type": "migrates",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:db/schema.sql",
+      "target": "table:db/schema.sql:schema_migrations",
+      "type": "migrates",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:db/schema.sql",
+      "target": "table:db/schema.sql:pending_chunk_deletions",
+      "type": "migrates",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:db/schema.sql",
+      "target": "table:db/schema.sql:music_meta",
+      "type": "migrates",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:db/schema.sql",
+      "target": "table:db/schema.sql:file_records",
+      "type": "migrates",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:db/schema.sql",
+      "target": "table:db/schema.sql:file_chunks",
+      "type": "migrates",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:db/schema.sql",
+      "target": "table:db/schema.sql:user_playlists",
+      "type": "migrates",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:db/schema.sql",
+      "target": "table:db/schema.sql:playlist_items",
+      "type": "migrates",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:db/schema.sql",
+      "target": "table:db/schema.sql:users",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:db/schema.sql",
+      "target": "table:db/schema.sql:schema_migrations",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:db/schema.sql",
+      "target": "table:db/schema.sql:pending_chunk_deletions",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:db/schema.sql",
+      "target": "table:db/schema.sql:music_meta",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:db/schema.sql",
+      "target": "table:db/schema.sql:file_records",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:db/schema.sql",
+      "target": "table:db/schema.sql:file_chunks",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:db/schema.sql",
+      "target": "table:db/schema.sql:user_playlists",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:db/schema.sql",
+      "target": "table:db/schema.sql:playlist_items",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:deploy/nginx-main.conf",
+      "target": "file:deploy/nginx.conf",
+      "type": "related",
+      "direction": "forward",
+      "weight": 0.5
+    }
+  ]
+}

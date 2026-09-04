@@ -1,0 +1,1849 @@
+{
+  "scriptCompleted": true,
+  "filesAnalyzed": 7,
+  "filesSkipped": [],
+  "results": [
+    {
+      "path": "db/include/boost_mysql_connection.h",
+      "language": "c",
+      "fileCategory": "code",
+      "totalLines": 30,
+      "nonEmptyLines": 23,
+      "functions": [
+        {
+          "name": "BoostMySqlConnection",
+          "startLine": 12,
+          "endLine": 12,
+          "params": []
+        },
+        {
+          "name": "BoostMySqlConnection",
+          "startLine": 14,
+          "endLine": 14,
+          "params": []
+        }
+      ],
+      "classes": [
+        {
+          "name": "BoostMySqlConnection",
+          "startLine": 7,
+          "endLine": 28,
+          "methods": [
+            "BoostMySqlConnection",
+            "BoostMySqlConnection",
+            "connect",
+            "is_open",
+            "ping",
+            "query",
+            "execute",
+            "last_insert_id",
+            "close"
+          ],
+          "properties": [
+            "impl_"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "BoostMySqlConnection",
+          "line": 12,
+          "isDefault": false
+        },
+        {
+          "name": "BoostMySqlConnection",
+          "line": 14,
+          "isDefault": false
+        },
+        {
+          "name": "connect",
+          "line": 17,
+          "isDefault": false
+        },
+        {
+          "name": "is_open",
+          "line": 18,
+          "isDefault": false
+        },
+        {
+          "name": "ping",
+          "line": 19,
+          "isDefault": false
+        },
+        {
+          "name": "query",
+          "line": 20,
+          "isDefault": false
+        },
+        {
+          "name": "execute",
+          "line": 21,
+          "isDefault": false
+        },
+        {
+          "name": "last_insert_id",
+          "line": 22,
+          "isDefault": false
+        },
+        {
+          "name": "close",
+          "line": 23,
+          "isDefault": false
+        },
+        {
+          "name": "BoostMySqlConnection",
+          "line": 7,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 10,
+        "functionCount": 2,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "db/include/chunk_lifecycle_coordinator.h",
+      "language": "c",
+      "fileCategory": "code",
+      "totalLines": 180,
+      "nonEmptyLines": 146,
+      "functions": [
+        {
+          "name": "acquire_upload_guard",
+          "startLine": 105,
+          "endLine": 115,
+          "params": []
+        },
+        {
+          "name": "acquire_cleanup_guard",
+          "startLine": 117,
+          "endLine": 139,
+          "params": []
+        },
+        {
+          "name": "active_uploads",
+          "startLine": 141,
+          "endLine": 144,
+          "params": []
+        },
+        {
+          "name": "cleanup_waiters",
+          "startLine": 146,
+          "endLine": 149,
+          "params": []
+        },
+        {
+          "name": "release_upload",
+          "startLine": 152,
+          "endLine": 162,
+          "params": [
+            "acquisition_thread"
+          ]
+        },
+        {
+          "name": "release_cleanup",
+          "startLine": 164,
+          "endLine": 169,
+          "params": []
+        }
+      ],
+      "classes": [
+        {
+          "name": "ChunkLifecycleCoordinator",
+          "startLine": 13,
+          "endLine": 178,
+          "methods": [
+            "acquire_upload_guard",
+            "acquire_cleanup_guard",
+            "active_uploads",
+            "cleanup_waiters",
+            "release_upload",
+            "release_cleanup"
+          ],
+          "properties": [
+            "mutex_",
+            "condition_",
+            "active_uploads_",
+            "upload_counts_by_thread_",
+            "waiting_cleanup_",
+            "cleanup_active_",
+            "cleanup_owner_thread_"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "acquire_upload_guard",
+          "line": 105,
+          "isDefault": false
+        },
+        {
+          "name": "acquire_cleanup_guard",
+          "line": 117,
+          "isDefault": false
+        },
+        {
+          "name": "active_uploads",
+          "line": 141,
+          "isDefault": false
+        },
+        {
+          "name": "cleanup_waiters",
+          "line": 146,
+          "isDefault": false
+        },
+        {
+          "name": "ChunkLifecycleCoordinator",
+          "line": 13,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "~UploadGuard",
+          "callee": "release",
+          "lineNumber": 38
+        },
+        {
+          "caller": "UploadGuard",
+          "callee": "std::exchange",
+          "lineNumber": 44
+        },
+        {
+          "caller": "UploadGuard",
+          "callee": "std::exchange",
+          "lineNumber": 45
+        },
+        {
+          "caller": "release",
+          "callee": "release_upload",
+          "lineNumber": 64
+        },
+        {
+          "caller": "~CleanupGuard",
+          "callee": "release",
+          "lineNumber": 76
+        },
+        {
+          "caller": "CleanupGuard",
+          "callee": "std::exchange",
+          "lineNumber": 81
+        },
+        {
+          "caller": "CleanupGuard",
+          "callee": "invalidate",
+          "lineNumber": 82
+        },
+        {
+          "caller": "release",
+          "callee": "release_cleanup",
+          "lineNumber": 96
+        },
+        {
+          "caller": "acquire_upload_guard",
+          "callee": "std::this_thread::get_id",
+          "lineNumber": 107
+        },
+        {
+          "caller": "acquire_upload_guard",
+          "callee": "std::logic_error",
+          "lineNumber": 109
+        },
+        {
+          "caller": "acquire_upload_guard",
+          "callee": "wait",
+          "lineNumber": 111
+        },
+        {
+          "caller": "acquire_cleanup_guard",
+          "callee": "std::this_thread::get_id",
+          "lineNumber": 119
+        },
+        {
+          "caller": "acquire_cleanup_guard",
+          "callee": "std::logic_error",
+          "lineNumber": 121
+        },
+        {
+          "caller": "acquire_cleanup_guard",
+          "callee": "find",
+          "lineNumber": 123
+        },
+        {
+          "caller": "acquire_cleanup_guard",
+          "callee": "end",
+          "lineNumber": 124
+        },
+        {
+          "caller": "acquire_cleanup_guard",
+          "callee": "std::logic_error",
+          "lineNumber": 125
+        },
+        {
+          "caller": "acquire_cleanup_guard",
+          "callee": "wait",
+          "lineNumber": 129
+        },
+        {
+          "caller": "acquire_cleanup_guard",
+          "callee": "notify_all",
+          "lineNumber": 132
+        },
+        {
+          "caller": "release_upload",
+          "callee": "find",
+          "lineNumber": 154
+        },
+        {
+          "caller": "release_upload",
+          "callee": "end",
+          "lineNumber": 155
+        },
+        {
+          "caller": "release_upload",
+          "callee": "erase",
+          "lineNumber": 156
+        },
+        {
+          "caller": "release_upload",
+          "callee": "notify_all",
+          "lineNumber": 160
+        },
+        {
+          "caller": "release_cleanup",
+          "callee": "notify_all",
+          "lineNumber": 168
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 5,
+        "functionCount": 6,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "db/include/database_pool.h",
+      "language": "c",
+      "fileCategory": "code",
+      "totalLines": 124,
+      "nonEmptyLines": 107,
+      "functions": [
+        {
+          "name": "DatabasePool",
+          "startLine": 22,
+          "endLine": 22,
+          "params": []
+        },
+        {
+          "name": "DatabasePool",
+          "startLine": 24,
+          "endLine": 24,
+          "params": []
+        }
+      ],
+      "classes": [
+        {
+          "name": "DatabasePool",
+          "startLine": 15,
+          "endLine": 122,
+          "methods": [
+            "DatabasePool",
+            "DatabasePool",
+            "init",
+            "close",
+            "with_connection",
+            "get_user_result",
+            "create_user",
+            "update_user",
+            "username_exists",
+            "get_admin_user_result",
+            "get_user_by_username_result",
+            "get_user_by_email_result",
+            "create_admin_user",
+            "update_admin_credentials",
+            "grant_or_extend_vip",
+            "revoke_vip",
+            "list_admin_users",
+            "store_file_record",
+            "get_file_record",
+            "get_file_record_result",
+            "get_file_record_by_hash",
+            "search_files",
+            "search_files_ext",
+            "list_files",
+            "update_file_record",
+            "delete_file_owned",
+            "claim_pending_chunk_deletions",
+            "complete_pending_chunk_deletion",
+            "release_pending_chunk_deletion",
+            "has_chunk_references",
+            "cancel_pending_chunk_deletion",
+            "store_file_chunks",
+            "get_file_chunks",
+            "chunk_exists",
+            "get_auth_user_result",
+            "verify_password",
+            "list_music_library",
+            "get_music_meta",
+            "get_music_by_file_id",
+            "create_music_meta",
+            "update_music_meta",
+            "delete_music_meta",
+            "get_user_playlists",
+            "create_playlist",
+            "update_playlist",
+            "delete_playlist",
+            "get_playlist_items",
+            "add_playlist_item",
+            "remove_playlist_item",
+            "reorder_playlist_items",
+            "get_connection",
+            "release_connection",
+            "lookup_user",
+            "do_close"
+          ],
+          "properties": [
+            "factory_",
+            "config_",
+            "mutex_",
+            "cv_",
+            "pool_",
+            "active_connections_",
+            "closed_"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "DatabasePool",
+          "line": 22,
+          "isDefault": false
+        },
+        {
+          "name": "DatabasePool",
+          "line": 24,
+          "isDefault": false
+        },
+        {
+          "name": "init",
+          "line": 27,
+          "isDefault": false
+        },
+        {
+          "name": "close",
+          "line": 28,
+          "isDefault": false
+        },
+        {
+          "name": "with_connection",
+          "line": 29,
+          "isDefault": false
+        },
+        {
+          "name": "get_user_result",
+          "line": 31,
+          "isDefault": false
+        },
+        {
+          "name": "create_user",
+          "line": 32,
+          "isDefault": false
+        },
+        {
+          "name": "update_user",
+          "line": 33,
+          "isDefault": false
+        },
+        {
+          "name": "username_exists",
+          "line": 34,
+          "isDefault": false
+        },
+        {
+          "name": "get_admin_user_result",
+          "line": 35,
+          "isDefault": false
+        },
+        {
+          "name": "get_user_by_username_result",
+          "line": 36,
+          "isDefault": false
+        },
+        {
+          "name": "get_user_by_email_result",
+          "line": 37,
+          "isDefault": false
+        },
+        {
+          "name": "create_admin_user",
+          "line": 38,
+          "isDefault": false
+        },
+        {
+          "name": "update_admin_credentials",
+          "line": 39,
+          "isDefault": false
+        },
+        {
+          "name": "grant_or_extend_vip",
+          "line": 40,
+          "isDefault": false
+        },
+        {
+          "name": "revoke_vip",
+          "line": 43,
+          "isDefault": false
+        },
+        {
+          "name": "list_admin_users",
+          "line": 44,
+          "isDefault": false
+        },
+        {
+          "name": "store_file_record",
+          "line": 46,
+          "isDefault": false
+        },
+        {
+          "name": "get_file_record",
+          "line": 47,
+          "isDefault": false
+        },
+        {
+          "name": "get_file_record_result",
+          "line": 48,
+          "isDefault": false
+        },
+        {
+          "name": "get_file_record_by_hash",
+          "line": 49,
+          "isDefault": false
+        },
+        {
+          "name": "search_files",
+          "line": 50,
+          "isDefault": false
+        },
+        {
+          "name": "search_files_ext",
+          "line": 51,
+          "isDefault": false
+        },
+        {
+          "name": "list_files",
+          "line": 56,
+          "isDefault": false
+        },
+        {
+          "name": "update_file_record",
+          "line": 60,
+          "isDefault": false
+        },
+        {
+          "name": "delete_file_owned",
+          "line": 61,
+          "isDefault": false
+        },
+        {
+          "name": "claim_pending_chunk_deletions",
+          "line": 65,
+          "isDefault": false
+        },
+        {
+          "name": "complete_pending_chunk_deletion",
+          "line": 68,
+          "isDefault": false
+        },
+        {
+          "name": "release_pending_chunk_deletion",
+          "line": 70,
+          "isDefault": false
+        },
+        {
+          "name": "has_chunk_references",
+          "line": 73,
+          "isDefault": false
+        },
+        {
+          "name": "cancel_pending_chunk_deletion",
+          "line": 74,
+          "isDefault": false
+        },
+        {
+          "name": "store_file_chunks",
+          "line": 77,
+          "isDefault": false
+        },
+        {
+          "name": "get_file_chunks",
+          "line": 78,
+          "isDefault": false
+        },
+        {
+          "name": "chunk_exists",
+          "line": 79,
+          "isDefault": false
+        },
+        {
+          "name": "get_auth_user_result",
+          "line": 81,
+          "isDefault": false
+        },
+        {
+          "name": "verify_password",
+          "line": 82,
+          "isDefault": false
+        },
+        {
+          "name": "list_music_library",
+          "line": 84,
+          "isDefault": false
+        },
+        {
+          "name": "get_music_meta",
+          "line": 85,
+          "isDefault": false
+        },
+        {
+          "name": "get_music_by_file_id",
+          "line": 86,
+          "isDefault": false
+        },
+        {
+          "name": "create_music_meta",
+          "line": 87,
+          "isDefault": false
+        },
+        {
+          "name": "update_music_meta",
+          "line": 88,
+          "isDefault": false
+        },
+        {
+          "name": "delete_music_meta",
+          "line": 89,
+          "isDefault": false
+        },
+        {
+          "name": "get_user_playlists",
+          "line": 91,
+          "isDefault": false
+        },
+        {
+          "name": "create_playlist",
+          "line": 92,
+          "isDefault": false
+        },
+        {
+          "name": "update_playlist",
+          "line": 93,
+          "isDefault": false
+        },
+        {
+          "name": "delete_playlist",
+          "line": 97,
+          "isDefault": false
+        },
+        {
+          "name": "get_playlist_items",
+          "line": 98,
+          "isDefault": false
+        },
+        {
+          "name": "add_playlist_item",
+          "line": 99,
+          "isDefault": false
+        },
+        {
+          "name": "remove_playlist_item",
+          "line": 100,
+          "isDefault": false
+        },
+        {
+          "name": "reorder_playlist_items",
+          "line": 101,
+          "isDefault": false
+        },
+        {
+          "name": "DatabasePool",
+          "line": 15,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 2,
+        "exportCount": 51,
+        "functionCount": 2,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "db/include/iconnection.h",
+      "language": "c",
+      "fileCategory": "code",
+      "totalLines": 45,
+      "nonEmptyLines": 33,
+      "functions": [
+        {
+          "name": "~IConnection",
+          "startLine": 21,
+          "endLine": 21,
+          "params": []
+        },
+        {
+          "name": "last_insert_id",
+          "startLine": 34,
+          "endLine": 34,
+          "params": []
+        }
+      ],
+      "classes": [
+        {
+          "name": "QueryResult",
+          "startLine": 14,
+          "endLine": 17,
+          "methods": [],
+          "properties": [
+            "columns",
+            "rows"
+          ]
+        },
+        {
+          "name": "IConnection",
+          "startLine": 19,
+          "endLine": 37,
+          "methods": [
+            "~IConnection",
+            "connect",
+            "is_open",
+            "ping",
+            "query",
+            "execute",
+            "last_insert_id",
+            "close"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "QueryResult",
+          "line": 14,
+          "isDefault": false
+        },
+        {
+          "name": "~IConnection",
+          "line": 21,
+          "isDefault": false
+        },
+        {
+          "name": "connect",
+          "line": 23,
+          "isDefault": false
+        },
+        {
+          "name": "is_open",
+          "line": 24,
+          "isDefault": false
+        },
+        {
+          "name": "ping",
+          "line": 25,
+          "isDefault": false
+        },
+        {
+          "name": "query",
+          "line": 28,
+          "isDefault": false
+        },
+        {
+          "name": "execute",
+          "line": 31,
+          "isDefault": false
+        },
+        {
+          "name": "last_insert_id",
+          "line": 34,
+          "isDefault": false
+        },
+        {
+          "name": "close",
+          "line": 36,
+          "isDefault": false
+        },
+        {
+          "name": "IConnection",
+          "line": 19,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 10,
+        "functionCount": 2,
+        "classCount": 2
+      }
+    },
+    {
+      "path": "db/include/idatabase_pool.h",
+      "language": "c",
+      "fileCategory": "code",
+      "totalLines": 228,
+      "nonEmptyLines": 188,
+      "functions": [
+        {
+          "name": "~IDatabasePool",
+          "startLine": 20,
+          "endLine": 20,
+          "params": []
+        },
+        {
+          "name": "bind_chunk_lifecycle_coordinator",
+          "startLine": 25,
+          "endLine": 32,
+          "params": [
+            "coordinator"
+          ]
+        },
+        {
+          "name": "accepts_cleanup_permit",
+          "startLine": 34,
+          "endLine": 37,
+          "params": [
+            "permit"
+          ]
+        },
+        {
+          "name": "is_chunk_lifecycle_coordinator_bound_to",
+          "startLine": 39,
+          "endLine": 42,
+          "params": [
+            "coordinator"
+          ]
+        },
+        {
+          "name": "with_connection",
+          "startLine": 44,
+          "endLine": 47,
+          "params": [
+            "operation"
+          ]
+        },
+        {
+          "name": "get_user",
+          "startLine": 52,
+          "endLine": 52,
+          "params": [
+            "user_id"
+          ]
+        },
+        {
+          "name": "get_admin_user_result",
+          "startLine": 58,
+          "endLine": 58,
+          "params": []
+        },
+        {
+          "name": "get_user_by_username_result",
+          "startLine": 60,
+          "endLine": 63,
+          "params": [
+            "username"
+          ]
+        },
+        {
+          "name": "get_user_by_email_result",
+          "startLine": 65,
+          "endLine": 68,
+          "params": [
+            "email"
+          ]
+        },
+        {
+          "name": "create_admin_user",
+          "startLine": 70,
+          "endLine": 73,
+          "params": [
+            "user"
+          ]
+        },
+        {
+          "name": "update_admin_credentials",
+          "startLine": 75,
+          "endLine": 78,
+          "params": [
+            "user"
+          ]
+        },
+        {
+          "name": "grant_or_extend_vip",
+          "startLine": 80,
+          "endLine": 87,
+          "params": [
+            "user_id",
+            "duration_days",
+            "now"
+          ]
+        },
+        {
+          "name": "revoke_vip",
+          "startLine": 89,
+          "endLine": 92,
+          "params": [
+            "user_id"
+          ]
+        },
+        {
+          "name": "list_admin_users",
+          "startLine": 94,
+          "endLine": 99,
+          "params": [
+            "query",
+            "offset",
+            "limit"
+          ]
+        },
+        {
+          "name": "get_file_record_result",
+          "startLine": 106,
+          "endLine": 109,
+          "params": [
+            "file_id"
+          ]
+        },
+        {
+          "name": "list_files",
+          "startLine": 119,
+          "endLine": 128,
+          "params": [
+            "name_pattern",
+            "type_filter",
+            "offset",
+            "limit"
+          ]
+        },
+        {
+          "name": "delete_file_owned",
+          "startLine": 132,
+          "endLine": 143,
+          "params": [
+            "permit",
+            "file_id",
+            "actor_id",
+            "can_delete_any"
+          ]
+        },
+        {
+          "name": "claim_pending_chunk_deletions",
+          "startLine": 145,
+          "endLine": 151,
+          "params": [
+            "limit",
+            "stale_before"
+          ]
+        },
+        {
+          "name": "complete_pending_chunk_deletion",
+          "startLine": 153,
+          "endLine": 158,
+          "params": [
+            "chunk_hash",
+            "claim_token"
+          ]
+        },
+        {
+          "name": "release_pending_chunk_deletion",
+          "startLine": 160,
+          "endLine": 167,
+          "params": [
+            "chunk_hash",
+            "claim_token",
+            "last_error"
+          ]
+        },
+        {
+          "name": "has_chunk_references",
+          "startLine": 169,
+          "endLine": 172,
+          "params": [
+            "chunk_hash"
+          ]
+        },
+        {
+          "name": "cancel_pending_chunk_deletion",
+          "startLine": 174,
+          "endLine": 179,
+          "params": [
+            "chunk_hash",
+            "claim_token"
+          ]
+        },
+        {
+          "name": "get_auth_user",
+          "startLine": 189,
+          "endLine": 191,
+          "params": [
+            "username"
+          ]
+        }
+      ],
+      "classes": [
+        {
+          "name": "IConnection",
+          "startLine": 16,
+          "endLine": 16,
+          "methods": [],
+          "properties": []
+        },
+        {
+          "name": "IDatabasePool",
+          "startLine": 18,
+          "endLine": 226,
+          "methods": [
+            "~IDatabasePool",
+            "init",
+            "close",
+            "bind_chunk_lifecycle_coordinator",
+            "accepts_cleanup_permit",
+            "is_chunk_lifecycle_coordinator_bound_to",
+            "with_connection",
+            "get_user_result",
+            "get_user",
+            "create_user",
+            "update_user",
+            "username_exists",
+            "get_admin_user_result",
+            "get_user_by_username_result",
+            "get_user_by_email_result",
+            "create_admin_user",
+            "update_admin_credentials",
+            "grant_or_extend_vip",
+            "revoke_vip",
+            "list_admin_users",
+            "store_file_record",
+            "get_file_record",
+            "get_file_record_result",
+            "get_file_record_by_hash",
+            "search_files",
+            "search_files_ext",
+            "list_files",
+            "update_file_record",
+            "delete_file_owned",
+            "claim_pending_chunk_deletions",
+            "complete_pending_chunk_deletion",
+            "release_pending_chunk_deletion",
+            "has_chunk_references",
+            "cancel_pending_chunk_deletion",
+            "store_file_chunks",
+            "get_file_chunks",
+            "chunk_exists",
+            "get_auth_user_result",
+            "get_auth_user",
+            "verify_password",
+            "list_music_library",
+            "get_music_meta",
+            "get_music_by_file_id",
+            "create_music_meta",
+            "update_music_meta",
+            "delete_music_meta",
+            "get_user_playlists",
+            "create_playlist",
+            "update_playlist",
+            "delete_playlist",
+            "get_playlist_items",
+            "add_playlist_item",
+            "remove_playlist_item",
+            "reorder_playlist_items"
+          ],
+          "properties": [
+            "chunk_lifecycle_mutex_",
+            "chunk_lifecycle_coordinator_"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "IConnection",
+          "line": 16,
+          "isDefault": false
+        },
+        {
+          "name": "~IDatabasePool",
+          "line": 20,
+          "isDefault": false
+        },
+        {
+          "name": "init",
+          "line": 22,
+          "isDefault": false
+        },
+        {
+          "name": "close",
+          "line": 23,
+          "isDefault": false
+        },
+        {
+          "name": "bind_chunk_lifecycle_coordinator",
+          "line": 25,
+          "isDefault": false
+        },
+        {
+          "name": "accepts_cleanup_permit",
+          "line": 34,
+          "isDefault": false
+        },
+        {
+          "name": "is_chunk_lifecycle_coordinator_bound_to",
+          "line": 39,
+          "isDefault": false
+        },
+        {
+          "name": "with_connection",
+          "line": 44,
+          "isDefault": false
+        },
+        {
+          "name": "get_user_result",
+          "line": 50,
+          "isDefault": false
+        },
+        {
+          "name": "get_user",
+          "line": 52,
+          "isDefault": false
+        },
+        {
+          "name": "create_user",
+          "line": 54,
+          "isDefault": false
+        },
+        {
+          "name": "update_user",
+          "line": 55,
+          "isDefault": false
+        },
+        {
+          "name": "username_exists",
+          "line": 56,
+          "isDefault": false
+        },
+        {
+          "name": "get_admin_user_result",
+          "line": 58,
+          "isDefault": false
+        },
+        {
+          "name": "get_user_by_username_result",
+          "line": 60,
+          "isDefault": false
+        },
+        {
+          "name": "get_user_by_email_result",
+          "line": 65,
+          "isDefault": false
+        },
+        {
+          "name": "create_admin_user",
+          "line": 70,
+          "isDefault": false
+        },
+        {
+          "name": "update_admin_credentials",
+          "line": 75,
+          "isDefault": false
+        },
+        {
+          "name": "grant_or_extend_vip",
+          "line": 80,
+          "isDefault": false
+        },
+        {
+          "name": "revoke_vip",
+          "line": 89,
+          "isDefault": false
+        },
+        {
+          "name": "list_admin_users",
+          "line": 94,
+          "isDefault": false
+        },
+        {
+          "name": "store_file_record",
+          "line": 103,
+          "isDefault": false
+        },
+        {
+          "name": "get_file_record",
+          "line": 104,
+          "isDefault": false
+        },
+        {
+          "name": "get_file_record_result",
+          "line": 106,
+          "isDefault": false
+        },
+        {
+          "name": "get_file_record_by_hash",
+          "line": 111,
+          "isDefault": false
+        },
+        {
+          "name": "search_files",
+          "line": 112,
+          "isDefault": false
+        },
+        {
+          "name": "search_files_ext",
+          "line": 113,
+          "isDefault": false
+        },
+        {
+          "name": "list_files",
+          "line": 119,
+          "isDefault": false
+        },
+        {
+          "name": "update_file_record",
+          "line": 130,
+          "isDefault": false
+        },
+        {
+          "name": "delete_file_owned",
+          "line": 132,
+          "isDefault": false
+        },
+        {
+          "name": "claim_pending_chunk_deletions",
+          "line": 145,
+          "isDefault": false
+        },
+        {
+          "name": "complete_pending_chunk_deletion",
+          "line": 153,
+          "isDefault": false
+        },
+        {
+          "name": "release_pending_chunk_deletion",
+          "line": 160,
+          "isDefault": false
+        },
+        {
+          "name": "has_chunk_references",
+          "line": 169,
+          "isDefault": false
+        },
+        {
+          "name": "cancel_pending_chunk_deletion",
+          "line": 174,
+          "isDefault": false
+        },
+        {
+          "name": "store_file_chunks",
+          "line": 182,
+          "isDefault": false
+        },
+        {
+          "name": "get_file_chunks",
+          "line": 183,
+          "isDefault": false
+        },
+        {
+          "name": "chunk_exists",
+          "line": 184,
+          "isDefault": false
+        },
+        {
+          "name": "get_auth_user_result",
+          "line": 187,
+          "isDefault": false
+        },
+        {
+          "name": "get_auth_user",
+          "line": 189,
+          "isDefault": false
+        },
+        {
+          "name": "verify_password",
+          "line": 193,
+          "isDefault": false
+        },
+        {
+          "name": "list_music_library",
+          "line": 196,
+          "isDefault": false
+        },
+        {
+          "name": "get_music_meta",
+          "line": 200,
+          "isDefault": false
+        },
+        {
+          "name": "get_music_by_file_id",
+          "line": 201,
+          "isDefault": false
+        },
+        {
+          "name": "create_music_meta",
+          "line": 202,
+          "isDefault": false
+        },
+        {
+          "name": "update_music_meta",
+          "line": 203,
+          "isDefault": false
+        },
+        {
+          "name": "delete_music_meta",
+          "line": 204,
+          "isDefault": false
+        },
+        {
+          "name": "get_user_playlists",
+          "line": 207,
+          "isDefault": false
+        },
+        {
+          "name": "create_playlist",
+          "line": 208,
+          "isDefault": false
+        },
+        {
+          "name": "update_playlist",
+          "line": 209,
+          "isDefault": false
+        },
+        {
+          "name": "delete_playlist",
+          "line": 213,
+          "isDefault": false
+        },
+        {
+          "name": "get_playlist_items",
+          "line": 214,
+          "isDefault": false
+        },
+        {
+          "name": "add_playlist_item",
+          "line": 215,
+          "isDefault": false
+        },
+        {
+          "name": "remove_playlist_item",
+          "line": 216,
+          "isDefault": false
+        },
+        {
+          "name": "reorder_playlist_items",
+          "line": 219,
+          "isDefault": false
+        },
+        {
+          "name": "IDatabasePool",
+          "line": 18,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "accepts_cleanup_permit",
+          "callee": "belongs_to",
+          "lineNumber": 36
+        },
+        {
+          "caller": "get_user",
+          "callee": "get_user_result",
+          "lineNumber": 52
+        },
+        {
+          "caller": "delete_file_owned",
+          "callee": "accepts_cleanup_permit",
+          "lineNumber": 139
+        },
+        {
+          "caller": "get_auth_user",
+          "callee": "get_auth_user_result",
+          "lineNumber": 190
+        }
+      ],
+      "metrics": {
+        "importCount": 3,
+        "exportCount": 56,
+        "functionCount": 23,
+        "classCount": 2
+      }
+    },
+    {
+      "path": "db/include/mock_connection.h",
+      "language": "c",
+      "fileCategory": "code",
+      "totalLines": 83,
+      "nonEmptyLines": 67,
+      "functions": [
+        {
+          "name": "connect",
+          "startLine": 37,
+          "endLine": 43,
+          "params": []
+        },
+        {
+          "name": "is_open",
+          "startLine": 45,
+          "endLine": 45,
+          "params": []
+        },
+        {
+          "name": "ping",
+          "startLine": 47,
+          "endLine": 50,
+          "params": []
+        },
+        {
+          "name": "query",
+          "startLine": 52,
+          "endLine": 59,
+          "params": [
+            "sql",
+            "params"
+          ]
+        },
+        {
+          "name": "execute",
+          "startLine": 61,
+          "endLine": 68,
+          "params": [
+            "sql",
+            "params"
+          ]
+        },
+        {
+          "name": "last_insert_id",
+          "startLine": 70,
+          "endLine": 73,
+          "params": []
+        },
+        {
+          "name": "close",
+          "startLine": 75,
+          "endLine": 80,
+          "params": []
+        }
+      ],
+      "classes": [
+        {
+          "name": "MockConnection",
+          "startLine": 14,
+          "endLine": 81,
+          "methods": [
+            "connect",
+            "is_open",
+            "ping",
+            "query",
+            "execute",
+            "last_insert_id",
+            "close"
+          ],
+          "properties": [
+            "connect_result",
+            "ping_result",
+            "is_open_result",
+            "query_result",
+            "execute_result",
+            "query_hook",
+            "execute_hook",
+            "connect_hook",
+            "close_hook",
+            "last_insert_id_count",
+            "last_insert_id_value",
+            "connect_count",
+            "ping_count",
+            "close_count",
+            "last_sql",
+            "last_params"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "connect",
+          "line": 37,
+          "isDefault": false
+        },
+        {
+          "name": "is_open",
+          "line": 45,
+          "isDefault": false
+        },
+        {
+          "name": "ping",
+          "line": 47,
+          "isDefault": false
+        },
+        {
+          "name": "query",
+          "line": 52,
+          "isDefault": false
+        },
+        {
+          "name": "execute",
+          "line": 61,
+          "isDefault": false
+        },
+        {
+          "name": "last_insert_id",
+          "line": 70,
+          "isDefault": false
+        },
+        {
+          "name": "close",
+          "line": 75,
+          "isDefault": false
+        },
+        {
+          "name": "MockConnection",
+          "line": 14,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "connect",
+          "callee": "connect_hook",
+          "lineNumber": 40
+        },
+        {
+          "caller": "query",
+          "callee": "query_hook",
+          "lineNumber": 56
+        },
+        {
+          "caller": "execute",
+          "callee": "execute_hook",
+          "lineNumber": 65
+        },
+        {
+          "caller": "close",
+          "callee": "close_hook",
+          "lineNumber": 78
+        }
+      ],
+      "metrics": {
+        "importCount": 2,
+        "exportCount": 8,
+        "functionCount": 7,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "db/include/models.h",
+      "language": "c",
+      "fileCategory": "code",
+      "totalLines": 188,
+      "nonEmptyLines": 160,
+      "functions": [
+        {
+          "name": "has_valid_vip_expiry_state",
+          "startLine": 60,
+          "endLine": 62,
+          "params": [
+            "user"
+          ]
+        }
+      ],
+      "classes": [
+        {
+          "name": "User",
+          "startLine": 49,
+          "endLine": 58,
+          "methods": [],
+          "properties": [
+            "user_id",
+            "username",
+            "password_hash",
+            "salt",
+            "role",
+            "email",
+            "vip_expires_at",
+            "created_at"
+          ]
+        },
+        {
+          "name": "AdminUserPage",
+          "startLine": 64,
+          "endLine": 69,
+          "methods": [],
+          "properties": [
+            "items",
+            "total",
+            "offset",
+            "limit"
+          ]
+        },
+        {
+          "name": "EffectiveIdentity",
+          "startLine": 71,
+          "endLine": 77,
+          "methods": [],
+          "properties": [
+            "user_id",
+            "username",
+            "role",
+            "vip_status",
+            "vip_expires_at"
+          ]
+        },
+        {
+          "name": "AuthenticatedUserProfile",
+          "startLine": 81,
+          "endLine": 86,
+          "methods": [],
+          "properties": [
+            "user_id",
+            "username",
+            "email",
+            "created_at"
+          ]
+        },
+        {
+          "name": "TokenValidationResult",
+          "startLine": 95,
+          "endLine": 99,
+          "methods": [],
+          "properties": [
+            "status",
+            "identity",
+            "profile"
+          ]
+        },
+        {
+          "name": "FileRecord",
+          "startLine": 101,
+          "endLine": 111,
+          "methods": [],
+          "properties": [
+            "file_id",
+            "music_id",
+            "file_name",
+            "file_hash",
+            "file_size",
+            "content_type",
+            "chunk_size",
+            "uploaded_by",
+            "created_at"
+          ]
+        },
+        {
+          "name": "FilePage",
+          "startLine": 113,
+          "endLine": 118,
+          "methods": [],
+          "properties": [
+            "items",
+            "total",
+            "offset",
+            "limit"
+          ]
+        },
+        {
+          "name": "FileChunkRecord",
+          "startLine": 120,
+          "endLine": 126,
+          "methods": [],
+          "properties": [
+            "file_hash",
+            "chunk_index",
+            "chunk_hash",
+            "chunk_offset",
+            "chunk_size"
+          ]
+        },
+        {
+          "name": "FileDeletionPlan",
+          "startLine": 128,
+          "endLine": 131,
+          "methods": [],
+          "properties": [
+            "file_id",
+            "queued_chunk_count"
+          ]
+        },
+        {
+          "name": "PendingChunkDeletion",
+          "startLine": 133,
+          "endLine": 137,
+          "methods": [],
+          "properties": [
+            "chunk_hash",
+            "claim_token",
+            "retry_count"
+          ]
+        },
+        {
+          "name": "AuthUser",
+          "startLine": 139,
+          "endLine": 143,
+          "methods": [],
+          "properties": [
+            "user_id",
+            "username",
+            "role"
+          ]
+        },
+        {
+          "name": "AuthenticationResult",
+          "startLine": 151,
+          "endLine": 154,
+          "methods": [],
+          "properties": [
+            "status",
+            "user"
+          ]
+        },
+        {
+          "name": "MusicMeta",
+          "startLine": 156,
+          "endLine": 166,
+          "methods": [],
+          "properties": [
+            "music_id",
+            "title",
+            "artist",
+            "album",
+            "genre",
+            "duration_sec",
+            "track_number",
+            "created_at",
+            "updated_at"
+          ]
+        },
+        {
+          "name": "Playlist",
+          "startLine": 168,
+          "endLine": 175,
+          "methods": [],
+          "properties": [
+            "playlist_id",
+            "user_id",
+            "name",
+            "description",
+            "item_count",
+            "created_at"
+          ]
+        },
+        {
+          "name": "PlaylistItem",
+          "startLine": 177,
+          "endLine": 186,
+          "methods": [],
+          "properties": [
+            "id",
+            "playlist_id",
+            "music_id",
+            "title",
+            "artist",
+            "file_hash",
+            "sort_order",
+            "added_at"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "User",
+          "line": 49,
+          "isDefault": false
+        },
+        {
+          "name": "has_valid_vip_expiry_state",
+          "line": 60,
+          "isDefault": false
+        },
+        {
+          "name": "AdminUserPage",
+          "line": 64,
+          "isDefault": false
+        },
+        {
+          "name": "EffectiveIdentity",
+          "line": 71,
+          "isDefault": false
+        },
+        {
+          "name": "AuthenticatedUserProfile",
+          "line": 81,
+          "isDefault": false
+        },
+        {
+          "name": "TokenValidationResult",
+          "line": 95,
+          "isDefault": false
+        },
+        {
+          "name": "FileRecord",
+          "line": 101,
+          "isDefault": false
+        },
+        {
+          "name": "FilePage",
+          "line": 113,
+          "isDefault": false
+        },
+        {
+          "name": "FileChunkRecord",
+          "line": 120,
+          "isDefault": false
+        },
+        {
+          "name": "FileDeletionPlan",
+          "line": 128,
+          "isDefault": false
+        },
+        {
+          "name": "PendingChunkDeletion",
+          "line": 133,
+          "isDefault": false
+        },
+        {
+          "name": "AuthUser",
+          "line": 139,
+          "isDefault": false
+        },
+        {
+          "name": "AuthenticationResult",
+          "line": 151,
+          "isDefault": false
+        },
+        {
+          "name": "MusicMeta",
+          "line": 156,
+          "isDefault": false
+        },
+        {
+          "name": "Playlist",
+          "line": 168,
+          "isDefault": false
+        },
+        {
+          "name": "PlaylistItem",
+          "line": 177,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "has_valid_vip_expiry_state",
+          "callee": "has_value",
+          "lineNumber": 61
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 16,
+        "functionCount": 1,
+        "classCount": 15
+      }
+    }
+  ]
+}

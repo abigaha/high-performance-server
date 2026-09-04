@@ -1,0 +1,26 @@
+{
+  "projectRoot": "/home/jmj/work-space/projects/high-performance-server",
+  "batchFiles": [
+    {
+      "path": "logger/include/logger.h",
+      "language": "c",
+      "sizeLines": 143,
+      "fileCategory": "code"
+    }
+  ],
+  "batchImportData": {
+    "logger/include/logger.h": []
+  },
+  "neighborMap": {
+    "logger/include/logger.h": [
+      {
+        "path": "logger/include/logformatter.h",
+        "batchIndex": 10,
+        "symbols": [
+          "format",
+          "LogFormatter"
+        ]
+      }
+    ]
+  }
+}

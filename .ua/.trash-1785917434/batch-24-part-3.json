@@ -1,0 +1,185 @@
+{
+ "nodes": [
+  {
+   "id": "file:scripts/lib/common.sh",
+   "type": "file",
+   "name": "scripts/lib/common.sh",
+   "summary": "构建/运行脚本公共库：前端依赖检查与安装、交互菜单循环与命令可用性校验。",
+   "tags": [
+    "shell",
+    "build-script",
+    "menu",
+    "frontend"
+   ],
+   "complexity": "moderate",
+   "filePath": "scripts/lib/common.sh"
+  },
+  {
+   "id": "function:scripts/lib/common.sh:ensure_frontend_dependencies",
+   "type": "function",
+   "name": "ensure_frontend_dependencies",
+   "summary": "校验并安装前端依赖，使用时间戳缓存判断。",
+   "tags": [
+    "ensure-frontend-dependencies",
+    "shell",
+    "scripts"
+   ],
+   "complexity": "moderate",
+   "lineRange": [
+    39,
+    69
+   ]
+  },
+  {
+   "id": "function:scripts/lib/common.sh:show_menu",
+   "type": "function",
+   "name": "show_menu",
+   "summary": "打印交互式操作菜单。",
+   "tags": [
+    "show-menu",
+    "shell",
+    "scripts"
+   ],
+   "complexity": "simple",
+   "lineRange": [
+    73,
+    85
+   ]
+  },
+  {
+   "id": "function:scripts/lib/common.sh:menu_loop",
+   "type": "function",
+   "name": "menu_loop",
+   "summary": "菜单循环：读取用户输入并执行对应动作。",
+   "tags": [
+    "menu-loop",
+    "shell",
+    "scripts"
+   ],
+   "complexity": "moderate",
+   "lineRange": [
+    90,
+    108
+   ]
+  },
+  {
+   "id": "file:scripts/lib/isolated_docker_env.sh",
+   "type": "file",
+   "name": "scripts/lib/isolated_docker_env.sh",
+   "summary": "隔离 Docker 环境管理脚本库：安全路径校验、启动/清理/重启隔离环境并生成运行时指纹。",
+   "tags": [
+    "shell",
+    "docker",
+    "isolated-env",
+    "cleanup"
+   ],
+   "complexity": "complex",
+   "filePath": "scripts/lib/isolated_docker_env.sh"
+  },
+  {
+   "id": "function:scripts/lib/isolated_docker_env.sh:_hps_safe_temp_root",
+   "type": "function",
+   "name": "_hps_safe_temp_root",
+   "summary": "计算并校验安全的临时目录路径。",
+   "tags": [
+    "hps-safe-temp-root",
+    "shell",
+    "scripts"
+   ],
+   "complexity": "moderate",
+   "lineRange": [
+    31,
+    45
+   ]
+  },
+  {
+   "id": "function:scripts/lib/isolated_docker_env.sh:hps_start_isolated_environment",
+   "type": "function",
+   "name": "hps_start_isolated_environment",
+   "summary": "启动隔离 Docker 环境：网络、挂载、容器创建与健康检查。",
+   "tags": [
+    "hps-start-isolated-environment",
+    "shell",
+    "scripts"
+   ],
+   "complexity": "complex",
+   "lineRange": [
+    50,
+    184
+   ]
+  },
+  {
+   "id": "function:scripts/lib/isolated_docker_env.sh:hps_cleanup_isolated_environment",
+   "type": "function",
+   "name": "hps_cleanup_isolated_environment",
+   "summary": "停止并清理隔离环境容器与挂载资源。",
+   "tags": [
+    "hps-cleanup-isolated-environment",
+    "shell",
+    "scripts"
+   ],
+   "complexity": "complex",
+   "lineRange": [
+    189,
+    258
+   ]
+  },
+  {
+   "id": "config:tests/.clang-tidy",
+   "type": "config",
+   "name": "tests/.clang-tidy",
+   "summary": "测试目录专用 clang-tidy 静态分析配置，继承根配置并禁用 gtest 框架固有误报检查项。",
+   "tags": [
+    "clang-tidy",
+    "static-analysis",
+    "test-config"
+   ],
+   "complexity": "simple",
+   "filePath": "tests/.clang-tidy"
+  }
+ ],
+ "edges": [
+  {
+   "source": "file:scripts/lib/common.sh",
+   "target": "function:scripts/lib/common.sh:ensure_frontend_dependencies",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:scripts/lib/common.sh",
+   "target": "function:scripts/lib/common.sh:show_menu",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:scripts/lib/common.sh",
+   "target": "function:scripts/lib/common.sh:menu_loop",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:scripts/lib/isolated_docker_env.sh",
+   "target": "function:scripts/lib/isolated_docker_env.sh:_hps_safe_temp_root",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:scripts/lib/isolated_docker_env.sh",
+   "target": "function:scripts/lib/isolated_docker_env.sh:hps_start_isolated_environment",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:scripts/lib/isolated_docker_env.sh",
+   "target": "function:scripts/lib/isolated_docker_env.sh:hps_cleanup_isolated_environment",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  }
+ ]
+}

@@ -1,0 +1,1480 @@
+{
+  "nodes": [
+    {
+      "id": "function:tests/test_benchmark_script.sh:test_target_level_layout",
+      "type": "function",
+      "name": "test_target_level_layout",
+      "summary": "测试 target 级目录布局（benchmark/report/<type>/<target>/<run-id>）正确生成。",
+      "tags": [
+        "shell",
+        "test",
+        "layout",
+        "manifest"
+      ],
+      "complexity": "moderate",
+      "lineRange": [
+        2033,
+        2060
+      ]
+    },
+    {
+      "id": "function:tests/test_benchmark_script.sh:test_resume_failed_target_only",
+      "type": "function",
+      "name": "test_resume_failed_target_only",
+      "summary": "测试 resume 仅重跑失败或未完成的 target。",
+      "tags": [
+        "shell",
+        "test",
+        "resume",
+        "target"
+      ],
+      "complexity": "moderate",
+      "lineRange": [
+        2062,
+        2103
+      ]
+    },
+    {
+      "id": "function:tests/test_benchmark_script.sh:test_fingerprint_changes_rerun_passed_targets",
+      "type": "function",
+      "name": "test_fingerprint_changes_rerun_passed_targets",
+      "summary": "测试 fingerprint 变化时已通过的 target 也会被重跑。",
+      "tags": [
+        "shell",
+        "test",
+        "fingerprint",
+        "resume"
+      ],
+      "complexity": "complex",
+      "lineRange": [
+        2105,
+        2164
+      ]
+    },
+    {
+      "id": "function:tests/test_benchmark_script.sh:test_rps_resume_and_fingerprint",
+      "type": "function",
+      "name": "test_rps_resume_and_fingerprint",
+      "summary": "测试 RPS 模式 resume 与 fingerprint 的组合行为。",
+      "tags": [
+        "shell",
+        "test",
+        "rps",
+        "resume",
+        "fingerprint"
+      ],
+      "complexity": "complex",
+      "lineRange": [
+        2166,
+        2255
+      ]
+    },
+    {
+      "id": "function:tests/test_benchmark_script.sh:test_rps_resume_reports_rebuild_complete_matrix",
+      "type": "function",
+      "name": "test_rps_resume_reports_rebuild_complete_matrix",
+      "summary": "测试 RPS resume 后报告重建完整执行矩阵。",
+      "tags": [
+        "shell",
+        "test",
+        "rps",
+        "resume",
+        "matrix"
+      ],
+      "complexity": "complex",
+      "lineRange": [
+        2257,
+        2344
+      ]
+    },
+    {
+      "id": "function:tests/test_benchmark_script.sh:test_rps_corrupt_cells_are_rerun",
+      "type": "function",
+      "name": "test_rps_corrupt_cells_are_rerun",
+      "summary": "测试 RPS 矩阵中损坏的 cell 在 resume 时被重跑。",
+      "tags": [
+        "shell",
+        "test",
+        "rps",
+        "corrupt",
+        "resume"
+      ],
+      "complexity": "complex",
+      "lineRange": [
+        2346,
+        2415
+      ]
+    },
+    {
+      "id": "function:tests/test_benchmark_script.sh:test_rps_extra_manifest_cells_are_pruned_on_resume",
+      "type": "function",
+      "name": "test_rps_extra_manifest_cells_are_pruned_on_resume",
+      "summary": "测试 resume 时多余或越界的 manifest cell 被裁剪。",
+      "tags": [
+        "shell",
+        "test",
+        "rps",
+        "prune",
+        "resume"
+      ],
+      "complexity": "complex",
+      "lineRange": [
+        2417,
+        2492
+      ]
+    },
+    {
+      "id": "function:tests/test_benchmark_script.sh:test_rps_resume_artifacts_replace_links_without_following_them",
+      "type": "function",
+      "name": "test_rps_resume_artifacts_replace_links_without_following_them",
+      "summary": "测试 RPS resume 用文件替换 artifact 链接而不跟随链接。",
+      "tags": [
+        "shell",
+        "test",
+        "rps",
+        "symlink",
+        "artifact"
+      ],
+      "complexity": "moderate",
+      "lineRange": [
+        2494,
+        2523
+      ]
+    },
+    {
+      "id": "function:tests/test_benchmark_script.sh:test_rps_timeout_is_reported_as_failed",
+      "type": "function",
+      "name": "test_rps_timeout_is_reported_as_failed",
+      "summary": "测试 RPS 执行超时被报告为 failed 状态。",
+      "tags": [
+        "shell",
+        "test",
+        "rps",
+        "timeout"
+      ],
+      "complexity": "moderate",
+      "lineRange": [
+        2525,
+        2560
+      ]
+    },
+    {
+      "id": "function:tests/test_benchmark_script.sh:test_rps_profiles_and_managed_lifecycle",
+      "type": "function",
+      "name": "test_rps_profiles_and_managed_lifecycle",
+      "summary": "测试 RPS 多 profile 与 managed 生命周期的部署、启动与清理行为。",
+      "tags": [
+        "shell",
+        "test",
+        "rps",
+        "profile",
+        "lifecycle"
+      ],
+      "complexity": "complex",
+      "lineRange": [
+        2562,
+        2658
+      ]
+    },
+    {
+      "id": "function:tests/test_benchmark_script.sh:test_rps_managed_startup_failures_write_profile_reports",
+      "type": "function",
+      "name": "test_rps_managed_startup_failures_write_profile_reports",
+      "summary": "测试 managed 启动失败时各 profile 写入失败报告产物。",
+      "tags": [
+        "shell",
+        "test",
+        "rps",
+        "startup-failure"
+      ],
+      "complexity": "complex",
+      "lineRange": [
+        2660,
+        2713
+      ]
+    },
+    {
+      "id": "function:tests/test_benchmark_script.sh:test_rps_invalid_rps_metrics_are_failed",
+      "type": "function",
+      "name": "test_rps_invalid_rps_metrics_are_failed",
+      "summary": "测试无效的 RPS 指标被判定为失败。",
+      "tags": [
+        "shell",
+        "test",
+        "rps",
+        "metrics"
+      ],
+      "complexity": "complex",
+      "lineRange": [
+        2715,
+        2760
+      ]
+    },
+    {
+      "id": "function:tests/test_benchmark_script.sh:test_rps_invalid_completed_rps_is_rerun_on_resume",
+      "type": "function",
+      "name": "test_rps_invalid_completed_rps_is_rerun_on_resume",
+      "summary": "测试状态异常但标记完成的 RPS 在 resume 时被重跑。",
+      "tags": [
+        "shell",
+        "test",
+        "rps",
+        "resume",
+        "invalid"
+      ],
+      "complexity": "complex",
+      "lineRange": [
+        2762,
+        2825
+      ]
+    },
+    {
+      "id": "function:tests/test_benchmark_script.sh:test_rps_startup_signal_writes_profile_reports",
+      "type": "function",
+      "name": "test_rps_startup_signal_writes_profile_reports",
+      "summary": "测试启动阶段收到信号时写入 profile 失败报告。",
+      "tags": [
+        "shell",
+        "test",
+        "rps",
+        "signal"
+      ],
+      "complexity": "complex",
+      "lineRange": [
+        2827,
+        2876
+      ]
+    },
+    {
+      "id": "function:tests/test_benchmark_script.sh:test_rps_signal_after_prepare_writes_profile_reports",
+      "type": "function",
+      "name": "test_rps_signal_after_prepare_writes_profile_reports",
+      "summary": "测试 prepare 之后收到信号时写入 profile 失败报告。",
+      "tags": [
+        "shell",
+        "test",
+        "rps",
+        "signal"
+      ],
+      "complexity": "complex",
+      "lineRange": [
+        2878,
+        2937
+      ]
+    },
+    {
+      "id": "function:tests/test_benchmark_script.sh:test_rps_overload_resume_is_complete",
+      "type": "function",
+      "name": "test_rps_overload_resume_is_complete",
+      "summary": "测试 RPS 过载后 resume 能完整恢复全部 cell。",
+      "tags": [
+        "shell",
+        "test",
+        "rps",
+        "overload",
+        "resume"
+      ],
+      "complexity": "moderate",
+      "lineRange": [
+        2939,
+        2973
+      ]
+    },
+    {
+      "id": "function:tests/test_benchmark_script.sh:test_rps_signal_cleans_managed_environment",
+      "type": "function",
+      "name": "test_rps_signal_cleans_managed_environment",
+      "summary": "测试信号处理会清理 managed 环境。",
+      "tags": [
+        "shell",
+        "test",
+        "rps",
+        "signal",
+        "cleanup"
+      ],
+      "complexity": "complex",
+      "lineRange": [
+        2975,
+        3033
+      ]
+    },
+    {
+      "id": "function:tests/test_benchmark_script.sh:test_rps_signal_writes_external_and_unstarted_profile_artifacts",
+      "type": "function",
+      "name": "test_rps_signal_writes_external_and_unstarted_profile_artifacts",
+      "summary": "测试信号处理为外部与未启动的 profile 写入产物。",
+      "tags": [
+        "shell",
+        "test",
+        "rps",
+        "signal",
+        "artifact"
+      ],
+      "complexity": "complex",
+      "lineRange": [
+        3035,
+        3141
+      ]
+    },
+    {
+      "id": "function:tests/test_benchmark_script.sh:test_diff_uses_new_manifests",
+      "type": "function",
+      "name": "test_diff_uses_new_manifests",
+      "summary": "测试 diff 模式使用新 manifest 并正确选择最新配对生成差异报告。",
+      "tags": [
+        "shell",
+        "test",
+        "diff",
+        "manifest"
+      ],
+      "complexity": "complex",
+      "lineRange": [
+        3143,
+        3201
+      ]
+    },
+    {
+      "id": "function:tests/test_benchmark_script.sh:test_diff_without_reports_is_read_only",
+      "type": "function",
+      "name": "test_diff_without_reports_is_read_only",
+      "summary": "测试无报告时 diff 模式为只读且不产生副作用。",
+      "tags": [
+        "shell",
+        "test",
+        "diff",
+        "read-only"
+      ],
+      "complexity": "simple",
+      "lineRange": [
+        3203,
+        3216
+      ]
+    },
+    {
+      "id": "function:tests/test_benchmark_script.sh:run_case",
+      "type": "function",
+      "name": "run_case",
+      "summary": "测试用例运行包装器：执行指定函数并打印通过或失败信息。",
+      "tags": [
+        "shell",
+        "test",
+        "runner"
+      ],
+      "complexity": "simple",
+      "lineRange": [
+        3218,
+        3228
+      ]
+    },
+    {
+      "id": "file:tests/test_bench_http_server.sh",
+      "type": "file",
+      "name": "tests/test_bench_http_server.sh",
+      "filePath": "tests/test_bench_http_server.sh",
+      "summary": "通过 LD_PRELOAD 注入失败 socket 库（tests/fixtures/fail_socket.c）运行 HTTP 基准程序 bin/bench_http_server，验证服务初始化失败时基准工具不会误报成功。",
+      "tags": [
+        "shell",
+        "test",
+        "http-benchmark",
+        "ld-preload"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:tests/test_codeql_discovery.sh",
+      "type": "file",
+      "name": "tests/test_codeql_discovery.sh",
+      "filePath": "tests/test_codeql_discovery.sh",
+      "summary": "加载 scripts/codeql.sh 并验证 CodeQL 工具链发现逻辑（语言支持、代码库识别与 fake bin 注入）的输出行为。",
+      "tags": [
+        "shell",
+        "test",
+        "codeql",
+        "discovery"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:tests/test_docker_admin_env.sh",
+      "type": "file",
+      "name": "tests/test_docker_admin_env.sh",
+      "filePath": "tests/test_docker_admin_env.sh",
+      "summary": "注入临时 env 文件加载 scripts/docker.sh，验证管理员凭据自动生成、env 文件 0600 权限及配置函数输出。",
+      "tags": [
+        "shell",
+        "test",
+        "docker",
+        "env",
+        "admin-credentials"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:tests/test_lint_script.sh",
+      "type": "file",
+      "name": "tests/test_lint_script.sh",
+      "filePath": "tests/test_lint_script.sh",
+      "summary": "复制 scripts/lint.sh 到隔离 fixture 并运行 lint 检查，验证脚本超时包装、产物与退出码行为。",
+      "tags": [
+        "shell",
+        "test",
+        "lint",
+        "fixture"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:tests/test_migrate_legacy_reports.sh",
+      "type": "file",
+      "name": "tests/test_migrate_legacy_reports.sh",
+      "filePath": "tests/test_migrate_legacy_reports.sh",
+      "summary": "对 benchmark/tools/migrate_legacy_reports.py 迁移器进行集成测试，覆盖发布竞争、符号链接拒绝、未知小节聚合与中途链接等安全场景。",
+      "tags": [
+        "shell",
+        "test",
+        "migration",
+        "legacy-reports",
+        "symlink"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:tests/test_test_script.sh",
+      "type": "file",
+      "name": "tests/test_test_script.sh",
+      "filePath": "tests/test_test_script.sh",
+      "summary": "对 scripts/test.sh 进行集成测试，覆盖前端依赖安装顺序、E2E 文档一致性、Playwright run-id 净化、信号处理与子进程终止等行为。",
+      "tags": [
+        "shell",
+        "test",
+        "test-script",
+        "e2e",
+        "signal"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:tests/test_docker_admin_env.sh:write_base_env",
+      "type": "function",
+      "name": "write_base_env",
+      "summary": "写入最小基础 env 文件（AUTH_SECRET、MySQL 凭据、HTTP 端口等），作为 docker.sh 测试的输入。",
+      "tags": [
+        "shell",
+        "env",
+        "fixture",
+        "docker"
+      ],
+      "complexity": "simple",
+      "lineRange": [
+        13,
+        22
+      ]
+    },
+    {
+      "id": "function:tests/test_lint_script.sh:setup_fixture",
+      "type": "function",
+      "name": "setup_fixture",
+      "summary": "创建隔离 fixture 项目并复制 lint.sh 与 lib/common.sh，构造待检查的源码与 xmake 配置。",
+      "tags": [
+        "shell",
+        "fixture",
+        "lint",
+        "xmake"
+      ],
+      "complexity": "moderate",
+      "lineRange": [
+        26,
+        75
+      ]
+    },
+    {
+      "id": "function:tests/test_lint_script.sh:run_lint",
+      "type": "function",
+      "name": "run_lint",
+      "summary": "在 fixture 中运行 lint.sh 并返回输出与退出码供断言。",
+      "tags": [
+        "shell",
+        "lint",
+        "runner"
+      ],
+      "complexity": "simple",
+      "lineRange": [
+        77,
+        87
+      ]
+    },
+    {
+      "id": "function:tests/test_migrate_legacy_reports.sh:create_publish_race_hook",
+      "type": "function",
+      "name": "create_publish_race_hook",
+      "summary": "构造发布竞争钩子：在迁移器执行中途干扰发布流程，模拟并发发布竞争场景。",
+      "tags": [
+        "shell",
+        "migration",
+        "publish-race",
+        "hook"
+      ],
+      "complexity": "moderate",
+      "lineRange": [
+        241,
+        287
+      ]
+    },
+    {
+      "id": "function:tests/test_migrate_legacy_reports.sh:assert_no_clobber_destination_publish_race",
+      "type": "function",
+      "name": "assert_no_clobber_destination_publish_race",
+      "summary": "断言发布竞争时目标文件不被覆盖（no-clobber）且迁移结果完整。",
+      "tags": [
+        "shell",
+        "migration",
+        "publish-race",
+        "no-clobber"
+      ],
+      "complexity": "moderate",
+      "lineRange": [
+        289,
+        325
+      ]
+    },
+    {
+      "id": "function:tests/test_migrate_legacy_reports.sh:assert_no_clobber_index_publish_race",
+      "type": "function",
+      "name": "assert_no_clobber_index_publish_race",
+      "summary": "断言索引文件发布竞争时不覆盖既有索引。",
+      "tags": [
+        "shell",
+        "migration",
+        "publish-race",
+        "index"
+      ],
+      "complexity": "moderate",
+      "lineRange": [
+        327,
+        362
+      ]
+    },
+    {
+      "id": "function:tests/test_migrate_legacy_reports.sh:assert_destination_root_symlink_is_rejected",
+      "type": "function",
+      "name": "assert_destination_root_symlink_is_rejected",
+      "summary": "断言目标根目录为符号链接时迁移被拒绝。",
+      "tags": [
+        "shell",
+        "migration",
+        "symlink",
+        "security"
+      ],
+      "complexity": "simple",
+      "lineRange": [
+        367,
+        379
+      ]
+    },
+    {
+      "id": "function:tests/test_migrate_legacy_reports.sh:assert_unknown_section_title_aggregates_entire_report",
+      "type": "function",
+      "name": "assert_unknown_section_title_aggregates_entire_report",
+      "summary": "断言未知小节标题时整个报告被聚合处理。",
+      "tags": [
+        "shell",
+        "migration",
+        "aggregate",
+        "section"
+      ],
+      "complexity": "moderate",
+      "lineRange": [
+        383,
+        419
+      ]
+    },
+    {
+      "id": "function:tests/test_migrate_legacy_reports.sh:assert_intermediate_symlink_publish_race_stays_outside",
+      "type": "function",
+      "name": "assert_intermediate_symlink_publish_race_stays_outside",
+      "summary": "断言迁移中途出现符号链接竞争时产物不会写入目录外部。",
+      "tags": [
+        "shell",
+        "migration",
+        "symlink",
+        "publish-race"
+      ],
+      "complexity": "complex",
+      "lineRange": [
+        421,
+        475
+      ]
+    },
+    {
+      "id": "function:tests/test_test_script.sh:cleanup_test",
+      "type": "function",
+      "name": "cleanup_test",
+      "summary": "清理测试临时目录并终止残留的父/子进程，注册为脚本 EXIT 陷阱。",
+      "tags": [
+        "shell",
+        "cleanup",
+        "process"
+      ],
+      "complexity": "simple",
+      "lineRange": [
+        7,
+        16
+      ]
+    },
+    {
+      "id": "function:tests/test_test_script.sh:assert_entry_installs_dependencies_before_script_regression",
+      "type": "function",
+      "name": "assert_entry_installs_dependencies_before_script_regression",
+      "summary": "回归测试：断言 test.sh 入口在运行脚本前先安装前端依赖（npm install 调用顺序）。",
+      "tags": [
+        "shell",
+        "regression",
+        "frontend",
+        "npm",
+        "ordering"
+      ],
+      "complexity": "moderate",
+      "lineRange": [
+        148,
+        235
+      ]
+    },
+    {
+      "id": "function:tests/test_test_script.sh:assert_e2e_documentation_is_canonical",
+      "type": "function",
+      "name": "assert_e2e_documentation_is_canonical",
+      "summary": "断言 E2E 文档与 test.sh 的 E2E 用法保持一致（canonical）。",
+      "tags": [
+        "shell",
+        "e2e",
+        "documentation",
+        "consistency"
+      ],
+      "complexity": "moderate",
+      "lineRange": [
+        240,
+        286
+      ]
+    },
+    {
+      "id": "function:tests/test_test_script.sh:assert_playwright_rejects_latest_root",
+      "type": "function",
+      "name": "assert_playwright_rejects_latest_root",
+      "summary": "断言 Playwright 模式拒绝 latest 根路径。",
+      "tags": [
+        "shell",
+        "playwright",
+        "e2e",
+        "validation"
+      ],
+      "complexity": "simple",
+      "lineRange": [
+        290,
+        309
+      ]
+    },
+    {
+      "id": "function:tests/test_test_script.sh:assert_playwright_sanitizes_latest_run_id",
+      "type": "function",
+      "name": "assert_playwright_sanitizes_latest_run_id",
+      "summary": "断言 Playwright 运行前对 latest run-id 做净化处理。",
+      "tags": [
+        "shell",
+        "playwright",
+        "run-id",
+        "sanitize"
+      ],
+      "complexity": "simple",
+      "lineRange": [
+        316,
+        329
+      ]
+    },
+    {
+      "id": "function:tests/test_test_script.sh:run_term_ignoring_child_case",
+      "type": "function",
+      "name": "run_term_ignoring_child_case",
+      "summary": "测试发送 TERM 信号时忽略不响应 TERM 的子进程，保持其运行。",
+      "tags": [
+        "shell",
+        "signal",
+        "term",
+        "process"
+      ],
+      "complexity": "moderate",
+      "lineRange": [
+        618,
+        662
+      ]
+    },
+    {
+      "id": "function:tests/test_test_script.sh:run_repeated_signal_case",
+      "type": "function",
+      "name": "run_repeated_signal_case",
+      "summary": "测试重复发送信号时 test.sh 的幂等终止行为。",
+      "tags": [
+        "shell",
+        "signal",
+        "repeated",
+        "termination"
+      ],
+      "complexity": "complex",
+      "lineRange": [
+        666,
+        730
+      ]
+    },
+    {
+      "id": "function:tests/test_test_script.sh:run_startup_signal_case",
+      "type": "function",
+      "name": "run_startup_signal_case",
+      "summary": "测试启动阶段收到信号时清理并退出。",
+      "tags": [
+        "shell",
+        "signal",
+        "startup",
+        "cleanup"
+      ],
+      "complexity": "complex",
+      "lineRange": [
+        735,
+        787
+      ]
+    },
+    {
+      "id": "function:tests/test_test_script.sh:run_start_failure_cleanup_signal_case",
+      "type": "function",
+      "name": "run_start_failure_cleanup_signal_case",
+      "summary": "测试启动失败后收到信号时的清理流程。",
+      "tags": [
+        "shell",
+        "signal",
+        "startup-failure",
+        "cleanup"
+      ],
+      "complexity": "complex",
+      "lineRange": [
+        792,
+        844
+      ]
+    },
+    {
+      "id": "function:tests/test_test_script.sh:run_isolated_helper",
+      "type": "function",
+      "name": "run_isolated_helper",
+      "summary": "在隔离容器或子 shell 中运行测试用例并汇总退出码。",
+      "tags": [
+        "shell",
+        "isolation",
+        "runner"
+      ],
+      "complexity": "simple",
+      "lineRange": [
+        908,
+        918
+      ]
+    }
+  ],
+  "edges": [
+    {
+      "source": "file:tests/test_benchmark_script.sh",
+      "target": "function:tests/test_benchmark_script.sh:test_target_level_layout",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:tests/test_benchmark_script.sh",
+      "target": "function:tests/test_benchmark_script.sh:test_resume_failed_target_only",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:tests/test_benchmark_script.sh",
+      "target": "function:tests/test_benchmark_script.sh:test_fingerprint_changes_rerun_passed_targets",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:tests/test_benchmark_script.sh",
+      "target": "function:tests/test_benchmark_script.sh:test_rps_resume_and_fingerprint",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:tests/test_benchmark_script.sh",
+      "target": "function:tests/test_benchmark_script.sh:test_rps_resume_reports_rebuild_complete_matrix",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:tests/test_benchmark_script.sh",
+      "target": "function:tests/test_benchmark_script.sh:test_rps_corrupt_cells_are_rerun",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:tests/test_benchmark_script.sh",
+      "target": "function:tests/test_benchmark_script.sh:test_rps_extra_manifest_cells_are_pruned_on_resume",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:tests/test_benchmark_script.sh",
+      "target": "function:tests/test_benchmark_script.sh:test_rps_resume_artifacts_replace_links_without_following_them",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:tests/test_benchmark_script.sh",
+      "target": "function:tests/test_benchmark_script.sh:test_rps_timeout_is_reported_as_failed",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:tests/test_benchmark_script.sh",
+      "target": "function:tests/test_benchmark_script.sh:test_rps_profiles_and_managed_lifecycle",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:tests/test_benchmark_script.sh",
+      "target": "function:tests/test_benchmark_script.sh:test_rps_managed_startup_failures_write_profile_reports",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:tests/test_benchmark_script.sh",
+      "target": "function:tests/test_benchmark_script.sh:test_rps_invalid_rps_metrics_are_failed",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:tests/test_benchmark_script.sh",
+      "target": "function:tests/test_benchmark_script.sh:test_rps_invalid_completed_rps_is_rerun_on_resume",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:tests/test_benchmark_script.sh",
+      "target": "function:tests/test_benchmark_script.sh:test_rps_startup_signal_writes_profile_reports",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:tests/test_benchmark_script.sh",
+      "target": "function:tests/test_benchmark_script.sh:test_rps_signal_after_prepare_writes_profile_reports",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:tests/test_benchmark_script.sh",
+      "target": "function:tests/test_benchmark_script.sh:test_rps_overload_resume_is_complete",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:tests/test_benchmark_script.sh",
+      "target": "function:tests/test_benchmark_script.sh:test_rps_signal_cleans_managed_environment",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:tests/test_benchmark_script.sh",
+      "target": "function:tests/test_benchmark_script.sh:test_rps_signal_writes_external_and_unstarted_profile_artifacts",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:tests/test_benchmark_script.sh",
+      "target": "function:tests/test_benchmark_script.sh:test_diff_uses_new_manifests",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:tests/test_benchmark_script.sh",
+      "target": "function:tests/test_benchmark_script.sh:test_diff_without_reports_is_read_only",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:tests/test_benchmark_script.sh",
+      "target": "function:tests/test_benchmark_script.sh:run_case",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:tests/test_docker_admin_env.sh",
+      "target": "function:tests/test_docker_admin_env.sh:write_base_env",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:tests/test_lint_script.sh",
+      "target": "function:tests/test_lint_script.sh:setup_fixture",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:tests/test_lint_script.sh",
+      "target": "function:tests/test_lint_script.sh:run_lint",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:tests/test_migrate_legacy_reports.sh",
+      "target": "function:tests/test_migrate_legacy_reports.sh:create_publish_race_hook",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:tests/test_migrate_legacy_reports.sh",
+      "target": "function:tests/test_migrate_legacy_reports.sh:assert_no_clobber_destination_publish_race",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:tests/test_migrate_legacy_reports.sh",
+      "target": "function:tests/test_migrate_legacy_reports.sh:assert_no_clobber_index_publish_race",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:tests/test_migrate_legacy_reports.sh",
+      "target": "function:tests/test_migrate_legacy_reports.sh:assert_destination_root_symlink_is_rejected",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:tests/test_migrate_legacy_reports.sh",
+      "target": "function:tests/test_migrate_legacy_reports.sh:assert_unknown_section_title_aggregates_entire_report",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:tests/test_migrate_legacy_reports.sh",
+      "target": "function:tests/test_migrate_legacy_reports.sh:assert_intermediate_symlink_publish_race_stays_outside",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:tests/test_test_script.sh",
+      "target": "function:tests/test_test_script.sh:cleanup_test",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:tests/test_test_script.sh",
+      "target": "function:tests/test_test_script.sh:assert_entry_installs_dependencies_before_script_regression",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:tests/test_test_script.sh",
+      "target": "function:tests/test_test_script.sh:assert_e2e_documentation_is_canonical",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:tests/test_test_script.sh",
+      "target": "function:tests/test_test_script.sh:assert_playwright_rejects_latest_root",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:tests/test_test_script.sh",
+      "target": "function:tests/test_test_script.sh:assert_playwright_sanitizes_latest_run_id",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:tests/test_test_script.sh",
+      "target": "function:tests/test_test_script.sh:run_term_ignoring_child_case",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:tests/test_test_script.sh",
+      "target": "function:tests/test_test_script.sh:run_repeated_signal_case",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:tests/test_test_script.sh",
+      "target": "function:tests/test_test_script.sh:run_startup_signal_case",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:tests/test_test_script.sh",
+      "target": "function:tests/test_test_script.sh:run_start_failure_cleanup_signal_case",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:tests/test_test_script.sh",
+      "target": "function:tests/test_test_script.sh:run_isolated_helper",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "function:tests/test_benchmark_script.sh:test_target_level_layout",
+      "target": "function:tests/test_benchmark_script.sh:run_benchmark",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:tests/test_benchmark_script.sh:test_target_level_layout",
+      "target": "function:tests/test_benchmark_script.sh:setup_fixture",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:tests/test_benchmark_script.sh:test_resume_failed_target_only",
+      "target": "function:tests/test_benchmark_script.sh:run_benchmark",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:tests/test_benchmark_script.sh:test_resume_failed_target_only",
+      "target": "function:tests/test_benchmark_script.sh:setup_fixture",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:tests/test_benchmark_script.sh:test_fingerprint_changes_rerun_passed_targets",
+      "target": "function:tests/test_benchmark_script.sh:run_benchmark",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:tests/test_benchmark_script.sh:test_fingerprint_changes_rerun_passed_targets",
+      "target": "function:tests/test_benchmark_script.sh:setup_fixture",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:tests/test_benchmark_script.sh:test_rps_resume_and_fingerprint",
+      "target": "function:tests/test_benchmark_script.sh:run_benchmark",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:tests/test_benchmark_script.sh:test_rps_resume_and_fingerprint",
+      "target": "function:tests/test_benchmark_script.sh:setup_fixture",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:tests/test_benchmark_script.sh:test_rps_resume_reports_rebuild_complete_matrix",
+      "target": "function:tests/test_benchmark_script.sh:run_benchmark",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:tests/test_benchmark_script.sh:test_rps_resume_reports_rebuild_complete_matrix",
+      "target": "function:tests/test_benchmark_script.sh:setup_fixture",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:tests/test_benchmark_script.sh:test_rps_corrupt_cells_are_rerun",
+      "target": "function:tests/test_benchmark_script.sh:run_benchmark",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:tests/test_benchmark_script.sh:test_rps_corrupt_cells_are_rerun",
+      "target": "function:tests/test_benchmark_script.sh:setup_fixture",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:tests/test_benchmark_script.sh:test_rps_extra_manifest_cells_are_pruned_on_resume",
+      "target": "function:tests/test_benchmark_script.sh:run_benchmark",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:tests/test_benchmark_script.sh:test_rps_extra_manifest_cells_are_pruned_on_resume",
+      "target": "function:tests/test_benchmark_script.sh:setup_fixture",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:tests/test_benchmark_script.sh:test_rps_resume_artifacts_replace_links_without_following_them",
+      "target": "function:tests/test_benchmark_script.sh:run_benchmark",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:tests/test_benchmark_script.sh:test_rps_resume_artifacts_replace_links_without_following_them",
+      "target": "function:tests/test_benchmark_script.sh:setup_fixture",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:tests/test_benchmark_script.sh:test_rps_timeout_is_reported_as_failed",
+      "target": "function:tests/test_benchmark_script.sh:run_benchmark",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:tests/test_benchmark_script.sh:test_rps_timeout_is_reported_as_failed",
+      "target": "function:tests/test_benchmark_script.sh:setup_fixture",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:tests/test_benchmark_script.sh:test_rps_profiles_and_managed_lifecycle",
+      "target": "function:tests/test_benchmark_script.sh:run_benchmark",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:tests/test_benchmark_script.sh:test_rps_profiles_and_managed_lifecycle",
+      "target": "function:tests/test_benchmark_script.sh:setup_fixture",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:tests/test_benchmark_script.sh:test_rps_managed_startup_failures_write_profile_reports",
+      "target": "function:tests/test_benchmark_script.sh:run_benchmark",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:tests/test_benchmark_script.sh:test_rps_managed_startup_failures_write_profile_reports",
+      "target": "function:tests/test_benchmark_script.sh:setup_fixture",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:tests/test_benchmark_script.sh:test_rps_invalid_rps_metrics_are_failed",
+      "target": "function:tests/test_benchmark_script.sh:run_benchmark",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:tests/test_benchmark_script.sh:test_rps_invalid_rps_metrics_are_failed",
+      "target": "function:tests/test_benchmark_script.sh:setup_fixture",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:tests/test_benchmark_script.sh:test_rps_invalid_completed_rps_is_rerun_on_resume",
+      "target": "function:tests/test_benchmark_script.sh:run_benchmark",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:tests/test_benchmark_script.sh:test_rps_invalid_completed_rps_is_rerun_on_resume",
+      "target": "function:tests/test_benchmark_script.sh:setup_fixture",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:tests/test_benchmark_script.sh:test_rps_startup_signal_writes_profile_reports",
+      "target": "function:tests/test_benchmark_script.sh:run_benchmark",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:tests/test_benchmark_script.sh:test_rps_startup_signal_writes_profile_reports",
+      "target": "function:tests/test_benchmark_script.sh:setup_fixture",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:tests/test_benchmark_script.sh:test_rps_signal_after_prepare_writes_profile_reports",
+      "target": "function:tests/test_benchmark_script.sh:run_benchmark",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:tests/test_benchmark_script.sh:test_rps_signal_after_prepare_writes_profile_reports",
+      "target": "function:tests/test_benchmark_script.sh:setup_fixture",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:tests/test_benchmark_script.sh:test_rps_overload_resume_is_complete",
+      "target": "function:tests/test_benchmark_script.sh:run_benchmark",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:tests/test_benchmark_script.sh:test_rps_overload_resume_is_complete",
+      "target": "function:tests/test_benchmark_script.sh:setup_fixture",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:tests/test_benchmark_script.sh:test_rps_signal_cleans_managed_environment",
+      "target": "function:tests/test_benchmark_script.sh:run_benchmark",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:tests/test_benchmark_script.sh:test_rps_signal_cleans_managed_environment",
+      "target": "function:tests/test_benchmark_script.sh:setup_fixture",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:tests/test_benchmark_script.sh:test_rps_signal_writes_external_and_unstarted_profile_artifacts",
+      "target": "function:tests/test_benchmark_script.sh:run_benchmark",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:tests/test_benchmark_script.sh:test_rps_signal_writes_external_and_unstarted_profile_artifacts",
+      "target": "function:tests/test_benchmark_script.sh:setup_fixture",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:tests/test_benchmark_script.sh:test_diff_uses_new_manifests",
+      "target": "function:tests/test_benchmark_script.sh:run_benchmark",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:tests/test_benchmark_script.sh:test_diff_uses_new_manifests",
+      "target": "function:tests/test_benchmark_script.sh:setup_fixture",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:tests/test_benchmark_script.sh:test_diff_without_reports_is_read_only",
+      "target": "function:tests/test_benchmark_script.sh:run_benchmark",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:tests/test_benchmark_script.sh:test_diff_without_reports_is_read_only",
+      "target": "function:tests/test_benchmark_script.sh:setup_fixture",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:tests/test_benchmark_script.sh:test_rps_resume_and_fingerprint",
+      "target": "function:tests/test_benchmark_script.sh:configure_rps_environment",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:tests/test_benchmark_script.sh:test_rps_resume_reports_rebuild_complete_matrix",
+      "target": "function:tests/test_benchmark_script.sh:configure_rps_environment",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:tests/test_benchmark_script.sh:test_rps_corrupt_cells_are_rerun",
+      "target": "function:tests/test_benchmark_script.sh:configure_rps_environment",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:tests/test_benchmark_script.sh:test_rps_extra_manifest_cells_are_pruned_on_resume",
+      "target": "function:tests/test_benchmark_script.sh:configure_rps_environment",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:tests/test_benchmark_script.sh:test_rps_resume_artifacts_replace_links_without_following_them",
+      "target": "function:tests/test_benchmark_script.sh:configure_rps_environment",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:tests/test_benchmark_script.sh:test_rps_timeout_is_reported_as_failed",
+      "target": "function:tests/test_benchmark_script.sh:configure_rps_environment",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:tests/test_benchmark_script.sh:test_rps_profiles_and_managed_lifecycle",
+      "target": "function:tests/test_benchmark_script.sh:configure_rps_environment",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:tests/test_benchmark_script.sh:test_rps_managed_startup_failures_write_profile_reports",
+      "target": "function:tests/test_benchmark_script.sh:configure_rps_environment",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:tests/test_benchmark_script.sh:test_rps_invalid_rps_metrics_are_failed",
+      "target": "function:tests/test_benchmark_script.sh:configure_rps_environment",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:tests/test_benchmark_script.sh:test_rps_invalid_completed_rps_is_rerun_on_resume",
+      "target": "function:tests/test_benchmark_script.sh:configure_rps_environment",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:tests/test_benchmark_script.sh:test_rps_overload_resume_is_complete",
+      "target": "function:tests/test_benchmark_script.sh:configure_rps_environment",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:tests/test_benchmark_script.sh:test_diff_uses_new_manifests",
+      "target": "function:tests/test_benchmark_script.sh:assert_diff_selects_latest_complete_pair",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:scripts/benchmark.sh",
+      "target": "file:tests/test_benchmark_script.sh",
+      "type": "tested_by",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "file:scripts/codeql.sh",
+      "target": "file:tests/test_codeql_discovery.sh",
+      "type": "tested_by",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "file:scripts/docker.sh",
+      "target": "file:tests/test_docker_admin_env.sh",
+      "type": "tested_by",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "file:scripts/lint.sh",
+      "target": "file:tests/test_lint_script.sh",
+      "type": "tested_by",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "file:scripts/lib/common.sh",
+      "target": "file:tests/test_lint_script.sh",
+      "type": "tested_by",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "file:benchmark/tools/migrate_legacy_reports.py",
+      "target": "file:tests/test_migrate_legacy_reports.sh",
+      "type": "tested_by",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "file:scripts/test.sh",
+      "target": "file:tests/test_test_script.sh",
+      "type": "tested_by",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "file:scripts/lib/isolated_docker_env.sh",
+      "target": "file:tests/test_test_script.sh",
+      "type": "tested_by",
+      "direction": "forward",
+      "weight": 0.5
+    }
+  ]
+}

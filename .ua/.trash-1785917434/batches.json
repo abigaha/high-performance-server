@@ -1,0 +1,6648 @@
+{
+  "schemaVersion": 1,
+  "algorithm": "louvain",
+  "totalFiles": 373,
+  "totalBatches": 24,
+  "exportsByPath": {
+    ".clang-tidy": [],
+    "benchmark/.clang-tidy": [],
+    "benchmark/bench_auth_service.cpp": [
+      "AuthBenchFixture",
+      "AuthBenchFixture"
+    ],
+    "benchmark/bench_chunk_header.cpp": [],
+    "benchmark/bench_coroutine.cpp": [
+      "CoroutineBench",
+      "CoroutineBench",
+      "~CoroutineBench",
+      "CoroutineBench",
+      "bench_coro_impl",
+      "await_ready",
+      "await_suspend",
+      "await_resume",
+      "CoroReadWriteAwaiter",
+      "CoroReadWriteTask",
+      "CoroReadWriteTask",
+      "~CoroReadWriteTask",
+      "CoroReadWriteTask",
+      "bench_await_readwrite",
+      "await_ready",
+      "await_suspend",
+      "await_resume",
+      "CoroSwitchAwaiter",
+      "CoroSwitchTask",
+      "CoroSwitchTask",
+      "~CoroSwitchTask",
+      "CoroSwitchTask",
+      "bench_switch_impl"
+    ],
+    "benchmark/bench_database_pool.cpp": [
+      "DbBenchFixture",
+      "DbBenchFixture"
+    ],
+    "benchmark/bench_file_system.cpp": [
+      "create_temp_file"
+    ],
+    "benchmark/bench_http_parser.cpp": [
+      "make_get_request",
+      "make_post_request"
+    ],
+    "benchmark/bench_http_server.cpp": [
+      "SetUp",
+      "TearDown",
+      "make_get",
+      "make_post",
+      "make_pipelined",
+      "HttpServerBench",
+      "BENCHMARK_DEFINE_F(HttpServerBench, HttpGet)",
+      "BENCHMARK_DEFINE_F(HttpServerBench, HttpPost)",
+      "BENCHMARK_DEFINE_F(HttpServerBench, HttpPostLargeBody)",
+      "BENCHMARK_DEFINE_F(HttpServerBench, HttpPipelined)"
+    ],
+    "benchmark/bench_lock_free_queue.cpp": [],
+    "benchmark/bench_logger.cpp": [
+      "SetUp",
+      "TearDown",
+      "LoggerBench",
+      "BENCHMARK_DEFINE_F(LoggerBench, Info)",
+      "BENCHMARK_DEFINE_F(LoggerBench, Error)",
+      "BENCHMARK_DEFINE_F(LoggerBench, Multithreaded)",
+      "BENCHMARK_DEFINE_F(LoggerBench, Format)"
+    ],
+    "benchmark/bench_memory_pool.cpp": [],
+    "benchmark/bench_move_only_function.cpp": [
+      "BigObject"
+    ],
+    "benchmark/bench_router.cpp": [
+      "RouterWithRoutes",
+      "RouterWithRoutes"
+    ],
+    "benchmark/bench_ssl.cpp": [
+      "SslBenchFixture",
+      "SslBenchFixture"
+    ],
+    "benchmark/bench_tcp_server.cpp": [
+      "SetUp",
+      "TearDown",
+      "TcpServerBench",
+      "BENCHMARK_DEFINE_F(TcpServerBench, Connect)",
+      "BENCHMARK_DEFINE_F(TcpServerBench, SendReceive)",
+      "BENCHMARK_DEFINE_F(TcpServerBench, ConcurrentConnections)",
+      "BENCHMARK_DEFINE_F(TcpServerBench, Throughput)"
+    ],
+    "benchmark/bench_thread_pool.cpp": [
+      "do_work"
+    ],
+    "benchmark/bench_websocket.cpp": [],
+    "benchmark/qps_auth_service.cpp": [
+      "run_benchmark",
+      "main"
+    ],
+    "benchmark/qps_chunk_header.cpp": [
+      "run_benchmark",
+      "main"
+    ],
+    "benchmark/qps_coroutine.cpp": [
+      "CoroBench",
+      "CoroBench",
+      "~CoroBench",
+      "CoroBench",
+      "bench_coro_impl",
+      "main"
+    ],
+    "benchmark/qps_database_pool.cpp": [
+      "main"
+    ],
+    "benchmark/qps_file_system.cpp": [
+      "create_temp_file",
+      "main"
+    ],
+    "benchmark/qps_file_transfer.cpp": [
+      "TempWorkspace",
+      "~TempWorkspace",
+      "TempWorkspace",
+      "path",
+      "file_path",
+      "TempWorkspace",
+      "MockTcpClient",
+      "connect_to_server",
+      "disconnect",
+      "send_message",
+      "receive_message",
+      "is_connected",
+      "MockTcpClient",
+      "validate_chunks",
+      "main"
+    ],
+    "benchmark/qps_http_parser.cpp": [
+      "make_get_request",
+      "make_post_request",
+      "main"
+    ],
+    "benchmark/qps_http_response.cpp": [
+      "is_cleared",
+      "run_benchmark",
+      "main"
+    ],
+    "benchmark/qps_http_server.cpp": [
+      "ServerFixture",
+      "~ServerFixture",
+      "make_get",
+      "make_post",
+      "ServerFixture",
+      "exchange_http_request",
+      "run_benchmark",
+      "main"
+    ],
+    "benchmark/qps_http_utilities.cpp": [
+      "run_benchmark",
+      "main"
+    ],
+    "benchmark/qps_lock_free_queue.cpp": [
+      "main"
+    ],
+    "benchmark/qps_logger.cpp": [
+      "run_benchmark",
+      "main"
+    ],
+    "benchmark/qps_memory_pool.cpp": [
+      "main"
+    ],
+    "benchmark/qps_move_only_function.cpp": [
+      "main"
+    ],
+    "benchmark/qps_router.cpp": [
+      "RouterWithRoutes",
+      "RouterWithRoutes",
+      "main"
+    ],
+    "benchmark/qps_runner.hpp": [
+      "QpsSample",
+      "QpsLevel",
+      "default_qps_levels",
+      "percentile_index",
+      "add_latency_sample",
+      "print_qps_header",
+      "print_qps_row",
+      "print_qps_report"
+    ],
+    "benchmark/qps_ssl.cpp": [
+      "main"
+    ],
+    "benchmark/qps_tcp_server.cpp": [
+      "ServerFixture",
+      "~ServerFixture",
+      "ServerFixture",
+      "exchange_tcp_payload",
+      "main"
+    ],
+    "benchmark/qps_thread_pool.cpp": [
+      "bench_pool",
+      "main"
+    ],
+    "benchmark/qps_websocket.cpp": [
+      "main"
+    ],
+    "benchmark/tools/migrate_legacy_reports.py": [
+      "MigrationEntry",
+      "PublishedFile",
+      "parse_args",
+      "discover_targets",
+      "normalize_section_target",
+      "is_legacy_report_header",
+      "aggregate_entry",
+      "split_entries",
+      "discover_entries",
+      "resolve_safe_destination_dir",
+      "open_child_directory",
+      "open_safe_directory",
+      "open_safe_relative_directory",
+      "verify_relative_directory",
+      "unlink_owned_file",
+      "create_temporary_file",
+      "atomic_write",
+      "destination_conflicts",
+      "write_index",
+      "cleanup_published_files",
+      "close_published_files",
+      "main"
+    ],
+    "core/include/admin_bootstrap.h": [
+      "IDatabasePool",
+      "AdminBootstrapConfig"
+    ],
+    "core/include/api_datetime.h": [
+      "format_api_datetime"
+    ],
+    "core/include/auth_routes.h": [
+      "IDatabasePool",
+      "IAuthService",
+      "IHttpServer"
+    ],
+    "core/include/authorization.h": [
+      "has_capability"
+    ],
+    "core/include/email_validation.h": [
+      "is_valid_email"
+    ],
+    "core/include/file_routes.h": [
+      "IDatabasePool",
+      "IFileSystem",
+      "IHttpServer",
+      "ChunkLifecycleCoordinator"
+    ],
+    "core/include/main_functions.h": [
+      "ServerConfig"
+    ],
+    "core/include/password_validation.h": [
+      "is_valid_user_password"
+    ],
+    "core/include/pending_chunk_deletions.h": [],
+    "core/include/playlist_routes.h": [
+      "IDatabasePool",
+      "IHttpServer"
+    ],
+    "core/include/schema_migrations.h": [],
+    "core/include/stream_download_utils.h": [
+      "is_rfc5987_attr_char",
+      "hexadecimal_digit",
+      "sanitize_ascii_filename",
+      "encode_rfc5987_filename",
+      "build_attachment_content_disposition",
+      "read_stream_file",
+      "read_stream_range"
+    ],
+    "core/include/strict_json.h": [
+      "StrictJsonField",
+      "strict_json_integer_value",
+      "matches_strict_json_type",
+      "parse_strict_json_object",
+      "matches_strict_json_object",
+      "parse_strict_json_object"
+    ],
+    "core/include/upload_policy.h": [
+      "AudioSignaturePrefix",
+      "value",
+      "AudioSignaturePrefix",
+      "UploadValidationResult"
+    ],
+    "core/include/upload_setup.h": [
+      "IDatabasePool",
+      "IFileSystem",
+      "ChunkLifecycleCoordinator"
+    ],
+    "core/include/vip_admin_routes.h": [
+      "IDatabasePool"
+    ],
+    "core/pch.h": [],
+    "core/src/admin_bootstrap.cpp": [
+      "result",
+      "lookup_failure",
+      "validate_config",
+      "update_existing_admin",
+      "bootstrap_admin"
+    ],
+    "core/src/auth_routes.cpp": [
+      "auth_error",
+      "require_authenticated",
+      "parse_profile_id",
+      "set_auth_user_response",
+      "set_auth_user_response",
+      "make_response_user",
+      "handle_register",
+      "handle_login",
+      "handle_get_me",
+      "handle_get_user",
+      "handle_put_user",
+      "register_auth_routes"
+    ],
+    "core/src/auth_service.cpp": [
+      "to_hex",
+      "hmac_sha256",
+      "base64_encode",
+      "epoch_seconds",
+      "role_name",
+      "vip_status_name",
+      "api_datetime",
+      "make_authenticated_user_profile",
+      "generate_salt",
+      "hash_password",
+      "SimpleAuthService",
+      "validate_token",
+      "generate_token",
+      "authenticate",
+      "SimpleAuthService",
+      "create_auth_service",
+      "serialize_auth_user",
+      "serialize_auth_response",
+      "has_forbidden_registration_fields"
+    ],
+    "core/src/authorization.cpp": [
+      "is_effective_vip",
+      "effective_role",
+      "make_effective_identity",
+      "role_size_limit"
+    ],
+    "core/src/config.cpp": [
+      "parse_server_section",
+      "parse_database_section",
+      "parse_ssl_section",
+      "parse_fs_section",
+      "find_config_path",
+      "parse_cmd_args",
+      "parse_json_file",
+      "apply_env_overrides",
+      "load_config"
+    ],
+    "core/src/file_routes.cpp": [
+      "http_status_text",
+      "json_error",
+      "authenticated",
+      "decode",
+      "parse_nonnegative",
+      "FileQuery",
+      "parse_query",
+      "parse_id",
+      "file_json",
+      "handle_list_files",
+      "handle_get_file",
+      "handle_delete_file",
+      "register_file_routes"
+    ],
+    "core/src/main.cpp": [
+      "auth_error",
+      "check_auth",
+      "stem",
+      "register_routes",
+      "main"
+    ],
+    "core/src/pending_chunk_deletions.cpp": [
+      "process_one_deletion",
+      "run_pending_chunk_deletions",
+      "run_pending_chunk_deletions_guarded"
+    ],
+    "core/src/playlist_routes.cpp": [
+      "parse_playlist_json_object",
+      "json_error",
+      "invalid_time_error",
+      "set_json",
+      "require_authenticated",
+      "parse_id",
+      "mutation_error",
+      "playlist_json",
+      "item_json",
+      "parse_object",
+      "has_only_fields",
+      "handle_get_user_playlists",
+      "handle_create_playlist",
+      "handle_update_playlist",
+      "handle_delete_playlist",
+      "handle_get_playlist_items",
+      "handle_add_playlist_item",
+      "handle_remove_playlist_item",
+      "handle_reorder_playlist_items",
+      "register_playlist_routes"
+    ],
+    "core/src/schema_migrations.cpp": [
+      "schema_object_exists",
+      "fail_stage",
+      "execute_ddl",
+      "execute_backfill_transaction",
+      "run_schema_migrations"
+    ],
+    "core/src/upload_policy.cpp": [
+      "AudioType",
+      "lowercase_extension",
+      "status_text",
+      "reject_upload",
+      "starts_with",
+      "has_bytes_at",
+      "byte_at",
+      "read_le16",
+      "read_le32",
+      "read_be32",
+      "is_mpeg_frame_header_at",
+      "is_id3v2_header_followed_by_mpeg_frame",
+      "is_adts_header",
+      "is_asf_header",
+      "first_ogg_packet",
+      "is_vorbis_ogg_stream",
+      "is_opus_ogg_stream",
+      "RiffChunk",
+      "wav_riff_end",
+      "parse_riff_chunk",
+      "has_complete_riff_chunk",
+      "is_valid_wav_format_chunk",
+      "is_valid_wav_data_chunk",
+      "is_wav_header",
+      "is_flac_header",
+      "is_m4a_header",
+      "is_ape_header",
+      "matches_audio_signature",
+      "audio_content_type",
+      "validate_audio_signature",
+      "validate_audio_upload",
+      "make_upload_validation_response"
+    ],
+    "core/src/upload_setup.cpp": [
+      "make_upload_setup"
+    ],
+    "core/src/vip_admin_routes.cpp": [
+      "json_error",
+      "set_json_response",
+      "require_authenticated",
+      "require_admin",
+      "role_name",
+      "vip_status_name",
+      "optional_time_json",
+      "remaining_seconds",
+      "membership_json",
+      "admin_user_json",
+      "parse_duration",
+      "parse_positive_id",
+      "url_decode",
+      "AdminQuery",
+      "parse_nonnegative_integer",
+      "parse_admin_query",
+      "mutation_error",
+      "handle_get_vip_plans",
+      "handle_get_vip_membership",
+      "handle_activate_vip",
+      "handle_admin_list_users",
+      "handle_admin_grant_vip",
+      "handle_admin_revoke_vip",
+      "register_vip_routes",
+      "register_admin_routes"
+    ],
+    "core/xmake.lua": [],
+    "db/include/boost_mysql_connection.h": [
+      "BoostMySqlConnection",
+      "BoostMySqlConnection",
+      "connect",
+      "is_open",
+      "ping",
+      "query",
+      "execute",
+      "last_insert_id",
+      "close",
+      "BoostMySqlConnection"
+    ],
+    "db/include/chunk_lifecycle_coordinator.h": [
+      "acquire_upload_guard",
+      "acquire_cleanup_guard",
+      "active_uploads",
+      "cleanup_waiters",
+      "ChunkLifecycleCoordinator"
+    ],
+    "db/include/database_pool.h": [
+      "DatabasePool",
+      "DatabasePool",
+      "init",
+      "close",
+      "with_connection",
+      "get_user_result",
+      "create_user",
+      "update_user",
+      "username_exists",
+      "get_admin_user_result",
+      "get_user_by_username_result",
+      "get_user_by_email_result",
+      "create_admin_user",
+      "update_admin_credentials",
+      "grant_or_extend_vip",
+      "revoke_vip",
+      "list_admin_users",
+      "store_file_record",
+      "get_file_record",
+      "get_file_record_result",
+      "get_file_record_by_hash",
+      "search_files",
+      "search_files_ext",
+      "list_files",
+      "update_file_record",
+      "delete_file_owned",
+      "claim_pending_chunk_deletions",
+      "complete_pending_chunk_deletion",
+      "release_pending_chunk_deletion",
+      "has_chunk_references",
+      "cancel_pending_chunk_deletion",
+      "store_file_chunks",
+      "get_file_chunks",
+      "chunk_exists",
+      "get_auth_user_result",
+      "verify_password",
+      "list_music_library",
+      "get_music_meta",
+      "get_music_by_file_id",
+      "create_music_meta",
+      "update_music_meta",
+      "delete_music_meta",
+      "get_user_playlists",
+      "create_playlist",
+      "update_playlist",
+      "delete_playlist",
+      "get_playlist_items",
+      "add_playlist_item",
+      "remove_playlist_item",
+      "reorder_playlist_items",
+      "DatabasePool"
+    ],
+    "db/include/db_config.h": [
+      "DbConfig"
+    ],
+    "db/include/detail/mysql_field_to_string.h": [
+      "field_view"
+    ],
+    "db/include/iconnection.h": [
+      "QueryResult",
+      "~IConnection",
+      "connect",
+      "is_open",
+      "ping",
+      "query",
+      "execute",
+      "last_insert_id",
+      "close",
+      "IConnection"
+    ],
+    "db/include/idatabase_pool.h": [
+      "IConnection",
+      "~IDatabasePool",
+      "init",
+      "close",
+      "bind_chunk_lifecycle_coordinator",
+      "accepts_cleanup_permit",
+      "is_chunk_lifecycle_coordinator_bound_to",
+      "with_connection",
+      "get_user_result",
+      "get_user",
+      "create_user",
+      "update_user",
+      "username_exists",
+      "get_admin_user_result",
+      "get_user_by_username_result",
+      "get_user_by_email_result",
+      "create_admin_user",
+      "update_admin_credentials",
+      "grant_or_extend_vip",
+      "revoke_vip",
+      "list_admin_users",
+      "store_file_record",
+      "get_file_record",
+      "get_file_record_result",
+      "get_file_record_by_hash",
+      "search_files",
+      "search_files_ext",
+      "list_files",
+      "update_file_record",
+      "delete_file_owned",
+      "claim_pending_chunk_deletions",
+      "complete_pending_chunk_deletion",
+      "release_pending_chunk_deletion",
+      "has_chunk_references",
+      "cancel_pending_chunk_deletion",
+      "store_file_chunks",
+      "get_file_chunks",
+      "chunk_exists",
+      "get_auth_user_result",
+      "get_auth_user",
+      "verify_password",
+      "list_music_library",
+      "get_music_meta",
+      "get_music_by_file_id",
+      "create_music_meta",
+      "update_music_meta",
+      "delete_music_meta",
+      "get_user_playlists",
+      "create_playlist",
+      "update_playlist",
+      "delete_playlist",
+      "get_playlist_items",
+      "add_playlist_item",
+      "remove_playlist_item",
+      "reorder_playlist_items",
+      "IDatabasePool"
+    ],
+    "db/include/mock_connection.h": [
+      "connect",
+      "is_open",
+      "ping",
+      "query",
+      "execute",
+      "last_insert_id",
+      "close",
+      "MockConnection"
+    ],
+    "db/include/models.h": [
+      "User",
+      "has_valid_vip_expiry_state",
+      "AdminUserPage",
+      "EffectiveIdentity",
+      "AuthenticatedUserProfile",
+      "TokenValidationResult",
+      "FileRecord",
+      "FilePage",
+      "FileChunkRecord",
+      "FileDeletionPlan",
+      "PendingChunkDeletion",
+      "AuthUser",
+      "AuthenticationResult",
+      "MusicMeta",
+      "Playlist",
+      "PlaylistItem"
+    ],
+    "db/include/playlist_validation.h": [
+      "has_utf8_code_point_length",
+      "is_valid_playlist_text"
+    ],
+    "db/include/prepared_statement_guard.h": [],
+    "db/src/boost_mysql_connection.cpp": [
+      "parse_number",
+      "floor_div",
+      "to_microseconds",
+      "to_system_clock",
+      "format_utc",
+      "blob_to_string",
+      "time_to_string",
+      "mysql_field_to_string",
+      "Impl",
+      "connect",
+      "is_open",
+      "ping",
+      "query",
+      "execute",
+      "last_insert_id",
+      "close_socket",
+      "BoostMySqlConnection::Impl",
+      "BoostMySqlConnection",
+      "~BoostMySqlConnection",
+      "connect",
+      "is_open",
+      "ping",
+      "query",
+      "execute",
+      "last_insert_id",
+      "close",
+      "configure_mysql_utc_session",
+      "parse_mysql_utc_datetime",
+      "try_format_mysql_utc_datetime",
+      "format_mysql_utc_datetime",
+      "format_rfc3339_utc"
+    ],
+    "db/src/database_pool.cpp": [
+      "default_factory",
+      "build_placeholders",
+      "random_claim_token",
+      "DatabasePool",
+      "~DatabasePool",
+      "close",
+      "with_connection",
+      "init",
+      "do_close",
+      "get_connection",
+      "release_connection",
+      "to_role_int",
+      "to_user_role",
+      "escape_like_pattern",
+      "parse_user_result",
+      "parse_file_record_result",
+      "PlaylistOwnerRequest",
+      "lock_playlist_owner",
+      "LockedPlaylistItem",
+      "lock_playlist_items",
+      "parse_playlist_result",
+      "read_playlist",
+      "FileDeletionRequest",
+      "FileDeletionState",
+      "ChunkReferenceRequest",
+      "read_file_deletion_preview",
+      "lock_preview_music",
+      "lock_file_for_deletion",
+      "read_file_chunk_hashes",
+      "check_chunk_is_unshared",
+      "find_unshared_file_chunks",
+      "delete_file_and_queue_chunks",
+      "delete_unused_music_meta",
+      "lookup_user",
+      "get_user_result",
+      "create_user",
+      "get_admin_user_result",
+      "get_user_by_username_result",
+      "get_user_by_email_result",
+      "create_admin_user",
+      "update_admin_credentials",
+      "grant_or_extend_vip",
+      "revoke_vip",
+      "list_admin_users",
+      "store_file_record",
+      "get_file_record",
+      "get_file_record_result",
+      "get_file_record_by_hash",
+      "search_files",
+      "store_file_chunks",
+      "get_file_chunks",
+      "chunk_exists",
+      "get_auth_user_result",
+      "verify_password",
+      "update_user",
+      "username_exists",
+      "search_files_ext",
+      "list_files",
+      "delete_file_owned",
+      "claim_pending_chunk_deletions",
+      "complete_pending_chunk_deletion",
+      "release_pending_chunk_deletion",
+      "has_chunk_references",
+      "cancel_pending_chunk_deletion",
+      "update_file_record",
+      "list_music_library",
+      "get_music_meta",
+      "get_music_by_file_id",
+      "create_music_meta",
+      "update_music_meta",
+      "delete_music_meta",
+      "get_user_playlists",
+      "create_playlist",
+      "update_playlist",
+      "delete_playlist",
+      "get_playlist_items",
+      "add_playlist_item",
+      "remove_playlist_item",
+      "reorder_playlist_items"
+    ],
+    "db/xmake.lua": [],
+    "deploy/nginx-main.conf": [],
+    "deploy/nginx.conf": [],
+    "file-system/include/file_system.h": [
+      "split_file",
+      "compute_file_hash",
+      "compute_chunk_hash",
+      "store_file",
+      "delete_file",
+      "delete_file_status",
+      "read_file",
+      "sha256_hex",
+      "FileSystem"
+    ],
+    "file-system/include/i_file_system.h": [
+      "FileChunk",
+      "~IFileSystem",
+      "split_file",
+      "compute_file_hash",
+      "compute_chunk_hash",
+      "store_file",
+      "delete_file",
+      "delete_file_status",
+      "read_file",
+      "IFileSystem"
+    ],
+    "file-system/src/file_system.cpp": [
+      "FileSystem",
+      "to_hex",
+      "sha256_hex",
+      "resolve_path",
+      "split_file",
+      "compute_file_hash",
+      "compute_chunk_hash",
+      "store_file",
+      "delete_file",
+      "delete_file_status",
+      "read_file"
+    ],
+    "file-system/xmake.lua": [],
+    "frontend/playwright.config.ts": [],
+    "frontend/public/covers/crystal-cover-01.webp": [],
+    "frontend/public/covers/crystal-cover-02.webp": [],
+    "frontend/public/covers/crystal-cover-03.webp": [],
+    "frontend/public/covers/crystal-cover-04.webp": [],
+    "frontend/src/api/admin.ts": [
+      "getAdminUsers",
+      "grantUserVip",
+      "revokeUserVip"
+    ],
+    "frontend/src/api/auth.ts": [
+      "login",
+      "register",
+      "logout",
+      "getMe"
+    ],
+    "frontend/src/api/client.ts": [
+      "API_BASE",
+      "ApiError",
+      "markSessionChanged",
+      "getSessionRevision",
+      "captureSessionSnapshot",
+      "isSessionSnapshotCurrent",
+      "injectToast",
+      "injectUnauthorizedHandler",
+      "handleUnauthorized",
+      "parseApiErrorDetails",
+      "request"
+    ],
+    "frontend/src/api/files.ts": [
+      "getFiles",
+      "getFile",
+      "getFileDownloadUrl",
+      "getFileStreamUrl",
+      "uploadFile",
+      "deleteFile",
+      "searchFiles"
+    ],
+    "frontend/src/api/music.ts": [
+      "getLibrary",
+      "getMusicDetail",
+      "getUserPlaylists",
+      "createPlaylist",
+      "renamePlaylist",
+      "deletePlaylist",
+      "getPlaylistItems",
+      "addToPlaylist",
+      "removeFromPlaylist",
+      "reorderPlaylist"
+    ],
+    "frontend/src/api/users.ts": [
+      "getUser",
+      "updateUser"
+    ],
+    "frontend/src/api/vip.ts": [
+      "getVipPlans",
+      "getVipMembership",
+      "activateVipMembership"
+    ],
+    "frontend/src/App.tsx": [
+      "App"
+    ],
+    "frontend/src/components/AudioPlayer.tsx": [
+      "AudioPlayer"
+    ],
+    "frontend/src/components/FileCard.tsx": [
+      "FileCard"
+    ],
+    "frontend/src/components/GuestLayout.tsx": [
+      "GuestLayout"
+    ],
+    "frontend/src/components/Header.tsx": [
+      "Header"
+    ],
+    "frontend/src/components/Layout.tsx": [
+      "AppLayout"
+    ],
+    "frontend/src/components/MusicCard.tsx": [
+      "MusicCard"
+    ],
+    "frontend/src/components/Pagination.tsx": [
+      "Pagination"
+    ],
+    "frontend/src/components/ProtectedRoute.tsx": [
+      "ProtectedRoute"
+    ],
+    "frontend/src/components/RoleUsersRedirect.tsx": [
+      "RoleUsersRedirect"
+    ],
+    "frontend/src/components/Sidebar.tsx": [
+      "Sidebar"
+    ],
+    "frontend/src/components/ThemeToggle.tsx": [
+      "ThemeToggle"
+    ],
+    "frontend/src/components/Toast.tsx": [
+      "Toast"
+    ],
+    "frontend/src/lib/coverPlaceholder.ts": [
+      "getCoverPlaceholder"
+    ],
+    "frontend/src/lib/uploadPolicy.ts": [
+      "NORMAL_UPLOAD_LIMIT",
+      "VIP_UPLOAD_LIMIT",
+      "AUDIO_EXTENSIONS",
+      "AUDIO_ACCEPT",
+      "getAudioExtension",
+      "getUploadLimit",
+      "getContentType",
+      "validateUploadFile",
+      "formatFileSize"
+    ],
+    "frontend/src/main.tsx": [],
+    "frontend/src/pages/AdminUsersPage.tsx": [
+      "AdminUsersPage"
+    ],
+    "frontend/src/pages/FileDetailPage.tsx": [
+      "FileDetailPage"
+    ],
+    "frontend/src/pages/FileListPage.tsx": [
+      "FileListPage"
+    ],
+    "frontend/src/pages/LoginPage.tsx": [
+      "LoginPage"
+    ],
+    "frontend/src/pages/MusicLibraryPage.tsx": [
+      "MusicLibraryPage"
+    ],
+    "frontend/src/pages/PlayerPage.tsx": [
+      "PlayerPage"
+    ],
+    "frontend/src/pages/ProfilePage.tsx": [
+      "ProfilePage"
+    ],
+    "frontend/src/pages/RegisterPage.tsx": [
+      "RegisterPage"
+    ],
+    "frontend/src/pages/UploadPage.tsx": [
+      "UploadPage"
+    ],
+    "frontend/src/pages/UserManagePage.tsx": [
+      "UserManagePage"
+    ],
+    "frontend/src/pages/UserPlaylistPage.tsx": [
+      "UserPlaylistPage"
+    ],
+    "frontend/src/pages/VipCenterPage.tsx": [
+      "VipCenterPage"
+    ],
+    "frontend/src/router.tsx": [
+      "router"
+    ],
+    "frontend/src/session/clearUserSession.ts": [
+      "clearUserSession"
+    ],
+    "frontend/src/session/createUnauthorizedHandler.ts": [
+      "createUnauthorizedHandler"
+    ],
+    "frontend/src/stores/auth.ts": [
+      "useAuthStore",
+      "injectSessionClearer",
+      "clearAuthSession"
+    ],
+    "frontend/src/stores/music.ts": [
+      "useMusicStore"
+    ],
+    "frontend/src/stores/player.ts": [
+      "capturePlayerGeneration",
+      "isPlayerGenerationCurrent",
+      "capturePlayerStateRevision",
+      "usePlayerStore"
+    ],
+    "frontend/src/stores/toast.ts": [
+      "useToastStore"
+    ],
+    "frontend/src/types/api.ts": [
+      "AuthUser",
+      "FileRecord",
+      "MusicMeta",
+      "Playlist",
+      "PlaylistItem",
+      "PaginatedResponse",
+      "UserRole",
+      "UserRoleValue",
+      "VipStatus",
+      "Capability",
+      "VipPlan",
+      "VipMembership",
+      "AdminUserSummary"
+    ],
+    "frontend/src/types/models.ts": [
+      "normalizeUserRole"
+    ],
+    "frontend/tests/api/admin.test.ts": [],
+    "frontend/tests/api/auth.test.ts": [],
+    "frontend/tests/api/client.test.ts": [],
+    "frontend/tests/api/files.test.ts": [],
+    "frontend/tests/api/music.test.ts": [],
+    "frontend/tests/api/vip.test.ts": [],
+    "frontend/tests/components/AudioPlayer.test.tsx": [],
+    "frontend/tests/components/ContentControls.test.tsx": [],
+    "frontend/tests/components/GuestLayout.test.tsx": [],
+    "frontend/tests/components/Layout.test.tsx": [],
+    "frontend/tests/components/MusicCard.test.tsx": [],
+    "frontend/tests/components/ProtectedRoute.test.tsx": [],
+    "frontend/tests/components/RoleUsersRedirect.test.tsx": [],
+    "frontend/tests/components/Sidebar.test.tsx": [],
+    "frontend/tests/components/ThemeToggle.test.tsx": [],
+    "frontend/tests/components/Toast.test.tsx": [],
+    "frontend/tests/e2e/deployment.spec.ts": [],
+    "frontend/tests/e2e/user-governance.spec.ts": [],
+    "frontend/tests/e2e/visual.spec.ts": [],
+    "frontend/tests/lib/coverPlaceholder.test.ts": [],
+    "frontend/tests/lib/uploadPolicy.test.ts": [],
+    "frontend/tests/pages/AdminUsersPage.test.tsx": [],
+    "frontend/tests/pages/FileDetailPage.test.tsx": [],
+    "frontend/tests/pages/FileListPage.test.tsx": [],
+    "frontend/tests/pages/login.test.tsx": [],
+    "frontend/tests/pages/MusicLibraryPage.test.tsx": [],
+    "frontend/tests/pages/PlayerPage.test.tsx": [],
+    "frontend/tests/pages/ProfilePage.test.tsx": [],
+    "frontend/tests/pages/RegisterPage.test.tsx": [],
+    "frontend/tests/pages/UploadPage.test.tsx": [],
+    "frontend/tests/pages/UserPlaylistPage.test.tsx": [],
+    "frontend/tests/pages/VipCenterPage.test.tsx": [],
+    "frontend/tests/session/clearUserSession.test.ts": [],
+    "frontend/tests/setup.ts": [],
+    "frontend/tests/stores/auth.test.ts": [],
+    "frontend/tests/stores/music.test.ts": [],
+    "frontend/tests/stores/player.test.ts": [],
+    "frontend/tests/styles/designTokens.test.ts": [],
+    "frontend/vite.config.ts": [],
+    "logger/include/logappender.h": [
+      "~LogAppender",
+      "log",
+      "setFormatter",
+      "getFormatter",
+      "LogAppender",
+      "log",
+      "StdoutLogAppender",
+      "log",
+      "reopen",
+      "set_auto_flush",
+      "auto_flush",
+      "FileLogAppender"
+    ],
+    "logger/include/logformatter.h": [
+      "format",
+      "LogFormatter"
+    ],
+    "logger/include/logger.h": [
+      "LogAppender",
+      "getLine",
+      "get_thread_id",
+      "getElapse",
+      "getTime",
+      "get_coroutine_id",
+      "LogEvent",
+      "log",
+      "createEvent",
+      "allocCoroutineId",
+      "setCurrentCoroutineId",
+      "getCurrentCoroutineId",
+      "debug",
+      "info",
+      "warn",
+      "error",
+      "fatal",
+      "addAppender",
+      "delAppender",
+      "getLevel",
+      "setLevel",
+      "init",
+      "shutdown",
+      "_debug",
+      "_info",
+      "_warn",
+      "_error",
+      "_fatal",
+      "Logger"
+    ],
+    "logger/src/logappender.cpp": [
+      "FileLogAppender",
+      "reopen",
+      "log",
+      "log"
+    ],
+    "logger/src/logformatter.cpp": [
+      "LogFormatter",
+      "format",
+      "init",
+      "MessageFormatItem::format",
+      "LevelFormatItem::format",
+      "ElapseFormatItem::format",
+      "NameFormatItem::format",
+      "ThreadIdFormatItem::format",
+      "CoroutineIdFormatItem::format",
+      "DateTimeFormatItem::DateTimeFormatItem",
+      "DateTimeFormatItem::format",
+      "NewLineFormatItem::format",
+      "StringFormatItem::format",
+      "LineFormatItem::format",
+      "FileNameFormatItem::format",
+      "PatternErrorFormatItem::format"
+    ],
+    "logger/src/logger.cpp": [
+      "LogEvent",
+      "Logger",
+      "createEvent",
+      "allocCoroutineId",
+      "setCurrentCoroutineId",
+      "getCurrentCoroutineId",
+      "CoroutineScope::CoroutineScope",
+      "CoroutineScope::~CoroutineScope",
+      "log",
+      "debug",
+      "info",
+      "warn",
+      "error",
+      "fatal",
+      "addAppender",
+      "delAppender",
+      "init",
+      "shutdown"
+    ],
+    "logger/xmake.lua": [],
+    "memory-pool/include/memory_pool_base.h": [],
+    "memory-pool/include/memory_pool_factory.h": [
+      "TieredMemoryPoolDeleter",
+      "CreateMemoryPool"
+    ],
+    "memory-pool/include/size_class.h": [
+      "round_up_size",
+      "size_class_index",
+      "size_class_size"
+    ],
+    "memory-pool/include/tiered_memory_pool.h": [
+      "TieredMemoryPool",
+      "TieredMemoryPool",
+      "deallocate_impl",
+      "TieredMemoryPool"
+    ],
+    "memory-pool/src/tiered_memory_pool.cpp": [
+      "~TieredMemoryPool",
+      "ensure_registered",
+      "deallocate_impl",
+      "central_allocate_batch",
+      "return_batch_to_central",
+      "try_merge_and_promote",
+      "try_merge_in_list",
+      "try_merge_central",
+      "page_index_of"
+    ],
+    "memory-pool/xmake.lua": [],
+    "net/coroutine/coroitem.hpp": [],
+    "net/file-receive-process/main.cpp": [
+      "ClientContext",
+      "handle_client",
+      "parse_args",
+      "main"
+    ],
+    "net/file-receive-process/xmake.lua": [],
+    "net/file-send-process/main.cpp": [
+      "SendTask",
+      "send_all",
+      "send_chunk",
+      "main"
+    ],
+    "net/file-send-process/xmake.lua": [],
+    "net/file-transfer/include/chunk_header.h": [
+      "to_network",
+      "from_network",
+      "ChunkHeader"
+    ],
+    "net/file-transfer/include/file_transfer.h": [
+      "IFileSystem",
+      "transfer_small",
+      "transfer_large",
+      "receive_file",
+      "FileTransfer"
+    ],
+    "net/file-transfer/include/i_file_transfer.h": [
+      "ITcpClient",
+      "ITcpServer",
+      "~IFileTransfer",
+      "transfer_small",
+      "transfer_large",
+      "receive_file",
+      "IFileTransfer"
+    ],
+    "net/file-transfer/src/chunk_header.cpp": [
+      "to_network",
+      "from_network"
+    ],
+    "net/file-transfer/src/file_transfer.cpp": [
+      "FileTransfer",
+      "transfer_small",
+      "transfer_large",
+      "setup_listen_socket",
+      "accept_and_receive_chunk",
+      "receive_file"
+    ],
+    "net/file-transfer/xmake.lua": [],
+    "net/http/include/auth_middleware.h": [
+      "apply",
+      "AuthMiddleware"
+    ],
+    "net/http/include/auth_service.h": [
+      "IDatabasePool",
+      "~IAuthService",
+      "validate_token",
+      "generate_token",
+      "authenticate",
+      "IAuthService"
+    ],
+    "net/http/include/case_insensitive.h": [
+      "operator()",
+      "CaseInsensitiveHash",
+      "operator()",
+      "CaseInsensitiveEq"
+    ],
+    "net/http/include/http_parser.h": [
+      "ParserResult",
+      "feed",
+      "state",
+      "error",
+      "set_streaming_mode",
+      "streaming_mode",
+      "set_chunk_handler",
+      "set_stream_chunk_size",
+      "set_body_done_callback",
+      "set_headers_done_callback",
+      "reset",
+      "HttpParser"
+    ],
+    "net/http/include/http_request.h": [
+      "clear",
+      "HttpRequest"
+    ],
+    "net/http/include/http_response.h": [
+      "set_status",
+      "set_header",
+      "set_content_type",
+      "set_content_length",
+      "serialize",
+      "clear",
+      "HttpResponse"
+    ],
+    "net/http/include/http_server.h": [
+      "WsConnection",
+      "UploadStreamContext",
+      "UploadStreamContext",
+      "reset_hash_context",
+      "set_initial_chunk_probe",
+      "UploadStreamContext",
+      "HttpServer",
+      "init",
+      "start",
+      "stop",
+      "get",
+      "post",
+      "put",
+      "del",
+      "ws",
+      "upload",
+      "set_auth_service",
+      "actual_port",
+      "HttpServer"
+    ],
+    "net/http/include/i_http_server.h": [
+      "WsConnection",
+      "~IHttpServer",
+      "init",
+      "start",
+      "stop",
+      "get",
+      "post",
+      "put",
+      "del",
+      "ws",
+      "actual_port",
+      "IHttpServer"
+    ],
+    "net/http/include/i_router.h": [
+      "~IRouter",
+      "add",
+      "match",
+      "path_exists",
+      "IRouter"
+    ],
+    "net/http/include/range_parser.h": [
+      "RangeInterval",
+      "RangeRequest",
+      "generate_boundary"
+    ],
+    "net/http/include/router.h": [
+      "Router",
+      "add",
+      "match",
+      "path_exists",
+      "Router"
+    ],
+    "net/http/include/url_decode.h": [],
+    "net/http/src/http_parser.cpp": [
+      "HttpParser",
+      "reset",
+      "reset_line_buf",
+      "feed",
+      "feed_request_line",
+      "handle_end_of_headers",
+      "parse_header_line",
+      "feed_headers",
+      "flush_chunk_buf",
+      "finish_body",
+      "append_body_byte",
+      "feed_body_identity",
+      "feed_chunk_size",
+      "feed_chunk_data",
+      "feed_chunk_trailer"
+    ],
+    "net/http/src/http_request.cpp": [
+      "http_method_to_string",
+      "string_to_http_method",
+      "clear"
+    ],
+    "net/http/src/http_response.cpp": [
+      "set_status",
+      "set_header",
+      "set_content_type",
+      "set_content_length",
+      "serialize",
+      "clear"
+    ],
+    "net/http/src/http_server.cpp": [
+      "upload_auth_error",
+      "add_cors_headers",
+      "trim",
+      "ascii_iequals",
+      "hex_value",
+      "valid_utf8",
+      "safe_file_name",
+      "decode_extended_filename",
+      "FilenameCandidates",
+      "split_disposition_parameters",
+      "decode_parameter_value",
+      "parse_filename_candidates",
+      "enable_discard_mode",
+      "append_response",
+      "parse_upload_metadata",
+      "initialize_upload_hash",
+      "process_upload_data",
+      "finish_initial_chunk_probe",
+      "process_upload_chunk",
+      "finish_upload_stream",
+      "enable_upload_streaming",
+      "~UploadStreamContext",
+      "reset_hash_context",
+      "set_initial_chunk_probe",
+      "parse_content_disposition_filename",
+      "HttpServer",
+      "~HttpServer",
+      "init",
+      "start",
+      "stop",
+      "get",
+      "post",
+      "put",
+      "del",
+      "ws",
+      "upload",
+      "cleanup_connection",
+      "get_conn_mutex",
+      "try_handle_ws_upgrade",
+      "on_headers_done",
+      "handle_connection",
+      "send_error"
+    ],
+    "net/http/src/range_parser.cpp": [
+      "consume_prefix",
+      "skip_spaces",
+      "parse_number",
+      "try_parse_suffix",
+      "try_parse_byte_range",
+      "parse_range_header",
+      "build_206_headers",
+      "build_416_response"
+    ],
+    "net/http/src/router.cpp": [
+      "Router",
+      "~Router",
+      "split_path",
+      "add",
+      "insert",
+      "match",
+      "search",
+      "path_exists"
+    ],
+    "net/http/src/url_decode.cpp": [
+      "hex_value",
+      "url_decode"
+    ],
+    "net/http/xmake.lua": [],
+    "net/ssl/include/ssl_context.h": [
+      "ssl_st",
+      "ssl_ctx_st",
+      "SslConfig",
+      "SslContext",
+      "SslContext",
+      "accept",
+      "shutdown_and_free",
+      "want_read",
+      "want_write",
+      "read",
+      "write",
+      "SslContext"
+    ],
+    "net/ssl/src/ssl_context.cpp": [
+      "ensure_openssl",
+      "SslContext",
+      "~SslContext",
+      "accept",
+      "shutdown_and_free",
+      "want_read",
+      "want_write",
+      "read",
+      "write"
+    ],
+    "net/ssl/xmake.lua": [],
+    "net/tcp/tcp_client/include/i_tcp_client.h": [
+      "~ITcpClient",
+      "connect_to_server",
+      "disconnect",
+      "send_message",
+      "receive_message",
+      "is_connected",
+      "ITcpClient"
+    ],
+    "net/tcp/tcp_client/include/tcp_client.h": [
+      "TcpClient",
+      "connect_to_server",
+      "disconnect",
+      "send_message",
+      "receive_message",
+      "send_file",
+      "send_file",
+      "is_connected",
+      "TcpClient"
+    ],
+    "net/tcp/tcp_client/src/tcp_client.cpp": [
+      "TcpClient",
+      "TcpClient",
+      "~TcpClient",
+      "TcpClient",
+      "send_all",
+      "wait_connected",
+      "wait_readable",
+      "connect_to_server",
+      "disconnect",
+      "send_message",
+      "receive_message",
+      "recv_into_buffer",
+      "read_line",
+      "read_raw",
+      "send_file",
+      "send_file"
+    ],
+    "net/tcp/tcp_client/xmake.lua": [],
+    "net/tcp/tcp_server/include/connection.h": [
+      "ssl_st",
+      "ReadAwaiter",
+      "WriteAwaiter",
+      "Connection",
+      "fd",
+      "client_ip",
+      "client_port",
+      "read_from_fd",
+      "write_to_fd",
+      "write_to_fd_locked",
+      "close",
+      "consume_read_buffer",
+      "consume_read_buffer_locked",
+      "state",
+      "last_active",
+      "update_active",
+      "set_ssl",
+      "ssl_state",
+      "set_ssl_state",
+      "await_read",
+      "await_write",
+      "Connection",
+      "await_ready",
+      "await_suspend",
+      "await_resume",
+      "ReadAwaiter",
+      "await_ready",
+      "await_suspend",
+      "await_resume",
+      "WriteAwaiter"
+    ],
+    "net/tcp/tcp_server/include/i_tcp_server.h": [
+      "~ITcpServer",
+      "init",
+      "start",
+      "stop",
+      "set_handler",
+      "actual_port",
+      "ITcpServer"
+    ],
+    "net/tcp/tcp_server/include/tcp_server.h": [
+      "TcpServer",
+      "TcpServer",
+      "init",
+      "start",
+      "stop",
+      "set_handler",
+      "set_close_handler",
+      "actual_port",
+      "is_running",
+      "connection_count",
+      "notify_wake",
+      "TcpServer"
+    ],
+    "net/tcp/tcp_server/src/connection.cpp": [
+      "Connection",
+      "~Connection",
+      "client_ip",
+      "client_port",
+      "read_from_fd",
+      "ssl_read_from_fd",
+      "plain_read_from_fd",
+      "ssl_write_to_fd_locked",
+      "plain_write_to_fd_locked",
+      "write_to_fd",
+      "write_to_fd_locked",
+      "close",
+      "consume_read_buffer",
+      "consume_read_buffer_locked",
+      "await_read",
+      "await_write",
+      "await_suspend",
+      "await_suspend"
+    ],
+    "net/tcp/tcp_server/src/tcp_server.cpp": [
+      "EpollFd",
+      "EpollEvents",
+      "epoll_ctl_add",
+      "epoll_ctl_mod",
+      "signal_handler",
+      "TcpServer",
+      "~TcpServer",
+      "init",
+      "set_handler",
+      "start",
+      "stop",
+      "event_loop",
+      "cleanup_resources",
+      "handle_event",
+      "handle_accept",
+      "handle_read",
+      "handle_write",
+      "try_ssl_detection",
+      "try_ssl_handshake",
+      "handle_client_event",
+      "handle_ssl_handshake",
+      "close_connection",
+      "notify_wake",
+      "process_dirty_connections"
+    ],
+    "net/tcp/tcp_server/xmake.lua": [],
+    "net/thread-pool/include/lock_free_queue.hpp": [],
+    "net/thread-pool/include/locked_thread_pool.h": [
+      "LockedThreadPool",
+      "wait_impl",
+      "stop_impl",
+      "wait_for",
+      "LockedThreadPool"
+    ],
+    "net/thread-pool/include/move_only_function.h": [
+      "MoveOnlyFunction",
+      "~MoveOnlyFunction",
+      "MoveOnlyFunction",
+      "MoveOnlyFunction",
+      "operator()",
+      "reset",
+      "MoveOnlyFunction"
+    ],
+    "net/thread-pool/include/thread_pool_base.h": [],
+    "net/thread-pool/include/thread_pool.h": [
+      "wait_impl",
+      "stop_impl",
+      "LockFreeThreadPool"
+    ],
+    "net/thread-pool/src/locked_thread_pool.cpp": [
+      "LockedThreadPool",
+      "~LockedThreadPool",
+      "worker",
+      "wait_impl",
+      "wait_for",
+      "stop_impl"
+    ],
+    "net/thread-pool/src/thread_pool.cpp": [
+      "LockFreeThreadPool",
+      "~LockFreeThreadPool",
+      "stop_impl",
+      "worker",
+      "wait_impl",
+      "finish_enqueue"
+    ],
+    "net/thread-pool/xmake.lua": [],
+    "net/websocket/include/websocket.h": [
+      "WsFrame"
+    ],
+    "net/websocket/include/ws_connection.h": [
+      "send",
+      "close",
+      "set_message_handler",
+      "set_close_handler",
+      "start_event_loop",
+      "WsConnection"
+    ],
+    "net/websocket/src/websocket.cpp": [
+      "base64_encode",
+      "ws_server_handshake",
+      "ws_encode_frame",
+      "ws_decode_frame",
+      "ws_close_code"
+    ],
+    "net/websocket/src/ws_connection.cpp": [
+      "WsConnection",
+      "send",
+      "close",
+      "calc_frame_size",
+      "handle_frame",
+      "start_event_loop",
+      "do_send"
+    ],
+    "net/websocket/xmake.lua": [],
+    "net/xmake.lua": [],
+    "tests/.clang-tidy": [],
+    "tests/fixtures/fail_socket.c": [
+      "socket"
+    ],
+    "tests/test_admin_bootstrap.cpp": [
+      "ScopedEnvironment",
+      "~ScopedEnvironment",
+      "ScopedEnvironment",
+      "ScopedEnvironment",
+      "TempConfigFile",
+      "~TempConfigFile",
+      "TempConfigFile",
+      "TempConfigFile",
+      "AdminDatabase",
+      "make_user",
+      "user_row",
+      "AdminDatabase",
+      "enabled_config",
+      "expect_detail",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "main"
+    ],
+    "tests/test_auth_service.cpp": [
+      "to_hex",
+      "hmac_sha256",
+      "base64_encode",
+      "make_token",
+      "make_user",
+      "init",
+      "close",
+      "get_user_result",
+      "get_user",
+      "create_user",
+      "update_user",
+      "username_exists",
+      "store_file_record",
+      "get_file_record",
+      "get_file_record_result",
+      "get_file_record_by_hash",
+      "search_files",
+      "search_files_ext",
+      "update_file_record",
+      "store_file_chunks",
+      "get_file_chunks",
+      "chunk_exists",
+      "get_auth_user_result",
+      "get_auth_user",
+      "verify_password",
+      "list_music_library",
+      "get_music_meta",
+      "get_music_by_file_id",
+      "create_music_meta",
+      "update_music_meta",
+      "delete_music_meta",
+      "get_user_playlists",
+      "create_playlist",
+      "update_playlist",
+      "delete_playlist",
+      "get_playlist_items",
+      "add_playlist_item",
+      "remove_playlist_item",
+      "reorder_playlist_items",
+      "MockDatabasePool",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "main"
+    ],
+    "tests/test_authorization.cpp": [
+      "make_user",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "main"
+    ],
+    "tests/test_boost_mysql_connection.cpp": [
+      "append_uint16",
+      "append_uint24",
+      "append_uint32",
+      "append_bytes",
+      "make_server_greeting",
+      "read_client_capabilities",
+      "TEST",
+      "connect",
+      "is_open",
+      "ping",
+      "query",
+      "execute",
+      "close",
+      "SessionConnection",
+      "PreparedStatementHandle",
+      "close_statement",
+      "PreparedStatementConnection",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "main"
+    ],
+    "tests/test_config.cpp": [
+      "ScopedEnvironment",
+      "~ScopedEnvironment",
+      "ScopedEnvironment",
+      "ScopedEnvironment",
+      "TempConfigFile",
+      "~TempConfigFile",
+      "TempConfigFile",
+      "TempConfigFile",
+      "load_test_config",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "main"
+    ],
+    "tests/test_coroutine_extreme.cpp": [
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "main"
+    ],
+    "tests/test_coroutine.cpp": [
+      "main",
+      "TEST",
+      "TEST",
+      "zero_addr",
+      "read_coro",
+      "write_coro",
+      "TEST",
+      "TEST",
+      "TEST"
+    ],
+    "tests/test_database_pool_stress.cpp": [
+      "MockPool",
+      "MockPool",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "main"
+    ],
+    "tests/test_database_pool.cpp": [
+      "MockPool",
+      "MockPool",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "main"
+    ],
+    "tests/test_file_system_stress.cpp": [
+      "TempDir",
+      "~TempDir",
+      "TempDir",
+      "file_path",
+      "write_file",
+      "TempDir",
+      "make_string",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "main"
+    ],
+    "tests/test_file_system.cpp": [
+      "TempDir",
+      "~TempDir",
+      "TempDir",
+      "file_path",
+      "write_file",
+      "TempDir",
+      "main",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST"
+    ],
+    "tests/test_file_transfer_stress.cpp": [
+      "htonll",
+      "ntohll",
+      "TempDir",
+      "~TempDir",
+      "TempDir",
+      "file_path",
+      "write_file",
+      "TempDir",
+      "create_listener",
+      "simple_echo_server",
+      "recv_all",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "main"
+    ],
+    "tests/test_file_transfer.cpp": [
+      "create_echo_server",
+      "get_port",
+      "run_echo_server",
+      "recv_all",
+      "TempDir",
+      "~TempDir",
+      "TempDir",
+      "file_path",
+      "write_file",
+      "TempDir",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "main"
+    ],
+    "tests/test_http_parser_extreme.cpp": [
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "main"
+    ],
+    "tests/test_http_parser.cpp": [
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "main"
+    ],
+    "tests/test_http_request.cpp": [
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "main"
+    ],
+    "tests/test_http_response.cpp": [
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "main"
+    ],
+    "tests/test_http_server_stress.cpp": [
+      "send_raw",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "main"
+    ],
+    "tests/test_http_server.cpp": [
+      "validate_token",
+      "generate_token",
+      "authenticate",
+      "MockAuthService",
+      "main",
+      "split_file",
+      "compute_file_hash",
+      "compute_chunk_hash",
+      "store_file",
+      "delete_file",
+      "read_file",
+      "UploadSetupFileSystem",
+      "TEST",
+      "TEST",
+      "wait_for_cleanup_waiter",
+      "TEST",
+      "valid_mp3_payload",
+      "upload_request",
+      "wait_for_no_active_uploads",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "send_raw",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST"
+    ],
+    "tests/test_lock_free_queue.cpp": [
+      "main",
+      "TEST",
+      "TEST",
+      "TEST"
+    ],
+    "tests/test_locked_thread_pool.cpp": [
+      "main",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST"
+    ],
+    "tests/test_logger.cpp": [
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "main"
+    ],
+    "tests/test_memory_pool_extreme.cpp": [
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "main"
+    ],
+    "tests/test_memory_pool.cpp": [
+      "main",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST"
+    ],
+    "tests/test_move_only_function.cpp": [
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "main"
+    ],
+    "tests/test_mysql_field_to_string.cpp": [
+      "TEST",
+      "main"
+    ],
+    "tests/test_pending_chunk_deletions.cpp": [
+      "init",
+      "close",
+      "get_user_result",
+      "create_user",
+      "update_user",
+      "username_exists",
+      "store_file_record",
+      "get_file_record",
+      "get_file_record_result",
+      "get_file_record_by_hash",
+      "search_files",
+      "search_files_ext",
+      "update_file_record",
+      "store_file_chunks",
+      "get_file_chunks",
+      "chunk_exists",
+      "get_auth_user_result",
+      "verify_password",
+      "list_music_library",
+      "get_music_meta",
+      "get_music_by_file_id",
+      "create_music_meta",
+      "update_music_meta",
+      "delete_music_meta",
+      "get_user_playlists",
+      "create_playlist",
+      "update_playlist",
+      "delete_playlist",
+      "get_playlist_items",
+      "add_playlist_item",
+      "remove_playlist_item",
+      "reorder_playlist_items",
+      "claim_pending_chunk_deletions",
+      "complete_pending_chunk_deletion",
+      "release_pending_chunk_deletion",
+      "has_chunk_references",
+      "cancel_pending_chunk_deletion",
+      "StubPendingDatabase",
+      "split_file",
+      "compute_file_hash",
+      "compute_chunk_hash",
+      "store_file",
+      "delete_file",
+      "read_file",
+      "delete_file_status",
+      "paths_empty",
+      "StatusFileSystem",
+      "with_connection",
+      "ObservedDatabasePool",
+      "pending",
+      "wait_for_cleanup_waiter",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "main"
+    ],
+    "tests/test_qps_runner.cpp": [
+      "ScopedQpsProfile",
+      "~ScopedQpsProfile",
+      "ScopedQpsProfile",
+      "ScopedQpsProfile",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "main"
+    ],
+    "tests/test_range_parser_extreme.cpp": [
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "main"
+    ],
+    "tests/test_range_parser.cpp": [
+      "main",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST"
+    ],
+    "tests/test_router.cpp": [
+      "main",
+      "make_handler",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST"
+    ],
+    "tests/test_schema_migrations.cpp": [
+      "MigrationDatabase",
+      "presence",
+      "MigrationDatabase",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "main"
+    ],
+    "tests/test_ssl_extreme.cpp": [
+      "cert_path",
+      "file_exists",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "main"
+    ],
+    "tests/test_ssl.cpp": [
+      "cert_path",
+      "ensure_certs",
+      "connect_to",
+      "read",
+      "write",
+      "~SslClient",
+      "SslClient",
+      "raw_connect",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "main"
+    ],
+    "tests/test_step16_api.cpp": [
+      "init",
+      "start",
+      "stop",
+      "get",
+      "post",
+      "put",
+      "del",
+      "ws",
+      "actual_port",
+      "CapturingHttpServer",
+      "split_file",
+      "compute_file_hash",
+      "compute_chunk_hash",
+      "store_file",
+      "delete_file",
+      "delete_file_status",
+      "read_file",
+      "RouteFileSystem",
+      "log",
+      "CapturingLogAppender",
+      "make_database_pool",
+      "mysql_datetime_text",
+      "mysql_datetime_text",
+      "EmptyTokenAuthService",
+      "validate_token",
+      "generate_token",
+      "authenticate",
+      "EmptyTokenAuthService",
+      "identity",
+      "authenticated_request",
+      "wait_for_cleanup_waiter",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "main"
+    ],
+    "tests/test_stream_download_utils.cpp": [
+      "split_file",
+      "compute_file_hash",
+      "compute_chunk_hash",
+      "store_file",
+      "delete_file",
+      "read_file",
+      "MemoryFileSystem",
+      "to_bytes",
+      "make_chunks",
+      "make_file_system",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "main"
+    ],
+    "tests/test_tcp_client.cpp": [
+      "create_echo_server",
+      "get_port",
+      "run_echo_server",
+      "temp_file_path",
+      "read_until_size",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "main"
+    ],
+    "tests/test_tcp_server_connection.cpp": [
+      "ConnectionTest",
+      "TEST_F",
+      "TEST_F",
+      "TEST_F",
+      "TEST_F",
+      "TEST_F",
+      "TEST_F",
+      "TEST_F",
+      "TEST_F",
+      "TEST_F",
+      "TEST_F",
+      "main"
+    ],
+    "tests/test_tcp_server_stress.cpp": [
+      "TcpServerStressTest",
+      "TEST_F",
+      "TEST_F",
+      "TEST_F",
+      "TEST_F",
+      "TEST_F",
+      "TEST_F",
+      "main"
+    ],
+    "tests/test_tcp_server.cpp": [
+      "TcpServerTest",
+      "TEST_F",
+      "TEST_F",
+      "TEST_F",
+      "TEST_F",
+      "TEST_F",
+      "TEST_F",
+      "TEST_F",
+      "TEST_F",
+      "TEST_F",
+      "TEST_F",
+      "TEST_F",
+      "TEST_F",
+      "TEST_F",
+      "main"
+    ],
+    "tests/test_thread_pool_stress.cpp": [
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "main"
+    ],
+    "tests/test_upload_policy.cpp": [
+      "validate_token",
+      "generate_token",
+      "authenticate",
+      "UploadAuthService",
+      "TEST",
+      "send_raw",
+      "run_preflight",
+      "run_signature_probe",
+      "append_le16",
+      "append_le32",
+      "append_be32",
+      "mp3_signature",
+      "ogg_signature",
+      "wav_header",
+      "set_wav_riff_size",
+      "wav_signature",
+      "wav_with_optional_chunks_signature",
+      "wav_with_truncated_optional_chunk_signature",
+      "wav_with_out_of_bounds_optional_chunk_signature",
+      "flac_signature",
+      "aac_signature",
+      "m4a_signature",
+      "wma_signature",
+      "ape_signature",
+      "opus_signature",
+      "AudioSignatureCase",
+      "minimum_audio_signature_cases",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "main"
+    ],
+    "tests/test_url_decode_extreme.cpp": [
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "main"
+    ],
+    "tests/test_url_decode.cpp": [
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "main"
+    ],
+    "tests/test_websocket_extreme.cpp": [
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "main"
+    ],
+    "tests/test_websocket.cpp": [
+      "main",
+      "B64TestCase",
+      "make_ws_request",
+      "send_raw",
+      "make_masked_frame",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST",
+      "TEST"
+    ],
+    "xmake.lua": []
+  },
+  "batches": [
+    {
+      "batchIndex": 1,
+      "files": [
+        {
+          "path": "frontend/src/api/admin.ts",
+          "language": "typescript",
+          "sizeLines": 31,
+          "fileCategory": "code"
+        },
+        {
+          "path": "frontend/src/api/auth.ts",
+          "language": "typescript",
+          "sizeLines": 44,
+          "fileCategory": "code"
+        },
+        {
+          "path": "frontend/src/api/client.ts",
+          "language": "typescript",
+          "sizeLines": 168,
+          "fileCategory": "code"
+        },
+        {
+          "path": "frontend/src/api/files.ts",
+          "language": "typescript",
+          "sizeLines": 151,
+          "fileCategory": "code"
+        },
+        {
+          "path": "frontend/src/api/users.ts",
+          "language": "typescript",
+          "sizeLines": 13,
+          "fileCategory": "code"
+        },
+        {
+          "path": "frontend/src/api/vip.ts",
+          "language": "typescript",
+          "sizeLines": 18,
+          "fileCategory": "code"
+        },
+        {
+          "path": "frontend/src/components/FileCard.tsx",
+          "language": "typescript",
+          "sizeLines": 85,
+          "fileCategory": "code"
+        },
+        {
+          "path": "frontend/src/components/MusicCard.tsx",
+          "language": "typescript",
+          "sizeLines": 90,
+          "fileCategory": "code"
+        },
+        {
+          "path": "frontend/src/components/Pagination.tsx",
+          "language": "typescript",
+          "sizeLines": 55,
+          "fileCategory": "code"
+        },
+        {
+          "path": "frontend/src/lib/uploadPolicy.ts",
+          "language": "typescript",
+          "sizeLines": 105,
+          "fileCategory": "code"
+        },
+        {
+          "path": "frontend/src/pages/AdminUsersPage.tsx",
+          "language": "typescript",
+          "sizeLines": 191,
+          "fileCategory": "code"
+        },
+        {
+          "path": "frontend/src/pages/FileDetailPage.tsx",
+          "language": "typescript",
+          "sizeLines": 192,
+          "fileCategory": "code"
+        },
+        {
+          "path": "frontend/src/pages/FileListPage.tsx",
+          "language": "typescript",
+          "sizeLines": 223,
+          "fileCategory": "code"
+        },
+        {
+          "path": "frontend/src/pages/ProfilePage.tsx",
+          "language": "typescript",
+          "sizeLines": 104,
+          "fileCategory": "code"
+        },
+        {
+          "path": "frontend/src/pages/UploadPage.tsx",
+          "language": "typescript",
+          "sizeLines": 406,
+          "fileCategory": "code"
+        },
+        {
+          "path": "frontend/src/pages/VipCenterPage.tsx",
+          "language": "typescript",
+          "sizeLines": 180,
+          "fileCategory": "code"
+        },
+        {
+          "path": "frontend/src/types/api.ts",
+          "language": "typescript",
+          "sizeLines": 75,
+          "fileCategory": "code"
+        },
+        {
+          "path": "frontend/src/types/models.ts",
+          "language": "typescript",
+          "sizeLines": 106,
+          "fileCategory": "code"
+        },
+        {
+          "path": "frontend/tests/api/client.test.ts",
+          "language": "typescript",
+          "sizeLines": 363,
+          "fileCategory": "code"
+        },
+        {
+          "path": "frontend/tests/api/files.test.ts",
+          "language": "typescript",
+          "sizeLines": 302,
+          "fileCategory": "code"
+        },
+        {
+          "path": "frontend/tests/components/ContentControls.test.tsx",
+          "language": "typescript",
+          "sizeLines": 144,
+          "fileCategory": "code"
+        },
+        {
+          "path": "frontend/tests/components/MusicCard.test.tsx",
+          "language": "typescript",
+          "sizeLines": 37,
+          "fileCategory": "code"
+        },
+        {
+          "path": "frontend/tests/lib/uploadPolicy.test.ts",
+          "language": "typescript",
+          "sizeLines": 46,
+          "fileCategory": "code"
+        },
+        {
+          "path": "frontend/tests/pages/AdminUsersPage.test.tsx",
+          "language": "typescript",
+          "sizeLines": 43,
+          "fileCategory": "code"
+        },
+        {
+          "path": "frontend/tests/pages/FileDetailPage.test.tsx",
+          "language": "typescript",
+          "sizeLines": 178,
+          "fileCategory": "code"
+        },
+        {
+          "path": "frontend/tests/pages/ProfilePage.test.tsx",
+          "language": "typescript",
+          "sizeLines": 131,
+          "fileCategory": "code"
+        },
+        {
+          "path": "frontend/tests/pages/UploadPage.test.tsx",
+          "language": "typescript",
+          "sizeLines": 73,
+          "fileCategory": "code"
+        },
+        {
+          "path": "frontend/tests/pages/VipCenterPage.test.tsx",
+          "language": "typescript",
+          "sizeLines": 277,
+          "fileCategory": "code"
+        },
+        {
+          "path": "frontend/tests/stores/auth.test.ts",
+          "language": "typescript",
+          "sizeLines": 365,
+          "fileCategory": "code"
+        }
+      ],
+      "batchImportData": {
+        "frontend/src/api/admin.ts": [
+          "frontend/src/api/client.ts",
+          "frontend/src/types/api.ts"
+        ],
+        "frontend/src/api/auth.ts": [
+          "frontend/src/api/client.ts",
+          "frontend/src/types/api.ts",
+          "frontend/src/types/models.ts"
+        ],
+        "frontend/src/api/client.ts": [],
+        "frontend/src/api/files.ts": [
+          "frontend/src/api/client.ts",
+          "frontend/src/lib/uploadPolicy.ts",
+          "frontend/src/types/api.ts"
+        ],
+        "frontend/src/api/users.ts": [
+          "frontend/src/api/client.ts",
+          "frontend/src/types/api.ts"
+        ],
+        "frontend/src/api/vip.ts": [
+          "frontend/src/api/client.ts",
+          "frontend/src/types/api.ts"
+        ],
+        "frontend/src/components/FileCard.tsx": [
+          "frontend/src/types/api.ts"
+        ],
+        "frontend/src/components/MusicCard.tsx": [
+          "frontend/src/lib/coverPlaceholder.ts",
+          "frontend/src/types/api.ts"
+        ],
+        "frontend/src/components/Pagination.tsx": [],
+        "frontend/src/lib/uploadPolicy.ts": [
+          "frontend/src/types/api.ts"
+        ],
+        "frontend/src/pages/AdminUsersPage.tsx": [
+          "frontend/src/api/admin.ts",
+          "frontend/src/components/Pagination.tsx",
+          "frontend/src/types/api.ts"
+        ],
+        "frontend/src/pages/FileDetailPage.tsx": [
+          "frontend/src/api/client.ts",
+          "frontend/src/api/files.ts",
+          "frontend/src/stores/auth.ts",
+          "frontend/src/stores/toast.ts",
+          "frontend/src/types/api.ts"
+        ],
+        "frontend/src/pages/FileListPage.tsx": [
+          "frontend/src/api/client.ts",
+          "frontend/src/api/files.ts",
+          "frontend/src/components/FileCard.tsx",
+          "frontend/src/components/Pagination.tsx",
+          "frontend/src/stores/auth.ts",
+          "frontend/src/stores/toast.ts",
+          "frontend/src/types/api.ts"
+        ],
+        "frontend/src/pages/ProfilePage.tsx": [
+          "frontend/src/api/client.ts",
+          "frontend/src/api/users.ts",
+          "frontend/src/stores/auth.ts",
+          "frontend/src/types/api.ts"
+        ],
+        "frontend/src/pages/UploadPage.tsx": [
+          "frontend/src/api/files.ts",
+          "frontend/src/lib/uploadPolicy.ts",
+          "frontend/src/stores/auth.ts",
+          "frontend/src/stores/toast.ts",
+          "frontend/src/types/api.ts"
+        ],
+        "frontend/src/pages/VipCenterPage.tsx": [
+          "frontend/src/api/client.ts",
+          "frontend/src/api/users.ts",
+          "frontend/src/api/vip.ts",
+          "frontend/src/stores/auth.ts",
+          "frontend/src/types/api.ts"
+        ],
+        "frontend/src/types/api.ts": [
+          "frontend/src/types/models.ts"
+        ],
+        "frontend/src/types/models.ts": [],
+        "frontend/tests/api/client.test.ts": [
+          "frontend/src/api/client.ts"
+        ],
+        "frontend/tests/api/files.test.ts": [
+          "frontend/src/api/client.ts"
+        ],
+        "frontend/tests/components/ContentControls.test.tsx": [
+          "frontend/src/components/FileCard.tsx",
+          "frontend/src/components/MusicCard.tsx",
+          "frontend/src/components/Pagination.tsx",
+          "frontend/src/types/api.ts"
+        ],
+        "frontend/tests/components/MusicCard.test.tsx": [
+          "frontend/src/components/MusicCard.tsx"
+        ],
+        "frontend/tests/lib/uploadPolicy.test.ts": [
+          "frontend/src/lib/uploadPolicy.ts"
+        ],
+        "frontend/tests/pages/AdminUsersPage.test.tsx": [
+          "frontend/src/pages/AdminUsersPage.tsx"
+        ],
+        "frontend/tests/pages/FileDetailPage.test.tsx": [
+          "frontend/src/pages/FileDetailPage.tsx"
+        ],
+        "frontend/tests/pages/ProfilePage.test.tsx": [
+          "frontend/src/pages/ProfilePage.tsx"
+        ],
+        "frontend/tests/pages/UploadPage.test.tsx": [
+          "frontend/src/pages/UploadPage.tsx"
+        ],
+        "frontend/tests/pages/VipCenterPage.test.tsx": [
+          "frontend/src/pages/VipCenterPage.tsx"
+        ],
+        "frontend/tests/stores/auth.test.ts": [
+          "frontend/src/api/client.ts",
+          "frontend/src/stores/auth.ts",
+          "frontend/src/types/api.ts"
+        ]
+      },
+      "neighborMap": {
+        "frontend/src/api/auth.ts": [
+          {
+            "path": "frontend/src/stores/auth.ts",
+            "batchIndex": 2,
+            "symbols": [
+              "useAuthStore",
+              "injectSessionClearer",
+              "clearAuthSession"
+            ]
+          }
+        ],
+        "frontend/src/api/client.ts": [
+          {
+            "path": "frontend/src/api/music.ts",
+            "batchIndex": 2,
+            "symbols": [
+              "getLibrary",
+              "getMusicDetail",
+              "getUserPlaylists",
+              "createPlaylist",
+              "renamePlaylist",
+              "deletePlaylist",
+              "getPlaylistItems",
+              "addToPlaylist",
+              "removeFromPlaylist",
+              "reorderPlaylist"
+            ]
+          },
+          {
+            "path": "frontend/src/App.tsx",
+            "batchIndex": 2,
+            "symbols": [
+              "App"
+            ]
+          },
+          {
+            "path": "frontend/src/main.tsx",
+            "batchIndex": 2,
+            "symbols": []
+          },
+          {
+            "path": "frontend/src/pages/MusicLibraryPage.tsx",
+            "batchIndex": 2,
+            "symbols": [
+              "MusicLibraryPage"
+            ]
+          },
+          {
+            "path": "frontend/src/pages/PlayerPage.tsx",
+            "batchIndex": 2,
+            "symbols": [
+              "PlayerPage"
+            ]
+          },
+          {
+            "path": "frontend/src/pages/UserPlaylistPage.tsx",
+            "batchIndex": 2,
+            "symbols": [
+              "UserPlaylistPage"
+            ]
+          },
+          {
+            "path": "frontend/src/stores/auth.ts",
+            "batchIndex": 2,
+            "symbols": [
+              "useAuthStore",
+              "injectSessionClearer",
+              "clearAuthSession"
+            ]
+          },
+          {
+            "path": "frontend/src/stores/music.ts",
+            "batchIndex": 2,
+            "symbols": [
+              "useMusicStore"
+            ]
+          },
+          {
+            "path": "frontend/tests/pages/PlayerPage.test.tsx",
+            "batchIndex": 2,
+            "symbols": []
+          },
+          {
+            "path": "frontend/tests/session/clearUserSession.test.ts",
+            "batchIndex": 2,
+            "symbols": []
+          }
+        ],
+        "frontend/src/api/files.ts": [
+          {
+            "path": "frontend/src/components/AudioPlayer.tsx",
+            "batchIndex": 2,
+            "symbols": [
+              "AudioPlayer"
+            ]
+          }
+        ],
+        "frontend/src/components/MusicCard.tsx": [
+          {
+            "path": "frontend/src/lib/coverPlaceholder.ts",
+            "batchIndex": 2,
+            "symbols": [
+              "getCoverPlaceholder"
+            ]
+          },
+          {
+            "path": "frontend/src/pages/MusicLibraryPage.tsx",
+            "batchIndex": 2,
+            "symbols": [
+              "MusicLibraryPage"
+            ]
+          }
+        ],
+        "frontend/src/components/Pagination.tsx": [
+          {
+            "path": "frontend/src/pages/MusicLibraryPage.tsx",
+            "batchIndex": 2,
+            "symbols": [
+              "MusicLibraryPage"
+            ]
+          }
+        ],
+        "frontend/src/pages/AdminUsersPage.tsx": [
+          {
+            "path": "frontend/src/router.tsx",
+            "batchIndex": 4,
+            "symbols": [
+              "router"
+            ]
+          }
+        ],
+        "frontend/src/pages/FileDetailPage.tsx": [
+          {
+            "path": "frontend/src/stores/auth.ts",
+            "batchIndex": 2,
+            "symbols": [
+              "useAuthStore",
+              "injectSessionClearer",
+              "clearAuthSession"
+            ]
+          },
+          {
+            "path": "frontend/src/stores/toast.ts",
+            "batchIndex": 2,
+            "symbols": [
+              "useToastStore"
+            ]
+          },
+          {
+            "path": "frontend/src/router.tsx",
+            "batchIndex": 4,
+            "symbols": [
+              "router"
+            ]
+          }
+        ],
+        "frontend/src/pages/FileListPage.tsx": [
+          {
+            "path": "frontend/src/stores/auth.ts",
+            "batchIndex": 2,
+            "symbols": [
+              "useAuthStore",
+              "injectSessionClearer",
+              "clearAuthSession"
+            ]
+          },
+          {
+            "path": "frontend/src/stores/toast.ts",
+            "batchIndex": 2,
+            "symbols": [
+              "useToastStore"
+            ]
+          },
+          {
+            "path": "frontend/src/router.tsx",
+            "batchIndex": 4,
+            "symbols": [
+              "router"
+            ]
+          },
+          {
+            "path": "frontend/tests/pages/FileListPage.test.tsx",
+            "batchIndex": 2,
+            "symbols": []
+          }
+        ],
+        "frontend/src/pages/ProfilePage.tsx": [
+          {
+            "path": "frontend/src/stores/auth.ts",
+            "batchIndex": 2,
+            "symbols": [
+              "useAuthStore",
+              "injectSessionClearer",
+              "clearAuthSession"
+            ]
+          },
+          {
+            "path": "frontend/src/router.tsx",
+            "batchIndex": 4,
+            "symbols": [
+              "router"
+            ]
+          }
+        ],
+        "frontend/src/pages/UploadPage.tsx": [
+          {
+            "path": "frontend/src/stores/auth.ts",
+            "batchIndex": 2,
+            "symbols": [
+              "useAuthStore",
+              "injectSessionClearer",
+              "clearAuthSession"
+            ]
+          },
+          {
+            "path": "frontend/src/stores/toast.ts",
+            "batchIndex": 2,
+            "symbols": [
+              "useToastStore"
+            ]
+          },
+          {
+            "path": "frontend/src/router.tsx",
+            "batchIndex": 4,
+            "symbols": [
+              "router"
+            ]
+          }
+        ],
+        "frontend/src/pages/VipCenterPage.tsx": [
+          {
+            "path": "frontend/src/stores/auth.ts",
+            "batchIndex": 2,
+            "symbols": [
+              "useAuthStore",
+              "injectSessionClearer",
+              "clearAuthSession"
+            ]
+          },
+          {
+            "path": "frontend/src/router.tsx",
+            "batchIndex": 4,
+            "symbols": [
+              "router"
+            ]
+          }
+        ],
+        "frontend/src/types/api.ts": [
+          {
+            "path": "frontend/src/api/music.ts",
+            "batchIndex": 2,
+            "symbols": [
+              "getLibrary",
+              "getMusicDetail",
+              "getUserPlaylists",
+              "createPlaylist",
+              "renamePlaylist",
+              "deletePlaylist",
+              "getPlaylistItems",
+              "addToPlaylist",
+              "removeFromPlaylist",
+              "reorderPlaylist"
+            ]
+          },
+          {
+            "path": "frontend/src/components/AudioPlayer.tsx",
+            "batchIndex": 2,
+            "symbols": [
+              "AudioPlayer"
+            ]
+          },
+          {
+            "path": "frontend/src/components/ProtectedRoute.tsx",
+            "batchIndex": 4,
+            "symbols": [
+              "ProtectedRoute"
+            ]
+          },
+          {
+            "path": "frontend/src/pages/MusicLibraryPage.tsx",
+            "batchIndex": 2,
+            "symbols": [
+              "MusicLibraryPage"
+            ]
+          },
+          {
+            "path": "frontend/src/pages/UserPlaylistPage.tsx",
+            "batchIndex": 2,
+            "symbols": [
+              "UserPlaylistPage"
+            ]
+          },
+          {
+            "path": "frontend/src/stores/auth.ts",
+            "batchIndex": 2,
+            "symbols": [
+              "useAuthStore",
+              "injectSessionClearer",
+              "clearAuthSession"
+            ]
+          },
+          {
+            "path": "frontend/src/stores/music.ts",
+            "batchIndex": 2,
+            "symbols": [
+              "useMusicStore"
+            ]
+          },
+          {
+            "path": "frontend/src/stores/player.ts",
+            "batchIndex": 2,
+            "symbols": [
+              "capturePlayerGeneration",
+              "isPlayerGenerationCurrent",
+              "capturePlayerStateRevision",
+              "usePlayerStore"
+            ]
+          },
+          {
+            "path": "frontend/tests/pages/MusicLibraryPage.test.tsx",
+            "batchIndex": 2,
+            "symbols": []
+          },
+          {
+            "path": "frontend/tests/session/clearUserSession.test.ts",
+            "batchIndex": 2,
+            "symbols": []
+          },
+          {
+            "path": "frontend/tests/stores/music.test.ts",
+            "batchIndex": 2,
+            "symbols": []
+          },
+          {
+            "path": "frontend/tests/stores/player.test.ts",
+            "batchIndex": 2,
+            "symbols": []
+          }
+        ],
+        "frontend/tests/stores/auth.test.ts": [
+          {
+            "path": "frontend/src/stores/auth.ts",
+            "batchIndex": 2,
+            "symbols": [
+              "useAuthStore",
+              "injectSessionClearer",
+              "clearAuthSession"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "batchIndex": 2,
+      "files": [
+        {
+          "path": "frontend/src/App.tsx",
+          "language": "typescript",
+          "sizeLines": 24,
+          "fileCategory": "code"
+        },
+        {
+          "path": "frontend/src/api/music.ts",
+          "language": "typescript",
+          "sizeLines": 113,
+          "fileCategory": "code"
+        },
+        {
+          "path": "frontend/src/components/AudioPlayer.tsx",
+          "language": "typescript",
+          "sizeLines": 320,
+          "fileCategory": "code"
+        },
+        {
+          "path": "frontend/src/components/Toast.tsx",
+          "language": "typescript",
+          "sizeLines": 52,
+          "fileCategory": "code"
+        },
+        {
+          "path": "frontend/src/lib/coverPlaceholder.ts",
+          "language": "typescript",
+          "sizeLines": 11,
+          "fileCategory": "code"
+        },
+        {
+          "path": "frontend/src/main.tsx",
+          "language": "typescript",
+          "sizeLines": 23,
+          "fileCategory": "code"
+        },
+        {
+          "path": "frontend/src/pages/LoginPage.tsx",
+          "language": "typescript",
+          "sizeLines": 132,
+          "fileCategory": "code"
+        },
+        {
+          "path": "frontend/src/pages/MusicLibraryPage.tsx",
+          "language": "typescript",
+          "sizeLines": 258,
+          "fileCategory": "code"
+        },
+        {
+          "path": "frontend/src/pages/PlayerPage.tsx",
+          "language": "typescript",
+          "sizeLines": 130,
+          "fileCategory": "code"
+        },
+        {
+          "path": "frontend/src/pages/UserPlaylistPage.tsx",
+          "language": "typescript",
+          "sizeLines": 470,
+          "fileCategory": "code"
+        },
+        {
+          "path": "frontend/src/session/clearUserSession.ts",
+          "language": "typescript",
+          "sizeLines": 11,
+          "fileCategory": "code"
+        },
+        {
+          "path": "frontend/src/session/createUnauthorizedHandler.ts",
+          "language": "typescript",
+          "sizeLines": 11,
+          "fileCategory": "code"
+        },
+        {
+          "path": "frontend/src/stores/auth.ts",
+          "language": "typescript",
+          "sizeLines": 166,
+          "fileCategory": "code"
+        },
+        {
+          "path": "frontend/src/stores/music.ts",
+          "language": "typescript",
+          "sizeLines": 214,
+          "fileCategory": "code"
+        },
+        {
+          "path": "frontend/src/stores/player.ts",
+          "language": "typescript",
+          "sizeLines": 193,
+          "fileCategory": "code"
+        },
+        {
+          "path": "frontend/src/stores/toast.ts",
+          "language": "typescript",
+          "sizeLines": 57,
+          "fileCategory": "code"
+        },
+        {
+          "path": "frontend/tests/components/AudioPlayer.test.tsx",
+          "language": "typescript",
+          "sizeLines": 285,
+          "fileCategory": "code"
+        },
+        {
+          "path": "frontend/tests/components/Toast.test.tsx",
+          "language": "typescript",
+          "sizeLines": 54,
+          "fileCategory": "code"
+        },
+        {
+          "path": "frontend/tests/lib/coverPlaceholder.test.ts",
+          "language": "typescript",
+          "sizeLines": 35,
+          "fileCategory": "code"
+        },
+        {
+          "path": "frontend/tests/pages/FileListPage.test.tsx",
+          "language": "typescript",
+          "sizeLines": 347,
+          "fileCategory": "code"
+        },
+        {
+          "path": "frontend/tests/pages/MusicLibraryPage.test.tsx",
+          "language": "typescript",
+          "sizeLines": 264,
+          "fileCategory": "code"
+        },
+        {
+          "path": "frontend/tests/pages/PlayerPage.test.tsx",
+          "language": "typescript",
+          "sizeLines": 290,
+          "fileCategory": "code"
+        },
+        {
+          "path": "frontend/tests/pages/UserPlaylistPage.test.tsx",
+          "language": "typescript",
+          "sizeLines": 511,
+          "fileCategory": "code"
+        },
+        {
+          "path": "frontend/tests/pages/login.test.tsx",
+          "language": "typescript",
+          "sizeLines": 218,
+          "fileCategory": "code"
+        },
+        {
+          "path": "frontend/tests/session/clearUserSession.test.ts",
+          "language": "typescript",
+          "sizeLines": 166,
+          "fileCategory": "code"
+        },
+        {
+          "path": "frontend/tests/stores/music.test.ts",
+          "language": "typescript",
+          "sizeLines": 485,
+          "fileCategory": "code"
+        },
+        {
+          "path": "frontend/tests/stores/player.test.ts",
+          "language": "typescript",
+          "sizeLines": 206,
+          "fileCategory": "code"
+        }
+      ],
+      "batchImportData": {
+        "frontend/src/App.tsx": [
+          "frontend/src/api/client.ts",
+          "frontend/src/components/Toast.tsx",
+          "frontend/src/router.tsx",
+          "frontend/src/stores/auth.ts",
+          "frontend/src/stores/toast.ts"
+        ],
+        "frontend/src/api/music.ts": [
+          "frontend/src/api/client.ts",
+          "frontend/src/types/api.ts"
+        ],
+        "frontend/src/components/AudioPlayer.tsx": [
+          "frontend/src/api/files.ts",
+          "frontend/src/api/music.ts",
+          "frontend/src/lib/coverPlaceholder.ts",
+          "frontend/src/stores/player.ts",
+          "frontend/src/types/api.ts"
+        ],
+        "frontend/src/components/Toast.tsx": [
+          "frontend/src/stores/toast.ts"
+        ],
+        "frontend/src/lib/coverPlaceholder.ts": [],
+        "frontend/src/main.tsx": [
+          "frontend/src/api/client.ts",
+          "frontend/src/App.tsx",
+          "frontend/src/index.css",
+          "frontend/src/session/clearUserSession.ts",
+          "frontend/src/session/createUnauthorizedHandler.ts",
+          "frontend/src/stores/auth.ts"
+        ],
+        "frontend/src/pages/LoginPage.tsx": [
+          "frontend/src/stores/auth.ts"
+        ],
+        "frontend/src/pages/MusicLibraryPage.tsx": [
+          "frontend/src/api/client.ts",
+          "frontend/src/api/music.ts",
+          "frontend/src/components/MusicCard.tsx",
+          "frontend/src/components/Pagination.tsx",
+          "frontend/src/stores/auth.ts",
+          "frontend/src/stores/music.ts",
+          "frontend/src/stores/player.ts",
+          "frontend/src/stores/toast.ts",
+          "frontend/src/types/api.ts"
+        ],
+        "frontend/src/pages/PlayerPage.tsx": [
+          "frontend/src/api/client.ts",
+          "frontend/src/api/music.ts",
+          "frontend/src/components/AudioPlayer.tsx",
+          "frontend/src/stores/auth.ts",
+          "frontend/src/stores/player.ts"
+        ],
+        "frontend/src/pages/UserPlaylistPage.tsx": [
+          "frontend/src/api/client.ts",
+          "frontend/src/api/music.ts",
+          "frontend/src/lib/coverPlaceholder.ts",
+          "frontend/src/stores/auth.ts",
+          "frontend/src/stores/music.ts",
+          "frontend/src/stores/player.ts",
+          "frontend/src/stores/toast.ts",
+          "frontend/src/types/api.ts"
+        ],
+        "frontend/src/session/clearUserSession.ts": [
+          "frontend/src/stores/auth.ts",
+          "frontend/src/stores/music.ts",
+          "frontend/src/stores/player.ts",
+          "frontend/src/stores/toast.ts"
+        ],
+        "frontend/src/session/createUnauthorizedHandler.ts": [],
+        "frontend/src/stores/auth.ts": [
+          "frontend/src/api/auth.ts",
+          "frontend/src/api/client.ts",
+          "frontend/src/types/api.ts"
+        ],
+        "frontend/src/stores/music.ts": [
+          "frontend/src/api/client.ts",
+          "frontend/src/api/music.ts",
+          "frontend/src/stores/player.ts",
+          "frontend/src/types/api.ts"
+        ],
+        "frontend/src/stores/player.ts": [
+          "frontend/src/types/api.ts"
+        ],
+        "frontend/src/stores/toast.ts": [],
+        "frontend/tests/components/AudioPlayer.test.tsx": [
+          "frontend/src/api/music.ts",
+          "frontend/src/components/AudioPlayer.tsx",
+          "frontend/src/stores/player.ts"
+        ],
+        "frontend/tests/components/Toast.test.tsx": [
+          "frontend/src/components/Toast.tsx"
+        ],
+        "frontend/tests/lib/coverPlaceholder.test.ts": [
+          "frontend/src/lib/coverPlaceholder.ts"
+        ],
+        "frontend/tests/pages/FileListPage.test.tsx": [
+          "frontend/src/pages/FileListPage.tsx",
+          "frontend/src/session/clearUserSession.ts",
+          "frontend/src/stores/toast.ts"
+        ],
+        "frontend/tests/pages/MusicLibraryPage.test.tsx": [
+          "frontend/src/pages/MusicLibraryPage.tsx",
+          "frontend/src/session/clearUserSession.ts",
+          "frontend/src/stores/auth.ts",
+          "frontend/src/stores/music.ts",
+          "frontend/src/stores/player.ts",
+          "frontend/src/stores/toast.ts",
+          "frontend/src/types/api.ts"
+        ],
+        "frontend/tests/pages/PlayerPage.test.tsx": [
+          "frontend/src/api/client.ts",
+          "frontend/src/pages/PlayerPage.tsx",
+          "frontend/src/session/clearUserSession.ts",
+          "frontend/src/stores/player.ts"
+        ],
+        "frontend/tests/pages/UserPlaylistPage.test.tsx": [
+          "frontend/src/pages/UserPlaylistPage.tsx",
+          "frontend/src/session/clearUserSession.ts",
+          "frontend/src/stores/auth.ts",
+          "frontend/src/stores/music.ts",
+          "frontend/src/stores/player.ts",
+          "frontend/src/stores/toast.ts"
+        ],
+        "frontend/tests/pages/login.test.tsx": [
+          "frontend/src/pages/LoginPage.tsx",
+          "frontend/src/stores/auth.ts"
+        ],
+        "frontend/tests/session/clearUserSession.test.ts": [
+          "frontend/src/api/client.ts",
+          "frontend/src/session/clearUserSession.ts",
+          "frontend/src/session/createUnauthorizedHandler.ts",
+          "frontend/src/stores/auth.ts",
+          "frontend/src/stores/music.ts",
+          "frontend/src/stores/player.ts",
+          "frontend/src/stores/toast.ts",
+          "frontend/src/types/api.ts"
+        ],
+        "frontend/tests/stores/music.test.ts": [
+          "frontend/src/stores/music.ts",
+          "frontend/src/stores/player.ts",
+          "frontend/src/types/api.ts"
+        ],
+        "frontend/tests/stores/player.test.ts": [
+          "frontend/src/stores/player.ts",
+          "frontend/src/types/api.ts"
+        ]
+      },
+      "neighborMap": {
+        "frontend/src/App.tsx": [
+          {
+            "path": "frontend/src/api/client.ts",
+            "batchIndex": 1,
+            "symbols": [
+              "API_BASE",
+              "ApiError",
+              "markSessionChanged",
+              "getSessionRevision",
+              "captureSessionSnapshot",
+              "isSessionSnapshotCurrent",
+              "injectToast",
+              "injectUnauthorizedHandler",
+              "handleUnauthorized",
+              "parseApiErrorDetails",
+              "request"
+            ]
+          },
+          {
+            "path": "frontend/src/router.tsx",
+            "batchIndex": 4,
+            "symbols": [
+              "router"
+            ]
+          }
+        ],
+        "frontend/src/api/music.ts": [
+          {
+            "path": "frontend/src/api/client.ts",
+            "batchIndex": 1,
+            "symbols": [
+              "API_BASE",
+              "ApiError",
+              "markSessionChanged",
+              "getSessionRevision",
+              "captureSessionSnapshot",
+              "isSessionSnapshotCurrent",
+              "injectToast",
+              "injectUnauthorizedHandler",
+              "handleUnauthorized",
+              "parseApiErrorDetails",
+              "request"
+            ]
+          },
+          {
+            "path": "frontend/src/types/api.ts",
+            "batchIndex": 1,
+            "symbols": [
+              "AuthUser",
+              "FileRecord",
+              "MusicMeta",
+              "Playlist",
+              "PlaylistItem",
+              "PaginatedResponse",
+              "UserRole",
+              "UserRoleValue",
+              "VipStatus",
+              "Capability",
+              "VipPlan",
+              "VipMembership",
+              "AdminUserSummary"
+            ]
+          }
+        ],
+        "frontend/src/components/AudioPlayer.tsx": [
+          {
+            "path": "frontend/src/api/files.ts",
+            "batchIndex": 1,
+            "symbols": [
+              "getFiles",
+              "getFile",
+              "getFileDownloadUrl",
+              "getFileStreamUrl",
+              "uploadFile",
+              "deleteFile",
+              "searchFiles"
+            ]
+          },
+          {
+            "path": "frontend/src/types/api.ts",
+            "batchIndex": 1,
+            "symbols": [
+              "AuthUser",
+              "FileRecord",
+              "MusicMeta",
+              "Playlist",
+              "PlaylistItem",
+              "PaginatedResponse",
+              "UserRole",
+              "UserRoleValue",
+              "VipStatus",
+              "Capability",
+              "VipPlan",
+              "VipMembership",
+              "AdminUserSummary"
+            ]
+          },
+          {
+            "path": "frontend/src/components/Layout.tsx",
+            "batchIndex": 4,
+            "symbols": [
+              "AppLayout"
+            ]
+          }
+        ],
+        "frontend/src/lib/coverPlaceholder.ts": [
+          {
+            "path": "frontend/src/components/MusicCard.tsx",
+            "batchIndex": 1,
+            "symbols": [
+              "MusicCard"
+            ]
+          }
+        ],
+        "frontend/src/main.tsx": [
+          {
+            "path": "frontend/src/api/client.ts",
+            "batchIndex": 1,
+            "symbols": [
+              "API_BASE",
+              "ApiError",
+              "markSessionChanged",
+              "getSessionRevision",
+              "captureSessionSnapshot",
+              "isSessionSnapshotCurrent",
+              "injectToast",
+              "injectUnauthorizedHandler",
+              "handleUnauthorized",
+              "parseApiErrorDetails",
+              "request"
+            ]
+          },
+          {
+            "path": "frontend/src/index.css",
+            "batchIndex": 22,
+            "symbols": []
+          }
+        ],
+        "frontend/src/pages/LoginPage.tsx": [
+          {
+            "path": "frontend/src/router.tsx",
+            "batchIndex": 4,
+            "symbols": [
+              "router"
+            ]
+          }
+        ],
+        "frontend/src/pages/MusicLibraryPage.tsx": [
+          {
+            "path": "frontend/src/api/client.ts",
+            "batchIndex": 1,
+            "symbols": [
+              "API_BASE",
+              "ApiError",
+              "markSessionChanged",
+              "getSessionRevision",
+              "captureSessionSnapshot",
+              "isSessionSnapshotCurrent",
+              "injectToast",
+              "injectUnauthorizedHandler",
+              "handleUnauthorized",
+              "parseApiErrorDetails",
+              "request"
+            ]
+          },
+          {
+            "path": "frontend/src/components/MusicCard.tsx",
+            "batchIndex": 1,
+            "symbols": [
+              "MusicCard"
+            ]
+          },
+          {
+            "path": "frontend/src/components/Pagination.tsx",
+            "batchIndex": 1,
+            "symbols": [
+              "Pagination"
+            ]
+          },
+          {
+            "path": "frontend/src/types/api.ts",
+            "batchIndex": 1,
+            "symbols": [
+              "AuthUser",
+              "FileRecord",
+              "MusicMeta",
+              "Playlist",
+              "PlaylistItem",
+              "PaginatedResponse",
+              "UserRole",
+              "UserRoleValue",
+              "VipStatus",
+              "Capability",
+              "VipPlan",
+              "VipMembership",
+              "AdminUserSummary"
+            ]
+          },
+          {
+            "path": "frontend/src/router.tsx",
+            "batchIndex": 4,
+            "symbols": [
+              "router"
+            ]
+          }
+        ],
+        "frontend/src/pages/PlayerPage.tsx": [
+          {
+            "path": "frontend/src/api/client.ts",
+            "batchIndex": 1,
+            "symbols": [
+              "API_BASE",
+              "ApiError",
+              "markSessionChanged",
+              "getSessionRevision",
+              "captureSessionSnapshot",
+              "isSessionSnapshotCurrent",
+              "injectToast",
+              "injectUnauthorizedHandler",
+              "handleUnauthorized",
+              "parseApiErrorDetails",
+              "request"
+            ]
+          },
+          {
+            "path": "frontend/src/router.tsx",
+            "batchIndex": 4,
+            "symbols": [
+              "router"
+            ]
+          }
+        ],
+        "frontend/src/pages/UserPlaylistPage.tsx": [
+          {
+            "path": "frontend/src/api/client.ts",
+            "batchIndex": 1,
+            "symbols": [
+              "API_BASE",
+              "ApiError",
+              "markSessionChanged",
+              "getSessionRevision",
+              "captureSessionSnapshot",
+              "isSessionSnapshotCurrent",
+              "injectToast",
+              "injectUnauthorizedHandler",
+              "handleUnauthorized",
+              "parseApiErrorDetails",
+              "request"
+            ]
+          },
+          {
+            "path": "frontend/src/types/api.ts",
+            "batchIndex": 1,
+            "symbols": [
+              "AuthUser",
+              "FileRecord",
+              "MusicMeta",
+              "Playlist",
+              "PlaylistItem",
+              "PaginatedResponse",
+              "UserRole",
+              "UserRoleValue",
+              "VipStatus",
+              "Capability",
+              "VipPlan",
+              "VipMembership",
+              "AdminUserSummary"
+            ]
+          },
+          {
+            "path": "frontend/src/router.tsx",
+            "batchIndex": 4,
+            "symbols": [
+              "router"
+            ]
+          }
+        ],
+        "frontend/src/stores/auth.ts": [
+          {
+            "path": "frontend/src/api/auth.ts",
+            "batchIndex": 1,
+            "symbols": [
+              "login",
+              "register",
+              "logout",
+              "getMe"
+            ]
+          },
+          {
+            "path": "frontend/src/api/client.ts",
+            "batchIndex": 1,
+            "symbols": [
+              "API_BASE",
+              "ApiError",
+              "markSessionChanged",
+              "getSessionRevision",
+              "captureSessionSnapshot",
+              "isSessionSnapshotCurrent",
+              "injectToast",
+              "injectUnauthorizedHandler",
+              "handleUnauthorized",
+              "parseApiErrorDetails",
+              "request"
+            ]
+          },
+          {
+            "path": "frontend/src/types/api.ts",
+            "batchIndex": 1,
+            "symbols": [
+              "AuthUser",
+              "FileRecord",
+              "MusicMeta",
+              "Playlist",
+              "PlaylistItem",
+              "PaginatedResponse",
+              "UserRole",
+              "UserRoleValue",
+              "VipStatus",
+              "Capability",
+              "VipPlan",
+              "VipMembership",
+              "AdminUserSummary"
+            ]
+          },
+          {
+            "path": "frontend/src/components/Header.tsx",
+            "batchIndex": 4,
+            "symbols": [
+              "Header"
+            ]
+          },
+          {
+            "path": "frontend/src/components/ProtectedRoute.tsx",
+            "batchIndex": 4,
+            "symbols": [
+              "ProtectedRoute"
+            ]
+          },
+          {
+            "path": "frontend/src/components/RoleUsersRedirect.tsx",
+            "batchIndex": 4,
+            "symbols": [
+              "RoleUsersRedirect"
+            ]
+          },
+          {
+            "path": "frontend/src/components/Sidebar.tsx",
+            "batchIndex": 4,
+            "symbols": [
+              "Sidebar"
+            ]
+          },
+          {
+            "path": "frontend/src/pages/FileDetailPage.tsx",
+            "batchIndex": 1,
+            "symbols": [
+              "FileDetailPage"
+            ]
+          },
+          {
+            "path": "frontend/src/pages/FileListPage.tsx",
+            "batchIndex": 1,
+            "symbols": [
+              "FileListPage"
+            ]
+          },
+          {
+            "path": "frontend/src/pages/ProfilePage.tsx",
+            "batchIndex": 1,
+            "symbols": [
+              "ProfilePage"
+            ]
+          },
+          {
+            "path": "frontend/src/pages/RegisterPage.tsx",
+            "batchIndex": 4,
+            "symbols": [
+              "RegisterPage"
+            ]
+          },
+          {
+            "path": "frontend/src/pages/UploadPage.tsx",
+            "batchIndex": 1,
+            "symbols": [
+              "UploadPage"
+            ]
+          },
+          {
+            "path": "frontend/src/pages/VipCenterPage.tsx",
+            "batchIndex": 1,
+            "symbols": [
+              "VipCenterPage"
+            ]
+          },
+          {
+            "path": "frontend/tests/stores/auth.test.ts",
+            "batchIndex": 1,
+            "symbols": []
+          }
+        ],
+        "frontend/src/stores/music.ts": [
+          {
+            "path": "frontend/src/api/client.ts",
+            "batchIndex": 1,
+            "symbols": [
+              "API_BASE",
+              "ApiError",
+              "markSessionChanged",
+              "getSessionRevision",
+              "captureSessionSnapshot",
+              "isSessionSnapshotCurrent",
+              "injectToast",
+              "injectUnauthorizedHandler",
+              "handleUnauthorized",
+              "parseApiErrorDetails",
+              "request"
+            ]
+          },
+          {
+            "path": "frontend/src/types/api.ts",
+            "batchIndex": 1,
+            "symbols": [
+              "AuthUser",
+              "FileRecord",
+              "MusicMeta",
+              "Playlist",
+              "PlaylistItem",
+              "PaginatedResponse",
+              "UserRole",
+              "UserRoleValue",
+              "VipStatus",
+              "Capability",
+              "VipPlan",
+              "VipMembership",
+              "AdminUserSummary"
+            ]
+          }
+        ],
+        "frontend/src/stores/player.ts": [
+          {
+            "path": "frontend/src/types/api.ts",
+            "batchIndex": 1,
+            "symbols": [
+              "AuthUser",
+              "FileRecord",
+              "MusicMeta",
+              "Playlist",
+              "PlaylistItem",
+              "PaginatedResponse",
+              "UserRole",
+              "UserRoleValue",
+              "VipStatus",
+              "Capability",
+              "VipPlan",
+              "VipMembership",
+              "AdminUserSummary"
+            ]
+          }
+        ],
+        "frontend/src/stores/toast.ts": [
+          {
+            "path": "frontend/src/pages/FileDetailPage.tsx",
+            "batchIndex": 1,
+            "symbols": [
+              "FileDetailPage"
+            ]
+          },
+          {
+            "path": "frontend/src/pages/FileListPage.tsx",
+            "batchIndex": 1,
+            "symbols": [
+              "FileListPage"
+            ]
+          },
+          {
+            "path": "frontend/src/pages/UploadPage.tsx",
+            "batchIndex": 1,
+            "symbols": [
+              "UploadPage"
+            ]
+          }
+        ],
+        "frontend/tests/pages/FileListPage.test.tsx": [
+          {
+            "path": "frontend/src/pages/FileListPage.tsx",
+            "batchIndex": 1,
+            "symbols": [
+              "FileListPage"
+            ]
+          }
+        ],
+        "frontend/tests/pages/MusicLibraryPage.test.tsx": [
+          {
+            "path": "frontend/src/types/api.ts",
+            "batchIndex": 1,
+            "symbols": [
+              "AuthUser",
+              "FileRecord",
+              "MusicMeta",
+              "Playlist",
+              "PlaylistItem",
+              "PaginatedResponse",
+              "UserRole",
+              "UserRoleValue",
+              "VipStatus",
+              "Capability",
+              "VipPlan",
+              "VipMembership",
+              "AdminUserSummary"
+            ]
+          }
+        ],
+        "frontend/tests/pages/PlayerPage.test.tsx": [
+          {
+            "path": "frontend/src/api/client.ts",
+            "batchIndex": 1,
+            "symbols": [
+              "API_BASE",
+              "ApiError",
+              "markSessionChanged",
+              "getSessionRevision",
+              "captureSessionSnapshot",
+              "isSessionSnapshotCurrent",
+              "injectToast",
+              "injectUnauthorizedHandler",
+              "handleUnauthorized",
+              "parseApiErrorDetails",
+              "request"
+            ]
+          }
+        ],
+        "frontend/tests/session/clearUserSession.test.ts": [
+          {
+            "path": "frontend/src/api/client.ts",
+            "batchIndex": 1,
+            "symbols": [
+              "API_BASE",
+              "ApiError",
+              "markSessionChanged",
+              "getSessionRevision",
+              "captureSessionSnapshot",
+              "isSessionSnapshotCurrent",
+              "injectToast",
+              "injectUnauthorizedHandler",
+              "handleUnauthorized",
+              "parseApiErrorDetails",
+              "request"
+            ]
+          },
+          {
+            "path": "frontend/src/types/api.ts",
+            "batchIndex": 1,
+            "symbols": [
+              "AuthUser",
+              "FileRecord",
+              "MusicMeta",
+              "Playlist",
+              "PlaylistItem",
+              "PaginatedResponse",
+              "UserRole",
+              "UserRoleValue",
+              "VipStatus",
+              "Capability",
+              "VipPlan",
+              "VipMembership",
+              "AdminUserSummary"
+            ]
+          }
+        ],
+        "frontend/tests/stores/music.test.ts": [
+          {
+            "path": "frontend/src/types/api.ts",
+            "batchIndex": 1,
+            "symbols": [
+              "AuthUser",
+              "FileRecord",
+              "MusicMeta",
+              "Playlist",
+              "PlaylistItem",
+              "PaginatedResponse",
+              "UserRole",
+              "UserRoleValue",
+              "VipStatus",
+              "Capability",
+              "VipPlan",
+              "VipMembership",
+              "AdminUserSummary"
+            ]
+          }
+        ],
+        "frontend/tests/stores/player.test.ts": [
+          {
+            "path": "frontend/src/types/api.ts",
+            "batchIndex": 1,
+            "symbols": [
+              "AuthUser",
+              "FileRecord",
+              "MusicMeta",
+              "Playlist",
+              "PlaylistItem",
+              "PaginatedResponse",
+              "UserRole",
+              "UserRoleValue",
+              "VipStatus",
+              "Capability",
+              "VipPlan",
+              "VipMembership",
+              "AdminUserSummary"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "batchIndex": 3,
+      "files": [
+        {
+          "path": "benchmark/qps_auth_service.cpp",
+          "language": "cpp",
+          "sizeLines": 96,
+          "fileCategory": "code"
+        },
+        {
+          "path": "benchmark/qps_chunk_header.cpp",
+          "language": "cpp",
+          "sizeLines": 70,
+          "fileCategory": "code"
+        },
+        {
+          "path": "benchmark/qps_coroutine.cpp",
+          "language": "cpp",
+          "sizeLines": 71,
+          "fileCategory": "code"
+        },
+        {
+          "path": "benchmark/qps_database_pool.cpp",
+          "language": "cpp",
+          "sizeLines": 65,
+          "fileCategory": "code"
+        },
+        {
+          "path": "benchmark/qps_file_system.cpp",
+          "language": "cpp",
+          "sizeLines": 72,
+          "fileCategory": "code"
+        },
+        {
+          "path": "benchmark/qps_file_transfer.cpp",
+          "language": "cpp",
+          "sizeLines": 134,
+          "fileCategory": "code"
+        },
+        {
+          "path": "benchmark/qps_http_parser.cpp",
+          "language": "cpp",
+          "sizeLines": 91,
+          "fileCategory": "code"
+        },
+        {
+          "path": "benchmark/qps_http_response.cpp",
+          "language": "cpp",
+          "sizeLines": 124,
+          "fileCategory": "code"
+        },
+        {
+          "path": "benchmark/qps_http_server.cpp",
+          "language": "cpp",
+          "sizeLines": 132,
+          "fileCategory": "code"
+        },
+        {
+          "path": "benchmark/qps_http_utilities.cpp",
+          "language": "cpp",
+          "sizeLines": 92,
+          "fileCategory": "code"
+        },
+        {
+          "path": "benchmark/qps_lock_free_queue.cpp",
+          "language": "cpp",
+          "sizeLines": 117,
+          "fileCategory": "code"
+        },
+        {
+          "path": "benchmark/qps_logger.cpp",
+          "language": "cpp",
+          "sizeLines": 54,
+          "fileCategory": "code"
+        },
+        {
+          "path": "benchmark/qps_memory_pool.cpp",
+          "language": "cpp",
+          "sizeLines": 49,
+          "fileCategory": "code"
+        },
+        {
+          "path": "benchmark/qps_move_only_function.cpp",
+          "language": "cpp",
+          "sizeLines": 43,
+          "fileCategory": "code"
+        },
+        {
+          "path": "benchmark/qps_router.cpp",
+          "language": "cpp",
+          "sizeLines": 84,
+          "fileCategory": "code"
+        },
+        {
+          "path": "benchmark/qps_runner.hpp",
+          "language": "cpp",
+          "sizeLines": 373,
+          "fileCategory": "code"
+        },
+        {
+          "path": "benchmark/qps_ssl.cpp",
+          "language": "cpp",
+          "sizeLines": 48,
+          "fileCategory": "code"
+        },
+        {
+          "path": "benchmark/qps_tcp_server.cpp",
+          "language": "cpp",
+          "sizeLines": 120,
+          "fileCategory": "code"
+        },
+        {
+          "path": "benchmark/qps_thread_pool.cpp",
+          "language": "cpp",
+          "sizeLines": 126,
+          "fileCategory": "code"
+        },
+        {
+          "path": "benchmark/qps_websocket.cpp",
+          "language": "cpp",
+          "sizeLines": 50,
+          "fileCategory": "code"
+        }
+      ],
+      "batchImportData": {
+        "benchmark/qps_auth_service.cpp": [
+          "benchmark/qps_runner.hpp"
+        ],
+        "benchmark/qps_chunk_header.cpp": [
+          "benchmark/qps_runner.hpp"
+        ],
+        "benchmark/qps_coroutine.cpp": [
+          "benchmark/qps_runner.hpp"
+        ],
+        "benchmark/qps_database_pool.cpp": [
+          "benchmark/qps_runner.hpp"
+        ],
+        "benchmark/qps_file_system.cpp": [
+          "benchmark/qps_runner.hpp"
+        ],
+        "benchmark/qps_file_transfer.cpp": [
+          "benchmark/qps_runner.hpp"
+        ],
+        "benchmark/qps_http_parser.cpp": [
+          "benchmark/qps_runner.hpp"
+        ],
+        "benchmark/qps_http_response.cpp": [
+          "benchmark/qps_runner.hpp"
+        ],
+        "benchmark/qps_http_server.cpp": [
+          "benchmark/qps_runner.hpp"
+        ],
+        "benchmark/qps_http_utilities.cpp": [
+          "benchmark/qps_runner.hpp"
+        ],
+        "benchmark/qps_lock_free_queue.cpp": [
+          "benchmark/qps_runner.hpp"
+        ],
+        "benchmark/qps_logger.cpp": [
+          "benchmark/qps_runner.hpp"
+        ],
+        "benchmark/qps_memory_pool.cpp": [
+          "benchmark/qps_runner.hpp"
+        ],
+        "benchmark/qps_move_only_function.cpp": [
+          "benchmark/qps_runner.hpp"
+        ],
+        "benchmark/qps_router.cpp": [
+          "benchmark/qps_runner.hpp"
+        ],
+        "benchmark/qps_runner.hpp": [],
+        "benchmark/qps_ssl.cpp": [
+          "benchmark/qps_runner.hpp"
+        ],
+        "benchmark/qps_tcp_server.cpp": [
+          "benchmark/qps_runner.hpp"
+        ],
+        "benchmark/qps_thread_pool.cpp": [
+          "benchmark/qps_runner.hpp"
+        ],
+        "benchmark/qps_websocket.cpp": [
+          "benchmark/qps_runner.hpp"
+        ]
+      },
+      "neighborMap": {}
+    },
+    {
+      "batchIndex": 4,
+      "files": [
+        {
+          "path": "frontend/src/components/GuestLayout.tsx",
+          "language": "typescript",
+          "sizeLines": 21,
+          "fileCategory": "code"
+        },
+        {
+          "path": "frontend/src/components/Header.tsx",
+          "language": "typescript",
+          "sizeLines": 82,
+          "fileCategory": "code"
+        },
+        {
+          "path": "frontend/src/components/Layout.tsx",
+          "language": "typescript",
+          "sizeLines": 97,
+          "fileCategory": "code"
+        },
+        {
+          "path": "frontend/src/components/ProtectedRoute.tsx",
+          "language": "typescript",
+          "sizeLines": 37,
+          "fileCategory": "code"
+        },
+        {
+          "path": "frontend/src/components/RoleUsersRedirect.tsx",
+          "language": "typescript",
+          "sizeLines": 7,
+          "fileCategory": "code"
+        },
+        {
+          "path": "frontend/src/components/Sidebar.tsx",
+          "language": "typescript",
+          "sizeLines": 123,
+          "fileCategory": "code"
+        },
+        {
+          "path": "frontend/src/components/ThemeToggle.tsx",
+          "language": "typescript",
+          "sizeLines": 46,
+          "fileCategory": "code"
+        },
+        {
+          "path": "frontend/src/pages/RegisterPage.tsx",
+          "language": "typescript",
+          "sizeLines": 120,
+          "fileCategory": "code"
+        },
+        {
+          "path": "frontend/src/router.tsx",
+          "language": "typescript",
+          "sizeLines": 65,
+          "fileCategory": "code"
+        },
+        {
+          "path": "frontend/tests/components/GuestLayout.test.tsx",
+          "language": "typescript",
+          "sizeLines": 23,
+          "fileCategory": "code"
+        },
+        {
+          "path": "frontend/tests/components/Layout.test.tsx",
+          "language": "typescript",
+          "sizeLines": 152,
+          "fileCategory": "code"
+        },
+        {
+          "path": "frontend/tests/components/ProtectedRoute.test.tsx",
+          "language": "typescript",
+          "sizeLines": 99,
+          "fileCategory": "code"
+        },
+        {
+          "path": "frontend/tests/components/RoleUsersRedirect.test.tsx",
+          "language": "typescript",
+          "sizeLines": 26,
+          "fileCategory": "code"
+        },
+        {
+          "path": "frontend/tests/components/Sidebar.test.tsx",
+          "language": "typescript",
+          "sizeLines": 43,
+          "fileCategory": "code"
+        },
+        {
+          "path": "frontend/tests/components/ThemeToggle.test.tsx",
+          "language": "typescript",
+          "sizeLines": 33,
+          "fileCategory": "code"
+        },
+        {
+          "path": "frontend/tests/pages/RegisterPage.test.tsx",
+          "language": "typescript",
+          "sizeLines": 158,
+          "fileCategory": "code"
+        }
+      ],
+      "batchImportData": {
+        "frontend/src/components/GuestLayout.tsx": [
+          "frontend/src/components/ThemeToggle.tsx"
+        ],
+        "frontend/src/components/Header.tsx": [
+          "frontend/src/stores/auth.ts"
+        ],
+        "frontend/src/components/Layout.tsx": [
+          "frontend/src/components/AudioPlayer.tsx",
+          "frontend/src/components/Header.tsx",
+          "frontend/src/components/Sidebar.tsx"
+        ],
+        "frontend/src/components/ProtectedRoute.tsx": [
+          "frontend/src/stores/auth.ts",
+          "frontend/src/types/api.ts"
+        ],
+        "frontend/src/components/RoleUsersRedirect.tsx": [
+          "frontend/src/stores/auth.ts"
+        ],
+        "frontend/src/components/Sidebar.tsx": [
+          "frontend/src/components/ThemeToggle.tsx",
+          "frontend/src/stores/auth.ts"
+        ],
+        "frontend/src/components/ThemeToggle.tsx": [],
+        "frontend/src/pages/RegisterPage.tsx": [
+          "frontend/src/stores/auth.ts"
+        ],
+        "frontend/src/router.tsx": [
+          "frontend/src/components/GuestLayout.tsx",
+          "frontend/src/components/Layout.tsx",
+          "frontend/src/components/ProtectedRoute.tsx",
+          "frontend/src/components/RoleUsersRedirect.tsx",
+          "frontend/src/pages/AdminUsersPage.tsx",
+          "frontend/src/pages/FileDetailPage.tsx",
+          "frontend/src/pages/FileListPage.tsx",
+          "frontend/src/pages/LoginPage.tsx",
+          "frontend/src/pages/MusicLibraryPage.tsx",
+          "frontend/src/pages/PlayerPage.tsx",
+          "frontend/src/pages/ProfilePage.tsx",
+          "frontend/src/pages/RegisterPage.tsx",
+          "frontend/src/pages/UploadPage.tsx",
+          "frontend/src/pages/UserPlaylistPage.tsx",
+          "frontend/src/pages/VipCenterPage.tsx"
+        ],
+        "frontend/tests/components/GuestLayout.test.tsx": [
+          "frontend/src/components/GuestLayout.tsx"
+        ],
+        "frontend/tests/components/Layout.test.tsx": [
+          "frontend/src/components/Layout.tsx"
+        ],
+        "frontend/tests/components/ProtectedRoute.test.tsx": [
+          "frontend/src/components/ProtectedRoute.tsx"
+        ],
+        "frontend/tests/components/RoleUsersRedirect.test.tsx": [
+          "frontend/src/components/RoleUsersRedirect.tsx"
+        ],
+        "frontend/tests/components/Sidebar.test.tsx": [
+          "frontend/src/components/Sidebar.tsx"
+        ],
+        "frontend/tests/components/ThemeToggle.test.tsx": [
+          "frontend/src/components/ThemeToggle.tsx"
+        ],
+        "frontend/tests/pages/RegisterPage.test.tsx": [
+          "frontend/src/pages/RegisterPage.tsx"
+        ]
+      },
+      "neighborMap": {
+        "frontend/src/components/Header.tsx": [
+          {
+            "path": "frontend/src/stores/auth.ts",
+            "batchIndex": 2,
+            "symbols": [
+              "useAuthStore",
+              "injectSessionClearer",
+              "clearAuthSession"
+            ]
+          }
+        ],
+        "frontend/src/components/Layout.tsx": [
+          {
+            "path": "frontend/src/components/AudioPlayer.tsx",
+            "batchIndex": 2,
+            "symbols": [
+              "AudioPlayer"
+            ]
+          }
+        ],
+        "frontend/src/components/ProtectedRoute.tsx": [
+          {
+            "path": "frontend/src/stores/auth.ts",
+            "batchIndex": 2,
+            "symbols": [
+              "useAuthStore",
+              "injectSessionClearer",
+              "clearAuthSession"
+            ]
+          },
+          {
+            "path": "frontend/src/types/api.ts",
+            "batchIndex": 1,
+            "symbols": [
+              "AuthUser",
+              "FileRecord",
+              "MusicMeta",
+              "Playlist",
+              "PlaylistItem",
+              "PaginatedResponse",
+              "UserRole",
+              "UserRoleValue",
+              "VipStatus",
+              "Capability",
+              "VipPlan",
+              "VipMembership",
+              "AdminUserSummary"
+            ]
+          }
+        ],
+        "frontend/src/components/RoleUsersRedirect.tsx": [
+          {
+            "path": "frontend/src/stores/auth.ts",
+            "batchIndex": 2,
+            "symbols": [
+              "useAuthStore",
+              "injectSessionClearer",
+              "clearAuthSession"
+            ]
+          }
+        ],
+        "frontend/src/components/Sidebar.tsx": [
+          {
+            "path": "frontend/src/stores/auth.ts",
+            "batchIndex": 2,
+            "symbols": [
+              "useAuthStore",
+              "injectSessionClearer",
+              "clearAuthSession"
+            ]
+          }
+        ],
+        "frontend/src/pages/RegisterPage.tsx": [
+          {
+            "path": "frontend/src/stores/auth.ts",
+            "batchIndex": 2,
+            "symbols": [
+              "useAuthStore",
+              "injectSessionClearer",
+              "clearAuthSession"
+            ]
+          }
+        ],
+        "frontend/src/router.tsx": [
+          {
+            "path": "frontend/src/pages/AdminUsersPage.tsx",
+            "batchIndex": 1,
+            "symbols": [
+              "AdminUsersPage"
+            ]
+          },
+          {
+            "path": "frontend/src/pages/FileDetailPage.tsx",
+            "batchIndex": 1,
+            "symbols": [
+              "FileDetailPage"
+            ]
+          },
+          {
+            "path": "frontend/src/pages/FileListPage.tsx",
+            "batchIndex": 1,
+            "symbols": [
+              "FileListPage"
+            ]
+          },
+          {
+            "path": "frontend/src/pages/LoginPage.tsx",
+            "batchIndex": 2,
+            "symbols": [
+              "LoginPage"
+            ]
+          },
+          {
+            "path": "frontend/src/pages/MusicLibraryPage.tsx",
+            "batchIndex": 2,
+            "symbols": [
+              "MusicLibraryPage"
+            ]
+          },
+          {
+            "path": "frontend/src/pages/PlayerPage.tsx",
+            "batchIndex": 2,
+            "symbols": [
+              "PlayerPage"
+            ]
+          },
+          {
+            "path": "frontend/src/pages/ProfilePage.tsx",
+            "batchIndex": 1,
+            "symbols": [
+              "ProfilePage"
+            ]
+          },
+          {
+            "path": "frontend/src/pages/UploadPage.tsx",
+            "batchIndex": 1,
+            "symbols": [
+              "UploadPage"
+            ]
+          },
+          {
+            "path": "frontend/src/pages/UserPlaylistPage.tsx",
+            "batchIndex": 2,
+            "symbols": [
+              "UserPlaylistPage"
+            ]
+          },
+          {
+            "path": "frontend/src/pages/VipCenterPage.tsx",
+            "batchIndex": 1,
+            "symbols": [
+              "VipCenterPage"
+            ]
+          },
+          {
+            "path": "frontend/src/App.tsx",
+            "batchIndex": 2,
+            "symbols": [
+              "App"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "batchIndex": 5,
+      "files": [
+        {
+          "path": "net/http/include/auth_middleware.h",
+          "language": "c",
+          "sizeLines": 47,
+          "fileCategory": "code"
+        },
+        {
+          "path": "net/http/include/auth_service.h",
+          "language": "c",
+          "sizeLines": 36,
+          "fileCategory": "code"
+        },
+        {
+          "path": "net/http/include/http_parser.h",
+          "language": "c",
+          "sizeLines": 113,
+          "fileCategory": "code"
+        },
+        {
+          "path": "net/http/include/http_request.h",
+          "language": "c",
+          "sizeLines": 49,
+          "fileCategory": "code"
+        },
+        {
+          "path": "net/http/include/http_server.h",
+          "language": "c",
+          "sizeLines": 118,
+          "fileCategory": "code"
+        }
+      ],
+      "batchImportData": {
+        "net/http/include/auth_middleware.h": [
+          "net/http/include/auth_service.h",
+          "net/http/include/http_request.h"
+        ],
+        "net/http/include/auth_service.h": [],
+        "net/http/include/http_parser.h": [
+          "net/http/include/http_request.h"
+        ],
+        "net/http/include/http_request.h": [
+          "net/http/include/case_insensitive.h"
+        ],
+        "net/http/include/http_server.h": [
+          "net/http/include/auth_middleware.h",
+          "net/http/include/auth_service.h",
+          "net/http/include/http_parser.h",
+          "net/http/include/http_request.h",
+          "net/http/include/http_response.h",
+          "net/http/include/i_http_server.h",
+          "net/http/include/router.h"
+        ]
+      },
+      "neighborMap": {
+        "net/http/include/http_request.h": [
+          {
+            "path": "net/http/include/case_insensitive.h",
+            "batchIndex": 5,
+            "symbols": [
+              "operator()",
+              "CaseInsensitiveHash",
+              "operator()",
+              "CaseInsensitiveEq"
+            ]
+          },
+          {
+            "path": "net/http/include/i_router.h",
+            "batchIndex": 5,
+            "symbols": [
+              "~IRouter",
+              "add",
+              "match",
+              "path_exists",
+              "IRouter"
+            ]
+          },
+          {
+            "path": "net/http/include/router.h",
+            "batchIndex": 5,
+            "symbols": [
+              "Router",
+              "add",
+              "match",
+              "path_exists",
+              "Router"
+            ]
+          }
+        ],
+        "net/http/include/http_server.h": [
+          {
+            "path": "net/http/include/http_response.h",
+            "batchIndex": 5,
+            "symbols": [
+              "set_status",
+              "set_header",
+              "set_content_type",
+              "set_content_length",
+              "serialize",
+              "clear",
+              "HttpResponse"
+            ]
+          },
+          {
+            "path": "net/http/include/i_http_server.h",
+            "batchIndex": 5,
+            "symbols": [
+              "WsConnection",
+              "~IHttpServer",
+              "init",
+              "start",
+              "stop",
+              "get",
+              "post",
+              "put",
+              "del",
+              "ws",
+              "actual_port",
+              "IHttpServer"
+            ]
+          },
+          {
+            "path": "net/http/include/router.h",
+            "batchIndex": 5,
+            "symbols": [
+              "Router",
+              "add",
+              "match",
+              "path_exists",
+              "Router"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "batchIndex": 6,
+      "files": [
+        {
+          "path": "db/include/boost_mysql_connection.h",
+          "language": "c",
+          "sizeLines": 30,
+          "fileCategory": "code"
+        },
+        {
+          "path": "db/include/chunk_lifecycle_coordinator.h",
+          "language": "c",
+          "sizeLines": 180,
+          "fileCategory": "code"
+        },
+        {
+          "path": "db/include/database_pool.h",
+          "language": "c",
+          "sizeLines": 124,
+          "fileCategory": "code"
+        },
+        {
+          "path": "db/include/iconnection.h",
+          "language": "c",
+          "sizeLines": 45,
+          "fileCategory": "code"
+        },
+        {
+          "path": "db/include/idatabase_pool.h",
+          "language": "c",
+          "sizeLines": 228,
+          "fileCategory": "code"
+        },
+        {
+          "path": "db/include/mock_connection.h",
+          "language": "c",
+          "sizeLines": 83,
+          "fileCategory": "code"
+        },
+        {
+          "path": "db/include/models.h",
+          "language": "c",
+          "sizeLines": 188,
+          "fileCategory": "code"
+        }
+      ],
+      "batchImportData": {
+        "db/include/boost_mysql_connection.h": [
+          "db/include/iconnection.h"
+        ],
+        "db/include/chunk_lifecycle_coordinator.h": [],
+        "db/include/database_pool.h": [
+          "db/include/iconnection.h",
+          "db/include/idatabase_pool.h"
+        ],
+        "db/include/iconnection.h": [
+          "db/include/db_config.h"
+        ],
+        "db/include/idatabase_pool.h": [
+          "db/include/chunk_lifecycle_coordinator.h",
+          "db/include/db_config.h",
+          "db/include/models.h"
+        ],
+        "db/include/mock_connection.h": [
+          "db/include/db_config.h",
+          "db/include/iconnection.h"
+        ],
+        "db/include/models.h": []
+      },
+      "neighborMap": {
+        "db/include/iconnection.h": [
+          {
+            "path": "db/include/db_config.h",
+            "batchIndex": 6,
+            "symbols": [
+              "DbConfig"
+            ]
+          }
+        ],
+        "db/include/idatabase_pool.h": [
+          {
+            "path": "db/include/db_config.h",
+            "batchIndex": 6,
+            "symbols": [
+              "DbConfig"
+            ]
+          }
+        ],
+        "db/include/mock_connection.h": [
+          {
+            "path": "db/include/db_config.h",
+            "batchIndex": 6,
+            "symbols": [
+              "DbConfig"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "batchIndex": 7,
+      "files": [
+        {
+          "path": "net/thread-pool/include/lock_free_queue.hpp",
+          "language": "cpp",
+          "sizeLines": 252,
+          "fileCategory": "code"
+        },
+        {
+          "path": "net/thread-pool/include/locked_thread_pool.h",
+          "language": "c",
+          "sizeLines": 62,
+          "fileCategory": "code"
+        },
+        {
+          "path": "net/thread-pool/include/thread_pool.h",
+          "language": "c",
+          "sizeLines": 78,
+          "fileCategory": "code"
+        }
+      ],
+      "batchImportData": {
+        "net/thread-pool/include/lock_free_queue.hpp": [],
+        "net/thread-pool/include/locked_thread_pool.h": [
+          "net/thread-pool/include/move_only_function.h",
+          "net/thread-pool/include/thread_pool_base.h"
+        ],
+        "net/thread-pool/include/thread_pool.h": [
+          "net/thread-pool/include/lock_free_queue.hpp",
+          "net/thread-pool/include/move_only_function.h",
+          "net/thread-pool/include/thread_pool_base.h"
+        ]
+      },
+      "neighborMap": {
+        "net/thread-pool/include/locked_thread_pool.h": [
+          {
+            "path": "net/thread-pool/include/move_only_function.h",
+            "batchIndex": 7,
+            "symbols": [
+              "MoveOnlyFunction",
+              "~MoveOnlyFunction",
+              "MoveOnlyFunction",
+              "MoveOnlyFunction",
+              "operator()",
+              "reset",
+              "MoveOnlyFunction"
+            ]
+          },
+          {
+            "path": "net/thread-pool/include/thread_pool_base.h",
+            "batchIndex": 7,
+            "symbols": []
+          }
+        ],
+        "net/thread-pool/include/thread_pool.h": [
+          {
+            "path": "net/thread-pool/include/move_only_function.h",
+            "batchIndex": 7,
+            "symbols": [
+              "MoveOnlyFunction",
+              "~MoveOnlyFunction",
+              "MoveOnlyFunction",
+              "MoveOnlyFunction",
+              "operator()",
+              "reset",
+              "MoveOnlyFunction"
+            ]
+          },
+          {
+            "path": "net/thread-pool/include/thread_pool_base.h",
+            "batchIndex": 7,
+            "symbols": []
+          }
+        ]
+      }
+    },
+    {
+      "batchIndex": 8,
+      "files": [
+        {
+          "path": "core/include/admin_bootstrap.h",
+          "language": "c",
+          "sizeLines": 21,
+          "fileCategory": "code"
+        },
+        {
+          "path": "core/include/authorization.h",
+          "language": "c",
+          "sizeLines": 38,
+          "fileCategory": "code"
+        },
+        {
+          "path": "core/include/main_functions.h",
+          "language": "c",
+          "sizeLines": 35,
+          "fileCategory": "code"
+        },
+        {
+          "path": "core/include/upload_policy.h",
+          "language": "c",
+          "sizeLines": 47,
+          "fileCategory": "code"
+        }
+      ],
+      "batchImportData": {
+        "core/include/admin_bootstrap.h": [],
+        "core/include/authorization.h": [
+          "core/include/main_functions.h"
+        ],
+        "core/include/main_functions.h": [
+          "core/include/admin_bootstrap.h"
+        ],
+        "core/include/upload_policy.h": [
+          "core/include/main_functions.h"
+        ]
+      },
+      "neighborMap": {}
+    },
+    {
+      "batchIndex": 10,
+      "files": [
+        {
+          "path": "logger/include/logger.h",
+          "language": "c",
+          "sizeLines": 143,
+          "fileCategory": "code"
+        }
+      ],
+      "batchImportData": {
+        "logger/include/logger.h": []
+      },
+      "neighborMap": {
+        "logger/include/logger.h": [
+          {
+            "path": "logger/include/logformatter.h",
+            "batchIndex": 10,
+            "symbols": [
+              "format",
+              "LogFormatter"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "batchIndex": 11,
+      "files": [
+        {
+          "path": "net/tcp/tcp_server/include/connection.h",
+          "language": "c",
+          "sizeLines": 183,
+          "fileCategory": "code"
+        },
+        {
+          "path": "net/tcp/tcp_server/include/tcp_server.h",
+          "language": "c",
+          "sizeLines": 132,
+          "fileCategory": "code"
+        }
+      ],
+      "batchImportData": {
+        "net/tcp/tcp_server/include/connection.h": [],
+        "net/tcp/tcp_server/include/tcp_server.h": [
+          "net/tcp/tcp_server/include/connection.h",
+          "net/tcp/tcp_server/include/i_tcp_server.h"
+        ]
+      },
+      "neighborMap": {
+        "net/tcp/tcp_server/include/connection.h": [
+          {
+            "path": "net/tcp/tcp_server/include/i_tcp_server.h",
+            "batchIndex": 11,
+            "symbols": [
+              "~ITcpServer",
+              "init",
+              "start",
+              "stop",
+              "set_handler",
+              "actual_port",
+              "ITcpServer"
+            ]
+          }
+        ],
+        "net/tcp/tcp_server/include/tcp_server.h": [
+          {
+            "path": "net/tcp/tcp_server/include/i_tcp_server.h",
+            "batchIndex": 11,
+            "symbols": [
+              "~ITcpServer",
+              "init",
+              "start",
+              "stop",
+              "set_handler",
+              "actual_port",
+              "ITcpServer"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "batchIndex": 12,
+      "files": [
+        {
+          "path": ".dockerignore",
+          "language": "unknown",
+          "sizeLines": 57,
+          "fileCategory": "infra"
+        },
+        {
+          "path": "docker-compose.yml",
+          "language": "yaml",
+          "sizeLines": 89,
+          "fileCategory": "infra"
+        },
+        {
+          "path": "Dockerfile",
+          "language": "dockerfile",
+          "sizeLines": 33,
+          "fileCategory": "infra"
+        }
+      ],
+      "batchImportData": {
+        ".dockerignore": [],
+        "docker-compose.yml": [],
+        "Dockerfile": []
+      },
+      "neighborMap": {}
+    },
+    {
+      "batchIndex": 13,
+      "files": [
+        {
+          "path": ".env.example",
+          "language": "config",
+          "sizeLines": 13,
+          "fileCategory": "config"
+        },
+        {
+          "path": "README.md",
+          "language": "markdown",
+          "sizeLines": 551,
+          "fileCategory": "docs"
+        },
+        {
+          "path": "config.json",
+          "language": "json",
+          "sizeLines": 29,
+          "fileCategory": "config"
+        },
+        {
+          "path": "goal.md",
+          "language": "markdown",
+          "sizeLines": 738,
+          "fileCategory": "docs"
+        },
+        {
+          "path": "setup.sh",
+          "language": "shell",
+          "sizeLines": 180,
+          "fileCategory": "script"
+        }
+      ],
+      "batchImportData": {
+        ".env.example": [],
+        "README.md": [],
+        "config.json": [],
+        "goal.md": [],
+        "setup.sh": []
+      },
+      "neighborMap": {}
+    },
+    {
+      "batchIndex": 14,
+      "files": [
+        {
+          "path": "benchmark/reports/load_20260718_171912.txt",
+          "language": "txt",
+          "sizeLines": 39,
+          "fileCategory": "docs"
+        },
+        {
+          "path": "benchmark/reports/load_20260718_181105.txt",
+          "language": "txt",
+          "sizeLines": 52,
+          "fileCategory": "docs"
+        },
+        {
+          "path": "benchmark/reports/load_debug_20260715_172228.txt",
+          "language": "txt",
+          "sizeLines": 23,
+          "fileCategory": "docs"
+        },
+        {
+          "path": "benchmark/reports/load_debug_20260715_175124.txt",
+          "language": "txt",
+          "sizeLines": 23,
+          "fileCategory": "docs"
+        },
+        {
+          "path": "benchmark/reports/load_release_20260715_173855.txt",
+          "language": "txt",
+          "sizeLines": 23,
+          "fileCategory": "docs"
+        },
+        {
+          "path": "benchmark/reports/micro_20260717_142320.txt",
+          "language": "txt",
+          "sizeLines": 126,
+          "fileCategory": "docs"
+        },
+        {
+          "path": "benchmark/reports/micro_20260717_145119.txt",
+          "language": "txt",
+          "sizeLines": 126,
+          "fileCategory": "docs"
+        },
+        {
+          "path": "benchmark/reports/micro_20260718_153451.txt",
+          "language": "txt",
+          "sizeLines": 123,
+          "fileCategory": "docs"
+        },
+        {
+          "path": "benchmark/reports/micro_20260718_184759.txt",
+          "language": "txt",
+          "sizeLines": 99,
+          "fileCategory": "docs"
+        },
+        {
+          "path": "benchmark/reports/micro_20260718_185114.txt",
+          "language": "txt",
+          "sizeLines": 123,
+          "fileCategory": "docs"
+        },
+        {
+          "path": "benchmark/reports/micro_release_20260715_174645.txt",
+          "language": "txt",
+          "sizeLines": 87,
+          "fileCategory": "docs"
+        },
+        {
+          "path": "benchmark/reports/qps_20260717_151330.txt",
+          "language": "txt",
+          "sizeLines": 749,
+          "fileCategory": "docs"
+        },
+        {
+          "path": "benchmark/reports/qps_20260718_162217.txt",
+          "language": "txt",
+          "sizeLines": 492,
+          "fileCategory": "docs"
+        }
+      ],
+      "batchImportData": {
+        "benchmark/reports/load_20260718_171912.txt": [],
+        "benchmark/reports/load_20260718_181105.txt": [],
+        "benchmark/reports/load_debug_20260715_172228.txt": [],
+        "benchmark/reports/load_debug_20260715_175124.txt": [],
+        "benchmark/reports/load_release_20260715_173855.txt": [],
+        "benchmark/reports/micro_20260717_142320.txt": [],
+        "benchmark/reports/micro_20260717_145119.txt": [],
+        "benchmark/reports/micro_20260718_153451.txt": [],
+        "benchmark/reports/micro_20260718_184759.txt": [],
+        "benchmark/reports/micro_20260718_185114.txt": [],
+        "benchmark/reports/micro_release_20260715_174645.txt": [],
+        "benchmark/reports/qps_20260717_151330.txt": [],
+        "benchmark/reports/qps_20260718_162217.txt": []
+      },
+      "neighborMap": {}
+    },
+    {
+      "batchIndex": 15,
+      "files": [
+        {
+          "path": "frontend/.oxlintrc.json",
+          "language": "json",
+          "sizeLines": 8,
+          "fileCategory": "config"
+        },
+        {
+          "path": "frontend/README.md",
+          "language": "markdown",
+          "sizeLines": 163,
+          "fileCategory": "docs"
+        },
+        {
+          "path": "frontend/index.html",
+          "language": "html",
+          "sizeLines": 13,
+          "fileCategory": "markup"
+        },
+        {
+          "path": "frontend/package.json",
+          "language": "json",
+          "sizeLines": 41,
+          "fileCategory": "config"
+        },
+        {
+          "path": "frontend/tsconfig.app.json",
+          "language": "json",
+          "sizeLines": 26,
+          "fileCategory": "config"
+        },
+        {
+          "path": "frontend/tsconfig.json",
+          "language": "json",
+          "sizeLines": 7,
+          "fileCategory": "config"
+        },
+        {
+          "path": "frontend/tsconfig.node.json",
+          "language": "json",
+          "sizeLines": 23,
+          "fileCategory": "config"
+        }
+      ],
+      "batchImportData": {
+        "frontend/.oxlintrc.json": [],
+        "frontend/README.md": [],
+        "frontend/index.html": [],
+        "frontend/package.json": [],
+        "frontend/tsconfig.app.json": [],
+        "frontend/tsconfig.json": [],
+        "frontend/tsconfig.node.json": []
+      },
+      "neighborMap": {}
+    },
+    {
+      "batchIndex": 16,
+      "files": [
+        {
+          "path": "plan/benchmark-report-restructure.md",
+          "language": "markdown",
+          "sizeLines": 553,
+          "fileCategory": "docs"
+        },
+        {
+          "path": "plan/bugfix-concurrent-uploads.md",
+          "language": "markdown",
+          "sizeLines": 175,
+          "fileCategory": "docs"
+        },
+        {
+          "path": "plan/bugfix-memory-pool-thread-pool.md",
+          "language": "markdown",
+          "sizeLines": 350,
+          "fileCategory": "docs"
+        },
+        {
+          "path": "plan/bugfix-step17-runtime-regressions.md",
+          "language": "markdown",
+          "sizeLines": 303,
+          "fileCategory": "docs"
+        },
+        {
+          "path": "plan/development_plan.md",
+          "language": "markdown",
+          "sizeLines": 115,
+          "fileCategory": "docs"
+        },
+        {
+          "path": "plan/docker-deployment.md",
+          "language": "markdown",
+          "sizeLines": 97,
+          "fileCategory": "docs"
+        },
+        {
+          "path": "plan/end-to-end-verification.md",
+          "language": "markdown",
+          "sizeLines": 111,
+          "fileCategory": "docs"
+        },
+        {
+          "path": "plan/fix-prepared-statement.md",
+          "language": "markdown",
+          "sizeLines": 99,
+          "fileCategory": "docs"
+        },
+        {
+          "path": "plan/step-11-main-integration.md",
+          "language": "markdown",
+          "sizeLines": 86,
+          "fileCategory": "docs"
+        },
+        {
+          "path": "plan/step-14-file-upload-improvement.md",
+          "language": "markdown",
+          "sizeLines": 146,
+          "fileCategory": "docs"
+        },
+        {
+          "path": "plan/step-15-frontend.md",
+          "language": "markdown",
+          "sizeLines": 188,
+          "fileCategory": "docs"
+        },
+        {
+          "path": "plan/step-16-backend-music.md",
+          "language": "markdown",
+          "sizeLines": 928,
+          "fileCategory": "docs"
+        },
+        {
+          "path": "plan/step-17-frontend-optimization.md",
+          "language": "markdown",
+          "sizeLines": 262,
+          "fileCategory": "docs"
+        },
+        {
+          "path": "plan/step-18-ui-visual-restoration.md",
+          "language": "markdown",
+          "sizeLines": 339,
+          "fileCategory": "docs"
+        },
+        {
+          "path": "plan/step-19-user-feature-completion.md",
+          "language": "markdown",
+          "sizeLines": 724,
+          "fileCategory": "docs"
+        }
+      ],
+      "batchImportData": {
+        "plan/benchmark-report-restructure.md": [],
+        "plan/bugfix-concurrent-uploads.md": [],
+        "plan/bugfix-memory-pool-thread-pool.md": [],
+        "plan/bugfix-step17-runtime-regressions.md": [],
+        "plan/development_plan.md": [],
+        "plan/docker-deployment.md": [],
+        "plan/end-to-end-verification.md": [],
+        "plan/fix-prepared-statement.md": [],
+        "plan/step-11-main-integration.md": [],
+        "plan/step-14-file-upload-improvement.md": [],
+        "plan/step-15-frontend.md": [],
+        "plan/step-16-backend-music.md": [],
+        "plan/step-17-frontend-optimization.md": [],
+        "plan/step-18-ui-visual-restoration.md": [],
+        "plan/step-19-user-feature-completion.md": []
+      },
+      "neighborMap": {}
+    },
+    {
+      "batchIndex": 18,
+      "files": [
+        {
+          "path": "scripts/benchmark.sh",
+          "language": "shell",
+          "sizeLines": 2943,
+          "fileCategory": "script"
+        },
+        {
+          "path": "scripts/codeql.sh",
+          "language": "shell",
+          "sizeLines": 548,
+          "fileCategory": "script"
+        },
+        {
+          "path": "scripts/compile.sh",
+          "language": "shell",
+          "sizeLines": 71,
+          "fileCategory": "script"
+        },
+        {
+          "path": "scripts/docker.sh",
+          "language": "shell",
+          "sizeLines": 850,
+          "fileCategory": "script"
+        },
+        {
+          "path": "scripts/format.sh",
+          "language": "shell",
+          "sizeLines": 94,
+          "fileCategory": "script"
+        },
+        {
+          "path": "scripts/lint.sh",
+          "language": "shell",
+          "sizeLines": 329,
+          "fileCategory": "script"
+        },
+        {
+          "path": "scripts/pipeline.sh",
+          "language": "shell",
+          "sizeLines": 98,
+          "fileCategory": "script"
+        },
+        {
+          "path": "scripts/test.sh",
+          "language": "shell",
+          "sizeLines": 261,
+          "fileCategory": "script"
+        }
+      ],
+      "batchImportData": {
+        "scripts/benchmark.sh": [],
+        "scripts/codeql.sh": [],
+        "scripts/compile.sh": [],
+        "scripts/docker.sh": [],
+        "scripts/format.sh": [],
+        "scripts/lint.sh": [],
+        "scripts/pipeline.sh": [],
+        "scripts/test.sh": []
+      },
+      "neighborMap": {}
+    },
+    {
+      "batchIndex": 19,
+      "files": [
+        {
+          "path": "tests/test_bench_http_server.sh",
+          "language": "shell",
+          "sizeLines": 52,
+          "fileCategory": "script"
+        },
+        {
+          "path": "tests/test_benchmark_script.sh",
+          "language": "shell",
+          "sizeLines": 3359,
+          "fileCategory": "script"
+        },
+        {
+          "path": "tests/test_codeql_discovery.sh",
+          "language": "shell",
+          "sizeLines": 195,
+          "fileCategory": "script"
+        },
+        {
+          "path": "tests/test_docker_admin_env.sh",
+          "language": "shell",
+          "sizeLines": 293,
+          "fileCategory": "script"
+        },
+        {
+          "path": "tests/test_lint_script.sh",
+          "language": "shell",
+          "sizeLines": 145,
+          "fileCategory": "script"
+        },
+        {
+          "path": "tests/test_migrate_legacy_reports.sh",
+          "language": "shell",
+          "sizeLines": 491,
+          "fileCategory": "script"
+        },
+        {
+          "path": "tests/test_test_script.sh",
+          "language": "shell",
+          "sizeLines": 1317,
+          "fileCategory": "script"
+        }
+      ],
+      "batchImportData": {
+        "tests/test_bench_http_server.sh": [],
+        "tests/test_benchmark_script.sh": [],
+        "tests/test_codeql_discovery.sh": [],
+        "tests/test_docker_admin_env.sh": [],
+        "tests/test_lint_script.sh": [],
+        "tests/test_migrate_legacy_reports.sh": [],
+        "tests/test_test_script.sh": []
+      },
+      "neighborMap": {}
+    },
+    {
+      "batchIndex": 20,
+      "files": [
+        {
+          "path": "benchmark/.clang-tidy",
+          "language": "unknown",
+          "sizeLines": 91,
+          "fileCategory": "code"
+        },
+        {
+          "path": "benchmark/bench_auth_service.cpp",
+          "language": "cpp",
+          "sizeLines": 119,
+          "fileCategory": "code"
+        },
+        {
+          "path": "benchmark/bench_chunk_header.cpp",
+          "language": "cpp",
+          "sizeLines": 63,
+          "fileCategory": "code"
+        },
+        {
+          "path": "benchmark/bench_coroutine.cpp",
+          "language": "cpp",
+          "sizeLines": 168,
+          "fileCategory": "code"
+        },
+        {
+          "path": "benchmark/bench_database_pool.cpp",
+          "language": "cpp",
+          "sizeLines": 139,
+          "fileCategory": "code"
+        },
+        {
+          "path": "benchmark/bench_file_system.cpp",
+          "language": "cpp",
+          "sizeLines": 140,
+          "fileCategory": "code"
+        },
+        {
+          "path": "benchmark/bench_http_parser.cpp",
+          "language": "cpp",
+          "sizeLines": 121,
+          "fileCategory": "code"
+        },
+        {
+          "path": "benchmark/bench_http_server.cpp",
+          "language": "cpp",
+          "sizeLines": 158,
+          "fileCategory": "code"
+        },
+        {
+          "path": "benchmark/bench_lock_free_queue.cpp",
+          "language": "cpp",
+          "sizeLines": 145,
+          "fileCategory": "code"
+        },
+        {
+          "path": "benchmark/bench_logger.cpp",
+          "language": "cpp",
+          "sizeLines": 77,
+          "fileCategory": "code"
+        },
+        {
+          "path": "benchmark/bench_memory_pool.cpp",
+          "language": "cpp",
+          "sizeLines": 127,
+          "fileCategory": "code"
+        },
+        {
+          "path": "benchmark/bench_move_only_function.cpp",
+          "language": "cpp",
+          "sizeLines": 77,
+          "fileCategory": "code"
+        },
+        {
+          "path": "benchmark/bench_router.cpp",
+          "language": "cpp",
+          "sizeLines": 106,
+          "fileCategory": "code"
+        },
+        {
+          "path": "benchmark/bench_ssl.cpp",
+          "language": "cpp",
+          "sizeLines": 77,
+          "fileCategory": "code"
+        },
+        {
+          "path": "benchmark/bench_tcp_server.cpp",
+          "language": "cpp",
+          "sizeLines": 131,
+          "fileCategory": "code"
+        },
+        {
+          "path": "benchmark/bench_thread_pool.cpp",
+          "language": "cpp",
+          "sizeLines": 109,
+          "fileCategory": "code"
+        },
+        {
+          "path": "benchmark/bench_websocket.cpp",
+          "language": "cpp",
+          "sizeLines": 88,
+          "fileCategory": "code"
+        },
+        {
+          "path": "benchmark/README.md",
+          "language": "markdown",
+          "sizeLines": 212,
+          "fileCategory": "docs"
+        },
+        {
+          "path": "benchmark/tools/migrate_legacy_reports.py",
+          "language": "python",
+          "sizeLines": 479,
+          "fileCategory": "code"
+        },
+        {
+          "path": "core/include/api_datetime.h",
+          "language": "c",
+          "sizeLines": 19,
+          "fileCategory": "code"
+        },
+        {
+          "path": "core/include/auth_routes.h",
+          "language": "c",
+          "sizeLines": 11,
+          "fileCategory": "code"
+        },
+        {
+          "path": "core/include/email_validation.h",
+          "language": "c",
+          "sizeLines": 26,
+          "fileCategory": "code"
+        },
+        {
+          "path": "core/include/file_routes.h",
+          "language": "c",
+          "sizeLines": 15,
+          "fileCategory": "code"
+        },
+        {
+          "path": "core/include/password_validation.h",
+          "language": "c",
+          "sizeLines": 15,
+          "fileCategory": "code"
+        }
+      ],
+      "batchImportData": {
+        "benchmark/.clang-tidy": [],
+        "benchmark/bench_auth_service.cpp": [],
+        "benchmark/bench_chunk_header.cpp": [],
+        "benchmark/bench_coroutine.cpp": [],
+        "benchmark/bench_database_pool.cpp": [],
+        "benchmark/bench_file_system.cpp": [],
+        "benchmark/bench_http_parser.cpp": [],
+        "benchmark/bench_http_server.cpp": [],
+        "benchmark/bench_lock_free_queue.cpp": [],
+        "benchmark/bench_logger.cpp": [],
+        "benchmark/bench_memory_pool.cpp": [],
+        "benchmark/bench_move_only_function.cpp": [],
+        "benchmark/bench_router.cpp": [],
+        "benchmark/bench_ssl.cpp": [],
+        "benchmark/bench_tcp_server.cpp": [],
+        "benchmark/bench_thread_pool.cpp": [],
+        "benchmark/bench_websocket.cpp": [],
+        "benchmark/README.md": [],
+        "benchmark/tools/migrate_legacy_reports.py": [],
+        "core/include/api_datetime.h": [],
+        "core/include/auth_routes.h": [],
+        "core/include/email_validation.h": [],
+        "core/include/file_routes.h": [],
+        "core/include/password_validation.h": []
+      },
+      "neighborMap": {}
+    },
+    {
+      "batchIndex": 21,
+      "files": [
+        {
+          "path": "core/include/pending_chunk_deletions.h",
+          "language": "c",
+          "sizeLines": 22,
+          "fileCategory": "code"
+        },
+        {
+          "path": "core/include/playlist_routes.h",
+          "language": "c",
+          "sizeLines": 15,
+          "fileCategory": "code"
+        },
+        {
+          "path": "core/include/schema_migrations.h",
+          "language": "c",
+          "sizeLines": 14,
+          "fileCategory": "code"
+        },
+        {
+          "path": "core/include/stream_download_utils.h",
+          "language": "c",
+          "sizeLines": 122,
+          "fileCategory": "code"
+        },
+        {
+          "path": "core/include/strict_json.h",
+          "language": "c",
+          "sizeLines": 115,
+          "fileCategory": "code"
+        },
+        {
+          "path": "core/include/upload_setup.h",
+          "language": "c",
+          "sizeLines": 15,
+          "fileCategory": "code"
+        },
+        {
+          "path": "core/include/vip_admin_routes.h",
+          "language": "c",
+          "sizeLines": 17,
+          "fileCategory": "code"
+        },
+        {
+          "path": "core/src/admin_bootstrap.cpp",
+          "language": "cpp",
+          "sizeLines": 134,
+          "fileCategory": "code"
+        },
+        {
+          "path": "core/src/auth_routes.cpp",
+          "language": "cpp",
+          "sizeLines": 368,
+          "fileCategory": "code"
+        },
+        {
+          "path": "core/src/auth_service.cpp",
+          "language": "cpp",
+          "sizeLines": 367,
+          "fileCategory": "code"
+        },
+        {
+          "path": "core/src/authorization.cpp",
+          "language": "cpp",
+          "sizeLines": 49,
+          "fileCategory": "code"
+        },
+        {
+          "path": "core/src/config.cpp",
+          "language": "cpp",
+          "sizeLines": 247,
+          "fileCategory": "code"
+        },
+        {
+          "path": "core/src/file_routes.cpp",
+          "language": "cpp",
+          "sizeLines": 316,
+          "fileCategory": "code"
+        },
+        {
+          "path": "core/src/main.cpp",
+          "language": "cpp",
+          "sizeLines": 638,
+          "fileCategory": "code"
+        },
+        {
+          "path": "core/src/pending_chunk_deletions.cpp",
+          "language": "cpp",
+          "sizeLines": 183,
+          "fileCategory": "code"
+        },
+        {
+          "path": "core/src/playlist_routes.cpp",
+          "language": "cpp",
+          "sizeLines": 397,
+          "fileCategory": "code"
+        },
+        {
+          "path": "core/src/schema_migrations.cpp",
+          "language": "cpp",
+          "sizeLines": 152,
+          "fileCategory": "code"
+        },
+        {
+          "path": "core/src/upload_policy.cpp",
+          "language": "cpp",
+          "sizeLines": 514,
+          "fileCategory": "code"
+        },
+        {
+          "path": "core/src/upload_setup.cpp",
+          "language": "cpp",
+          "sizeLines": 39,
+          "fileCategory": "code"
+        },
+        {
+          "path": "core/src/vip_admin_routes.cpp",
+          "language": "cpp",
+          "sizeLines": 501,
+          "fileCategory": "code"
+        },
+        {
+          "path": "core/xmake.lua",
+          "language": "lua",
+          "sizeLines": 19,
+          "fileCategory": "code"
+        },
+        {
+          "path": "db/include/detail/mysql_field_to_string.h",
+          "language": "c",
+          "sizeLines": 13,
+          "fileCategory": "code"
+        },
+        {
+          "path": "db/include/playlist_validation.h",
+          "language": "c",
+          "sizeLines": 53,
+          "fileCategory": "code"
+        },
+        {
+          "path": "db/include/prepared_statement_guard.h",
+          "language": "c",
+          "sizeLines": 39,
+          "fileCategory": "code"
+        }
+      ],
+      "batchImportData": {
+        "core/include/pending_chunk_deletions.h": [],
+        "core/include/playlist_routes.h": [],
+        "core/include/schema_migrations.h": [],
+        "core/include/stream_download_utils.h": [],
+        "core/include/strict_json.h": [],
+        "core/include/upload_setup.h": [],
+        "core/include/vip_admin_routes.h": [],
+        "core/src/admin_bootstrap.cpp": [],
+        "core/src/auth_routes.cpp": [],
+        "core/src/auth_service.cpp": [],
+        "core/src/authorization.cpp": [],
+        "core/src/config.cpp": [],
+        "core/src/file_routes.cpp": [],
+        "core/src/main.cpp": [],
+        "core/src/pending_chunk_deletions.cpp": [],
+        "core/src/playlist_routes.cpp": [],
+        "core/src/schema_migrations.cpp": [],
+        "core/src/upload_policy.cpp": [],
+        "core/src/upload_setup.cpp": [],
+        "core/src/vip_admin_routes.cpp": [],
+        "core/xmake.lua": [],
+        "db/include/detail/mysql_field_to_string.h": [],
+        "db/include/playlist_validation.h": [],
+        "db/include/prepared_statement_guard.h": []
+      },
+      "neighborMap": {}
+    },
+    {
+      "batchIndex": 22,
+      "files": [
+        {
+          "path": "db/schema.sql",
+          "language": "sql",
+          "sizeLines": 145,
+          "fileCategory": "data"
+        },
+        {
+          "path": "db/src/boost_mysql_connection.cpp",
+          "language": "cpp",
+          "sizeLines": 450,
+          "fileCategory": "code"
+        },
+        {
+          "path": "db/src/database_pool.cpp",
+          "language": "cpp",
+          "sizeLines": 2128,
+          "fileCategory": "code"
+        },
+        {
+          "path": "db/xmake.lua",
+          "language": "lua",
+          "sizeLines": 9,
+          "fileCategory": "code"
+        },
+        {
+          "path": "deploy/nginx-main.conf",
+          "language": "conf",
+          "sizeLines": 14,
+          "fileCategory": "code"
+        },
+        {
+          "path": "deploy/nginx.conf",
+          "language": "conf",
+          "sizeLines": 48,
+          "fileCategory": "code"
+        },
+        {
+          "path": "file-system/include/file_system.h",
+          "language": "c",
+          "sizeLines": 47,
+          "fileCategory": "code"
+        },
+        {
+          "path": "file-system/include/i_file_system.h",
+          "language": "c",
+          "sizeLines": 58,
+          "fileCategory": "code"
+        },
+        {
+          "path": "file-system/src/file_system.cpp",
+          "language": "cpp",
+          "sizeLines": 232,
+          "fileCategory": "code"
+        },
+        {
+          "path": "frontend/playwright.config.ts",
+          "language": "typescript",
+          "sizeLines": 117,
+          "fileCategory": "code"
+        },
+        {
+          "path": "frontend/public/covers/crystal-cover-01.webp",
+          "language": "webp",
+          "sizeLines": 118,
+          "fileCategory": "code"
+        },
+        {
+          "path": "frontend/public/covers/crystal-cover-02.webp",
+          "language": "webp",
+          "sizeLines": 91,
+          "fileCategory": "code"
+        },
+        {
+          "path": "frontend/public/covers/crystal-cover-03.webp",
+          "language": "webp",
+          "sizeLines": 102,
+          "fileCategory": "code"
+        },
+        {
+          "path": "frontend/public/covers/crystal-cover-04.webp",
+          "language": "webp",
+          "sizeLines": 24,
+          "fileCategory": "code"
+        },
+        {
+          "path": "frontend/src/index.css",
+          "language": "css",
+          "sizeLines": 491,
+          "fileCategory": "markup"
+        },
+        {
+          "path": "frontend/src/pages/UserManagePage.tsx",
+          "language": "typescript",
+          "sizeLines": 33,
+          "fileCategory": "code"
+        },
+        {
+          "path": "frontend/tests/api/admin.test.ts",
+          "language": "typescript",
+          "sizeLines": 57,
+          "fileCategory": "code"
+        },
+        {
+          "path": "frontend/tests/api/auth.test.ts",
+          "language": "typescript",
+          "sizeLines": 105,
+          "fileCategory": "code"
+        },
+        {
+          "path": "frontend/tests/api/music.test.ts",
+          "language": "typescript",
+          "sizeLines": 156,
+          "fileCategory": "code"
+        },
+        {
+          "path": "frontend/tests/api/vip.test.ts",
+          "language": "typescript",
+          "sizeLines": 50,
+          "fileCategory": "code"
+        },
+        {
+          "path": "frontend/tests/e2e/deployment.spec.ts",
+          "language": "typescript",
+          "sizeLines": 412,
+          "fileCategory": "code"
+        },
+        {
+          "path": "frontend/tests/e2e/user-governance.spec.ts",
+          "language": "typescript",
+          "sizeLines": 469,
+          "fileCategory": "code"
+        },
+        {
+          "path": "frontend/tests/e2e/visual.spec.ts",
+          "language": "typescript",
+          "sizeLines": 677,
+          "fileCategory": "code"
+        },
+        {
+          "path": "frontend/tests/setup.ts",
+          "language": "typescript",
+          "sizeLines": 13,
+          "fileCategory": "code"
+        }
+      ],
+      "batchImportData": {
+        "db/schema.sql": [],
+        "db/src/boost_mysql_connection.cpp": [],
+        "db/src/database_pool.cpp": [],
+        "db/xmake.lua": [],
+        "deploy/nginx-main.conf": [],
+        "deploy/nginx.conf": [],
+        "file-system/include/file_system.h": [
+          "file-system/include/i_file_system.h"
+        ],
+        "file-system/include/i_file_system.h": [],
+        "file-system/src/file_system.cpp": [],
+        "frontend/playwright.config.ts": [],
+        "frontend/public/covers/crystal-cover-01.webp": [],
+        "frontend/public/covers/crystal-cover-02.webp": [],
+        "frontend/public/covers/crystal-cover-03.webp": [],
+        "frontend/public/covers/crystal-cover-04.webp": [],
+        "frontend/src/index.css": [],
+        "frontend/src/pages/UserManagePage.tsx": [],
+        "frontend/tests/api/admin.test.ts": [],
+        "frontend/tests/api/auth.test.ts": [],
+        "frontend/tests/api/music.test.ts": [],
+        "frontend/tests/api/vip.test.ts": [],
+        "frontend/tests/e2e/deployment.spec.ts": [],
+        "frontend/tests/e2e/user-governance.spec.ts": [],
+        "frontend/tests/e2e/visual.spec.ts": [],
+        "frontend/tests/setup.ts": []
+      },
+      "neighborMap": {
+        "frontend/src/index.css": [
+          {
+            "path": "frontend/src/main.tsx",
+            "batchIndex": 2,
+            "symbols": []
+          }
+        ]
+      }
+    },
+    {
+      "batchIndex": 23,
+      "files": [
+        {
+          "path": "frontend/tests/styles/designTokens.test.ts",
+          "language": "typescript",
+          "sizeLines": 106,
+          "fileCategory": "code"
+        },
+        {
+          "path": "frontend/vite.config.ts",
+          "language": "typescript",
+          "sizeLines": 14,
+          "fileCategory": "code"
+        },
+        {
+          "path": "logger/src/logger.cpp",
+          "language": "cpp",
+          "sizeLines": 153,
+          "fileCategory": "code"
+        },
+        {
+          "path": "memory-pool/src/tiered_memory_pool.cpp",
+          "language": "cpp",
+          "sizeLines": 307,
+          "fileCategory": "code"
+        },
+        {
+          "path": "net/file-transfer/include/file_transfer.h",
+          "language": "c",
+          "sizeLines": 30,
+          "fileCategory": "code"
+        },
+        {
+          "path": "net/file-transfer/src/file_transfer.cpp",
+          "language": "cpp",
+          "sizeLines": 273,
+          "fileCategory": "code"
+        },
+        {
+          "path": "net/http/src/http_parser.cpp",
+          "language": "cpp",
+          "sizeLines": 330,
+          "fileCategory": "code"
+        },
+        {
+          "path": "net/http/src/http_request.cpp",
+          "language": "cpp",
+          "sizeLines": 65,
+          "fileCategory": "code"
+        },
+        {
+          "path": "net/http/src/http_server.cpp",
+          "language": "cpp",
+          "sizeLines": 746,
+          "fileCategory": "code"
+        }
+      ],
+      "batchImportData": {
+        "frontend/tests/styles/designTokens.test.ts": [],
+        "frontend/vite.config.ts": [],
+        "logger/src/logger.cpp": [],
+        "memory-pool/src/tiered_memory_pool.cpp": [],
+        "net/file-transfer/include/file_transfer.h": [
+          "net/file-transfer/include/i_file_transfer.h"
+        ],
+        "net/file-transfer/src/file_transfer.cpp": [],
+        "net/http/src/http_parser.cpp": [],
+        "net/http/src/http_request.cpp": [],
+        "net/http/src/http_server.cpp": []
+      },
+      "neighborMap": {
+        "net/file-transfer/include/file_transfer.h": [
+          {
+            "path": "net/file-transfer/include/i_file_transfer.h",
+            "batchIndex": 23,
+            "symbols": [
+              "ITcpClient",
+              "ITcpServer",
+              "~IFileTransfer",
+              "transfer_small",
+              "transfer_large",
+              "receive_file",
+              "IFileTransfer"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "batchIndex": 24,
+      "files": [
+        {
+          "path": "net/http/xmake.lua",
+          "language": "lua",
+          "sizeLines": 25,
+          "fileCategory": "code"
+        },
+        {
+          "path": "net/tcp/tcp_client/src/tcp_client.cpp",
+          "language": "cpp",
+          "sizeLines": 304,
+          "fileCategory": "code"
+        },
+        {
+          "path": "net/tcp/tcp_server/src/connection.cpp",
+          "language": "cpp",
+          "sizeLines": 240,
+          "fileCategory": "code"
+        },
+        {
+          "path": "net/tcp/tcp_server/src/tcp_server.cpp",
+          "language": "cpp",
+          "sizeLines": 538,
+          "fileCategory": "code"
+        },
+        {
+          "path": "net/thread-pool/src/locked_thread_pool.cpp",
+          "language": "cpp",
+          "sizeLines": 83,
+          "fileCategory": "code"
+        },
+        {
+          "path": "net/thread-pool/src/thread_pool.cpp",
+          "language": "cpp",
+          "sizeLines": 99,
+          "fileCategory": "code"
+        },
+        {
+          "path": "net/websocket/src/ws_connection.cpp",
+          "language": "cpp",
+          "sizeLines": 169,
+          "fileCategory": "code"
+        },
+        {
+          "path": "net/websocket/xmake.lua",
+          "language": "lua",
+          "sizeLines": 13,
+          "fileCategory": "code"
+        },
+        {
+          "path": "scripts/lib/common.sh",
+          "language": "shell",
+          "sizeLines": 117,
+          "fileCategory": "script"
+        },
+        {
+          "path": "scripts/lib/isolated_docker_env.sh",
+          "language": "shell",
+          "sizeLines": 273,
+          "fileCategory": "script"
+        },
+        {
+          "path": "tests/.clang-tidy",
+          "language": "unknown",
+          "sizeLines": 79,
+          "fileCategory": "code"
+        }
+      ],
+      "batchImportData": {
+        "net/http/xmake.lua": [],
+        "net/tcp/tcp_client/src/tcp_client.cpp": [],
+        "net/tcp/tcp_server/src/connection.cpp": [],
+        "net/tcp/tcp_server/src/tcp_server.cpp": [],
+        "net/thread-pool/src/locked_thread_pool.cpp": [],
+        "net/thread-pool/src/thread_pool.cpp": [],
+        "net/websocket/src/ws_connection.cpp": [],
+        "net/websocket/xmake.lua": [],
+        "scripts/lib/common.sh": [],
+        "scripts/lib/isolated_docker_env.sh": [],
+        "tests/.clang-tidy": []
+      },
+      "neighborMap": {}
+    },
+    {
+      "batchIndex": 25,
+      "files": [
+        {
+          "path": "tests/fixtures/fail_socket.c",
+          "language": "c",
+          "sizeLines": 10,
+          "fileCategory": "code"
+        },
+        {
+          "path": "tests/test_admin_bootstrap.cpp",
+          "language": "cpp",
+          "sizeLines": 437,
+          "fileCategory": "code"
+        },
+        {
+          "path": "tests/test_auth_service.cpp",
+          "language": "cpp",
+          "sizeLines": 643,
+          "fileCategory": "code"
+        },
+        {
+          "path": "tests/test_authorization.cpp",
+          "language": "cpp",
+          "sizeLines": 105,
+          "fileCategory": "code"
+        },
+        {
+          "path": "tests/test_boost_mysql_connection.cpp",
+          "language": "cpp",
+          "sizeLines": 243,
+          "fileCategory": "code"
+        },
+        {
+          "path": "tests/test_config.cpp",
+          "language": "cpp",
+          "sizeLines": 158,
+          "fileCategory": "code"
+        },
+        {
+          "path": "tests/test_coroutine_extreme.cpp",
+          "language": "cpp",
+          "sizeLines": 79,
+          "fileCategory": "code"
+        },
+        {
+          "path": "tests/test_database_pool_stress.cpp",
+          "language": "cpp",
+          "sizeLines": 205,
+          "fileCategory": "code"
+        },
+        {
+          "path": "tests/test_database_pool.cpp",
+          "language": "cpp",
+          "sizeLines": 3064,
+          "fileCategory": "code"
+        },
+        {
+          "path": "tests/test_file_system_stress.cpp",
+          "language": "cpp",
+          "sizeLines": 151,
+          "fileCategory": "code"
+        },
+        {
+          "path": "tests/test_file_transfer_stress.cpp",
+          "language": "cpp",
+          "sizeLines": 316,
+          "fileCategory": "code"
+        },
+        {
+          "path": "tests/test_http_parser_extreme.cpp",
+          "language": "cpp",
+          "sizeLines": 142,
+          "fileCategory": "code"
+        },
+        {
+          "path": "tests/test_http_parser.cpp",
+          "language": "cpp",
+          "sizeLines": 256,
+          "fileCategory": "code"
+        },
+        {
+          "path": "tests/test_http_request.cpp",
+          "language": "cpp",
+          "sizeLines": 62,
+          "fileCategory": "code"
+        },
+        {
+          "path": "tests/test_http_server_stress.cpp",
+          "language": "cpp",
+          "sizeLines": 229,
+          "fileCategory": "code"
+        },
+        {
+          "path": "tests/test_http_server.cpp",
+          "language": "cpp",
+          "sizeLines": 710,
+          "fileCategory": "code"
+        },
+        {
+          "path": "tests/test_logger.cpp",
+          "language": "cpp",
+          "sizeLines": 85,
+          "fileCategory": "code"
+        },
+        {
+          "path": "tests/test_memory_pool_extreme.cpp",
+          "language": "cpp",
+          "sizeLines": 99,
+          "fileCategory": "code"
+        }
+      ],
+      "batchImportData": {
+        "tests/fixtures/fail_socket.c": [],
+        "tests/test_admin_bootstrap.cpp": [],
+        "tests/test_auth_service.cpp": [],
+        "tests/test_authorization.cpp": [],
+        "tests/test_boost_mysql_connection.cpp": [],
+        "tests/test_config.cpp": [],
+        "tests/test_coroutine_extreme.cpp": [],
+        "tests/test_database_pool_stress.cpp": [],
+        "tests/test_database_pool.cpp": [],
+        "tests/test_file_system_stress.cpp": [],
+        "tests/test_file_transfer_stress.cpp": [],
+        "tests/test_http_parser_extreme.cpp": [],
+        "tests/test_http_parser.cpp": [],
+        "tests/test_http_request.cpp": [],
+        "tests/test_http_server_stress.cpp": [],
+        "tests/test_http_server.cpp": [],
+        "tests/test_logger.cpp": [],
+        "tests/test_memory_pool_extreme.cpp": []
+      },
+      "neighborMap": {}
+    },
+    {
+      "batchIndex": 26,
+      "files": [
+        {
+          "path": "tests/test_mysql_field_to_string.cpp",
+          "language": "cpp",
+          "sizeLines": 55,
+          "fileCategory": "code"
+        },
+        {
+          "path": "tests/test_pending_chunk_deletions.cpp",
+          "language": "cpp",
+          "sizeLines": 1064,
+          "fileCategory": "code"
+        },
+        {
+          "path": "tests/test_qps_runner.cpp",
+          "language": "cpp",
+          "sizeLines": 105,
+          "fileCategory": "code"
+        },
+        {
+          "path": "tests/test_range_parser_extreme.cpp",
+          "language": "cpp",
+          "sizeLines": 66,
+          "fileCategory": "code"
+        },
+        {
+          "path": "tests/test_router.cpp",
+          "language": "cpp",
+          "sizeLines": 157,
+          "fileCategory": "code"
+        },
+        {
+          "path": "tests/test_schema_migrations.cpp",
+          "language": "cpp",
+          "sizeLines": 371,
+          "fileCategory": "code"
+        },
+        {
+          "path": "tests/test_ssl_extreme.cpp",
+          "language": "cpp",
+          "sizeLines": 98,
+          "fileCategory": "code"
+        },
+        {
+          "path": "tests/test_step16_api.cpp",
+          "language": "cpp",
+          "sizeLines": 2747,
+          "fileCategory": "code"
+        },
+        {
+          "path": "tests/test_stream_download_utils.cpp",
+          "language": "cpp",
+          "sizeLines": 125,
+          "fileCategory": "code"
+        },
+        {
+          "path": "tests/test_tcp_client.cpp",
+          "language": "cpp",
+          "sizeLines": 277,
+          "fileCategory": "code"
+        },
+        {
+          "path": "tests/test_tcp_server_stress.cpp",
+          "language": "cpp",
+          "sizeLines": 306,
+          "fileCategory": "code"
+        },
+        {
+          "path": "tests/test_tcp_server.cpp",
+          "language": "cpp",
+          "sizeLines": 500,
+          "fileCategory": "code"
+        },
+        {
+          "path": "tests/test_thread_pool_stress.cpp",
+          "language": "cpp",
+          "sizeLines": 244,
+          "fileCategory": "code"
+        },
+        {
+          "path": "tests/test_upload_policy.cpp",
+          "language": "cpp",
+          "sizeLines": 826,
+          "fileCategory": "code"
+        },
+        {
+          "path": "tests/test_url_decode_extreme.cpp",
+          "language": "cpp",
+          "sizeLines": 64,
+          "fileCategory": "code"
+        },
+        {
+          "path": "tests/test_websocket_extreme.cpp",
+          "language": "cpp",
+          "sizeLines": 158,
+          "fileCategory": "code"
+        },
+        {
+          "path": "xmake.lua",
+          "language": "lua",
+          "sizeLines": 151,
+          "fileCategory": "code"
+        }
+      ],
+      "batchImportData": {
+        "tests/test_mysql_field_to_string.cpp": [],
+        "tests/test_pending_chunk_deletions.cpp": [],
+        "tests/test_qps_runner.cpp": [],
+        "tests/test_range_parser_extreme.cpp": [],
+        "tests/test_router.cpp": [],
+        "tests/test_schema_migrations.cpp": [],
+        "tests/test_ssl_extreme.cpp": [],
+        "tests/test_step16_api.cpp": [],
+        "tests/test_stream_download_utils.cpp": [],
+        "tests/test_tcp_client.cpp": [],
+        "tests/test_tcp_server_stress.cpp": [],
+        "tests/test_tcp_server.cpp": [],
+        "tests/test_thread_pool_stress.cpp": [],
+        "tests/test_upload_policy.cpp": [],
+        "tests/test_url_decode_extreme.cpp": [],
+        "tests/test_websocket_extreme.cpp": [],
+        "xmake.lua": []
+      },
+      "neighborMap": {}
+    }
+  ]
+}

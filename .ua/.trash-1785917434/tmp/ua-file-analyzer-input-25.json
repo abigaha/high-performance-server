@@ -1,0 +1,134 @@
+{
+  "projectRoot": "/home/jmj/work-space/projects/high-performance-server",
+  "batchFiles": [
+    {
+      "path": "tests/fixtures/fail_socket.c",
+      "language": "c",
+      "sizeLines": 10,
+      "fileCategory": "code"
+    },
+    {
+      "path": "tests/test_admin_bootstrap.cpp",
+      "language": "cpp",
+      "sizeLines": 437,
+      "fileCategory": "code"
+    },
+    {
+      "path": "tests/test_auth_service.cpp",
+      "language": "cpp",
+      "sizeLines": 643,
+      "fileCategory": "code"
+    },
+    {
+      "path": "tests/test_authorization.cpp",
+      "language": "cpp",
+      "sizeLines": 105,
+      "fileCategory": "code"
+    },
+    {
+      "path": "tests/test_boost_mysql_connection.cpp",
+      "language": "cpp",
+      "sizeLines": 243,
+      "fileCategory": "code"
+    },
+    {
+      "path": "tests/test_config.cpp",
+      "language": "cpp",
+      "sizeLines": 158,
+      "fileCategory": "code"
+    },
+    {
+      "path": "tests/test_coroutine_extreme.cpp",
+      "language": "cpp",
+      "sizeLines": 79,
+      "fileCategory": "code"
+    },
+    {
+      "path": "tests/test_database_pool_stress.cpp",
+      "language": "cpp",
+      "sizeLines": 205,
+      "fileCategory": "code"
+    },
+    {
+      "path": "tests/test_database_pool.cpp",
+      "language": "cpp",
+      "sizeLines": 3064,
+      "fileCategory": "code"
+    },
+    {
+      "path": "tests/test_file_system_stress.cpp",
+      "language": "cpp",
+      "sizeLines": 151,
+      "fileCategory": "code"
+    },
+    {
+      "path": "tests/test_file_transfer_stress.cpp",
+      "language": "cpp",
+      "sizeLines": 316,
+      "fileCategory": "code"
+    },
+    {
+      "path": "tests/test_http_parser_extreme.cpp",
+      "language": "cpp",
+      "sizeLines": 142,
+      "fileCategory": "code"
+    },
+    {
+      "path": "tests/test_http_parser.cpp",
+      "language": "cpp",
+      "sizeLines": 256,
+      "fileCategory": "code"
+    },
+    {
+      "path": "tests/test_http_request.cpp",
+      "language": "cpp",
+      "sizeLines": 62,
+      "fileCategory": "code"
+    },
+    {
+      "path": "tests/test_http_server_stress.cpp",
+      "language": "cpp",
+      "sizeLines": 229,
+      "fileCategory": "code"
+    },
+    {
+      "path": "tests/test_http_server.cpp",
+      "language": "cpp",
+      "sizeLines": 710,
+      "fileCategory": "code"
+    },
+    {
+      "path": "tests/test_logger.cpp",
+      "language": "cpp",
+      "sizeLines": 85,
+      "fileCategory": "code"
+    },
+    {
+      "path": "tests/test_memory_pool_extreme.cpp",
+      "language": "cpp",
+      "sizeLines": 99,
+      "fileCategory": "code"
+    }
+  ],
+  "batchImportData": {
+    "tests/fixtures/fail_socket.c": [],
+    "tests/test_admin_bootstrap.cpp": [],
+    "tests/test_auth_service.cpp": [],
+    "tests/test_authorization.cpp": [],
+    "tests/test_boost_mysql_connection.cpp": [],
+    "tests/test_config.cpp": [],
+    "tests/test_coroutine_extreme.cpp": [],
+    "tests/test_database_pool_stress.cpp": [],
+    "tests/test_database_pool.cpp": [],
+    "tests/test_file_system_stress.cpp": [],
+    "tests/test_file_transfer_stress.cpp": [],
+    "tests/test_http_parser_extreme.cpp": [],
+    "tests/test_http_parser.cpp": [],
+    "tests/test_http_request.cpp": [],
+    "tests/test_http_server_stress.cpp": [],
+    "tests/test_http_server.cpp": [],
+    "tests/test_logger.cpp": [],
+    "tests/test_memory_pool_extreme.cpp": []
+  },
+  "neighborMap": {}
+}

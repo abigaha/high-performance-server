@@ -1,0 +1,904 @@
+{
+  "scriptCompleted": true,
+  "filesAnalyzed": 7,
+  "filesSkipped": [],
+  "results": [
+    {
+      "path": "tests/test_bench_http_server.sh",
+      "language": "shell",
+      "fileCategory": "script",
+      "totalLines": 52,
+      "nonEmptyLines": 40,
+      "functions": [
+        {
+          "name": "cleanup",
+          "startLine": 9,
+          "endLine": 11,
+          "params": []
+        },
+        {
+          "name": "fail",
+          "startLine": 14,
+          "endLine": 17,
+          "params": []
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 2,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "tests/test_benchmark_script.sh",
+      "language": "shell",
+      "fileCategory": "script",
+      "totalLines": 3359,
+      "nonEmptyLines": 3121,
+      "functions": [
+        {
+          "name": "cleanup",
+          "startLine": 13,
+          "endLine": 15,
+          "params": []
+        },
+        {
+          "name": "fail",
+          "startLine": 18,
+          "endLine": 21,
+          "params": []
+        },
+        {
+          "name": "assert_equals",
+          "startLine": 23,
+          "endLine": 30,
+          "params": []
+        },
+        {
+          "name": "assert_file",
+          "startLine": 32,
+          "endLine": 36,
+          "params": []
+        },
+        {
+          "name": "assert_contains",
+          "startLine": 38,
+          "endLine": 46,
+          "params": []
+        },
+        {
+          "name": "assert_not_contains",
+          "startLine": 48,
+          "endLine": 56,
+          "params": []
+        },
+        {
+          "name": "snapshot_tree",
+          "startLine": 58,
+          "endLine": 65,
+          "params": []
+        },
+        {
+          "name": "snapshot_path",
+          "startLine": 67,
+          "endLine": 75,
+          "params": []
+        },
+        {
+          "name": "write_fake_tools",
+          "startLine": 77,
+          "endLine": 396,
+          "params": []
+        },
+        {
+          "name": "write_target",
+          "startLine": 398,
+          "endLine": 442,
+          "params": []
+        },
+        {
+          "name": "write_qps_source",
+          "startLine": 444,
+          "endLine": 448,
+          "params": []
+        },
+        {
+          "name": "write_legacy_report",
+          "startLine": 450,
+          "endLine": 474,
+          "params": []
+        },
+        {
+          "name": "write_manifest",
+          "startLine": 476,
+          "endLine": 525,
+          "params": []
+        },
+        {
+          "name": "write_misplaced_manifest",
+          "startLine": 527,
+          "endLine": 542,
+          "params": []
+        },
+        {
+          "name": "set_manifest_string_field",
+          "startLine": 544,
+          "endLine": 560,
+          "params": []
+        },
+        {
+          "name": "write_incomplete_manifest",
+          "startLine": 562,
+          "endLine": 582,
+          "params": []
+        },
+        {
+          "name": "write_missing_artifact_manifest",
+          "startLine": 584,
+          "endLine": 595,
+          "params": []
+        },
+        {
+          "name": "set_manifest_boolean_integer",
+          "startLine": 597,
+          "endLine": 619,
+          "params": []
+        },
+        {
+          "name": "write_boolean_integer_manifest",
+          "startLine": 621,
+          "endLine": 633,
+          "params": []
+        },
+        {
+          "name": "set_manifest_artifact_paths",
+          "startLine": 635,
+          "endLine": 652,
+          "params": []
+        },
+        {
+          "name": "write_artifact_path_manifest",
+          "startLine": 654,
+          "endLine": 676,
+          "params": []
+        },
+        {
+          "name": "write_symlink_artifact_manifest",
+          "startLine": 678,
+          "endLine": 694,
+          "params": []
+        },
+        {
+          "name": "write_non_object_manifest",
+          "startLine": 696,
+          "endLine": 706,
+          "params": []
+        },
+        {
+          "name": "write_non_utf8_manifest",
+          "startLine": 708,
+          "endLine": 717,
+          "params": []
+        },
+        {
+          "name": "write_legacy_aggregate_manifest",
+          "startLine": 719,
+          "endLine": 732,
+          "params": []
+        },
+        {
+          "name": "write_diff_manifest_series",
+          "startLine": 734,
+          "endLine": 770,
+          "params": []
+        },
+        {
+          "name": "setup_fixture",
+          "startLine": 772,
+          "endLine": 854,
+          "params": []
+        },
+        {
+          "name": "red",
+          "startLine": 784,
+          "endLine": 784,
+          "params": []
+        },
+        {
+          "name": "green",
+          "startLine": 785,
+          "endLine": 785,
+          "params": []
+        },
+        {
+          "name": "yellow",
+          "startLine": 786,
+          "endLine": 786,
+          "params": []
+        },
+        {
+          "name": "blue",
+          "startLine": 787,
+          "endLine": 787,
+          "params": []
+        },
+        {
+          "name": "require_tools",
+          "startLine": 788,
+          "endLine": 795,
+          "params": []
+        },
+        {
+          "name": "run_benchmark",
+          "startLine": 856,
+          "endLine": 882,
+          "params": []
+        },
+        {
+          "name": "print_benchmark_log",
+          "startLine": 884,
+          "endLine": 891,
+          "params": []
+        },
+        {
+          "name": "assert_benchmark_status",
+          "startLine": 893,
+          "endLine": 900,
+          "params": []
+        },
+        {
+          "name": "manifest_paths",
+          "startLine": 902,
+          "endLine": 906,
+          "params": []
+        },
+        {
+          "name": "discover_single_run_id",
+          "startLine": 908,
+          "endLine": 924,
+          "params": []
+        },
+        {
+          "name": "assert_target_lines",
+          "startLine": 926,
+          "endLine": 938,
+          "params": []
+        },
+        {
+          "name": "assert_recorded_lines",
+          "startLine": 940,
+          "endLine": 952,
+          "params": []
+        },
+        {
+          "name": "assert_empty_file",
+          "startLine": 954,
+          "endLine": 961,
+          "params": []
+        },
+        {
+          "name": "assert_single_link_regular_file",
+          "startLine": 963,
+          "endLine": 975,
+          "params": []
+        },
+        {
+          "name": "assert_manifest_passed",
+          "startLine": 977,
+          "endLine": 997,
+          "params": []
+        },
+        {
+          "name": "assert_legacy_not_written",
+          "startLine": 999,
+          "endLine": 1008,
+          "params": []
+        },
+        {
+          "name": "report_legacy_access",
+          "startLine": 1010,
+          "endLine": 1015,
+          "params": []
+        },
+        {
+          "name": "assert_no_docker",
+          "startLine": 1017,
+          "endLine": 1020,
+          "params": []
+        },
+        {
+          "name": "assert_docker_operation_count",
+          "startLine": 1022,
+          "endLine": 1030,
+          "params": []
+        },
+        {
+          "name": "assert_rps_failed_profile_artifacts",
+          "startLine": 1032,
+          "endLine": 1076,
+          "params": []
+        },
+        {
+          "name": "assert_manifest_contract",
+          "startLine": 1078,
+          "endLine": 1138,
+          "params": []
+        },
+        {
+          "name": "assert_manifest_execution_state",
+          "startLine": 1140,
+          "endLine": 1168,
+          "params": []
+        },
+        {
+          "name": "assert_diff_selects_latest_complete_pair",
+          "startLine": 1170,
+          "endLine": 1235,
+          "params": []
+        },
+        {
+          "name": "configure_rps_environment",
+          "startLine": 1237,
+          "endLine": 1252,
+          "params": []
+        },
+        {
+          "name": "test_run_id_and_manifest_contract",
+          "startLine": 1254,
+          "endLine": 1254,
+          "params": []
+        },
+        {
+          "name": "test_generated_reports_preserve_git_fingerprint",
+          "startLine": 1343,
+          "endLine": 1407,
+          "params": []
+        },
+        {
+          "name": "test_bench_flags_are_hashed_and_sensitive_values_are_rejected",
+          "startLine": 1409,
+          "endLine": 1496,
+          "params": []
+        },
+        {
+          "name": "test_boolean_manifest_integers_are_rejected",
+          "startLine": 1498,
+          "endLine": 1532,
+          "params": []
+        },
+        {
+          "name": "test_manifest_artifact_poisoning_is_rejected",
+          "startLine": 1534,
+          "endLine": 1595,
+          "params": []
+        },
+        {
+          "name": "test_non_object_manifests_are_quietly_rejected",
+          "startLine": 1597,
+          "endLine": 1632,
+          "params": []
+        },
+        {
+          "name": "test_non_utf8_manifests_are_quietly_rejected",
+          "startLine": 1634,
+          "endLine": 1657,
+          "params": []
+        },
+        {
+          "name": "test_resume_directory_symlinks_are_rejected",
+          "startLine": 1659,
+          "endLine": 1711,
+          "params": []
+        },
+        {
+          "name": "test_resume_artifact_links_are_replaced_safely",
+          "startLine": 1713,
+          "endLine": 1776,
+          "params": []
+        },
+        {
+          "name": "test_resume_manifest_identity_is_bound_to_current_location",
+          "startLine": 1778,
+          "endLine": 1852,
+          "params": []
+        },
+        {
+          "name": "test_run_directory_replacement_does_not_publish_artifacts_outside",
+          "startLine": 1854,
+          "endLine": 1917,
+          "params": []
+        },
+        {
+          "name": "test_qps_resume_all_incomplete_states",
+          "startLine": 1919,
+          "endLine": 1919,
+          "params": []
+        },
+        {
+          "name": "test_target_level_layout",
+          "startLine": 2033,
+          "endLine": 2060,
+          "params": []
+        },
+        {
+          "name": "test_resume_failed_target_only",
+          "startLine": 2062,
+          "endLine": 2103,
+          "params": []
+        },
+        {
+          "name": "test_fingerprint_changes_rerun_passed_targets",
+          "startLine": 2105,
+          "endLine": 2164,
+          "params": []
+        },
+        {
+          "name": "test_rps_resume_and_fingerprint",
+          "startLine": 2166,
+          "endLine": 2255,
+          "params": []
+        },
+        {
+          "name": "test_rps_resume_reports_rebuild_complete_matrix",
+          "startLine": 2257,
+          "endLine": 2344,
+          "params": []
+        },
+        {
+          "name": "test_rps_corrupt_cells_are_rerun",
+          "startLine": 2346,
+          "endLine": 2415,
+          "params": []
+        },
+        {
+          "name": "test_rps_extra_manifest_cells_are_pruned_on_resume",
+          "startLine": 2417,
+          "endLine": 2492,
+          "params": []
+        },
+        {
+          "name": "test_rps_resume_artifacts_replace_links_without_following_them",
+          "startLine": 2494,
+          "endLine": 2523,
+          "params": []
+        },
+        {
+          "name": "test_rps_timeout_is_reported_as_failed",
+          "startLine": 2525,
+          "endLine": 2560,
+          "params": []
+        },
+        {
+          "name": "test_rps_profiles_and_managed_lifecycle",
+          "startLine": 2562,
+          "endLine": 2658,
+          "params": []
+        },
+        {
+          "name": "test_rps_managed_startup_failures_write_profile_reports",
+          "startLine": 2660,
+          "endLine": 2713,
+          "params": []
+        },
+        {
+          "name": "test_rps_invalid_rps_metrics_are_failed",
+          "startLine": 2715,
+          "endLine": 2760,
+          "params": []
+        },
+        {
+          "name": "test_rps_invalid_completed_rps_is_rerun_on_resume",
+          "startLine": 2762,
+          "endLine": 2825,
+          "params": []
+        },
+        {
+          "name": "test_rps_startup_signal_writes_profile_reports",
+          "startLine": 2827,
+          "endLine": 2876,
+          "params": []
+        },
+        {
+          "name": "test_rps_signal_after_prepare_writes_profile_reports",
+          "startLine": 2878,
+          "endLine": 2937,
+          "params": []
+        },
+        {
+          "name": "test_rps_overload_resume_is_complete",
+          "startLine": 2939,
+          "endLine": 2973,
+          "params": []
+        },
+        {
+          "name": "test_rps_signal_cleans_managed_environment",
+          "startLine": 2975,
+          "endLine": 3033,
+          "params": []
+        },
+        {
+          "name": "test_rps_signal_writes_external_and_unstarted_profile_artifacts",
+          "startLine": 3035,
+          "endLine": 3141,
+          "params": []
+        },
+        {
+          "name": "test_diff_uses_new_manifests",
+          "startLine": 3143,
+          "endLine": 3201,
+          "params": []
+        },
+        {
+          "name": "test_diff_without_reports_is_read_only",
+          "startLine": 3203,
+          "endLine": 3216,
+          "params": []
+        },
+        {
+          "name": "run_case",
+          "startLine": 3218,
+          "endLine": 3228,
+          "params": []
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 84,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "tests/test_codeql_discovery.sh",
+      "language": "shell",
+      "fileCategory": "script",
+      "totalLines": 195,
+      "nonEmptyLines": 162,
+      "functions": [
+        {
+          "name": "cleanup",
+          "startLine": 8,
+          "endLine": 10,
+          "params": []
+        },
+        {
+          "name": "fail",
+          "startLine": 13,
+          "endLine": 16,
+          "params": []
+        },
+        {
+          "name": "assert_equals",
+          "startLine": 18,
+          "endLine": 26,
+          "params": []
+        },
+        {
+          "name": "assert_contains",
+          "startLine": 28,
+          "endLine": 36,
+          "params": []
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 4,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "tests/test_docker_admin_env.sh",
+      "language": "shell",
+      "fileCategory": "script",
+      "totalLines": 293,
+      "nonEmptyLines": 267,
+      "functions": [
+        {
+          "name": "fail",
+          "startLine": 8,
+          "endLine": 11,
+          "params": []
+        },
+        {
+          "name": "write_base_env",
+          "startLine": 13,
+          "endLine": 22,
+          "params": []
+        },
+        {
+          "name": "load_docker_library",
+          "startLine": 24,
+          "endLine": 28,
+          "params": []
+        },
+        {
+          "name": "assert_base_url_output",
+          "startLine": 252,
+          "endLine": 259,
+          "params": []
+        },
+        {
+          "name": "assert_base_url_failure",
+          "startLine": 261,
+          "endLine": 269,
+          "params": []
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 5,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "tests/test_lint_script.sh",
+      "language": "shell",
+      "fileCategory": "script",
+      "totalLines": 145,
+      "nonEmptyLines": 129,
+      "functions": [
+        {
+          "name": "cleanup",
+          "startLine": 9,
+          "endLine": 11,
+          "params": []
+        },
+        {
+          "name": "fail",
+          "startLine": 14,
+          "endLine": 17,
+          "params": []
+        },
+        {
+          "name": "assert_contains",
+          "startLine": 19,
+          "endLine": 24,
+          "params": []
+        },
+        {
+          "name": "setup_fixture",
+          "startLine": 26,
+          "endLine": 75,
+          "params": []
+        },
+        {
+          "name": "run_lint",
+          "startLine": 77,
+          "endLine": 87,
+          "params": []
+        },
+        {
+          "name": "assert_timeout_wrapper",
+          "startLine": 89,
+          "endLine": 96,
+          "params": []
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 6,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "tests/test_migrate_legacy_reports.sh",
+      "language": "shell",
+      "fileCategory": "script",
+      "totalLines": 491,
+      "nonEmptyLines": 427,
+      "functions": [
+        {
+          "name": "cleanup",
+          "startLine": 8,
+          "endLine": 10,
+          "params": []
+        },
+        {
+          "name": "fail",
+          "startLine": 15,
+          "endLine": 18,
+          "params": []
+        },
+        {
+          "name": "assert_equals",
+          "startLine": 20,
+          "endLine": 25,
+          "params": []
+        },
+        {
+          "name": "assert_file",
+          "startLine": 27,
+          "endLine": 31,
+          "params": []
+        },
+        {
+          "name": "assert_missing",
+          "startLine": 33,
+          "endLine": 37,
+          "params": []
+        },
+        {
+          "name": "sha256",
+          "startLine": 39,
+          "endLine": 41,
+          "params": []
+        },
+        {
+          "name": "file_size",
+          "startLine": 43,
+          "endLine": 45,
+          "params": []
+        },
+        {
+          "name": "create_publish_race_hook",
+          "startLine": 241,
+          "endLine": 287,
+          "params": []
+        },
+        {
+          "name": "assert_no_clobber_destination_publish_race",
+          "startLine": 289,
+          "endLine": 325,
+          "params": []
+        },
+        {
+          "name": "assert_no_clobber_index_publish_race",
+          "startLine": 327,
+          "endLine": 362,
+          "params": []
+        },
+        {
+          "name": "assert_destination_root_symlink_is_rejected",
+          "startLine": 367,
+          "endLine": 379,
+          "params": []
+        },
+        {
+          "name": "assert_unknown_section_title_aggregates_entire_report",
+          "startLine": 383,
+          "endLine": 419,
+          "params": []
+        },
+        {
+          "name": "assert_intermediate_symlink_publish_race_stays_outside",
+          "startLine": 421,
+          "endLine": 475,
+          "params": []
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 13,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "tests/test_test_script.sh",
+      "language": "shell",
+      "fileCategory": "script",
+      "totalLines": 1317,
+      "nonEmptyLines": 1243,
+      "functions": [
+        {
+          "name": "cleanup_test",
+          "startLine": 7,
+          "endLine": 16,
+          "params": []
+        },
+        {
+          "name": "yellow",
+          "startLine": 26,
+          "endLine": 26,
+          "params": []
+        },
+        {
+          "name": "green",
+          "startLine": 27,
+          "endLine": 27,
+          "params": []
+        },
+        {
+          "name": "red",
+          "startLine": 28,
+          "endLine": 28,
+          "params": []
+        },
+        {
+          "name": "ensure_frontend_dependencies",
+          "startLine": 29,
+          "endLine": 29,
+          "params": []
+        },
+        {
+          "name": "assert_entry_installs_dependencies_before_script_regression",
+          "startLine": 148,
+          "endLine": 235,
+          "params": []
+        },
+        {
+          "name": "yellow",
+          "startLine": 162,
+          "endLine": 162,
+          "params": []
+        },
+        {
+          "name": "green",
+          "startLine": 163,
+          "endLine": 163,
+          "params": []
+        },
+        {
+          "name": "red",
+          "startLine": 164,
+          "endLine": 164,
+          "params": []
+        },
+        {
+          "name": "ensure_frontend_dependencies",
+          "startLine": 165,
+          "endLine": 169,
+          "params": []
+        },
+        {
+          "name": "assert_e2e_documentation_is_canonical",
+          "startLine": 240,
+          "endLine": 286,
+          "params": []
+        },
+        {
+          "name": "assert_playwright_rejects_latest_root",
+          "startLine": 290,
+          "endLine": 309,
+          "params": []
+        },
+        {
+          "name": "assert_playwright_sanitizes_latest_run_id",
+          "startLine": 316,
+          "endLine": 329,
+          "params": []
+        },
+        {
+          "name": "run_term_ignoring_child_case",
+          "startLine": 618,
+          "endLine": 662,
+          "params": []
+        },
+        {
+          "name": "run_repeated_signal_case",
+          "startLine": 666,
+          "endLine": 730,
+          "params": []
+        },
+        {
+          "name": "run_startup_signal_case",
+          "startLine": 735,
+          "endLine": 787,
+          "params": []
+        },
+        {
+          "name": "run_start_failure_cleanup_signal_case",
+          "startLine": 792,
+          "endLine": 844,
+          "params": []
+        },
+        {
+          "name": "run_isolated_helper",
+          "startLine": 908,
+          "endLine": 918,
+          "params": []
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 18,
+        "classCount": 0
+      }
+    }
+  ]
+}

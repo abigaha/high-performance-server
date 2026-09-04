@@ -1,0 +1,633 @@
+{
+  "nodes": [
+    {
+      "id": "file:db/src/boost_mysql_connection.cpp",
+      "type": "file",
+      "name": "db/src/boost_mysql_connection.cpp",
+      "summary": "基于 Boost.MySQL 的 MySQL 连接封装：提供连接管理、参数化查询执行、结果解析与 UTC 时间格式转换工具，统一输出字符串结果供上层使用。",
+      "tags": ["mysql", "boost", "database", "connection"],
+      "complexity": "complex",
+      "filePath": "db/src/boost_mysql_connection.cpp"
+    },
+    {
+      "id": "class:db/src/boost_mysql_connection.cpp:BoostMySqlConnection::Impl",
+      "type": "class",
+      "name": "BoostMySqlConnection::Impl",
+      "summary": "BoostMySqlConnection 的 PIMPL 内部实现：持有 io_context、SSL 上下文与 TCP/SSL 流连接，实现连接、ping、查询与执行等底层操作。",
+      "tags": ["pimpl", "mysql", "connection", "boost"],
+      "complexity": "complex",
+      "lineRange": "206-345"
+    },
+    {
+      "id": "function:db/src/boost_mysql_connection.cpp:parse_number",
+      "type": "function",
+      "name": "parse_number",
+      "summary": "将字符串子串解析为无符号整数，供日期时间各字段解析复用。",
+      "tags": ["parse", "number", "utility"],
+      "complexity": "simple",
+      "lineRange": "36-45"
+    },
+    {
+      "id": "function:db/src/boost_mysql_connection.cpp:floor_div",
+      "type": "function",
+      "name": "floor_div",
+      "summary": "计算两个整数的向下取整除法，用于时间单位换算。",
+      "tags": ["math", "utility", "time"],
+      "complexity": "simple",
+      "lineRange": "54-58"
+    },
+    {
+      "id": "function:db/src/boost_mysql_connection.cpp:to_microseconds",
+      "type": "function",
+      "name": "to_microseconds",
+      "summary": "将系统时钟时间点转换为微秒级整数表示，供 MySQL 时间序列化使用。",
+      "tags": ["time", "microseconds", "chrono"],
+      "complexity": "simple",
+      "lineRange": "66-75"
+    },
+    {
+      "id": "function:db/src/boost_mysql_connection.cpp:to_system_clock",
+      "type": "function",
+      "name": "to_system_clock",
+      "summary": "将微秒整数转换回 system_clock 时间点，用于解析 MySQL 返回的日期时间。",
+      "tags": ["time", "chrono", "parse"],
+      "complexity": "simple",
+      "lineRange": "77-90"
+    },
+    {
+      "id": "function:db/src/boost_mysql_connection.cpp:format_utc",
+      "type": "function",
+      "name": "format_utc",
+      "summary": "按分隔符与后缀格式化 UTC 日期时间，支持 MySQL 年份与 RFC3339 两种输出格式。",
+      "tags": ["time", "format", "utc", "datetime"],
+      "complexity": "moderate",
+      "lineRange": "92-123"
+    },
+    {
+      "id": "function:db/src/boost_mysql_connection.cpp:blob_to_string",
+      "type": "function",
+      "name": "blob_to_string",
+      "summary": "将 MySQL blob 字段视图转换为 std::string，供二进制数据读取。",
+      "tags": ["blob", "convert", "mysql"],
+      "complexity": "simple",
+      "lineRange": "143-148"
+    },
+    {
+      "id": "function:db/src/boost_mysql_connection.cpp:time_to_string",
+      "type": "function",
+      "name": "time_to_string",
+      "summary": "将 MySQL time 值格式化为 HH:MM:SS 字符串，处理微秒精度。",
+      "tags": ["time", "format", "mysql"],
+      "complexity": "simple",
+      "lineRange": "150-174"
+    },
+    {
+      "id": "function:db/src/boost_mysql_connection.cpp:mysql_field_to_string",
+      "type": "function",
+      "name": "mysql_field_to_string",
+      "summary": "按字段类型将任意 MySQL 字段值转换为字符串，覆盖整数、浮点、字符串、日期时间与 blob 等类型。",
+      "tags": ["mysql", "convert", "field", "type-dispatch"],
+      "complexity": "moderate",
+      "lineRange": "178-204"
+    },
+    {
+      "id": "function:db/src/boost_mysql_connection.cpp:connect",
+      "type": "function",
+      "name": "connect",
+      "summary": "解析主机与端口并建立 TCP/SSL 连接，配置会话为 UTC 时区。",
+      "tags": ["connect", "mysql", "tcp", "ssl"],
+      "complexity": "moderate",
+      "lineRange": "210-234"
+    },
+    {
+      "id": "function:db/src/boost_mysql_connection.cpp:ping",
+      "type": "function",
+      "name": "ping",
+      "summary": "发送 SELECT 1 探测连接存活，异常时关闭底层 socket 并返回 false。",
+      "tags": ["ping", "health", "mysql"],
+      "complexity": "simple",
+      "lineRange": "238-252"
+    },
+    {
+      "id": "function:db/src/boost_mysql_connection.cpp:query",
+      "type": "function",
+      "name": "query",
+      "summary": "执行参数化查询，将结果按列名映射为字符串向量并记录 last_insert_id，失败时自动关闭连接。",
+      "tags": ["query", "mysql", "prepared-statement", "result"],
+      "complexity": "complex",
+      "lineRange": "254-292"
+    },
+    {
+      "id": "function:db/src/boost_mysql_connection.cpp:execute",
+      "type": "function",
+      "name": "execute",
+      "summary": "执行参数化写操作，返回受影响的记录数与 last_insert_id，失败时关闭连接。",
+      "tags": ["execute", "mysql", "write"],
+      "complexity": "moderate",
+      "lineRange": "294-318"
+    },
+    {
+      "id": "function:db/src/boost_mysql_connection.cpp:close_socket",
+      "type": "function",
+      "name": "close_socket",
+      "summary": "关闭底层 TCP/SSL socket，用于异常后重置连接。",
+      "tags": ["socket", "close", "mysql"],
+      "complexity": "simple",
+      "lineRange": "322-328"
+    },
+    {
+      "id": "function:db/src/boost_mysql_connection.cpp:execute_stmt",
+      "type": "function",
+      "name": "execute_stmt",
+      "summary": "将参数向量绑定到预处理语句并执行，返回查询结果集。",
+      "tags": ["prepared-statement", "mysql", "bind"],
+      "complexity": "simple",
+      "lineRange": "336-344"
+    },
+    {
+      "id": "function:db/src/boost_mysql_connection.cpp:~BoostMySqlConnection",
+      "type": "function",
+      "name": "~BoostMySqlConnection",
+      "summary": "析构函数，关闭底层 socket 释放连接资源。",
+      "tags": ["destructor", "cleanup", "mysql"],
+      "complexity": "simple",
+      "lineRange": "349-352"
+    },
+    {
+      "id": "function:db/src/boost_mysql_connection.cpp:close",
+      "type": "function",
+      "name": "close",
+      "summary": "公共接口：关闭底层连接 socket。",
+      "tags": ["close", "api", "connection"],
+      "complexity": "simple",
+      "lineRange": "384-386"
+    },
+    {
+      "id": "function:db/src/boost_mysql_connection.cpp:configure_mysql_utc_session",
+      "type": "function",
+      "name": "configure_mysql_utc_session",
+      "summary": "为新连接执行 SET time_zone='+00:00' 使会话统一使用 UTC。",
+      "tags": ["timezone", "utc", "session"],
+      "complexity": "simple",
+      "lineRange": "388-394"
+    },
+    {
+      "id": "function:db/src/boost_mysql_connection.cpp:parse_mysql_utc_datetime",
+      "type": "function",
+      "name": "parse_mysql_utc_datetime",
+      "summary": "解析 MySQL UTC DATETIME 字符串（含微秒）为 system_clock 时间点，非法格式返回 nullopt。",
+      "tags": ["parse", "datetime", "utc", "mysql"],
+      "complexity": "moderate",
+      "lineRange": "396-428"
+    },
+    {
+      "id": "function:db/src/boost_mysql_connection.cpp:try_format_mysql_utc_datetime",
+      "type": "function",
+      "name": "try_format_mysql_utc_datetime",
+      "summary": "尝试将时间点格式化为 MySQL UTC 字符串，失败返回 nullopt。",
+      "tags": ["format", "datetime", "utc"],
+      "complexity": "simple",
+      "lineRange": "430-432"
+    },
+    {
+      "id": "function:db/src/boost_mysql_connection.cpp:format_mysql_utc_datetime",
+      "type": "function",
+      "name": "format_mysql_utc_datetime",
+      "summary": "将时间点格式化为 MySQL UTC DATETIME 字符串，失败抛出 out_of_range 异常。",
+      "tags": ["format", "datetime", "mysql"],
+      "complexity": "simple",
+      "lineRange": "434-440"
+    },
+    {
+      "id": "function:db/src/boost_mysql_connection.cpp:format_rfc3339_utc",
+      "type": "function",
+      "name": "format_rfc3339_utc",
+      "summary": "将时间点格式化为 RFC3339 UTC 字符串（含 T 与 Z 标记），失败抛出 out_of_range 异常。",
+      "tags": ["format", "rfc3339", "utc"],
+      "complexity": "simple",
+      "lineRange": "442-448"
+    }
+  ],
+  "edges": [
+    {
+      "source": "file:db/src/boost_mysql_connection.cpp",
+      "target": "class:db/src/boost_mysql_connection.cpp:BoostMySqlConnection::Impl",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:db/src/boost_mysql_connection.cpp",
+      "target": "function:db/src/boost_mysql_connection.cpp:parse_number",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:db/src/boost_mysql_connection.cpp",
+      "target": "function:db/src/boost_mysql_connection.cpp:floor_div",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:db/src/boost_mysql_connection.cpp",
+      "target": "function:db/src/boost_mysql_connection.cpp:to_microseconds",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:db/src/boost_mysql_connection.cpp",
+      "target": "function:db/src/boost_mysql_connection.cpp:to_system_clock",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:db/src/boost_mysql_connection.cpp",
+      "target": "function:db/src/boost_mysql_connection.cpp:format_utc",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:db/src/boost_mysql_connection.cpp",
+      "target": "function:db/src/boost_mysql_connection.cpp:blob_to_string",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:db/src/boost_mysql_connection.cpp",
+      "target": "function:db/src/boost_mysql_connection.cpp:time_to_string",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:db/src/boost_mysql_connection.cpp",
+      "target": "function:db/src/boost_mysql_connection.cpp:mysql_field_to_string",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:db/src/boost_mysql_connection.cpp",
+      "target": "function:db/src/boost_mysql_connection.cpp:connect",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:db/src/boost_mysql_connection.cpp",
+      "target": "function:db/src/boost_mysql_connection.cpp:ping",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:db/src/boost_mysql_connection.cpp",
+      "target": "function:db/src/boost_mysql_connection.cpp:query",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:db/src/boost_mysql_connection.cpp",
+      "target": "function:db/src/boost_mysql_connection.cpp:execute",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:db/src/boost_mysql_connection.cpp",
+      "target": "function:db/src/boost_mysql_connection.cpp:close_socket",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:db/src/boost_mysql_connection.cpp",
+      "target": "function:db/src/boost_mysql_connection.cpp:execute_stmt",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:db/src/boost_mysql_connection.cpp",
+      "target": "function:db/src/boost_mysql_connection.cpp:~BoostMySqlConnection",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:db/src/boost_mysql_connection.cpp",
+      "target": "function:db/src/boost_mysql_connection.cpp:close",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:db/src/boost_mysql_connection.cpp",
+      "target": "function:db/src/boost_mysql_connection.cpp:configure_mysql_utc_session",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:db/src/boost_mysql_connection.cpp",
+      "target": "function:db/src/boost_mysql_connection.cpp:parse_mysql_utc_datetime",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:db/src/boost_mysql_connection.cpp",
+      "target": "function:db/src/boost_mysql_connection.cpp:try_format_mysql_utc_datetime",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:db/src/boost_mysql_connection.cpp",
+      "target": "function:db/src/boost_mysql_connection.cpp:format_mysql_utc_datetime",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:db/src/boost_mysql_connection.cpp",
+      "target": "function:db/src/boost_mysql_connection.cpp:format_rfc3339_utc",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:db/src/boost_mysql_connection.cpp",
+      "target": "class:db/src/boost_mysql_connection.cpp:BoostMySqlConnection::Impl",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:db/src/boost_mysql_connection.cpp",
+      "target": "function:db/src/boost_mysql_connection.cpp:parse_number",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:db/src/boost_mysql_connection.cpp",
+      "target": "function:db/src/boost_mysql_connection.cpp:floor_div",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:db/src/boost_mysql_connection.cpp",
+      "target": "function:db/src/boost_mysql_connection.cpp:to_microseconds",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:db/src/boost_mysql_connection.cpp",
+      "target": "function:db/src/boost_mysql_connection.cpp:to_system_clock",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:db/src/boost_mysql_connection.cpp",
+      "target": "function:db/src/boost_mysql_connection.cpp:format_utc",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:db/src/boost_mysql_connection.cpp",
+      "target": "function:db/src/boost_mysql_connection.cpp:blob_to_string",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:db/src/boost_mysql_connection.cpp",
+      "target": "function:db/src/boost_mysql_connection.cpp:time_to_string",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:db/src/boost_mysql_connection.cpp",
+      "target": "function:db/src/boost_mysql_connection.cpp:mysql_field_to_string",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:db/src/boost_mysql_connection.cpp",
+      "target": "function:db/src/boost_mysql_connection.cpp:connect",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:db/src/boost_mysql_connection.cpp",
+      "target": "function:db/src/boost_mysql_connection.cpp:ping",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:db/src/boost_mysql_connection.cpp",
+      "target": "function:db/src/boost_mysql_connection.cpp:query",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:db/src/boost_mysql_connection.cpp",
+      "target": "function:db/src/boost_mysql_connection.cpp:execute",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:db/src/boost_mysql_connection.cpp",
+      "target": "function:db/src/boost_mysql_connection.cpp:close_socket",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:db/src/boost_mysql_connection.cpp",
+      "target": "function:db/src/boost_mysql_connection.cpp:execute_stmt",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:db/src/boost_mysql_connection.cpp",
+      "target": "function:db/src/boost_mysql_connection.cpp:~BoostMySqlConnection",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:db/src/boost_mysql_connection.cpp",
+      "target": "function:db/src/boost_mysql_connection.cpp:close",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:db/src/boost_mysql_connection.cpp",
+      "target": "function:db/src/boost_mysql_connection.cpp:configure_mysql_utc_session",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:db/src/boost_mysql_connection.cpp",
+      "target": "function:db/src/boost_mysql_connection.cpp:parse_mysql_utc_datetime",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:db/src/boost_mysql_connection.cpp",
+      "target": "function:db/src/boost_mysql_connection.cpp:try_format_mysql_utc_datetime",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:db/src/boost_mysql_connection.cpp",
+      "target": "function:db/src/boost_mysql_connection.cpp:format_mysql_utc_datetime",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:db/src/boost_mysql_connection.cpp",
+      "target": "function:db/src/boost_mysql_connection.cpp:format_rfc3339_utc",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:db/src/boost_mysql_connection.cpp:to_microseconds",
+      "target": "function:db/src/boost_mysql_connection.cpp:floor_div",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:db/src/boost_mysql_connection.cpp:format_utc",
+      "target": "function:db/src/boost_mysql_connection.cpp:to_microseconds",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:db/src/boost_mysql_connection.cpp:mysql_field_to_string",
+      "target": "function:db/src/boost_mysql_connection.cpp:blob_to_string",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:db/src/boost_mysql_connection.cpp:mysql_field_to_string",
+      "target": "function:db/src/boost_mysql_connection.cpp:time_to_string",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:db/src/boost_mysql_connection.cpp:ping",
+      "target": "function:db/src/boost_mysql_connection.cpp:execute",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:db/src/boost_mysql_connection.cpp:query",
+      "target": "function:db/src/boost_mysql_connection.cpp:execute",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:db/src/boost_mysql_connection.cpp:query",
+      "target": "function:db/src/boost_mysql_connection.cpp:execute_stmt",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:db/src/boost_mysql_connection.cpp:execute",
+      "target": "function:db/src/boost_mysql_connection.cpp:execute_stmt",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:db/src/boost_mysql_connection.cpp:~BoostMySqlConnection",
+      "target": "function:db/src/boost_mysql_connection.cpp:close_socket",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:db/src/boost_mysql_connection.cpp:close",
+      "target": "function:db/src/boost_mysql_connection.cpp:close_socket",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:db/src/boost_mysql_connection.cpp:connect",
+      "target": "function:db/src/boost_mysql_connection.cpp:configure_mysql_utc_session",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:db/src/boost_mysql_connection.cpp:parse_mysql_utc_datetime",
+      "target": "function:db/src/boost_mysql_connection.cpp:parse_number",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:db/src/boost_mysql_connection.cpp:parse_mysql_utc_datetime",
+      "target": "function:db/src/boost_mysql_connection.cpp:to_system_clock",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:db/src/boost_mysql_connection.cpp:try_format_mysql_utc_datetime",
+      "target": "function:db/src/boost_mysql_connection.cpp:format_utc",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:db/src/boost_mysql_connection.cpp:format_mysql_utc_datetime",
+      "target": "function:db/src/boost_mysql_connection.cpp:try_format_mysql_utc_datetime",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:db/src/boost_mysql_connection.cpp:format_rfc3339_utc",
+      "target": "function:db/src/boost_mysql_connection.cpp:format_utc",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    }
+  ]
+}

@@ -1,0 +1,5570 @@
+{
+  "nodes": [
+    {
+      "id": "class:net/thread-pool/include/locked_thread_pool.h::LockedThreadPool",
+      "type": "class",
+      "name": "LockedThreadPool"
+    },
+    {
+      "id": "function:net/thread-pool/include/locked_thread_pool.h::LockedThreadPool",
+      "type": "function",
+      "name": "LockedThreadPool"
+    },
+    {
+      "id": "function:net/thread-pool/include/locked_thread_pool.h::wait_impl",
+      "type": "function",
+      "name": "wait_impl"
+    },
+    {
+      "id": "function:net/thread-pool/include/locked_thread_pool.h::stop_impl",
+      "type": "function",
+      "name": "stop_impl"
+    },
+    {
+      "id": "function:net/thread-pool/include/locked_thread_pool.h::wait_for",
+      "type": "function",
+      "name": "wait_for"
+    },
+    {
+      "id": "file:net/thread-pool/include/move_only_function.h",
+      "type": "file",
+      "name": "move_only_function.h",
+      "filePath": "net/thread-pool/include/move_only_function.h"
+    },
+    {
+      "id": "class:net/thread-pool/include/move_only_function.h::MoveOnlyFunction",
+      "type": "class",
+      "name": "MoveOnlyFunction"
+    },
+    {
+      "id": "function:net/thread-pool/include/move_only_function.h::MoveOnlyFunction",
+      "type": "function",
+      "name": "MoveOnlyFunction"
+    },
+    {
+      "id": "function:net/thread-pool/include/move_only_function.h::~MoveOnlyFunction",
+      "type": "function",
+      "name": "~MoveOnlyFunction"
+    },
+    {
+      "id": "function:net/thread-pool/include/move_only_function.h::operator()",
+      "type": "function",
+      "name": "operator()"
+    },
+    {
+      "id": "function:net/thread-pool/include/move_only_function.h::reset",
+      "type": "function",
+      "name": "reset"
+    },
+    {
+      "id": "function:net/thread-pool/include/move_only_function.h::move_from",
+      "type": "function",
+      "name": "move_from"
+    },
+    {
+      "id": "class:net/thread-pool/include/thread_pool.h::LockFreeThreadPool",
+      "type": "class",
+      "name": "LockFreeThreadPool"
+    },
+    {
+      "id": "function:net/thread-pool/include/thread_pool.h::wait_impl",
+      "type": "function",
+      "name": "wait_impl"
+    },
+    {
+      "id": "function:net/thread-pool/include/thread_pool.h::stop_impl",
+      "type": "function",
+      "name": "stop_impl"
+    },
+    {
+      "id": "file:net/thread-pool/include/thread_pool_base.h",
+      "type": "file",
+      "name": "thread_pool_base.h",
+      "filePath": "net/thread-pool/include/thread_pool_base.h"
+    },
+    {
+      "id": "file:memory-pool/include/memory_pool_base.h",
+      "type": "file",
+      "name": "memory_pool_base.h",
+      "filePath": "memory-pool/include/memory_pool_base.h"
+    },
+    {
+      "id": "file:memory-pool/include/memory_pool_factory.h",
+      "type": "file",
+      "name": "memory_pool_factory.h",
+      "filePath": "memory-pool/include/memory_pool_factory.h"
+    },
+    {
+      "id": "function:memory-pool/include/memory_pool_factory.h::TieredMemoryPoolDeleter",
+      "type": "function",
+      "name": "TieredMemoryPoolDeleter"
+    },
+    {
+      "id": "function:memory-pool/include/memory_pool_factory.h::CreateMemoryPool",
+      "type": "function",
+      "name": "CreateMemoryPool"
+    },
+    {
+      "id": "file:memory-pool/include/size_class.h",
+      "type": "file",
+      "name": "size_class.h",
+      "filePath": "memory-pool/include/size_class.h"
+    },
+    {
+      "id": "function:memory-pool/include/size_class.h::round_up_size",
+      "type": "function",
+      "name": "round_up_size"
+    },
+    {
+      "id": "function:memory-pool/include/size_class.h::size_class_index",
+      "type": "function",
+      "name": "size_class_index"
+    },
+    {
+      "id": "function:memory-pool/include/size_class.h::size_class_size",
+      "type": "function",
+      "name": "size_class_size"
+    },
+    {
+      "id": "file:memory-pool/include/tiered_memory_pool.h",
+      "type": "file",
+      "name": "tiered_memory_pool.h",
+      "filePath": "memory-pool/include/tiered_memory_pool.h"
+    },
+    {
+      "id": "class:memory-pool/include/tiered_memory_pool.h::TieredMemoryPool",
+      "type": "class",
+      "name": "TieredMemoryPool"
+    },
+    {
+      "id": "function:memory-pool/include/tiered_memory_pool.h::TieredMemoryPool",
+      "type": "function",
+      "name": "TieredMemoryPool"
+    },
+    {
+      "id": "function:memory-pool/include/tiered_memory_pool.h::deallocate_impl",
+      "type": "function",
+      "name": "deallocate_impl"
+    },
+    {
+      "id": "file:logger/include/logappender.h",
+      "type": "file",
+      "name": "logappender.h",
+      "filePath": "logger/include/logappender.h"
+    },
+    {
+      "id": "class:logger/include/logappender.h::LogAppender",
+      "type": "class",
+      "name": "LogAppender"
+    },
+    {
+      "id": "class:logger/include/logappender.h::StdoutLogAppender",
+      "type": "class",
+      "name": "StdoutLogAppender"
+    },
+    {
+      "id": "class:logger/include/logappender.h::FileLogAppender",
+      "type": "class",
+      "name": "FileLogAppender"
+    },
+    {
+      "id": "function:logger/include/logappender.h::~LogAppender",
+      "type": "function",
+      "name": "~LogAppender"
+    },
+    {
+      "id": "function:logger/include/logappender.h::setFormatter",
+      "type": "function",
+      "name": "setFormatter"
+    },
+    {
+      "id": "function:logger/include/logappender.h::getFormatter",
+      "type": "function",
+      "name": "getFormatter"
+    },
+    {
+      "id": "function:logger/include/logappender.h::set_auto_flush",
+      "type": "function",
+      "name": "set_auto_flush"
+    },
+    {
+      "id": "function:logger/include/logappender.h::auto_flush",
+      "type": "function",
+      "name": "auto_flush"
+    },
+    {
+      "id": "function:logger/include/logappender.h::log",
+      "type": "function",
+      "name": "log"
+    },
+    {
+      "id": "function:logger/include/logappender.h::reopen",
+      "type": "function",
+      "name": "reopen"
+    },
+    {
+      "id": "file:logger/include/logformatter.h",
+      "type": "file",
+      "name": "logformatter.h",
+      "filePath": "logger/include/logformatter.h"
+    },
+    {
+      "id": "class:logger/include/logformatter.h::LogFormatter",
+      "type": "class",
+      "name": "LogFormatter"
+    },
+    {
+      "id": "function:logger/include/logformatter.h::format",
+      "type": "function",
+      "name": "format"
+    },
+    {
+      "id": "class:logger/include/logger.h::LogAppender",
+      "type": "class",
+      "name": "LogAppender"
+    },
+    {
+      "id": "class:logger/include/logger.h::LogEvent",
+      "type": "class",
+      "name": "LogEvent"
+    },
+    {
+      "id": "class:logger/include/logger.h::Logger",
+      "type": "class",
+      "name": "Logger"
+    },
+    {
+      "id": "function:logger/include/logger.h::getLine",
+      "type": "function",
+      "name": "getLine"
+    },
+    {
+      "id": "function:logger/include/logger.h::get_thread_id",
+      "type": "function",
+      "name": "get_thread_id"
+    },
+    {
+      "id": "function:logger/include/logger.h::getElapse",
+      "type": "function",
+      "name": "getElapse"
+    },
+    {
+      "id": "function:logger/include/logger.h::getTime",
+      "type": "function",
+      "name": "getTime"
+    },
+    {
+      "id": "function:logger/include/logger.h::get_coroutine_id",
+      "type": "function",
+      "name": "get_coroutine_id"
+    },
+    {
+      "id": "function:logger/include/logger.h::getLevel",
+      "type": "function",
+      "name": "getLevel"
+    },
+    {
+      "id": "function:logger/include/logger.h::setLevel",
+      "type": "function",
+      "name": "setLevel"
+    },
+    {
+      "id": "function:logger/include/logger.h::_debug",
+      "type": "function",
+      "name": "_debug"
+    },
+    {
+      "id": "function:logger/include/logger.h::_info",
+      "type": "function",
+      "name": "_info"
+    },
+    {
+      "id": "function:logger/include/logger.h::_warn",
+      "type": "function",
+      "name": "_warn"
+    },
+    {
+      "id": "function:logger/include/logger.h::_error",
+      "type": "function",
+      "name": "_error"
+    },
+    {
+      "id": "function:logger/include/logger.h::_fatal",
+      "type": "function",
+      "name": "_fatal"
+    },
+    {
+      "id": "function:logger/include/logger.h::log",
+      "type": "function",
+      "name": "log"
+    },
+    {
+      "id": "function:logger/include/logger.h::createEvent",
+      "type": "function",
+      "name": "createEvent"
+    },
+    {
+      "id": "function:logger/include/logger.h::allocCoroutineId",
+      "type": "function",
+      "name": "allocCoroutineId"
+    },
+    {
+      "id": "function:logger/include/logger.h::setCurrentCoroutineId",
+      "type": "function",
+      "name": "setCurrentCoroutineId"
+    },
+    {
+      "id": "function:logger/include/logger.h::getCurrentCoroutineId",
+      "type": "function",
+      "name": "getCurrentCoroutineId"
+    },
+    {
+      "id": "function:logger/include/logger.h::debug",
+      "type": "function",
+      "name": "debug"
+    },
+    {
+      "id": "function:logger/include/logger.h::info",
+      "type": "function",
+      "name": "info"
+    },
+    {
+      "id": "function:logger/include/logger.h::warn",
+      "type": "function",
+      "name": "warn"
+    },
+    {
+      "id": "function:logger/include/logger.h::error",
+      "type": "function",
+      "name": "error"
+    },
+    {
+      "id": "function:logger/include/logger.h::fatal",
+      "type": "function",
+      "name": "fatal"
+    },
+    {
+      "id": "function:logger/include/logger.h::addAppender",
+      "type": "function",
+      "name": "addAppender"
+    },
+    {
+      "id": "function:logger/include/logger.h::delAppender",
+      "type": "function",
+      "name": "delAppender"
+    },
+    {
+      "id": "function:logger/include/logger.h::init",
+      "type": "function",
+      "name": "init"
+    },
+    {
+      "id": "function:logger/include/logger.h::shutdown",
+      "type": "function",
+      "name": "shutdown"
+    },
+    {
+      "id": "file:.clang-tidy",
+      "type": "file",
+      "name": ".clang-tidy",
+      "filePath": ".clang-tidy"
+    },
+    {
+      "id": "file:core/pch.h",
+      "type": "file",
+      "name": "core/pch.h",
+      "filePath": "core/pch.h"
+    },
+    {
+      "id": "class:core/src/main.cpp::ServerConfig",
+      "type": "class",
+      "name": "ServerConfig"
+    },
+    {
+      "id": "function:core/src/main.cpp::parse_server_section",
+      "type": "function",
+      "name": "parse_server_section"
+    },
+    {
+      "id": "function:core/src/main.cpp::parse_database_section",
+      "type": "function",
+      "name": "parse_database_section"
+    },
+    {
+      "id": "function:core/src/main.cpp::parse_ssl_section",
+      "type": "function",
+      "name": "parse_ssl_section"
+    },
+    {
+      "id": "function:core/src/main.cpp::parse_fs_section",
+      "type": "function",
+      "name": "parse_fs_section"
+    },
+    {
+      "id": "function:core/src/main.cpp::parse_cmd_args",
+      "type": "function",
+      "name": "parse_cmd_args"
+    },
+    {
+      "id": "function:core/src/main.cpp::parse_json_file",
+      "type": "function",
+      "name": "parse_json_file"
+    },
+    {
+      "id": "function:core/src/main.cpp::apply_env_overrides",
+      "type": "function",
+      "name": "apply_env_overrides"
+    },
+    {
+      "id": "function:core/src/main.cpp::load_config",
+      "type": "function",
+      "name": "load_config"
+    },
+    {
+      "id": "function:core/src/main.cpp::register_routes",
+      "type": "function",
+      "name": "register_routes"
+    },
+    {
+      "id": "function:core/src/main.cpp::main",
+      "type": "function",
+      "name": "main"
+    },
+    {
+      "id": "class:db/src/boost_mysql_connection.cpp::BoostMySqlConnection::Impl",
+      "type": "class",
+      "name": "Impl"
+    },
+    {
+      "id": "function:db/src/boost_mysql_connection.cpp::Impl",
+      "type": "function",
+      "name": "Impl"
+    },
+    {
+      "id": "function:db/src/boost_mysql_connection.cpp::connect",
+      "type": "function",
+      "name": "connect"
+    },
+    {
+      "id": "function:db/src/boost_mysql_connection.cpp::is_open",
+      "type": "function",
+      "name": "is_open"
+    },
+    {
+      "id": "function:db/src/boost_mysql_connection.cpp::ping",
+      "type": "function",
+      "name": "ping"
+    },
+    {
+      "id": "function:db/src/boost_mysql_connection.cpp::query",
+      "type": "function",
+      "name": "query"
+    },
+    {
+      "id": "function:db/src/boost_mysql_connection.cpp::execute",
+      "type": "function",
+      "name": "execute"
+    },
+    {
+      "id": "function:db/src/boost_mysql_connection.cpp::close_socket",
+      "type": "function",
+      "name": "close_socket"
+    },
+    {
+      "id": "function:db/src/boost_mysql_connection.cpp::execute_stmt",
+      "type": "function",
+      "name": "execute_stmt"
+    },
+    {
+      "id": "function:db/src/boost_mysql_connection.cpp::BoostMySqlConnection",
+      "type": "function",
+      "name": "BoostMySqlConnection"
+    },
+    {
+      "id": "function:db/src/boost_mysql_connection.cpp::~BoostMySqlConnection",
+      "type": "function",
+      "name": "~BoostMySqlConnection"
+    },
+    {
+      "id": "function:db/src/boost_mysql_connection.cpp::close",
+      "type": "function",
+      "name": "close"
+    },
+    {
+      "id": "function:db/src/database_pool.cpp::default_factory",
+      "type": "function",
+      "name": "default_factory"
+    },
+    {
+      "id": "function:db/src/database_pool.cpp::DatabasePool",
+      "type": "function",
+      "name": "DatabasePool"
+    },
+    {
+      "id": "function:db/src/database_pool.cpp::~DatabasePool",
+      "type": "function",
+      "name": "~DatabasePool"
+    },
+    {
+      "id": "function:db/src/database_pool.cpp::close",
+      "type": "function",
+      "name": "close"
+    },
+    {
+      "id": "function:db/src/database_pool.cpp::init",
+      "type": "function",
+      "name": "init"
+    },
+    {
+      "id": "function:db/src/database_pool.cpp::do_close",
+      "type": "function",
+      "name": "do_close"
+    },
+    {
+      "id": "function:db/src/database_pool.cpp::get_connection",
+      "type": "function",
+      "name": "get_connection"
+    },
+    {
+      "id": "function:db/src/database_pool.cpp::release_connection",
+      "type": "function",
+      "name": "release_connection"
+    },
+    {
+      "id": "function:db/src/database_pool.cpp::escape_string",
+      "type": "function",
+      "name": "escape_string"
+    },
+    {
+      "id": "function:db/src/database_pool.cpp::get_user",
+      "type": "function",
+      "name": "get_user"
+    },
+    {
+      "id": "function:db/src/database_pool.cpp::create_user",
+      "type": "function",
+      "name": "create_user"
+    },
+    {
+      "id": "function:db/src/database_pool.cpp::log_download",
+      "type": "function",
+      "name": "log_download"
+    },
+    {
+      "id": "function:db/src/database_pool.cpp::get_download_history",
+      "type": "function",
+      "name": "get_download_history"
+    },
+    {
+      "id": "function:db/src/database_pool.cpp::store_file_meta",
+      "type": "function",
+      "name": "store_file_meta"
+    },
+    {
+      "id": "function:db/src/database_pool.cpp::get_file_meta",
+      "type": "function",
+      "name": "get_file_meta"
+    },
+    {
+      "id": "class:file-system/include/file_system.h::FileSystem",
+      "type": "class",
+      "name": "FileSystem"
+    },
+    {
+      "id": "function:file-system/include/file_system.h::split_file",
+      "type": "function",
+      "name": "split_file"
+    },
+    {
+      "id": "function:file-system/include/file_system.h::compute_file_hash",
+      "type": "function",
+      "name": "compute_file_hash"
+    },
+    {
+      "id": "function:file-system/include/file_system.h::compute_chunk_hash",
+      "type": "function",
+      "name": "compute_chunk_hash"
+    },
+    {
+      "id": "function:file-system/include/file_system.h::store_file",
+      "type": "function",
+      "name": "store_file"
+    },
+    {
+      "id": "function:file-system/include/file_system.h::delete_file",
+      "type": "function",
+      "name": "delete_file"
+    },
+    {
+      "id": "function:file-system/include/file_system.h::read_file",
+      "type": "function",
+      "name": "read_file"
+    },
+    {
+      "id": "function:file-system/include/file_system.h::sha256_hex",
+      "type": "function",
+      "name": "sha256_hex"
+    },
+    {
+      "id": "function:file-system/include/file_system.h::resolve_path",
+      "type": "function",
+      "name": "resolve_path"
+    },
+    {
+      "id": "function:file-system/include/file_system.h::to_hex",
+      "type": "function",
+      "name": "to_hex"
+    },
+    {
+      "id": "class:file-system/include/i_file_system.h::FileChunk",
+      "type": "class",
+      "name": "FileChunk"
+    },
+    {
+      "id": "class:file-system/include/i_file_system.h::IFileSystem",
+      "type": "class",
+      "name": "IFileSystem"
+    },
+    {
+      "id": "function:file-system/include/i_file_system.h::~IFileSystem",
+      "type": "function",
+      "name": "~IFileSystem"
+    },
+    {
+      "id": "function:file-system/include/i_file_system.h::split_file",
+      "type": "function",
+      "name": "split_file"
+    },
+    {
+      "id": "function:file-system/include/i_file_system.h::compute_file_hash",
+      "type": "function",
+      "name": "compute_file_hash"
+    },
+    {
+      "id": "function:file-system/include/i_file_system.h::compute_chunk_hash",
+      "type": "function",
+      "name": "compute_chunk_hash"
+    },
+    {
+      "id": "function:file-system/include/i_file_system.h::store_file",
+      "type": "function",
+      "name": "store_file"
+    },
+    {
+      "id": "function:file-system/include/i_file_system.h::delete_file",
+      "type": "function",
+      "name": "delete_file"
+    },
+    {
+      "id": "function:file-system/include/i_file_system.h::read_file",
+      "type": "function",
+      "name": "read_file"
+    },
+    {
+      "id": "function:file-system/src/file_system.cpp::FileSystem",
+      "type": "function",
+      "name": "FileSystem"
+    },
+    {
+      "id": "function:file-system/src/file_system.cpp::to_hex",
+      "type": "function",
+      "name": "to_hex"
+    },
+    {
+      "id": "function:file-system/src/file_system.cpp::sha256_hex",
+      "type": "function",
+      "name": "sha256_hex"
+    },
+    {
+      "id": "function:file-system/src/file_system.cpp::resolve_path",
+      "type": "function",
+      "name": "resolve_path"
+    },
+    {
+      "id": "function:file-system/src/file_system.cpp::split_file",
+      "type": "function",
+      "name": "split_file"
+    },
+    {
+      "id": "function:file-system/src/file_system.cpp::compute_file_hash",
+      "type": "function",
+      "name": "compute_file_hash"
+    },
+    {
+      "id": "function:file-system/src/file_system.cpp::compute_chunk_hash",
+      "type": "function",
+      "name": "compute_chunk_hash"
+    },
+    {
+      "id": "function:file-system/src/file_system.cpp::store_file",
+      "type": "function",
+      "name": "store_file"
+    },
+    {
+      "id": "function:file-system/src/file_system.cpp::delete_file",
+      "type": "function",
+      "name": "delete_file"
+    },
+    {
+      "id": "function:file-system/src/file_system.cpp::read_file",
+      "type": "function",
+      "name": "read_file"
+    },
+    {
+      "id": "file:file-system/xmake.lua",
+      "type": "file",
+      "name": "file-system/xmake.lua",
+      "filePath": "file-system/xmake.lua"
+    },
+    {
+      "id": "file:logger/src/logappender.cpp",
+      "type": "file",
+      "name": "logger/src/logappender.cpp",
+      "filePath": "logger/src/logappender.cpp"
+    },
+    {
+      "id": "function:logger/src/logappender.cpp::FileLogAppender",
+      "type": "function",
+      "name": "FileLogAppender"
+    },
+    {
+      "id": "function:logger/src/logappender.cpp::reopen",
+      "type": "function",
+      "name": "reopen"
+    },
+    {
+      "id": "function:logger/src/logappender.cpp::log",
+      "type": "function",
+      "name": "log"
+    },
+    {
+      "id": "file:logger/src/logformatter.cpp",
+      "type": "file",
+      "name": "logger/src/logformatter.cpp",
+      "filePath": "logger/src/logformatter.cpp"
+    },
+    {
+      "id": "function:logger/src/logformatter.cpp::LogFormatter",
+      "type": "function",
+      "name": "LogFormatter"
+    },
+    {
+      "id": "function:logger/src/logformatter.cpp::format",
+      "type": "function",
+      "name": "format"
+    },
+    {
+      "id": "function:logger/src/logformatter.cpp::init",
+      "type": "function",
+      "name": "init"
+    },
+    {
+      "id": "function:logger/src/logformatter.cpp::MessageFormatItem::format",
+      "type": "function",
+      "name": "format"
+    },
+    {
+      "id": "function:logger/src/logformatter.cpp::LevelFormatItem::format",
+      "type": "function",
+      "name": "format"
+    },
+    {
+      "id": "function:logger/src/logformatter.cpp::ElapseFormatItem::format",
+      "type": "function",
+      "name": "format"
+    },
+    {
+      "id": "function:logger/src/logformatter.cpp::NameFormatItem::format",
+      "type": "function",
+      "name": "format"
+    },
+    {
+      "id": "function:logger/src/logformatter.cpp::ThreadIdFormatItem::format",
+      "type": "function",
+      "name": "format"
+    },
+    {
+      "id": "function:logger/src/logformatter.cpp::CoroutineIdFormatItem::format",
+      "type": "function",
+      "name": "format"
+    },
+    {
+      "id": "function:logger/src/logformatter.cpp::DateTimeFormatItem::DateTimeFormatItem",
+      "type": "function",
+      "name": "DateTimeFormatItem"
+    },
+    {
+      "id": "function:logger/src/logformatter.cpp::DateTimeFormatItem::format",
+      "type": "function",
+      "name": "format"
+    },
+    {
+      "id": "function:logger/src/logformatter.cpp::NewLineFormatItem::format",
+      "type": "function",
+      "name": "format"
+    },
+    {
+      "id": "function:logger/src/logformatter.cpp::StringFormatItem::format",
+      "type": "function",
+      "name": "format"
+    },
+    {
+      "id": "function:logger/src/logformatter.cpp::LineFormatItem::format",
+      "type": "function",
+      "name": "format"
+    },
+    {
+      "id": "function:logger/src/logformatter.cpp::FileNameFormatItem::format",
+      "type": "function",
+      "name": "format"
+    },
+    {
+      "id": "function:logger/src/logformatter.cpp::PatternErrorFormatItem::format",
+      "type": "function",
+      "name": "format"
+    },
+    {
+      "id": "function:logger/src/logger.cpp::LogEvent",
+      "type": "function",
+      "name": "LogEvent"
+    },
+    {
+      "id": "function:logger/src/logger.cpp::Logger",
+      "type": "function",
+      "name": "Logger"
+    },
+    {
+      "id": "function:logger/src/logger.cpp::createEvent",
+      "type": "function",
+      "name": "createEvent"
+    },
+    {
+      "id": "function:logger/src/logger.cpp::allocCoroutineId",
+      "type": "function",
+      "name": "allocCoroutineId"
+    },
+    {
+      "id": "function:logger/src/logger.cpp::setCurrentCoroutineId",
+      "type": "function",
+      "name": "setCurrentCoroutineId"
+    },
+    {
+      "id": "function:logger/src/logger.cpp::getCurrentCoroutineId",
+      "type": "function",
+      "name": "getCurrentCoroutineId"
+    },
+    {
+      "id": "function:logger/src/logger.cpp::CoroutineScope::CoroutineScope",
+      "type": "function",
+      "name": "CoroutineScope"
+    },
+    {
+      "id": "function:logger/src/logger.cpp::CoroutineScope::~CoroutineScope",
+      "type": "function",
+      "name": "~CoroutineScope"
+    },
+    {
+      "id": "function:logger/src/logger.cpp::log",
+      "type": "function",
+      "name": "log"
+    },
+    {
+      "id": "function:logger/src/logger.cpp::debug",
+      "type": "function",
+      "name": "debug"
+    },
+    {
+      "id": "function:logger/src/logger.cpp::info",
+      "type": "function",
+      "name": "info"
+    },
+    {
+      "id": "function:logger/src/logger.cpp::warn",
+      "type": "function",
+      "name": "warn"
+    },
+    {
+      "id": "function:logger/src/logger.cpp::error",
+      "type": "function",
+      "name": "error"
+    },
+    {
+      "id": "function:logger/src/logger.cpp::fatal",
+      "type": "function",
+      "name": "fatal"
+    },
+    {
+      "id": "function:logger/src/logger.cpp::addAppender",
+      "type": "function",
+      "name": "addAppender"
+    },
+    {
+      "id": "function:logger/src/logger.cpp::delAppender",
+      "type": "function",
+      "name": "delAppender"
+    },
+    {
+      "id": "function:logger/src/logger.cpp::init",
+      "type": "function",
+      "name": "init"
+    },
+    {
+      "id": "function:logger/src/logger.cpp::shutdown",
+      "type": "function",
+      "name": "shutdown"
+    },
+    {
+      "id": "file:logger/xmake.lua",
+      "type": "file",
+      "name": "logger/xmake.lua",
+      "filePath": "logger/xmake.lua"
+    },
+    {
+      "id": "function:memory-pool/src/tiered_memory_pool.cpp::~TieredMemoryPool",
+      "type": "function",
+      "name": "~TieredMemoryPool"
+    },
+    {
+      "id": "function:memory-pool/src/tiered_memory_pool.cpp::ensure_registered",
+      "type": "function",
+      "name": "ensure_registered"
+    },
+    {
+      "id": "function:memory-pool/src/tiered_memory_pool.cpp::deallocate_impl",
+      "type": "function",
+      "name": "deallocate_impl"
+    },
+    {
+      "id": "function:memory-pool/src/tiered_memory_pool.cpp::central_allocate_batch",
+      "type": "function",
+      "name": "central_allocate_batch"
+    },
+    {
+      "id": "function:memory-pool/src/tiered_memory_pool.cpp::return_batch_to_central",
+      "type": "function",
+      "name": "return_batch_to_central"
+    },
+    {
+      "id": "function:memory-pool/src/tiered_memory_pool.cpp::try_merge_and_promote",
+      "type": "function",
+      "name": "try_merge_and_promote"
+    },
+    {
+      "id": "function:memory-pool/src/tiered_memory_pool.cpp::try_merge_in_list",
+      "type": "function",
+      "name": "try_merge_in_list"
+    },
+    {
+      "id": "function:memory-pool/src/tiered_memory_pool.cpp::try_merge_central",
+      "type": "function",
+      "name": "try_merge_central"
+    },
+    {
+      "id": "function:memory-pool/src/tiered_memory_pool.cpp::page_index_of",
+      "type": "function",
+      "name": "page_index_of"
+    },
+    {
+      "id": "file:memory-pool/xmake.lua",
+      "type": "file",
+      "name": "memory-pool/xmake.lua",
+      "filePath": "memory-pool/xmake.lua"
+    },
+    {
+      "id": "file:net/coroutine/coroitem.hpp",
+      "type": "file",
+      "name": "net/coroutine/coroitem.hpp",
+      "filePath": "net/coroutine/coroitem.hpp"
+    },
+    {
+      "id": "file:net/file-receive-process/main.cpp",
+      "type": "file",
+      "name": "net/file-receive-process/main.cpp",
+      "filePath": "net/file-receive-process/main.cpp"
+    },
+    {
+      "id": "class:net/file-receive-process/main.cpp::ClientContext",
+      "type": "class",
+      "name": "ClientContext"
+    },
+    {
+      "id": "function:net/file-receive-process/main.cpp::handle_client",
+      "type": "function",
+      "name": "handle_client"
+    },
+    {
+      "id": "function:net/file-receive-process/main.cpp::parse_args",
+      "type": "function",
+      "name": "parse_args"
+    },
+    {
+      "id": "function:net/file-receive-process/main.cpp::main",
+      "type": "function",
+      "name": "main"
+    },
+    {
+      "id": "file:net/file-receive-process/xmake.lua",
+      "type": "file",
+      "name": "net/file-receive-process/xmake.lua",
+      "filePath": "net/file-receive-process/xmake.lua"
+    },
+    {
+      "id": "file:net/file-send-process/main.cpp",
+      "type": "file",
+      "name": "net/file-send-process/main.cpp",
+      "filePath": "net/file-send-process/main.cpp"
+    },
+    {
+      "id": "class:net/file-send-process/main.cpp::SendTask",
+      "type": "class",
+      "name": "SendTask"
+    },
+    {
+      "id": "function:net/file-send-process/main.cpp::send_all",
+      "type": "function",
+      "name": "send_all"
+    },
+    {
+      "id": "function:net/file-send-process/main.cpp::send_chunk",
+      "type": "function",
+      "name": "send_chunk"
+    },
+    {
+      "id": "function:net/file-send-process/main.cpp::main",
+      "type": "function",
+      "name": "main"
+    },
+    {
+      "id": "file:net/file-send-process/xmake.lua",
+      "type": "file",
+      "name": "net/file-send-process/xmake.lua",
+      "filePath": "net/file-send-process/xmake.lua"
+    },
+    {
+      "id": "file:net/file-transfer/include/chunk_header.h",
+      "type": "file",
+      "name": "net/file-transfer/include/chunk_header.h",
+      "filePath": "net/file-transfer/include/chunk_header.h"
+    },
+    {
+      "id": "class:net/file-transfer/include/chunk_header.h::ChunkHeader",
+      "type": "class",
+      "name": "ChunkHeader"
+    },
+    {
+      "id": "function:net/file-transfer/include/chunk_header.h::to_network",
+      "type": "function",
+      "name": "to_network"
+    },
+    {
+      "id": "function:net/file-transfer/include/chunk_header.h::from_network",
+      "type": "function",
+      "name": "from_network"
+    },
+    {
+      "id": "class:net/file-transfer/include/file_transfer.h::IFileSystem",
+      "type": "class",
+      "name": "IFileSystem"
+    },
+    {
+      "id": "class:net/file-transfer/include/file_transfer.h::FileTransfer",
+      "type": "class",
+      "name": "FileTransfer"
+    },
+    {
+      "id": "function:net/file-transfer/include/file_transfer.h::transfer_small",
+      "type": "function",
+      "name": "transfer_small"
+    },
+    {
+      "id": "function:net/file-transfer/include/file_transfer.h::transfer_large",
+      "type": "function",
+      "name": "transfer_large"
+    },
+    {
+      "id": "function:net/file-transfer/include/file_transfer.h::receive_file",
+      "type": "function",
+      "name": "receive_file"
+    },
+    {
+      "id": "function:net/file-transfer/include/file_transfer.h::recv_all",
+      "type": "function",
+      "name": "recv_all"
+    },
+    {
+      "id": "file:net/file-transfer/include/i_file_transfer.h",
+      "type": "file",
+      "name": "net/file-transfer/include/i_file_transfer.h",
+      "filePath": "net/file-transfer/include/i_file_transfer.h"
+    },
+    {
+      "id": "class:net/file-transfer/include/i_file_transfer.h::ITcpClient",
+      "type": "class",
+      "name": "ITcpClient"
+    },
+    {
+      "id": "class:net/file-transfer/include/i_file_transfer.h::ITcpServer",
+      "type": "class",
+      "name": "ITcpServer"
+    },
+    {
+      "id": "class:net/file-transfer/include/i_file_transfer.h::IFileTransfer",
+      "type": "class",
+      "name": "IFileTransfer"
+    },
+    {
+      "id": "function:net/file-transfer/include/i_file_transfer.h::~IFileTransfer",
+      "type": "function",
+      "name": "~IFileTransfer"
+    },
+    {
+      "id": "function:net/file-transfer/include/i_file_transfer.h::transfer_small",
+      "type": "function",
+      "name": "transfer_small"
+    },
+    {
+      "id": "function:net/file-transfer/include/i_file_transfer.h::transfer_large",
+      "type": "function",
+      "name": "transfer_large"
+    },
+    {
+      "id": "function:net/file-transfer/include/i_file_transfer.h::receive_file",
+      "type": "function",
+      "name": "receive_file"
+    },
+    {
+      "id": "file:net/file-transfer/src/chunk_header.cpp",
+      "type": "file",
+      "name": "net/file-transfer/src/chunk_header.cpp",
+      "filePath": "net/file-transfer/src/chunk_header.cpp"
+    },
+    {
+      "id": "function:net/file-transfer/src/chunk_header.cpp::to_network",
+      "type": "function",
+      "name": "to_network"
+    },
+    {
+      "id": "function:net/file-transfer/src/chunk_header.cpp::from_network",
+      "type": "function",
+      "name": "from_network"
+    },
+    {
+      "id": "function:net/file-transfer/src/file_transfer.cpp::FileTransfer",
+      "type": "function",
+      "name": "FileTransfer"
+    },
+    {
+      "id": "function:net/file-transfer/src/file_transfer.cpp::transfer_small",
+      "type": "function",
+      "name": "transfer_small"
+    },
+    {
+      "id": "function:net/file-transfer/src/file_transfer.cpp::transfer_large",
+      "type": "function",
+      "name": "transfer_large"
+    },
+    {
+      "id": "function:net/file-transfer/src/file_transfer.cpp::setup_listen_socket",
+      "type": "function",
+      "name": "setup_listen_socket"
+    },
+    {
+      "id": "function:net/file-transfer/src/file_transfer.cpp::accept_and_receive_chunk",
+      "type": "function",
+      "name": "accept_and_receive_chunk"
+    },
+    {
+      "id": "function:net/file-transfer/src/file_transfer.cpp::receive_file",
+      "type": "function",
+      "name": "receive_file"
+    },
+    {
+      "id": "function:net/file-transfer/src/file_transfer.cpp::recv_all",
+      "type": "function",
+      "name": "recv_all"
+    },
+    {
+      "id": "file:net/file-transfer/xmake.lua",
+      "type": "file",
+      "name": "net/file-transfer/xmake.lua",
+      "filePath": "net/file-transfer/xmake.lua"
+    },
+    {
+      "id": "file:net/http/include/url_decode.h",
+      "type": "file",
+      "name": "net/http/include/url_decode.h",
+      "filePath": "net/http/include/url_decode.h"
+    },
+    {
+      "id": "function:net/http/src/http_parser.cpp::HttpParser",
+      "type": "function",
+      "name": "HttpParser"
+    },
+    {
+      "id": "function:net/http/src/http_parser.cpp::reset",
+      "type": "function",
+      "name": "reset"
+    },
+    {
+      "id": "function:net/http/src/http_parser.cpp::reset_line_buf",
+      "type": "function",
+      "name": "reset_line_buf"
+    },
+    {
+      "id": "function:net/http/src/http_parser.cpp::feed",
+      "type": "function",
+      "name": "feed"
+    },
+    {
+      "id": "function:net/http/src/http_parser.cpp::feed_request_line",
+      "type": "function",
+      "name": "feed_request_line"
+    },
+    {
+      "id": "function:net/http/src/http_parser.cpp::handle_end_of_headers",
+      "type": "function",
+      "name": "handle_end_of_headers"
+    },
+    {
+      "id": "function:net/http/src/http_parser.cpp::parse_header_line",
+      "type": "function",
+      "name": "parse_header_line"
+    },
+    {
+      "id": "function:net/http/src/http_parser.cpp::feed_headers",
+      "type": "function",
+      "name": "feed_headers"
+    },
+    {
+      "id": "function:net/http/src/http_parser.cpp::feed_body_identity",
+      "type": "function",
+      "name": "feed_body_identity"
+    },
+    {
+      "id": "function:net/http/src/http_parser.cpp::feed_chunk_size",
+      "type": "function",
+      "name": "feed_chunk_size"
+    },
+    {
+      "id": "function:net/http/src/http_parser.cpp::feed_chunk_data",
+      "type": "function",
+      "name": "feed_chunk_data"
+    },
+    {
+      "id": "function:net/http/src/http_parser.cpp::feed_chunk_trailer",
+      "type": "function",
+      "name": "feed_chunk_trailer"
+    },
+    {
+      "id": "function:net/http/src/http_request.cpp::http_method_to_string",
+      "type": "function",
+      "name": "http_method_to_string"
+    },
+    {
+      "id": "function:net/http/src/http_request.cpp::string_to_http_method",
+      "type": "function",
+      "name": "string_to_http_method"
+    },
+    {
+      "id": "function:net/http/src/http_request.cpp::clear",
+      "type": "function",
+      "name": "clear"
+    },
+    {
+      "id": "file:net/http/src/http_response.cpp",
+      "type": "file",
+      "name": "net/http/src/http_response.cpp",
+      "filePath": "net/http/src/http_response.cpp"
+    },
+    {
+      "id": "function:net/http/src/http_response.cpp::set_status",
+      "type": "function",
+      "name": "set_status"
+    },
+    {
+      "id": "function:net/http/src/http_response.cpp::set_header",
+      "type": "function",
+      "name": "set_header"
+    },
+    {
+      "id": "function:net/http/src/http_response.cpp::set_content_type",
+      "type": "function",
+      "name": "set_content_type"
+    },
+    {
+      "id": "function:net/http/src/http_response.cpp::set_content_length",
+      "type": "function",
+      "name": "set_content_length"
+    },
+    {
+      "id": "function:net/http/src/http_response.cpp::serialize",
+      "type": "function",
+      "name": "serialize"
+    },
+    {
+      "id": "function:net/http/src/http_response.cpp::clear",
+      "type": "function",
+      "name": "clear"
+    },
+    {
+      "id": "function:net/http/src/http_server.cpp::HttpServer",
+      "type": "function",
+      "name": "HttpServer"
+    },
+    {
+      "id": "function:net/http/src/http_server.cpp::~HttpServer",
+      "type": "function",
+      "name": "~HttpServer"
+    },
+    {
+      "id": "function:net/http/src/http_server.cpp::init",
+      "type": "function",
+      "name": "init"
+    },
+    {
+      "id": "function:net/http/src/http_server.cpp::start",
+      "type": "function",
+      "name": "start"
+    },
+    {
+      "id": "function:net/http/src/http_server.cpp::stop",
+      "type": "function",
+      "name": "stop"
+    },
+    {
+      "id": "function:net/http/src/http_server.cpp::get",
+      "type": "function",
+      "name": "get"
+    },
+    {
+      "id": "function:net/http/src/http_server.cpp::post",
+      "type": "function",
+      "name": "post"
+    },
+    {
+      "id": "function:net/http/src/http_server.cpp::put",
+      "type": "function",
+      "name": "put"
+    },
+    {
+      "id": "function:net/http/src/http_server.cpp::del",
+      "type": "function",
+      "name": "del"
+    },
+    {
+      "id": "function:net/http/src/http_server.cpp::ws",
+      "type": "function",
+      "name": "ws"
+    },
+    {
+      "id": "function:net/http/src/http_server.cpp::get_conn_mutex",
+      "type": "function",
+      "name": "get_conn_mutex"
+    },
+    {
+      "id": "function:net/http/src/http_server.cpp::try_handle_ws_upgrade",
+      "type": "function",
+      "name": "try_handle_ws_upgrade"
+    },
+    {
+      "id": "function:net/http/src/http_server.cpp::handle_connection",
+      "type": "function",
+      "name": "handle_connection"
+    },
+    {
+      "id": "function:net/http/src/http_server.cpp::send_error",
+      "type": "function",
+      "name": "send_error"
+    },
+    {
+      "id": "file:net/http/src/range_parser.cpp",
+      "type": "file",
+      "name": "net/http/src/range_parser.cpp",
+      "filePath": "net/http/src/range_parser.cpp"
+    },
+    {
+      "id": "function:net/http/src/range_parser.cpp::consume_prefix",
+      "type": "function",
+      "name": "consume_prefix"
+    },
+    {
+      "id": "function:net/http/src/range_parser.cpp::skip_spaces",
+      "type": "function",
+      "name": "skip_spaces"
+    },
+    {
+      "id": "function:net/http/src/range_parser.cpp::parse_number",
+      "type": "function",
+      "name": "parse_number"
+    },
+    {
+      "id": "function:net/http/src/range_parser.cpp::try_parse_suffix",
+      "type": "function",
+      "name": "try_parse_suffix"
+    },
+    {
+      "id": "function:net/http/src/range_parser.cpp::try_parse_byte_range",
+      "type": "function",
+      "name": "try_parse_byte_range"
+    },
+    {
+      "id": "function:net/http/src/range_parser.cpp::parse_range_header",
+      "type": "function",
+      "name": "parse_range_header"
+    },
+    {
+      "id": "function:net/http/src/range_parser.cpp::build_206_headers",
+      "type": "function",
+      "name": "build_206_headers"
+    },
+    {
+      "id": "function:net/http/src/range_parser.cpp::build_416_response",
+      "type": "function",
+      "name": "build_416_response"
+    },
+    {
+      "id": "file:net/http/src/router.cpp",
+      "type": "file",
+      "name": "net/http/src/router.cpp",
+      "filePath": "net/http/src/router.cpp"
+    },
+    {
+      "id": "function:net/http/src/router.cpp::Router",
+      "type": "function",
+      "name": "Router"
+    },
+    {
+      "id": "function:net/http/src/router.cpp::~Router",
+      "type": "function",
+      "name": "~Router"
+    },
+    {
+      "id": "function:net/http/src/router.cpp::split_path",
+      "type": "function",
+      "name": "split_path"
+    },
+    {
+      "id": "function:net/http/src/router.cpp::add",
+      "type": "function",
+      "name": "add"
+    },
+    {
+      "id": "function:net/http/src/router.cpp::insert",
+      "type": "function",
+      "name": "insert"
+    },
+    {
+      "id": "function:net/http/src/router.cpp::match",
+      "type": "function",
+      "name": "match"
+    },
+    {
+      "id": "function:net/http/src/router.cpp::search",
+      "type": "function",
+      "name": "search"
+    },
+    {
+      "id": "function:net/http/src/router.cpp::path_exists",
+      "type": "function",
+      "name": "path_exists"
+    },
+    {
+      "id": "file:net/http/src/url_decode.cpp",
+      "type": "file",
+      "name": "net/http/src/url_decode.cpp",
+      "filePath": "net/http/src/url_decode.cpp"
+    },
+    {
+      "id": "function:net/http/src/url_decode.cpp::hex_value",
+      "type": "function",
+      "name": "hex_value"
+    },
+    {
+      "id": "function:net/http/src/url_decode.cpp::url_decode",
+      "type": "function",
+      "name": "url_decode"
+    },
+    {
+      "id": "file:net/ssl/include/ssl_context.h",
+      "type": "file",
+      "name": "net/ssl/include/ssl_context.h",
+      "filePath": "net/ssl/include/ssl_context.h"
+    },
+    {
+      "id": "class:net/ssl/include/ssl_context.h::ssl_st",
+      "type": "class",
+      "name": "ssl_st"
+    },
+    {
+      "id": "class:net/ssl/include/ssl_context.h::ssl_ctx_st",
+      "type": "class",
+      "name": "ssl_ctx_st"
+    },
+    {
+      "id": "class:net/ssl/include/ssl_context.h::SslConfig",
+      "type": "class",
+      "name": "SslConfig"
+    },
+    {
+      "id": "class:net/ssl/include/ssl_context.h::SslContext",
+      "type": "class",
+      "name": "SslContext"
+    },
+    {
+      "id": "function:net/ssl/include/ssl_context.h::SslContext",
+      "type": "function",
+      "name": "SslContext"
+    },
+    {
+      "id": "function:net/ssl/include/ssl_context.h::accept",
+      "type": "function",
+      "name": "accept"
+    },
+    {
+      "id": "function:net/ssl/include/ssl_context.h::shutdown_and_free",
+      "type": "function",
+      "name": "shutdown_and_free"
+    },
+    {
+      "id": "function:net/ssl/include/ssl_context.h::want_read",
+      "type": "function",
+      "name": "want_read"
+    },
+    {
+      "id": "function:net/ssl/include/ssl_context.h::want_write",
+      "type": "function",
+      "name": "want_write"
+    },
+    {
+      "id": "function:net/ssl/include/ssl_context.h::read",
+      "type": "function",
+      "name": "read"
+    },
+    {
+      "id": "function:net/ssl/include/ssl_context.h::write",
+      "type": "function",
+      "name": "write"
+    },
+    {
+      "id": "file:net/ssl/src/ssl_context.cpp",
+      "type": "file",
+      "name": "net/ssl/src/ssl_context.cpp",
+      "filePath": "net/ssl/src/ssl_context.cpp"
+    },
+    {
+      "id": "function:net/ssl/src/ssl_context.cpp::ensure_openssl",
+      "type": "function",
+      "name": "ensure_openssl"
+    },
+    {
+      "id": "function:net/ssl/src/ssl_context.cpp::SslContext",
+      "type": "function",
+      "name": "SslContext"
+    },
+    {
+      "id": "function:net/ssl/src/ssl_context.cpp::~SslContext",
+      "type": "function",
+      "name": "~SslContext"
+    },
+    {
+      "id": "function:net/ssl/src/ssl_context.cpp::accept",
+      "type": "function",
+      "name": "accept"
+    },
+    {
+      "id": "function:net/ssl/src/ssl_context.cpp::shutdown_and_free",
+      "type": "function",
+      "name": "shutdown_and_free"
+    },
+    {
+      "id": "function:net/ssl/src/ssl_context.cpp::want_read",
+      "type": "function",
+      "name": "want_read"
+    },
+    {
+      "id": "function:net/ssl/src/ssl_context.cpp::want_write",
+      "type": "function",
+      "name": "want_write"
+    },
+    {
+      "id": "function:net/ssl/src/ssl_context.cpp::read",
+      "type": "function",
+      "name": "read"
+    },
+    {
+      "id": "function:net/ssl/src/ssl_context.cpp::write",
+      "type": "function",
+      "name": "write"
+    },
+    {
+      "id": "file:net/ssl/xmake.lua",
+      "type": "file",
+      "name": "net/ssl/xmake.lua",
+      "filePath": "net/ssl/xmake.lua"
+    },
+    {
+      "id": "file:net/tcp/tcp_client/include/i_tcp_client.h",
+      "type": "file",
+      "name": "net/tcp/tcp_client/include/i_tcp_client.h",
+      "filePath": "net/tcp/tcp_client/include/i_tcp_client.h"
+    },
+    {
+      "id": "class:net/tcp/tcp_client/include/i_tcp_client.h::ITcpClient",
+      "type": "class",
+      "name": "ITcpClient"
+    },
+    {
+      "id": "function:net/tcp/tcp_client/include/i_tcp_client.h::~ITcpClient",
+      "type": "function",
+      "name": "~ITcpClient"
+    },
+    {
+      "id": "function:net/tcp/tcp_client/include/i_tcp_client.h::connect_to_server",
+      "type": "function",
+      "name": "connect_to_server"
+    },
+    {
+      "id": "function:net/tcp/tcp_client/include/i_tcp_client.h::disconnect",
+      "type": "function",
+      "name": "disconnect"
+    },
+    {
+      "id": "function:net/tcp/tcp_client/include/i_tcp_client.h::send_message",
+      "type": "function",
+      "name": "send_message"
+    },
+    {
+      "id": "function:net/tcp/tcp_client/include/i_tcp_client.h::receive_message",
+      "type": "function",
+      "name": "receive_message"
+    },
+    {
+      "id": "function:net/tcp/tcp_client/include/i_tcp_client.h::is_connected",
+      "type": "function",
+      "name": "is_connected"
+    },
+    {
+      "id": "file:net/tcp/tcp_client/include/tcp_client.h",
+      "type": "file",
+      "name": "net/tcp/tcp_client/include/tcp_client.h",
+      "filePath": "net/tcp/tcp_client/include/tcp_client.h"
+    },
+    {
+      "id": "class:net/tcp/tcp_client/include/tcp_client.h::TcpClient",
+      "type": "class",
+      "name": "TcpClient"
+    },
+    {
+      "id": "function:net/tcp/tcp_client/include/tcp_client.h::TcpClient",
+      "type": "function",
+      "name": "TcpClient"
+    },
+    {
+      "id": "function:net/tcp/tcp_client/include/tcp_client.h::connect_to_server",
+      "type": "function",
+      "name": "connect_to_server"
+    },
+    {
+      "id": "function:net/tcp/tcp_client/include/tcp_client.h::disconnect",
+      "type": "function",
+      "name": "disconnect"
+    },
+    {
+      "id": "function:net/tcp/tcp_client/include/tcp_client.h::send_message",
+      "type": "function",
+      "name": "send_message"
+    },
+    {
+      "id": "function:net/tcp/tcp_client/include/tcp_client.h::receive_message",
+      "type": "function",
+      "name": "receive_message"
+    },
+    {
+      "id": "function:net/tcp/tcp_client/include/tcp_client.h::send_file",
+      "type": "function",
+      "name": "send_file"
+    },
+    {
+      "id": "function:net/tcp/tcp_client/include/tcp_client.h::is_connected",
+      "type": "function",
+      "name": "is_connected"
+    },
+    {
+      "id": "function:net/tcp/tcp_client/include/tcp_client.h::send_all",
+      "type": "function",
+      "name": "send_all"
+    },
+    {
+      "id": "function:net/tcp/tcp_client/include/tcp_client.h::wait_connected",
+      "type": "function",
+      "name": "wait_connected"
+    },
+    {
+      "id": "function:net/tcp/tcp_client/include/tcp_client.h::wait_readable",
+      "type": "function",
+      "name": "wait_readable"
+    },
+    {
+      "id": "function:net/tcp/tcp_client/include/tcp_client.h::recv_into_buffer",
+      "type": "function",
+      "name": "recv_into_buffer"
+    },
+    {
+      "id": "function:net/tcp/tcp_client/include/tcp_client.h::read_line",
+      "type": "function",
+      "name": "read_line"
+    },
+    {
+      "id": "function:net/tcp/tcp_client/include/tcp_client.h::read_raw",
+      "type": "function",
+      "name": "read_raw"
+    },
+    {
+      "id": "function:net/tcp/tcp_client/src/tcp_client.cpp::TcpClient",
+      "type": "function",
+      "name": "TcpClient"
+    },
+    {
+      "id": "function:net/tcp/tcp_client/src/tcp_client.cpp::~TcpClient",
+      "type": "function",
+      "name": "~TcpClient"
+    },
+    {
+      "id": "function:net/tcp/tcp_client/src/tcp_client.cpp::send_all",
+      "type": "function",
+      "name": "send_all"
+    },
+    {
+      "id": "function:net/tcp/tcp_client/src/tcp_client.cpp::wait_connected",
+      "type": "function",
+      "name": "wait_connected"
+    },
+    {
+      "id": "function:net/tcp/tcp_client/src/tcp_client.cpp::wait_readable",
+      "type": "function",
+      "name": "wait_readable"
+    },
+    {
+      "id": "function:net/tcp/tcp_client/src/tcp_client.cpp::connect_to_server",
+      "type": "function",
+      "name": "connect_to_server"
+    },
+    {
+      "id": "function:net/tcp/tcp_client/src/tcp_client.cpp::disconnect",
+      "type": "function",
+      "name": "disconnect"
+    },
+    {
+      "id": "function:net/tcp/tcp_client/src/tcp_client.cpp::send_message",
+      "type": "function",
+      "name": "send_message"
+    },
+    {
+      "id": "function:net/tcp/tcp_client/src/tcp_client.cpp::receive_message",
+      "type": "function",
+      "name": "receive_message"
+    },
+    {
+      "id": "function:net/tcp/tcp_client/src/tcp_client.cpp::recv_into_buffer",
+      "type": "function",
+      "name": "recv_into_buffer"
+    },
+    {
+      "id": "function:net/tcp/tcp_client/src/tcp_client.cpp::read_line",
+      "type": "function",
+      "name": "read_line"
+    },
+    {
+      "id": "function:net/tcp/tcp_client/src/tcp_client.cpp::read_raw",
+      "type": "function",
+      "name": "read_raw"
+    },
+    {
+      "id": "function:net/tcp/tcp_client/src/tcp_client.cpp::send_file",
+      "type": "function",
+      "name": "send_file"
+    },
+    {
+      "id": "file:net/tcp/tcp_client/xmake.lua",
+      "type": "file",
+      "name": "net/tcp/tcp_client/xmake.lua",
+      "filePath": "net/tcp/tcp_client/xmake.lua"
+    },
+    {
+      "id": "function:net/tcp/tcp_server/src/connection.cpp::Connection",
+      "type": "function",
+      "name": "Connection"
+    },
+    {
+      "id": "function:net/tcp/tcp_server/src/connection.cpp::~Connection",
+      "type": "function",
+      "name": "~Connection"
+    },
+    {
+      "id": "function:net/tcp/tcp_server/src/connection.cpp::client_ip",
+      "type": "function",
+      "name": "client_ip"
+    },
+    {
+      "id": "function:net/tcp/tcp_server/src/connection.cpp::client_port",
+      "type": "function",
+      "name": "client_port"
+    },
+    {
+      "id": "function:net/tcp/tcp_server/src/connection.cpp::read_from_fd",
+      "type": "function",
+      "name": "read_from_fd"
+    },
+    {
+      "id": "function:net/tcp/tcp_server/src/connection.cpp::ssl_read_from_fd",
+      "type": "function",
+      "name": "ssl_read_from_fd"
+    },
+    {
+      "id": "function:net/tcp/tcp_server/src/connection.cpp::plain_read_from_fd",
+      "type": "function",
+      "name": "plain_read_from_fd"
+    },
+    {
+      "id": "function:net/tcp/tcp_server/src/connection.cpp::ssl_write_to_fd_locked",
+      "type": "function",
+      "name": "ssl_write_to_fd_locked"
+    },
+    {
+      "id": "function:net/tcp/tcp_server/src/connection.cpp::plain_write_to_fd_locked",
+      "type": "function",
+      "name": "plain_write_to_fd_locked"
+    },
+    {
+      "id": "function:net/tcp/tcp_server/src/connection.cpp::write_to_fd",
+      "type": "function",
+      "name": "write_to_fd"
+    },
+    {
+      "id": "function:net/tcp/tcp_server/src/connection.cpp::write_to_fd_locked",
+      "type": "function",
+      "name": "write_to_fd_locked"
+    },
+    {
+      "id": "function:net/tcp/tcp_server/src/connection.cpp::close",
+      "type": "function",
+      "name": "close"
+    },
+    {
+      "id": "function:net/tcp/tcp_server/src/connection.cpp::consume_read_buffer",
+      "type": "function",
+      "name": "consume_read_buffer"
+    },
+    {
+      "id": "function:net/tcp/tcp_server/src/connection.cpp::await_read",
+      "type": "function",
+      "name": "await_read"
+    },
+    {
+      "id": "function:net/tcp/tcp_server/src/connection.cpp::await_write",
+      "type": "function",
+      "name": "await_write"
+    },
+    {
+      "id": "function:net/tcp/tcp_server/src/connection.cpp::await_suspend",
+      "type": "function",
+      "name": "await_suspend"
+    },
+    {
+      "id": "class:net/tcp/tcp_server/src/tcp_server.cpp::EpollFd",
+      "type": "class",
+      "name": "EpollFd"
+    },
+    {
+      "id": "class:net/tcp/tcp_server/src/tcp_server.cpp::EpollEvents",
+      "type": "class",
+      "name": "EpollEvents"
+    },
+    {
+      "id": "function:net/tcp/tcp_server/src/tcp_server.cpp::epoll_ctl_add",
+      "type": "function",
+      "name": "epoll_ctl_add"
+    },
+    {
+      "id": "function:net/tcp/tcp_server/src/tcp_server.cpp::epoll_ctl_mod",
+      "type": "function",
+      "name": "epoll_ctl_mod"
+    },
+    {
+      "id": "function:net/tcp/tcp_server/src/tcp_server.cpp::signal_handler",
+      "type": "function",
+      "name": "signal_handler"
+    },
+    {
+      "id": "function:net/tcp/tcp_server/src/tcp_server.cpp::TcpServer",
+      "type": "function",
+      "name": "TcpServer"
+    },
+    {
+      "id": "function:net/tcp/tcp_server/src/tcp_server.cpp::~TcpServer",
+      "type": "function",
+      "name": "~TcpServer"
+    },
+    {
+      "id": "function:net/tcp/tcp_server/src/tcp_server.cpp::init",
+      "type": "function",
+      "name": "init"
+    },
+    {
+      "id": "function:net/tcp/tcp_server/src/tcp_server.cpp::set_handler",
+      "type": "function",
+      "name": "set_handler"
+    },
+    {
+      "id": "function:net/tcp/tcp_server/src/tcp_server.cpp::start",
+      "type": "function",
+      "name": "start"
+    },
+    {
+      "id": "function:net/tcp/tcp_server/src/tcp_server.cpp::stop",
+      "type": "function",
+      "name": "stop"
+    },
+    {
+      "id": "function:net/tcp/tcp_server/src/tcp_server.cpp::event_loop",
+      "type": "function",
+      "name": "event_loop"
+    },
+    {
+      "id": "function:net/tcp/tcp_server/src/tcp_server.cpp::cleanup_resources",
+      "type": "function",
+      "name": "cleanup_resources"
+    },
+    {
+      "id": "function:net/tcp/tcp_server/src/tcp_server.cpp::handle_event",
+      "type": "function",
+      "name": "handle_event"
+    },
+    {
+      "id": "function:net/tcp/tcp_server/src/tcp_server.cpp::handle_accept",
+      "type": "function",
+      "name": "handle_accept"
+    },
+    {
+      "id": "function:net/tcp/tcp_server/src/tcp_server.cpp::handle_read",
+      "type": "function",
+      "name": "handle_read"
+    },
+    {
+      "id": "function:net/tcp/tcp_server/src/tcp_server.cpp::handle_write",
+      "type": "function",
+      "name": "handle_write"
+    },
+    {
+      "id": "function:net/tcp/tcp_server/src/tcp_server.cpp::try_ssl_detection",
+      "type": "function",
+      "name": "try_ssl_detection"
+    },
+    {
+      "id": "function:net/tcp/tcp_server/src/tcp_server.cpp::try_ssl_handshake",
+      "type": "function",
+      "name": "try_ssl_handshake"
+    },
+    {
+      "id": "function:net/tcp/tcp_server/src/tcp_server.cpp::handle_client_event",
+      "type": "function",
+      "name": "handle_client_event"
+    },
+    {
+      "id": "function:net/tcp/tcp_server/src/tcp_server.cpp::handle_ssl_handshake",
+      "type": "function",
+      "name": "handle_ssl_handshake"
+    },
+    {
+      "id": "function:net/tcp/tcp_server/src/tcp_server.cpp::close_connection",
+      "type": "function",
+      "name": "close_connection"
+    },
+    {
+      "id": "function:net/tcp/tcp_server/src/tcp_server.cpp::notify_wake",
+      "type": "function",
+      "name": "notify_wake"
+    },
+    {
+      "id": "function:net/tcp/tcp_server/src/tcp_server.cpp::process_dirty_connections",
+      "type": "function",
+      "name": "process_dirty_connections"
+    },
+    {
+      "id": "file:net/tcp/tcp_server/xmake.lua",
+      "type": "file",
+      "name": "net/tcp/tcp_server/xmake.lua",
+      "filePath": "net/tcp/tcp_server/xmake.lua"
+    },
+    {
+      "id": "function:net/thread-pool/src/locked_thread_pool.cpp::LockedThreadPool",
+      "type": "function",
+      "name": "LockedThreadPool"
+    },
+    {
+      "id": "function:net/thread-pool/src/locked_thread_pool.cpp::~LockedThreadPool",
+      "type": "function",
+      "name": "~LockedThreadPool"
+    },
+    {
+      "id": "function:net/thread-pool/src/locked_thread_pool.cpp::worker",
+      "type": "function",
+      "name": "worker"
+    },
+    {
+      "id": "function:net/thread-pool/src/locked_thread_pool.cpp::wait_impl",
+      "type": "function",
+      "name": "wait_impl"
+    },
+    {
+      "id": "function:net/thread-pool/src/locked_thread_pool.cpp::wait_for",
+      "type": "function",
+      "name": "wait_for"
+    },
+    {
+      "id": "function:net/thread-pool/src/locked_thread_pool.cpp::stop_impl",
+      "type": "function",
+      "name": "stop_impl"
+    },
+    {
+      "id": "function:net/thread-pool/src/thread_pool.cpp::LockFreeThreadPool",
+      "type": "function",
+      "name": "LockFreeThreadPool"
+    },
+    {
+      "id": "function:net/thread-pool/src/thread_pool.cpp::~LockFreeThreadPool",
+      "type": "function",
+      "name": "~LockFreeThreadPool"
+    },
+    {
+      "id": "function:net/thread-pool/src/thread_pool.cpp::stop_impl",
+      "type": "function",
+      "name": "stop_impl"
+    },
+    {
+      "id": "function:net/thread-pool/src/thread_pool.cpp::worker",
+      "type": "function",
+      "name": "worker"
+    },
+    {
+      "id": "function:net/thread-pool/src/thread_pool.cpp::wait_impl",
+      "type": "function",
+      "name": "wait_impl"
+    },
+    {
+      "id": "file:net/thread-pool/xmake.lua",
+      "type": "file",
+      "name": "net/thread-pool/xmake.lua",
+      "filePath": "net/thread-pool/xmake.lua"
+    },
+    {
+      "id": "file:net/websocket/include/websocket.h",
+      "type": "file",
+      "name": "net/websocket/include/websocket.h",
+      "filePath": "net/websocket/include/websocket.h"
+    },
+    {
+      "id": "class:net/websocket/include/websocket.h::WsFrame",
+      "type": "class",
+      "name": "WsFrame"
+    },
+    {
+      "id": "file:net/websocket/include/ws_connection.h",
+      "type": "file",
+      "name": "net/websocket/include/ws_connection.h",
+      "filePath": "net/websocket/include/ws_connection.h"
+    },
+    {
+      "id": "class:net/websocket/include/ws_connection.h::WsConnection",
+      "type": "class",
+      "name": "WsConnection"
+    },
+    {
+      "id": "function:net/websocket/include/ws_connection.h::send",
+      "type": "function",
+      "name": "send"
+    },
+    {
+      "id": "function:net/websocket/include/ws_connection.h::close",
+      "type": "function",
+      "name": "close"
+    },
+    {
+      "id": "function:net/websocket/include/ws_connection.h::set_message_handler",
+      "type": "function",
+      "name": "set_message_handler"
+    },
+    {
+      "id": "function:net/websocket/include/ws_connection.h::set_close_handler",
+      "type": "function",
+      "name": "set_close_handler"
+    },
+    {
+      "id": "function:net/websocket/include/ws_connection.h::start_event_loop",
+      "type": "function",
+      "name": "start_event_loop"
+    },
+    {
+      "id": "function:net/websocket/include/ws_connection.h::do_send",
+      "type": "function",
+      "name": "do_send"
+    },
+    {
+      "id": "file:net/websocket/src/websocket.cpp",
+      "type": "file",
+      "name": "net/websocket/src/websocket.cpp",
+      "filePath": "net/websocket/src/websocket.cpp"
+    },
+    {
+      "id": "function:net/websocket/src/websocket.cpp::base64_encode",
+      "type": "function",
+      "name": "base64_encode"
+    },
+    {
+      "id": "function:net/websocket/src/websocket.cpp::ws_server_handshake",
+      "type": "function",
+      "name": "ws_server_handshake"
+    },
+    {
+      "id": "function:net/websocket/src/websocket.cpp::ws_encode_frame",
+      "type": "function",
+      "name": "ws_encode_frame"
+    },
+    {
+      "id": "function:net/websocket/src/websocket.cpp::ws_decode_frame",
+      "type": "function",
+      "name": "ws_decode_frame"
+    },
+    {
+      "id": "function:net/websocket/src/websocket.cpp::ws_close_code",
+      "type": "function",
+      "name": "ws_close_code"
+    },
+    {
+      "id": "function:net/websocket/src/ws_connection.cpp::WsConnection",
+      "type": "function",
+      "name": "WsConnection"
+    },
+    {
+      "id": "function:net/websocket/src/ws_connection.cpp::send",
+      "type": "function",
+      "name": "send"
+    },
+    {
+      "id": "function:net/websocket/src/ws_connection.cpp::close",
+      "type": "function",
+      "name": "close"
+    },
+    {
+      "id": "function:net/websocket/src/ws_connection.cpp::calc_frame_size",
+      "type": "function",
+      "name": "calc_frame_size"
+    },
+    {
+      "id": "function:net/websocket/src/ws_connection.cpp::handle_frame",
+      "type": "function",
+      "name": "handle_frame"
+    },
+    {
+      "id": "function:net/websocket/src/ws_connection.cpp::start_event_loop",
+      "type": "function",
+      "name": "start_event_loop"
+    },
+    {
+      "id": "function:net/websocket/src/ws_connection.cpp::do_send",
+      "type": "function",
+      "name": "do_send"
+    },
+    {
+      "id": "file:net/xmake.lua",
+      "type": "file",
+      "name": "net/xmake.lua",
+      "filePath": "net/xmake.lua"
+    },
+    {
+      "id": "file:tests/test_coroutine.cpp",
+      "type": "file",
+      "name": "tests/test_coroutine.cpp",
+      "filePath": "tests/test_coroutine.cpp"
+    },
+    {
+      "id": "function:tests/test_coroutine.cpp::main",
+      "type": "function",
+      "name": "main"
+    },
+    {
+      "id": "function:tests/test_coroutine.cpp::TEST",
+      "type": "function",
+      "name": "TEST"
+    },
+    {
+      "id": "function:tests/test_coroutine.cpp::zero_addr",
+      "type": "function",
+      "name": "zero_addr"
+    },
+    {
+      "id": "function:tests/test_coroutine.cpp::read_coro",
+      "type": "function",
+      "name": "read_coro"
+    },
+    {
+      "id": "function:tests/test_coroutine.cpp::write_coro",
+      "type": "function",
+      "name": "write_coro"
+    },
+    {
+      "id": "class:tests/test_database_pool.cpp::MockPool",
+      "type": "class",
+      "name": "MockPool"
+    },
+    {
+      "id": "function:tests/test_database_pool.cpp::MockPool",
+      "type": "function",
+      "name": "MockPool"
+    },
+    {
+      "id": "function:tests/test_database_pool.cpp::TEST",
+      "type": "function",
+      "name": "TEST"
+    },
+    {
+      "id": "function:tests/test_database_pool.cpp::main",
+      "type": "function",
+      "name": "main"
+    },
+    {
+      "id": "file:tests/test_file_system.cpp",
+      "type": "file",
+      "name": "tests/test_file_system.cpp",
+      "filePath": "tests/test_file_system.cpp"
+    },
+    {
+      "id": "class:tests/test_file_system.cpp::TempDir",
+      "type": "class",
+      "name": "TempDir"
+    },
+    {
+      "id": "function:tests/test_file_system.cpp::TempDir",
+      "type": "function",
+      "name": "TempDir"
+    },
+    {
+      "id": "function:tests/test_file_system.cpp::~TempDir",
+      "type": "function",
+      "name": "~TempDir"
+    },
+    {
+      "id": "function:tests/test_file_system.cpp::file_path",
+      "type": "function",
+      "name": "file_path"
+    },
+    {
+      "id": "function:tests/test_file_system.cpp::write_file",
+      "type": "function",
+      "name": "write_file"
+    },
+    {
+      "id": "function:tests/test_file_system.cpp::main",
+      "type": "function",
+      "name": "main"
+    },
+    {
+      "id": "function:tests/test_file_system.cpp::TEST",
+      "type": "function",
+      "name": "TEST"
+    },
+    {
+      "id": "file:tests/test_file_transfer.cpp",
+      "type": "file",
+      "name": "tests/test_file_transfer.cpp",
+      "filePath": "tests/test_file_transfer.cpp"
+    },
+    {
+      "id": "class:tests/test_file_transfer.cpp::TempDir",
+      "type": "class",
+      "name": "TempDir"
+    },
+    {
+      "id": "function:tests/test_file_transfer.cpp::TempDir",
+      "type": "function",
+      "name": "TempDir"
+    },
+    {
+      "id": "function:tests/test_file_transfer.cpp::~TempDir",
+      "type": "function",
+      "name": "~TempDir"
+    },
+    {
+      "id": "function:tests/test_file_transfer.cpp::file_path",
+      "type": "function",
+      "name": "file_path"
+    },
+    {
+      "id": "function:tests/test_file_transfer.cpp::write_file",
+      "type": "function",
+      "name": "write_file"
+    },
+    {
+      "id": "function:tests/test_file_transfer.cpp::create_echo_server",
+      "type": "function",
+      "name": "create_echo_server"
+    },
+    {
+      "id": "function:tests/test_file_transfer.cpp::get_port",
+      "type": "function",
+      "name": "get_port"
+    },
+    {
+      "id": "function:tests/test_file_transfer.cpp::run_echo_server",
+      "type": "function",
+      "name": "run_echo_server"
+    },
+    {
+      "id": "function:tests/test_file_transfer.cpp::recv_all",
+      "type": "function",
+      "name": "recv_all"
+    },
+    {
+      "id": "function:tests/test_file_transfer.cpp::TEST",
+      "type": "function",
+      "name": "TEST"
+    },
+    {
+      "id": "function:tests/test_file_transfer.cpp::main",
+      "type": "function",
+      "name": "main"
+    },
+    {
+      "id": "function:tests/test_http_parser.cpp::TEST",
+      "type": "function",
+      "name": "TEST"
+    },
+    {
+      "id": "function:tests/test_http_parser.cpp::main",
+      "type": "function",
+      "name": "main"
+    },
+    {
+      "id": "function:tests/test_http_request.cpp::TEST",
+      "type": "function",
+      "name": "TEST"
+    },
+    {
+      "id": "function:tests/test_http_request.cpp::main",
+      "type": "function",
+      "name": "main"
+    },
+    {
+      "id": "file:tests/test_http_response.cpp",
+      "type": "file",
+      "name": "tests/test_http_response.cpp",
+      "filePath": "tests/test_http_response.cpp"
+    },
+    {
+      "id": "function:tests/test_http_response.cpp::TEST",
+      "type": "function",
+      "name": "TEST"
+    },
+    {
+      "id": "function:tests/test_http_response.cpp::main",
+      "type": "function",
+      "name": "main"
+    },
+    {
+      "id": "function:tests/test_http_server.cpp::main",
+      "type": "function",
+      "name": "main"
+    },
+    {
+      "id": "function:tests/test_http_server.cpp::send_raw",
+      "type": "function",
+      "name": "send_raw"
+    },
+    {
+      "id": "function:tests/test_http_server.cpp::TEST",
+      "type": "function",
+      "name": "TEST"
+    },
+    {
+      "id": "file:tests/test_lock_free_queue.cpp",
+      "type": "file",
+      "name": "tests/test_lock_free_queue.cpp",
+      "filePath": "tests/test_lock_free_queue.cpp"
+    },
+    {
+      "id": "function:tests/test_lock_free_queue.cpp::main",
+      "type": "function",
+      "name": "main"
+    },
+    {
+      "id": "function:tests/test_lock_free_queue.cpp::TEST",
+      "type": "function",
+      "name": "TEST"
+    },
+    {
+      "id": "file:tests/test_locked_thread_pool.cpp",
+      "type": "file",
+      "name": "tests/test_locked_thread_pool.cpp",
+      "filePath": "tests/test_locked_thread_pool.cpp"
+    },
+    {
+      "id": "function:tests/test_locked_thread_pool.cpp::main",
+      "type": "function",
+      "name": "main"
+    },
+    {
+      "id": "function:tests/test_locked_thread_pool.cpp::TEST",
+      "type": "function",
+      "name": "TEST"
+    },
+    {
+      "id": "file:tests/test_memory_pool.cpp",
+      "type": "file",
+      "name": "tests/test_memory_pool.cpp",
+      "filePath": "tests/test_memory_pool.cpp"
+    },
+    {
+      "id": "function:tests/test_memory_pool.cpp::main",
+      "type": "function",
+      "name": "main"
+    },
+    {
+      "id": "function:tests/test_memory_pool.cpp::TEST",
+      "type": "function",
+      "name": "TEST"
+    },
+    {
+      "id": "file:tests/test_move_only_function.cpp",
+      "type": "file",
+      "name": "tests/test_move_only_function.cpp",
+      "filePath": "tests/test_move_only_function.cpp"
+    },
+    {
+      "id": "function:tests/test_move_only_function.cpp::TEST",
+      "type": "function",
+      "name": "TEST"
+    },
+    {
+      "id": "function:tests/test_move_only_function.cpp::main",
+      "type": "function",
+      "name": "main"
+    },
+    {
+      "id": "file:tests/test_range_parser.cpp",
+      "type": "file",
+      "name": "tests/test_range_parser.cpp",
+      "filePath": "tests/test_range_parser.cpp"
+    },
+    {
+      "id": "function:tests/test_range_parser.cpp::main",
+      "type": "function",
+      "name": "main"
+    },
+    {
+      "id": "function:tests/test_range_parser.cpp::TEST",
+      "type": "function",
+      "name": "TEST"
+    },
+    {
+      "id": "function:tests/test_router.cpp::main",
+      "type": "function",
+      "name": "main"
+    },
+    {
+      "id": "function:tests/test_router.cpp::make_handler",
+      "type": "function",
+      "name": "make_handler"
+    },
+    {
+      "id": "function:tests/test_router.cpp::TEST",
+      "type": "function",
+      "name": "TEST"
+    },
+    {
+      "id": "file:tests/test_ssl.cpp",
+      "type": "file",
+      "name": "tests/test_ssl.cpp",
+      "filePath": "tests/test_ssl.cpp"
+    },
+    {
+      "id": "class:tests/test_ssl.cpp::SslClient",
+      "type": "class",
+      "name": "SslClient"
+    },
+    {
+      "id": "function:tests/test_ssl.cpp::connect_to",
+      "type": "function",
+      "name": "connect_to"
+    },
+    {
+      "id": "function:tests/test_ssl.cpp::read",
+      "type": "function",
+      "name": "read"
+    },
+    {
+      "id": "function:tests/test_ssl.cpp::write",
+      "type": "function",
+      "name": "write"
+    },
+    {
+      "id": "function:tests/test_ssl.cpp::~SslClient",
+      "type": "function",
+      "name": "~SslClient"
+    },
+    {
+      "id": "function:tests/test_ssl.cpp::cert_path",
+      "type": "function",
+      "name": "cert_path"
+    },
+    {
+      "id": "function:tests/test_ssl.cpp::ensure_certs",
+      "type": "function",
+      "name": "ensure_certs"
+    },
+    {
+      "id": "function:tests/test_ssl.cpp::raw_connect",
+      "type": "function",
+      "name": "raw_connect"
+    },
+    {
+      "id": "function:tests/test_ssl.cpp::TEST",
+      "type": "function",
+      "name": "TEST"
+    },
+    {
+      "id": "function:tests/test_ssl.cpp::main",
+      "type": "function",
+      "name": "main"
+    },
+    {
+      "id": "function:tests/test_tcp_client.cpp::create_echo_server",
+      "type": "function",
+      "name": "create_echo_server"
+    },
+    {
+      "id": "function:tests/test_tcp_client.cpp::get_port",
+      "type": "function",
+      "name": "get_port"
+    },
+    {
+      "id": "function:tests/test_tcp_client.cpp::run_echo_server",
+      "type": "function",
+      "name": "run_echo_server"
+    },
+    {
+      "id": "function:tests/test_tcp_client.cpp::temp_file_path",
+      "type": "function",
+      "name": "temp_file_path"
+    },
+    {
+      "id": "function:tests/test_tcp_client.cpp::TEST",
+      "type": "function",
+      "name": "TEST"
+    },
+    {
+      "id": "function:tests/test_tcp_client.cpp::main",
+      "type": "function",
+      "name": "main"
+    },
+    {
+      "id": "file:tests/test_tcp_server_connection.cpp",
+      "type": "file",
+      "name": "tests/test_tcp_server_connection.cpp",
+      "filePath": "tests/test_tcp_server_connection.cpp"
+    },
+    {
+      "id": "class:tests/test_tcp_server_connection.cpp::ConnectionTest",
+      "type": "class",
+      "name": "ConnectionTest"
+    },
+    {
+      "id": "function:tests/test_tcp_server_connection.cpp::SetUp",
+      "type": "function",
+      "name": "SetUp"
+    },
+    {
+      "id": "function:tests/test_tcp_server_connection.cpp::TearDown",
+      "type": "function",
+      "name": "TearDown"
+    },
+    {
+      "id": "function:tests/test_tcp_server_connection.cpp::TEST_F",
+      "type": "function",
+      "name": "TEST_F"
+    },
+    {
+      "id": "function:tests/test_tcp_server_connection.cpp::main",
+      "type": "function",
+      "name": "main"
+    },
+    {
+      "id": "class:tests/test_tcp_server.cpp::TcpServerTest",
+      "type": "class",
+      "name": "TcpServerTest"
+    },
+    {
+      "id": "function:tests/test_tcp_server.cpp::SetUp",
+      "type": "function",
+      "name": "SetUp"
+    },
+    {
+      "id": "function:tests/test_tcp_server.cpp::TearDown",
+      "type": "function",
+      "name": "TearDown"
+    },
+    {
+      "id": "function:tests/test_tcp_server.cpp::start_server",
+      "type": "function",
+      "name": "start_server"
+    },
+    {
+      "id": "function:tests/test_tcp_server.cpp::connect_client",
+      "type": "function",
+      "name": "connect_client"
+    },
+    {
+      "id": "function:tests/test_tcp_server.cpp::TEST_F",
+      "type": "function",
+      "name": "TEST_F"
+    },
+    {
+      "id": "function:tests/test_tcp_server.cpp::main",
+      "type": "function",
+      "name": "main"
+    },
+    {
+      "id": "file:tests/test_url_decode.cpp",
+      "type": "file",
+      "name": "tests/test_url_decode.cpp",
+      "filePath": "tests/test_url_decode.cpp"
+    },
+    {
+      "id": "function:tests/test_url_decode.cpp::TEST",
+      "type": "function",
+      "name": "TEST"
+    },
+    {
+      "id": "function:tests/test_url_decode.cpp::main",
+      "type": "function",
+      "name": "main"
+    },
+    {
+      "id": "file:tests/test_websocket.cpp",
+      "type": "file",
+      "name": "tests/test_websocket.cpp",
+      "filePath": "tests/test_websocket.cpp"
+    },
+    {
+      "id": "class:tests/test_websocket.cpp::B64TestCase",
+      "type": "class",
+      "name": "B64TestCase"
+    },
+    {
+      "id": "function:tests/test_websocket.cpp::main",
+      "type": "function",
+      "name": "main"
+    },
+    {
+      "id": "function:tests/test_websocket.cpp::make_ws_request",
+      "type": "function",
+      "name": "make_ws_request"
+    },
+    {
+      "id": "function:tests/test_websocket.cpp::send_raw",
+      "type": "function",
+      "name": "send_raw"
+    },
+    {
+      "id": "function:tests/test_websocket.cpp::make_masked_frame",
+      "type": "function",
+      "name": "make_masked_frame"
+    },
+    {
+      "id": "function:tests/test_websocket.cpp::TEST",
+      "type": "function",
+      "name": "TEST"
+    },
+    {
+      "id": "function:verification/verify.sh::red",
+      "type": "function",
+      "name": "red"
+    },
+    {
+      "id": "function:verification/verify.sh::green",
+      "type": "function",
+      "name": "green"
+    },
+    {
+      "id": "function:verification/verify.sh::yellow",
+      "type": "function",
+      "name": "yellow"
+    },
+    {
+      "id": "function:verification/verify.sh::blue",
+      "type": "function",
+      "name": "blue"
+    },
+    {
+      "id": "function:verification/verify.sh::check",
+      "type": "function",
+      "name": "check"
+    },
+    {
+      "id": "function:verification/verify.sh::check_skip",
+      "type": "function",
+      "name": "check_skip"
+    },
+    {
+      "id": "function:verification/verify.sh::cleanup",
+      "type": "function",
+      "name": "cleanup"
+    },
+    {
+      "id": "function:verification/ws_test.py::test_ws_handshake",
+      "type": "function",
+      "name": "test_ws_handshake"
+    }
+  ],
+  "byFile": {
+    "net/thread-pool/include/locked_thread_pool.h": [
+      {
+        "id": "class:net/thread-pool/include/locked_thread_pool.h::LockedThreadPool",
+        "type": "class",
+        "name": "LockedThreadPool"
+      },
+      {
+        "id": "function:net/thread-pool/include/locked_thread_pool.h::LockedThreadPool",
+        "type": "function",
+        "name": "LockedThreadPool"
+      },
+      {
+        "id": "function:net/thread-pool/include/locked_thread_pool.h::wait_impl",
+        "type": "function",
+        "name": "wait_impl"
+      },
+      {
+        "id": "function:net/thread-pool/include/locked_thread_pool.h::stop_impl",
+        "type": "function",
+        "name": "stop_impl"
+      },
+      {
+        "id": "function:net/thread-pool/include/locked_thread_pool.h::wait_for",
+        "type": "function",
+        "name": "wait_for"
+      }
+    ],
+    "net/thread-pool/include/move_only_function.h": [
+      {
+        "id": "file:net/thread-pool/include/move_only_function.h",
+        "type": "file",
+        "name": "move_only_function.h"
+      },
+      {
+        "id": "class:net/thread-pool/include/move_only_function.h::MoveOnlyFunction",
+        "type": "class",
+        "name": "MoveOnlyFunction"
+      },
+      {
+        "id": "function:net/thread-pool/include/move_only_function.h::MoveOnlyFunction",
+        "type": "function",
+        "name": "MoveOnlyFunction"
+      },
+      {
+        "id": "function:net/thread-pool/include/move_only_function.h::~MoveOnlyFunction",
+        "type": "function",
+        "name": "~MoveOnlyFunction"
+      },
+      {
+        "id": "function:net/thread-pool/include/move_only_function.h::operator()",
+        "type": "function",
+        "name": "operator()"
+      },
+      {
+        "id": "function:net/thread-pool/include/move_only_function.h::reset",
+        "type": "function",
+        "name": "reset"
+      },
+      {
+        "id": "function:net/thread-pool/include/move_only_function.h::move_from",
+        "type": "function",
+        "name": "move_from"
+      }
+    ],
+    "net/thread-pool/include/thread_pool.h": [
+      {
+        "id": "class:net/thread-pool/include/thread_pool.h::LockFreeThreadPool",
+        "type": "class",
+        "name": "LockFreeThreadPool"
+      },
+      {
+        "id": "function:net/thread-pool/include/thread_pool.h::wait_impl",
+        "type": "function",
+        "name": "wait_impl"
+      },
+      {
+        "id": "function:net/thread-pool/include/thread_pool.h::stop_impl",
+        "type": "function",
+        "name": "stop_impl"
+      }
+    ],
+    "net/thread-pool/include/thread_pool_base.h": [
+      {
+        "id": "file:net/thread-pool/include/thread_pool_base.h",
+        "type": "file",
+        "name": "thread_pool_base.h"
+      }
+    ],
+    "memory-pool/include/memory_pool_base.h": [
+      {
+        "id": "file:memory-pool/include/memory_pool_base.h",
+        "type": "file",
+        "name": "memory_pool_base.h"
+      }
+    ],
+    "memory-pool/include/memory_pool_factory.h": [
+      {
+        "id": "file:memory-pool/include/memory_pool_factory.h",
+        "type": "file",
+        "name": "memory_pool_factory.h"
+      },
+      {
+        "id": "function:memory-pool/include/memory_pool_factory.h::TieredMemoryPoolDeleter",
+        "type": "function",
+        "name": "TieredMemoryPoolDeleter"
+      },
+      {
+        "id": "function:memory-pool/include/memory_pool_factory.h::CreateMemoryPool",
+        "type": "function",
+        "name": "CreateMemoryPool"
+      }
+    ],
+    "memory-pool/include/size_class.h": [
+      {
+        "id": "file:memory-pool/include/size_class.h",
+        "type": "file",
+        "name": "size_class.h"
+      },
+      {
+        "id": "function:memory-pool/include/size_class.h::round_up_size",
+        "type": "function",
+        "name": "round_up_size"
+      },
+      {
+        "id": "function:memory-pool/include/size_class.h::size_class_index",
+        "type": "function",
+        "name": "size_class_index"
+      },
+      {
+        "id": "function:memory-pool/include/size_class.h::size_class_size",
+        "type": "function",
+        "name": "size_class_size"
+      }
+    ],
+    "memory-pool/include/tiered_memory_pool.h": [
+      {
+        "id": "file:memory-pool/include/tiered_memory_pool.h",
+        "type": "file",
+        "name": "tiered_memory_pool.h"
+      },
+      {
+        "id": "class:memory-pool/include/tiered_memory_pool.h::TieredMemoryPool",
+        "type": "class",
+        "name": "TieredMemoryPool"
+      },
+      {
+        "id": "function:memory-pool/include/tiered_memory_pool.h::TieredMemoryPool",
+        "type": "function",
+        "name": "TieredMemoryPool"
+      },
+      {
+        "id": "function:memory-pool/include/tiered_memory_pool.h::deallocate_impl",
+        "type": "function",
+        "name": "deallocate_impl"
+      }
+    ],
+    "logger/include/logappender.h": [
+      {
+        "id": "file:logger/include/logappender.h",
+        "type": "file",
+        "name": "logappender.h"
+      },
+      {
+        "id": "class:logger/include/logappender.h::LogAppender",
+        "type": "class",
+        "name": "LogAppender"
+      },
+      {
+        "id": "class:logger/include/logappender.h::StdoutLogAppender",
+        "type": "class",
+        "name": "StdoutLogAppender"
+      },
+      {
+        "id": "class:logger/include/logappender.h::FileLogAppender",
+        "type": "class",
+        "name": "FileLogAppender"
+      },
+      {
+        "id": "function:logger/include/logappender.h::~LogAppender",
+        "type": "function",
+        "name": "~LogAppender"
+      },
+      {
+        "id": "function:logger/include/logappender.h::setFormatter",
+        "type": "function",
+        "name": "setFormatter"
+      },
+      {
+        "id": "function:logger/include/logappender.h::getFormatter",
+        "type": "function",
+        "name": "getFormatter"
+      },
+      {
+        "id": "function:logger/include/logappender.h::set_auto_flush",
+        "type": "function",
+        "name": "set_auto_flush"
+      },
+      {
+        "id": "function:logger/include/logappender.h::auto_flush",
+        "type": "function",
+        "name": "auto_flush"
+      },
+      {
+        "id": "function:logger/include/logappender.h::log",
+        "type": "function",
+        "name": "log"
+      },
+      {
+        "id": "function:logger/include/logappender.h::reopen",
+        "type": "function",
+        "name": "reopen"
+      }
+    ],
+    "logger/include/logformatter.h": [
+      {
+        "id": "file:logger/include/logformatter.h",
+        "type": "file",
+        "name": "logformatter.h"
+      },
+      {
+        "id": "class:logger/include/logformatter.h::LogFormatter",
+        "type": "class",
+        "name": "LogFormatter"
+      },
+      {
+        "id": "function:logger/include/logformatter.h::format",
+        "type": "function",
+        "name": "format"
+      }
+    ],
+    "logger/include/logger.h": [
+      {
+        "id": "class:logger/include/logger.h::LogAppender",
+        "type": "class",
+        "name": "LogAppender"
+      },
+      {
+        "id": "class:logger/include/logger.h::LogEvent",
+        "type": "class",
+        "name": "LogEvent"
+      },
+      {
+        "id": "class:logger/include/logger.h::Logger",
+        "type": "class",
+        "name": "Logger"
+      },
+      {
+        "id": "function:logger/include/logger.h::getLine",
+        "type": "function",
+        "name": "getLine"
+      },
+      {
+        "id": "function:logger/include/logger.h::get_thread_id",
+        "type": "function",
+        "name": "get_thread_id"
+      },
+      {
+        "id": "function:logger/include/logger.h::getElapse",
+        "type": "function",
+        "name": "getElapse"
+      },
+      {
+        "id": "function:logger/include/logger.h::getTime",
+        "type": "function",
+        "name": "getTime"
+      },
+      {
+        "id": "function:logger/include/logger.h::get_coroutine_id",
+        "type": "function",
+        "name": "get_coroutine_id"
+      },
+      {
+        "id": "function:logger/include/logger.h::getLevel",
+        "type": "function",
+        "name": "getLevel"
+      },
+      {
+        "id": "function:logger/include/logger.h::setLevel",
+        "type": "function",
+        "name": "setLevel"
+      },
+      {
+        "id": "function:logger/include/logger.h::_debug",
+        "type": "function",
+        "name": "_debug"
+      },
+      {
+        "id": "function:logger/include/logger.h::_info",
+        "type": "function",
+        "name": "_info"
+      },
+      {
+        "id": "function:logger/include/logger.h::_warn",
+        "type": "function",
+        "name": "_warn"
+      },
+      {
+        "id": "function:logger/include/logger.h::_error",
+        "type": "function",
+        "name": "_error"
+      },
+      {
+        "id": "function:logger/include/logger.h::_fatal",
+        "type": "function",
+        "name": "_fatal"
+      },
+      {
+        "id": "function:logger/include/logger.h::log",
+        "type": "function",
+        "name": "log"
+      },
+      {
+        "id": "function:logger/include/logger.h::createEvent",
+        "type": "function",
+        "name": "createEvent"
+      },
+      {
+        "id": "function:logger/include/logger.h::allocCoroutineId",
+        "type": "function",
+        "name": "allocCoroutineId"
+      },
+      {
+        "id": "function:logger/include/logger.h::setCurrentCoroutineId",
+        "type": "function",
+        "name": "setCurrentCoroutineId"
+      },
+      {
+        "id": "function:logger/include/logger.h::getCurrentCoroutineId",
+        "type": "function",
+        "name": "getCurrentCoroutineId"
+      },
+      {
+        "id": "function:logger/include/logger.h::debug",
+        "type": "function",
+        "name": "debug"
+      },
+      {
+        "id": "function:logger/include/logger.h::info",
+        "type": "function",
+        "name": "info"
+      },
+      {
+        "id": "function:logger/include/logger.h::warn",
+        "type": "function",
+        "name": "warn"
+      },
+      {
+        "id": "function:logger/include/logger.h::error",
+        "type": "function",
+        "name": "error"
+      },
+      {
+        "id": "function:logger/include/logger.h::fatal",
+        "type": "function",
+        "name": "fatal"
+      },
+      {
+        "id": "function:logger/include/logger.h::addAppender",
+        "type": "function",
+        "name": "addAppender"
+      },
+      {
+        "id": "function:logger/include/logger.h::delAppender",
+        "type": "function",
+        "name": "delAppender"
+      },
+      {
+        "id": "function:logger/include/logger.h::init",
+        "type": "function",
+        "name": "init"
+      },
+      {
+        "id": "function:logger/include/logger.h::shutdown",
+        "type": "function",
+        "name": "shutdown"
+      }
+    ],
+    ".clang-tidy": [
+      {
+        "id": "file:.clang-tidy",
+        "type": "file",
+        "name": ".clang-tidy"
+      }
+    ],
+    "core/pch.h": [
+      {
+        "id": "file:core/pch.h",
+        "type": "file",
+        "name": "core/pch.h"
+      }
+    ],
+    "core/src/main.cpp": [
+      {
+        "id": "class:core/src/main.cpp::ServerConfig",
+        "type": "class",
+        "name": "ServerConfig"
+      },
+      {
+        "id": "function:core/src/main.cpp::parse_server_section",
+        "type": "function",
+        "name": "parse_server_section"
+      },
+      {
+        "id": "function:core/src/main.cpp::parse_database_section",
+        "type": "function",
+        "name": "parse_database_section"
+      },
+      {
+        "id": "function:core/src/main.cpp::parse_ssl_section",
+        "type": "function",
+        "name": "parse_ssl_section"
+      },
+      {
+        "id": "function:core/src/main.cpp::parse_fs_section",
+        "type": "function",
+        "name": "parse_fs_section"
+      },
+      {
+        "id": "function:core/src/main.cpp::parse_cmd_args",
+        "type": "function",
+        "name": "parse_cmd_args"
+      },
+      {
+        "id": "function:core/src/main.cpp::parse_json_file",
+        "type": "function",
+        "name": "parse_json_file"
+      },
+      {
+        "id": "function:core/src/main.cpp::apply_env_overrides",
+        "type": "function",
+        "name": "apply_env_overrides"
+      },
+      {
+        "id": "function:core/src/main.cpp::load_config",
+        "type": "function",
+        "name": "load_config"
+      },
+      {
+        "id": "function:core/src/main.cpp::register_routes",
+        "type": "function",
+        "name": "register_routes"
+      },
+      {
+        "id": "function:core/src/main.cpp::main",
+        "type": "function",
+        "name": "main"
+      }
+    ],
+    "db/src/boost_mysql_connection.cpp": [
+      {
+        "id": "class:db/src/boost_mysql_connection.cpp::BoostMySqlConnection::Impl",
+        "type": "class",
+        "name": "Impl"
+      },
+      {
+        "id": "function:db/src/boost_mysql_connection.cpp::Impl",
+        "type": "function",
+        "name": "Impl"
+      },
+      {
+        "id": "function:db/src/boost_mysql_connection.cpp::connect",
+        "type": "function",
+        "name": "connect"
+      },
+      {
+        "id": "function:db/src/boost_mysql_connection.cpp::is_open",
+        "type": "function",
+        "name": "is_open"
+      },
+      {
+        "id": "function:db/src/boost_mysql_connection.cpp::ping",
+        "type": "function",
+        "name": "ping"
+      },
+      {
+        "id": "function:db/src/boost_mysql_connection.cpp::query",
+        "type": "function",
+        "name": "query"
+      },
+      {
+        "id": "function:db/src/boost_mysql_connection.cpp::execute",
+        "type": "function",
+        "name": "execute"
+      },
+      {
+        "id": "function:db/src/boost_mysql_connection.cpp::close_socket",
+        "type": "function",
+        "name": "close_socket"
+      },
+      {
+        "id": "function:db/src/boost_mysql_connection.cpp::execute_stmt",
+        "type": "function",
+        "name": "execute_stmt"
+      },
+      {
+        "id": "function:db/src/boost_mysql_connection.cpp::BoostMySqlConnection",
+        "type": "function",
+        "name": "BoostMySqlConnection"
+      },
+      {
+        "id": "function:db/src/boost_mysql_connection.cpp::~BoostMySqlConnection",
+        "type": "function",
+        "name": "~BoostMySqlConnection"
+      },
+      {
+        "id": "function:db/src/boost_mysql_connection.cpp::close",
+        "type": "function",
+        "name": "close"
+      }
+    ],
+    "db/src/database_pool.cpp": [
+      {
+        "id": "function:db/src/database_pool.cpp::default_factory",
+        "type": "function",
+        "name": "default_factory"
+      },
+      {
+        "id": "function:db/src/database_pool.cpp::DatabasePool",
+        "type": "function",
+        "name": "DatabasePool"
+      },
+      {
+        "id": "function:db/src/database_pool.cpp::~DatabasePool",
+        "type": "function",
+        "name": "~DatabasePool"
+      },
+      {
+        "id": "function:db/src/database_pool.cpp::close",
+        "type": "function",
+        "name": "close"
+      },
+      {
+        "id": "function:db/src/database_pool.cpp::init",
+        "type": "function",
+        "name": "init"
+      },
+      {
+        "id": "function:db/src/database_pool.cpp::do_close",
+        "type": "function",
+        "name": "do_close"
+      },
+      {
+        "id": "function:db/src/database_pool.cpp::get_connection",
+        "type": "function",
+        "name": "get_connection"
+      },
+      {
+        "id": "function:db/src/database_pool.cpp::release_connection",
+        "type": "function",
+        "name": "release_connection"
+      },
+      {
+        "id": "function:db/src/database_pool.cpp::escape_string",
+        "type": "function",
+        "name": "escape_string"
+      },
+      {
+        "id": "function:db/src/database_pool.cpp::get_user",
+        "type": "function",
+        "name": "get_user"
+      },
+      {
+        "id": "function:db/src/database_pool.cpp::create_user",
+        "type": "function",
+        "name": "create_user"
+      },
+      {
+        "id": "function:db/src/database_pool.cpp::log_download",
+        "type": "function",
+        "name": "log_download"
+      },
+      {
+        "id": "function:db/src/database_pool.cpp::get_download_history",
+        "type": "function",
+        "name": "get_download_history"
+      },
+      {
+        "id": "function:db/src/database_pool.cpp::store_file_meta",
+        "type": "function",
+        "name": "store_file_meta"
+      },
+      {
+        "id": "function:db/src/database_pool.cpp::get_file_meta",
+        "type": "function",
+        "name": "get_file_meta"
+      }
+    ],
+    "file-system/include/file_system.h": [
+      {
+        "id": "class:file-system/include/file_system.h::FileSystem",
+        "type": "class",
+        "name": "FileSystem"
+      },
+      {
+        "id": "function:file-system/include/file_system.h::split_file",
+        "type": "function",
+        "name": "split_file"
+      },
+      {
+        "id": "function:file-system/include/file_system.h::compute_file_hash",
+        "type": "function",
+        "name": "compute_file_hash"
+      },
+      {
+        "id": "function:file-system/include/file_system.h::compute_chunk_hash",
+        "type": "function",
+        "name": "compute_chunk_hash"
+      },
+      {
+        "id": "function:file-system/include/file_system.h::store_file",
+        "type": "function",
+        "name": "store_file"
+      },
+      {
+        "id": "function:file-system/include/file_system.h::delete_file",
+        "type": "function",
+        "name": "delete_file"
+      },
+      {
+        "id": "function:file-system/include/file_system.h::read_file",
+        "type": "function",
+        "name": "read_file"
+      },
+      {
+        "id": "function:file-system/include/file_system.h::sha256_hex",
+        "type": "function",
+        "name": "sha256_hex"
+      },
+      {
+        "id": "function:file-system/include/file_system.h::resolve_path",
+        "type": "function",
+        "name": "resolve_path"
+      },
+      {
+        "id": "function:file-system/include/file_system.h::to_hex",
+        "type": "function",
+        "name": "to_hex"
+      }
+    ],
+    "file-system/include/i_file_system.h": [
+      {
+        "id": "class:file-system/include/i_file_system.h::FileChunk",
+        "type": "class",
+        "name": "FileChunk"
+      },
+      {
+        "id": "class:file-system/include/i_file_system.h::IFileSystem",
+        "type": "class",
+        "name": "IFileSystem"
+      },
+      {
+        "id": "function:file-system/include/i_file_system.h::~IFileSystem",
+        "type": "function",
+        "name": "~IFileSystem"
+      },
+      {
+        "id": "function:file-system/include/i_file_system.h::split_file",
+        "type": "function",
+        "name": "split_file"
+      },
+      {
+        "id": "function:file-system/include/i_file_system.h::compute_file_hash",
+        "type": "function",
+        "name": "compute_file_hash"
+      },
+      {
+        "id": "function:file-system/include/i_file_system.h::compute_chunk_hash",
+        "type": "function",
+        "name": "compute_chunk_hash"
+      },
+      {
+        "id": "function:file-system/include/i_file_system.h::store_file",
+        "type": "function",
+        "name": "store_file"
+      },
+      {
+        "id": "function:file-system/include/i_file_system.h::delete_file",
+        "type": "function",
+        "name": "delete_file"
+      },
+      {
+        "id": "function:file-system/include/i_file_system.h::read_file",
+        "type": "function",
+        "name": "read_file"
+      }
+    ],
+    "file-system/src/file_system.cpp": [
+      {
+        "id": "function:file-system/src/file_system.cpp::FileSystem",
+        "type": "function",
+        "name": "FileSystem"
+      },
+      {
+        "id": "function:file-system/src/file_system.cpp::to_hex",
+        "type": "function",
+        "name": "to_hex"
+      },
+      {
+        "id": "function:file-system/src/file_system.cpp::sha256_hex",
+        "type": "function",
+        "name": "sha256_hex"
+      },
+      {
+        "id": "function:file-system/src/file_system.cpp::resolve_path",
+        "type": "function",
+        "name": "resolve_path"
+      },
+      {
+        "id": "function:file-system/src/file_system.cpp::split_file",
+        "type": "function",
+        "name": "split_file"
+      },
+      {
+        "id": "function:file-system/src/file_system.cpp::compute_file_hash",
+        "type": "function",
+        "name": "compute_file_hash"
+      },
+      {
+        "id": "function:file-system/src/file_system.cpp::compute_chunk_hash",
+        "type": "function",
+        "name": "compute_chunk_hash"
+      },
+      {
+        "id": "function:file-system/src/file_system.cpp::store_file",
+        "type": "function",
+        "name": "store_file"
+      },
+      {
+        "id": "function:file-system/src/file_system.cpp::delete_file",
+        "type": "function",
+        "name": "delete_file"
+      },
+      {
+        "id": "function:file-system/src/file_system.cpp::read_file",
+        "type": "function",
+        "name": "read_file"
+      }
+    ],
+    "file-system/xmake.lua": [
+      {
+        "id": "file:file-system/xmake.lua",
+        "type": "file",
+        "name": "file-system/xmake.lua"
+      }
+    ],
+    "logger/src/logappender.cpp": [
+      {
+        "id": "file:logger/src/logappender.cpp",
+        "type": "file",
+        "name": "logger/src/logappender.cpp"
+      },
+      {
+        "id": "function:logger/src/logappender.cpp::FileLogAppender",
+        "type": "function",
+        "name": "FileLogAppender"
+      },
+      {
+        "id": "function:logger/src/logappender.cpp::reopen",
+        "type": "function",
+        "name": "reopen"
+      },
+      {
+        "id": "function:logger/src/logappender.cpp::log",
+        "type": "function",
+        "name": "log"
+      }
+    ],
+    "logger/src/logformatter.cpp": [
+      {
+        "id": "file:logger/src/logformatter.cpp",
+        "type": "file",
+        "name": "logger/src/logformatter.cpp"
+      },
+      {
+        "id": "function:logger/src/logformatter.cpp::LogFormatter",
+        "type": "function",
+        "name": "LogFormatter"
+      },
+      {
+        "id": "function:logger/src/logformatter.cpp::format",
+        "type": "function",
+        "name": "format"
+      },
+      {
+        "id": "function:logger/src/logformatter.cpp::init",
+        "type": "function",
+        "name": "init"
+      },
+      {
+        "id": "function:logger/src/logformatter.cpp::MessageFormatItem::format",
+        "type": "function",
+        "name": "format"
+      },
+      {
+        "id": "function:logger/src/logformatter.cpp::LevelFormatItem::format",
+        "type": "function",
+        "name": "format"
+      },
+      {
+        "id": "function:logger/src/logformatter.cpp::ElapseFormatItem::format",
+        "type": "function",
+        "name": "format"
+      },
+      {
+        "id": "function:logger/src/logformatter.cpp::NameFormatItem::format",
+        "type": "function",
+        "name": "format"
+      },
+      {
+        "id": "function:logger/src/logformatter.cpp::ThreadIdFormatItem::format",
+        "type": "function",
+        "name": "format"
+      },
+      {
+        "id": "function:logger/src/logformatter.cpp::CoroutineIdFormatItem::format",
+        "type": "function",
+        "name": "format"
+      },
+      {
+        "id": "function:logger/src/logformatter.cpp::DateTimeFormatItem::DateTimeFormatItem",
+        "type": "function",
+        "name": "DateTimeFormatItem"
+      },
+      {
+        "id": "function:logger/src/logformatter.cpp::DateTimeFormatItem::format",
+        "type": "function",
+        "name": "format"
+      },
+      {
+        "id": "function:logger/src/logformatter.cpp::NewLineFormatItem::format",
+        "type": "function",
+        "name": "format"
+      },
+      {
+        "id": "function:logger/src/logformatter.cpp::StringFormatItem::format",
+        "type": "function",
+        "name": "format"
+      },
+      {
+        "id": "function:logger/src/logformatter.cpp::LineFormatItem::format",
+        "type": "function",
+        "name": "format"
+      },
+      {
+        "id": "function:logger/src/logformatter.cpp::FileNameFormatItem::format",
+        "type": "function",
+        "name": "format"
+      },
+      {
+        "id": "function:logger/src/logformatter.cpp::PatternErrorFormatItem::format",
+        "type": "function",
+        "name": "format"
+      }
+    ],
+    "logger/src/logger.cpp": [
+      {
+        "id": "function:logger/src/logger.cpp::LogEvent",
+        "type": "function",
+        "name": "LogEvent"
+      },
+      {
+        "id": "function:logger/src/logger.cpp::Logger",
+        "type": "function",
+        "name": "Logger"
+      },
+      {
+        "id": "function:logger/src/logger.cpp::createEvent",
+        "type": "function",
+        "name": "createEvent"
+      },
+      {
+        "id": "function:logger/src/logger.cpp::allocCoroutineId",
+        "type": "function",
+        "name": "allocCoroutineId"
+      },
+      {
+        "id": "function:logger/src/logger.cpp::setCurrentCoroutineId",
+        "type": "function",
+        "name": "setCurrentCoroutineId"
+      },
+      {
+        "id": "function:logger/src/logger.cpp::getCurrentCoroutineId",
+        "type": "function",
+        "name": "getCurrentCoroutineId"
+      },
+      {
+        "id": "function:logger/src/logger.cpp::CoroutineScope::CoroutineScope",
+        "type": "function",
+        "name": "CoroutineScope"
+      },
+      {
+        "id": "function:logger/src/logger.cpp::CoroutineScope::~CoroutineScope",
+        "type": "function",
+        "name": "~CoroutineScope"
+      },
+      {
+        "id": "function:logger/src/logger.cpp::log",
+        "type": "function",
+        "name": "log"
+      },
+      {
+        "id": "function:logger/src/logger.cpp::debug",
+        "type": "function",
+        "name": "debug"
+      },
+      {
+        "id": "function:logger/src/logger.cpp::info",
+        "type": "function",
+        "name": "info"
+      },
+      {
+        "id": "function:logger/src/logger.cpp::warn",
+        "type": "function",
+        "name": "warn"
+      },
+      {
+        "id": "function:logger/src/logger.cpp::error",
+        "type": "function",
+        "name": "error"
+      },
+      {
+        "id": "function:logger/src/logger.cpp::fatal",
+        "type": "function",
+        "name": "fatal"
+      },
+      {
+        "id": "function:logger/src/logger.cpp::addAppender",
+        "type": "function",
+        "name": "addAppender"
+      },
+      {
+        "id": "function:logger/src/logger.cpp::delAppender",
+        "type": "function",
+        "name": "delAppender"
+      },
+      {
+        "id": "function:logger/src/logger.cpp::init",
+        "type": "function",
+        "name": "init"
+      },
+      {
+        "id": "function:logger/src/logger.cpp::shutdown",
+        "type": "function",
+        "name": "shutdown"
+      }
+    ],
+    "logger/xmake.lua": [
+      {
+        "id": "file:logger/xmake.lua",
+        "type": "file",
+        "name": "logger/xmake.lua"
+      }
+    ],
+    "memory-pool/src/tiered_memory_pool.cpp": [
+      {
+        "id": "function:memory-pool/src/tiered_memory_pool.cpp::~TieredMemoryPool",
+        "type": "function",
+        "name": "~TieredMemoryPool"
+      },
+      {
+        "id": "function:memory-pool/src/tiered_memory_pool.cpp::ensure_registered",
+        "type": "function",
+        "name": "ensure_registered"
+      },
+      {
+        "id": "function:memory-pool/src/tiered_memory_pool.cpp::deallocate_impl",
+        "type": "function",
+        "name": "deallocate_impl"
+      },
+      {
+        "id": "function:memory-pool/src/tiered_memory_pool.cpp::central_allocate_batch",
+        "type": "function",
+        "name": "central_allocate_batch"
+      },
+      {
+        "id": "function:memory-pool/src/tiered_memory_pool.cpp::return_batch_to_central",
+        "type": "function",
+        "name": "return_batch_to_central"
+      },
+      {
+        "id": "function:memory-pool/src/tiered_memory_pool.cpp::try_merge_and_promote",
+        "type": "function",
+        "name": "try_merge_and_promote"
+      },
+      {
+        "id": "function:memory-pool/src/tiered_memory_pool.cpp::try_merge_in_list",
+        "type": "function",
+        "name": "try_merge_in_list"
+      },
+      {
+        "id": "function:memory-pool/src/tiered_memory_pool.cpp::try_merge_central",
+        "type": "function",
+        "name": "try_merge_central"
+      },
+      {
+        "id": "function:memory-pool/src/tiered_memory_pool.cpp::page_index_of",
+        "type": "function",
+        "name": "page_index_of"
+      }
+    ],
+    "memory-pool/xmake.lua": [
+      {
+        "id": "file:memory-pool/xmake.lua",
+        "type": "file",
+        "name": "memory-pool/xmake.lua"
+      }
+    ],
+    "net/coroutine/coroitem.hpp": [
+      {
+        "id": "file:net/coroutine/coroitem.hpp",
+        "type": "file",
+        "name": "net/coroutine/coroitem.hpp"
+      }
+    ],
+    "net/file-receive-process/main.cpp": [
+      {
+        "id": "file:net/file-receive-process/main.cpp",
+        "type": "file",
+        "name": "net/file-receive-process/main.cpp"
+      },
+      {
+        "id": "class:net/file-receive-process/main.cpp::ClientContext",
+        "type": "class",
+        "name": "ClientContext"
+      },
+      {
+        "id": "function:net/file-receive-process/main.cpp::handle_client",
+        "type": "function",
+        "name": "handle_client"
+      },
+      {
+        "id": "function:net/file-receive-process/main.cpp::parse_args",
+        "type": "function",
+        "name": "parse_args"
+      },
+      {
+        "id": "function:net/file-receive-process/main.cpp::main",
+        "type": "function",
+        "name": "main"
+      }
+    ],
+    "net/file-receive-process/xmake.lua": [
+      {
+        "id": "file:net/file-receive-process/xmake.lua",
+        "type": "file",
+        "name": "net/file-receive-process/xmake.lua"
+      }
+    ],
+    "net/file-send-process/main.cpp": [
+      {
+        "id": "file:net/file-send-process/main.cpp",
+        "type": "file",
+        "name": "net/file-send-process/main.cpp"
+      },
+      {
+        "id": "class:net/file-send-process/main.cpp::SendTask",
+        "type": "class",
+        "name": "SendTask"
+      },
+      {
+        "id": "function:net/file-send-process/main.cpp::send_all",
+        "type": "function",
+        "name": "send_all"
+      },
+      {
+        "id": "function:net/file-send-process/main.cpp::send_chunk",
+        "type": "function",
+        "name": "send_chunk"
+      },
+      {
+        "id": "function:net/file-send-process/main.cpp::main",
+        "type": "function",
+        "name": "main"
+      }
+    ],
+    "net/file-send-process/xmake.lua": [
+      {
+        "id": "file:net/file-send-process/xmake.lua",
+        "type": "file",
+        "name": "net/file-send-process/xmake.lua"
+      }
+    ],
+    "net/file-transfer/include/chunk_header.h": [
+      {
+        "id": "file:net/file-transfer/include/chunk_header.h",
+        "type": "file",
+        "name": "net/file-transfer/include/chunk_header.h"
+      },
+      {
+        "id": "class:net/file-transfer/include/chunk_header.h::ChunkHeader",
+        "type": "class",
+        "name": "ChunkHeader"
+      },
+      {
+        "id": "function:net/file-transfer/include/chunk_header.h::to_network",
+        "type": "function",
+        "name": "to_network"
+      },
+      {
+        "id": "function:net/file-transfer/include/chunk_header.h::from_network",
+        "type": "function",
+        "name": "from_network"
+      }
+    ],
+    "net/file-transfer/include/file_transfer.h": [
+      {
+        "id": "class:net/file-transfer/include/file_transfer.h::IFileSystem",
+        "type": "class",
+        "name": "IFileSystem"
+      },
+      {
+        "id": "class:net/file-transfer/include/file_transfer.h::FileTransfer",
+        "type": "class",
+        "name": "FileTransfer"
+      },
+      {
+        "id": "function:net/file-transfer/include/file_transfer.h::transfer_small",
+        "type": "function",
+        "name": "transfer_small"
+      },
+      {
+        "id": "function:net/file-transfer/include/file_transfer.h::transfer_large",
+        "type": "function",
+        "name": "transfer_large"
+      },
+      {
+        "id": "function:net/file-transfer/include/file_transfer.h::receive_file",
+        "type": "function",
+        "name": "receive_file"
+      },
+      {
+        "id": "function:net/file-transfer/include/file_transfer.h::recv_all",
+        "type": "function",
+        "name": "recv_all"
+      }
+    ],
+    "net/file-transfer/include/i_file_transfer.h": [
+      {
+        "id": "file:net/file-transfer/include/i_file_transfer.h",
+        "type": "file",
+        "name": "net/file-transfer/include/i_file_transfer.h"
+      },
+      {
+        "id": "class:net/file-transfer/include/i_file_transfer.h::ITcpClient",
+        "type": "class",
+        "name": "ITcpClient"
+      },
+      {
+        "id": "class:net/file-transfer/include/i_file_transfer.h::ITcpServer",
+        "type": "class",
+        "name": "ITcpServer"
+      },
+      {
+        "id": "class:net/file-transfer/include/i_file_transfer.h::IFileTransfer",
+        "type": "class",
+        "name": "IFileTransfer"
+      },
+      {
+        "id": "function:net/file-transfer/include/i_file_transfer.h::~IFileTransfer",
+        "type": "function",
+        "name": "~IFileTransfer"
+      },
+      {
+        "id": "function:net/file-transfer/include/i_file_transfer.h::transfer_small",
+        "type": "function",
+        "name": "transfer_small"
+      },
+      {
+        "id": "function:net/file-transfer/include/i_file_transfer.h::transfer_large",
+        "type": "function",
+        "name": "transfer_large"
+      },
+      {
+        "id": "function:net/file-transfer/include/i_file_transfer.h::receive_file",
+        "type": "function",
+        "name": "receive_file"
+      }
+    ],
+    "net/file-transfer/src/chunk_header.cpp": [
+      {
+        "id": "file:net/file-transfer/src/chunk_header.cpp",
+        "type": "file",
+        "name": "net/file-transfer/src/chunk_header.cpp"
+      },
+      {
+        "id": "function:net/file-transfer/src/chunk_header.cpp::to_network",
+        "type": "function",
+        "name": "to_network"
+      },
+      {
+        "id": "function:net/file-transfer/src/chunk_header.cpp::from_network",
+        "type": "function",
+        "name": "from_network"
+      }
+    ],
+    "net/file-transfer/src/file_transfer.cpp": [
+      {
+        "id": "function:net/file-transfer/src/file_transfer.cpp::FileTransfer",
+        "type": "function",
+        "name": "FileTransfer"
+      },
+      {
+        "id": "function:net/file-transfer/src/file_transfer.cpp::transfer_small",
+        "type": "function",
+        "name": "transfer_small"
+      },
+      {
+        "id": "function:net/file-transfer/src/file_transfer.cpp::transfer_large",
+        "type": "function",
+        "name": "transfer_large"
+      },
+      {
+        "id": "function:net/file-transfer/src/file_transfer.cpp::setup_listen_socket",
+        "type": "function",
+        "name": "setup_listen_socket"
+      },
+      {
+        "id": "function:net/file-transfer/src/file_transfer.cpp::accept_and_receive_chunk",
+        "type": "function",
+        "name": "accept_and_receive_chunk"
+      },
+      {
+        "id": "function:net/file-transfer/src/file_transfer.cpp::receive_file",
+        "type": "function",
+        "name": "receive_file"
+      },
+      {
+        "id": "function:net/file-transfer/src/file_transfer.cpp::recv_all",
+        "type": "function",
+        "name": "recv_all"
+      }
+    ],
+    "net/file-transfer/xmake.lua": [
+      {
+        "id": "file:net/file-transfer/xmake.lua",
+        "type": "file",
+        "name": "net/file-transfer/xmake.lua"
+      }
+    ],
+    "net/http/include/url_decode.h": [
+      {
+        "id": "file:net/http/include/url_decode.h",
+        "type": "file",
+        "name": "net/http/include/url_decode.h"
+      }
+    ],
+    "net/http/src/http_parser.cpp": [
+      {
+        "id": "function:net/http/src/http_parser.cpp::HttpParser",
+        "type": "function",
+        "name": "HttpParser"
+      },
+      {
+        "id": "function:net/http/src/http_parser.cpp::reset",
+        "type": "function",
+        "name": "reset"
+      },
+      {
+        "id": "function:net/http/src/http_parser.cpp::reset_line_buf",
+        "type": "function",
+        "name": "reset_line_buf"
+      },
+      {
+        "id": "function:net/http/src/http_parser.cpp::feed",
+        "type": "function",
+        "name": "feed"
+      },
+      {
+        "id": "function:net/http/src/http_parser.cpp::feed_request_line",
+        "type": "function",
+        "name": "feed_request_line"
+      },
+      {
+        "id": "function:net/http/src/http_parser.cpp::handle_end_of_headers",
+        "type": "function",
+        "name": "handle_end_of_headers"
+      },
+      {
+        "id": "function:net/http/src/http_parser.cpp::parse_header_line",
+        "type": "function",
+        "name": "parse_header_line"
+      },
+      {
+        "id": "function:net/http/src/http_parser.cpp::feed_headers",
+        "type": "function",
+        "name": "feed_headers"
+      },
+      {
+        "id": "function:net/http/src/http_parser.cpp::feed_body_identity",
+        "type": "function",
+        "name": "feed_body_identity"
+      },
+      {
+        "id": "function:net/http/src/http_parser.cpp::feed_chunk_size",
+        "type": "function",
+        "name": "feed_chunk_size"
+      },
+      {
+        "id": "function:net/http/src/http_parser.cpp::feed_chunk_data",
+        "type": "function",
+        "name": "feed_chunk_data"
+      },
+      {
+        "id": "function:net/http/src/http_parser.cpp::feed_chunk_trailer",
+        "type": "function",
+        "name": "feed_chunk_trailer"
+      }
+    ],
+    "net/http/src/http_request.cpp": [
+      {
+        "id": "function:net/http/src/http_request.cpp::http_method_to_string",
+        "type": "function",
+        "name": "http_method_to_string"
+      },
+      {
+        "id": "function:net/http/src/http_request.cpp::string_to_http_method",
+        "type": "function",
+        "name": "string_to_http_method"
+      },
+      {
+        "id": "function:net/http/src/http_request.cpp::clear",
+        "type": "function",
+        "name": "clear"
+      }
+    ],
+    "net/http/src/http_response.cpp": [
+      {
+        "id": "file:net/http/src/http_response.cpp",
+        "type": "file",
+        "name": "net/http/src/http_response.cpp"
+      },
+      {
+        "id": "function:net/http/src/http_response.cpp::set_status",
+        "type": "function",
+        "name": "set_status"
+      },
+      {
+        "id": "function:net/http/src/http_response.cpp::set_header",
+        "type": "function",
+        "name": "set_header"
+      },
+      {
+        "id": "function:net/http/src/http_response.cpp::set_content_type",
+        "type": "function",
+        "name": "set_content_type"
+      },
+      {
+        "id": "function:net/http/src/http_response.cpp::set_content_length",
+        "type": "function",
+        "name": "set_content_length"
+      },
+      {
+        "id": "function:net/http/src/http_response.cpp::serialize",
+        "type": "function",
+        "name": "serialize"
+      },
+      {
+        "id": "function:net/http/src/http_response.cpp::clear",
+        "type": "function",
+        "name": "clear"
+      }
+    ],
+    "net/http/src/http_server.cpp": [
+      {
+        "id": "function:net/http/src/http_server.cpp::HttpServer",
+        "type": "function",
+        "name": "HttpServer"
+      },
+      {
+        "id": "function:net/http/src/http_server.cpp::~HttpServer",
+        "type": "function",
+        "name": "~HttpServer"
+      },
+      {
+        "id": "function:net/http/src/http_server.cpp::init",
+        "type": "function",
+        "name": "init"
+      },
+      {
+        "id": "function:net/http/src/http_server.cpp::start",
+        "type": "function",
+        "name": "start"
+      },
+      {
+        "id": "function:net/http/src/http_server.cpp::stop",
+        "type": "function",
+        "name": "stop"
+      },
+      {
+        "id": "function:net/http/src/http_server.cpp::get",
+        "type": "function",
+        "name": "get"
+      },
+      {
+        "id": "function:net/http/src/http_server.cpp::post",
+        "type": "function",
+        "name": "post"
+      },
+      {
+        "id": "function:net/http/src/http_server.cpp::put",
+        "type": "function",
+        "name": "put"
+      },
+      {
+        "id": "function:net/http/src/http_server.cpp::del",
+        "type": "function",
+        "name": "del"
+      },
+      {
+        "id": "function:net/http/src/http_server.cpp::ws",
+        "type": "function",
+        "name": "ws"
+      },
+      {
+        "id": "function:net/http/src/http_server.cpp::get_conn_mutex",
+        "type": "function",
+        "name": "get_conn_mutex"
+      },
+      {
+        "id": "function:net/http/src/http_server.cpp::try_handle_ws_upgrade",
+        "type": "function",
+        "name": "try_handle_ws_upgrade"
+      },
+      {
+        "id": "function:net/http/src/http_server.cpp::handle_connection",
+        "type": "function",
+        "name": "handle_connection"
+      },
+      {
+        "id": "function:net/http/src/http_server.cpp::send_error",
+        "type": "function",
+        "name": "send_error"
+      }
+    ],
+    "net/http/src/range_parser.cpp": [
+      {
+        "id": "file:net/http/src/range_parser.cpp",
+        "type": "file",
+        "name": "net/http/src/range_parser.cpp"
+      },
+      {
+        "id": "function:net/http/src/range_parser.cpp::consume_prefix",
+        "type": "function",
+        "name": "consume_prefix"
+      },
+      {
+        "id": "function:net/http/src/range_parser.cpp::skip_spaces",
+        "type": "function",
+        "name": "skip_spaces"
+      },
+      {
+        "id": "function:net/http/src/range_parser.cpp::parse_number",
+        "type": "function",
+        "name": "parse_number"
+      },
+      {
+        "id": "function:net/http/src/range_parser.cpp::try_parse_suffix",
+        "type": "function",
+        "name": "try_parse_suffix"
+      },
+      {
+        "id": "function:net/http/src/range_parser.cpp::try_parse_byte_range",
+        "type": "function",
+        "name": "try_parse_byte_range"
+      },
+      {
+        "id": "function:net/http/src/range_parser.cpp::parse_range_header",
+        "type": "function",
+        "name": "parse_range_header"
+      },
+      {
+        "id": "function:net/http/src/range_parser.cpp::build_206_headers",
+        "type": "function",
+        "name": "build_206_headers"
+      },
+      {
+        "id": "function:net/http/src/range_parser.cpp::build_416_response",
+        "type": "function",
+        "name": "build_416_response"
+      }
+    ],
+    "net/http/src/router.cpp": [
+      {
+        "id": "file:net/http/src/router.cpp",
+        "type": "file",
+        "name": "net/http/src/router.cpp"
+      },
+      {
+        "id": "function:net/http/src/router.cpp::Router",
+        "type": "function",
+        "name": "Router"
+      },
+      {
+        "id": "function:net/http/src/router.cpp::~Router",
+        "type": "function",
+        "name": "~Router"
+      },
+      {
+        "id": "function:net/http/src/router.cpp::split_path",
+        "type": "function",
+        "name": "split_path"
+      },
+      {
+        "id": "function:net/http/src/router.cpp::add",
+        "type": "function",
+        "name": "add"
+      },
+      {
+        "id": "function:net/http/src/router.cpp::insert",
+        "type": "function",
+        "name": "insert"
+      },
+      {
+        "id": "function:net/http/src/router.cpp::match",
+        "type": "function",
+        "name": "match"
+      },
+      {
+        "id": "function:net/http/src/router.cpp::search",
+        "type": "function",
+        "name": "search"
+      },
+      {
+        "id": "function:net/http/src/router.cpp::path_exists",
+        "type": "function",
+        "name": "path_exists"
+      }
+    ],
+    "net/http/src/url_decode.cpp": [
+      {
+        "id": "file:net/http/src/url_decode.cpp",
+        "type": "file",
+        "name": "net/http/src/url_decode.cpp"
+      },
+      {
+        "id": "function:net/http/src/url_decode.cpp::hex_value",
+        "type": "function",
+        "name": "hex_value"
+      },
+      {
+        "id": "function:net/http/src/url_decode.cpp::url_decode",
+        "type": "function",
+        "name": "url_decode"
+      }
+    ],
+    "net/ssl/include/ssl_context.h": [
+      {
+        "id": "file:net/ssl/include/ssl_context.h",
+        "type": "file",
+        "name": "net/ssl/include/ssl_context.h"
+      },
+      {
+        "id": "class:net/ssl/include/ssl_context.h::ssl_st",
+        "type": "class",
+        "name": "ssl_st"
+      },
+      {
+        "id": "class:net/ssl/include/ssl_context.h::ssl_ctx_st",
+        "type": "class",
+        "name": "ssl_ctx_st"
+      },
+      {
+        "id": "class:net/ssl/include/ssl_context.h::SslConfig",
+        "type": "class",
+        "name": "SslConfig"
+      },
+      {
+        "id": "class:net/ssl/include/ssl_context.h::SslContext",
+        "type": "class",
+        "name": "SslContext"
+      },
+      {
+        "id": "function:net/ssl/include/ssl_context.h::SslContext",
+        "type": "function",
+        "name": "SslContext"
+      },
+      {
+        "id": "function:net/ssl/include/ssl_context.h::accept",
+        "type": "function",
+        "name": "accept"
+      },
+      {
+        "id": "function:net/ssl/include/ssl_context.h::shutdown_and_free",
+        "type": "function",
+        "name": "shutdown_and_free"
+      },
+      {
+        "id": "function:net/ssl/include/ssl_context.h::want_read",
+        "type": "function",
+        "name": "want_read"
+      },
+      {
+        "id": "function:net/ssl/include/ssl_context.h::want_write",
+        "type": "function",
+        "name": "want_write"
+      },
+      {
+        "id": "function:net/ssl/include/ssl_context.h::read",
+        "type": "function",
+        "name": "read"
+      },
+      {
+        "id": "function:net/ssl/include/ssl_context.h::write",
+        "type": "function",
+        "name": "write"
+      }
+    ],
+    "net/ssl/src/ssl_context.cpp": [
+      {
+        "id": "file:net/ssl/src/ssl_context.cpp",
+        "type": "file",
+        "name": "net/ssl/src/ssl_context.cpp"
+      },
+      {
+        "id": "function:net/ssl/src/ssl_context.cpp::ensure_openssl",
+        "type": "function",
+        "name": "ensure_openssl"
+      },
+      {
+        "id": "function:net/ssl/src/ssl_context.cpp::SslContext",
+        "type": "function",
+        "name": "SslContext"
+      },
+      {
+        "id": "function:net/ssl/src/ssl_context.cpp::~SslContext",
+        "type": "function",
+        "name": "~SslContext"
+      },
+      {
+        "id": "function:net/ssl/src/ssl_context.cpp::accept",
+        "type": "function",
+        "name": "accept"
+      },
+      {
+        "id": "function:net/ssl/src/ssl_context.cpp::shutdown_and_free",
+        "type": "function",
+        "name": "shutdown_and_free"
+      },
+      {
+        "id": "function:net/ssl/src/ssl_context.cpp::want_read",
+        "type": "function",
+        "name": "want_read"
+      },
+      {
+        "id": "function:net/ssl/src/ssl_context.cpp::want_write",
+        "type": "function",
+        "name": "want_write"
+      },
+      {
+        "id": "function:net/ssl/src/ssl_context.cpp::read",
+        "type": "function",
+        "name": "read"
+      },
+      {
+        "id": "function:net/ssl/src/ssl_context.cpp::write",
+        "type": "function",
+        "name": "write"
+      }
+    ],
+    "net/ssl/xmake.lua": [
+      {
+        "id": "file:net/ssl/xmake.lua",
+        "type": "file",
+        "name": "net/ssl/xmake.lua"
+      }
+    ],
+    "net/tcp/tcp_client/include/i_tcp_client.h": [
+      {
+        "id": "file:net/tcp/tcp_client/include/i_tcp_client.h",
+        "type": "file",
+        "name": "net/tcp/tcp_client/include/i_tcp_client.h"
+      },
+      {
+        "id": "class:net/tcp/tcp_client/include/i_tcp_client.h::ITcpClient",
+        "type": "class",
+        "name": "ITcpClient"
+      },
+      {
+        "id": "function:net/tcp/tcp_client/include/i_tcp_client.h::~ITcpClient",
+        "type": "function",
+        "name": "~ITcpClient"
+      },
+      {
+        "id": "function:net/tcp/tcp_client/include/i_tcp_client.h::connect_to_server",
+        "type": "function",
+        "name": "connect_to_server"
+      },
+      {
+        "id": "function:net/tcp/tcp_client/include/i_tcp_client.h::disconnect",
+        "type": "function",
+        "name": "disconnect"
+      },
+      {
+        "id": "function:net/tcp/tcp_client/include/i_tcp_client.h::send_message",
+        "type": "function",
+        "name": "send_message"
+      },
+      {
+        "id": "function:net/tcp/tcp_client/include/i_tcp_client.h::receive_message",
+        "type": "function",
+        "name": "receive_message"
+      },
+      {
+        "id": "function:net/tcp/tcp_client/include/i_tcp_client.h::is_connected",
+        "type": "function",
+        "name": "is_connected"
+      }
+    ],
+    "net/tcp/tcp_client/include/tcp_client.h": [
+      {
+        "id": "file:net/tcp/tcp_client/include/tcp_client.h",
+        "type": "file",
+        "name": "net/tcp/tcp_client/include/tcp_client.h"
+      },
+      {
+        "id": "class:net/tcp/tcp_client/include/tcp_client.h::TcpClient",
+        "type": "class",
+        "name": "TcpClient"
+      },
+      {
+        "id": "function:net/tcp/tcp_client/include/tcp_client.h::TcpClient",
+        "type": "function",
+        "name": "TcpClient"
+      },
+      {
+        "id": "function:net/tcp/tcp_client/include/tcp_client.h::connect_to_server",
+        "type": "function",
+        "name": "connect_to_server"
+      },
+      {
+        "id": "function:net/tcp/tcp_client/include/tcp_client.h::disconnect",
+        "type": "function",
+        "name": "disconnect"
+      },
+      {
+        "id": "function:net/tcp/tcp_client/include/tcp_client.h::send_message",
+        "type": "function",
+        "name": "send_message"
+      },
+      {
+        "id": "function:net/tcp/tcp_client/include/tcp_client.h::receive_message",
+        "type": "function",
+        "name": "receive_message"
+      },
+      {
+        "id": "function:net/tcp/tcp_client/include/tcp_client.h::send_file",
+        "type": "function",
+        "name": "send_file"
+      },
+      {
+        "id": "function:net/tcp/tcp_client/include/tcp_client.h::is_connected",
+        "type": "function",
+        "name": "is_connected"
+      },
+      {
+        "id": "function:net/tcp/tcp_client/include/tcp_client.h::send_all",
+        "type": "function",
+        "name": "send_all"
+      },
+      {
+        "id": "function:net/tcp/tcp_client/include/tcp_client.h::wait_connected",
+        "type": "function",
+        "name": "wait_connected"
+      },
+      {
+        "id": "function:net/tcp/tcp_client/include/tcp_client.h::wait_readable",
+        "type": "function",
+        "name": "wait_readable"
+      },
+      {
+        "id": "function:net/tcp/tcp_client/include/tcp_client.h::recv_into_buffer",
+        "type": "function",
+        "name": "recv_into_buffer"
+      },
+      {
+        "id": "function:net/tcp/tcp_client/include/tcp_client.h::read_line",
+        "type": "function",
+        "name": "read_line"
+      },
+      {
+        "id": "function:net/tcp/tcp_client/include/tcp_client.h::read_raw",
+        "type": "function",
+        "name": "read_raw"
+      }
+    ],
+    "net/tcp/tcp_client/src/tcp_client.cpp": [
+      {
+        "id": "function:net/tcp/tcp_client/src/tcp_client.cpp::TcpClient",
+        "type": "function",
+        "name": "TcpClient"
+      },
+      {
+        "id": "function:net/tcp/tcp_client/src/tcp_client.cpp::~TcpClient",
+        "type": "function",
+        "name": "~TcpClient"
+      },
+      {
+        "id": "function:net/tcp/tcp_client/src/tcp_client.cpp::send_all",
+        "type": "function",
+        "name": "send_all"
+      },
+      {
+        "id": "function:net/tcp/tcp_client/src/tcp_client.cpp::wait_connected",
+        "type": "function",
+        "name": "wait_connected"
+      },
+      {
+        "id": "function:net/tcp/tcp_client/src/tcp_client.cpp::wait_readable",
+        "type": "function",
+        "name": "wait_readable"
+      },
+      {
+        "id": "function:net/tcp/tcp_client/src/tcp_client.cpp::connect_to_server",
+        "type": "function",
+        "name": "connect_to_server"
+      },
+      {
+        "id": "function:net/tcp/tcp_client/src/tcp_client.cpp::disconnect",
+        "type": "function",
+        "name": "disconnect"
+      },
+      {
+        "id": "function:net/tcp/tcp_client/src/tcp_client.cpp::send_message",
+        "type": "function",
+        "name": "send_message"
+      },
+      {
+        "id": "function:net/tcp/tcp_client/src/tcp_client.cpp::receive_message",
+        "type": "function",
+        "name": "receive_message"
+      },
+      {
+        "id": "function:net/tcp/tcp_client/src/tcp_client.cpp::recv_into_buffer",
+        "type": "function",
+        "name": "recv_into_buffer"
+      },
+      {
+        "id": "function:net/tcp/tcp_client/src/tcp_client.cpp::read_line",
+        "type": "function",
+        "name": "read_line"
+      },
+      {
+        "id": "function:net/tcp/tcp_client/src/tcp_client.cpp::read_raw",
+        "type": "function",
+        "name": "read_raw"
+      },
+      {
+        "id": "function:net/tcp/tcp_client/src/tcp_client.cpp::send_file",
+        "type": "function",
+        "name": "send_file"
+      }
+    ],
+    "net/tcp/tcp_client/xmake.lua": [
+      {
+        "id": "file:net/tcp/tcp_client/xmake.lua",
+        "type": "file",
+        "name": "net/tcp/tcp_client/xmake.lua"
+      }
+    ],
+    "net/tcp/tcp_server/src/connection.cpp": [
+      {
+        "id": "function:net/tcp/tcp_server/src/connection.cpp::Connection",
+        "type": "function",
+        "name": "Connection"
+      },
+      {
+        "id": "function:net/tcp/tcp_server/src/connection.cpp::~Connection",
+        "type": "function",
+        "name": "~Connection"
+      },
+      {
+        "id": "function:net/tcp/tcp_server/src/connection.cpp::client_ip",
+        "type": "function",
+        "name": "client_ip"
+      },
+      {
+        "id": "function:net/tcp/tcp_server/src/connection.cpp::client_port",
+        "type": "function",
+        "name": "client_port"
+      },
+      {
+        "id": "function:net/tcp/tcp_server/src/connection.cpp::read_from_fd",
+        "type": "function",
+        "name": "read_from_fd"
+      },
+      {
+        "id": "function:net/tcp/tcp_server/src/connection.cpp::ssl_read_from_fd",
+        "type": "function",
+        "name": "ssl_read_from_fd"
+      },
+      {
+        "id": "function:net/tcp/tcp_server/src/connection.cpp::plain_read_from_fd",
+        "type": "function",
+        "name": "plain_read_from_fd"
+      },
+      {
+        "id": "function:net/tcp/tcp_server/src/connection.cpp::ssl_write_to_fd_locked",
+        "type": "function",
+        "name": "ssl_write_to_fd_locked"
+      },
+      {
+        "id": "function:net/tcp/tcp_server/src/connection.cpp::plain_write_to_fd_locked",
+        "type": "function",
+        "name": "plain_write_to_fd_locked"
+      },
+      {
+        "id": "function:net/tcp/tcp_server/src/connection.cpp::write_to_fd",
+        "type": "function",
+        "name": "write_to_fd"
+      },
+      {
+        "id": "function:net/tcp/tcp_server/src/connection.cpp::write_to_fd_locked",
+        "type": "function",
+        "name": "write_to_fd_locked"
+      },
+      {
+        "id": "function:net/tcp/tcp_server/src/connection.cpp::close",
+        "type": "function",
+        "name": "close"
+      },
+      {
+        "id": "function:net/tcp/tcp_server/src/connection.cpp::consume_read_buffer",
+        "type": "function",
+        "name": "consume_read_buffer"
+      },
+      {
+        "id": "function:net/tcp/tcp_server/src/connection.cpp::await_read",
+        "type": "function",
+        "name": "await_read"
+      },
+      {
+        "id": "function:net/tcp/tcp_server/src/connection.cpp::await_write",
+        "type": "function",
+        "name": "await_write"
+      },
+      {
+        "id": "function:net/tcp/tcp_server/src/connection.cpp::await_suspend",
+        "type": "function",
+        "name": "await_suspend"
+      }
+    ],
+    "net/tcp/tcp_server/src/tcp_server.cpp": [
+      {
+        "id": "class:net/tcp/tcp_server/src/tcp_server.cpp::EpollFd",
+        "type": "class",
+        "name": "EpollFd"
+      },
+      {
+        "id": "class:net/tcp/tcp_server/src/tcp_server.cpp::EpollEvents",
+        "type": "class",
+        "name": "EpollEvents"
+      },
+      {
+        "id": "function:net/tcp/tcp_server/src/tcp_server.cpp::epoll_ctl_add",
+        "type": "function",
+        "name": "epoll_ctl_add"
+      },
+      {
+        "id": "function:net/tcp/tcp_server/src/tcp_server.cpp::epoll_ctl_mod",
+        "type": "function",
+        "name": "epoll_ctl_mod"
+      },
+      {
+        "id": "function:net/tcp/tcp_server/src/tcp_server.cpp::signal_handler",
+        "type": "function",
+        "name": "signal_handler"
+      },
+      {
+        "id": "function:net/tcp/tcp_server/src/tcp_server.cpp::TcpServer",
+        "type": "function",
+        "name": "TcpServer"
+      },
+      {
+        "id": "function:net/tcp/tcp_server/src/tcp_server.cpp::~TcpServer",
+        "type": "function",
+        "name": "~TcpServer"
+      },
+      {
+        "id": "function:net/tcp/tcp_server/src/tcp_server.cpp::init",
+        "type": "function",
+        "name": "init"
+      },
+      {
+        "id": "function:net/tcp/tcp_server/src/tcp_server.cpp::set_handler",
+        "type": "function",
+        "name": "set_handler"
+      },
+      {
+        "id": "function:net/tcp/tcp_server/src/tcp_server.cpp::start",
+        "type": "function",
+        "name": "start"
+      },
+      {
+        "id": "function:net/tcp/tcp_server/src/tcp_server.cpp::stop",
+        "type": "function",
+        "name": "stop"
+      },
+      {
+        "id": "function:net/tcp/tcp_server/src/tcp_server.cpp::event_loop",
+        "type": "function",
+        "name": "event_loop"
+      },
+      {
+        "id": "function:net/tcp/tcp_server/src/tcp_server.cpp::cleanup_resources",
+        "type": "function",
+        "name": "cleanup_resources"
+      },
+      {
+        "id": "function:net/tcp/tcp_server/src/tcp_server.cpp::handle_event",
+        "type": "function",
+        "name": "handle_event"
+      },
+      {
+        "id": "function:net/tcp/tcp_server/src/tcp_server.cpp::handle_accept",
+        "type": "function",
+        "name": "handle_accept"
+      },
+      {
+        "id": "function:net/tcp/tcp_server/src/tcp_server.cpp::handle_read",
+        "type": "function",
+        "name": "handle_read"
+      },
+      {
+        "id": "function:net/tcp/tcp_server/src/tcp_server.cpp::handle_write",
+        "type": "function",
+        "name": "handle_write"
+      },
+      {
+        "id": "function:net/tcp/tcp_server/src/tcp_server.cpp::try_ssl_detection",
+        "type": "function",
+        "name": "try_ssl_detection"
+      },
+      {
+        "id": "function:net/tcp/tcp_server/src/tcp_server.cpp::try_ssl_handshake",
+        "type": "function",
+        "name": "try_ssl_handshake"
+      },
+      {
+        "id": "function:net/tcp/tcp_server/src/tcp_server.cpp::handle_client_event",
+        "type": "function",
+        "name": "handle_client_event"
+      },
+      {
+        "id": "function:net/tcp/tcp_server/src/tcp_server.cpp::handle_ssl_handshake",
+        "type": "function",
+        "name": "handle_ssl_handshake"
+      },
+      {
+        "id": "function:net/tcp/tcp_server/src/tcp_server.cpp::close_connection",
+        "type": "function",
+        "name": "close_connection"
+      },
+      {
+        "id": "function:net/tcp/tcp_server/src/tcp_server.cpp::notify_wake",
+        "type": "function",
+        "name": "notify_wake"
+      },
+      {
+        "id": "function:net/tcp/tcp_server/src/tcp_server.cpp::process_dirty_connections",
+        "type": "function",
+        "name": "process_dirty_connections"
+      }
+    ],
+    "net/tcp/tcp_server/xmake.lua": [
+      {
+        "id": "file:net/tcp/tcp_server/xmake.lua",
+        "type": "file",
+        "name": "net/tcp/tcp_server/xmake.lua"
+      }
+    ],
+    "net/thread-pool/src/locked_thread_pool.cpp": [
+      {
+        "id": "function:net/thread-pool/src/locked_thread_pool.cpp::LockedThreadPool",
+        "type": "function",
+        "name": "LockedThreadPool"
+      },
+      {
+        "id": "function:net/thread-pool/src/locked_thread_pool.cpp::~LockedThreadPool",
+        "type": "function",
+        "name": "~LockedThreadPool"
+      },
+      {
+        "id": "function:net/thread-pool/src/locked_thread_pool.cpp::worker",
+        "type": "function",
+        "name": "worker"
+      },
+      {
+        "id": "function:net/thread-pool/src/locked_thread_pool.cpp::wait_impl",
+        "type": "function",
+        "name": "wait_impl"
+      },
+      {
+        "id": "function:net/thread-pool/src/locked_thread_pool.cpp::wait_for",
+        "type": "function",
+        "name": "wait_for"
+      },
+      {
+        "id": "function:net/thread-pool/src/locked_thread_pool.cpp::stop_impl",
+        "type": "function",
+        "name": "stop_impl"
+      }
+    ],
+    "net/thread-pool/src/thread_pool.cpp": [
+      {
+        "id": "function:net/thread-pool/src/thread_pool.cpp::LockFreeThreadPool",
+        "type": "function",
+        "name": "LockFreeThreadPool"
+      },
+      {
+        "id": "function:net/thread-pool/src/thread_pool.cpp::~LockFreeThreadPool",
+        "type": "function",
+        "name": "~LockFreeThreadPool"
+      },
+      {
+        "id": "function:net/thread-pool/src/thread_pool.cpp::stop_impl",
+        "type": "function",
+        "name": "stop_impl"
+      },
+      {
+        "id": "function:net/thread-pool/src/thread_pool.cpp::worker",
+        "type": "function",
+        "name": "worker"
+      },
+      {
+        "id": "function:net/thread-pool/src/thread_pool.cpp::wait_impl",
+        "type": "function",
+        "name": "wait_impl"
+      }
+    ],
+    "net/thread-pool/xmake.lua": [
+      {
+        "id": "file:net/thread-pool/xmake.lua",
+        "type": "file",
+        "name": "net/thread-pool/xmake.lua"
+      }
+    ],
+    "net/websocket/include/websocket.h": [
+      {
+        "id": "file:net/websocket/include/websocket.h",
+        "type": "file",
+        "name": "net/websocket/include/websocket.h"
+      },
+      {
+        "id": "class:net/websocket/include/websocket.h::WsFrame",
+        "type": "class",
+        "name": "WsFrame"
+      }
+    ],
+    "net/websocket/include/ws_connection.h": [
+      {
+        "id": "file:net/websocket/include/ws_connection.h",
+        "type": "file",
+        "name": "net/websocket/include/ws_connection.h"
+      },
+      {
+        "id": "class:net/websocket/include/ws_connection.h::WsConnection",
+        "type": "class",
+        "name": "WsConnection"
+      },
+      {
+        "id": "function:net/websocket/include/ws_connection.h::send",
+        "type": "function",
+        "name": "send"
+      },
+      {
+        "id": "function:net/websocket/include/ws_connection.h::close",
+        "type": "function",
+        "name": "close"
+      },
+      {
+        "id": "function:net/websocket/include/ws_connection.h::set_message_handler",
+        "type": "function",
+        "name": "set_message_handler"
+      },
+      {
+        "id": "function:net/websocket/include/ws_connection.h::set_close_handler",
+        "type": "function",
+        "name": "set_close_handler"
+      },
+      {
+        "id": "function:net/websocket/include/ws_connection.h::start_event_loop",
+        "type": "function",
+        "name": "start_event_loop"
+      },
+      {
+        "id": "function:net/websocket/include/ws_connection.h::do_send",
+        "type": "function",
+        "name": "do_send"
+      }
+    ],
+    "net/websocket/src/websocket.cpp": [
+      {
+        "id": "file:net/websocket/src/websocket.cpp",
+        "type": "file",
+        "name": "net/websocket/src/websocket.cpp"
+      },
+      {
+        "id": "function:net/websocket/src/websocket.cpp::base64_encode",
+        "type": "function",
+        "name": "base64_encode"
+      },
+      {
+        "id": "function:net/websocket/src/websocket.cpp::ws_server_handshake",
+        "type": "function",
+        "name": "ws_server_handshake"
+      },
+      {
+        "id": "function:net/websocket/src/websocket.cpp::ws_encode_frame",
+        "type": "function",
+        "name": "ws_encode_frame"
+      },
+      {
+        "id": "function:net/websocket/src/websocket.cpp::ws_decode_frame",
+        "type": "function",
+        "name": "ws_decode_frame"
+      },
+      {
+        "id": "function:net/websocket/src/websocket.cpp::ws_close_code",
+        "type": "function",
+        "name": "ws_close_code"
+      }
+    ],
+    "net/websocket/src/ws_connection.cpp": [
+      {
+        "id": "function:net/websocket/src/ws_connection.cpp::WsConnection",
+        "type": "function",
+        "name": "WsConnection"
+      },
+      {
+        "id": "function:net/websocket/src/ws_connection.cpp::send",
+        "type": "function",
+        "name": "send"
+      },
+      {
+        "id": "function:net/websocket/src/ws_connection.cpp::close",
+        "type": "function",
+        "name": "close"
+      },
+      {
+        "id": "function:net/websocket/src/ws_connection.cpp::calc_frame_size",
+        "type": "function",
+        "name": "calc_frame_size"
+      },
+      {
+        "id": "function:net/websocket/src/ws_connection.cpp::handle_frame",
+        "type": "function",
+        "name": "handle_frame"
+      },
+      {
+        "id": "function:net/websocket/src/ws_connection.cpp::start_event_loop",
+        "type": "function",
+        "name": "start_event_loop"
+      },
+      {
+        "id": "function:net/websocket/src/ws_connection.cpp::do_send",
+        "type": "function",
+        "name": "do_send"
+      }
+    ],
+    "net/xmake.lua": [
+      {
+        "id": "file:net/xmake.lua",
+        "type": "file",
+        "name": "net/xmake.lua"
+      }
+    ],
+    "tests/test_coroutine.cpp": [
+      {
+        "id": "file:tests/test_coroutine.cpp",
+        "type": "file",
+        "name": "tests/test_coroutine.cpp"
+      },
+      {
+        "id": "function:tests/test_coroutine.cpp::main",
+        "type": "function",
+        "name": "main"
+      },
+      {
+        "id": "function:tests/test_coroutine.cpp::TEST",
+        "type": "function",
+        "name": "TEST"
+      },
+      {
+        "id": "function:tests/test_coroutine.cpp::zero_addr",
+        "type": "function",
+        "name": "zero_addr"
+      },
+      {
+        "id": "function:tests/test_coroutine.cpp::read_coro",
+        "type": "function",
+        "name": "read_coro"
+      },
+      {
+        "id": "function:tests/test_coroutine.cpp::write_coro",
+        "type": "function",
+        "name": "write_coro"
+      }
+    ],
+    "tests/test_database_pool.cpp": [
+      {
+        "id": "class:tests/test_database_pool.cpp::MockPool",
+        "type": "class",
+        "name": "MockPool"
+      },
+      {
+        "id": "function:tests/test_database_pool.cpp::MockPool",
+        "type": "function",
+        "name": "MockPool"
+      },
+      {
+        "id": "function:tests/test_database_pool.cpp::TEST",
+        "type": "function",
+        "name": "TEST"
+      },
+      {
+        "id": "function:tests/test_database_pool.cpp::main",
+        "type": "function",
+        "name": "main"
+      }
+    ],
+    "tests/test_file_system.cpp": [
+      {
+        "id": "file:tests/test_file_system.cpp",
+        "type": "file",
+        "name": "tests/test_file_system.cpp"
+      },
+      {
+        "id": "class:tests/test_file_system.cpp::TempDir",
+        "type": "class",
+        "name": "TempDir"
+      },
+      {
+        "id": "function:tests/test_file_system.cpp::TempDir",
+        "type": "function",
+        "name": "TempDir"
+      },
+      {
+        "id": "function:tests/test_file_system.cpp::~TempDir",
+        "type": "function",
+        "name": "~TempDir"
+      },
+      {
+        "id": "function:tests/test_file_system.cpp::file_path",
+        "type": "function",
+        "name": "file_path"
+      },
+      {
+        "id": "function:tests/test_file_system.cpp::write_file",
+        "type": "function",
+        "name": "write_file"
+      },
+      {
+        "id": "function:tests/test_file_system.cpp::main",
+        "type": "function",
+        "name": "main"
+      },
+      {
+        "id": "function:tests/test_file_system.cpp::TEST",
+        "type": "function",
+        "name": "TEST"
+      }
+    ],
+    "tests/test_file_transfer.cpp": [
+      {
+        "id": "file:tests/test_file_transfer.cpp",
+        "type": "file",
+        "name": "tests/test_file_transfer.cpp"
+      },
+      {
+        "id": "class:tests/test_file_transfer.cpp::TempDir",
+        "type": "class",
+        "name": "TempDir"
+      },
+      {
+        "id": "function:tests/test_file_transfer.cpp::TempDir",
+        "type": "function",
+        "name": "TempDir"
+      },
+      {
+        "id": "function:tests/test_file_transfer.cpp::~TempDir",
+        "type": "function",
+        "name": "~TempDir"
+      },
+      {
+        "id": "function:tests/test_file_transfer.cpp::file_path",
+        "type": "function",
+        "name": "file_path"
+      },
+      {
+        "id": "function:tests/test_file_transfer.cpp::write_file",
+        "type": "function",
+        "name": "write_file"
+      },
+      {
+        "id": "function:tests/test_file_transfer.cpp::create_echo_server",
+        "type": "function",
+        "name": "create_echo_server"
+      },
+      {
+        "id": "function:tests/test_file_transfer.cpp::get_port",
+        "type": "function",
+        "name": "get_port"
+      },
+      {
+        "id": "function:tests/test_file_transfer.cpp::run_echo_server",
+        "type": "function",
+        "name": "run_echo_server"
+      },
+      {
+        "id": "function:tests/test_file_transfer.cpp::recv_all",
+        "type": "function",
+        "name": "recv_all"
+      },
+      {
+        "id": "function:tests/test_file_transfer.cpp::TEST",
+        "type": "function",
+        "name": "TEST"
+      },
+      {
+        "id": "function:tests/test_file_transfer.cpp::main",
+        "type": "function",
+        "name": "main"
+      }
+    ],
+    "tests/test_http_parser.cpp": [
+      {
+        "id": "function:tests/test_http_parser.cpp::TEST",
+        "type": "function",
+        "name": "TEST"
+      },
+      {
+        "id": "function:tests/test_http_parser.cpp::main",
+        "type": "function",
+        "name": "main"
+      }
+    ],
+    "tests/test_http_request.cpp": [
+      {
+        "id": "function:tests/test_http_request.cpp::TEST",
+        "type": "function",
+        "name": "TEST"
+      },
+      {
+        "id": "function:tests/test_http_request.cpp::main",
+        "type": "function",
+        "name": "main"
+      }
+    ],
+    "tests/test_http_response.cpp": [
+      {
+        "id": "file:tests/test_http_response.cpp",
+        "type": "file",
+        "name": "tests/test_http_response.cpp"
+      },
+      {
+        "id": "function:tests/test_http_response.cpp::TEST",
+        "type": "function",
+        "name": "TEST"
+      },
+      {
+        "id": "function:tests/test_http_response.cpp::main",
+        "type": "function",
+        "name": "main"
+      }
+    ],
+    "tests/test_http_server.cpp": [
+      {
+        "id": "function:tests/test_http_server.cpp::main",
+        "type": "function",
+        "name": "main"
+      },
+      {
+        "id": "function:tests/test_http_server.cpp::send_raw",
+        "type": "function",
+        "name": "send_raw"
+      },
+      {
+        "id": "function:tests/test_http_server.cpp::TEST",
+        "type": "function",
+        "name": "TEST"
+      }
+    ],
+    "tests/test_lock_free_queue.cpp": [
+      {
+        "id": "file:tests/test_lock_free_queue.cpp",
+        "type": "file",
+        "name": "tests/test_lock_free_queue.cpp"
+      },
+      {
+        "id": "function:tests/test_lock_free_queue.cpp::main",
+        "type": "function",
+        "name": "main"
+      },
+      {
+        "id": "function:tests/test_lock_free_queue.cpp::TEST",
+        "type": "function",
+        "name": "TEST"
+      }
+    ],
+    "tests/test_locked_thread_pool.cpp": [
+      {
+        "id": "file:tests/test_locked_thread_pool.cpp",
+        "type": "file",
+        "name": "tests/test_locked_thread_pool.cpp"
+      },
+      {
+        "id": "function:tests/test_locked_thread_pool.cpp::main",
+        "type": "function",
+        "name": "main"
+      },
+      {
+        "id": "function:tests/test_locked_thread_pool.cpp::TEST",
+        "type": "function",
+        "name": "TEST"
+      }
+    ],
+    "tests/test_memory_pool.cpp": [
+      {
+        "id": "file:tests/test_memory_pool.cpp",
+        "type": "file",
+        "name": "tests/test_memory_pool.cpp"
+      },
+      {
+        "id": "function:tests/test_memory_pool.cpp::main",
+        "type": "function",
+        "name": "main"
+      },
+      {
+        "id": "function:tests/test_memory_pool.cpp::TEST",
+        "type": "function",
+        "name": "TEST"
+      }
+    ],
+    "tests/test_move_only_function.cpp": [
+      {
+        "id": "file:tests/test_move_only_function.cpp",
+        "type": "file",
+        "name": "tests/test_move_only_function.cpp"
+      },
+      {
+        "id": "function:tests/test_move_only_function.cpp::TEST",
+        "type": "function",
+        "name": "TEST"
+      },
+      {
+        "id": "function:tests/test_move_only_function.cpp::main",
+        "type": "function",
+        "name": "main"
+      }
+    ],
+    "tests/test_range_parser.cpp": [
+      {
+        "id": "file:tests/test_range_parser.cpp",
+        "type": "file",
+        "name": "tests/test_range_parser.cpp"
+      },
+      {
+        "id": "function:tests/test_range_parser.cpp::main",
+        "type": "function",
+        "name": "main"
+      },
+      {
+        "id": "function:tests/test_range_parser.cpp::TEST",
+        "type": "function",
+        "name": "TEST"
+      }
+    ],
+    "tests/test_router.cpp": [
+      {
+        "id": "function:tests/test_router.cpp::main",
+        "type": "function",
+        "name": "main"
+      },
+      {
+        "id": "function:tests/test_router.cpp::make_handler",
+        "type": "function",
+        "name": "make_handler"
+      },
+      {
+        "id": "function:tests/test_router.cpp::TEST",
+        "type": "function",
+        "name": "TEST"
+      }
+    ],
+    "tests/test_ssl.cpp": [
+      {
+        "id": "file:tests/test_ssl.cpp",
+        "type": "file",
+        "name": "tests/test_ssl.cpp"
+      },
+      {
+        "id": "class:tests/test_ssl.cpp::SslClient",
+        "type": "class",
+        "name": "SslClient"
+      },
+      {
+        "id": "function:tests/test_ssl.cpp::connect_to",
+        "type": "function",
+        "name": "connect_to"
+      },
+      {
+        "id": "function:tests/test_ssl.cpp::read",
+        "type": "function",
+        "name": "read"
+      },
+      {
+        "id": "function:tests/test_ssl.cpp::write",
+        "type": "function",
+        "name": "write"
+      },
+      {
+        "id": "function:tests/test_ssl.cpp::~SslClient",
+        "type": "function",
+        "name": "~SslClient"
+      },
+      {
+        "id": "function:tests/test_ssl.cpp::cert_path",
+        "type": "function",
+        "name": "cert_path"
+      },
+      {
+        "id": "function:tests/test_ssl.cpp::ensure_certs",
+        "type": "function",
+        "name": "ensure_certs"
+      },
+      {
+        "id": "function:tests/test_ssl.cpp::raw_connect",
+        "type": "function",
+        "name": "raw_connect"
+      },
+      {
+        "id": "function:tests/test_ssl.cpp::TEST",
+        "type": "function",
+        "name": "TEST"
+      },
+      {
+        "id": "function:tests/test_ssl.cpp::main",
+        "type": "function",
+        "name": "main"
+      }
+    ],
+    "tests/test_tcp_client.cpp": [
+      {
+        "id": "function:tests/test_tcp_client.cpp::create_echo_server",
+        "type": "function",
+        "name": "create_echo_server"
+      },
+      {
+        "id": "function:tests/test_tcp_client.cpp::get_port",
+        "type": "function",
+        "name": "get_port"
+      },
+      {
+        "id": "function:tests/test_tcp_client.cpp::run_echo_server",
+        "type": "function",
+        "name": "run_echo_server"
+      },
+      {
+        "id": "function:tests/test_tcp_client.cpp::temp_file_path",
+        "type": "function",
+        "name": "temp_file_path"
+      },
+      {
+        "id": "function:tests/test_tcp_client.cpp::TEST",
+        "type": "function",
+        "name": "TEST"
+      },
+      {
+        "id": "function:tests/test_tcp_client.cpp::main",
+        "type": "function",
+        "name": "main"
+      }
+    ],
+    "tests/test_tcp_server_connection.cpp": [
+      {
+        "id": "file:tests/test_tcp_server_connection.cpp",
+        "type": "file",
+        "name": "tests/test_tcp_server_connection.cpp"
+      },
+      {
+        "id": "class:tests/test_tcp_server_connection.cpp::ConnectionTest",
+        "type": "class",
+        "name": "ConnectionTest"
+      },
+      {
+        "id": "function:tests/test_tcp_server_connection.cpp::SetUp",
+        "type": "function",
+        "name": "SetUp"
+      },
+      {
+        "id": "function:tests/test_tcp_server_connection.cpp::TearDown",
+        "type": "function",
+        "name": "TearDown"
+      },
+      {
+        "id": "function:tests/test_tcp_server_connection.cpp::TEST_F",
+        "type": "function",
+        "name": "TEST_F"
+      },
+      {
+        "id": "function:tests/test_tcp_server_connection.cpp::main",
+        "type": "function",
+        "name": "main"
+      }
+    ],
+    "tests/test_tcp_server.cpp": [
+      {
+        "id": "class:tests/test_tcp_server.cpp::TcpServerTest",
+        "type": "class",
+        "name": "TcpServerTest"
+      },
+      {
+        "id": "function:tests/test_tcp_server.cpp::SetUp",
+        "type": "function",
+        "name": "SetUp"
+      },
+      {
+        "id": "function:tests/test_tcp_server.cpp::TearDown",
+        "type": "function",
+        "name": "TearDown"
+      },
+      {
+        "id": "function:tests/test_tcp_server.cpp::start_server",
+        "type": "function",
+        "name": "start_server"
+      },
+      {
+        "id": "function:tests/test_tcp_server.cpp::connect_client",
+        "type": "function",
+        "name": "connect_client"
+      },
+      {
+        "id": "function:tests/test_tcp_server.cpp::TEST_F",
+        "type": "function",
+        "name": "TEST_F"
+      },
+      {
+        "id": "function:tests/test_tcp_server.cpp::main",
+        "type": "function",
+        "name": "main"
+      }
+    ],
+    "tests/test_url_decode.cpp": [
+      {
+        "id": "file:tests/test_url_decode.cpp",
+        "type": "file",
+        "name": "tests/test_url_decode.cpp"
+      },
+      {
+        "id": "function:tests/test_url_decode.cpp::TEST",
+        "type": "function",
+        "name": "TEST"
+      },
+      {
+        "id": "function:tests/test_url_decode.cpp::main",
+        "type": "function",
+        "name": "main"
+      }
+    ],
+    "tests/test_websocket.cpp": [
+      {
+        "id": "file:tests/test_websocket.cpp",
+        "type": "file",
+        "name": "tests/test_websocket.cpp"
+      },
+      {
+        "id": "class:tests/test_websocket.cpp::B64TestCase",
+        "type": "class",
+        "name": "B64TestCase"
+      },
+      {
+        "id": "function:tests/test_websocket.cpp::main",
+        "type": "function",
+        "name": "main"
+      },
+      {
+        "id": "function:tests/test_websocket.cpp::make_ws_request",
+        "type": "function",
+        "name": "make_ws_request"
+      },
+      {
+        "id": "function:tests/test_websocket.cpp::send_raw",
+        "type": "function",
+        "name": "send_raw"
+      },
+      {
+        "id": "function:tests/test_websocket.cpp::make_masked_frame",
+        "type": "function",
+        "name": "make_masked_frame"
+      },
+      {
+        "id": "function:tests/test_websocket.cpp::TEST",
+        "type": "function",
+        "name": "TEST"
+      }
+    ],
+    "verification/verify.sh": [
+      {
+        "id": "function:verification/verify.sh::red",
+        "type": "function",
+        "name": "red"
+      },
+      {
+        "id": "function:verification/verify.sh::green",
+        "type": "function",
+        "name": "green"
+      },
+      {
+        "id": "function:verification/verify.sh::yellow",
+        "type": "function",
+        "name": "yellow"
+      },
+      {
+        "id": "function:verification/verify.sh::blue",
+        "type": "function",
+        "name": "blue"
+      },
+      {
+        "id": "function:verification/verify.sh::check",
+        "type": "function",
+        "name": "check"
+      },
+      {
+        "id": "function:verification/verify.sh::check_skip",
+        "type": "function",
+        "name": "check_skip"
+      },
+      {
+        "id": "function:verification/verify.sh::cleanup",
+        "type": "function",
+        "name": "cleanup"
+      }
+    ],
+    "verification/ws_test.py": [
+      {
+        "id": "function:verification/ws_test.py::test_ws_handshake",
+        "type": "function",
+        "name": "test_ws_handshake"
+      }
+    ]
+  }
+}

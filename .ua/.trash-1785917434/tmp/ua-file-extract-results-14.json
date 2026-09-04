@@ -1,0 +1,111 @@
+{
+  "scriptCompleted": true,
+  "filesAnalyzed": 13,
+  "filesSkipped": [],
+  "results": [
+    {
+      "path": "benchmark/reports/load_20260718_171912.txt",
+      "language": "txt",
+      "fileCategory": "docs",
+      "totalLines": 39,
+      "nonEmptyLines": 38,
+      "metrics": {}
+    },
+    {
+      "path": "benchmark/reports/load_20260718_181105.txt",
+      "language": "txt",
+      "fileCategory": "docs",
+      "totalLines": 52,
+      "nonEmptyLines": 51,
+      "metrics": {}
+    },
+    {
+      "path": "benchmark/reports/load_debug_20260715_172228.txt",
+      "language": "txt",
+      "fileCategory": "docs",
+      "totalLines": 23,
+      "nonEmptyLines": 22,
+      "metrics": {}
+    },
+    {
+      "path": "benchmark/reports/load_debug_20260715_175124.txt",
+      "language": "txt",
+      "fileCategory": "docs",
+      "totalLines": 23,
+      "nonEmptyLines": 22,
+      "metrics": {}
+    },
+    {
+      "path": "benchmark/reports/load_release_20260715_173855.txt",
+      "language": "txt",
+      "fileCategory": "docs",
+      "totalLines": 23,
+      "nonEmptyLines": 22,
+      "metrics": {}
+    },
+    {
+      "path": "benchmark/reports/micro_20260717_142320.txt",
+      "language": "txt",
+      "fileCategory": "docs",
+      "totalLines": 126,
+      "nonEmptyLines": 113,
+      "metrics": {}
+    },
+    {
+      "path": "benchmark/reports/micro_20260717_145119.txt",
+      "language": "txt",
+      "fileCategory": "docs",
+      "totalLines": 126,
+      "nonEmptyLines": 113,
+      "metrics": {}
+    },
+    {
+      "path": "benchmark/reports/micro_20260718_153451.txt",
+      "language": "txt",
+      "fileCategory": "docs",
+      "totalLines": 123,
+      "nonEmptyLines": 110,
+      "metrics": {}
+    },
+    {
+      "path": "benchmark/reports/micro_20260718_184759.txt",
+      "language": "txt",
+      "fileCategory": "docs",
+      "totalLines": 99,
+      "nonEmptyLines": 88,
+      "metrics": {}
+    },
+    {
+      "path": "benchmark/reports/micro_20260718_185114.txt",
+      "language": "txt",
+      "fileCategory": "docs",
+      "totalLines": 123,
+      "nonEmptyLines": 110,
+      "metrics": {}
+    },
+    {
+      "path": "benchmark/reports/micro_release_20260715_174645.txt",
+      "language": "txt",
+      "fileCategory": "docs",
+      "totalLines": 87,
+      "nonEmptyLines": 77,
+      "metrics": {}
+    },
+    {
+      "path": "benchmark/reports/qps_20260717_151330.txt",
+      "language": "txt",
+      "fileCategory": "docs",
+      "totalLines": 749,
+      "nonEmptyLines": 709,
+      "metrics": {}
+    },
+    {
+      "path": "benchmark/reports/qps_20260718_162217.txt",
+      "language": "txt",
+      "fileCategory": "docs",
+      "totalLines": 492,
+      "nonEmptyLines": 453,
+      "metrics": {}
+    }
+  ]
+}

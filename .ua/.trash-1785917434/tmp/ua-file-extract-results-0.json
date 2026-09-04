@@ -1,0 +1,1011 @@
+{
+  "scriptCompleted": true,
+  "filesAnalyzed": 9,
+  "filesSkipped": [],
+  "results": [
+    {
+      "path": "net/http/include/case_insensitive.h",
+      "language": "c",
+      "fileCategory": "code",
+      "totalLines": 45,
+      "nonEmptyLines": 38,
+      "functions": [
+        {
+          "name": "operator()",
+          "startLine": 13,
+          "endLine": 20,
+          "params": [
+            "key"
+          ]
+        },
+        {
+          "name": "operator()",
+          "startLine": 25,
+          "endLine": 34,
+          "params": [
+            "lhs",
+            "rhs"
+          ]
+        }
+      ],
+      "classes": [
+        {
+          "name": "CaseInsensitiveHash",
+          "startLine": 10,
+          "endLine": 21,
+          "methods": [
+            "operator()"
+          ],
+          "properties": [
+            "kGoldenRatio"
+          ]
+        },
+        {
+          "name": "CaseInsensitiveEq",
+          "startLine": 24,
+          "endLine": 35,
+          "methods": [
+            "operator()"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "operator()",
+          "line": 13,
+          "isDefault": false
+        },
+        {
+          "name": "CaseInsensitiveHash",
+          "line": 10,
+          "isDefault": false
+        },
+        {
+          "name": "operator()",
+          "line": 25,
+          "isDefault": false
+        },
+        {
+          "name": "CaseInsensitiveEq",
+          "line": 24,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "operator()",
+          "callee": "static_cast<size_t>",
+          "lineNumber": 16
+        },
+        {
+          "caller": "operator()",
+          "callee": "std::toupper",
+          "lineNumber": 16
+        },
+        {
+          "caller": "operator()",
+          "callee": "static_cast<unsigned char>",
+          "lineNumber": 16
+        },
+        {
+          "caller": "operator()",
+          "callee": "size",
+          "lineNumber": 26
+        },
+        {
+          "caller": "operator()",
+          "callee": "size",
+          "lineNumber": 26
+        },
+        {
+          "caller": "operator()",
+          "callee": "size",
+          "lineNumber": 28
+        },
+        {
+          "caller": "operator()",
+          "callee": "std::toupper",
+          "lineNumber": 29
+        },
+        {
+          "caller": "operator()",
+          "callee": "static_cast<unsigned char>",
+          "lineNumber": 29
+        },
+        {
+          "caller": "operator()",
+          "callee": "std::toupper",
+          "lineNumber": 29
+        },
+        {
+          "caller": "operator()",
+          "callee": "static_cast<unsigned char>",
+          "lineNumber": 29
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 4,
+        "functionCount": 2,
+        "classCount": 2
+      }
+    },
+    {
+      "path": "net/http/include/http_parser.h",
+      "language": "c",
+      "fileCategory": "code",
+      "totalLines": 113,
+      "nonEmptyLines": 88,
+      "functions": [
+        {
+          "name": "state",
+          "startLine": 57,
+          "endLine": 57,
+          "params": []
+        },
+        {
+          "name": "error",
+          "startLine": 59,
+          "endLine": 59,
+          "params": []
+        },
+        {
+          "name": "set_streaming_mode",
+          "startLine": 65,
+          "endLine": 65,
+          "params": [
+            "enable"
+          ]
+        },
+        {
+          "name": "streaming_mode",
+          "startLine": 67,
+          "endLine": 67,
+          "params": []
+        },
+        {
+          "name": "set_chunk_handler",
+          "startLine": 69,
+          "endLine": 69,
+          "params": [
+            "cb"
+          ]
+        },
+        {
+          "name": "set_stream_chunk_size",
+          "startLine": 71,
+          "endLine": 73,
+          "params": [
+            "size"
+          ]
+        },
+        {
+          "name": "set_body_done_callback",
+          "startLine": 75,
+          "endLine": 75,
+          "params": [
+            "cb"
+          ]
+        },
+        {
+          "name": "set_headers_done_callback",
+          "startLine": 77,
+          "endLine": 77,
+          "params": [
+            "cb"
+          ]
+        }
+      ],
+      "classes": [
+        {
+          "name": "ParserResult",
+          "startLine": 33,
+          "endLine": 36,
+          "methods": [],
+          "properties": [
+            "err",
+            "consumed"
+          ]
+        },
+        {
+          "name": "HttpParser",
+          "startLine": 44,
+          "endLine": 111,
+          "methods": [
+            "feed",
+            "state",
+            "error",
+            "set_streaming_mode",
+            "streaming_mode",
+            "set_chunk_handler",
+            "set_stream_chunk_size",
+            "set_body_done_callback",
+            "set_headers_done_callback",
+            "reset",
+            "reset_line_buf",
+            "flush_chunk_buf",
+            "finish_body",
+            "append_body_byte",
+            "feed_request_line",
+            "feed_headers",
+            "handle_end_of_headers",
+            "parse_header_line",
+            "feed_body_identity",
+            "feed_chunk_size",
+            "feed_chunk_data",
+            "feed_chunk_trailer"
+          ],
+          "properties": [
+            "kMaxBodySize",
+            "kStreamChunkSize",
+            "state_",
+            "error_",
+            "request_",
+            "line_buf_",
+            "body_bytes_remaining_",
+            "chunk_size_",
+            "chunk_bytes_read_",
+            "chunk_need_crlf_",
+            "total_body_bytes_",
+            "streaming_mode_",
+            "chunk_handler_",
+            "body_done_cb_",
+            "headers_done_cb_",
+            "chunk_buf_",
+            "stream_chunk_size_"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "ParserResult",
+          "line": 33,
+          "isDefault": false
+        },
+        {
+          "name": "feed",
+          "line": 55,
+          "isDefault": false
+        },
+        {
+          "name": "state",
+          "line": 57,
+          "isDefault": false
+        },
+        {
+          "name": "error",
+          "line": 59,
+          "isDefault": false
+        },
+        {
+          "name": "set_streaming_mode",
+          "line": 65,
+          "isDefault": false
+        },
+        {
+          "name": "streaming_mode",
+          "line": 67,
+          "isDefault": false
+        },
+        {
+          "name": "set_chunk_handler",
+          "line": 69,
+          "isDefault": false
+        },
+        {
+          "name": "set_stream_chunk_size",
+          "line": 71,
+          "isDefault": false
+        },
+        {
+          "name": "set_body_done_callback",
+          "line": 75,
+          "isDefault": false
+        },
+        {
+          "name": "set_headers_done_callback",
+          "line": 77,
+          "isDefault": false
+        },
+        {
+          "name": "reset",
+          "line": 79,
+          "isDefault": false
+        },
+        {
+          "name": "HttpParser",
+          "line": 44,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "set_chunk_handler",
+          "callee": "std::move",
+          "lineNumber": 69
+        },
+        {
+          "caller": "set_stream_chunk_size",
+          "callee": "static_cast<std::size_t>",
+          "lineNumber": 72
+        },
+        {
+          "caller": "set_body_done_callback",
+          "callee": "std::move",
+          "lineNumber": 75
+        },
+        {
+          "caller": "set_headers_done_callback",
+          "callee": "std::move",
+          "lineNumber": 77
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 12,
+        "functionCount": 8,
+        "classCount": 2
+      }
+    },
+    {
+      "path": "net/http/include/http_request.h",
+      "language": "c",
+      "fileCategory": "code",
+      "totalLines": 49,
+      "nonEmptyLines": 41,
+      "classes": [
+        {
+          "name": "HttpRequest",
+          "startLine": 33,
+          "endLine": 47,
+          "methods": [
+            "clear"
+          ],
+          "properties": [
+            "method",
+            "path",
+            "query_string",
+            "version",
+            "headers",
+            "body",
+            "path_params",
+            "auth_status",
+            "auth_user",
+            "auth_profile"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "clear",
+          "line": 46,
+          "isDefault": false
+        },
+        {
+          "name": "HttpRequest",
+          "line": 33,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 2,
+        "functionCount": 0,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "net/http/include/http_response.h",
+      "language": "c",
+      "fileCategory": "code",
+      "totalLines": 45,
+      "nonEmptyLines": 34,
+      "classes": [
+        {
+          "name": "HttpResponse",
+          "startLine": 12,
+          "endLine": 43,
+          "methods": [
+            "set_status",
+            "set_header",
+            "set_content_type",
+            "set_content_length",
+            "serialize",
+            "clear"
+          ],
+          "properties": [
+            "version",
+            "status_code",
+            "status_text",
+            "headers",
+            "body"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "set_status",
+          "line": 24,
+          "isDefault": false
+        },
+        {
+          "name": "set_header",
+          "line": 27,
+          "isDefault": false
+        },
+        {
+          "name": "set_content_type",
+          "line": 30,
+          "isDefault": false
+        },
+        {
+          "name": "set_content_length",
+          "line": 33,
+          "isDefault": false
+        },
+        {
+          "name": "serialize",
+          "line": 39,
+          "isDefault": false
+        },
+        {
+          "name": "clear",
+          "line": 42,
+          "isDefault": false
+        },
+        {
+          "name": "HttpResponse",
+          "line": 12,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 7,
+        "functionCount": 0,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "net/http/include/http_server.h",
+      "language": "c",
+      "fileCategory": "code",
+      "totalLines": 118,
+      "nonEmptyLines": 95,
+      "functions": [
+        {
+          "name": "UploadStreamContext",
+          "startLine": 49,
+          "endLine": 49,
+          "params": []
+        },
+        {
+          "name": "UploadStreamContext",
+          "startLine": 51,
+          "endLine": 51,
+          "params": []
+        },
+        {
+          "name": "HttpServer",
+          "startLine": 71,
+          "endLine": 71,
+          "params": []
+        },
+        {
+          "name": "set_auth_service",
+          "startLine": 89,
+          "endLine": 89,
+          "params": [
+            "auth"
+          ]
+        },
+        {
+          "name": "actual_port",
+          "startLine": 91,
+          "endLine": 91,
+          "params": []
+        }
+      ],
+      "classes": [
+        {
+          "name": "WsConnection",
+          "startLine": 26,
+          "endLine": 26,
+          "methods": [],
+          "properties": []
+        },
+        {
+          "name": "UploadStreamContext",
+          "startLine": 28,
+          "endLine": 56,
+          "methods": [
+            "UploadStreamContext",
+            "UploadStreamContext",
+            "reset_hash_context",
+            "set_initial_chunk_probe"
+          ],
+          "properties": [
+            "file_name",
+            "file_hash",
+            "total_size",
+            "current_offset",
+            "chunks",
+            "hash_ctx",
+            "store_chunk_data",
+            "content_length",
+            "rejection_response",
+            "initial_chunk_probe",
+            "initial_chunk_probe_size",
+            "initial_chunk_probe_data",
+            "initial_chunk_probe_completed",
+            "failed",
+            "size_exceeded",
+            "chunk_lifecycle_guard"
+          ]
+        },
+        {
+          "name": "HttpServer",
+          "startLine": 60,
+          "endLine": 116,
+          "methods": [
+            "HttpServer",
+            "init",
+            "start",
+            "stop",
+            "get",
+            "post",
+            "put",
+            "del",
+            "ws",
+            "upload",
+            "set_auth_service",
+            "actual_port",
+            "handle_connection",
+            "cleanup_connection",
+            "on_headers_done",
+            "try_handle_ws_upgrade",
+            "send_error",
+            "get_conn_mutex"
+          ],
+          "properties": [
+            "server_",
+            "router_",
+            "ws_handlers_",
+            "upload_handlers_",
+            "upload_setups_",
+            "upload_preflights_",
+            "conn_map_mutex_",
+            "conn_mutexes_",
+            "auth_service_",
+            "parsers_mutex_",
+            "parsers_",
+            "upload_contexts_"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "WsConnection",
+          "line": 26,
+          "isDefault": false
+        },
+        {
+          "name": "UploadStreamContext",
+          "line": 49,
+          "isDefault": false
+        },
+        {
+          "name": "UploadStreamContext",
+          "line": 51,
+          "isDefault": false
+        },
+        {
+          "name": "reset_hash_context",
+          "line": 54,
+          "isDefault": false
+        },
+        {
+          "name": "set_initial_chunk_probe",
+          "line": 55,
+          "isDefault": false
+        },
+        {
+          "name": "UploadStreamContext",
+          "line": 28,
+          "isDefault": false
+        },
+        {
+          "name": "HttpServer",
+          "line": 71,
+          "isDefault": false
+        },
+        {
+          "name": "init",
+          "line": 74,
+          "isDefault": false
+        },
+        {
+          "name": "start",
+          "line": 75,
+          "isDefault": false
+        },
+        {
+          "name": "stop",
+          "line": 76,
+          "isDefault": false
+        },
+        {
+          "name": "get",
+          "line": 78,
+          "isDefault": false
+        },
+        {
+          "name": "post",
+          "line": 79,
+          "isDefault": false
+        },
+        {
+          "name": "put",
+          "line": 80,
+          "isDefault": false
+        },
+        {
+          "name": "del",
+          "line": 81,
+          "isDefault": false
+        },
+        {
+          "name": "ws",
+          "line": 83,
+          "isDefault": false
+        },
+        {
+          "name": "upload",
+          "line": 84,
+          "isDefault": false
+        },
+        {
+          "name": "set_auth_service",
+          "line": 89,
+          "isDefault": false
+        },
+        {
+          "name": "actual_port",
+          "line": 91,
+          "isDefault": false
+        },
+        {
+          "name": "HttpServer",
+          "line": 60,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "actual_port",
+          "callee": "actual_port",
+          "lineNumber": 91
+        }
+      ],
+      "metrics": {
+        "importCount": 5,
+        "exportCount": 19,
+        "functionCount": 5,
+        "classCount": 3
+      }
+    },
+    {
+      "path": "net/http/include/i_http_server.h",
+      "language": "c",
+      "fileCategory": "code",
+      "totalLines": 41,
+      "nonEmptyLines": 30,
+      "functions": [
+        {
+          "name": "~IHttpServer",
+          "startLine": 25,
+          "endLine": 25,
+          "params": []
+        }
+      ],
+      "classes": [
+        {
+          "name": "WsConnection",
+          "startLine": 12,
+          "endLine": 12,
+          "methods": [],
+          "properties": []
+        },
+        {
+          "name": "IHttpServer",
+          "startLine": 20,
+          "endLine": 39,
+          "methods": [
+            "~IHttpServer",
+            "init",
+            "start",
+            "stop",
+            "get",
+            "post",
+            "put",
+            "del",
+            "ws",
+            "actual_port"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "WsConnection",
+          "line": 12,
+          "isDefault": false
+        },
+        {
+          "name": "~IHttpServer",
+          "line": 25,
+          "isDefault": false
+        },
+        {
+          "name": "init",
+          "line": 27,
+          "isDefault": false
+        },
+        {
+          "name": "start",
+          "line": 28,
+          "isDefault": false
+        },
+        {
+          "name": "stop",
+          "line": 29,
+          "isDefault": false
+        },
+        {
+          "name": "get",
+          "line": 31,
+          "isDefault": false
+        },
+        {
+          "name": "post",
+          "line": 32,
+          "isDefault": false
+        },
+        {
+          "name": "put",
+          "line": 33,
+          "isDefault": false
+        },
+        {
+          "name": "del",
+          "line": 34,
+          "isDefault": false
+        },
+        {
+          "name": "ws",
+          "line": 36,
+          "isDefault": false
+        },
+        {
+          "name": "actual_port",
+          "line": 38,
+          "isDefault": false
+        },
+        {
+          "name": "IHttpServer",
+          "line": 20,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 12,
+        "functionCount": 1,
+        "classCount": 2
+      }
+    },
+    {
+      "path": "net/http/include/i_router.h",
+      "language": "c",
+      "fileCategory": "code",
+      "totalLines": 31,
+      "nonEmptyLines": 24,
+      "functions": [
+        {
+          "name": "~IRouter",
+          "startLine": 24,
+          "endLine": 24,
+          "params": []
+        }
+      ],
+      "classes": [
+        {
+          "name": "IRouter",
+          "startLine": 19,
+          "endLine": 29,
+          "methods": [
+            "~IRouter",
+            "add",
+            "match",
+            "path_exists"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "~IRouter",
+          "line": 24,
+          "isDefault": false
+        },
+        {
+          "name": "add",
+          "line": 26,
+          "isDefault": false
+        },
+        {
+          "name": "match",
+          "line": 27,
+          "isDefault": false
+        },
+        {
+          "name": "path_exists",
+          "line": 28,
+          "isDefault": false
+        },
+        {
+          "name": "IRouter",
+          "line": 19,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 2,
+        "exportCount": 5,
+        "functionCount": 1,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "net/http/include/range_parser.h",
+      "language": "c",
+      "fileCategory": "code",
+      "totalLines": 41,
+      "nonEmptyLines": 31,
+      "functions": [
+        {
+          "name": "generate_boundary",
+          "startLine": 30,
+          "endLine": 39,
+          "params": []
+        }
+      ],
+      "classes": [
+        {
+          "name": "RangeInterval",
+          "startLine": 13,
+          "endLine": 16,
+          "methods": [],
+          "properties": [
+            "start",
+            "end"
+          ]
+        },
+        {
+          "name": "RangeRequest",
+          "startLine": 18,
+          "endLine": 22,
+          "methods": [],
+          "properties": [
+            "ranges",
+            "valid",
+            "satisfiable"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "RangeInterval",
+          "line": 13,
+          "isDefault": false
+        },
+        {
+          "name": "RangeRequest",
+          "line": 18,
+          "isDefault": false
+        },
+        {
+          "name": "generate_boundary",
+          "line": 30,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "generate_boundary",
+          "callee": "std::random_device{}",
+          "lineNumber": 33
+        },
+        {
+          "caller": "generate_boundary",
+          "callee": "dist",
+          "lineNumber": 36
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 3,
+        "functionCount": 1,
+        "classCount": 2
+      }
+    },
+    {
+      "path": "net/http/include/router.h",
+      "language": "c",
+      "fileCategory": "code",
+      "totalLines": 55,
+      "nonEmptyLines": 44,
+      "functions": [
+        {
+          "name": "Router",
+          "startLine": 24,
+          "endLine": 24,
+          "params": []
+        }
+      ],
+      "classes": [
+        {
+          "name": "Router",
+          "startLine": 16,
+          "endLine": 53,
+          "methods": [
+            "Router",
+            "add",
+            "match",
+            "path_exists",
+            "split_path",
+            "insert",
+            "search"
+          ],
+          "properties": [
+            "root_"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "Router",
+          "line": 24,
+          "isDefault": false
+        },
+        {
+          "name": "add",
+          "line": 27,
+          "isDefault": false
+        },
+        {
+          "name": "match",
+          "line": 28,
+          "isDefault": false
+        },
+        {
+          "name": "path_exists",
+          "line": 29,
+          "isDefault": false
+        },
+        {
+          "name": "Router",
+          "line": 16,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 3,
+        "exportCount": 5,
+        "functionCount": 1,
+        "classCount": 1
+      }
+    }
+  ]
+}

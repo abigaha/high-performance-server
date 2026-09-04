@@ -1,0 +1,680 @@
+{
+ "nodes": [
+  {
+   "id": "file:frontend/tests/styles/designTokens.test.ts",
+   "type": "file",
+   "name": "designTokens.test.ts",
+   "summary": "Crystal Music 前端设计令牌（design tokens）的 Vitest 测试：从 src/index.css 与 index.html 提取样式，验证颜色/模糊/圆角令牌取值、对比度（4.5:1）、Admin 用户表与分页组件的可访问性与响应式布局约束。",
+   "tags": [
+    "frontend",
+    "vitest",
+    "design-tokens",
+    "a11y",
+    "css"
+   ],
+   "complexity": "moderate",
+   "filePath": "frontend/tests/styles/designTokens.test.ts"
+  },
+  {
+   "id": "function:frontend/tests/styles/designTokens.test.ts:Crystal Music 设计令牌",
+   "type": "function",
+   "name": "Crystal Music 设计令牌",
+   "summary": "顶层 describe 套件，通过 cssBlock/token/contrast 等辅助函数对浅色与深色主题令牌、对比度、布局断点逐一断言。",
+   "tags": [
+    "frontend",
+    "design-tokens",
+    "test-suite"
+   ],
+   "complexity": "simple",
+   "lineRange": [
+    29,
+    106
+   ]
+  },
+  {
+   "id": "function:frontend/tests/styles/designTokens.test.ts:浅色 token 使用指定颜色值",
+   "type": "function",
+   "name": "浅色 token 使用指定颜色值",
+   "summary": "逐对断言 10 个浅色主题 CSS 自定义属性（颜色令牌）在 index.css 中存在且取值匹配，覆盖背景、主色、强调色、文本与警示色。",
+   "tags": [
+    "frontend",
+    "vitest",
+    "test-case"
+   ],
+   "complexity": "simple",
+   "lineRange": [
+    30,
+    36
+   ]
+  },
+  {
+   "id": "function:frontend/tests/styles/designTokens.test.ts:模糊圆角与可访问性回退",
+   "type": "function",
+   "name": "模糊圆角与可访问性回退",
+   "summary": "验证 --blur-glass/--blur-fixed 模糊值、--radius-card/--radius-control 圆角值，以及 @supports 与 forced-colors 两类可访问性回退存在。",
+   "tags": [
+    "frontend",
+    "vitest",
+    "test-case"
+   ],
+   "complexity": "simple",
+   "lineRange": [
+    38,
+    45
+   ]
+  },
+  {
+   "id": "function:frontend/tests/styles/designTokens.test.ts:不从远程 stylesheet 加载字体",
+   "type": "function",
+   "name": "不从远程 stylesheet 加载字体",
+   "summary": "断言 index.html 不引用 Google Fonts 等远程字体资源，确保字体自托管、无外部网络依赖。",
+   "tags": [
+    "frontend",
+    "vitest",
+    "test-case"
+   ],
+   "complexity": "simple",
+   "lineRange": [
+    47,
+    51
+   ]
+  },
+  {
+   "id": "function:frontend/tests/styles/designTokens.test.ts:中宽用户表格布局约束",
+   "type": "function",
+   "name": "中宽用户表格布局约束",
+   "summary": "断言中宽（768-1279px）下 admin 用户表格保持角色/状态不换行、用户名省略号截断、UTC 两行显示及 44px 操作目标。",
+   "tags": [
+    "frontend",
+    "vitest",
+    "test-case"
+   ],
+   "complexity": "simple",
+   "lineRange": [
+    53,
+    58
+   ]
+  },
+  {
+   "id": "function:frontend/tests/styles/designTokens.test.ts:1280px 单行操作约束",
+   "type": "function",
+   "name": "1280px 单行操作约束",
+   "summary": "断言 1280px 起四项操作强制单行排列且每个点击目标至少 44x44px。",
+   "tags": [
+    "frontend",
+    "vitest",
+    "test-case"
+   ],
+   "complexity": "simple",
+   "lineRange": [
+    60,
+    62
+   ]
+  },
+  {
+   "id": "function:frontend/tests/styles/designTokens.test.ts:已撤销按钮使用中性 token",
+   "type": "function",
+   "name": "已撤销按钮使用中性 token",
+   "summary": "验证已撤销（aria-disabled）按钮使用中性 surface 令牌而非绿色主题色。",
+   "tags": [
+    "frontend",
+    "vitest",
+    "test-case"
+   ],
+   "complexity": "simple",
+   "lineRange": [
+    64,
+    69
+   ]
+  },
+  {
+   "id": "function:frontend/tests/styles/designTokens.test.ts:撤销文字与中性背景对比度",
+   "type": "function",
+   "name": "撤销文字与中性背景对比度",
+   "summary": "通过 WCAG 相对亮度公式计算浅色与深色主题下已撤销文字与中性背景的对比度并断言不低于 4.5。",
+   "tags": [
+    "frontend",
+    "vitest",
+    "test-case"
+   ],
+   "complexity": "simple",
+   "lineRange": [
+    71,
+    76
+   ]
+  },
+  {
+   "id": "function:frontend/tests/styles/designTokens.test.ts:Admin 搜索输入内容区",
+   "type": "function",
+   "name": "Admin 搜索输入内容区",
+   "summary": "断言 admin 搜索输入为前缀图标与清除按钮保留左右 2.75rem 稳定内容区域。",
+   "tags": [
+    "frontend",
+    "vitest",
+    "test-case"
+   ],
+   "complexity": "simple",
+   "lineRange": [
+    78,
+    82
+   ]
+  },
+  {
+   "id": "function:frontend/tests/styles/designTokens.test.ts:危险按钮对比度",
+   "type": "function",
+   "name": "危险按钮对比度",
+   "summary": "分别断言浅色与深色主题危险按钮背景与文字对比度不低于 4.5。",
+   "tags": [
+    "frontend",
+    "vitest",
+    "test-case"
+   ],
+   "complexity": "simple",
+   "lineRange": [
+    84,
+    89
+   ]
+  },
+  {
+   "id": "function:frontend/tests/styles/designTokens.test.ts:活动撤销实心危险按钮样式",
+   "type": "function",
+   "name": "活动撤销实心危险按钮样式",
+   "summary": "验证活动状态撤销按钮使用实心危险按钮令牌且不继承绿色背景。",
+   "tags": [
+    "frontend",
+    "vitest",
+    "test-case"
+   ],
+   "complexity": "simple",
+   "lineRange": [
+    91,
+    96
+   ]
+  },
+  {
+   "id": "function:frontend/tests/styles/designTokens.test.ts:Pagination 按钮尺寸",
+   "type": "function",
+   "name": "Pagination 按钮尺寸",
+   "summary": "断言分页所有交互按钮最小 44x44px 且容器允许窄屏换行。",
+   "tags": [
+    "frontend",
+    "vitest",
+    "test-case"
+   ],
+   "complexity": "simple",
+   "lineRange": [
+    98,
+    105
+   ]
+  },
+  {
+   "id": "file:frontend/vite.config.ts",
+   "type": "file",
+   "name": "vite.config.ts",
+   "summary": "Vite 构建配置：注册 React 与 Tailwind CSS 插件，并配置 Vitest（排除 e2e、启用 globals、jsdom 环境、setup 文件）。",
+   "tags": [
+    "vite",
+    "vitest",
+    "tailwind",
+    "react",
+    "config"
+   ],
+   "complexity": "simple",
+   "filePath": "frontend/vite.config.ts"
+  },
+  {
+   "id": "file:logger/src/logger.cpp",
+   "type": "file",
+   "name": "logger.cpp",
+   "summary": "高性能异步日志系统实现：LogEvent 记录时间/线程/协程上下文，Logger 单例管理等级过滤与 appender 分发，init 默认 stdout 输出；支持协程 ID 追踪与作用域 RAII。",
+   "tags": [
+    "logging",
+    "coroutine",
+    "thread-safety",
+    "cpp20"
+   ],
+   "complexity": "moderate",
+   "filePath": "logger/src/logger.cpp"
+  },
+  {
+   "id": "function:logger/src/logger.cpp:LogEvent",
+   "type": "function",
+   "name": "LogEvent",
+   "summary": "构造日志事件：捕获源文件/行号、协程 ID、线程 ID、时间戳（system_clock+high_resolution_clock 毫秒差）并序列化到 content 缓冲区。",
+   "tags": [
+    "logging",
+    "event",
+    "timestamp"
+   ],
+   "complexity": "moderate",
+   "lineRange": [
+    28,
+    50
+   ]
+  },
+  {
+   "id": "function:logger/src/logger.cpp:log",
+   "type": "function",
+   "name": "log",
+   "summary": "核心日志入口：按等级阈值过滤，将事件追加到当前 appender 列表并立即落盘输出。",
+   "tags": [
+    "logging",
+    "level-filter",
+    "appender"
+   ],
+   "complexity": "simple",
+   "lineRange": [
+    78,
+    90
+   ]
+  },
+  {
+   "id": "function:logger/src/logger.cpp:init",
+   "type": "function",
+   "name": "init",
+   "summary": "单例初始化（call_once）：创建 Logger 实例、默认 StdoutLogAppender 与 LogFormatter，并设置默认日志等级。",
+   "tags": [
+    "logging",
+    "singleton",
+    "setup"
+   ],
+   "complexity": "simple",
+   "lineRange": [
+    131,
+    140
+   ]
+  },
+  {
+   "id": "file:memory-pool/src/tiered_memory_pool.cpp",
+   "type": "file",
+   "name": "tiered_memory_pool.cpp",
+   "summary": "多层级内存池实现：per-thread 缓存 + 中央桶分配，size-class 分桶、页内相邻块合并与跨级提升（promote），支持大块直删兜底，面向高并发低延迟分配。",
+   "tags": [
+    "memory-pool",
+    "allocator",
+    "tiered",
+    "lock-free",
+    "cpp20"
+   ],
+   "complexity": "complex",
+   "filePath": "memory-pool/src/tiered_memory_pool.cpp"
+  },
+  {
+   "id": "function:memory-pool/src/tiered_memory_pool.cpp:~TieredMemoryPool",
+   "type": "function",
+   "name": "~TieredMemoryPool",
+   "summary": "析构时逐页归还内存：遍历缓存块、central page 存储与匿名命名空间 freelist 头，执行 operator delete 并清空索引。",
+   "tags": [
+    "memory-pool",
+    "destructor",
+    "cleanup"
+   ],
+   "complexity": "simple",
+   "lineRange": [
+    14,
+    26
+   ]
+  },
+  {
+   "id": "function:memory-pool/src/tiered_memory_pool.cpp:ensure_registered",
+   "type": "function",
+   "name": "ensure_registered",
+   "summary": "将未注册的 central page 登记进分页索引，返回指向该页的注册记录。",
+   "tags": [
+    "memory-pool",
+    "page-index",
+    "registration"
+   ],
+   "complexity": "simple",
+   "lineRange": [
+    28,
+    39
+   ]
+  },
+  {
+   "id": "function:memory-pool/src/tiered_memory_pool.cpp:deallocate_impl",
+   "type": "function",
+   "name": "deallocate_impl",
+   "summary": "释放路径主入口：判断块归属（缓存/central/大块），尝试与相邻空闲块合并并提升 size class，必要时批量归还 central。",
+   "tags": [
+    "memory-pool",
+    "deallocate",
+    "merge"
+   ],
+   "complexity": "complex",
+   "lineRange": [
+    88,
+    132
+   ]
+  },
+  {
+   "id": "function:memory-pool/src/tiered_memory_pool.cpp:central_allocate_batch",
+   "type": "function",
+   "name": "central_allocate_batch",
+   "summary": "从中央桶批量切分一个新页为等尺寸空闲块链，供线程缓存补充供给。",
+   "tags": [
+    "memory-pool",
+    "allocate",
+    "central-bucket"
+   ],
+   "complexity": "moderate",
+   "lineRange": [
+    134,
+    157
+   ]
+  },
+  {
+   "id": "function:memory-pool/src/tiered_memory_pool.cpp:return_batch_to_central",
+   "type": "function",
+   "name": "return_batch_to_central",
+   "summary": "将缓存区成批空闲块归还中央桶，并尝试与 central 空闲块合并。",
+   "tags": [
+    "memory-pool",
+    "central-bucket",
+    "merge"
+   ],
+   "complexity": "moderate",
+   "lineRange": [
+    159,
+    182
+   ]
+  },
+  {
+   "id": "function:memory-pool/src/tiered_memory_pool.cpp:try_merge_and_promote",
+   "type": "function",
+   "name": "try_merge_and_promote",
+   "summary": "尝试将本缓存空闲块与其邻居合并，成功后提升到更大的 size class 链。",
+   "tags": [
+    "memory-pool",
+    "merge",
+    "promote"
+   ],
+   "complexity": "moderate",
+   "lineRange": [
+    184,
+    206
+   ]
+  },
+  {
+   "id": "function:memory-pool/src/tiered_memory_pool.cpp:try_merge_in_list",
+   "type": "function",
+   "name": "try_merge_in_list",
+   "summary": "在同一空闲链中按页索引合并相邻块（buddies），循环合并直到无法继续并输出合并结果。",
+   "tags": [
+    "memory-pool",
+    "merge",
+    "buddies"
+   ],
+   "complexity": "complex",
+   "lineRange": [
+    208,
+    253
+   ]
+  },
+  {
+   "id": "function:memory-pool/src/tiered_memory_pool.cpp:try_merge_central",
+   "type": "function",
+   "name": "try_merge_central",
+   "summary": "在中央桶层递归执行相邻块合并并重挂链，必要时跨 size class 循环提升。",
+   "tags": [
+    "memory-pool",
+    "central-bucket",
+    "merge"
+   ],
+   "complexity": "moderate",
+   "lineRange": [
+    256,
+    290
+   ]
+  },
+  {
+   "id": "function:memory-pool/src/tiered_memory_pool.cpp:page_index_of",
+   "type": "function",
+   "name": "page_index_of",
+   "summary": "二分查找 ptr 所属页面在页索引中的下标，供合并时定位邻居页。",
+   "tags": [
+    "memory-pool",
+    "page-index",
+    "binary-search"
+   ],
+   "complexity": "simple",
+   "lineRange": [
+    292,
+    305
+   ]
+  }
+ ],
+ "edges": [
+  {
+   "source": "file:frontend/tests/styles/designTokens.test.ts",
+   "target": "function:frontend/tests/styles/designTokens.test.ts:Crystal Music 设计令牌",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "function:frontend/tests/styles/designTokens.test.ts:Crystal Music 设计令牌",
+   "target": "function:frontend/tests/styles/designTokens.test.ts:浅色 token 使用指定颜色值",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "function:frontend/tests/styles/designTokens.test.ts:Crystal Music 设计令牌",
+   "target": "function:frontend/tests/styles/designTokens.test.ts:模糊圆角与可访问性回退",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "function:frontend/tests/styles/designTokens.test.ts:Crystal Music 设计令牌",
+   "target": "function:frontend/tests/styles/designTokens.test.ts:不从远程 stylesheet 加载字体",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "function:frontend/tests/styles/designTokens.test.ts:Crystal Music 设计令牌",
+   "target": "function:frontend/tests/styles/designTokens.test.ts:中宽用户表格布局约束",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "function:frontend/tests/styles/designTokens.test.ts:Crystal Music 设计令牌",
+   "target": "function:frontend/tests/styles/designTokens.test.ts:1280px 单行操作约束",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "function:frontend/tests/styles/designTokens.test.ts:Crystal Music 设计令牌",
+   "target": "function:frontend/tests/styles/designTokens.test.ts:已撤销按钮使用中性 token",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "function:frontend/tests/styles/designTokens.test.ts:Crystal Music 设计令牌",
+   "target": "function:frontend/tests/styles/designTokens.test.ts:撤销文字与中性背景对比度",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "function:frontend/tests/styles/designTokens.test.ts:Crystal Music 设计令牌",
+   "target": "function:frontend/tests/styles/designTokens.test.ts:Admin 搜索输入内容区",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "function:frontend/tests/styles/designTokens.test.ts:Crystal Music 设计令牌",
+   "target": "function:frontend/tests/styles/designTokens.test.ts:危险按钮对比度",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "function:frontend/tests/styles/designTokens.test.ts:Crystal Music 设计令牌",
+   "target": "function:frontend/tests/styles/designTokens.test.ts:活动撤销实心危险按钮样式",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "function:frontend/tests/styles/designTokens.test.ts:Crystal Music 设计令牌",
+   "target": "function:frontend/tests/styles/designTokens.test.ts:Pagination 按钮尺寸",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:frontend/src/index.css",
+   "target": "file:frontend/tests/styles/designTokens.test.ts",
+   "type": "tested_by",
+   "direction": "forward",
+   "weight": 0.5
+  },
+  {
+   "source": "file:frontend/index.html",
+   "target": "file:frontend/tests/styles/designTokens.test.ts",
+   "type": "tested_by",
+   "direction": "forward",
+   "weight": 0.5
+  },
+  {
+   "source": "file:logger/src/logger.cpp",
+   "target": "function:logger/src/logger.cpp:LogEvent",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:logger/src/logger.cpp",
+   "target": "function:logger/src/logger.cpp:log",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:logger/src/logger.cpp",
+   "target": "function:logger/src/logger.cpp:init",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:memory-pool/src/tiered_memory_pool.cpp",
+   "target": "function:memory-pool/src/tiered_memory_pool.cpp:~TieredMemoryPool",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:memory-pool/src/tiered_memory_pool.cpp",
+   "target": "function:memory-pool/src/tiered_memory_pool.cpp:ensure_registered",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:memory-pool/src/tiered_memory_pool.cpp",
+   "target": "function:memory-pool/src/tiered_memory_pool.cpp:deallocate_impl",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:memory-pool/src/tiered_memory_pool.cpp",
+   "target": "function:memory-pool/src/tiered_memory_pool.cpp:central_allocate_batch",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:memory-pool/src/tiered_memory_pool.cpp",
+   "target": "function:memory-pool/src/tiered_memory_pool.cpp:return_batch_to_central",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:memory-pool/src/tiered_memory_pool.cpp",
+   "target": "function:memory-pool/src/tiered_memory_pool.cpp:try_merge_and_promote",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:memory-pool/src/tiered_memory_pool.cpp",
+   "target": "function:memory-pool/src/tiered_memory_pool.cpp:try_merge_in_list",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:memory-pool/src/tiered_memory_pool.cpp",
+   "target": "function:memory-pool/src/tiered_memory_pool.cpp:try_merge_central",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:memory-pool/src/tiered_memory_pool.cpp",
+   "target": "function:memory-pool/src/tiered_memory_pool.cpp:page_index_of",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "function:memory-pool/src/tiered_memory_pool.cpp:deallocate_impl",
+   "target": "function:memory-pool/src/tiered_memory_pool.cpp:ensure_registered",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:memory-pool/src/tiered_memory_pool.cpp:deallocate_impl",
+   "target": "function:memory-pool/src/tiered_memory_pool.cpp:try_merge_and_promote",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:memory-pool/src/tiered_memory_pool.cpp:deallocate_impl",
+   "target": "function:memory-pool/src/tiered_memory_pool.cpp:return_batch_to_central",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:memory-pool/src/tiered_memory_pool.cpp:return_batch_to_central",
+   "target": "function:memory-pool/src/tiered_memory_pool.cpp:try_merge_central",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:memory-pool/src/tiered_memory_pool.cpp:try_merge_and_promote",
+   "target": "function:memory-pool/src/tiered_memory_pool.cpp:try_merge_in_list",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:memory-pool/src/tiered_memory_pool.cpp:try_merge_in_list",
+   "target": "function:memory-pool/src/tiered_memory_pool.cpp:page_index_of",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:memory-pool/src/tiered_memory_pool.cpp:try_merge_central",
+   "target": "function:memory-pool/src/tiered_memory_pool.cpp:try_merge_in_list",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  }
+ ]
+}

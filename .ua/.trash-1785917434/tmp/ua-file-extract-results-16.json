@@ -1,0 +1,1937 @@
+{
+  "scriptCompleted": true,
+  "filesAnalyzed": 15,
+  "filesSkipped": [],
+  "results": [
+    {
+      "path": "plan/benchmark-report-restructure.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 553,
+      "nonEmptyLines": 381,
+      "sections": [
+        {
+          "heading": "基准测试报告分层与续跑实施计划",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "当前状态（2026-08-04）",
+          "level": 2,
+          "line": 11
+        },
+        {
+          "heading": "全局约束",
+          "level": 2,
+          "line": 20
+        },
+        {
+          "heading": "Task 1：建立报告与续跑脚本回归测试",
+          "level": 3,
+          "line": 34
+        },
+        {
+          "heading": "Task 2：实现模块级报告、清单、续跑与新结构对比",
+          "level": 3,
+          "line": 98
+        },
+        {
+          "heading": "Task 3：建立可复用的隔离 Docker 测试环境生命周期",
+          "level": 3,
+          "line": 168
+        },
+        {
+          "heading": "Task 4：实现 RPS 多 profile、单元级续跑和托管环境",
+          "level": 3,
+          "line": 226
+        },
+        {
+          "heading": "Task 5：迁移历史报告为只读资料",
+          "level": 3,
+          "line": 297
+        },
+        {
+          "heading": "Task 6：同步文档、CodeQL 排除和使用说明",
+          "level": 3,
+          "line": 355
+        },
+        {
+          "heading": "Task 7：实施静态分析长任务超时策略",
+          "level": 3,
+          "line": 401
+        },
+        {
+          "heading": "Task 8：执行实际性能任务和完整质量闭环",
+          "level": 3,
+          "line": 476
+        },
+        {
+          "heading": "自检结果",
+          "level": 2,
+          "line": 549
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 12
+      }
+    },
+    {
+      "path": "plan/bugfix-concurrent-uploads.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 175,
+      "nonEmptyLines": 120,
+      "sections": [
+        {
+          "heading": "Bug 修复：大并发上传堆内存崩溃 + Keep-Alive 上传请求污染",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "Bug 1：`read_buffer_` 无锁跨线程访问 → malloc 堆内存损坏",
+          "level": 2,
+          "line": 3
+        },
+        {
+          "heading": "现象",
+          "level": 3,
+          "line": 5
+        },
+        {
+          "heading": "根因分析",
+          "level": 3,
+          "line": 13
+        },
+        {
+          "heading": "受影响的文件",
+          "level": 3,
+          "line": 30
+        },
+        {
+          "heading": "修复方案",
+          "level": 3,
+          "line": 39
+        },
+        {
+          "heading": "1.1 新增互斥量",
+          "level": 4,
+          "line": 43
+        },
+        {
+          "heading": "1.2 `plain_read_from_fd` / `ssl_read_from_fd` 加锁追加",
+          "level": 4,
+          "line": 54
+        },
+        {
+          "heading": "1.3 `consume_read_buffer` 加锁擦除 + split locked/nolocked",
+          "level": 4,
+          "line": 65
+        },
+        {
+          "heading": "1.4 `handle_connection` 拷贝缓冲区避免持锁操作",
+          "level": 4,
+          "line": 86
+        },
+        {
+          "heading": "1.5 `ws_connection.cpp` 同步加保护",
+          "level": 4,
+          "line": 101
+        },
+        {
+          "heading": "Bug 2：Keep-Alive 多请求场景下 `upload_ctx` 复用污染",
+          "level": 2,
+          "line": 118
+        },
+        {
+          "heading": "现象",
+          "level": 3,
+          "line": 120
+        },
+        {
+          "heading": "触发条件",
+          "level": 3,
+          "line": 127
+        },
+        {
+          "heading": "根因分析",
+          "level": 3,
+          "line": 133
+        },
+        {
+          "heading": "受影响的文件",
+          "level": 3,
+          "line": 147
+        },
+        {
+          "heading": "修复方案",
+          "level": 3,
+          "line": 155
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 17
+      }
+    },
+    {
+      "path": "plan/bugfix-memory-pool-thread-pool.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 350,
+      "nonEmptyLines": 267,
+      "sections": [
+        {
+          "heading": "Bug 改进 Plan：MemoryPool 死锁 + LockFreeThreadPool 超时",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "Bug 1：`MemoryPool_BatchAllocate` 卡死",
+          "level": 2,
+          "line": 3
+        },
+        {
+          "heading": "现象",
+          "level": 3,
+          "line": 5
+        },
+        {
+          "heading": "根因分析",
+          "level": 3,
+          "line": 9
+        },
+        {
+          "heading": "改进方案",
+          "level": 3,
+          "line": 30
+        },
+        {
+          "heading": "1.1 链表遍历添加循环检测（防御性）",
+          "level": 4,
+          "line": 32
+        },
+        {
+          "heading": "1.2 `try_merge_and_promote` 改为迭代 + 上限",
+          "level": 4,
+          "line": 57
+        },
+        {
+          "heading": "1.3 `page_index_of` 改用二分查找",
+          "level": 4,
+          "line": 89
+        },
+        {
+          "heading": "1.4 `try_merge_in_list` 简化循环逻辑",
+          "level": 4,
+          "line": 131
+        },
+        {
+          "heading": "验证方法",
+          "level": 3,
+          "line": 171
+        },
+        {
+          "heading": "Bug 2：`LockFreeThreadPool` 高负载卡死",
+          "level": 2,
+          "line": 179
+        },
+        {
+          "heading": "现象",
+          "level": 3,
+          "line": 181
+        },
+        {
+          "heading": "根因分析",
+          "level": 3,
+          "line": 188
+        },
+        {
+          "heading": "修复方案",
+          "level": 3,
+          "line": 219
+        },
+        {
+          "heading": "验证方法",
+          "level": 3,
+          "line": 237
+        },
+        {
+          "heading": "Bug 3：`LockFreeQueue` 高并发 benchmark 卡死",
+          "level": 2,
+          "line": 246
+        },
+        {
+          "heading": "现象",
+          "level": 3,
+          "line": 248
+        },
+        {
+          "heading": "根因分析",
+          "level": 3,
+          "line": 255
+        },
+        {
+          "heading": "修复方案",
+          "level": 3,
+          "line": 286
+        },
+        {
+          "heading": "连带优化",
+          "level": 3,
+          "line": 306
+        },
+        {
+          "heading": "验证方法",
+          "level": 3,
+          "line": 313
+        },
+        {
+          "heading": "已知问题（已修复）",
+          "level": 2,
+          "line": 321
+        },
+        {
+          "heading": "`test_test_tcp_client` 间歇性失败 ✅ 已修复",
+          "level": 3,
+          "line": 323
+        },
+        {
+          "heading": "回归验证清单",
+          "level": 2,
+          "line": 340
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 24
+      }
+    },
+    {
+      "path": "plan/bugfix-step17-runtime-regressions.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 303,
+      "nonEmptyLines": 215,
+      "sections": [
+        {
+          "heading": "Step 17 运行时回归 Bug 修复计划",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "一、问题概览与优先级",
+          "level": 2,
+          "line": 9
+        },
+        {
+          "heading": "二、现场证据与范围判断",
+          "level": 2,
+          "line": 22
+        },
+        {
+          "heading": "2.1 已认证流播故障",
+          "level": 3,
+          "line": 24
+        },
+        {
+          "heading": "2.2 已有测试为何没有发现",
+          "level": 3,
+          "line": 31
+        },
+        {
+          "heading": "三、Bug A：流播处理器悬空引用",
+          "level": 2,
+          "line": 40
+        },
+        {
+          "heading": "3.1 根因",
+          "level": 3,
+          "line": 42
+        },
+        {
+          "heading": "3.2 修复设计",
+          "level": 3,
+          "line": 48
+        },
+        {
+          "heading": "3.3 必须新增的验证",
+          "level": 3,
+          "line": 56
+        },
+        {
+          "heading": "四、Bug B：chunked 上传在流式/丢弃模式下仍累计正文",
+          "level": 2,
+          "line": 67
+        },
+        {
+          "heading": "4.1 根因与风险",
+          "level": 3,
+          "line": 69
+        },
+        {
+          "heading": "4.2 修复选型",
+          "level": 3,
+          "line": 77
+        },
+        {
+          "heading": "4.3 必须新增的验证",
+          "level": 3,
+          "line": 91
+        },
+        {
+          "heading": "五、Bug C：CodeQL 服务探测顺序错误",
+          "level": 2,
+          "line": 99
+        },
+        {
+          "heading": "5.1 根因",
+          "level": 3,
+          "line": 101
+        },
+        {
+          "heading": "5.2 修复与测试计划",
+          "level": 3,
+          "line": 105
+        },
+        {
+          "heading": "六、Bug D：音频类型只检查扩展名",
+          "level": 2,
+          "line": 113
+        },
+        {
+          "heading": "6.1 根因与安全边界",
+          "level": 3,
+          "line": 115
+        },
+        {
+          "heading": "6.2 修复设计",
+          "level": 3,
+          "line": 121
+        },
+        {
+          "heading": "6.3 测试计划",
+          "level": 3,
+          "line": 129
+        },
+        {
+          "heading": "七、Bug E：下载文件名响应头生成不安全",
+          "level": 2,
+          "line": 137
+        },
+        {
+          "heading": "7.1 根因",
+          "level": 3,
+          "line": 139
+        },
+        {
+          "heading": "7.2 修复与测试计划",
+          "level": 3,
+          "line": 143
+        },
+        {
+          "heading": "八、Bug F：空闲 CPU 忙等待",
+          "level": 2,
+          "line": 151
+        },
+        {
+          "heading": "8.1 根因与风险",
+          "level": 3,
+          "line": 153
+        },
+        {
+          "heading": "8.2 修复与测试计划",
+          "level": 3,
+          "line": 159
+        },
+        {
+          "heading": "九、实施阶段与依赖顺序",
+          "level": 2,
+          "line": 167
+        },
+        {
+          "heading": "阶段 1：先消除进程崩溃和内存风险",
+          "level": 3,
+          "line": 169
+        },
+        {
+          "heading": "阶段 2：收紧上传与响应契约",
+          "level": 3,
+          "line": 175
+        },
+        {
+          "heading": "阶段 3：修复工具探测、空闲忙等待并扩充部署验收",
+          "level": 3,
+          "line": 181
+        },
+        {
+          "heading": "阶段 4：同步文档并关闭计划",
+          "level": 3,
+          "line": 189
+        },
+        {
+          "heading": "十、完整测试矩阵",
+          "level": 2,
+          "line": 194
+        },
+        {
+          "heading": "十一、正式质量门禁与部署验收",
+          "level": 2,
+          "line": 215
+        },
+        {
+          "heading": "十二、完成定义与当前状态",
+          "level": 2,
+          "line": 239
+        },
+        {
+          "heading": "12.1 2026-07-23 当前满足状态",
+          "level": 3,
+          "line": 253
+        },
+        {
+          "heading": "十三、风险与回滚",
+          "level": 2,
+          "line": 269
+        },
+        {
+          "heading": "十四、历史诊断结论",
+          "level": 2,
+          "line": 284
+        },
+        {
+          "heading": "十五、2026-07-23 实际执行记录",
+          "level": 2,
+          "line": 288
+        },
+        {
+          "heading": "最终 CodeQL 闭环",
+          "level": 3,
+          "line": 301
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 39
+      }
+    },
+    {
+      "path": "plan/development_plan.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 115,
+      "nonEmptyLines": 89,
+      "sections": [
+        {
+          "heading": "开发计划",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "Step 进度总览",
+          "level": 2,
+          "line": 6
+        },
+        {
+          "heading": "Step 17 技术基线与 Step 18 UI 范围",
+          "level": 2,
+          "line": 35
+        },
+        {
+          "heading": "Step 19 当前阶段",
+          "level": 2,
+          "line": 43
+        },
+        {
+          "heading": "2026-08-04 性能与质量收尾",
+          "level": 2,
+          "line": 53
+        },
+        {
+          "heading": "当前稳定入口",
+          "level": 2,
+          "line": 60
+        },
+        {
+          "heading": "端口约定",
+          "level": 2,
+          "line": 76
+        },
+        {
+          "heading": "最终质量门禁",
+          "level": 2,
+          "line": 82
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 8
+      }
+    },
+    {
+      "path": "plan/docker-deployment.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 97,
+      "nonEmptyLines": 65,
+      "sections": [
+        {
+          "heading": "Docker 部署说明",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "当前架构",
+          "level": 2,
+          "line": 6
+        },
+        {
+          "heading": "镜像与服务",
+          "level": 2,
+          "line": 21
+        },
+        {
+          "heading": "后端镜像",
+          "level": 3,
+          "line": 23
+        },
+        {
+          "heading": "Compose 服务",
+          "level": 3,
+          "line": 36
+        },
+        {
+          "heading": "部署配置",
+          "level": 2,
+          "line": 46
+        },
+        {
+          "heading": "使用流程",
+          "level": 2,
+          "line": 57
+        },
+        {
+          "heading": "验收边界",
+          "level": 2,
+          "line": 93
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 8
+      }
+    },
+    {
+      "path": "plan/end-to-end-verification.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 111,
+      "nonEmptyLines": 77,
+      "sections": [
+        {
+          "heading": "端到端验证指南",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "验证分层",
+          "level": 2,
+          "line": 5
+        },
+        {
+          "heading": "推荐执行顺序",
+          "level": 2,
+          "line": 17
+        },
+        {
+          "heading": "1. 运行后端与前端测试",
+          "level": 3,
+          "line": 19
+        },
+        {
+          "heading": "2. 部署真实服务",
+          "level": 3,
+          "line": 33
+        },
+        {
+          "heading": "3. 运行 Playwright",
+          "level": 3,
+          "line": 43
+        },
+        {
+          "heading": "4. 检查服务日志",
+          "level": 3,
+          "line": 82
+        },
+        {
+          "heading": "5. 结束部署",
+          "level": 3,
+          "line": 90
+        },
+        {
+          "heading": "验收标准",
+          "level": 2,
+          "line": 98
+        },
+        {
+          "heading": "历史说明",
+          "level": 2,
+          "line": 109
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 10
+      }
+    },
+    {
+      "path": "plan/fix-prepared-statement.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 99,
+      "nonEmptyLines": 65,
+      "sections": [
+        {
+          "heading": "修复方案：Boost MySQL Prepared Statement 查询失败 ✅ 已完成",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "问题",
+          "level": 2,
+          "line": 3
+        },
+        {
+          "heading": "根因",
+          "level": 2,
+          "line": 7
+        },
+        {
+          "heading": "修复内容",
+          "level": 2,
+          "line": 11
+        },
+        {
+          "heading": "1. 诊断增强（所有 catch 块）",
+          "level": 3,
+          "line": 13
+        },
+        {
+          "heading": "2. bind API 兼容性调整",
+          "level": 3,
+          "line": 21
+        },
+        {
+          "heading": "验证",
+          "level": 2,
+          "line": 26
+        },
+        {
+          "heading": "历史根因排查（按当时优先级排序）",
+          "level": 2,
+          "line": 34
+        },
+        {
+          "heading": "可能性 A：`field_view` 生命周期（最可能）",
+          "level": 3,
+          "line": 38
+        },
+        {
+          "heading": "可能性 B：Boost 1.83 `statement::bind()` API 不匹配",
+          "level": 3,
+          "line": 49
+        },
+        {
+          "heading": "可能性 C：MySQL 8 `caching_sha2_password` 认证插件兼容性",
+          "level": 3,
+          "line": 58
+        },
+        {
+          "heading": "历史排查过程与已验证结果",
+          "level": 2,
+          "line": 62
+        },
+        {
+          "heading": "1. 添加详细诊断（定位到底在哪步抛异常）",
+          "level": 3,
+          "line": 64
+        },
+        {
+          "heading": "2. 当时根据错误选择修复方向",
+          "level": 3,
+          "line": 81
+        },
+        {
+          "heading": "3. 修复后的历史验证结果",
+          "level": 3,
+          "line": 89
+        },
+        {
+          "heading": "回退方案",
+          "level": 2,
+          "line": 97
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 16
+      }
+    },
+    {
+      "path": "plan/step-11-main-integration.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 86,
+      "nonEmptyLines": 67,
+      "sections": [
+        {
+          "heading": "Step 11：main.cpp 整合启动",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "背景",
+          "level": 2,
+          "line": 6
+        },
+        {
+          "heading": "功能点",
+          "level": 2,
+          "line": 10
+        },
+        {
+          "heading": "实现摘要",
+          "level": 2,
+          "line": 18
+        },
+        {
+          "heading": "F1: 服务器启动流程",
+          "level": 3,
+          "line": 20
+        },
+        {
+          "heading": "F2: 路由注册",
+          "level": 3,
+          "line": 43
+        },
+        {
+          "heading": "F3: 配置管理",
+          "level": 3,
+          "line": 58
+        },
+        {
+          "heading": "文件清单",
+          "level": 2,
+          "line": 68
+        },
+        {
+          "heading": "质量门禁",
+          "level": 2,
+          "line": 78
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 9
+      }
+    },
+    {
+      "path": "plan/step-14-file-upload-improvement.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 146,
+      "nonEmptyLines": 108,
+      "sections": [
+        {
+          "heading": "Step 14：文件上传功能改进",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "原始问题与目标",
+          "level": 2,
+          "line": 7
+        },
+        {
+          "heading": "当前存储模型",
+          "level": 2,
+          "line": 18
+        },
+        {
+          "heading": "上传请求契约",
+          "level": 2,
+          "line": 32
+        },
+        {
+          "heading": "当前上传策略",
+          "level": 2,
+          "line": 50
+        },
+        {
+          "heading": "扩展名白名单",
+          "level": 3,
+          "line": 52
+        },
+        {
+          "heading": "认证、零字节和大小限制",
+          "level": 3,
+          "line": 70
+        },
+        {
+          "heading": "错误响应",
+          "level": 3,
+          "line": 84
+        },
+        {
+          "heading": "重要安全边界",
+          "level": 2,
+          "line": 96
+        },
+        {
+          "heading": "相关接口",
+          "level": 2,
+          "line": 106
+        },
+        {
+          "heading": "关键实现与测试",
+          "level": 2,
+          "line": 117
+        },
+        {
+          "heading": "现行验证入口",
+          "level": 2,
+          "line": 129
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 12
+      }
+    },
+    {
+      "path": "plan/step-15-frontend.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 188,
+      "nonEmptyLines": 143,
+      "sections": [
+        {
+          "heading": "Step 15：配套前端 Web 界面（第一版历史计划）",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "一、历史目标",
+          "level": 2,
+          "line": 9
+        },
+        {
+          "heading": "二、当前技术栈",
+          "level": 2,
+          "line": 22
+        },
+        {
+          "heading": "三、当前目录结构",
+          "level": 2,
+          "line": 42
+        },
+        {
+          "heading": "四、当前路由与能力",
+          "level": 2,
+          "line": 78
+        },
+        {
+          "heading": "五、当前接口契约",
+          "level": 2,
+          "line": 94
+        },
+        {
+          "heading": "5.1 认证与错误",
+          "level": 3,
+          "line": 96
+        },
+        {
+          "heading": "5.2 上传",
+          "level": 3,
+          "line": 103
+        },
+        {
+          "heading": "5.3 下载与播放",
+          "level": 3,
+          "line": 120
+        },
+        {
+          "heading": "六、设计与响应式现状",
+          "level": 2,
+          "line": 131
+        },
+        {
+          "heading": "七、第一版里程碑结果",
+          "level": 2,
+          "line": 142
+        },
+        {
+          "heading": "八、构建、测试与部署入口",
+          "level": 2,
+          "line": 154
+        },
+        {
+          "heading": "九、后续依据",
+          "level": 2,
+          "line": 182
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 13
+      }
+    },
+    {
+      "path": "plan/step-16-backend-music.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 928,
+      "nonEmptyLines": 772,
+      "sections": [
+        {
+          "heading": "Step 16 — 后端数据库重构 + 音乐库/歌单 API",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "一、概览",
+          "level": 2,
+          "line": 7
+        },
+        {
+          "heading": "目标",
+          "level": 3,
+          "line": 9
+        },
+        {
+          "heading": "变更范围",
+          "level": 3,
+          "line": 16
+        },
+        {
+          "heading": "二、数据库范式优化（3NF）",
+          "level": 2,
+          "line": 33
+        },
+        {
+          "heading": "2.1 现有表结构问题",
+          "level": 3,
+          "line": 35
+        },
+        {
+          "heading": "2.2 目标范式设计（3NF）",
+          "level": 3,
+          "line": 51
+        },
+        {
+          "heading": "2.3 范式化收益",
+          "level": 3,
+          "line": 97
+        },
+        {
+          "heading": "三、数据库 AST 查询优化",
+          "level": 2,
+          "line": 108
+        },
+        {
+          "heading": "3.1 核心索引设计",
+          "level": 3,
+          "line": 112
+        },
+        {
+          "heading": "3.2 关键查询 AST 优化",
+          "level": 3,
+          "line": 134
+        },
+        {
+          "heading": "查询 1：用户歌单 + 音乐详情（JOIN 顺序优化）",
+          "level": 4,
+          "line": 136
+        },
+        {
+          "heading": "查询 2：全局音乐库搜索（谓词下推 + 索引跳扫）",
+          "level": 4,
+          "line": 162
+        },
+        {
+          "heading": "查询 3：文件列表按类型过滤",
+          "level": 4,
+          "line": 178
+        },
+        {
+          "heading": "3.3 慢查询监控",
+          "level": 3,
+          "line": 195
+        },
+        {
+          "heading": "四、数据模型（C++ 结构体）",
+          "level": 2,
+          "line": 206
+        },
+        {
+          "heading": "五、数据库接口扩展（IDatabasePool）",
+          "level": 2,
+          "line": 259
+        },
+        {
+          "heading": "六、DDL（完整建表 SQL）",
+          "level": 2,
+          "line": 320
+        },
+        {
+          "heading": "七、API 端点设计（完整清单）",
+          "level": 2,
+          "line": 408
+        },
+        {
+          "heading": "7.1 认证（N1/N5/N8/N11）",
+          "level": 3,
+          "line": 410
+        },
+        {
+          "heading": "N1 — POST /api/auth/register",
+          "level": 4,
+          "line": 412
+        },
+        {
+          "heading": "N11 — POST /api/auth/logout",
+          "level": 4,
+          "line": 434
+        },
+        {
+          "heading": "N8 — GET /api/auth/me",
+          "level": 4,
+          "line": 445
+        },
+        {
+          "heading": "7.2 文件（N3/N4/N7/N9/N10）",
+          "level": 3,
+          "line": 464
+        },
+        {
+          "heading": "N7+N9 — GET /api/files?name=&type=&offset=&limit=",
+          "level": 4,
+          "line": 466
+        },
+        {
+          "heading": "N4 — GET /api/files/search?q=&sort=&offset=&limit=",
+          "level": 4,
+          "line": 495
+        },
+        {
+          "heading": "N3 — GET /api/files/:id/stream（音频流播放）",
+          "level": 4,
+          "line": 512
+        },
+        {
+          "heading": "N10 — DELETE /api/files/:id",
+          "level": 4,
+          "line": 548
+        },
+        {
+          "heading": "7.3 用户（N2）",
+          "level": 3,
+          "line": 565
+        },
+        {
+          "heading": "N2 — PUT /api/users/:id",
+          "level": 4,
+          "line": 567
+        },
+        {
+          "heading": "7.4 音乐库（M1–M2）",
+          "level": 3,
+          "line": 584
+        },
+        {
+          "heading": "M1 — GET /api/music/library?search=&offset=&limit=",
+          "level": 4,
+          "line": 586
+        },
+        {
+          "heading": "M2 — GET /api/music/library/:id",
+          "level": 4,
+          "line": 616
+        },
+        {
+          "heading": "7.5 歌单（M3–M8）",
+          "level": 3,
+          "line": 639
+        },
+        {
+          "heading": "M3 — GET /api/users/:id/playlists",
+          "level": 4,
+          "line": 641
+        },
+        {
+          "heading": "M4 — POST /api/users/:id/playlists",
+          "level": 4,
+          "line": 654
+        },
+        {
+          "heading": "M5 — GET /api/playlists/:id/items",
+          "level": 4,
+          "line": 662
+        },
+        {
+          "heading": "M6 — POST /api/playlists/:id/items",
+          "level": 4,
+          "line": 684
+        },
+        {
+          "heading": "M7 — DELETE /api/playlists/:id/items/:music_id",
+          "level": 4,
+          "line": 693
+        },
+        {
+          "heading": "M8 — PUT /api/playlists/:id/items/reorder",
+          "level": 4,
+          "line": 700
+        },
+        {
+          "heading": "八、CORS 实现（N5）",
+          "level": 2,
+          "line": 710
+        },
+        {
+          "heading": "九、上传时 Content-Type 自动检测（N9）",
+          "level": 2,
+          "line": 743
+        },
+        {
+          "heading": "十、音频流播实现（N3 详细设计）",
+          "level": 2,
+          "line": 770
+        },
+        {
+          "heading": "10.1 分块读取（避免全量加载到内存）",
+          "level": 3,
+          "line": 772
+        },
+        {
+          "heading": "十一、实现顺序（Phases）",
+          "level": 2,
+          "line": 851
+        },
+        {
+          "heading": "Phase A — 基础设施 + 认证（P0）",
+          "level": 3,
+          "line": 853
+        },
+        {
+          "heading": "Phase B — 文件系统增强（P0–P1）",
+          "level": 3,
+          "line": 863
+        },
+        {
+          "heading": "Phase C — 音乐库 + 歌单（P1）",
+          "level": 3,
+          "line": 872
+        },
+        {
+          "heading": "Phase D — 用户管理 + 删除（P1–P2）",
+          "level": 3,
+          "line": 881
+        },
+        {
+          "heading": "十二、质量门禁",
+          "level": 2,
+          "line": 891
+        },
+        {
+          "heading": "十三、实现偏差记录",
+          "level": 2,
+          "line": 904
+        },
+        {
+          "heading": "Pipeline 结果",
+          "level": 3,
+          "line": 915
+        },
+        {
+          "heading": "测试修复",
+          "level": 3,
+          "line": 926
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 53
+      }
+    },
+    {
+      "path": "plan/step-17-frontend-optimization.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 262,
+      "nonEmptyLines": 201,
+      "sections": [
+        {
+          "heading": "Step 17：前端体验与上传链路优化",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "一、背景与优化前审计结论",
+          "level": 2,
+          "line": 11
+        },
+        {
+          "heading": "二、目标与边界",
+          "level": 2,
+          "line": 26
+        },
+        {
+          "heading": "2.1 本轮目标",
+          "level": 3,
+          "line": 28
+        },
+        {
+          "heading": "2.2 非目标",
+          "level": 3,
+          "line": 38
+        },
+        {
+          "heading": "三、上传策略与接口契约",
+          "level": 2,
+          "line": 45
+        },
+        {
+          "heading": "3.1 允许格式",
+          "level": 3,
+          "line": 47
+        },
+        {
+          "heading": "3.2 请求格式",
+          "level": 3,
+          "line": 71
+        },
+        {
+          "heading": "3.3 服务端预检与失败清理",
+          "level": 3,
+          "line": 88
+        },
+        {
+          "heading": "四、实施阶段",
+          "level": 2,
+          "line": 95
+        },
+        {
+          "heading": "阶段 A：契约与 API 层纠偏",
+          "level": 3,
+          "line": 97
+        },
+        {
+          "heading": "阶段 B：上传页面重构",
+          "level": 3,
+          "line": 106
+        },
+        {
+          "heading": "阶段 C：响应式应用壳层",
+          "level": 3,
+          "line": 116
+        },
+        {
+          "heading": "阶段 D：核心工作流补强",
+          "level": 3,
+          "line": 125
+        },
+        {
+          "heading": "阶段 E：自动化测试与浏览器验收",
+          "level": 3,
+          "line": 135
+        },
+        {
+          "heading": "五、测试矩阵",
+          "level": 2,
+          "line": 148
+        },
+        {
+          "heading": "5.1 上传规则",
+          "level": 3,
+          "line": 150
+        },
+        {
+          "heading": "5.2 队列和错误",
+          "level": 3,
+          "line": 164
+        },
+        {
+          "heading": "5.3 响应式和可访问性",
+          "level": 3,
+          "line": 175
+        },
+        {
+          "heading": "六、质量门禁与部署顺序",
+          "level": 2,
+          "line": 185
+        },
+        {
+          "heading": "七、文档同步清单",
+          "level": 2,
+          "line": 206
+        },
+        {
+          "heading": "八、交付定义",
+          "level": 2,
+          "line": 217
+        },
+        {
+          "heading": "九、执行记录（2026-07-22）",
+          "level": 2,
+          "line": 229
+        },
+        {
+          "heading": "9.1 功能与测试状态",
+          "level": 3,
+          "line": 231
+        },
+        {
+          "heading": "9.2 正式质量门禁快照",
+          "level": 3,
+          "line": 237
+        },
+        {
+          "heading": "9.3 Docker 与真实浏览器验收快照",
+          "level": 3,
+          "line": 250
+        },
+        {
+          "heading": "9.4 剩余交付动作",
+          "level": 3,
+          "line": 258
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 27
+      }
+    },
+    {
+      "path": "plan/step-18-ui-visual-restoration.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 339,
+      "nonEmptyLines": 255,
+      "sections": [
+        {
+          "heading": "Step 18：Crystal Music UI 视觉还原",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "一、目标、方案与边界",
+          "level": 2,
+          "line": 13
+        },
+        {
+          "heading": "1.1 目标与实施方案",
+          "level": 3,
+          "line": 15
+        },
+        {
+          "heading": "1.2 包含范围",
+          "level": 3,
+          "line": 23
+        },
+        {
+          "heading": "1.3 排除与不变边界",
+          "level": 3,
+          "line": 30
+        },
+        {
+          "heading": "1.4 必须保留的 Step 17 行为",
+          "level": 3,
+          "line": 38
+        },
+        {
+          "heading": "二、视觉、资源与兼容性合同",
+          "level": 2,
+          "line": 48
+        },
+        {
+          "heading": "2.1 色彩令牌",
+          "level": 3,
+          "line": 50
+        },
+        {
+          "heading": "2.2 材质与布局合同",
+          "level": 3,
+          "line": 67
+        },
+        {
+          "heading": "2.3 字体合同与 Google Fonts 修复",
+          "level": 3,
+          "line": 81
+        },
+        {
+          "heading": "2.4 静态视觉资源合同",
+          "level": 3,
+          "line": 88
+        },
+        {
+          "heading": "三、接口合同",
+          "level": 2,
+          "line": 95
+        },
+        {
+          "heading": "四、区域行为与文件职责",
+          "level": 2,
+          "line": 138
+        },
+        {
+          "heading": "4.1 区域行为",
+          "level": 3,
+          "line": 140
+        },
+        {
+          "heading": "4.2 新增文件职责",
+          "level": 3,
+          "line": 153
+        },
+        {
+          "heading": "4.3 修改文件职责",
+          "level": 3,
+          "line": 164
+        },
+        {
+          "heading": "五、测试规格",
+          "level": 2,
+          "line": 180
+        },
+        {
+          "heading": "5.1 Vitest",
+          "level": 3,
+          "line": 182
+        },
+        {
+          "heading": "5.2 六项目 Playwright",
+          "level": 3,
+          "line": 197
+        },
+        {
+          "heading": "六、Task 1-11 已完成实施追踪",
+          "level": 2,
+          "line": 223
+        },
+        {
+          "heading": "Task 1：本地封面映射与原创 WebP 素材",
+          "level": 3,
+          "line": 227
+        },
+        {
+          "heading": "Task 2：本地字体、全局令牌和可访问材质基础",
+          "level": 3,
+          "line": 232
+        },
+        {
+          "heading": "Task 3：访客入口、登录与注册",
+          "level": 3,
+          "line": 237
+        },
+        {
+          "heading": "Task 4：侧栏、顶栏和移动抽屉壳层",
+          "level": 3,
+          "line": 242
+        },
+        {
+          "heading": "Task 5：文件、详情、分页与能力边界",
+          "level": 3,
+          "line": 247
+        },
+        {
+          "heading": "Task 6：音乐卡片、音乐库和歌单",
+          "level": 3,
+          "line": 252
+        },
+        {
+          "heading": "Task 7：上传队列与 Toast",
+          "level": 3,
+          "line": 257
+        },
+        {
+          "heading": "Task 8：迷你与全屏播放器",
+          "level": 3,
+          "line": 262
+        },
+        {
+          "heading": "Task 9：六视口 Playwright 与截图门禁",
+          "level": 3,
+          "line": 268
+        },
+        {
+          "heading": "Task 10：前端说明与验收记录",
+          "level": 3,
+          "line": 275
+        },
+        {
+          "heading": "Task 11：Step 18 分项门禁与完成判定",
+          "level": 3,
+          "line": 280
+        },
+        {
+          "heading": "6.1 依赖、所有权与冲突规则",
+          "level": 3,
+          "line": 288
+        },
+        {
+          "heading": "6.2 规格追踪矩阵",
+          "level": 3,
+          "line": 297
+        },
+        {
+          "heading": "七、最终真实验收记录（2026-07-27）",
+          "level": 2,
+          "line": 312
+        },
+        {
+          "heading": "八、完成定义与文档同步",
+          "level": 2,
+          "line": 329
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 35
+      }
+    },
+    {
+      "path": "plan/step-19-user-feature-completion.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 724,
+      "nonEmptyLines": 551,
+      "sections": [
+        {
+          "heading": "Step 19：用户功能闭环、VIP 生命周期与管理员治理",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "一、背景",
+          "level": 2,
+          "line": 15
+        },
+        {
+          "heading": "二、目标与非目标",
+          "level": 2,
+          "line": 21
+        },
+        {
+          "heading": "2.1 目标",
+          "level": 3,
+          "line": 23
+        },
+        {
+          "heading": "2.2 非目标",
+          "level": 3,
+          "line": 35
+        },
+        {
+          "heading": "三、角色、会员与显式能力",
+          "level": 2,
+          "line": 45
+        },
+        {
+          "heading": "3.1 C++ 角色与能力",
+          "level": 3,
+          "line": 47
+        },
+        {
+          "heading": "3.2 权限矩阵",
+          "level": 3,
+          "line": 73
+        },
+        {
+          "heading": "四、数据模型、UTC 与迁移",
+          "level": 2,
+          "line": 91
+        },
+        {
+          "heading": "4.1 用户模型",
+          "level": 3,
+          "line": 93
+        },
+        {
+          "heading": "4.2 存量 Docker 数据卷迁移",
+          "level": 3,
+          "line": 130
+        },
+        {
+          "heading": "4.3 VIP 写入规则",
+          "level": 3,
+          "line": 149
+        },
+        {
+          "heading": "五、结构化数据库结果",
+          "level": 2,
+          "line": 159
+        },
+        {
+          "heading": "六、唯一特殊管理员",
+          "level": 2,
+          "line": 187
+        },
+        {
+          "heading": "七、精确 REST API",
+          "level": 2,
+          "line": 204
+        },
+        {
+          "heading": "7.1 认证与资料",
+          "level": 3,
+          "line": 208
+        },
+        {
+          "heading": "7.2 用户自助演示 VIP",
+          "level": 3,
+          "line": 222
+        },
+        {
+          "heading": "7.3 管理员用户治理",
+          "level": 3,
+          "line": 232
+        },
+        {
+          "heading": "7.4 文件",
+          "level": 3,
+          "line": 242
+        },
+        {
+          "heading": "7.5 歌单",
+          "level": 3,
+          "line": 248
+        },
+        {
+          "heading": "八、pending 分片删除消费器",
+          "level": 2,
+          "line": 263
+        },
+        {
+          "heading": "8.1 表与时机",
+          "level": 3,
+          "line": 265
+        },
+        {
+          "heading": "8.2 接口",
+          "level": 3,
+          "line": 275
+        },
+        {
+          "heading": "九、认证、HTTP 客户端与会话",
+          "level": 2,
+          "line": 304
+        },
+        {
+          "heading": "十、播放队列",
+          "level": 2,
+          "line": 346
+        },
+        {
+          "heading": "十一、前后端数据流与 UI",
+          "level": 2,
+          "line": 371
+        },
+        {
+          "heading": "11.1 页面与入口",
+          "level": 3,
+          "line": 381
+        },
+        {
+          "heading": "11.2 响应式与无障碍",
+          "level": 3,
+          "line": 392
+        },
+        {
+          "heading": "十二、错误状态码",
+          "level": 2,
+          "line": 402
+        },
+        {
+          "heading": "十三、创建与修改文件清单",
+          "level": 2,
+          "line": 423
+        },
+        {
+          "heading": "13.1 新增",
+          "level": 3,
+          "line": 425
+        },
+        {
+          "heading": "13.2 修改",
+          "level": 3,
+          "line": 457
+        },
+        {
+          "heading": "十四、测试矩阵",
+          "level": 2,
+          "line": 461
+        },
+        {
+          "heading": "14.1 Google Test",
+          "level": 3,
+          "line": 463
+        },
+        {
+          "heading": "14.2 Vitest",
+          "level": 3,
+          "line": 489
+        },
+        {
+          "heading": "14.3 Playwright",
+          "level": 3,
+          "line": 495
+        },
+        {
+          "heading": "十五、隔离 E2E 夹具",
+          "level": 2,
+          "line": 515
+        },
+        {
+          "heading": "十六、按 TDD 严格串行实施 Task",
+          "level": 2,
+          "line": 538
+        },
+        {
+          "heading": "Task 1：角色、授权、UTC 与迁移",
+          "level": 3,
+          "line": 540
+        },
+        {
+          "heading": "Task 2：实时 Token、AuthResponse 与 client 合同",
+          "level": 3,
+          "line": 550
+        },
+        {
+          "heading": "Task 3：唯一 ADMIN 与 Docker 配置",
+          "level": 3,
+          "line": 560
+        },
+        {
+          "heading": "Task 4：自助与管理员 VIP API",
+          "level": 3,
+          "line": 570
+        },
+        {
+          "heading": "Task 5：文件治理与 pending 消费器",
+          "level": 3,
+          "line": 580
+        },
+        {
+          "heading": "最终 P0 修复报告（20260728_172052）",
+          "level": 4,
+          "line": 590
+        },
+        {
+          "heading": "Task 5 终审修复报告（20260728_180702）",
+          "level": 4,
+          "line": 599
+        },
+        {
+          "heading": "Task 5 最后审查修复报告（20260728_182107）",
+          "level": 4,
+          "line": 610
+        },
+        {
+          "heading": "Task 6：歌单所有权与事务排序",
+          "level": 3,
+          "line": 620
+        },
+        {
+          "heading": "Task 7：会员、资料、管理员与文件 UI",
+          "level": 3,
+          "line": 630
+        },
+        {
+          "heading": "Task 8：QueueEntry 与集中会话清理",
+          "level": 3,
+          "line": 640
+        },
+        {
+          "heading": "Task 9：隔离 E2E 与 Step 2 自动推进",
+          "level": 3,
+          "line": 650
+        },
+        {
+          "heading": "十七、流水线阶段",
+          "level": 2,
+          "line": 662
+        },
+        {
+          "heading": "十八、严格依赖与完成定义",
+          "level": 2,
+          "line": 674
+        },
+        {
+          "heading": "十九、验收标准",
+          "level": 2,
+          "line": 680
+        },
+        {
+          "heading": "二十、规格追踪",
+          "level": 2,
+          "line": 700
+        },
+        {
+          "heading": "二十一、完成状态 (2026-08-01)",
+          "level": 2,
+          "line": 714
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 55
+      }
+    }
+  ]
+}

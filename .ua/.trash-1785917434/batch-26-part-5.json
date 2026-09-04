@@ -1,0 +1,1314 @@
+{
+ "nodes": [
+  {
+   "id": "file:tests/test_step16_api.cpp",
+   "type": "file",
+   "name": "tests/test_step16_api.cpp",
+   "summary": "大规模端到端 API 测试，覆盖认证注册登录、文件路由、播放列表、VIP 与管理员接口，以及严格 JSON 校验与稳定的 HTTP 错误映射。",
+   "tags": [
+    "api",
+    "routes",
+    "auth",
+    "playlist",
+    "vip",
+    "unit-test",
+    "cpp"
+   ],
+   "complexity": "complex",
+   "filePath": "tests/test_step16_api.cpp"
+  },
+  {
+   "id": "class:tests/test_step16_api.cpp:CapturingHttpServer",
+   "type": "class",
+   "name": "CapturingHttpServer",
+   "summary": "测试夹具/桩类 CapturingHttpServer，提供 9 个方法，用于模拟生产依赖（28 行）。",
+   "tags": [
+    "test-fixture",
+    "stub",
+    "cpp"
+   ],
+   "complexity": "moderate",
+   "lineRange": [
+    42,
+    69
+   ]
+  },
+  {
+   "id": "class:tests/test_step16_api.cpp:RouteFileSystem",
+   "type": "class",
+   "name": "RouteFileSystem",
+   "summary": "测试夹具/桩类 RouteFileSystem，提供 7 个方法，用于模拟生产依赖（45 行）。",
+   "tags": [
+    "test-fixture",
+    "stub",
+    "cpp"
+   ],
+   "complexity": "moderate",
+   "lineRange": [
+    71,
+    115
+   ]
+  },
+  {
+   "id": "class:tests/test_step16_api.cpp:EmptyTokenAuthService",
+   "type": "class",
+   "name": "EmptyTokenAuthService",
+   "summary": "测试夹具/桩类 EmptyTokenAuthService，提供 4 个方法，用于模拟生产依赖（23 行）。",
+   "tags": [
+    "test-fixture",
+    "stub",
+    "cpp"
+   ],
+   "complexity": "moderate",
+   "lineRange": [
+    149,
+    171
+   ]
+  },
+  {
+   "id": "function:tests/test_step16_api.cpp:make_database_pool",
+   "type": "function",
+   "name": "make_database_pool",
+   "summary": "测试文件中的辅助函数，为测试用例搭建环境或执行公共逻辑（13 行）。",
+   "tags": [
+    "test-helper",
+    "test-utility",
+    "cpp"
+   ],
+   "complexity": "simple",
+   "lineRange": [
+    127,
+    139
+   ]
+  },
+  {
+   "id": "function:tests/test_step16_api.cpp:StrictJsonTest.IntegerTypeAcceptsSignedAndBoundedUnsignedValuesOnly",
+   "type": "function",
+   "name": "StrictJsonTest.IntegerTypeAcceptsSignedAndBoundedUnsignedValuesOnly",
+   "summary": "gtest 测试用例 StrictJsonTest.IntegerTypeAcceptsSignedAndBoundedUnsignedValuesOnly，验证相关生产组件的预期行为（17 行）。",
+   "tags": [
+    "test-case",
+    "gtest",
+    "cpp"
+   ],
+   "complexity": "moderate",
+   "lineRange": [
+    199,
+    215
+   ]
+  },
+  {
+   "id": "function:tests/test_step16_api.cpp:Step19FileRouteTest.ListStrictlyDecodesQueryAndReturnsDeletionCapabilities",
+   "type": "function",
+   "name": "Step19FileRouteTest.ListStrictlyDecodesQueryAndReturnsDeletionCapabilities",
+   "summary": "gtest 测试用例 Step19FileRouteTest.ListStrictlyDecodesQueryAndReturnsDeletionCapabilities，验证相关生产组件的预期行为（45 行）。",
+   "tags": [
+    "test-case",
+    "gtest",
+    "cpp"
+   ],
+   "complexity": "complex",
+   "lineRange": [
+    217,
+    261
+   ]
+  },
+  {
+   "id": "function:tests/test_step16_api.cpp:Step19FileRouteTest.DetailRequiresAuthenticationAndReturnsCompleteDeletionContract",
+   "type": "function",
+   "name": "Step19FileRouteTest.DetailRequiresAuthenticationAndReturnsCompleteDeletionContract",
+   "summary": "gtest 测试用例 Step19FileRouteTest.DetailRequiresAuthenticationAndReturnsCompleteDeletionContract，验证相关生产组件的预期行为（41 行）。",
+   "tags": [
+    "test-case",
+    "gtest",
+    "cpp"
+   ],
+   "complexity": "complex",
+   "lineRange": [
+    263,
+    303
+   ]
+  },
+  {
+   "id": "function:tests/test_step16_api.cpp:Step19FileRouteTest.DetailMapsStructuredLookupFailuresToStableResponses",
+   "type": "function",
+   "name": "Step19FileRouteTest.DetailMapsStructuredLookupFailuresToStableResponses",
+   "summary": "gtest 测试用例 Step19FileRouteTest.DetailMapsStructuredLookupFailuresToStableResponses，验证相关生产组件的预期行为（34 行）。",
+   "tags": [
+    "test-case",
+    "gtest",
+    "cpp"
+   ],
+   "complexity": "moderate",
+   "lineRange": [
+    305,
+    338
+   ]
+  },
+  {
+   "id": "function:tests/test_step16_api.cpp:Step19FileRouteTest.DeleteAllowsOwnerAndAdminButRejectsOtherVip",
+   "type": "function",
+   "name": "Step19FileRouteTest.DeleteAllowsOwnerAndAdminButRejectsOtherVip",
+   "summary": "gtest 测试用例 Step19FileRouteTest.DeleteAllowsOwnerAndAdminButRejectsOtherVip，验证相关生产组件的预期行为（42 行）。",
+   "tags": [
+    "test-case",
+    "gtest",
+    "cpp"
+   ],
+   "complexity": "complex",
+   "lineRange": [
+    340,
+    381
+   ]
+  },
+  {
+   "id": "function:tests/test_step16_api.cpp:Step19FileRouteTest.DeleteKeepsCommittedSuccessAndMarksDeferredCleanupOnConsumerFailure",
+   "type": "function",
+   "name": "Step19FileRouteTest.DeleteKeepsCommittedSuccessAndMarksDeferredCleanupOnConsumerFailure",
+   "summary": "gtest 测试用例 Step19FileRouteTest.DeleteKeepsCommittedSuccessAndMarksDeferredCleanupOnConsumerFailure，验证相关生产组件的预期行为（36 行）。",
+   "tags": [
+    "test-case",
+    "gtest",
+    "cpp"
+   ],
+   "complexity": "moderate",
+   "lineRange": [
+    383,
+    418
+   ]
+  },
+  {
+   "id": "function:tests/test_step16_api.cpp:Step19FileRouteTest.DeleteReportsCleanupNotDeferredWhenConsumerSucceeds",
+   "type": "function",
+   "name": "Step19FileRouteTest.DeleteReportsCleanupNotDeferredWhenConsumerSucceeds",
+   "summary": "gtest 测试用例 Step19FileRouteTest.DeleteReportsCleanupNotDeferredWhenConsumerSucceeds，验证相关生产组件的预期行为（28 行）。",
+   "tags": [
+    "test-case",
+    "gtest",
+    "cpp"
+   ],
+   "complexity": "moderate",
+   "lineRange": [
+    420,
+    447
+   ]
+  },
+  {
+   "id": "function:tests/test_step16_api.cpp:Step19FileRouteTest.DeleteWaitsForUploadBeforeDatabaseDeleteAndPendingConsumption",
+   "type": "function",
+   "name": "Step19FileRouteTest.DeleteWaitsForUploadBeforeDatabaseDeleteAndPendingConsumption",
+   "summary": "gtest 测试用例 Step19FileRouteTest.DeleteWaitsForUploadBeforeDatabaseDeleteAndPendingConsumption，验证相关生产组件的预期行为（48 行）。",
+   "tags": [
+    "test-case",
+    "gtest",
+    "cpp"
+   ],
+   "complexity": "complex",
+   "lineRange": [
+    449,
+    496
+   ]
+  },
+  {
+   "id": "function:tests/test_step16_api.cpp:Step19FileRouteTest.DeleteCleanupBlocksProductionUploadSetupAndPhysicalStore",
+   "type": "function",
+   "name": "Step19FileRouteTest.DeleteCleanupBlocksProductionUploadSetupAndPhysicalStore",
+   "summary": "gtest 测试用例 Step19FileRouteTest.DeleteCleanupBlocksProductionUploadSetupAndPhysicalStore，验证相关生产组件的预期行为（68 行）。",
+   "tags": [
+    "test-case",
+    "gtest",
+    "cpp"
+   ],
+   "complexity": "complex",
+   "lineRange": [
+    498,
+    565
+   ]
+  },
+  {
+   "id": "function:tests/test_step16_api.cpp:Step19FileRouteTest.FileMusicChangeConflictMapsTo409",
+   "type": "function",
+   "name": "Step19FileRouteTest.FileMusicChangeConflictMapsTo409",
+   "summary": "gtest 测试用例 Step19FileRouteTest.FileMusicChangeConflictMapsTo409，验证相关生产组件的预期行为（35 行）。",
+   "tags": [
+    "test-case",
+    "gtest",
+    "cpp"
+   ],
+   "complexity": "moderate",
+   "lineRange": [
+    567,
+    601
+   ]
+  },
+  {
+   "id": "function:tests/test_step16_api.cpp:Step19FileRouteTest.InvalidDatabaseListUsesStandard422ReasonPhrase",
+   "type": "function",
+   "name": "Step19FileRouteTest.InvalidDatabaseListUsesStandard422ReasonPhrase",
+   "summary": "gtest 测试用例 Step19FileRouteTest.InvalidDatabaseListUsesStandard422ReasonPhrase，验证相关生产组件的预期行为（23 行）。",
+   "tags": [
+    "test-case",
+    "gtest",
+    "cpp"
+   ],
+   "complexity": "moderate",
+   "lineRange": [
+    603,
+    625
+   ]
+  },
+  {
+   "id": "function:tests/test_step16_api.cpp:Step19StartupOrderTest.MainKeepsMigrationFilesystemCleanupAdminAuthRoutesListenOrder",
+   "type": "function",
+   "name": "Step19StartupOrderTest.MainKeepsMigrationFilesystemCleanupAdminAuthRoutesListenOrder",
+   "summary": "gtest 测试用例 Step19StartupOrderTest.MainKeepsMigrationFilesystemCleanupAdminAuthRoutesListenOrder，验证相关生产组件的预期行为（23 行）。",
+   "tags": [
+    "test-case",
+    "gtest",
+    "cpp"
+   ],
+   "complexity": "moderate",
+   "lineRange": [
+    627,
+    649
+   ]
+  },
+  {
+   "id": "function:tests/test_step16_api.cpp:Step19PlaylistRouteTest.EveryEndpointRejectsCrossUserIncludingAdmin",
+   "type": "function",
+   "name": "Step19PlaylistRouteTest.EveryEndpointRejectsCrossUserIncludingAdmin",
+   "summary": "gtest 测试用例 Step19PlaylistRouteTest.EveryEndpointRejectsCrossUserIncludingAdmin，验证相关生产组件的预期行为（47 行）。",
+   "tags": [
+    "test-case",
+    "gtest",
+    "cpp"
+   ],
+   "complexity": "complex",
+   "lineRange": [
+    651,
+    697
+   ]
+  },
+  {
+   "id": "function:tests/test_step16_api.cpp:Step19PlaylistRouteTest.RenameValidatesNameAndDeleteReturnsEmpty204",
+   "type": "function",
+   "name": "Step19PlaylistRouteTest.RenameValidatesNameAndDeleteReturnsEmpty204",
+   "summary": "gtest 测试用例 Step19PlaylistRouteTest.RenameValidatesNameAndDeleteReturnsEmpty204，验证相关生产组件的预期行为（37 行）。",
+   "tags": [
+    "test-case",
+    "gtest",
+    "cpp"
+   ],
+   "complexity": "moderate",
+   "lineRange": [
+    699,
+    735
+   ]
+  },
+  {
+   "id": "function:tests/test_step16_api.cpp:Step19PlaylistRouteTest.StructuredDatabaseStatusesHaveStableHttpMappings",
+   "type": "function",
+   "name": "Step19PlaylistRouteTest.StructuredDatabaseStatusesHaveStableHttpMappings",
+   "summary": "gtest 测试用例 Step19PlaylistRouteTest.StructuredDatabaseStatusesHaveStableHttpMappings，验证相关生产组件的预期行为（233 行）。",
+   "tags": [
+    "test-case",
+    "gtest",
+    "cpp"
+   ],
+   "complexity": "complex",
+   "lineRange": [
+    737,
+    969
+   ]
+  },
+  {
+   "id": "function:tests/test_step16_api.cpp:Step19PlaylistRouteTest.RejectsInvalidPathsDuplicateFieldsWrongTypesAndIntegerOverflow",
+   "type": "function",
+   "name": "Step19PlaylistRouteTest.RejectsInvalidPathsDuplicateFieldsWrongTypesAndIntegerOverflow",
+   "summary": "gtest 测试用例 Step19PlaylistRouteTest.RejectsInvalidPathsDuplicateFieldsWrongTypesAndIntegerOverflow，验证相关生产组件的预期行为（66 行）。",
+   "tags": [
+    "test-case",
+    "gtest",
+    "cpp"
+   ],
+   "complexity": "complex",
+   "lineRange": [
+    971,
+    1036
+   ]
+  },
+  {
+   "id": "function:tests/test_step16_api.cpp:Step19PlaylistRouteTest.ItemMutationsRequirePositiveRepresentableIntegerIds",
+   "type": "function",
+   "name": "Step19PlaylistRouteTest.ItemMutationsRequirePositiveRepresentableIntegerIds",
+   "summary": "gtest 测试用例 Step19PlaylistRouteTest.ItemMutationsRequirePositiveRepresentableIntegerIds，验证相关生产组件的预期行为（29 行）。",
+   "tags": [
+    "test-case",
+    "gtest",
+    "cpp"
+   ],
+   "complexity": "moderate",
+   "lineRange": [
+    1038,
+    1066
+   ]
+  },
+  {
+   "id": "function:tests/test_step16_api.cpp:Step19PlaylistRouteTest.ValidatesUtf8CodePointLengthsAtBothBoundaries",
+   "type": "function",
+   "name": "Step19PlaylistRouteTest.ValidatesUtf8CodePointLengthsAtBothBoundaries",
+   "summary": "gtest 测试用例 Step19PlaylistRouteTest.ValidatesUtf8CodePointLengthsAtBothBoundaries，验证相关生产组件的预期行为（69 行）。",
+   "tags": [
+    "test-case",
+    "gtest",
+    "cpp"
+   ],
+   "complexity": "complex",
+   "lineRange": [
+    1068,
+    1136
+   ]
+  },
+  {
+   "id": "function:tests/test_step16_api.cpp:Step19PlaylistRouteTest.RemoveReturnsEmpty204AndMusicNotFoundIsDistinct",
+   "type": "function",
+   "name": "Step19PlaylistRouteTest.RemoveReturnsEmpty204AndMusicNotFoundIsDistinct",
+   "summary": "gtest 测试用例 Step19PlaylistRouteTest.RemoveReturnsEmpty204AndMusicNotFoundIsDistinct，验证相关生产组件的预期行为（34 行）。",
+   "tags": [
+    "test-case",
+    "gtest",
+    "cpp"
+   ],
+   "complexity": "moderate",
+   "lineRange": [
+    1138,
+    1171
+   ]
+  },
+  {
+   "id": "function:tests/test_step16_api.cpp:Step19PlaylistRouteTest.CreateAndListReturnCompletePlaylistObjects",
+   "type": "function",
+   "name": "Step19PlaylistRouteTest.CreateAndListReturnCompletePlaylistObjects",
+   "summary": "gtest 测试用例 Step19PlaylistRouteTest.CreateAndListReturnCompletePlaylistObjects，验证相关生产组件的预期行为（35 行）。",
+   "tags": [
+    "test-case",
+    "gtest",
+    "cpp"
+   ],
+   "complexity": "moderate",
+   "lineRange": [
+    1173,
+    1207
+   ]
+  },
+  {
+   "id": "function:tests/test_step16_api.cpp:Step19PlaylistRouteTest.SerializesPlaylistAndItemTimesAsRfc3339Utc",
+   "type": "function",
+   "name": "Step19PlaylistRouteTest.SerializesPlaylistAndItemTimesAsRfc3339Utc",
+   "summary": "gtest 测试用例 Step19PlaylistRouteTest.SerializesPlaylistAndItemTimesAsRfc3339Utc，验证相关生产组件的预期行为（38 行）。",
+   "tags": [
+    "test-case",
+    "gtest",
+    "cpp"
+   ],
+   "complexity": "moderate",
+   "lineRange": [
+    1209,
+    1246
+   ]
+  },
+  {
+   "id": "function:tests/test_step16_api.cpp:Step19PlaylistRouteTest.RejectsInvalidPersistedPlaylistTime",
+   "type": "function",
+   "name": "Step19PlaylistRouteTest.RejectsInvalidPersistedPlaylistTime",
+   "summary": "gtest 测试用例 Step19PlaylistRouteTest.RejectsInvalidPersistedPlaylistTime，验证相关生产组件的预期行为（16 行）。",
+   "tags": [
+    "test-case",
+    "gtest",
+    "cpp"
+   ],
+   "complexity": "moderate",
+   "lineRange": [
+    1248,
+    1263
+   ]
+  },
+  {
+   "id": "function:tests/test_step16_api.cpp:Step19PlaylistRouteTest.RemoveStrictlyRejectsInvalidMusicPathIds",
+   "type": "function",
+   "name": "Step19PlaylistRouteTest.RemoveStrictlyRejectsInvalidMusicPathIds",
+   "summary": "gtest 测试用例 Step19PlaylistRouteTest.RemoveStrictlyRejectsInvalidMusicPathIds，验证相关生产组件的预期行为（15 行）。",
+   "tags": [
+    "test-case",
+    "gtest",
+    "cpp"
+   ],
+   "complexity": "moderate",
+   "lineRange": [
+    1265,
+    1279
+   ]
+  },
+  {
+   "id": "function:tests/test_step16_api.cpp:Step19PlaylistRouteTest.ReorderDatabaseConflictsMapToStable409",
+   "type": "function",
+   "name": "Step19PlaylistRouteTest.ReorderDatabaseConflictsMapToStable409",
+   "summary": "gtest 测试用例 Step19PlaylistRouteTest.ReorderDatabaseConflictsMapToStable409，验证相关生产组件的预期行为（24 行）。",
+   "tags": [
+    "test-case",
+    "gtest",
+    "cpp"
+   ],
+   "complexity": "moderate",
+   "lineRange": [
+    1281,
+    1304
+   ]
+  },
+  {
+   "id": "function:tests/test_step16_api.cpp:Step19PlaylistRouteTest.EveryJsonEndpointRejectsUnknownTopLevelFields",
+   "type": "function",
+   "name": "Step19PlaylistRouteTest.EveryJsonEndpointRejectsUnknownTopLevelFields",
+   "summary": "gtest 测试用例 Step19PlaylistRouteTest.EveryJsonEndpointRejectsUnknownTopLevelFields，验证相关生产组件的预期行为（45 行）。",
+   "tags": [
+    "test-case",
+    "gtest",
+    "cpp"
+   ],
+   "complexity": "complex",
+   "lineRange": [
+    1306,
+    1350
+   ]
+  },
+  {
+   "id": "function:tests/test_step16_api.cpp:Step19PlaylistRouteTest.CreateMapsMissingTargetUserPrecisely",
+   "type": "function",
+   "name": "Step19PlaylistRouteTest.CreateMapsMissingTargetUserPrecisely",
+   "summary": "gtest 测试用例 Step19PlaylistRouteTest.CreateMapsMissingTargetUserPrecisely，验证相关生产组件的预期行为（18 行）。",
+   "tags": [
+    "test-case",
+    "gtest",
+    "cpp"
+   ],
+   "complexity": "moderate",
+   "lineRange": [
+    1360,
+    1377
+   ]
+  },
+  {
+   "id": "function:tests/test_step16_api.cpp:Step16UtilTest.DetectContentType",
+   "type": "function",
+   "name": "Step16UtilTest.DetectContentType",
+   "summary": "gtest 测试用例 Step16UtilTest.DetectContentType，验证相关生产组件的预期行为（24 行）。",
+   "tags": [
+    "test-case",
+    "gtest",
+    "cpp"
+   ],
+   "complexity": "moderate",
+   "lineRange": [
+    1382,
+    1405
+   ]
+  },
+  {
+   "id": "function:tests/test_step16_api.cpp:Step16UtilTest.SaltedHashPassword",
+   "type": "function",
+   "name": "Step16UtilTest.SaltedHashPassword",
+   "summary": "gtest 测试用例 Step16UtilTest.SaltedHashPassword，验证相关生产组件的预期行为（14 行）。",
+   "tags": [
+    "test-case",
+    "gtest",
+    "cpp"
+   ],
+   "complexity": "simple",
+   "lineRange": [
+    1410,
+    1423
+   ]
+  },
+  {
+   "id": "function:tests/test_step16_api.cpp:Step16UtilTest.RangeParser",
+   "type": "function",
+   "name": "Step16UtilTest.RangeParser",
+   "summary": "gtest 测试用例 Step16UtilTest.RangeParser，验证相关生产组件的预期行为（22 行）。",
+   "tags": [
+    "test-case",
+    "gtest",
+    "cpp"
+   ],
+   "complexity": "moderate",
+   "lineRange": [
+    1428,
+    1449
+   ]
+  },
+  {
+   "id": "function:tests/test_step16_api.cpp:Step16UtilTest.CorsHeaders",
+   "type": "function",
+   "name": "Step16UtilTest.CorsHeaders",
+   "summary": "gtest 测试用例 Step16UtilTest.CorsHeaders，验证相关生产组件的预期行为（16 行）。",
+   "tags": [
+    "test-case",
+    "gtest",
+    "cpp"
+   ],
+   "complexity": "moderate",
+   "lineRange": [
+    1454,
+    1469
+   ]
+  },
+  {
+   "id": "function:tests/test_step16_api.cpp:Step16ApiTest.TokenGenerationValidation",
+   "type": "function",
+   "name": "Step16ApiTest.TokenGenerationValidation",
+   "summary": "gtest 测试用例 Step16ApiTest.TokenGenerationValidation，验证相关生产组件的预期行为（57 行）。",
+   "tags": [
+    "test-case",
+    "gtest",
+    "cpp"
+   ],
+   "complexity": "complex",
+   "lineRange": [
+    1474,
+    1530
+   ]
+  },
+  {
+   "id": "function:tests/test_step16_api.cpp:Step16ApiTest.AuthMiddlewarePreservesStorageError",
+   "type": "function",
+   "name": "Step16ApiTest.AuthMiddlewarePreservesStorageError",
+   "summary": "gtest 测试用例 Step16ApiTest.AuthMiddlewarePreservesStorageError，验证相关生产组件的预期行为（27 行）。",
+   "tags": [
+    "test-case",
+    "gtest",
+    "cpp"
+   ],
+   "complexity": "moderate",
+   "lineRange": [
+    1532,
+    1558
+   ]
+  },
+  {
+   "id": "function:tests/test_step16_api.cpp:Step16ApiTest.AuthMiddlewareConvertsServiceExceptionToStorageError",
+   "type": "function",
+   "name": "Step16ApiTest.AuthMiddlewareConvertsServiceExceptionToStorageError",
+   "summary": "gtest 测试用例 Step16ApiTest.AuthMiddlewareConvertsServiceExceptionToStorageError，验证相关生产组件的预期行为（27 行）。",
+   "tags": [
+    "test-case",
+    "gtest",
+    "cpp"
+   ],
+   "complexity": "moderate",
+   "lineRange": [
+    1560,
+    1586
+   ]
+  },
+  {
+   "id": "function:tests/test_step16_api.cpp:Step16ApiTest.AuthUserJsonUsesEffectiveIdentityAndIncludesCompleteContract",
+   "type": "function",
+   "name": "Step16ApiTest.AuthUserJsonUsesEffectiveIdentityAndIncludesCompleteContract",
+   "summary": "gtest 测试用例 Step16ApiTest.AuthUserJsonUsesEffectiveIdentityAndIncludesCompleteContract，验证相关生产组件的预期行为（22 行）。",
+   "tags": [
+    "test-case",
+    "gtest",
+    "cpp"
+   ],
+   "complexity": "moderate",
+   "lineRange": [
+    1588,
+    1609
+   ]
+  },
+  {
+   "id": "function:tests/test_step16_api.cpp:Step16ApiTest.AuthResponseNestsUser",
+   "type": "function",
+   "name": "Step16ApiTest.AuthResponseNestsUser",
+   "summary": "gtest 测试用例 Step16ApiTest.AuthResponseNestsUser，验证相关生产组件的预期行为（18 行）。",
+   "tags": [
+    "test-case",
+    "gtest",
+    "cpp"
+   ],
+   "complexity": "moderate",
+   "lineRange": [
+    1611,
+    1628
+   ]
+  },
+  {
+   "id": "function:tests/test_step16_api.cpp:Step16ApiTest.AuthUserJsonRejectsInvalidCreatedAt",
+   "type": "function",
+   "name": "Step16ApiTest.AuthUserJsonRejectsInvalidCreatedAt",
+   "summary": "gtest 测试用例 Step16ApiTest.AuthUserJsonRejectsInvalidCreatedAt，验证相关生产组件的预期行为（11 行）。",
+   "tags": [
+    "test-case",
+    "gtest",
+    "cpp"
+   ],
+   "complexity": "simple",
+   "lineRange": [
+    1630,
+    1640
+   ]
+  },
+  {
+   "id": "function:tests/test_step16_api.cpp:Step16ApiTest.RegistrationAndLoginRejectDuplicateUnknownAndWrongTypeFieldsBeforePersistence",
+   "type": "function",
+   "name": "Step16ApiTest.RegistrationAndLoginRejectDuplicateUnknownAndWrongTypeFieldsBeforePersistence",
+   "summary": "gtest 测试用例 Step16ApiTest.RegistrationAndLoginRejectDuplicateUnknownAndWrongTypeFieldsBeforePersistence，验证相关生产组件的预期行为（34 行）。",
+   "tags": [
+    "test-case",
+    "gtest",
+    "cpp"
+   ],
+   "complexity": "moderate",
+   "lineRange": [
+    1651,
+    1684
+   ]
+  },
+  {
+   "id": "function:tests/test_step16_api.cpp:Step16ApiTest.RegistrationClassifiesPrivilegeFieldsBeforeUnknownFieldValidation",
+   "type": "function",
+   "name": "Step16ApiTest.RegistrationClassifiesPrivilegeFieldsBeforeUnknownFieldValidation",
+   "summary": "gtest 测试用例 Step16ApiTest.RegistrationClassifiesPrivilegeFieldsBeforeUnknownFieldValidation，验证相关生产组件的预期行为（34 行）。",
+   "tags": [
+    "test-case",
+    "gtest",
+    "cpp"
+   ],
+   "complexity": "moderate",
+   "lineRange": [
+    1686,
+    1719
+   ]
+  },
+  {
+   "id": "function:tests/test_step16_api.cpp:Step16ApiTest.ProtectedMeRouteMapsAuthenticationStorageErrorToPersistenceError",
+   "type": "function",
+   "name": "Step16ApiTest.ProtectedMeRouteMapsAuthenticationStorageErrorToPersistenceError",
+   "summary": "gtest 测试用例 Step16ApiTest.ProtectedMeRouteMapsAuthenticationStorageErrorToPersistenceError，验证相关生产组件的预期行为（15 行）。",
+   "tags": [
+    "test-case",
+    "gtest",
+    "cpp"
+   ],
+   "complexity": "moderate",
+   "lineRange": [
+    1721,
+    1735
+   ]
+  },
+  {
+   "id": "function:tests/test_step16_api.cpp:Step16ApiTest.ProtectedMeRouteReusesAuthenticatedProfileWithoutSecondDatabaseLookup",
+   "type": "function",
+   "name": "Step16ApiTest.ProtectedMeRouteReusesAuthenticatedProfileWithoutSecondDatabaseLookup",
+   "summary": "gtest 测试用例 Step16ApiTest.ProtectedMeRouteReusesAuthenticatedProfileWithoutSecondDatabaseLookup，验证相关生产组件的预期行为（33 行）。",
+   "tags": [
+    "test-case",
+    "gtest",
+    "cpp"
+   ],
+   "complexity": "moderate",
+   "lineRange": [
+    1737,
+    1769
+   ]
+  },
+  {
+   "id": "function:tests/test_step16_api.cpp:Step16ApiTest.ProtectedMeRouteKeepsDisappearedUserAsAuthRequiredAcrossAuthenticationPaths",
+   "type": "function",
+   "name": "Step16ApiTest.ProtectedMeRouteKeepsDisappearedUserAsAuthRequiredAcrossAuthenticationPaths",
+   "summary": "gtest 测试用例 Step16ApiTest.ProtectedMeRouteKeepsDisappearedUserAsAuthRequiredAcrossAuthenticationPaths，验证相关生产组件的预期行为（27 行）。",
+   "tags": [
+    "test-case",
+    "gtest",
+    "cpp"
+   ],
+   "complexity": "moderate",
+   "lineRange": [
+    1771,
+    1797
+   ]
+  },
+  {
+   "id": "function:tests/test_step16_api.cpp:Step16ApiTest.ProfileGetRequiresAuthenticationOwnerAndReturnsCompleteAuthUser",
+   "type": "function",
+   "name": "Step16ApiTest.ProfileGetRequiresAuthenticationOwnerAndReturnsCompleteAuthUser",
+   "summary": "gtest 测试用例 Step16ApiTest.ProfileGetRequiresAuthenticationOwnerAndReturnsCompleteAuthUser，验证相关生产组件的预期行为（36 行）。",
+   "tags": [
+    "test-case",
+    "gtest",
+    "cpp"
+   ],
+   "complexity": "moderate",
+   "lineRange": [
+    1799,
+    1834
+   ]
+  },
+  {
+   "id": "function:tests/test_step16_api.cpp:Step16ApiTest.ProfileRoutesMapDisappearedAuthenticatedUserToAuthRequired",
+   "type": "function",
+   "name": "Step16ApiTest.ProfileRoutesMapDisappearedAuthenticatedUserToAuthRequired",
+   "summary": "gtest 测试用例 Step16ApiTest.ProfileRoutesMapDisappearedAuthenticatedUserToAuthRequired，验证相关生产组件的预期行为（22 行）。",
+   "tags": [
+    "test-case",
+    "gtest",
+    "cpp"
+   ],
+   "complexity": "moderate",
+   "lineRange": [
+    1836,
+    1857
+   ]
+  },
+  {
+   "id": "function:tests/test_step16_api.cpp:Step16ApiTest.ProfilePutStrictlyRejectsInvalidTopLevelBodies",
+   "type": "function",
+   "name": "Step16ApiTest.ProfilePutStrictlyRejectsInvalidTopLevelBodies",
+   "summary": "gtest 测试用例 Step16ApiTest.ProfilePutStrictlyRejectsInvalidTopLevelBodies，验证相关生产组件的预期行为（56 行）。",
+   "tags": [
+    "test-case",
+    "gtest",
+    "cpp"
+   ],
+   "complexity": "complex",
+   "lineRange": [
+    1859,
+    1914
+   ]
+  },
+  {
+   "id": "function:tests/test_step16_api.cpp:Step16ApiTest.ProfilePutUpdatesAllowedFieldsAndReturnsCompleteAuthUser",
+   "type": "function",
+   "name": "Step16ApiTest.ProfilePutUpdatesAllowedFieldsAndReturnsCompleteAuthUser",
+   "summary": "gtest 测试用例 Step16ApiTest.ProfilePutUpdatesAllowedFieldsAndReturnsCompleteAuthUser，验证相关生产组件的预期行为（30 行）。",
+   "tags": [
+    "test-case",
+    "gtest",
+    "cpp"
+   ],
+   "complexity": "moderate",
+   "lineRange": [
+    1916,
+    1945
+   ]
+  },
+  {
+   "id": "function:tests/test_step16_api.cpp:Step16ApiTest.ProfilePutUpdatesOnlyRequestedColumnsBeforeReadingCurrentAuthUser",
+   "type": "function",
+   "name": "Step16ApiTest.ProfilePutUpdatesOnlyRequestedColumnsBeforeReadingCurrentAuthUser",
+   "summary": "gtest 测试用例 Step16ApiTest.ProfilePutUpdatesOnlyRequestedColumnsBeforeReadingCurrentAuthUser，验证相关生产组件的预期行为（43 行）。",
+   "tags": [
+    "test-case",
+    "gtest",
+    "cpp"
+   ],
+   "complexity": "complex",
+   "lineRange": [
+    1947,
+    1989
+   ]
+  },
+  {
+   "id": "function:tests/test_step16_api.cpp:Step16ApiTest.ProfilePutReturnsCurrentPersistedUserAfterConcurrentVipChange",
+   "type": "function",
+   "name": "Step16ApiTest.ProfilePutReturnsCurrentPersistedUserAfterConcurrentVipChange",
+   "summary": "gtest 测试用例 Step16ApiTest.ProfilePutReturnsCurrentPersistedUserAfterConcurrentVipChange，验证相关生产组件的预期行为（36 行）。",
+   "tags": [
+    "test-case",
+    "gtest",
+    "cpp"
+   ],
+   "complexity": "moderate",
+   "lineRange": [
+    1991,
+    2026
+   ]
+  },
+  {
+   "id": "function:tests/test_step16_api.cpp:Step16ApiTest.LoginRouteMapsNonThrowingDatabaseFailureToPersistenceError",
+   "type": "function",
+   "name": "Step16ApiTest.LoginRouteMapsNonThrowingDatabaseFailureToPersistenceError",
+   "summary": "gtest 测试用例 Step16ApiTest.LoginRouteMapsNonThrowingDatabaseFailureToPersistenceError，验证相关生产组件的预期行为（17 行）。",
+   "tags": [
+    "test-case",
+    "gtest",
+    "cpp"
+   ],
+   "complexity": "moderate",
+   "lineRange": [
+    2028,
+    2044
+   ]
+  },
+  {
+   "id": "function:tests/test_step16_api.cpp:Step16ApiTest.LoginRouteMapsInvalidCreatedAtToPersistenceError",
+   "type": "function",
+   "name": "Step16ApiTest.LoginRouteMapsInvalidCreatedAtToPersistenceError",
+   "summary": "gtest 测试用例 Step16ApiTest.LoginRouteMapsInvalidCreatedAtToPersistenceError，验证相关生产组件的预期行为（26 行）。",
+   "tags": [
+    "test-case",
+    "gtest",
+    "cpp"
+   ],
+   "complexity": "moderate",
+   "lineRange": [
+    2046,
+    2071
+   ]
+  },
+  {
+   "id": "function:tests/test_step16_api.cpp:Step16ApiTest.RegistrationRejectsEmailLongerThan128CharactersBeforeWriting",
+   "type": "function",
+   "name": "Step16ApiTest.RegistrationRejectsEmailLongerThan128CharactersBeforeWriting",
+   "summary": "gtest 测试用例 Step16ApiTest.RegistrationRejectsEmailLongerThan128CharactersBeforeWriting，验证相关生产组件的预期行为（18 行）。",
+   "tags": [
+    "test-case",
+    "gtest",
+    "cpp"
+   ],
+   "complexity": "moderate",
+   "lineRange": [
+    2073,
+    2090
+   ]
+  }
+ ],
+ "edges": [
+  {
+   "source": "file:tests/test_step16_api.cpp",
+   "target": "class:tests/test_step16_api.cpp:CapturingHttpServer",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "file:tests/test_step16_api.cpp",
+   "target": "class:tests/test_step16_api.cpp:RouteFileSystem",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "file:tests/test_step16_api.cpp",
+   "target": "class:tests/test_step16_api.cpp:EmptyTokenAuthService",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "file:tests/test_step16_api.cpp",
+   "target": "function:tests/test_step16_api.cpp:make_database_pool",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "file:tests/test_step16_api.cpp",
+   "target": "function:tests/test_step16_api.cpp:StrictJsonTest.IntegerTypeAcceptsSignedAndBoundedUnsignedValuesOnly",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "file:tests/test_step16_api.cpp",
+   "target": "function:tests/test_step16_api.cpp:Step19FileRouteTest.ListStrictlyDecodesQueryAndReturnsDeletionCapabilities",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "file:tests/test_step16_api.cpp",
+   "target": "function:tests/test_step16_api.cpp:Step19FileRouteTest.DetailRequiresAuthenticationAndReturnsCompleteDeletionContract",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "file:tests/test_step16_api.cpp",
+   "target": "function:tests/test_step16_api.cpp:Step19FileRouteTest.DetailMapsStructuredLookupFailuresToStableResponses",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "file:tests/test_step16_api.cpp",
+   "target": "function:tests/test_step16_api.cpp:Step19FileRouteTest.DeleteAllowsOwnerAndAdminButRejectsOtherVip",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "file:tests/test_step16_api.cpp",
+   "target": "function:tests/test_step16_api.cpp:Step19FileRouteTest.DeleteKeepsCommittedSuccessAndMarksDeferredCleanupOnConsumerFailure",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "file:tests/test_step16_api.cpp",
+   "target": "function:tests/test_step16_api.cpp:Step19FileRouteTest.DeleteReportsCleanupNotDeferredWhenConsumerSucceeds",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "file:tests/test_step16_api.cpp",
+   "target": "function:tests/test_step16_api.cpp:Step19FileRouteTest.DeleteWaitsForUploadBeforeDatabaseDeleteAndPendingConsumption",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "file:tests/test_step16_api.cpp",
+   "target": "function:tests/test_step16_api.cpp:Step19FileRouteTest.DeleteCleanupBlocksProductionUploadSetupAndPhysicalStore",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "file:tests/test_step16_api.cpp",
+   "target": "function:tests/test_step16_api.cpp:Step19FileRouteTest.FileMusicChangeConflictMapsTo409",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "file:tests/test_step16_api.cpp",
+   "target": "function:tests/test_step16_api.cpp:Step19FileRouteTest.InvalidDatabaseListUsesStandard422ReasonPhrase",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "file:tests/test_step16_api.cpp",
+   "target": "function:tests/test_step16_api.cpp:Step19StartupOrderTest.MainKeepsMigrationFilesystemCleanupAdminAuthRoutesListenOrder",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "file:tests/test_step16_api.cpp",
+   "target": "function:tests/test_step16_api.cpp:Step19PlaylistRouteTest.EveryEndpointRejectsCrossUserIncludingAdmin",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "file:tests/test_step16_api.cpp",
+   "target": "function:tests/test_step16_api.cpp:Step19PlaylistRouteTest.RenameValidatesNameAndDeleteReturnsEmpty204",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "file:tests/test_step16_api.cpp",
+   "target": "function:tests/test_step16_api.cpp:Step19PlaylistRouteTest.StructuredDatabaseStatusesHaveStableHttpMappings",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "file:tests/test_step16_api.cpp",
+   "target": "function:tests/test_step16_api.cpp:Step19PlaylistRouteTest.RejectsInvalidPathsDuplicateFieldsWrongTypesAndIntegerOverflow",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "file:tests/test_step16_api.cpp",
+   "target": "function:tests/test_step16_api.cpp:Step19PlaylistRouteTest.ItemMutationsRequirePositiveRepresentableIntegerIds",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "file:tests/test_step16_api.cpp",
+   "target": "function:tests/test_step16_api.cpp:Step19PlaylistRouteTest.ValidatesUtf8CodePointLengthsAtBothBoundaries",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "file:tests/test_step16_api.cpp",
+   "target": "function:tests/test_step16_api.cpp:Step19PlaylistRouteTest.RemoveReturnsEmpty204AndMusicNotFoundIsDistinct",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "file:tests/test_step16_api.cpp",
+   "target": "function:tests/test_step16_api.cpp:Step19PlaylistRouteTest.CreateAndListReturnCompletePlaylistObjects",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "file:tests/test_step16_api.cpp",
+   "target": "function:tests/test_step16_api.cpp:Step19PlaylistRouteTest.SerializesPlaylistAndItemTimesAsRfc3339Utc",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "file:tests/test_step16_api.cpp",
+   "target": "function:tests/test_step16_api.cpp:Step19PlaylistRouteTest.RejectsInvalidPersistedPlaylistTime",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "file:tests/test_step16_api.cpp",
+   "target": "function:tests/test_step16_api.cpp:Step19PlaylistRouteTest.RemoveStrictlyRejectsInvalidMusicPathIds",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "file:tests/test_step16_api.cpp",
+   "target": "function:tests/test_step16_api.cpp:Step19PlaylistRouteTest.ReorderDatabaseConflictsMapToStable409",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "file:tests/test_step16_api.cpp",
+   "target": "function:tests/test_step16_api.cpp:Step19PlaylistRouteTest.EveryJsonEndpointRejectsUnknownTopLevelFields",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "file:tests/test_step16_api.cpp",
+   "target": "function:tests/test_step16_api.cpp:Step19PlaylistRouteTest.CreateMapsMissingTargetUserPrecisely",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "file:tests/test_step16_api.cpp",
+   "target": "function:tests/test_step16_api.cpp:Step16UtilTest.DetectContentType",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "file:tests/test_step16_api.cpp",
+   "target": "function:tests/test_step16_api.cpp:Step16UtilTest.SaltedHashPassword",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "file:tests/test_step16_api.cpp",
+   "target": "function:tests/test_step16_api.cpp:Step16UtilTest.RangeParser",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "file:tests/test_step16_api.cpp",
+   "target": "function:tests/test_step16_api.cpp:Step16UtilTest.CorsHeaders",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "file:tests/test_step16_api.cpp",
+   "target": "function:tests/test_step16_api.cpp:Step16ApiTest.TokenGenerationValidation",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "file:tests/test_step16_api.cpp",
+   "target": "function:tests/test_step16_api.cpp:Step16ApiTest.AuthMiddlewarePreservesStorageError",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "file:tests/test_step16_api.cpp",
+   "target": "function:tests/test_step16_api.cpp:Step16ApiTest.AuthMiddlewareConvertsServiceExceptionToStorageError",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "file:tests/test_step16_api.cpp",
+   "target": "function:tests/test_step16_api.cpp:Step16ApiTest.AuthUserJsonUsesEffectiveIdentityAndIncludesCompleteContract",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "file:tests/test_step16_api.cpp",
+   "target": "function:tests/test_step16_api.cpp:Step16ApiTest.AuthResponseNestsUser",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "file:tests/test_step16_api.cpp",
+   "target": "function:tests/test_step16_api.cpp:Step16ApiTest.AuthUserJsonRejectsInvalidCreatedAt",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "file:tests/test_step16_api.cpp",
+   "target": "function:tests/test_step16_api.cpp:Step16ApiTest.RegistrationAndLoginRejectDuplicateUnknownAndWrongTypeFieldsBeforePersistence",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "file:tests/test_step16_api.cpp",
+   "target": "function:tests/test_step16_api.cpp:Step16ApiTest.RegistrationClassifiesPrivilegeFieldsBeforeUnknownFieldValidation",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "file:tests/test_step16_api.cpp",
+   "target": "function:tests/test_step16_api.cpp:Step16ApiTest.ProtectedMeRouteMapsAuthenticationStorageErrorToPersistenceError",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "file:tests/test_step16_api.cpp",
+   "target": "function:tests/test_step16_api.cpp:Step16ApiTest.ProtectedMeRouteReusesAuthenticatedProfileWithoutSecondDatabaseLookup",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "file:tests/test_step16_api.cpp",
+   "target": "function:tests/test_step16_api.cpp:Step16ApiTest.ProtectedMeRouteKeepsDisappearedUserAsAuthRequiredAcrossAuthenticationPaths",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "file:tests/test_step16_api.cpp",
+   "target": "function:tests/test_step16_api.cpp:Step16ApiTest.ProfileGetRequiresAuthenticationOwnerAndReturnsCompleteAuthUser",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "file:tests/test_step16_api.cpp",
+   "target": "function:tests/test_step16_api.cpp:Step16ApiTest.ProfileRoutesMapDisappearedAuthenticatedUserToAuthRequired",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "file:tests/test_step16_api.cpp",
+   "target": "function:tests/test_step16_api.cpp:Step16ApiTest.ProfilePutStrictlyRejectsInvalidTopLevelBodies",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "file:tests/test_step16_api.cpp",
+   "target": "function:tests/test_step16_api.cpp:Step16ApiTest.ProfilePutUpdatesAllowedFieldsAndReturnsCompleteAuthUser",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "file:tests/test_step16_api.cpp",
+   "target": "function:tests/test_step16_api.cpp:Step16ApiTest.ProfilePutUpdatesOnlyRequestedColumnsBeforeReadingCurrentAuthUser",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "file:tests/test_step16_api.cpp",
+   "target": "function:tests/test_step16_api.cpp:Step16ApiTest.ProfilePutReturnsCurrentPersistedUserAfterConcurrentVipChange",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "file:tests/test_step16_api.cpp",
+   "target": "function:tests/test_step16_api.cpp:Step16ApiTest.LoginRouteMapsNonThrowingDatabaseFailureToPersistenceError",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "file:tests/test_step16_api.cpp",
+   "target": "function:tests/test_step16_api.cpp:Step16ApiTest.LoginRouteMapsInvalidCreatedAtToPersistenceError",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "file:tests/test_step16_api.cpp",
+   "target": "function:tests/test_step16_api.cpp:Step16ApiTest.RegistrationRejectsEmailLongerThan128CharactersBeforeWriting",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "file:core/src/auth_service.cpp",
+   "target": "file:tests/test_step16_api.cpp",
+   "type": "tested_by",
+   "direction": "forward",
+   "weight": 0.5
+  },
+  {
+   "source": "file:core/src/file_routes.cpp",
+   "target": "file:tests/test_step16_api.cpp",
+   "type": "tested_by",
+   "direction": "forward",
+   "weight": 0.5
+  },
+  {
+   "source": "file:core/src/playlist_routes.cpp",
+   "target": "file:tests/test_step16_api.cpp",
+   "type": "tested_by",
+   "direction": "forward",
+   "weight": 0.5
+  },
+  {
+   "source": "file:core/src/vip_admin_routes.cpp",
+   "target": "file:tests/test_step16_api.cpp",
+   "type": "tested_by",
+   "direction": "forward",
+   "weight": 0.5
+  },
+  {
+   "source": "file:core/src/pending_chunk_deletions.cpp",
+   "target": "file:tests/test_step16_api.cpp",
+   "type": "tested_by",
+   "direction": "forward",
+   "weight": 0.5
+  },
+  {
+   "source": "file:core/src/upload_setup.cpp",
+   "target": "file:tests/test_step16_api.cpp",
+   "type": "tested_by",
+   "direction": "forward",
+   "weight": 0.5
+  },
+  {
+   "source": "file:core/src/authorization.cpp",
+   "target": "file:tests/test_step16_api.cpp",
+   "type": "tested_by",
+   "direction": "forward",
+   "weight": 0.5
+  }
+ ]
+}

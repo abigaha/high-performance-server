@@ -1,0 +1,1057 @@
+{
+  "scriptCompleted": true,
+  "filesAnalyzed": 8,
+  "filesSkipped": [],
+  "results": [
+    {
+      "path": "scripts/benchmark.sh",
+      "language": "shell",
+      "fileCategory": "script",
+      "totalLines": 2943,
+      "nonEmptyLines": 2724,
+      "functions": [
+        {
+          "name": "has_untracked_business_files",
+          "startLine": 22,
+          "endLine": 31,
+          "params": []
+        },
+        {
+          "name": "require_tools",
+          "startLine": 40,
+          "endLine": 50,
+          "params": []
+        },
+        {
+          "name": "is_positive_integer",
+          "startLine": 52,
+          "endLine": 54,
+          "params": []
+        },
+        {
+          "name": "is_nonnegative_integer",
+          "startLine": 56,
+          "endLine": 58,
+          "params": []
+        },
+        {
+          "name": "is_finite_positive_number",
+          "startLine": 60,
+          "endLine": 71,
+          "params": []
+        },
+        {
+          "name": "read_default_rps_port",
+          "startLine": 73,
+          "endLine": 116,
+          "params": []
+        },
+        {
+          "name": "parse_integer_list",
+          "startLine": 118,
+          "endLine": 134,
+          "params": []
+        },
+        {
+          "name": "write_report_header",
+          "startLine": 136,
+          "endLine": 151,
+          "params": []
+        },
+        {
+          "name": "is_run_id",
+          "startLine": 153,
+          "endLine": 155,
+          "params": []
+        },
+        {
+          "name": "parse_run_options",
+          "startLine": 157,
+          "endLine": 221,
+          "params": []
+        },
+        {
+          "name": "ensure_new_run_available",
+          "startLine": 223,
+          "endLine": 237,
+          "params": []
+        },
+        {
+          "name": "is_safe_report_component",
+          "startLine": 239,
+          "endLine": 241,
+          "params": []
+        },
+        {
+          "name": "report_run_dir_is_safe",
+          "startLine": 243,
+          "endLine": 297,
+          "params": []
+        },
+        {
+          "name": "resume_path_is_safe",
+          "startLine": 299,
+          "endLine": 306,
+          "params": []
+        },
+        {
+          "name": "is_single_link_regular_file",
+          "startLine": 308,
+          "endLine": 311,
+          "params": []
+        },
+        {
+          "name": "create_artifact_temp_file",
+          "startLine": 313,
+          "endLine": 328,
+          "params": []
+        },
+        {
+          "name": "artifact_destination_is_replaceable",
+          "startLine": 330,
+          "endLine": 351,
+          "params": []
+        },
+        {
+          "name": "replace_artifact_file",
+          "startLine": 353,
+          "endLine": 359,
+          "params": []
+        },
+        {
+          "name": "publish_artifact_file",
+          "startLine": 361,
+          "endLine": 381,
+          "params": []
+        },
+        {
+          "name": "prepare_target_run_dir",
+          "startLine": 383,
+          "endLine": 401,
+          "params": []
+        },
+        {
+          "name": "make_run_fingerprint",
+          "startLine": 403,
+          "endLine": 416,
+          "params": []
+        },
+        {
+          "name": "safe_value_sha256",
+          "startLine": 418,
+          "endLine": 425,
+          "params": []
+        },
+        {
+          "name": "validate_bench_flags",
+          "startLine": 427,
+          "endLine": 449,
+          "params": []
+        },
+        {
+          "name": "next_manifest_attempt",
+          "startLine": 451,
+          "endLine": 513,
+          "params": []
+        },
+        {
+          "name": "manifest_is_complete",
+          "startLine": 515,
+          "endLine": 656,
+          "params": []
+        },
+        {
+          "name": "manifest_is_resumable",
+          "startLine": 658,
+          "endLine": 660,
+          "params": []
+        },
+        {
+          "name": "write_manifest",
+          "startLine": 662,
+          "endLine": 811,
+          "params": []
+        },
+        {
+          "name": "cmd_build",
+          "startLine": 813,
+          "endLine": 823,
+          "params": []
+        },
+        {
+          "name": "cmd_micro",
+          "startLine": 825,
+          "endLine": 935,
+          "params": []
+        },
+        {
+          "name": "discover_qps_targets",
+          "startLine": 937,
+          "endLine": 943,
+          "params": []
+        },
+        {
+          "name": "validate_qps_artifacts",
+          "startLine": 945,
+          "endLine": 963,
+          "params": []
+        },
+        {
+          "name": "cmd_qps",
+          "startLine": 965,
+          "endLine": 1096,
+          "params": []
+        },
+        {
+          "name": "create_wrk_lua",
+          "startLine": 1098,
+          "endLine": 1242,
+          "params": []
+        },
+        {
+          "name": "raw_metric",
+          "startLine": 1244,
+          "endLine": 1249,
+          "params": []
+        },
+        {
+          "name": "rps_raw_dir_is_safe",
+          "startLine": 1251,
+          "endLine": 1254,
+          "params": []
+        },
+        {
+          "name": "rps_create_raw_temp_file",
+          "startLine": 1256,
+          "endLine": 1267,
+          "params": []
+        },
+        {
+          "name": "rps_publish_raw_file",
+          "startLine": 1269,
+          "endLine": 1278,
+          "params": []
+        },
+        {
+          "name": "rps_make_cell_record",
+          "startLine": 1280,
+          "endLine": 1314,
+          "params": []
+        },
+        {
+          "name": "run_rps_cell",
+          "startLine": 1316,
+          "endLine": 1463,
+          "params": []
+        },
+        {
+          "name": "write_rps_reports",
+          "startLine": 1465,
+          "endLine": 1617,
+          "params": []
+        },
+        {
+          "name": "rps_run_dir_is_safe",
+          "startLine": 1619,
+          "endLine": 1625,
+          "params": []
+        },
+        {
+          "name": "rps_prepare_run_dir",
+          "startLine": 1627,
+          "endLine": 1643,
+          "params": []
+        },
+        {
+          "name": "rps_prepare_artifact",
+          "startLine": 1645,
+          "endLine": 1664,
+          "params": []
+        },
+        {
+          "name": "rps_publish_artifact",
+          "startLine": 1666,
+          "endLine": 1677,
+          "params": []
+        },
+        {
+          "name": "rps_manifest_matches_fingerprint",
+          "startLine": 1679,
+          "endLine": 1711,
+          "params": []
+        },
+        {
+          "name": "rps_write_manifest",
+          "startLine": 1713,
+          "endLine": 1869,
+          "params": []
+        },
+        {
+          "name": "rps_cell_is_complete",
+          "startLine": 1871,
+          "endLine": 1961,
+          "params": []
+        },
+        {
+          "name": "rps_prune_manifest_cells_to_expected",
+          "startLine": 1963,
+          "endLine": 2015,
+          "params": []
+        },
+        {
+          "name": "rps_rebuild_results_from_manifest",
+          "startLine": 2017,
+          "endLine": 2129,
+          "params": []
+        },
+        {
+          "name": "rps_update_cell_manifest",
+          "startLine": 2131,
+          "endLine": 2142,
+          "params": []
+        },
+        {
+          "name": "rps_finish_profile_manifest",
+          "startLine": 2144,
+          "endLine": 2151,
+          "params": []
+        },
+        {
+          "name": "cleanup_rps_tmp",
+          "startLine": 2153,
+          "endLine": 2158,
+          "params": []
+        },
+        {
+          "name": "rps_preflight_failure",
+          "startLine": 2160,
+          "endLine": 2168,
+          "params": []
+        },
+        {
+          "name": "rps_mark_profile_started",
+          "startLine": 2170,
+          "endLine": 2178,
+          "params": []
+        },
+        {
+          "name": "rps_profile_has_started",
+          "startLine": 2180,
+          "endLine": 2188,
+          "params": []
+        },
+        {
+          "name": "rps_finalize_active_cell_for_signal",
+          "startLine": 2190,
+          "endLine": 2209,
+          "params": []
+        },
+        {
+          "name": "rps_read_isolated_env_value",
+          "startLine": 2211,
+          "endLine": 2216,
+          "params": []
+        },
+        {
+          "name": "rps_auth_payload",
+          "startLine": 2218,
+          "endLine": 2236,
+          "params": []
+        },
+        {
+          "name": "rps_authenticate",
+          "startLine": 2238,
+          "endLine": 2278,
+          "params": []
+        },
+        {
+          "name": "rps_run_profile",
+          "startLine": 2280,
+          "endLine": 2498,
+          "params": []
+        },
+        {
+          "name": "rps_finish_command",
+          "startLine": 2500,
+          "endLine": 2515,
+          "params": []
+        },
+        {
+          "name": "rps_defer_managed_cleanup",
+          "startLine": 2517,
+          "endLine": 2531,
+          "params": []
+        },
+        {
+          "name": "rps_write_startup_failure_reports",
+          "startLine": 2533,
+          "endLine": 2554,
+          "params": []
+        },
+        {
+          "name": "rps_write_unstarted_profile_failure_reports",
+          "startLine": 2556,
+          "endLine": 2569,
+          "params": []
+        },
+        {
+          "name": "rps_signal_handler",
+          "startLine": 2571,
+          "endLine": 2582,
+          "params": []
+        },
+        {
+          "name": "cmd_rps",
+          "startLine": 2584,
+          "endLine": 2676,
+          "params": []
+        },
+        {
+          "name": "cmd_diff",
+          "startLine": 2678,
+          "endLine": 2810,
+          "params": []
+        },
+        {
+          "name": "cmd_gen_data",
+          "startLine": 2812,
+          "endLine": 2833,
+          "params": []
+        },
+        {
+          "name": "cmd_check",
+          "startLine": 2835,
+          "endLine": 2859,
+          "params": []
+        },
+        {
+          "name": "usage",
+          "startLine": 2861,
+          "endLine": 2894,
+          "params": []
+        },
+        {
+          "name": "handle_menu_choice",
+          "startLine": 2896,
+          "endLine": 2907,
+          "params": []
+        },
+        {
+          "name": "menu",
+          "startLine": 2909,
+          "endLine": 2920,
+          "params": []
+        },
+        {
+          "name": "main",
+          "startLine": 2922,
+          "endLine": 2939,
+          "params": []
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 73,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "scripts/codeql.sh",
+      "language": "shell",
+      "fileCategory": "script",
+      "totalLines": 548,
+      "nonEmptyLines": 476,
+      "functions": [
+        {
+          "name": "usage",
+          "startLine": 9,
+          "endLine": 27,
+          "params": []
+        },
+        {
+          "name": "check_required_tools",
+          "startLine": 29,
+          "endLine": 35,
+          "params": []
+        },
+        {
+          "name": "codeql_timeout_value",
+          "startLine": 37,
+          "endLine": 48,
+          "params": []
+        },
+        {
+          "name": "codeql_poll_attempts",
+          "startLine": 50,
+          "endLine": 74,
+          "params": []
+        },
+        {
+          "name": "probe_server",
+          "startLine": 76,
+          "endLine": 85,
+          "params": []
+        },
+        {
+          "name": "discover_server",
+          "startLine": 87,
+          "endLine": 147,
+          "params": []
+        },
+        {
+          "name": "ensure_compile_database",
+          "startLine": 149,
+          "endLine": 181,
+          "params": []
+        },
+        {
+          "name": "prepare_compile_database",
+          "startLine": 183,
+          "endLine": 222,
+          "params": []
+        },
+        {
+          "name": "package_source",
+          "startLine": 224,
+          "endLine": 251,
+          "params": []
+        },
+        {
+          "name": "submit_analysis",
+          "startLine": 253,
+          "endLine": 305,
+          "params": []
+        },
+        {
+          "name": "classify_result_response",
+          "startLine": 307,
+          "endLine": 333,
+          "params": []
+        },
+        {
+          "name": "parse_sarif",
+          "startLine": 335,
+          "endLine": 431,
+          "params": []
+        },
+        {
+          "name": "poll_result",
+          "startLine": 433,
+          "endLine": 500,
+          "params": []
+        },
+        {
+          "name": "handle_menu_choice",
+          "startLine": 520,
+          "endLine": 525,
+          "params": []
+        },
+        {
+          "name": "menu",
+          "startLine": 527,
+          "endLine": 532,
+          "params": []
+        },
+        {
+          "name": "main",
+          "startLine": 534,
+          "endLine": 544,
+          "params": []
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 16,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "scripts/compile.sh",
+      "language": "shell",
+      "fileCategory": "script",
+      "totalLines": 71,
+      "nonEmptyLines": 61,
+      "functions": [
+        {
+          "name": "usage",
+          "startLine": 6,
+          "endLine": 18,
+          "params": []
+        },
+        {
+          "name": "build_frontend",
+          "startLine": 20,
+          "endLine": 33,
+          "params": []
+        },
+        {
+          "name": "cmd_build",
+          "startLine": 35,
+          "endLine": 44,
+          "params": []
+        },
+        {
+          "name": "handle_menu_choice",
+          "startLine": 46,
+          "endLine": 52,
+          "params": []
+        },
+        {
+          "name": "menu",
+          "startLine": 54,
+          "endLine": 60,
+          "params": []
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 5,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "scripts/docker.sh",
+      "language": "shell",
+      "fileCategory": "script",
+      "totalLines": 850,
+      "nonEmptyLines": 788,
+      "functions": [
+        {
+          "name": "usage",
+          "startLine": 14,
+          "endLine": 37,
+          "params": []
+        },
+        {
+          "name": "logs_usage",
+          "startLine": 39,
+          "endLine": 46,
+          "params": []
+        },
+        {
+          "name": "compose",
+          "startLine": 48,
+          "endLine": 53,
+          "params": []
+        },
+        {
+          "name": "compose_control",
+          "startLine": 56,
+          "endLine": 61,
+          "params": []
+        },
+        {
+          "name": "parse_deployment_options",
+          "startLine": 63,
+          "endLine": 103,
+          "params": []
+        },
+        {
+          "name": "reject_unexpected_args",
+          "startLine": 105,
+          "endLine": 112,
+          "params": []
+        },
+        {
+          "name": "require_docker",
+          "startLine": 114,
+          "endLine": 124,
+          "params": []
+        },
+        {
+          "name": "require_deploy_tools",
+          "startLine": 126,
+          "endLine": 137,
+          "params": []
+        },
+        {
+          "name": "env_file_value",
+          "startLine": 138,
+          "endLine": 159,
+          "params": []
+        },
+        {
+          "name": "validate_env_file",
+          "startLine": 161,
+          "endLine": 223,
+          "params": []
+        },
+        {
+          "name": "ensure_env_file",
+          "startLine": 226,
+          "endLine": 298,
+          "params": []
+        },
+        {
+          "name": "current_project_nginx_uses_port",
+          "startLine": 300,
+          "endLine": 318,
+          "params": []
+        },
+        {
+          "name": "host_port_is_listening",
+          "startLine": 320,
+          "endLine": 333,
+          "params": []
+        },
+        {
+          "name": "validate_http_port_availability",
+          "startLine": 335,
+          "endLine": 379,
+          "params": []
+        },
+        {
+          "name": "cmd_build",
+          "startLine": 381,
+          "endLine": 393,
+          "params": []
+        },
+        {
+          "name": "build_image",
+          "startLine": 395,
+          "endLine": 399,
+          "params": []
+        },
+        {
+          "name": "cmd_image",
+          "startLine": 401,
+          "endLine": 407,
+          "params": []
+        },
+        {
+          "name": "deployment_diagnostics",
+          "startLine": 409,
+          "endLine": 414,
+          "params": []
+        },
+        {
+          "name": "verify_service_health",
+          "startLine": 416,
+          "endLine": 433,
+          "params": []
+        },
+        {
+          "name": "print_backend_runtime_state",
+          "startLine": 435,
+          "endLine": 446,
+          "params": []
+        },
+        {
+          "name": "public_base_url",
+          "startLine": 448,
+          "endLine": 518,
+          "params": []
+        },
+        {
+          "name": "public_health_url",
+          "startLine": 520,
+          "endLine": 524,
+          "params": []
+        },
+        {
+          "name": "cmd_base_url",
+          "startLine": 526,
+          "endLine": 529,
+          "params": []
+        },
+        {
+          "name": "require_runtime_fingerprint_tools",
+          "startLine": 531,
+          "endLine": 552,
+          "params": []
+        },
+        {
+          "name": "configured_service_image",
+          "startLine": 554,
+          "endLine": 570,
+          "params": []
+        },
+        {
+          "name": "cmd_runtime_fingerprint",
+          "startLine": 572,
+          "endLine": 625,
+          "params": []
+        },
+        {
+          "name": "cmd_health",
+          "startLine": 627,
+          "endLine": 647,
+          "params": []
+        },
+        {
+          "name": "cmd_deploy",
+          "startLine": 649,
+          "endLine": 679,
+          "params": []
+        },
+        {
+          "name": "cmd_restart",
+          "startLine": 681,
+          "endLine": 690,
+          "params": []
+        },
+        {
+          "name": "cmd_status",
+          "startLine": 692,
+          "endLine": 706,
+          "params": []
+        },
+        {
+          "name": "cmd_stop",
+          "startLine": 708,
+          "endLine": 729,
+          "params": []
+        },
+        {
+          "name": "cmd_logs",
+          "startLine": 731,
+          "endLine": 771,
+          "params": []
+        },
+        {
+          "name": "handle_menu_choice",
+          "startLine": 773,
+          "endLine": 783,
+          "params": []
+        },
+        {
+          "name": "menu",
+          "startLine": 785,
+          "endLine": 795,
+          "params": []
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 34,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "scripts/format.sh",
+      "language": "shell",
+      "fileCategory": "script",
+      "totalLines": 94,
+      "nonEmptyLines": 85,
+      "functions": [
+        {
+          "name": "usage",
+          "startLine": 6,
+          "endLine": 20,
+          "params": []
+        },
+        {
+          "name": "detect_clang_format",
+          "startLine": 22,
+          "endLine": 30,
+          "params": []
+        },
+        {
+          "name": "cmd_format",
+          "startLine": 32,
+          "endLine": 70,
+          "params": []
+        },
+        {
+          "name": "handle_menu_choice",
+          "startLine": 72,
+          "endLine": 77,
+          "params": []
+        },
+        {
+          "name": "menu",
+          "startLine": 79,
+          "endLine": 84,
+          "params": []
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 5,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "scripts/lint.sh",
+      "language": "shell",
+      "fileCategory": "script",
+      "totalLines": 329,
+      "nonEmptyLines": 297,
+      "functions": [
+        {
+          "name": "usage",
+          "startLine": 14,
+          "endLine": 30,
+          "params": []
+        },
+        {
+          "name": "detect_clang_tidy",
+          "startLine": 32,
+          "endLine": 41,
+          "params": []
+        },
+        {
+          "name": "check_required_tools",
+          "startLine": 43,
+          "endLine": 53,
+          "params": []
+        },
+        {
+          "name": "lint_timeout_value",
+          "startLine": 55,
+          "endLine": 65,
+          "params": []
+        },
+        {
+          "name": "run_frontend_lint",
+          "startLine": 67,
+          "endLine": 78,
+          "params": []
+        },
+        {
+          "name": "collect_all_sources",
+          "startLine": 125,
+          "endLine": 131,
+          "params": []
+        },
+        {
+          "name": "collect_path_sources",
+          "startLine": 133,
+          "endLine": 149,
+          "params": []
+        },
+        {
+          "name": "collect_changed_sources",
+          "startLine": 151,
+          "endLine": 170,
+          "params": []
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 8,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "scripts/pipeline.sh",
+      "language": "shell",
+      "fileCategory": "script",
+      "totalLines": 98,
+      "nonEmptyLines": 85,
+      "functions": [
+        {
+          "name": "usage",
+          "startLine": 6,
+          "endLine": 22,
+          "params": []
+        },
+        {
+          "name": "run_format",
+          "startLine": 24,
+          "endLine": 26,
+          "params": []
+        },
+        {
+          "name": "run_lint",
+          "startLine": 28,
+          "endLine": 30,
+          "params": []
+        },
+        {
+          "name": "run_compile",
+          "startLine": 32,
+          "endLine": 34,
+          "params": []
+        },
+        {
+          "name": "run_codeql",
+          "startLine": 36,
+          "endLine": 38,
+          "params": []
+        },
+        {
+          "name": "run_test",
+          "startLine": 40,
+          "endLine": 43,
+          "params": []
+        },
+        {
+          "name": "cmd_all",
+          "startLine": 45,
+          "endLine": 59,
+          "params": []
+        },
+        {
+          "name": "handle_menu_choice",
+          "startLine": 61,
+          "endLine": 71,
+          "params": []
+        },
+        {
+          "name": "menu",
+          "startLine": 73,
+          "endLine": 83,
+          "params": []
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 9,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "scripts/test.sh",
+      "language": "shell",
+      "fileCategory": "script",
+      "totalLines": 261,
+      "nonEmptyLines": 241,
+      "functions": [
+        {
+          "name": "run_frontend_tests",
+          "startLine": 8,
+          "endLine": 21,
+          "params": []
+        },
+        {
+          "name": "run_script_regression_tests",
+          "startLine": 23,
+          "endLine": 33,
+          "params": []
+        },
+        {
+          "name": "validate_frontend_test_path",
+          "startLine": 35,
+          "endLine": 40,
+          "params": []
+        },
+        {
+          "name": "validate_e2e_test_path",
+          "startLine": 42,
+          "endLine": 47,
+          "params": []
+        },
+        {
+          "name": "run_e2e_tests",
+          "startLine": 49,
+          "endLine": 169,
+          "params": []
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 5,
+        "classCount": 0
+      }
+    }
+  ]
+}

@@ -1,0 +1,109 @@
+{
+  "nodes": [
+    {
+      "id": "config:.dockerignore",
+      "type": "config",
+      "name": ".dockerignore",
+      "summary": "Docker 构建上下文忽略规则，排除 .git、构建产物（build/.xmake）、IDE 配置、测试、前端依赖与运行时数据等，同时豁免 lib/*.so 动态库以减小镜像构建上下文体积。",
+      "tags": ["docker", "ignore-rules", "build-context", "config"],
+      "complexity": "simple",
+      "filePath": ".dockerignore"
+    },
+    {
+      "id": "service:docker-compose.yml",
+      "type": "service",
+      "name": "docker-compose.yml",
+      "summary": "一键编排 mysql、high-performance-server、nginx 三个服务及 mysql_data、app_data 两个数据卷，通过服务健康检查串起依赖顺序，实现本地完整部署。",
+      "tags": ["docker-compose", "orchestration", "deployment", "mysql", "nginx"],
+      "complexity": "moderate",
+      "filePath": "docker-compose.yml"
+    },
+    {
+      "id": "service:docker-compose.yml:mysql",
+      "type": "service",
+      "name": "mysql",
+      "summary": "MySQL 8.0 数据库服务，初始化 music_server 库，挂载 db/schema.sql 作为启动初始化脚本，通过 mysqladmin ping 健康检查并自动重启。",
+      "tags": ["mysql", "database", "healthcheck", "init-script"],
+      "complexity": "simple",
+      "filePath": "docker-compose.yml"
+    },
+    {
+      "id": "service:docker-compose.yml:high-performance-server",
+      "type": "service",
+      "name": "high-performance-server",
+      "summary": "主服务（镜像 hps-server:local，基于 Dockerfile 构建），通过环境变量配置端口、线程数、backlog、MySQL 连接池与认证密钥，等待 mysql 健康后启动，内置 /api/health 健康检查。",
+      "tags": ["server", "environment", "healthcheck", "mysql", "deploy"],
+      "complexity": "moderate",
+      "filePath": "docker-compose.yml"
+    },
+    {
+      "id": "service:docker-compose.yml:nginx",
+      "type": "service",
+      "name": "nginx",
+      "summary": "Nginx 反向代理服务，挂载 frontend/dist 静态资源与 deploy/ 下的 nginx 配置，将 18080 端口代理到主服务并依赖其健康检查就绪。",
+      "tags": ["nginx", "reverse-proxy", "frontend", "static-files"],
+      "complexity": "simple",
+      "filePath": "docker-compose.yml"
+    },
+    {
+      "id": "service:Dockerfile",
+      "type": "service",
+      "name": "Dockerfile",
+      "summary": "基于 ubuntu:24.04 的运行时镜像构建定义：安装 openssl/curl 等依赖，拷贝编译好的 high-performance-server 二进制与动态库，创建低权限 hps 用户，暴露 9090 端口并配置 /api/health 健康检查。",
+      "tags": ["dockerfile", "ubuntu", "image-build", "healthcheck", "deploy"],
+      "complexity": "moderate",
+      "filePath": "Dockerfile"
+    }
+  ],
+  "edges": [
+    {
+      "source": "config:.dockerignore",
+      "target": "service:Dockerfile",
+      "type": "configures",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "service:docker-compose.yml",
+      "target": "service:docker-compose.yml:mysql",
+      "type": "configures",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "service:docker-compose.yml",
+      "target": "service:docker-compose.yml:high-performance-server",
+      "type": "configures",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "service:docker-compose.yml",
+      "target": "service:docker-compose.yml:nginx",
+      "type": "configures",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "service:docker-compose.yml:high-performance-server",
+      "target": "service:docker-compose.yml:mysql",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "service:docker-compose.yml:nginx",
+      "target": "service:docker-compose.yml:high-performance-server",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "service:docker-compose.yml:high-performance-server",
+      "target": "service:Dockerfile",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    }
+  ]
+}

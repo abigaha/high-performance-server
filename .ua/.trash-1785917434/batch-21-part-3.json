@@ -1,0 +1,1474 @@
+{
+ "nodes": [
+  {
+   "id": "file:core/src/playlist_routes.cpp",
+   "type": "file",
+   "name": "core/src/playlist_routes.cpp",
+   "summary": "实现歌单 HTTP 路由：歌单与歌单项 CRUD、项排序，配合严格 JSON 解析与错误映射。",
+   "tags": [
+    "playlist",
+    "routes",
+    "crud",
+    "http",
+    "json"
+   ],
+   "complexity": "complex",
+   "filePath": "core/src/playlist_routes.cpp"
+  },
+  {
+   "id": "function:core/src/playlist_routes.cpp:json_error",
+   "type": "function",
+   "name": "json_error",
+   "summary": "构造歌单错误 JSON 响应（按状态码映射消息）。",
+   "tags": [
+    "playlist",
+    "error",
+    "json",
+    "http"
+   ],
+   "complexity": "moderate",
+   "filePath": "core/src/playlist_routes.cpp",
+   "lineRange": [
+    27,
+    58
+   ]
+  },
+  {
+   "id": "function:core/src/playlist_routes.cpp:require_authenticated",
+   "type": "function",
+   "name": "require_authenticated",
+   "summary": "校验请求认证，失败返回 401 错误。",
+   "tags": [
+    "auth",
+    "middleware",
+    "playlist"
+   ],
+   "complexity": "simple",
+   "filePath": "core/src/playlist_routes.cpp",
+   "lineRange": [
+    71,
+    81
+   ]
+  },
+  {
+   "id": "function:core/src/playlist_routes.cpp:parse_id",
+   "type": "function",
+   "name": "parse_id",
+   "summary": "从请求参数解析正整数 id，失败时写入错误响应。",
+   "tags": [
+    "parse",
+    "id",
+    "validation"
+   ],
+   "complexity": "moderate",
+   "filePath": "core/src/playlist_routes.cpp",
+   "lineRange": [
+    83,
+    98
+   ]
+  },
+  {
+   "id": "function:core/src/playlist_routes.cpp:mutation_error",
+   "type": "function",
+   "name": "mutation_error",
+   "summary": "将数据库写操作错误映射为 HTTP 错误响应（冲突/不存在等）。",
+   "tags": [
+    "playlist",
+    "error",
+    "mapping",
+    "mutation"
+   ],
+   "complexity": "moderate",
+   "filePath": "core/src/playlist_routes.cpp",
+   "lineRange": [
+    100,
+    121
+   ]
+  },
+  {
+   "id": "function:core/src/playlist_routes.cpp:playlist_json",
+   "type": "function",
+   "name": "playlist_json",
+   "summary": "将歌单记录序列化为 API JSON。",
+   "tags": [
+    "playlist",
+    "serialize",
+    "json"
+   ],
+   "complexity": "simple",
+   "filePath": "core/src/playlist_routes.cpp",
+   "lineRange": [
+    123,
+    134
+   ]
+  },
+  {
+   "id": "function:core/src/playlist_routes.cpp:item_json",
+   "type": "function",
+   "name": "item_json",
+   "summary": "将歌单项记录序列化为 API JSON。",
+   "tags": [
+    "playlist",
+    "item",
+    "serialize"
+   ],
+   "complexity": "simple",
+   "filePath": "core/src/playlist_routes.cpp",
+   "lineRange": [
+    136,
+    149
+   ]
+  },
+  {
+   "id": "function:core/src/playlist_routes.cpp:handle_get_user_playlists",
+   "type": "function",
+   "name": "handle_get_user_playlists",
+   "summary": "处理查询用户歌单列表请求。",
+   "tags": [
+    "playlist",
+    "list",
+    "handler"
+   ],
+   "complexity": "moderate",
+   "filePath": "core/src/playlist_routes.cpp",
+   "lineRange": [
+    168,
+    189
+   ]
+  },
+  {
+   "id": "function:core/src/playlist_routes.cpp:handle_create_playlist",
+   "type": "function",
+   "name": "handle_create_playlist",
+   "summary": "处理创建歌单请求：严格校验名称/描述并写入数据库。",
+   "tags": [
+    "playlist",
+    "create",
+    "handler",
+    "validation"
+   ],
+   "complexity": "moderate",
+   "filePath": "core/src/playlist_routes.cpp",
+   "lineRange": [
+    191,
+    224
+   ]
+  },
+  {
+   "id": "function:core/src/playlist_routes.cpp:handle_update_playlist",
+   "type": "function",
+   "name": "handle_update_playlist",
+   "summary": "处理更新歌单请求（名称/描述）。",
+   "tags": [
+    "playlist",
+    "update",
+    "handler"
+   ],
+   "complexity": "moderate",
+   "filePath": "core/src/playlist_routes.cpp",
+   "lineRange": [
+    226,
+    257
+   ]
+  },
+  {
+   "id": "function:core/src/playlist_routes.cpp:handle_delete_playlist",
+   "type": "function",
+   "name": "handle_delete_playlist",
+   "summary": "处理删除歌单请求。",
+   "tags": [
+    "playlist",
+    "delete",
+    "handler"
+   ],
+   "complexity": "moderate",
+   "filePath": "core/src/playlist_routes.cpp",
+   "lineRange": [
+    259,
+    272
+   ]
+  },
+  {
+   "id": "function:core/src/playlist_routes.cpp:handle_get_playlist_items",
+   "type": "function",
+   "name": "handle_get_playlist_items",
+   "summary": "处理查询歌单项列表请求。",
+   "tags": [
+    "playlist",
+    "items",
+    "list",
+    "handler"
+   ],
+   "complexity": "moderate",
+   "filePath": "core/src/playlist_routes.cpp",
+   "lineRange": [
+    274,
+    295
+   ]
+  },
+  {
+   "id": "function:core/src/playlist_routes.cpp:handle_add_playlist_item",
+   "type": "function",
+   "name": "handle_add_playlist_item",
+   "summary": "处理向歌单添加音乐项请求。",
+   "tags": [
+    "playlist",
+    "items",
+    "add",
+    "handler"
+   ],
+   "complexity": "moderate",
+   "filePath": "core/src/playlist_routes.cpp",
+   "lineRange": [
+    297,
+    321
+   ]
+  },
+  {
+   "id": "function:core/src/playlist_routes.cpp:handle_remove_playlist_item",
+   "type": "function",
+   "name": "handle_remove_playlist_item",
+   "summary": "处理从歌单移除音乐项请求。",
+   "tags": [
+    "playlist",
+    "items",
+    "remove",
+    "handler"
+   ],
+   "complexity": "moderate",
+   "filePath": "core/src/playlist_routes.cpp",
+   "lineRange": [
+    323,
+    337
+   ]
+  },
+  {
+   "id": "function:core/src/playlist_routes.cpp:handle_reorder_playlist_items",
+   "type": "function",
+   "name": "handle_reorder_playlist_items",
+   "summary": "处理歌单项重排序请求（校验顺序数组完整性）。",
+   "tags": [
+    "playlist",
+    "reorder",
+    "handler"
+   ],
+   "complexity": "moderate",
+   "filePath": "core/src/playlist_routes.cpp",
+   "lineRange": [
+    339,
+    368
+   ]
+  },
+  {
+   "id": "function:core/src/playlist_routes.cpp:register_playlist_routes",
+   "type": "function",
+   "name": "register_playlist_routes",
+   "summary": "向 HTTP 服务器注册全部歌单路由。",
+   "tags": [
+    "playlist",
+    "routes",
+    "register"
+   ],
+   "complexity": "moderate",
+   "filePath": "core/src/playlist_routes.cpp",
+   "lineRange": [
+    370,
+    395
+   ]
+  },
+  {
+   "id": "file:core/src/schema_migrations.cpp",
+   "type": "file",
+   "name": "core/src/schema_migrations.cpp",
+   "summary": "实现 schema 迁移执行器：幂等 DDL（建表/加列/索引）、数据回填事务与分阶段失败报告。",
+   "tags": [
+    "schema-migration",
+    "ddl",
+    "backfill",
+    "transaction"
+   ],
+   "complexity": "moderate",
+   "filePath": "core/src/schema_migrations.cpp"
+  },
+  {
+   "id": "function:core/src/schema_migrations.cpp:execute_ddl",
+   "type": "function",
+   "name": "execute_ddl",
+   "summary": "幂等执行 DDL 迁移：建表、加列、加索引，先查 schema 对象存在性再执行。",
+   "tags": [
+    "schema-migration",
+    "ddl",
+    "idempotent"
+   ],
+   "complexity": "complex",
+   "filePath": "core/src/schema_migrations.cpp",
+   "lineRange": [
+    22,
+    78
+   ]
+  },
+  {
+   "id": "function:core/src/schema_migrations.cpp:execute_backfill_transaction",
+   "type": "function",
+   "name": "execute_backfill_transaction",
+   "summary": "在事务中执行数据回填迁移（如文件大小回填），分阶段失败上报。",
+   "tags": [
+    "schema-migration",
+    "backfill",
+    "transaction"
+   ],
+   "complexity": "moderate",
+   "filePath": "core/src/schema_migrations.cpp",
+   "lineRange": [
+    80,
+    125
+   ]
+  },
+  {
+   "id": "function:core/src/schema_migrations.cpp:run_schema_migrations",
+   "type": "function",
+   "name": "run_schema_migrations",
+   "summary": "按序执行全部 schema 迁移阶段（DDL 与回填）。",
+   "tags": [
+    "schema-migration",
+    "runner",
+    "stages"
+   ],
+   "complexity": "moderate",
+   "filePath": "core/src/schema_migrations.cpp",
+   "lineRange": [
+    129,
+    150
+   ]
+  },
+  {
+   "id": "file:core/src/upload_policy.cpp",
+   "type": "file",
+   "name": "core/src/upload_policy.cpp",
+   "summary": "实现上传校验策略：按扩展名与文件头魔数验证音频格式（MP3/AAC/OGG/WAV/FLAC/M4A/ASF/APE），并施加角色配额。",
+   "tags": [
+    "upload-policy",
+    "audio",
+    "signature",
+    "validation",
+    "quota"
+   ],
+   "complexity": "complex",
+   "filePath": "core/src/upload_policy.cpp"
+  },
+  {
+   "id": "class:core/src/upload_policy.cpp:AudioType",
+   "type": "class",
+   "name": "AudioType",
+   "summary": "音频类型描述结构体：扩展名与对应 content-type。",
+   "tags": [
+    "audio",
+    "type",
+    "struct",
+    "content-type"
+   ],
+   "complexity": "simple",
+   "filePath": "core/src/upload_policy.cpp",
+   "lineRange": [
+    18,
+    21
+   ]
+  },
+  {
+   "id": "function:core/src/upload_policy.cpp:lowercase_extension",
+   "type": "function",
+   "name": "lowercase_extension",
+   "summary": "提取并转小写文件扩展名。",
+   "tags": [
+    "extension",
+    "filename",
+    "lowercase"
+   ],
+   "complexity": "simple",
+   "filePath": "core/src/upload_policy.cpp",
+   "lineRange": [
+    54,
+    64
+   ]
+  },
+  {
+   "id": "function:core/src/upload_policy.cpp:status_text",
+   "type": "function",
+   "name": "status_text",
+   "summary": "将状态码映射为响应文本。",
+   "tags": [
+    "status",
+    "http",
+    "mapping"
+   ],
+   "complexity": "simple",
+   "filePath": "core/src/upload_policy.cpp",
+   "lineRange": [
+    66,
+    75
+   ]
+  },
+  {
+   "id": "function:core/src/upload_policy.cpp:is_id3v2_header_followed_by_mpeg_frame",
+   "type": "function",
+   "name": "is_id3v2_header_followed_by_mpeg_frame",
+   "summary": "检测 ID3v2 头后紧跟 MPEG 帧头（MP3 带标签场景）。",
+   "tags": [
+    "mp3",
+    "id3",
+    "signature",
+    "detect"
+   ],
+   "complexity": "moderate",
+   "filePath": "core/src/upload_policy.cpp",
+   "lineRange": [
+    122,
+    139
+   ]
+  },
+  {
+   "id": "function:core/src/upload_policy.cpp:is_adts_header",
+   "type": "function",
+   "name": "is_adts_header",
+   "summary": "检测 AAC ADTS 音频帧头特征。",
+   "tags": [
+    "aac",
+    "adts",
+    "signature",
+    "detect"
+   ],
+   "complexity": "moderate",
+   "filePath": "core/src/upload_policy.cpp",
+   "lineRange": [
+    141,
+    162
+   ]
+  },
+  {
+   "id": "function:core/src/upload_policy.cpp:is_asf_header",
+   "type": "function",
+   "name": "is_asf_header",
+   "summary": "检测 ASF/WMA 文件头 GUID 特征。",
+   "tags": [
+    "asf",
+    "wma",
+    "signature",
+    "detect"
+   ],
+   "complexity": "moderate",
+   "filePath": "core/src/upload_policy.cpp",
+   "lineRange": [
+    164,
+    178
+   ]
+  },
+  {
+   "id": "function:core/src/upload_policy.cpp:first_ogg_packet",
+   "type": "function",
+   "name": "first_ogg_packet",
+   "summary": "解析首个 OGG 数据包，定位页与码流开始。",
+   "tags": [
+    "ogg",
+    "packet",
+    "parse"
+   ],
+   "complexity": "moderate",
+   "filePath": "core/src/upload_policy.cpp",
+   "lineRange": [
+    180,
+    209
+   ]
+  },
+  {
+   "id": "function:core/src/upload_policy.cpp:is_vorbis_ogg_stream",
+   "type": "function",
+   "name": "is_vorbis_ogg_stream",
+   "summary": "检测 OGG 容器中的 Vorbis 码流标识。",
+   "tags": [
+    "ogg",
+    "vorbis",
+    "signature",
+    "detect"
+   ],
+   "complexity": "moderate",
+   "filePath": "core/src/upload_policy.cpp",
+   "lineRange": [
+    211,
+    226
+   ]
+  },
+  {
+   "id": "function:core/src/upload_policy.cpp:is_opus_ogg_stream",
+   "type": "function",
+   "name": "is_opus_ogg_stream",
+   "summary": "检测 OGG 容器中的 Opus 码流标识。",
+   "tags": [
+    "ogg",
+    "opus",
+    "signature",
+    "detect"
+   ],
+   "complexity": "moderate",
+   "filePath": "core/src/upload_policy.cpp",
+   "lineRange": [
+    228,
+    238
+   ]
+  },
+  {
+   "id": "class:core/src/upload_policy.cpp:RiffChunk",
+   "type": "class",
+   "name": "RiffChunk",
+   "summary": "RIFF 块解析结果结构体：块 id、载荷区间与下一个块偏移。",
+   "tags": [
+    "riff",
+    "wav",
+    "chunk",
+    "struct"
+   ],
+   "complexity": "simple",
+   "filePath": "core/src/upload_policy.cpp",
+   "lineRange": [
+    240,
+    247
+   ]
+  },
+  {
+   "id": "function:core/src/upload_policy.cpp:parse_riff_chunk",
+   "type": "function",
+   "name": "parse_riff_chunk",
+   "summary": "解析 RIFF 块头（id、大小、载荷区间与填充）。",
+   "tags": [
+    "riff",
+    "wav",
+    "chunk",
+    "parse"
+   ],
+   "complexity": "moderate",
+   "filePath": "core/src/upload_policy.cpp",
+   "lineRange": [
+    262,
+    286
+   ]
+  },
+  {
+   "id": "function:core/src/upload_policy.cpp:is_valid_wav_format_chunk",
+   "type": "function",
+   "name": "is_valid_wav_format_chunk",
+   "summary": "校验 WAV fmt 块：音频格式、声道数与采样率。",
+   "tags": [
+    "wav",
+    "format",
+    "validation"
+   ],
+   "complexity": "moderate",
+   "filePath": "core/src/upload_policy.cpp",
+   "lineRange": [
+    293,
+    307
+   ]
+  },
+  {
+   "id": "function:core/src/upload_policy.cpp:is_wav_header",
+   "type": "function",
+   "name": "is_wav_header",
+   "summary": "完整检测 WAV 文件头：RIFF/WAVE 标识、fmt 与 data 块。",
+   "tags": [
+    "wav",
+    "riff",
+    "signature",
+    "detect"
+   ],
+   "complexity": "moderate",
+   "filePath": "core/src/upload_policy.cpp",
+   "lineRange": [
+    316,
+    342
+   ]
+  },
+  {
+   "id": "function:core/src/upload_policy.cpp:is_flac_header",
+   "type": "function",
+   "name": "is_flac_header",
+   "summary": "检测 FLAC 头：fLaC 魔数与 STREAMINFO 块。",
+   "tags": [
+    "flac",
+    "signature",
+    "detect"
+   ],
+   "complexity": "moderate",
+   "filePath": "core/src/upload_policy.cpp",
+   "lineRange": [
+    344,
+    359
+   ]
+  },
+  {
+   "id": "function:core/src/upload_policy.cpp:is_m4a_header",
+   "type": "function",
+   "name": "is_m4a_header",
+   "summary": "检测 M4A/AAC 的 ftyp 原子与品牌标识。",
+   "tags": [
+    "m4a",
+    "mp4",
+    "signature",
+    "detect"
+   ],
+   "complexity": "moderate",
+   "filePath": "core/src/upload_policy.cpp",
+   "lineRange": [
+    361,
+    377
+   ]
+  },
+  {
+   "id": "function:core/src/upload_policy.cpp:is_ape_header",
+   "type": "function",
+   "name": "is_ape_header",
+   "summary": "检测 APE 文件头魔数。",
+   "tags": [
+    "ape",
+    "signature",
+    "detect"
+   ],
+   "complexity": "simple",
+   "filePath": "core/src/upload_policy.cpp",
+   "lineRange": [
+    379,
+    390
+   ]
+  },
+  {
+   "id": "function:core/src/upload_policy.cpp:matches_audio_signature",
+   "type": "function",
+   "name": "matches_audio_signature",
+   "summary": "按扩展名分派到对应音频签名检测函数，判定魔数是否匹配。",
+   "tags": [
+    "audio",
+    "signature",
+    "dispatch",
+    "validation"
+   ],
+   "complexity": "moderate",
+   "filePath": "core/src/upload_policy.cpp",
+   "lineRange": [
+    392,
+    422
+   ]
+  },
+  {
+   "id": "function:core/src/upload_policy.cpp:validate_audio_signature",
+   "type": "function",
+   "name": "validate_audio_signature",
+   "summary": "校验上传文件头与扩展名对应的音频格式是否一致，不一致则拒绝。",
+   "tags": [
+    "audio",
+    "validation",
+    "signature",
+    "reject"
+   ],
+   "complexity": "moderate",
+   "filePath": "core/src/upload_policy.cpp",
+   "lineRange": [
+    436,
+    455
+   ]
+  },
+  {
+   "id": "function:core/src/upload_policy.cpp:validate_audio_upload",
+   "type": "function",
+   "name": "validate_audio_upload",
+   "summary": "上传总入口校验：扩展名白名单、大小限制、内容长度与角色配额。",
+   "tags": [
+    "upload",
+    "validation",
+    "quota",
+    "policy"
+   ],
+   "complexity": "moderate",
+   "filePath": "core/src/upload_policy.cpp",
+   "lineRange": [
+    457,
+    496
+   ]
+  },
+  {
+   "id": "function:core/src/upload_policy.cpp:make_upload_validation_response",
+   "type": "function",
+   "name": "make_upload_validation_response",
+   "summary": "将校验结果组装为上传校验响应对象（状态与错误信息）。",
+   "tags": [
+    "upload",
+    "response",
+    "validation"
+   ],
+   "complexity": "moderate",
+   "filePath": "core/src/upload_policy.cpp",
+   "lineRange": [
+    498,
+    512
+   ]
+  },
+  {
+   "id": "file:core/src/upload_setup.cpp",
+   "type": "file",
+   "name": "core/src/upload_setup.cpp",
+   "summary": "实现 make_upload_setup，装配上传流式设置：流限制、校验器与上传处理器。",
+   "tags": [
+    "upload",
+    "setup",
+    "assembly"
+   ],
+   "complexity": "simple",
+   "filePath": "core/src/upload_setup.cpp"
+  },
+  {
+   "id": "function:core/src/upload_setup.cpp:make_upload_setup",
+   "type": "function",
+   "name": "make_upload_setup",
+   "summary": "装配上传流式设置：设置流大小限制、挂接音频签名校验与校验响应生成。",
+   "tags": [
+    "upload",
+    "setup",
+    "validation",
+    "assembly"
+   ],
+   "complexity": "moderate",
+   "filePath": "core/src/upload_setup.cpp",
+   "lineRange": [
+    13,
+    37
+   ]
+  }
+ ],
+ "edges": [
+  {
+   "source": "function:core/src/playlist_routes.cpp:require_authenticated",
+   "target": "function:core/src/playlist_routes.cpp:json_error",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:core/src/playlist_routes.cpp:parse_id",
+   "target": "function:core/src/playlist_routes.cpp:json_error",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:core/src/playlist_routes.cpp:mutation_error",
+   "target": "function:core/src/playlist_routes.cpp:json_error",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:core/src/playlist_routes.cpp:handle_get_user_playlists",
+   "target": "function:core/src/playlist_routes.cpp:require_authenticated",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:core/src/playlist_routes.cpp:handle_get_user_playlists",
+   "target": "function:core/src/playlist_routes.cpp:parse_id",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:core/src/playlist_routes.cpp:handle_get_user_playlists",
+   "target": "function:core/src/playlist_routes.cpp:mutation_error",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:core/src/playlist_routes.cpp:handle_get_user_playlists",
+   "target": "function:core/src/playlist_routes.cpp:playlist_json",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:core/src/playlist_routes.cpp:handle_create_playlist",
+   "target": "function:core/src/playlist_routes.cpp:require_authenticated",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:core/src/playlist_routes.cpp:handle_create_playlist",
+   "target": "function:core/src/playlist_routes.cpp:parse_id",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:core/src/playlist_routes.cpp:handle_create_playlist",
+   "target": "function:core/src/playlist_routes.cpp:json_error",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:core/src/playlist_routes.cpp:handle_create_playlist",
+   "target": "function:core/src/playlist_routes.cpp:mutation_error",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:core/src/playlist_routes.cpp:handle_create_playlist",
+   "target": "function:core/src/playlist_routes.cpp:playlist_json",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:core/src/playlist_routes.cpp:handle_create_playlist",
+   "target": "function:db/include/playlist_validation.h:is_valid_playlist_text",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:core/src/playlist_routes.cpp:handle_update_playlist",
+   "target": "function:core/src/playlist_routes.cpp:require_authenticated",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:core/src/playlist_routes.cpp:handle_update_playlist",
+   "target": "function:core/src/playlist_routes.cpp:parse_id",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:core/src/playlist_routes.cpp:handle_update_playlist",
+   "target": "function:core/src/playlist_routes.cpp:json_error",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:core/src/playlist_routes.cpp:handle_update_playlist",
+   "target": "function:core/src/playlist_routes.cpp:mutation_error",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:core/src/playlist_routes.cpp:handle_update_playlist",
+   "target": "function:core/src/playlist_routes.cpp:playlist_json",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:core/src/playlist_routes.cpp:handle_delete_playlist",
+   "target": "function:core/src/playlist_routes.cpp:require_authenticated",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:core/src/playlist_routes.cpp:handle_delete_playlist",
+   "target": "function:core/src/playlist_routes.cpp:parse_id",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:core/src/playlist_routes.cpp:handle_delete_playlist",
+   "target": "function:core/src/playlist_routes.cpp:mutation_error",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:core/src/playlist_routes.cpp:handle_get_playlist_items",
+   "target": "function:core/src/playlist_routes.cpp:require_authenticated",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:core/src/playlist_routes.cpp:handle_get_playlist_items",
+   "target": "function:core/src/playlist_routes.cpp:parse_id",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:core/src/playlist_routes.cpp:handle_get_playlist_items",
+   "target": "function:core/src/playlist_routes.cpp:mutation_error",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:core/src/playlist_routes.cpp:handle_get_playlist_items",
+   "target": "function:core/src/playlist_routes.cpp:item_json",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:core/src/playlist_routes.cpp:handle_add_playlist_item",
+   "target": "function:core/src/playlist_routes.cpp:require_authenticated",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:core/src/playlist_routes.cpp:handle_add_playlist_item",
+   "target": "function:core/src/playlist_routes.cpp:parse_id",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:core/src/playlist_routes.cpp:handle_add_playlist_item",
+   "target": "function:core/src/playlist_routes.cpp:json_error",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:core/src/playlist_routes.cpp:handle_add_playlist_item",
+   "target": "function:core/src/playlist_routes.cpp:mutation_error",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:core/src/playlist_routes.cpp:handle_remove_playlist_item",
+   "target": "function:core/src/playlist_routes.cpp:require_authenticated",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:core/src/playlist_routes.cpp:handle_remove_playlist_item",
+   "target": "function:core/src/playlist_routes.cpp:parse_id",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:core/src/playlist_routes.cpp:handle_remove_playlist_item",
+   "target": "function:core/src/playlist_routes.cpp:mutation_error",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:core/src/playlist_routes.cpp:handle_reorder_playlist_items",
+   "target": "function:core/src/playlist_routes.cpp:require_authenticated",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:core/src/playlist_routes.cpp:handle_reorder_playlist_items",
+   "target": "function:core/src/playlist_routes.cpp:parse_id",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:core/src/playlist_routes.cpp:handle_reorder_playlist_items",
+   "target": "function:core/src/playlist_routes.cpp:json_error",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:core/src/playlist_routes.cpp:handle_reorder_playlist_items",
+   "target": "function:core/src/playlist_routes.cpp:mutation_error",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:core/src/playlist_routes.cpp:register_playlist_routes",
+   "target": "function:core/src/playlist_routes.cpp:handle_get_user_playlists",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:core/src/playlist_routes.cpp:register_playlist_routes",
+   "target": "function:core/src/playlist_routes.cpp:handle_create_playlist",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:core/src/playlist_routes.cpp:register_playlist_routes",
+   "target": "function:core/src/playlist_routes.cpp:handle_update_playlist",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:core/src/playlist_routes.cpp:register_playlist_routes",
+   "target": "function:core/src/playlist_routes.cpp:handle_delete_playlist",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:core/src/playlist_routes.cpp:register_playlist_routes",
+   "target": "function:core/src/playlist_routes.cpp:handle_get_playlist_items",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:core/src/playlist_routes.cpp:register_playlist_routes",
+   "target": "function:core/src/playlist_routes.cpp:handle_add_playlist_item",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:core/src/playlist_routes.cpp:register_playlist_routes",
+   "target": "function:core/src/playlist_routes.cpp:handle_remove_playlist_item",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:core/src/playlist_routes.cpp:register_playlist_routes",
+   "target": "function:core/src/playlist_routes.cpp:handle_reorder_playlist_items",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:core/src/playlist_routes.cpp",
+   "target": "function:core/src/playlist_routes.cpp:json_error",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:core/src/playlist_routes.cpp",
+   "target": "function:core/src/playlist_routes.cpp:require_authenticated",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:core/src/playlist_routes.cpp",
+   "target": "function:core/src/playlist_routes.cpp:parse_id",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:core/src/playlist_routes.cpp",
+   "target": "function:core/src/playlist_routes.cpp:mutation_error",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:core/src/playlist_routes.cpp",
+   "target": "function:core/src/playlist_routes.cpp:playlist_json",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:core/src/playlist_routes.cpp",
+   "target": "function:core/src/playlist_routes.cpp:item_json",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:core/src/playlist_routes.cpp",
+   "target": "function:core/src/playlist_routes.cpp:handle_get_user_playlists",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:core/src/playlist_routes.cpp",
+   "target": "function:core/src/playlist_routes.cpp:handle_create_playlist",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:core/src/playlist_routes.cpp",
+   "target": "function:core/src/playlist_routes.cpp:handle_update_playlist",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:core/src/playlist_routes.cpp",
+   "target": "function:core/src/playlist_routes.cpp:handle_delete_playlist",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:core/src/playlist_routes.cpp",
+   "target": "function:core/src/playlist_routes.cpp:handle_get_playlist_items",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:core/src/playlist_routes.cpp",
+   "target": "function:core/src/playlist_routes.cpp:handle_add_playlist_item",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:core/src/playlist_routes.cpp",
+   "target": "function:core/src/playlist_routes.cpp:handle_remove_playlist_item",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:core/src/playlist_routes.cpp",
+   "target": "function:core/src/playlist_routes.cpp:handle_reorder_playlist_items",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:core/src/playlist_routes.cpp",
+   "target": "function:core/src/playlist_routes.cpp:register_playlist_routes",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "function:core/src/schema_migrations.cpp:run_schema_migrations",
+   "target": "function:core/src/schema_migrations.cpp:execute_ddl",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:core/src/schema_migrations.cpp:run_schema_migrations",
+   "target": "function:core/src/schema_migrations.cpp:execute_backfill_transaction",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:core/src/schema_migrations.cpp",
+   "target": "function:core/src/schema_migrations.cpp:execute_ddl",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:core/src/schema_migrations.cpp",
+   "target": "function:core/src/schema_migrations.cpp:execute_backfill_transaction",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:core/src/schema_migrations.cpp",
+   "target": "function:core/src/schema_migrations.cpp:run_schema_migrations",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "function:core/src/upload_policy.cpp:is_vorbis_ogg_stream",
+   "target": "function:core/src/upload_policy.cpp:first_ogg_packet",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:core/src/upload_policy.cpp:is_opus_ogg_stream",
+   "target": "function:core/src/upload_policy.cpp:first_ogg_packet",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:core/src/upload_policy.cpp:is_wav_header",
+   "target": "function:core/src/upload_policy.cpp:parse_riff_chunk",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:core/src/upload_policy.cpp:is_wav_header",
+   "target": "function:core/src/upload_policy.cpp:is_valid_wav_format_chunk",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:core/src/upload_policy.cpp:matches_audio_signature",
+   "target": "function:core/src/upload_policy.cpp:is_id3v2_header_followed_by_mpeg_frame",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:core/src/upload_policy.cpp:matches_audio_signature",
+   "target": "function:core/src/upload_policy.cpp:is_vorbis_ogg_stream",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:core/src/upload_policy.cpp:matches_audio_signature",
+   "target": "function:core/src/upload_policy.cpp:is_opus_ogg_stream",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:core/src/upload_policy.cpp:matches_audio_signature",
+   "target": "function:core/src/upload_policy.cpp:is_wav_header",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:core/src/upload_policy.cpp:matches_audio_signature",
+   "target": "function:core/src/upload_policy.cpp:is_flac_header",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:core/src/upload_policy.cpp:matches_audio_signature",
+   "target": "function:core/src/upload_policy.cpp:is_adts_header",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:core/src/upload_policy.cpp:matches_audio_signature",
+   "target": "function:core/src/upload_policy.cpp:is_m4a_header",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:core/src/upload_policy.cpp:matches_audio_signature",
+   "target": "function:core/src/upload_policy.cpp:is_asf_header",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:core/src/upload_policy.cpp:matches_audio_signature",
+   "target": "function:core/src/upload_policy.cpp:is_ape_header",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:core/src/upload_policy.cpp:validate_audio_signature",
+   "target": "function:core/src/upload_policy.cpp:lowercase_extension",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:core/src/upload_policy.cpp:validate_audio_signature",
+   "target": "function:core/src/upload_policy.cpp:matches_audio_signature",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:core/src/upload_policy.cpp:validate_audio_upload",
+   "target": "function:core/src/authorization.cpp:role_size_limit",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:core/src/upload_policy.cpp:make_upload_validation_response",
+   "target": "function:core/src/upload_policy.cpp:status_text",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:core/src/upload_policy.cpp",
+   "target": "class:core/src/upload_policy.cpp:AudioType",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:core/src/upload_policy.cpp",
+   "target": "function:core/src/upload_policy.cpp:lowercase_extension",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:core/src/upload_policy.cpp",
+   "target": "function:core/src/upload_policy.cpp:status_text",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:core/src/upload_policy.cpp",
+   "target": "function:core/src/upload_policy.cpp:is_id3v2_header_followed_by_mpeg_frame",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:core/src/upload_policy.cpp",
+   "target": "function:core/src/upload_policy.cpp:is_adts_header",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:core/src/upload_policy.cpp",
+   "target": "function:core/src/upload_policy.cpp:is_asf_header",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:core/src/upload_policy.cpp",
+   "target": "function:core/src/upload_policy.cpp:first_ogg_packet",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:core/src/upload_policy.cpp",
+   "target": "function:core/src/upload_policy.cpp:is_vorbis_ogg_stream",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:core/src/upload_policy.cpp",
+   "target": "function:core/src/upload_policy.cpp:is_opus_ogg_stream",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:core/src/upload_policy.cpp",
+   "target": "class:core/src/upload_policy.cpp:RiffChunk",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:core/src/upload_policy.cpp",
+   "target": "function:core/src/upload_policy.cpp:parse_riff_chunk",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:core/src/upload_policy.cpp",
+   "target": "function:core/src/upload_policy.cpp:is_valid_wav_format_chunk",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:core/src/upload_policy.cpp",
+   "target": "function:core/src/upload_policy.cpp:is_wav_header",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:core/src/upload_policy.cpp",
+   "target": "function:core/src/upload_policy.cpp:is_flac_header",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:core/src/upload_policy.cpp",
+   "target": "function:core/src/upload_policy.cpp:is_m4a_header",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:core/src/upload_policy.cpp",
+   "target": "function:core/src/upload_policy.cpp:is_ape_header",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:core/src/upload_policy.cpp",
+   "target": "function:core/src/upload_policy.cpp:matches_audio_signature",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:core/src/upload_policy.cpp",
+   "target": "function:core/src/upload_policy.cpp:validate_audio_signature",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:core/src/upload_policy.cpp",
+   "target": "function:core/src/upload_policy.cpp:validate_audio_upload",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:core/src/upload_policy.cpp",
+   "target": "function:core/src/upload_policy.cpp:make_upload_validation_response",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "function:core/src/upload_setup.cpp:make_upload_setup",
+   "target": "function:core/src/upload_policy.cpp:validate_audio_signature",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:core/src/upload_setup.cpp:make_upload_setup",
+   "target": "function:core/src/upload_policy.cpp:make_upload_validation_response",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:core/src/upload_setup.cpp",
+   "target": "function:core/src/upload_setup.cpp:make_upload_setup",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  }
+ ]
+}

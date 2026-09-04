@@ -1,0 +1,22 @@
+{
+  "nodes": [
+    {
+      "id": "document:benchmark/README.md",
+      "type": "document",
+      "name": "benchmark/README.md",
+      "filePath": "benchmark/README.md",
+      "summary": "性能基准测试说明文档，介绍三类测试分层（Google Benchmark 微基准、模块级 QPS 并发阶梯测试、wrk 端到端 RPS 测试）及统一入口脚本 scripts/benchmark.sh。",
+      "tags": ["documentation", "benchmark", "performance", "testing"],
+      "complexity": "moderate"
+    }
+  ],
+  "edges": [
+    {
+      "source": "document:benchmark/README.md",
+      "target": "file:scripts/benchmark.sh",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    }
+  ]
+}

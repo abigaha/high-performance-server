@@ -1,0 +1,1234 @@
+{
+ "nodes": [
+  {
+   "id": "file:tests/fixtures/fail_socket.c",
+   "type": "file",
+   "name": "tests/fixtures/fail_socket.c",
+   "summary": "C 测试夹具，重写 socket() 系统调用，始终返回 EMFILE 错误，用于模拟文件描述符耗尽场景。",
+   "tags": [
+    "fixture",
+    "socket-failure",
+    "errno",
+    "emfile",
+    "testing"
+   ],
+   "complexity": "simple",
+   "filePath": "tests/fixtures/fail_socket.c"
+  },
+  {
+   "id": "file:tests/test_admin_bootstrap.cpp",
+   "type": "file",
+   "name": "tests/test_admin_bootstrap.cpp",
+   "summary": "管理后台引导流程的单元测试：覆盖管理员用户初始化、配置文件解析、数据库建表与种子数据写入。",
+   "tags": [
+    "admin-bootstrap",
+    "config",
+    "database-seed",
+    "gtest",
+    "unit-test"
+   ],
+   "complexity": "complex",
+   "filePath": "tests/test_admin_bootstrap.cpp"
+  },
+  {
+   "id": "file:tests/test_auth_service.cpp",
+   "type": "file",
+   "name": "tests/test_auth_service.cpp",
+   "summary": "认证服务的单元测试：使用 MockDatabasePool 覆盖注册、登录、HMAC-SHA256 token 生成、文件记录、音乐库与歌单数据访问。",
+   "tags": [
+    "auth-service",
+    "jwt-token",
+    "mock-database",
+    "music-library",
+    "playlist"
+   ],
+   "complexity": "complex",
+   "filePath": "tests/test_auth_service.cpp"
+  },
+  {
+   "id": "file:tests/test_authorization.cpp",
+   "type": "file",
+   "name": "tests/test_authorization.cpp",
+   "summary": "权限检查逻辑的单元测试：验证基于角色的访问控制与 token 过期判定。",
+   "tags": [
+    "authorization",
+    "rbac",
+    "token-expiry",
+    "gtest"
+   ],
+   "complexity": "simple",
+   "filePath": "tests/test_authorization.cpp"
+  },
+  {
+   "id": "file:tests/test_boost_mysql_connection.cpp",
+   "type": "file",
+   "name": "tests/test_boost_mysql_connection.cpp",
+   "summary": "Boost.MySQL 连接的协议级测试：手工构造握手包、解析客户端能力标志，并验证会话连接、查询与预处理语句守卫。",
+   "tags": [
+    "boost-mysql",
+    "protocol",
+    "handshake",
+    "prepared-statement",
+    "gtest"
+   ],
+   "complexity": "moderate",
+   "filePath": "tests/test_boost_mysql_connection.cpp"
+  },
+  {
+   "id": "file:tests/test_config.cpp",
+   "type": "file",
+   "name": "tests/test_config.cpp",
+   "summary": "配置加载的单元测试：覆盖配置文件读取、环境变量覆盖与默认值处理。",
+   "tags": [
+    "config",
+    "environment-variable",
+    "default-value",
+    "gtest"
+   ],
+   "complexity": "simple",
+   "filePath": "tests/test_config.cpp"
+  },
+  {
+   "id": "file:tests/test_coroutine_extreme.cpp",
+   "type": "file",
+   "name": "tests/test_coroutine_extreme.cpp",
+   "summary": "协程组件极端场景测试：验证移动语义、急/惰启动、void 与返回值协程的边界行为。",
+   "tags": [
+    "coroutine",
+    "edge-case",
+    "move-semantics",
+    "gtest"
+   ],
+   "complexity": "simple",
+   "filePath": "tests/test_coroutine_extreme.cpp"
+  },
+  {
+   "id": "file:tests/test_database_pool_stress.cpp",
+   "type": "file",
+   "name": "tests/test_database_pool_stress.cpp",
+   "summary": "数据库连接池压力测试：验证最大连接数限制、多线程并发取还连接的稳定性。",
+   "tags": [
+    "database-pool",
+    "stress-test",
+    "concurrency",
+    "connection"
+   ],
+   "complexity": "moderate",
+   "filePath": "tests/test_database_pool_stress.cpp"
+  },
+  {
+   "id": "file:tests/test_database_pool.cpp",
+   "type": "file",
+   "name": "tests/test_database_pool.cpp",
+   "summary": "数据库连接池的全面单元测试：覆盖数据模型字段、池生命周期、检出/归还模式、重试、超时、惰性工厂与多线程并发。",
+   "tags": [
+    "database-pool",
+    "data-model",
+    "retry",
+    "timeout",
+    "concurrency"
+   ],
+   "complexity": "complex",
+   "filePath": "tests/test_database_pool.cpp"
+  },
+  {
+   "id": "file:tests/test_file_system_stress.cpp",
+   "type": "file",
+   "name": "tests/test_file_system_stress.cpp",
+   "summary": "文件系统模块压力测试：多线程并发写入、读取、删除与文件哈希计算。",
+   "tags": [
+    "file-system",
+    "stress-test",
+    "concurrency",
+    "hash"
+   ],
+   "complexity": "simple",
+   "filePath": "tests/test_file_system_stress.cpp"
+  },
+  {
+   "id": "file:tests/test_file_transfer_stress.cpp",
+   "type": "file",
+   "name": "tests/test_file_transfer_stress.cpp",
+   "summary": "文件传输压力测试：通过回环 socket 模拟 TCP 服务器，验证分块传输协议在高并发下的正确性。",
+   "tags": [
+    "file-transfer",
+    "tcp",
+    "stress-test",
+    "chunk-header"
+   ],
+   "complexity": "complex",
+   "filePath": "tests/test_file_transfer_stress.cpp"
+  },
+  {
+   "id": "file:tests/test_http_parser_extreme.cpp",
+   "type": "file",
+   "name": "tests/test_http_parser_extreme.cpp",
+   "summary": "HTTP 解析器极端场景测试：畸形请求行、异常头部与大小边界等边缘输入。",
+   "tags": [
+    "http-parser",
+    "edge-case",
+    "malformed-input",
+    "gtest"
+   ],
+   "complexity": "moderate",
+   "filePath": "tests/test_http_parser_extreme.cpp"
+  },
+  {
+   "id": "file:tests/test_http_parser.cpp",
+   "type": "file",
+   "name": "tests/test_http_parser.cpp",
+   "summary": "HTTP 解析器的单元测试：请求行解析、头部字段、chunked 编码与常见边界情况。",
+   "tags": [
+    "http-parser",
+    "request-line",
+    "chunked-encoding",
+    "gtest"
+   ],
+   "complexity": "moderate",
+   "filePath": "tests/test_http_parser.cpp"
+  },
+  {
+   "id": "file:tests/test_http_request.cpp",
+   "type": "file",
+   "name": "tests/test_http_request.cpp",
+   "summary": "HTTP 请求对象的单元测试：验证方法、路径、头部访问器与请求体处理。",
+   "tags": [
+    "http-request",
+    "header",
+    "accessor",
+    "gtest"
+   ],
+   "complexity": "simple",
+   "filePath": "tests/test_http_request.cpp"
+  },
+  {
+   "id": "file:tests/test_http_server_stress.cpp",
+   "type": "file",
+   "name": "tests/test_http_server_stress.cpp",
+   "summary": "HTTP 服务器压力测试：多个并发客户端通过原始 socket 发起请求，验证服务器吞吐与连接处理稳定性。",
+   "tags": [
+    "http-server",
+    "stress-test",
+    "concurrency",
+    "raw-socket"
+   ],
+   "complexity": "complex",
+   "filePath": "tests/test_http_server_stress.cpp"
+  },
+  {
+   "id": "file:tests/test_http_server.cpp",
+   "type": "file",
+   "name": "tests/test_http_server.cpp",
+   "summary": "HTTP 服务器集成测试：认证流程、文件上传/下载、分片存储、Range 请求与上传清理流程。",
+   "tags": [
+    "http-server",
+    "upload",
+    "download",
+    "range-request",
+    "integration-test"
+   ],
+   "complexity": "complex",
+   "filePath": "tests/test_http_server.cpp"
+  },
+  {
+   "id": "file:tests/test_logger.cpp",
+   "type": "file",
+   "name": "tests/test_logger.cpp",
+   "summary": "日志模块的单元测试：验证日志级别过滤、输出格式与多线程写入。",
+   "tags": [
+    "logger",
+    "log-level",
+    "thread-safety",
+    "gtest"
+   ],
+   "complexity": "simple",
+   "filePath": "tests/test_logger.cpp"
+  },
+  {
+   "id": "file:tests/test_memory_pool_extreme.cpp",
+   "type": "file",
+   "name": "tests/test_memory_pool_extreme.cpp",
+   "summary": "分层内存池极端场景测试：对齐分配、内存复用与并发分配释放的边界行为。",
+   "tags": [
+    "memory-pool",
+    "alignment",
+    "reuse",
+    "edge-case",
+    "gtest"
+   ],
+   "complexity": "moderate",
+   "filePath": "tests/test_memory_pool_extreme.cpp"
+  },
+  {
+   "id": "function:tests/fixtures/fail_socket.c:socket",
+   "type": "function",
+   "name": "socket",
+   "summary": "重写 socket() 系统调用，置 errno 为 EMFILE 并返回 -1，模拟文件描述符耗尽时连接建立的失败路径。",
+   "tags": [
+    "socket",
+    "emfile",
+    "fixture",
+    "failure-injection"
+   ],
+   "complexity": "simple",
+   "lineRange": [
+    4,
+    10
+   ]
+  },
+  {
+   "id": "class:tests/test_admin_bootstrap.cpp:ScopedEnvironment",
+   "type": "class",
+   "name": "ScopedEnvironment",
+   "summary": "测试辅助类：保存并恢复单个环境变量，为引导测试隔离环境配置。",
+   "tags": [
+    "test-helper",
+    "environment-variable",
+    "raii"
+   ],
+   "complexity": "simple",
+   "lineRange": [
+    28,
+    50
+   ]
+  },
+  {
+   "id": "class:tests/test_admin_bootstrap.cpp:TempConfigFile",
+   "type": "class",
+   "name": "TempConfigFile",
+   "summary": "测试辅助类：在临时目录写入配置文件并在析构时清理。",
+   "tags": [
+    "test-helper",
+    "temp-file",
+    "raii"
+   ],
+   "complexity": "simple",
+   "lineRange": [
+    52,
+    81
+   ]
+  },
+  {
+   "id": "class:tests/test_admin_bootstrap.cpp:AdminDatabase",
+   "type": "class",
+   "name": "AdminDatabase",
+   "summary": "管理数据库测试封装：连接数据库、执行建表与管理员用户种子数据写入，供引导流程测试复用。",
+   "tags": [
+    "test-helper",
+    "admin-bootstrap",
+    "database",
+    "seeding"
+   ],
+   "complexity": "complex",
+   "lineRange": [
+    83,
+    188
+   ]
+  },
+  {
+   "id": "function:tests/test_admin_bootstrap.cpp:make_user",
+   "type": "function",
+   "name": "make_user",
+   "summary": "构造带密码哈希的管理员用户记录，用于验证种子写入结果。",
+   "tags": [
+    "test-helper",
+    "admin-user",
+    "password-hash"
+   ],
+   "complexity": "simple",
+   "lineRange": [
+    166,
+    176
+   ]
+  },
+  {
+   "id": "function:tests/test_admin_bootstrap.cpp:user_row",
+   "type": "function",
+   "name": "user_row",
+   "summary": "从用户表读取一行并断言字段值，用于核对引导后落库数据。",
+   "tags": [
+    "test-helper",
+    "database",
+    "assertion"
+   ],
+   "complexity": "simple",
+   "lineRange": [
+    178,
+    187
+   ]
+  },
+  {
+   "id": "class:tests/test_auth_service.cpp:MockDatabasePool",
+   "type": "class",
+   "name": "MockDatabasePool",
+   "summary": "DatabasePool 的内存替身：以 mock 连接实现用户、文件记录、音乐库与歌单的全部数据访问接口，供认证服务测试注入。",
+   "tags": [
+    "mock",
+    "database-pool",
+    "test-double"
+   ],
+   "complexity": "complex",
+   "lineRange": [
+    105,
+    272
+   ]
+  },
+  {
+   "id": "function:tests/test_auth_service.cpp:to_hex",
+   "type": "function",
+   "name": "to_hex",
+   "summary": "将二进制字节流转换为十六进制字符串，用于 token 与哈希断言。",
+   "tags": [
+    "binary-to-hex",
+    "hex-encoding",
+    "test-helper"
+   ],
+   "complexity": "simple",
+   "lineRange": [
+    27,
+    35
+   ]
+  },
+  {
+   "id": "function:tests/test_auth_service.cpp:hmac_sha256",
+   "type": "function",
+   "name": "hmac_sha256",
+   "summary": "基于 OpenSSL 计算 HMAC-SHA256 摘要，验证 token 签名逻辑。",
+   "tags": [
+    "hmac",
+    "sha256",
+    "openssl",
+    "test-helper"
+   ],
+   "complexity": "simple",
+   "lineRange": [
+    37,
+    48
+   ]
+  },
+  {
+   "id": "function:tests/test_auth_service.cpp:base64_encode",
+   "type": "function",
+   "name": "base64_encode",
+   "summary": "标准 base64 编码实现，用于构造与校验 JWT 风格 token。",
+   "tags": [
+    "base64",
+    "encoding",
+    "test-helper"
+   ],
+   "complexity": "simple",
+   "lineRange": [
+    50,
+    81
+   ]
+  },
+  {
+   "id": "function:tests/test_auth_service.cpp:make_token",
+   "type": "function",
+   "name": "make_token",
+   "summary": "组合 header.payload.signature 生成完整 token 字符串。",
+   "tags": [
+    "token",
+    "jwt",
+    "test-helper"
+   ],
+   "complexity": "simple",
+   "lineRange": [
+    83,
+    89
+   ]
+  },
+  {
+   "id": "function:tests/test_auth_service.cpp:make_user",
+   "type": "function",
+   "name": "make_user",
+   "summary": "构造注册用的用户输入记录（含密码与角色字段）。",
+   "tags": [
+    "test-helper",
+    "user-registration",
+    "auth-service"
+   ],
+   "complexity": "simple",
+   "lineRange": [
+    91,
+    101
+   ]
+  },
+  {
+   "id": "function:tests/test_authorization.cpp:make_user",
+   "type": "function",
+   "name": "make_user",
+   "summary": "构造带角色与到期时间的用户快照，供权限断言使用。",
+   "tags": [
+    "test-helper",
+    "rbac",
+    "user"
+   ],
+   "complexity": "simple",
+   "lineRange": [
+    12,
+    19
+   ]
+  },
+  {
+   "id": "class:tests/test_boost_mysql_connection.cpp:SessionConnection",
+   "type": "class",
+   "name": "SessionConnection",
+   "summary": "会话连接替身：模拟 connect、is_open、ping、query、execute 与 close 接口，供协议测试注入。",
+   "tags": [
+    "mock",
+    "mysql-session",
+    "test-double"
+   ],
+   "complexity": "moderate",
+   "lineRange": [
+    124,
+    152
+   ]
+  },
+  {
+   "id": "class:tests/test_boost_mysql_connection.cpp:PreparedStatementConnection",
+   "type": "class",
+   "name": "PreparedStatementConnection",
+   "summary": "预处理语句连接替身：封装 close_statement 调用并传递底层会话连接。",
+   "tags": [
+    "mock",
+    "prepared-statement",
+    "test-double"
+   ],
+   "complexity": "simple",
+   "lineRange": [
+    156,
+    167
+   ]
+  },
+  {
+   "id": "function:tests/test_boost_mysql_connection.cpp:make_server_greeting",
+   "type": "function",
+   "name": "make_server_greeting",
+   "summary": "手工拼装 MySQL 服务器握手包（含协议版本、能力标志与认证插件），驱动客户端连接解析路径。",
+   "tags": [
+    "mysql-protocol",
+    "handshake",
+    "packet"
+   ],
+   "complexity": "moderate",
+   "lineRange": [
+    46,
+    70
+   ]
+  },
+  {
+   "id": "function:tests/test_boost_mysql_connection.cpp:read_client_capabilities",
+   "type": "function",
+   "name": "read_client_capabilities",
+   "summary": "从客户端握手响应中解析能力标志位，验证连接协商逻辑。",
+   "tags": [
+    "mysql-protocol",
+    "capabilities",
+    "parse"
+   ],
+   "complexity": "moderate",
+   "lineRange": [
+    72,
+    86
+   ]
+  },
+  {
+   "id": "class:tests/test_config.cpp:ScopedEnvironment",
+   "type": "class",
+   "name": "ScopedEnvironment",
+   "summary": "测试辅助类：保存并恢复环境变量，隔离配置测试的环境依赖。",
+   "tags": [
+    "test-helper",
+    "environment-variable",
+    "raii"
+   ],
+   "complexity": "simple",
+   "lineRange": [
+    18,
+    48
+   ]
+  },
+  {
+   "id": "class:tests/test_config.cpp:TempConfigFile",
+   "type": "class",
+   "name": "TempConfigFile",
+   "summary": "测试辅助类：创建带内容的临时配置文件并在析构时清理。",
+   "tags": [
+    "test-helper",
+    "temp-file",
+    "raii"
+   ],
+   "complexity": "simple",
+   "lineRange": [
+    50,
+    72
+   ]
+  },
+  {
+   "id": "function:tests/test_config.cpp:load_test_config",
+   "type": "function",
+   "name": "load_test_config",
+   "summary": "通过 main_functions 的 load_config 加载临时配置，返回配置对象供断言。",
+   "tags": [
+    "config",
+    "environment-variable",
+    "test-helper"
+   ],
+   "complexity": "simple",
+   "lineRange": [
+    74,
+    81
+   ]
+  },
+  {
+   "id": "class:tests/test_database_pool.cpp:MockPool",
+   "type": "class",
+   "name": "MockPool",
+   "summary": "连接池测试封装：持有连接工厂、记录创建次数并暴露池对象，供各测试用例并发复用。",
+   "tags": [
+    "test-helper",
+    "database-pool",
+    "mock"
+   ],
+   "complexity": "moderate",
+   "lineRange": [
+    27,
+    49
+   ]
+  },
+  {
+   "id": "class:tests/test_file_system_stress.cpp:TempDir",
+   "type": "class",
+   "name": "TempDir",
+   "summary": "测试辅助类：创建临时目录，提供文件路径与写入工具，析构时递归清理。",
+   "tags": [
+    "test-helper",
+    "temp-dir",
+    "raii"
+   ],
+   "complexity": "simple",
+   "lineRange": [
+    21,
+    46
+   ]
+  },
+  {
+   "id": "class:tests/test_file_transfer_stress.cpp:TempDir",
+   "type": "class",
+   "name": "TempDir",
+   "summary": "测试辅助类：创建临时目录，提供文件路径与写入工具，析构时递归清理。",
+   "tags": [
+    "test-helper",
+    "temp-dir",
+    "raii"
+   ],
+   "complexity": "simple",
+   "lineRange": [
+    38,
+    63
+   ]
+  },
+  {
+   "id": "function:tests/test_file_transfer_stress.cpp:create_listener",
+   "type": "function",
+   "name": "create_listener",
+   "summary": "创建并绑定回环 TCP 监听 socket，返回监听器供压力测试建立连接。",
+   "tags": [
+    "tcp",
+    "listener",
+    "socket",
+    "test-helper"
+   ],
+   "complexity": "moderate",
+   "lineRange": [
+    65,
+    92
+   ]
+  },
+  {
+   "id": "function:tests/test_file_transfer_stress.cpp:simple_echo_server",
+   "type": "function",
+   "name": "simple_echo_server",
+   "summary": "回显 TCP 服务线程：接收字节并原样写回，模拟对端服务。",
+   "tags": [
+    "tcp",
+    "echo-server",
+    "thread",
+    "test-helper"
+   ],
+   "complexity": "moderate",
+   "lineRange": [
+    94,
+    107
+   ]
+  },
+  {
+   "id": "function:tests/test_file_transfer_stress.cpp:recv_all",
+   "type": "function",
+   "name": "recv_all",
+   "summary": "循环接收直到读满指定字节数，验证分块传输数据完整性。",
+   "tags": [
+    "tcp",
+    "recv",
+    "test-helper"
+   ],
+   "complexity": "simple",
+   "lineRange": [
+    109,
+    119
+   ]
+  },
+  {
+   "id": "function:tests/test_http_server_stress.cpp:send_raw",
+   "type": "function",
+   "name": "send_raw",
+   "summary": "通过原始 socket 发送完整 HTTP 请求并读取响应，绕过高层客户端库。",
+   "tags": [
+    "http",
+    "raw-socket",
+    "test-helper"
+   ],
+   "complexity": "simple",
+   "lineRange": [
+    16,
+    27
+   ]
+  },
+  {
+   "id": "class:tests/test_http_server.cpp:MockAuthService",
+   "type": "class",
+   "name": "MockAuthService",
+   "summary": "认证服务替身：通过可注入回调的 validate_token/generate_token 模拟认证成功与失败路径。",
+   "tags": [
+    "mock",
+    "auth-service",
+    "test-double"
+   ],
+   "complexity": "moderate",
+   "lineRange": [
+    27,
+    54
+   ]
+  },
+  {
+   "id": "class:tests/test_http_server.cpp:UploadSetupFileSystem",
+   "type": "class",
+   "name": "UploadSetupFileSystem",
+   "summary": "上传文件系统替身：以内存记录替换真实分片存储与哈希计算，驱动上传设置流程测试。",
+   "tags": [
+    "mock",
+    "file-system",
+    "upload",
+    "test-double"
+   ],
+   "complexity": "moderate",
+   "lineRange": [
+    65,
+    102
+   ]
+  },
+  {
+   "id": "function:tests/test_http_server.cpp:send_raw",
+   "type": "function",
+   "name": "send_raw",
+   "summary": "通过原始 socket 发送 HTTP 请求并读取响应，用于协议级断言。",
+   "tags": [
+    "http",
+    "raw-socket",
+    "test-helper"
+   ],
+   "complexity": "simple",
+   "lineRange": [
+    302,
+    313
+   ]
+  }
+ ],
+ "edges": [
+  {
+   "source": "file:tests/fixtures/fail_socket.c",
+   "target": "function:tests/fixtures/fail_socket.c:socket",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "file:tests/test_admin_bootstrap.cpp",
+   "target": "class:tests/test_admin_bootstrap.cpp:ScopedEnvironment",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "file:tests/test_admin_bootstrap.cpp",
+   "target": "class:tests/test_admin_bootstrap.cpp:TempConfigFile",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "file:tests/test_admin_bootstrap.cpp",
+   "target": "class:tests/test_admin_bootstrap.cpp:AdminDatabase",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "file:tests/test_admin_bootstrap.cpp",
+   "target": "function:tests/test_admin_bootstrap.cpp:make_user",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "file:tests/test_admin_bootstrap.cpp",
+   "target": "function:tests/test_admin_bootstrap.cpp:user_row",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "file:tests/test_auth_service.cpp",
+   "target": "class:tests/test_auth_service.cpp:MockDatabasePool",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "file:tests/test_auth_service.cpp",
+   "target": "function:tests/test_auth_service.cpp:to_hex",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "file:tests/test_auth_service.cpp",
+   "target": "function:tests/test_auth_service.cpp:hmac_sha256",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "file:tests/test_auth_service.cpp",
+   "target": "function:tests/test_auth_service.cpp:base64_encode",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "file:tests/test_auth_service.cpp",
+   "target": "function:tests/test_auth_service.cpp:make_token",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "file:tests/test_auth_service.cpp",
+   "target": "function:tests/test_auth_service.cpp:make_user",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "file:tests/test_authorization.cpp",
+   "target": "function:tests/test_authorization.cpp:make_user",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "file:tests/test_boost_mysql_connection.cpp",
+   "target": "class:tests/test_boost_mysql_connection.cpp:SessionConnection",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "file:tests/test_boost_mysql_connection.cpp",
+   "target": "class:tests/test_boost_mysql_connection.cpp:PreparedStatementConnection",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "file:tests/test_boost_mysql_connection.cpp",
+   "target": "function:tests/test_boost_mysql_connection.cpp:make_server_greeting",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "file:tests/test_boost_mysql_connection.cpp",
+   "target": "function:tests/test_boost_mysql_connection.cpp:read_client_capabilities",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "file:tests/test_config.cpp",
+   "target": "class:tests/test_config.cpp:ScopedEnvironment",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "file:tests/test_config.cpp",
+   "target": "class:tests/test_config.cpp:TempConfigFile",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "file:tests/test_config.cpp",
+   "target": "function:tests/test_config.cpp:load_test_config",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "file:tests/test_database_pool.cpp",
+   "target": "class:tests/test_database_pool.cpp:MockPool",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "file:tests/test_file_system_stress.cpp",
+   "target": "class:tests/test_file_system_stress.cpp:TempDir",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "file:tests/test_file_transfer_stress.cpp",
+   "target": "class:tests/test_file_transfer_stress.cpp:TempDir",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "file:tests/test_file_transfer_stress.cpp",
+   "target": "function:tests/test_file_transfer_stress.cpp:create_listener",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "file:tests/test_file_transfer_stress.cpp",
+   "target": "function:tests/test_file_transfer_stress.cpp:simple_echo_server",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "file:tests/test_file_transfer_stress.cpp",
+   "target": "function:tests/test_file_transfer_stress.cpp:recv_all",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "file:tests/test_http_server_stress.cpp",
+   "target": "function:tests/test_http_server_stress.cpp:send_raw",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "file:tests/test_http_server.cpp",
+   "target": "class:tests/test_http_server.cpp:MockAuthService",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "file:tests/test_http_server.cpp",
+   "target": "class:tests/test_http_server.cpp:UploadSetupFileSystem",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "file:tests/test_http_server.cpp",
+   "target": "function:tests/test_http_server.cpp:send_raw",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "file:tests/fixtures/fail_socket.c",
+   "target": "function:tests/fixtures/fail_socket.c:socket",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:core/src/admin_bootstrap.cpp",
+   "target": "file:tests/test_admin_bootstrap.cpp",
+   "type": "tested_by",
+   "direction": "forward",
+   "weight": 0.5
+  },
+  {
+   "source": "file:core/src/auth_service.cpp",
+   "target": "file:tests/test_admin_bootstrap.cpp",
+   "type": "tested_by",
+   "direction": "forward",
+   "weight": 0.5
+  },
+  {
+   "source": "file:db/src/database_pool.cpp",
+   "target": "file:tests/test_admin_bootstrap.cpp",
+   "type": "tested_by",
+   "direction": "forward",
+   "weight": 0.5
+  },
+  {
+   "source": "file:core/src/auth_service.cpp",
+   "target": "file:tests/test_auth_service.cpp",
+   "type": "tested_by",
+   "direction": "forward",
+   "weight": 0.5
+  },
+  {
+   "source": "file:db/src/database_pool.cpp",
+   "target": "file:tests/test_auth_service.cpp",
+   "type": "tested_by",
+   "direction": "forward",
+   "weight": 0.5
+  },
+  {
+   "source": "file:db/include/db_config.h",
+   "target": "file:tests/test_auth_service.cpp",
+   "type": "tested_by",
+   "direction": "forward",
+   "weight": 0.5
+  },
+  {
+   "source": "file:core/include/api_datetime.h",
+   "target": "file:tests/test_auth_service.cpp",
+   "type": "tested_by",
+   "direction": "forward",
+   "weight": 0.5
+  },
+  {
+   "source": "file:core/src/authorization.cpp",
+   "target": "file:tests/test_authorization.cpp",
+   "type": "tested_by",
+   "direction": "forward",
+   "weight": 0.5
+  },
+  {
+   "source": "file:db/src/boost_mysql_connection.cpp",
+   "target": "file:tests/test_boost_mysql_connection.cpp",
+   "type": "tested_by",
+   "direction": "forward",
+   "weight": 0.5
+  },
+  {
+   "source": "file:db/include/prepared_statement_guard.h",
+   "target": "file:tests/test_boost_mysql_connection.cpp",
+   "type": "tested_by",
+   "direction": "forward",
+   "weight": 0.5
+  },
+  {
+   "source": "file:db/include/db_config.h",
+   "target": "file:tests/test_boost_mysql_connection.cpp",
+   "type": "tested_by",
+   "direction": "forward",
+   "weight": 0.5
+  },
+  {
+   "source": "file:core/src/config.cpp",
+   "target": "file:tests/test_config.cpp",
+   "type": "tested_by",
+   "direction": "forward",
+   "weight": 0.5
+  },
+  {
+   "source": "file:net/coroutine/coroitem.hpp",
+   "target": "file:tests/test_coroutine_extreme.cpp",
+   "type": "tested_by",
+   "direction": "forward",
+   "weight": 0.5
+  },
+  {
+   "source": "file:db/src/database_pool.cpp",
+   "target": "file:tests/test_database_pool_stress.cpp",
+   "type": "tested_by",
+   "direction": "forward",
+   "weight": 0.5
+  },
+  {
+   "source": "file:db/include/iconnection.h",
+   "target": "file:tests/test_database_pool_stress.cpp",
+   "type": "tested_by",
+   "direction": "forward",
+   "weight": 0.5
+  },
+  {
+   "source": "file:db/include/db_config.h",
+   "target": "file:tests/test_database_pool_stress.cpp",
+   "type": "tested_by",
+   "direction": "forward",
+   "weight": 0.5
+  },
+  {
+   "source": "file:db/src/database_pool.cpp",
+   "target": "file:tests/test_database_pool.cpp",
+   "type": "tested_by",
+   "direction": "forward",
+   "weight": 0.5
+  },
+  {
+   "source": "file:db/include/models.h",
+   "target": "file:tests/test_database_pool.cpp",
+   "type": "tested_by",
+   "direction": "forward",
+   "weight": 0.5
+  },
+  {
+   "source": "file:db/include/iconnection.h",
+   "target": "file:tests/test_database_pool.cpp",
+   "type": "tested_by",
+   "direction": "forward",
+   "weight": 0.5
+  },
+  {
+   "source": "file:db/include/db_config.h",
+   "target": "file:tests/test_database_pool.cpp",
+   "type": "tested_by",
+   "direction": "forward",
+   "weight": 0.5
+  },
+  {
+   "source": "file:file-system/src/file_system.cpp",
+   "target": "file:tests/test_file_system_stress.cpp",
+   "type": "tested_by",
+   "direction": "forward",
+   "weight": 0.5
+  },
+  {
+   "source": "file:net/file-transfer/src/file_transfer.cpp",
+   "target": "file:tests/test_file_transfer_stress.cpp",
+   "type": "tested_by",
+   "direction": "forward",
+   "weight": 0.5
+  },
+  {
+   "source": "file:net/tcp/tcp_client/src/tcp_client.cpp",
+   "target": "file:tests/test_file_transfer_stress.cpp",
+   "type": "tested_by",
+   "direction": "forward",
+   "weight": 0.5
+  },
+  {
+   "source": "file:net/http/src/http_parser.cpp",
+   "target": "file:tests/test_http_parser_extreme.cpp",
+   "type": "tested_by",
+   "direction": "forward",
+   "weight": 0.5
+  },
+  {
+   "source": "file:net/http/src/http_parser.cpp",
+   "target": "file:tests/test_http_parser.cpp",
+   "type": "tested_by",
+   "direction": "forward",
+   "weight": 0.5
+  },
+  {
+   "source": "file:net/http/src/http_request.cpp",
+   "target": "file:tests/test_http_request.cpp",
+   "type": "tested_by",
+   "direction": "forward",
+   "weight": 0.5
+  },
+  {
+   "source": "file:net/http/src/http_server.cpp",
+   "target": "file:tests/test_http_server_stress.cpp",
+   "type": "tested_by",
+   "direction": "forward",
+   "weight": 0.5
+  },
+  {
+   "source": "file:net/tcp/tcp_client/src/tcp_client.cpp",
+   "target": "file:tests/test_http_server_stress.cpp",
+   "type": "tested_by",
+   "direction": "forward",
+   "weight": 0.5
+  },
+  {
+   "source": "file:net/http/src/http_server.cpp",
+   "target": "file:tests/test_http_server.cpp",
+   "type": "tested_by",
+   "direction": "forward",
+   "weight": 0.5
+  },
+  {
+   "source": "file:core/src/auth_service.cpp",
+   "target": "file:tests/test_http_server.cpp",
+   "type": "tested_by",
+   "direction": "forward",
+   "weight": 0.5
+  },
+  {
+   "source": "file:db/src/database_pool.cpp",
+   "target": "file:tests/test_http_server.cpp",
+   "type": "tested_by",
+   "direction": "forward",
+   "weight": 0.5
+  },
+  {
+   "source": "file:net/thread-pool/src/thread_pool.cpp",
+   "target": "file:tests/test_http_server.cpp",
+   "type": "tested_by",
+   "direction": "forward",
+   "weight": 0.5
+  },
+  {
+   "source": "file:core/src/upload_setup.cpp",
+   "target": "file:tests/test_http_server.cpp",
+   "type": "tested_by",
+   "direction": "forward",
+   "weight": 0.5
+  },
+  {
+   "source": "file:core/src/upload_policy.cpp",
+   "target": "file:tests/test_http_server.cpp",
+   "type": "tested_by",
+   "direction": "forward",
+   "weight": 0.5
+  },
+  {
+   "source": "file:core/src/pending_chunk_deletions.cpp",
+   "target": "file:tests/test_http_server.cpp",
+   "type": "tested_by",
+   "direction": "forward",
+   "weight": 0.5
+  },
+  {
+   "source": "file:logger/src/logger.cpp",
+   "target": "file:tests/test_logger.cpp",
+   "type": "tested_by",
+   "direction": "forward",
+   "weight": 0.5
+  },
+  {
+   "source": "file:memory-pool/src/tiered_memory_pool.cpp",
+   "target": "file:tests/test_memory_pool_extreme.cpp",
+   "type": "tested_by",
+   "direction": "forward",
+   "weight": 0.5
+  },
+  {
+   "source": "file:memory-pool/include/memory_pool_factory.h",
+   "target": "file:tests/test_memory_pool_extreme.cpp",
+   "type": "tested_by",
+   "direction": "forward",
+   "weight": 0.5
+  }
+ ]
+}

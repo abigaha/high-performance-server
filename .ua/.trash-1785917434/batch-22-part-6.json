@@ -1,0 +1,559 @@
+{
+  "nodes": [
+    {
+      "id": "function:db/src/database_pool.cpp:list_music_library",
+      "type": "function",
+      "name": "list_music_library",
+      "summary": "音乐库分页查询：支持关键词搜索与类型过滤，返回曲目列表与总数。",
+      "tags": ["music", "library", "pagination", "dao"],
+      "complexity": "complex",
+      "lineRange": "1535-1620"
+    },
+    {
+      "id": "function:db/src/database_pool.cpp:get_music_meta",
+      "type": "function",
+      "name": "get_music_meta",
+      "summary": "按音乐 ID 查询音乐元数据，解析标题、艺术家、时长等字段。",
+      "tags": ["music", "query", "meta"],
+      "complexity": "moderate",
+      "lineRange": "1622-1655"
+    },
+    {
+      "id": "function:db/src/database_pool.cpp:get_music_by_file_id",
+      "type": "function",
+      "name": "get_music_by_file_id",
+      "summary": "按文件 ID 查询音乐元数据，用于文件与音乐关联解析。",
+      "tags": ["music", "query", "file"],
+      "complexity": "moderate",
+      "lineRange": "1657-1692"
+    },
+    {
+      "id": "function:db/src/database_pool.cpp:create_music_meta",
+      "type": "function",
+      "name": "create_music_meta",
+      "summary": "插入音乐元数据记录，返回新音乐 ID。",
+      "tags": ["music", "insert", "meta"],
+      "complexity": "moderate",
+      "lineRange": "1694-1717"
+    },
+    {
+      "id": "function:db/src/database_pool.cpp:update_music_meta",
+      "type": "function",
+      "name": "update_music_meta",
+      "summary": "更新音乐元数据字段，返回是否更新成功。",
+      "tags": ["music", "update", "meta"],
+      "complexity": "moderate",
+      "lineRange": "1719-1738"
+    },
+    {
+      "id": "function:db/src/database_pool.cpp:delete_music_meta",
+      "type": "function",
+      "name": "delete_music_meta",
+      "summary": "删除音乐元数据并清理其歌单条目引用。",
+      "tags": ["music", "delete", "cleanup"],
+      "complexity": "moderate",
+      "lineRange": "1740-1757"
+    },
+    {
+      "id": "function:db/src/database_pool.cpp:get_user_playlists",
+      "type": "function",
+      "name": "get_user_playlists",
+      "summary": "查询用户歌单列表（含所有者的私有校验），返回歌单集合。",
+      "tags": ["playlist", "list", "user"],
+      "complexity": "moderate",
+      "lineRange": "1759-1798"
+    },
+    {
+      "id": "function:db/src/database_pool.cpp:create_playlist",
+      "type": "function",
+      "name": "create_playlist",
+      "summary": "创建歌单：校验文本合法性，事务内插入并返回新歌单。",
+      "tags": ["playlist", "create", "transaction"],
+      "complexity": "complex",
+      "lineRange": "1800-1843"
+    },
+    {
+      "id": "function:db/src/database_pool.cpp:update_playlist",
+      "type": "function",
+      "name": "update_playlist",
+      "summary": "更新歌单名称与描述：加锁校验所有权后修改，并返回最新歌单。",
+      "tags": ["playlist", "update", "ownership"],
+      "complexity": "complex",
+      "lineRange": "1845-1882"
+    },
+    {
+      "id": "function:db/src/database_pool.cpp:delete_playlist",
+      "type": "function",
+      "name": "delete_playlist",
+      "summary": "删除歌单：加锁校验所有权后删除歌单及其全部条目。",
+      "tags": ["playlist", "delete", "ownership"],
+      "complexity": "moderate",
+      "lineRange": "1884-1908"
+    },
+    {
+      "id": "function:db/src/database_pool.cpp:get_playlist_items",
+      "type": "function",
+      "name": "get_playlist_items",
+      "summary": "读取歌单条目并关联音乐信息，返回带元数据的条目列表。",
+      "tags": ["playlist", "items", "query"],
+      "complexity": "complex",
+      "lineRange": "1912-1972"
+    },
+    {
+      "id": "function:db/src/database_pool.cpp:add_playlist_item",
+      "type": "function",
+      "name": "add_playlist_item",
+      "summary": "向歌单添加曲目：加锁校验所有权与重复项后追加并重新排序。",
+      "tags": ["playlist", "add", "item"],
+      "complexity": "complex",
+      "lineRange": "1976-2030"
+    },
+    {
+      "id": "function:db/src/database_pool.cpp:remove_playlist_item",
+      "type": "function",
+      "name": "remove_playlist_item",
+      "summary": "从歌单移除曲目：加锁校验后删除条目并调整剩余排序。",
+      "tags": ["playlist", "remove", "item"],
+      "complexity": "complex",
+      "lineRange": "2034-2085"
+    },
+    {
+      "id": "function:db/src/database_pool.cpp:reorder_playlist_items",
+      "type": "function",
+      "name": "reorder_playlist_items",
+      "summary": "重排歌单曲目：校验请求曲目集合与歌单一致后更新排序号。",
+      "tags": ["playlist", "reorder", "ordering"],
+      "complexity": "complex",
+      "lineRange": "2087-2126"
+    }
+  ],
+  "edges": [
+    {
+      "source": "file:db/src/database_pool.cpp",
+      "target": "function:db/src/database_pool.cpp:list_music_library",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:db/src/database_pool.cpp",
+      "target": "function:db/src/database_pool.cpp:get_music_meta",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:db/src/database_pool.cpp",
+      "target": "function:db/src/database_pool.cpp:get_music_by_file_id",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:db/src/database_pool.cpp",
+      "target": "function:db/src/database_pool.cpp:create_music_meta",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:db/src/database_pool.cpp",
+      "target": "function:db/src/database_pool.cpp:update_music_meta",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:db/src/database_pool.cpp",
+      "target": "function:db/src/database_pool.cpp:delete_music_meta",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:db/src/database_pool.cpp",
+      "target": "function:db/src/database_pool.cpp:get_user_playlists",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:db/src/database_pool.cpp",
+      "target": "function:db/src/database_pool.cpp:create_playlist",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:db/src/database_pool.cpp",
+      "target": "function:db/src/database_pool.cpp:update_playlist",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:db/src/database_pool.cpp",
+      "target": "function:db/src/database_pool.cpp:delete_playlist",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:db/src/database_pool.cpp",
+      "target": "function:db/src/database_pool.cpp:get_playlist_items",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:db/src/database_pool.cpp",
+      "target": "function:db/src/database_pool.cpp:add_playlist_item",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:db/src/database_pool.cpp",
+      "target": "function:db/src/database_pool.cpp:remove_playlist_item",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:db/src/database_pool.cpp",
+      "target": "function:db/src/database_pool.cpp:reorder_playlist_items",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:db/src/database_pool.cpp",
+      "target": "function:db/src/database_pool.cpp:list_music_library",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:db/src/database_pool.cpp",
+      "target": "function:db/src/database_pool.cpp:get_music_meta",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:db/src/database_pool.cpp",
+      "target": "function:db/src/database_pool.cpp:get_music_by_file_id",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:db/src/database_pool.cpp",
+      "target": "function:db/src/database_pool.cpp:create_music_meta",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:db/src/database_pool.cpp",
+      "target": "function:db/src/database_pool.cpp:update_music_meta",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:db/src/database_pool.cpp",
+      "target": "function:db/src/database_pool.cpp:delete_music_meta",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:db/src/database_pool.cpp",
+      "target": "function:db/src/database_pool.cpp:get_user_playlists",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:db/src/database_pool.cpp",
+      "target": "function:db/src/database_pool.cpp:create_playlist",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:db/src/database_pool.cpp",
+      "target": "function:db/src/database_pool.cpp:update_playlist",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:db/src/database_pool.cpp",
+      "target": "function:db/src/database_pool.cpp:delete_playlist",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:db/src/database_pool.cpp",
+      "target": "function:db/src/database_pool.cpp:get_playlist_items",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:db/src/database_pool.cpp",
+      "target": "function:db/src/database_pool.cpp:add_playlist_item",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:db/src/database_pool.cpp",
+      "target": "function:db/src/database_pool.cpp:remove_playlist_item",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:db/src/database_pool.cpp",
+      "target": "function:db/src/database_pool.cpp:reorder_playlist_items",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:db/src/database_pool.cpp:list_music_library",
+      "target": "function:db/src/database_pool.cpp:get_connection",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:db/src/database_pool.cpp:list_music_library",
+      "target": "function:db/src/database_pool.cpp:release_connection",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:db/src/database_pool.cpp:get_music_meta",
+      "target": "function:db/src/database_pool.cpp:get_connection",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:db/src/database_pool.cpp:get_music_meta",
+      "target": "function:db/src/database_pool.cpp:release_connection",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:db/src/database_pool.cpp:get_music_by_file_id",
+      "target": "function:db/src/database_pool.cpp:get_connection",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:db/src/database_pool.cpp:get_music_by_file_id",
+      "target": "function:db/src/database_pool.cpp:release_connection",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:db/src/database_pool.cpp:create_music_meta",
+      "target": "function:db/src/database_pool.cpp:get_connection",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:db/src/database_pool.cpp:create_music_meta",
+      "target": "function:db/src/database_pool.cpp:release_connection",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:db/src/database_pool.cpp:update_music_meta",
+      "target": "function:db/src/database_pool.cpp:get_connection",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:db/src/database_pool.cpp:update_music_meta",
+      "target": "function:db/src/database_pool.cpp:release_connection",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:db/src/database_pool.cpp:delete_music_meta",
+      "target": "function:db/src/database_pool.cpp:get_connection",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:db/src/database_pool.cpp:delete_music_meta",
+      "target": "function:db/src/database_pool.cpp:release_connection",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:db/src/database_pool.cpp:get_user_playlists",
+      "target": "function:db/src/database_pool.cpp:get_connection",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:db/src/database_pool.cpp:get_user_playlists",
+      "target": "function:db/src/database_pool.cpp:release_connection",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:db/src/database_pool.cpp:create_playlist",
+      "target": "function:db/src/database_pool.cpp:with_connection",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:db/src/database_pool.cpp:create_playlist",
+      "target": "function:db/src/database_pool.cpp:read_playlist",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:db/src/database_pool.cpp:update_playlist",
+      "target": "function:db/src/database_pool.cpp:with_connection",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:db/src/database_pool.cpp:update_playlist",
+      "target": "function:db/src/database_pool.cpp:lock_playlist_owner",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:db/src/database_pool.cpp:update_playlist",
+      "target": "function:db/src/database_pool.cpp:lock_playlist_items",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:db/src/database_pool.cpp:update_playlist",
+      "target": "function:db/src/database_pool.cpp:read_playlist",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:db/src/database_pool.cpp:delete_playlist",
+      "target": "function:db/src/database_pool.cpp:with_connection",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:db/src/database_pool.cpp:delete_playlist",
+      "target": "function:db/src/database_pool.cpp:lock_playlist_owner",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:db/src/database_pool.cpp:delete_playlist",
+      "target": "function:db/src/database_pool.cpp:lock_playlist_items",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:db/src/database_pool.cpp:get_playlist_items",
+      "target": "function:db/src/database_pool.cpp:with_connection",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:db/src/database_pool.cpp:add_playlist_item",
+      "target": "function:db/src/database_pool.cpp:with_connection",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:db/src/database_pool.cpp:add_playlist_item",
+      "target": "function:db/src/database_pool.cpp:lock_playlist_owner",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:db/src/database_pool.cpp:add_playlist_item",
+      "target": "function:db/src/database_pool.cpp:lock_playlist_items",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:db/src/database_pool.cpp:remove_playlist_item",
+      "target": "function:db/src/database_pool.cpp:with_connection",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:db/src/database_pool.cpp:remove_playlist_item",
+      "target": "function:db/src/database_pool.cpp:lock_playlist_owner",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:db/src/database_pool.cpp:remove_playlist_item",
+      "target": "function:db/src/database_pool.cpp:lock_playlist_items",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:db/src/database_pool.cpp:reorder_playlist_items",
+      "target": "function:db/src/database_pool.cpp:with_connection",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:db/src/database_pool.cpp:reorder_playlist_items",
+      "target": "function:db/src/database_pool.cpp:lock_playlist_owner",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:db/src/database_pool.cpp:reorder_playlist_items",
+      "target": "function:db/src/database_pool.cpp:lock_playlist_items",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    }
+  ]
+}

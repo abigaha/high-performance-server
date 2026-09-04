@@ -1,0 +1,300 @@
+{
+  "nodes": [
+    {
+      "id": "file:net/thread-pool/include/lock_free_queue.hpp",
+      "type": "file",
+      "name": "lock_free_queue.hpp",
+      "summary": "基于版本化索引与 CAS 原子操作的有界无锁环形队列模板头文件，容量要求为 2 的幂减一，提供阻塞与 try 版本的入队出队接口，并支持 std::stop_token 停止请求。",
+      "tags": ["lock-free-queue", "atomic", "concurrent", "template", "ring-buffer"],
+      "complexity": "complex",
+      "filePath": "net/thread-pool/include/lock_free_queue.hpp"
+    },
+    {
+      "id": "class:net/thread-pool/include/lock_free_queue.hpp:LockFreeQueue",
+      "type": "class",
+      "name": "LockFreeQueue",
+      "summary": "MPMC 有界无锁队列模板类，head/tail 索引嵌入版本号配合 CAS 解决 ABA 问题，使用状态数组区分 EMPTY/PUSHED/POPPING/ABORTING 状态，支持构造异常回滚与停止令牌。",
+      "tags": ["lock-free", "cas", "mpmc", "stop-token", "template"],
+      "complexity": "complex",
+      "lineRange": "14-71"
+    },
+    {
+      "id": "function:net/thread-pool/include/lock_free_queue.hpp:LockFreeQueue",
+      "type": "function",
+      "name": "LockFreeQueue",
+      "summary": "构造函数，按容量分配环形缓冲区并初始化全部状态槽为 EMPTY，同时建立停止令牌。",
+      "tags": ["constructor", "allocator", "ring-buffer"],
+      "complexity": "simple",
+      "lineRange": "74-86"
+    },
+    {
+      "id": "function:net/thread-pool/include/lock_free_queue.hpp:~LockFreeQueue",
+      "type": "function",
+      "name": "~LockFreeQueue",
+      "summary": "析构函数，遍历排空缓冲区中尚未消费的元素并销毁对象，最后释放缓冲区内存。",
+      "tags": ["destructor", "drain", "deallocate"],
+      "complexity": "simple",
+      "lineRange": "88-99"
+    },
+    {
+      "id": "function:net/thread-pool/include/lock_free_queue.hpp:emplace",
+      "type": "function",
+      "name": "emplace",
+      "summary": "无锁入队核心实现，通过 CAS 推进 tail 索引并等待槽位状态可写后原地构造元素，构造异常时回滚为 ABORTING 状态，支持停止请求中断。",
+      "tags": ["enqueue", "cas", "state-machine", "stop-token"],
+      "complexity": "complex",
+      "lineRange": "119-150"
+    },
+    {
+      "id": "function:net/thread-pool/include/lock_free_queue.hpp:push",
+      "type": "function",
+      "name": "push",
+      "summary": "push 重载集合，将左值或右值引用转发给 emplace 完成入队。",
+      "tags": ["enqueue", "forwarding", "overload"],
+      "complexity": "simple",
+      "lineRange": "152-161"
+    },
+    {
+      "id": "function:net/thread-pool/include/lock_free_queue.hpp:pop",
+      "type": "function",
+      "name": "pop",
+      "summary": "阻塞出队实现，通过 CAS 推进 head 索引并等待元素状态为 PUSHED 后移出并销毁，处理 ABORTING 状态与停止请求。",
+      "tags": ["dequeue", "cas", "blocking", "state-machine"],
+      "complexity": "complex",
+      "lineRange": "164-204"
+    },
+    {
+      "id": "function:net/thread-pool/include/lock_free_queue.hpp:try_pop",
+      "type": "function",
+      "name": "try_pop",
+      "summary": "非阻塞出队实现，队列为空或 CAS 竞争失败时立即返回 false，仅在槽位状态异常或停止请求时提前终止。",
+      "tags": ["dequeue", "non-blocking", "cas"],
+      "complexity": "moderate",
+      "lineRange": "207-237"
+    },
+    {
+      "id": "file:net/thread-pool/include/locked_thread_pool.h",
+      "type": "file",
+      "name": "locked_thread_pool.h",
+      "summary": "基于互斥锁与条件变量实现的线程池头文件，LockedThreadPool 通过 CRTP 继承 ThreadPoolBase，使用 std::queue 与 MoveOnlyFunction 存储任务。",
+      "tags": ["thread-pool", "mutex", "condition-variable", "crtp"],
+      "complexity": "simple",
+      "filePath": "net/thread-pool/include/locked_thread_pool.h"
+    },
+    {
+      "id": "class:net/thread-pool/include/locked_thread_pool.h:LockedThreadPool",
+      "type": "class",
+      "name": "LockedThreadPool",
+      "summary": "互斥锁保护的线程池类，以互斥锁与条件变量同步任务队列与 pending 计数，向 ThreadPoolBase 的 CRTP 接口提供 enqueue/wait/stop 实现。",
+      "tags": ["thread-pool", "mutex", "condition-variable", "crtp"],
+      "complexity": "moderate",
+      "lineRange": "19-45"
+    },
+    {
+      "id": "function:net/thread-pool/include/locked_thread_pool.h:enqueue_impl",
+      "type": "function",
+      "name": "enqueue_impl",
+      "summary": "模板入队实现，捕获参数打包为 MoveOnlyFunction 后加锁写入任务队列，递增 pending 计数并唤醒一个工作线程，停止后直接丢弃任务。",
+      "tags": ["enqueue", "move-only-function", "locking"],
+      "complexity": "simple",
+      "lineRange": "47-60"
+    },
+    {
+      "id": "file:net/thread-pool/include/thread_pool.h",
+      "type": "file",
+      "name": "thread_pool.h",
+      "summary": "基于无锁队列的线程池头文件，LockFreeThreadPool 以 LockFreeQueue<MoveOnlyFunction, 65535> 作为无锁任务队列，条件变量仅负责工作可用性与生命周期同步。",
+      "tags": ["thread-pool", "lock-free", "crtp", "task-queue"],
+      "complexity": "moderate",
+      "filePath": "net/thread-pool/include/thread_pool.h"
+    },
+    {
+      "id": "class:net/thread-pool/include/thread_pool.h:LockFreeThreadPool",
+      "type": "class",
+      "name": "LockFreeThreadPool",
+      "summary": "锁无关（lock-free）线程池类，任务经无锁队列投递避免空闲 worker 轮询，通过三组条件变量与任务计数同步入队、等待与停止生命周期。",
+      "tags": ["thread-pool", "lock-free", "condition-variable", "crtp"],
+      "complexity": "complex",
+      "lineRange": "25-54"
+    },
+    {
+      "id": "function:net/thread-pool/include/thread_pool.h:enqueue_impl",
+      "type": "function",
+      "name": "enqueue_impl",
+      "summary": "模板入队实现，将捕获参数后的任务封装为 MoveOnlyFunction 推入无锁队列，并维护在途入队操作数供停止流程等待，异常时回滚计数。",
+      "tags": ["enqueue", "lock-free", "exception-safety"],
+      "complexity": "moderate",
+      "lineRange": "56-76"
+    }
+  ],
+  "edges": [
+    {
+      "source": "file:net/thread-pool/include/lock_free_queue.hpp",
+      "target": "class:net/thread-pool/include/lock_free_queue.hpp:LockFreeQueue",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "class:net/thread-pool/include/lock_free_queue.hpp:LockFreeQueue",
+      "target": "function:net/thread-pool/include/lock_free_queue.hpp:LockFreeQueue",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "class:net/thread-pool/include/lock_free_queue.hpp:LockFreeQueue",
+      "target": "function:net/thread-pool/include/lock_free_queue.hpp:~LockFreeQueue",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "class:net/thread-pool/include/lock_free_queue.hpp:LockFreeQueue",
+      "target": "function:net/thread-pool/include/lock_free_queue.hpp:emplace",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "class:net/thread-pool/include/lock_free_queue.hpp:LockFreeQueue",
+      "target": "function:net/thread-pool/include/lock_free_queue.hpp:push",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "class:net/thread-pool/include/lock_free_queue.hpp:LockFreeQueue",
+      "target": "function:net/thread-pool/include/lock_free_queue.hpp:pop",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "class:net/thread-pool/include/lock_free_queue.hpp:LockFreeQueue",
+      "target": "function:net/thread-pool/include/lock_free_queue.hpp:try_pop",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:net/thread-pool/include/locked_thread_pool.h",
+      "target": "class:net/thread-pool/include/locked_thread_pool.h:LockedThreadPool",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "class:net/thread-pool/include/locked_thread_pool.h:LockedThreadPool",
+      "target": "function:net/thread-pool/include/locked_thread_pool.h:enqueue_impl",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:net/thread-pool/include/thread_pool.h",
+      "target": "class:net/thread-pool/include/thread_pool.h:LockFreeThreadPool",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "class:net/thread-pool/include/thread_pool.h:LockFreeThreadPool",
+      "target": "function:net/thread-pool/include/thread_pool.h:enqueue_impl",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:net/thread-pool/include/locked_thread_pool.h",
+      "target": "file:net/thread-pool/include/move_only_function.h",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:net/thread-pool/include/locked_thread_pool.h",
+      "target": "file:net/thread-pool/include/thread_pool_base.h",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:net/thread-pool/include/thread_pool.h",
+      "target": "file:net/thread-pool/include/lock_free_queue.hpp",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:net/thread-pool/include/thread_pool.h",
+      "target": "file:net/thread-pool/include/move_only_function.h",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:net/thread-pool/include/thread_pool.h",
+      "target": "file:net/thread-pool/include/thread_pool_base.h",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:net/thread-pool/include/locked_thread_pool.h",
+      "target": "class:net/thread-pool/include/locked_thread_pool.h:LockedThreadPool",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:net/thread-pool/include/thread_pool.h",
+      "target": "class:net/thread-pool/include/thread_pool.h:LockFreeThreadPool",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:net/thread-pool/include/thread_pool.h:enqueue_impl",
+      "target": "function:net/thread-pool/include/lock_free_queue.hpp:push",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "class:net/thread-pool/include/locked_thread_pool.h:LockedThreadPool",
+      "target": "class:net/thread-pool/include/thread_pool_base.h:ThreadPoolBase",
+      "type": "inherits",
+      "direction": "forward",
+      "weight": 0.9
+    },
+    {
+      "source": "class:net/thread-pool/include/thread_pool.h:LockFreeThreadPool",
+      "target": "class:net/thread-pool/include/thread_pool_base.h:ThreadPoolBase",
+      "type": "inherits",
+      "direction": "forward",
+      "weight": 0.9
+    },
+    {
+      "source": "class:net/thread-pool/include/locked_thread_pool.h:LockedThreadPool",
+      "target": "class:net/thread-pool/include/move_only_function.h:MoveOnlyFunction",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "class:net/thread-pool/include/thread_pool.h:LockFreeThreadPool",
+      "target": "class:net/thread-pool/include/move_only_function.h:MoveOnlyFunction",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "class:net/thread-pool/include/thread_pool.h:LockFreeThreadPool",
+      "target": "class:net/thread-pool/include/lock_free_queue.hpp:LockFreeQueue",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    }
+  ]
+}

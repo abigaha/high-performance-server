@@ -1,0 +1,137 @@
+{
+  "projectRoot": "/home/jmj/work-space/projects/high-performance-server",
+  "batchFiles": [
+    {
+      "path": "net/http/include/auth_middleware.h",
+      "language": "c",
+      "sizeLines": 47,
+      "fileCategory": "code"
+    },
+    {
+      "path": "net/http/include/auth_service.h",
+      "language": "c",
+      "sizeLines": 36,
+      "fileCategory": "code"
+    },
+    {
+      "path": "net/http/include/http_parser.h",
+      "language": "c",
+      "sizeLines": 113,
+      "fileCategory": "code"
+    },
+    {
+      "path": "net/http/include/http_request.h",
+      "language": "c",
+      "sizeLines": 49,
+      "fileCategory": "code"
+    },
+    {
+      "path": "net/http/include/http_server.h",
+      "language": "c",
+      "sizeLines": 118,
+      "fileCategory": "code"
+    }
+  ],
+  "batchImportData": {
+    "net/http/include/auth_middleware.h": [
+      "net/http/include/auth_service.h",
+      "net/http/include/http_request.h"
+    ],
+    "net/http/include/auth_service.h": [],
+    "net/http/include/http_parser.h": [
+      "net/http/include/http_request.h"
+    ],
+    "net/http/include/http_request.h": [
+      "net/http/include/case_insensitive.h"
+    ],
+    "net/http/include/http_server.h": [
+      "net/http/include/auth_middleware.h",
+      "net/http/include/auth_service.h",
+      "net/http/include/http_parser.h",
+      "net/http/include/http_request.h",
+      "net/http/include/http_response.h",
+      "net/http/include/i_http_server.h",
+      "net/http/include/router.h"
+    ]
+  },
+  "neighborMap": {
+    "net/http/include/http_request.h": [
+      {
+        "path": "net/http/include/case_insensitive.h",
+        "batchIndex": 5,
+        "symbols": [
+          "operator()",
+          "CaseInsensitiveHash",
+          "operator()",
+          "CaseInsensitiveEq"
+        ]
+      },
+      {
+        "path": "net/http/include/i_router.h",
+        "batchIndex": 5,
+        "symbols": [
+          "~IRouter",
+          "add",
+          "match",
+          "path_exists",
+          "IRouter"
+        ]
+      },
+      {
+        "path": "net/http/include/router.h",
+        "batchIndex": 5,
+        "symbols": [
+          "Router",
+          "add",
+          "match",
+          "path_exists",
+          "Router"
+        ]
+      }
+    ],
+    "net/http/include/http_server.h": [
+      {
+        "path": "net/http/include/http_response.h",
+        "batchIndex": 5,
+        "symbols": [
+          "set_status",
+          "set_header",
+          "set_content_type",
+          "set_content_length",
+          "serialize",
+          "clear",
+          "HttpResponse"
+        ]
+      },
+      {
+        "path": "net/http/include/i_http_server.h",
+        "batchIndex": 5,
+        "symbols": [
+          "WsConnection",
+          "~IHttpServer",
+          "init",
+          "start",
+          "stop",
+          "get",
+          "post",
+          "put",
+          "del",
+          "ws",
+          "actual_port",
+          "IHttpServer"
+        ]
+      },
+      {
+        "path": "net/http/include/router.h",
+        "batchIndex": 5,
+        "symbols": [
+          "Router",
+          "add",
+          "match",
+          "path_exists",
+          "Router"
+        ]
+      }
+    ]
+  }
+}

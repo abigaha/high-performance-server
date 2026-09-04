@@ -1,0 +1,382 @@
+{
+  "scriptCompleted": true,
+  "filesAnalyzed": 1,
+  "filesSkipped": [],
+  "results": [
+    {
+      "path": "logger/include/logger.h",
+      "language": "c",
+      "fileCategory": "code",
+      "totalLines": 143,
+      "nonEmptyLines": 107,
+      "functions": [
+        {
+          "name": "getLine",
+          "startLine": 28,
+          "endLine": 28,
+          "params": []
+        },
+        {
+          "name": "get_thread_id",
+          "startLine": 30,
+          "endLine": 30,
+          "params": []
+        },
+        {
+          "name": "getElapse",
+          "startLine": 32,
+          "endLine": 32,
+          "params": []
+        },
+        {
+          "name": "getTime",
+          "startLine": 34,
+          "endLine": 34,
+          "params": []
+        },
+        {
+          "name": "get_coroutine_id",
+          "startLine": 36,
+          "endLine": 36,
+          "params": []
+        },
+        {
+          "name": "getLevel",
+          "startLine": 88,
+          "endLine": 88,
+          "params": []
+        },
+        {
+          "name": "setLevel",
+          "startLine": 90,
+          "endLine": 90,
+          "params": [
+            "val"
+          ]
+        },
+        {
+          "name": "_debug",
+          "startLine": 100,
+          "endLine": 104,
+          "params": [
+            "msg"
+          ]
+        },
+        {
+          "name": "_info",
+          "startLine": 106,
+          "endLine": 110,
+          "params": [
+            "msg"
+          ]
+        },
+        {
+          "name": "_warn",
+          "startLine": 112,
+          "endLine": 116,
+          "params": [
+            "msg"
+          ]
+        },
+        {
+          "name": "_error",
+          "startLine": 118,
+          "endLine": 122,
+          "params": [
+            "msg"
+          ]
+        },
+        {
+          "name": "_fatal",
+          "startLine": 124,
+          "endLine": 128,
+          "params": [
+            "msg"
+          ]
+        }
+      ],
+      "classes": [
+        {
+          "name": "LogAppender",
+          "startLine": 13,
+          "endLine": 13,
+          "methods": [],
+          "properties": []
+        },
+        {
+          "name": "LogEvent",
+          "startLine": 19,
+          "endLine": 51,
+          "methods": [
+            "getLine",
+            "get_thread_id",
+            "getElapse",
+            "getTime",
+            "get_coroutine_id"
+          ],
+          "properties": [
+            "file_",
+            "line_",
+            "thread_id_",
+            "elapse_",
+            "time_",
+            "coroutine_id_",
+            "logger_name_",
+            "content_"
+          ]
+        },
+        {
+          "name": "Logger",
+          "startLine": 54,
+          "endLine": 141,
+          "methods": [
+            "log",
+            "createEvent",
+            "allocCoroutineId",
+            "setCurrentCoroutineId",
+            "getCurrentCoroutineId",
+            "debug",
+            "info",
+            "warn",
+            "error",
+            "fatal",
+            "addAppender",
+            "delAppender",
+            "getLevel",
+            "setLevel",
+            "init",
+            "shutdown",
+            "_debug",
+            "_info",
+            "_warn",
+            "_error",
+            "_fatal"
+          ],
+          "properties": [
+            "level_",
+            "name_",
+            "appenders_",
+            "mutex_",
+            "s_instance_",
+            "s_init_flag_"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "LogAppender",
+          "line": 13,
+          "isDefault": false
+        },
+        {
+          "name": "getLine",
+          "line": 28,
+          "isDefault": false
+        },
+        {
+          "name": "get_thread_id",
+          "line": 30,
+          "isDefault": false
+        },
+        {
+          "name": "getElapse",
+          "line": 32,
+          "isDefault": false
+        },
+        {
+          "name": "getTime",
+          "line": 34,
+          "isDefault": false
+        },
+        {
+          "name": "get_coroutine_id",
+          "line": 36,
+          "isDefault": false
+        },
+        {
+          "name": "LogEvent",
+          "line": 19,
+          "isDefault": false
+        },
+        {
+          "name": "log",
+          "line": 58,
+          "isDefault": false
+        },
+        {
+          "name": "createEvent",
+          "line": 60,
+          "isDefault": false
+        },
+        {
+          "name": "allocCoroutineId",
+          "line": 75,
+          "isDefault": false
+        },
+        {
+          "name": "setCurrentCoroutineId",
+          "line": 76,
+          "isDefault": false
+        },
+        {
+          "name": "getCurrentCoroutineId",
+          "line": 77,
+          "isDefault": false
+        },
+        {
+          "name": "debug",
+          "line": 79,
+          "isDefault": false
+        },
+        {
+          "name": "info",
+          "line": 80,
+          "isDefault": false
+        },
+        {
+          "name": "warn",
+          "line": 81,
+          "isDefault": false
+        },
+        {
+          "name": "error",
+          "line": 82,
+          "isDefault": false
+        },
+        {
+          "name": "fatal",
+          "line": 83,
+          "isDefault": false
+        },
+        {
+          "name": "addAppender",
+          "line": 85,
+          "isDefault": false
+        },
+        {
+          "name": "delAppender",
+          "line": 86,
+          "isDefault": false
+        },
+        {
+          "name": "getLevel",
+          "line": 88,
+          "isDefault": false
+        },
+        {
+          "name": "setLevel",
+          "line": 90,
+          "isDefault": false
+        },
+        {
+          "name": "init",
+          "line": 95,
+          "isDefault": false
+        },
+        {
+          "name": "shutdown",
+          "line": 96,
+          "isDefault": false
+        },
+        {
+          "name": "_debug",
+          "line": 100,
+          "isDefault": false
+        },
+        {
+          "name": "_info",
+          "line": 106,
+          "isDefault": false
+        },
+        {
+          "name": "_warn",
+          "line": 112,
+          "isDefault": false
+        },
+        {
+          "name": "_error",
+          "line": 118,
+          "isDefault": false
+        },
+        {
+          "name": "_fatal",
+          "line": 124,
+          "isDefault": false
+        },
+        {
+          "name": "Logger",
+          "line": 54,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "getLevel",
+          "callee": "load",
+          "lineNumber": 88
+        },
+        {
+          "caller": "setLevel",
+          "callee": "store",
+          "lineNumber": 90
+        },
+        {
+          "caller": "_debug",
+          "callee": "std::source_location::current",
+          "lineNumber": 100
+        },
+        {
+          "caller": "_debug",
+          "callee": "debug",
+          "lineNumber": 102
+        },
+        {
+          "caller": "_info",
+          "callee": "std::source_location::current",
+          "lineNumber": 106
+        },
+        {
+          "caller": "_info",
+          "callee": "info",
+          "lineNumber": 108
+        },
+        {
+          "caller": "_warn",
+          "callee": "std::source_location::current",
+          "lineNumber": 112
+        },
+        {
+          "caller": "_warn",
+          "callee": "warn",
+          "lineNumber": 114
+        },
+        {
+          "caller": "_error",
+          "callee": "std::source_location::current",
+          "lineNumber": 118
+        },
+        {
+          "caller": "_error",
+          "callee": "error",
+          "lineNumber": 120
+        },
+        {
+          "caller": "_fatal",
+          "callee": "std::source_location::current",
+          "lineNumber": 124
+        },
+        {
+          "caller": "_fatal",
+          "callee": "fatal",
+          "lineNumber": 126
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 29,
+        "functionCount": 12,
+        "classCount": 3
+      }
+    }
+  ]
+}

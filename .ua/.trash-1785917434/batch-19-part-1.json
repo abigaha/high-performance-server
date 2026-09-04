@@ -1,0 +1,1134 @@
+{
+  "nodes": [
+    {
+      "id": "file:tests/test_benchmark_script.sh",
+      "type": "file",
+      "name": "tests/test_benchmark_script.sh",
+      "filePath": "tests/test_benchmark_script.sh",
+      "summary": "针对 scripts/benchmark.sh 的集成测试脚本（约 3359 行），覆盖基准报告 manifest 契约、resume 恢复、fingerprint 指纹重跑、RPS 生命周期与 diff 差异报告等行为，内置大量 fixture 生成与断言辅助函数。",
+      "tags": [
+        "shell",
+        "test",
+        "benchmark",
+        "manifest",
+        "rps"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "function:tests/test_benchmark_script.sh:write_fake_tools",
+      "type": "function",
+      "name": "write_fake_tools",
+      "summary": "生成整套 fake 工具脚本（xmake、git、npm、docker 等）到 fixture 目录，隔离外部工具行为以便稳定测试 benchmark.sh。",
+      "tags": [
+        "shell",
+        "fixture",
+        "fake-tools",
+        "test"
+      ],
+      "complexity": "complex",
+      "lineRange": [
+        77,
+        396
+      ]
+    },
+    {
+      "id": "function:tests/test_benchmark_script.sh:write_target",
+      "type": "function",
+      "name": "write_target",
+      "summary": "在 fixture 的 benchmark 目录写入 xmake target 结构与源码文件，构造被测基准测试目标。",
+      "tags": [
+        "shell",
+        "fixture",
+        "xmake",
+        "benchmark"
+      ],
+      "complexity": "moderate",
+      "lineRange": [
+        398,
+        442
+      ]
+    },
+    {
+      "id": "function:tests/test_benchmark_script.sh:write_legacy_report",
+      "type": "function",
+      "name": "write_legacy_report",
+      "summary": "写入旧格式的基准测试报告文件，模拟历史遗留报告数据场景。",
+      "tags": [
+        "shell",
+        "fixture",
+        "legacy-report"
+      ],
+      "complexity": "simple",
+      "lineRange": [
+        450,
+        474
+      ]
+    },
+    {
+      "id": "function:tests/test_benchmark_script.sh:write_manifest",
+      "type": "function",
+      "name": "write_manifest",
+      "summary": "生成标准格式的 manifest.json 报告文件，包含 run-id、target、profile 与指纹等字段。",
+      "tags": [
+        "shell",
+        "fixture",
+        "manifest",
+        "json"
+      ],
+      "complexity": "moderate",
+      "lineRange": [
+        476,
+        525
+      ]
+    },
+    {
+      "id": "function:tests/test_benchmark_script.sh:write_misplaced_manifest",
+      "type": "function",
+      "name": "write_misplaced_manifest",
+      "summary": "在错误位置写入 manifest.json，验证脚本能识别错放的报告文件。",
+      "tags": [
+        "shell",
+        "fixture",
+        "manifest"
+      ],
+      "complexity": "simple",
+      "lineRange": [
+        527,
+        542
+      ]
+    },
+    {
+      "id": "function:tests/test_benchmark_script.sh:set_manifest_string_field",
+      "type": "function",
+      "name": "set_manifest_string_field",
+      "summary": "通过 python 修改 manifest 的字符串字段，用于构造异常 manifest 测试数据。",
+      "tags": [
+        "shell",
+        "fixture",
+        "manifest",
+        "mutation"
+      ],
+      "complexity": "simple",
+      "lineRange": [
+        544,
+        560
+      ]
+    },
+    {
+      "id": "function:tests/test_benchmark_script.sh:write_incomplete_manifest",
+      "type": "function",
+      "name": "write_incomplete_manifest",
+      "summary": "生成缺少必填字段的不完整 manifest，验证契约校验会拒绝该文件。",
+      "tags": [
+        "shell",
+        "fixture",
+        "manifest",
+        "validation"
+      ],
+      "complexity": "moderate",
+      "lineRange": [
+        562,
+        582
+      ]
+    },
+    {
+      "id": "function:tests/test_benchmark_script.sh:write_missing_artifact_manifest",
+      "type": "function",
+      "name": "write_missing_artifact_manifest",
+      "summary": "生成缺少 artifact 字段的 manifest，构造产物缺失场景。",
+      "tags": [
+        "shell",
+        "fixture",
+        "manifest",
+        "artifact"
+      ],
+      "complexity": "simple",
+      "lineRange": [
+        584,
+        595
+      ]
+    },
+    {
+      "id": "function:tests/test_benchmark_script.sh:set_manifest_boolean_integer",
+      "type": "function",
+      "name": "set_manifest_boolean_integer",
+      "summary": "将 manifest 字段篡改为布尔值或整数类型，构造类型错误的测试数据。",
+      "tags": [
+        "shell",
+        "fixture",
+        "manifest",
+        "mutation"
+      ],
+      "complexity": "moderate",
+      "lineRange": [
+        597,
+        619
+      ]
+    },
+    {
+      "id": "function:tests/test_benchmark_script.sh:write_boolean_integer_manifest",
+      "type": "function",
+      "name": "write_boolean_integer_manifest",
+      "summary": "写入含布尔/整数类型字段的 manifest，配合布尔整数被拒绝的测试用例。",
+      "tags": [
+        "shell",
+        "fixture",
+        "manifest"
+      ],
+      "complexity": "simple",
+      "lineRange": [
+        621,
+        633
+      ]
+    },
+    {
+      "id": "function:tests/test_benchmark_script.sh:set_manifest_artifact_paths",
+      "type": "function",
+      "name": "set_manifest_artifact_paths",
+      "summary": "篡改 manifest 中 artifact 路径字段，模拟产物路径被修改的场景。",
+      "tags": [
+        "shell",
+        "fixture",
+        "manifest",
+        "path"
+      ],
+      "complexity": "moderate",
+      "lineRange": [
+        635,
+        652
+      ]
+    },
+    {
+      "id": "function:tests/test_benchmark_script.sh:write_artifact_path_manifest",
+      "type": "function",
+      "name": "write_artifact_path_manifest",
+      "summary": "生成 artifact 路径异常（越界、符号链接）的 manifest 文件。",
+      "tags": [
+        "shell",
+        "fixture",
+        "manifest",
+        "symlink"
+      ],
+      "complexity": "moderate",
+      "lineRange": [
+        654,
+        676
+      ]
+    },
+    {
+      "id": "function:tests/test_benchmark_script.sh:write_symlink_artifact_manifest",
+      "type": "function",
+      "name": "write_symlink_artifact_manifest",
+      "summary": "生成 artifact 指向符号链接的 manifest，验证链接会被安全替换。",
+      "tags": [
+        "shell",
+        "fixture",
+        "manifest",
+        "symlink"
+      ],
+      "complexity": "simple",
+      "lineRange": [
+        678,
+        694
+      ]
+    },
+    {
+      "id": "function:tests/test_benchmark_script.sh:write_non_object_manifest",
+      "type": "function",
+      "name": "write_non_object_manifest",
+      "summary": "生成非 JSON 对象（数组）的 manifest，验证被静默拒绝。",
+      "tags": [
+        "shell",
+        "fixture",
+        "manifest",
+        "invalid"
+      ],
+      "complexity": "simple",
+      "lineRange": [
+        696,
+        706
+      ]
+    },
+    {
+      "id": "function:tests/test_benchmark_script.sh:write_non_utf8_manifest",
+      "type": "function",
+      "name": "write_non_utf8_manifest",
+      "summary": "生成含非 UTF-8 字节的 manifest 文件，验证被静默拒绝。",
+      "tags": [
+        "shell",
+        "fixture",
+        "manifest",
+        "encoding"
+      ],
+      "complexity": "simple",
+      "lineRange": [
+        708,
+        717
+      ]
+    },
+    {
+      "id": "function:tests/test_benchmark_script.sh:write_legacy_aggregate_manifest",
+      "type": "function",
+      "name": "write_legacy_aggregate_manifest",
+      "summary": "生成旧版聚合格式的 manifest，供迁移与聚合测试使用。",
+      "tags": [
+        "shell",
+        "fixture",
+        "manifest",
+        "aggregate"
+      ],
+      "complexity": "simple",
+      "lineRange": [
+        719,
+        732
+      ]
+    },
+    {
+      "id": "function:tests/test_benchmark_script.sh:write_diff_manifest_series",
+      "type": "function",
+      "name": "write_diff_manifest_series",
+      "summary": "生成多组新旧 manifest 序列（含 diff 标记），构造 diff 差异报告测试数据。",
+      "tags": [
+        "shell",
+        "fixture",
+        "manifest",
+        "diff"
+      ],
+      "complexity": "moderate",
+      "lineRange": [
+        734,
+        770
+      ]
+    },
+    {
+      "id": "function:tests/test_benchmark_script.sh:setup_fixture",
+      "type": "function",
+      "name": "setup_fixture",
+      "summary": "创建隔离 fixture 项目目录并复制 benchmark.sh 及依赖库，注入 fake 工具链并执行 require_tools 检查。",
+      "tags": [
+        "shell",
+        "fixture",
+        "test-setup",
+        "isolation"
+      ],
+      "complexity": "complex",
+      "lineRange": [
+        772,
+        854
+      ]
+    },
+    {
+      "id": "function:tests/test_benchmark_script.sh:run_benchmark",
+      "type": "function",
+      "name": "run_benchmark",
+      "summary": "在 fixture 中执行 benchmark.sh 并捕获输出，统一返回执行状态与日志供测试用例断言。",
+      "tags": [
+        "shell",
+        "benchmark",
+        "runner",
+        "test"
+      ],
+      "complexity": "simple",
+      "lineRange": [
+        856,
+        882
+      ]
+    },
+    {
+      "id": "function:tests/test_benchmark_script.sh:discover_single_run_id",
+      "type": "function",
+      "name": "discover_single_run_id",
+      "summary": "扫描目标目录定位唯一的 manifest.json 并提取其 run-id，验证报告落盘位置。",
+      "tags": [
+        "shell",
+        "manifest",
+        "run-id",
+        "discovery"
+      ],
+      "complexity": "simple",
+      "lineRange": [
+        908,
+        924
+      ]
+    },
+    {
+      "id": "function:tests/test_benchmark_script.sh:assert_target_lines",
+      "type": "function",
+      "name": "assert_target_lines",
+      "summary": "断言 manifest 输出的 target 行（target 名称与层级）内容正确。",
+      "tags": [
+        "shell",
+        "assert",
+        "manifest"
+      ],
+      "complexity": "simple",
+      "lineRange": [
+        926,
+        938
+      ]
+    },
+    {
+      "id": "function:tests/test_benchmark_script.sh:assert_recorded_lines",
+      "type": "function",
+      "name": "assert_recorded_lines",
+      "summary": "断言基准测试记录行的内容与顺序正确。",
+      "tags": [
+        "shell",
+        "assert",
+        "manifest",
+        "records"
+      ],
+      "complexity": "simple",
+      "lineRange": [
+        940,
+        952
+      ]
+    },
+    {
+      "id": "function:tests/test_benchmark_script.sh:assert_single_link_regular_file",
+      "type": "function",
+      "name": "assert_single_link_regular_file",
+      "summary": "断言报告中只有一个指向普通文件的链接，且不跟随符号链接。",
+      "tags": [
+        "shell",
+        "assert",
+        "symlink",
+        "artifact"
+      ],
+      "complexity": "simple",
+      "lineRange": [
+        963,
+        975
+      ]
+    },
+    {
+      "id": "function:tests/test_benchmark_script.sh:assert_manifest_passed",
+      "type": "function",
+      "name": "assert_manifest_passed",
+      "summary": "解析 manifest 检查执行状态为 passed 且记录数与预期一致。",
+      "tags": [
+        "shell",
+        "assert",
+        "manifest",
+        "status"
+      ],
+      "complexity": "moderate",
+      "lineRange": [
+        977,
+        997
+      ]
+    },
+    {
+      "id": "function:tests/test_benchmark_script.sh:assert_legacy_not_written",
+      "type": "function",
+      "name": "assert_legacy_not_written",
+      "summary": "断言生成新格式报告后旧 legacy 报告未被写入。",
+      "tags": [
+        "shell",
+        "assert",
+        "legacy-report"
+      ],
+      "complexity": "simple",
+      "lineRange": [
+        999,
+        1008
+      ]
+    },
+    {
+      "id": "function:tests/test_benchmark_script.sh:assert_rps_failed_profile_artifacts",
+      "type": "function",
+      "name": "assert_rps_failed_profile_artifacts",
+      "summary": "断言 RPS 失败场景下各 profile 的失败报告产物（execution_state、退出码等）正确生成。",
+      "tags": [
+        "shell",
+        "assert",
+        "rps",
+        "profile",
+        "artifact"
+      ],
+      "complexity": "complex",
+      "lineRange": [
+        1032,
+        1076
+      ]
+    },
+    {
+      "id": "function:tests/test_benchmark_script.sh:assert_manifest_contract",
+      "type": "function",
+      "name": "assert_manifest_contract",
+      "summary": "核心契约断言：校验 manifest 的 run-id、fingerprint、execution_state、记录内容及旧文件清理等完整字段。",
+      "tags": [
+        "shell",
+        "assert",
+        "manifest",
+        "contract"
+      ],
+      "complexity": "complex",
+      "lineRange": [
+        1078,
+        1138
+      ]
+    },
+    {
+      "id": "function:tests/test_benchmark_script.sh:assert_manifest_execution_state",
+      "type": "function",
+      "name": "assert_manifest_execution_state",
+      "summary": "单独断言 manifest 的 execution_state（passed/failed）字段符合预期。",
+      "tags": [
+        "shell",
+        "assert",
+        "manifest",
+        "status"
+      ],
+      "complexity": "moderate",
+      "lineRange": [
+        1140,
+        1168
+      ]
+    },
+    {
+      "id": "function:tests/test_benchmark_script.sh:assert_diff_selects_latest_complete_pair",
+      "type": "function",
+      "name": "assert_diff_selects_latest_complete_pair",
+      "summary": "断言 diff 模式挑选最新一组完整（新旧配对）的 manifest 生成差异报告。",
+      "tags": [
+        "shell",
+        "assert",
+        "diff",
+        "manifest"
+      ],
+      "complexity": "complex",
+      "lineRange": [
+        1170,
+        1235
+      ]
+    },
+    {
+      "id": "function:tests/test_benchmark_script.sh:configure_rps_environment",
+      "type": "function",
+      "name": "configure_rps_environment",
+      "summary": "按目标 profile 注入 RPS 环境变量与 fixture 指纹，为 RPS 测试用例准备环境。",
+      "tags": [
+        "shell",
+        "rps",
+        "environment",
+        "fixture"
+      ],
+      "complexity": "simple",
+      "lineRange": [
+        1237,
+        1252
+      ]
+    },
+    {
+      "id": "function:tests/test_benchmark_script.sh:test_generated_reports_preserve_git_fingerprint",
+      "type": "function",
+      "name": "test_generated_reports_preserve_git_fingerprint",
+      "summary": "测试生成报告保留 git 指纹：验证 fingerprint 在不同 git 状态与重跑场景下保持或正确刷新。",
+      "tags": [
+        "shell",
+        "test",
+        "git",
+        "fingerprint"
+      ],
+      "complexity": "complex",
+      "lineRange": [
+        1343,
+        1407
+      ]
+    },
+    {
+      "id": "function:tests/test_benchmark_script.sh:test_bench_flags_are_hashed_and_sensitive_values_are_rejected",
+      "type": "function",
+      "name": "test_bench_flags_are_hashed_and_sensitive_values_are_rejected",
+      "summary": "测试 bench 参数被哈希进 fingerprint 且敏感值（密码等）被拒绝写入报告。",
+      "tags": [
+        "shell",
+        "test",
+        "benchmark",
+        "fingerprint",
+        "security"
+      ],
+      "complexity": "complex",
+      "lineRange": [
+        1409,
+        1496
+      ]
+    },
+    {
+      "id": "function:tests/test_benchmark_script.sh:test_boolean_manifest_integers_are_rejected",
+      "type": "function",
+      "name": "test_boolean_manifest_integers_are_rejected",
+      "summary": "测试布尔/整数类型的 manifest 字段在 resume 时被拒绝并触发重跑。",
+      "tags": [
+        "shell",
+        "test",
+        "manifest",
+        "resume"
+      ],
+      "complexity": "moderate",
+      "lineRange": [
+        1498,
+        1532
+      ]
+    },
+    {
+      "id": "function:tests/test_benchmark_script.sh:test_manifest_artifact_poisoning_is_rejected",
+      "type": "function",
+      "name": "test_manifest_artifact_poisoning_is_rejected",
+      "summary": "测试 artifact 路径被篡改（poisoning）时校验失败并触发重跑。",
+      "tags": [
+        "shell",
+        "test",
+        "manifest",
+        "security"
+      ],
+      "complexity": "complex",
+      "lineRange": [
+        1534,
+        1595
+      ]
+    },
+    {
+      "id": "function:tests/test_benchmark_script.sh:test_non_object_manifests_are_quietly_rejected",
+      "type": "function",
+      "name": "test_non_object_manifests_are_quietly_rejected",
+      "summary": "测试非对象（数组）manifest 被静默拒绝并按失败处理。",
+      "tags": [
+        "shell",
+        "test",
+        "manifest",
+        "validation"
+      ],
+      "complexity": "moderate",
+      "lineRange": [
+        1597,
+        1632
+      ]
+    },
+    {
+      "id": "function:tests/test_benchmark_script.sh:test_non_utf8_manifests_are_quietly_rejected",
+      "type": "function",
+      "name": "test_non_utf8_manifests_are_quietly_rejected",
+      "summary": "测试非 UTF-8 manifest 被静默拒绝。",
+      "tags": [
+        "shell",
+        "test",
+        "manifest",
+        "encoding"
+      ],
+      "complexity": "moderate",
+      "lineRange": [
+        1634,
+        1657
+      ]
+    },
+    {
+      "id": "function:tests/test_benchmark_script.sh:test_resume_directory_symlinks_are_rejected",
+      "type": "function",
+      "name": "test_resume_directory_symlinks_are_rejected",
+      "summary": "测试 resume 目录含符号链接时被拒绝。",
+      "tags": [
+        "shell",
+        "test",
+        "resume",
+        "symlink"
+      ],
+      "complexity": "complex",
+      "lineRange": [
+        1659,
+        1711
+      ]
+    },
+    {
+      "id": "function:tests/test_benchmark_script.sh:test_resume_artifact_links_are_replaced_safely",
+      "type": "function",
+      "name": "test_resume_artifact_links_are_replaced_safely",
+      "summary": "测试 resume 时 artifact 链接被安全替换为文件而不跟随链接。",
+      "tags": [
+        "shell",
+        "test",
+        "resume",
+        "symlink",
+        "artifact"
+      ],
+      "complexity": "complex",
+      "lineRange": [
+        1713,
+        1776
+      ]
+    },
+    {
+      "id": "function:tests/test_benchmark_script.sh:test_resume_manifest_identity_is_bound_to_current_location",
+      "type": "function",
+      "name": "test_resume_manifest_identity_is_bound_to_current_location",
+      "summary": "测试 manifest 身份绑定当前目录位置：移动或复制后 resume 会被拒绝或触发重跑。",
+      "tags": [
+        "shell",
+        "test",
+        "resume",
+        "manifest",
+        "identity"
+      ],
+      "complexity": "complex",
+      "lineRange": [
+        1778,
+        1852
+      ]
+    },
+    {
+      "id": "function:tests/test_benchmark_script.sh:test_run_directory_replacement_does_not_publish_artifacts_outside",
+      "type": "function",
+      "name": "test_run_directory_replacement_does_not_publish_artifacts_outside",
+      "summary": "测试 run 目录被替换时不会把产物发布到目录之外。",
+      "tags": [
+        "shell",
+        "test",
+        "run-directory",
+        "security"
+      ],
+      "complexity": "complex",
+      "lineRange": [
+        1854,
+        1917
+      ]
+    }
+  ],
+  "edges": [
+    {
+      "source": "file:tests/test_benchmark_script.sh",
+      "target": "function:tests/test_benchmark_script.sh:write_fake_tools",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:tests/test_benchmark_script.sh",
+      "target": "function:tests/test_benchmark_script.sh:write_target",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:tests/test_benchmark_script.sh",
+      "target": "function:tests/test_benchmark_script.sh:write_legacy_report",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:tests/test_benchmark_script.sh",
+      "target": "function:tests/test_benchmark_script.sh:write_manifest",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:tests/test_benchmark_script.sh",
+      "target": "function:tests/test_benchmark_script.sh:write_misplaced_manifest",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:tests/test_benchmark_script.sh",
+      "target": "function:tests/test_benchmark_script.sh:set_manifest_string_field",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:tests/test_benchmark_script.sh",
+      "target": "function:tests/test_benchmark_script.sh:write_incomplete_manifest",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:tests/test_benchmark_script.sh",
+      "target": "function:tests/test_benchmark_script.sh:write_missing_artifact_manifest",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:tests/test_benchmark_script.sh",
+      "target": "function:tests/test_benchmark_script.sh:set_manifest_boolean_integer",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:tests/test_benchmark_script.sh",
+      "target": "function:tests/test_benchmark_script.sh:write_boolean_integer_manifest",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:tests/test_benchmark_script.sh",
+      "target": "function:tests/test_benchmark_script.sh:set_manifest_artifact_paths",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:tests/test_benchmark_script.sh",
+      "target": "function:tests/test_benchmark_script.sh:write_artifact_path_manifest",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:tests/test_benchmark_script.sh",
+      "target": "function:tests/test_benchmark_script.sh:write_symlink_artifact_manifest",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:tests/test_benchmark_script.sh",
+      "target": "function:tests/test_benchmark_script.sh:write_non_object_manifest",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:tests/test_benchmark_script.sh",
+      "target": "function:tests/test_benchmark_script.sh:write_non_utf8_manifest",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:tests/test_benchmark_script.sh",
+      "target": "function:tests/test_benchmark_script.sh:write_legacy_aggregate_manifest",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:tests/test_benchmark_script.sh",
+      "target": "function:tests/test_benchmark_script.sh:write_diff_manifest_series",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:tests/test_benchmark_script.sh",
+      "target": "function:tests/test_benchmark_script.sh:setup_fixture",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:tests/test_benchmark_script.sh",
+      "target": "function:tests/test_benchmark_script.sh:run_benchmark",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:tests/test_benchmark_script.sh",
+      "target": "function:tests/test_benchmark_script.sh:discover_single_run_id",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:tests/test_benchmark_script.sh",
+      "target": "function:tests/test_benchmark_script.sh:assert_target_lines",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:tests/test_benchmark_script.sh",
+      "target": "function:tests/test_benchmark_script.sh:assert_recorded_lines",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:tests/test_benchmark_script.sh",
+      "target": "function:tests/test_benchmark_script.sh:assert_single_link_regular_file",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:tests/test_benchmark_script.sh",
+      "target": "function:tests/test_benchmark_script.sh:assert_manifest_passed",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:tests/test_benchmark_script.sh",
+      "target": "function:tests/test_benchmark_script.sh:assert_legacy_not_written",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:tests/test_benchmark_script.sh",
+      "target": "function:tests/test_benchmark_script.sh:assert_rps_failed_profile_artifacts",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:tests/test_benchmark_script.sh",
+      "target": "function:tests/test_benchmark_script.sh:assert_manifest_contract",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:tests/test_benchmark_script.sh",
+      "target": "function:tests/test_benchmark_script.sh:assert_manifest_execution_state",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:tests/test_benchmark_script.sh",
+      "target": "function:tests/test_benchmark_script.sh:assert_diff_selects_latest_complete_pair",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:tests/test_benchmark_script.sh",
+      "target": "function:tests/test_benchmark_script.sh:configure_rps_environment",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:tests/test_benchmark_script.sh",
+      "target": "function:tests/test_benchmark_script.sh:test_generated_reports_preserve_git_fingerprint",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:tests/test_benchmark_script.sh",
+      "target": "function:tests/test_benchmark_script.sh:test_bench_flags_are_hashed_and_sensitive_values_are_rejected",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:tests/test_benchmark_script.sh",
+      "target": "function:tests/test_benchmark_script.sh:test_boolean_manifest_integers_are_rejected",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:tests/test_benchmark_script.sh",
+      "target": "function:tests/test_benchmark_script.sh:test_manifest_artifact_poisoning_is_rejected",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:tests/test_benchmark_script.sh",
+      "target": "function:tests/test_benchmark_script.sh:test_non_object_manifests_are_quietly_rejected",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:tests/test_benchmark_script.sh",
+      "target": "function:tests/test_benchmark_script.sh:test_non_utf8_manifests_are_quietly_rejected",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:tests/test_benchmark_script.sh",
+      "target": "function:tests/test_benchmark_script.sh:test_resume_directory_symlinks_are_rejected",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:tests/test_benchmark_script.sh",
+      "target": "function:tests/test_benchmark_script.sh:test_resume_artifact_links_are_replaced_safely",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:tests/test_benchmark_script.sh",
+      "target": "function:tests/test_benchmark_script.sh:test_resume_manifest_identity_is_bound_to_current_location",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:tests/test_benchmark_script.sh",
+      "target": "function:tests/test_benchmark_script.sh:test_run_directory_replacement_does_not_publish_artifacts_outside",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "function:tests/test_benchmark_script.sh:test_generated_reports_preserve_git_fingerprint",
+      "target": "function:tests/test_benchmark_script.sh:run_benchmark",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:tests/test_benchmark_script.sh:test_generated_reports_preserve_git_fingerprint",
+      "target": "function:tests/test_benchmark_script.sh:setup_fixture",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:tests/test_benchmark_script.sh:test_bench_flags_are_hashed_and_sensitive_values_are_rejected",
+      "target": "function:tests/test_benchmark_script.sh:run_benchmark",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:tests/test_benchmark_script.sh:test_bench_flags_are_hashed_and_sensitive_values_are_rejected",
+      "target": "function:tests/test_benchmark_script.sh:setup_fixture",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:tests/test_benchmark_script.sh:test_boolean_manifest_integers_are_rejected",
+      "target": "function:tests/test_benchmark_script.sh:run_benchmark",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:tests/test_benchmark_script.sh:test_boolean_manifest_integers_are_rejected",
+      "target": "function:tests/test_benchmark_script.sh:setup_fixture",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:tests/test_benchmark_script.sh:test_manifest_artifact_poisoning_is_rejected",
+      "target": "function:tests/test_benchmark_script.sh:run_benchmark",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:tests/test_benchmark_script.sh:test_manifest_artifact_poisoning_is_rejected",
+      "target": "function:tests/test_benchmark_script.sh:setup_fixture",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:tests/test_benchmark_script.sh:test_non_object_manifests_are_quietly_rejected",
+      "target": "function:tests/test_benchmark_script.sh:run_benchmark",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:tests/test_benchmark_script.sh:test_non_object_manifests_are_quietly_rejected",
+      "target": "function:tests/test_benchmark_script.sh:setup_fixture",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:tests/test_benchmark_script.sh:test_non_utf8_manifests_are_quietly_rejected",
+      "target": "function:tests/test_benchmark_script.sh:run_benchmark",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:tests/test_benchmark_script.sh:test_non_utf8_manifests_are_quietly_rejected",
+      "target": "function:tests/test_benchmark_script.sh:setup_fixture",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:tests/test_benchmark_script.sh:test_resume_directory_symlinks_are_rejected",
+      "target": "function:tests/test_benchmark_script.sh:run_benchmark",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:tests/test_benchmark_script.sh:test_resume_directory_symlinks_are_rejected",
+      "target": "function:tests/test_benchmark_script.sh:setup_fixture",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:tests/test_benchmark_script.sh:test_resume_artifact_links_are_replaced_safely",
+      "target": "function:tests/test_benchmark_script.sh:run_benchmark",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:tests/test_benchmark_script.sh:test_resume_artifact_links_are_replaced_safely",
+      "target": "function:tests/test_benchmark_script.sh:setup_fixture",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:tests/test_benchmark_script.sh:test_resume_manifest_identity_is_bound_to_current_location",
+      "target": "function:tests/test_benchmark_script.sh:run_benchmark",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:tests/test_benchmark_script.sh:test_resume_manifest_identity_is_bound_to_current_location",
+      "target": "function:tests/test_benchmark_script.sh:setup_fixture",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:tests/test_benchmark_script.sh:test_run_directory_replacement_does_not_publish_artifacts_outside",
+      "target": "function:tests/test_benchmark_script.sh:run_benchmark",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:tests/test_benchmark_script.sh:test_run_directory_replacement_does_not_publish_artifacts_outside",
+      "target": "function:tests/test_benchmark_script.sh:setup_fixture",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:tests/test_benchmark_script.sh:test_manifest_artifact_poisoning_is_rejected",
+      "target": "function:tests/test_benchmark_script.sh:assert_manifest_execution_state",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:tests/test_benchmark_script.sh:test_resume_manifest_identity_is_bound_to_current_location",
+      "target": "function:tests/test_benchmark_script.sh:assert_manifest_contract",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    }
+  ]
+}

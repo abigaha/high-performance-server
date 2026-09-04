@@ -260,7 +260,7 @@
         "stop_"
       ],
       "complexity": "moderate",
-      "summary": "基于互斥队列的线程池（jthread 与条件变量）",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -274,7 +274,7 @@
       "endLine": 24,
       "params": [],
       "complexity": "moderate",
-      "summary": "按线程数创建工作线程",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -288,7 +288,7 @@
       "endLine": 0,
       "params": [],
       "complexity": "moderate",
-      "summary": "等待全部任务执行完毕",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -302,7 +302,7 @@
       "endLine": 0,
       "params": [],
       "complexity": "moderate",
-      "summary": "清空任务并停止所有工作线程",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -316,7 +316,7 @@
       "endLine": 0,
       "params": [],
       "complexity": "moderate",
-      "summary": "限时等待任务完成并返回是否完成",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -331,7 +331,7 @@
       "category": "code",
       "complexity": "moderate",
       "filePath": "net/thread-pool/include/move_only_function.h",
-      "summary": "轻量 move-only 可调用对象封装（SBO 优化）",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -360,7 +360,7 @@
         "storage_"
       ],
       "complexity": "moderate",
-      "summary": "SBO 类型擦除的可调用对象，支持栈内小对象存储",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -374,7 +374,7 @@
       "endLine": 24,
       "params": [],
       "complexity": "moderate",
-      "summary": "从可调用对象构造并选择栈或堆存储",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -388,7 +388,7 @@
       "endLine": 26,
       "params": [],
       "complexity": "moderate",
-      "summary": "析构释放持有的可调用对象",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -402,7 +402,7 @@
       "endLine": 74,
       "params": [],
       "complexity": "moderate",
-      "summary": "通过 vtable 调用封装的可调用对象",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -416,7 +416,7 @@
       "endLine": 87,
       "params": [],
       "complexity": "moderate",
-      "summary": "释放对象并复位 vtable",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -432,7 +432,7 @@
         "other"
       ],
       "complexity": "moderate",
-      "summary": "按 vtable 移动存储并清空源对象",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -457,7 +457,7 @@
         "pending_"
       ],
       "complexity": "moderate",
-      "summary": "基于无锁队列的锁无关线程池",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -471,7 +471,7 @@
       "endLine": 0,
       "params": [],
       "complexity": "moderate",
-      "summary": "等待全部任务完成并统计在途入队",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -485,7 +485,7 @@
       "endLine": 0,
       "params": [],
       "complexity": "moderate",
-      "summary": "停止接收任务并等待队列排空后停线程",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -500,7 +500,7 @@
       "category": "code",
       "complexity": "moderate",
       "filePath": "net/thread-pool/include/thread_pool_base.h",
-      "summary": "线程池 CRTP 基类，静态多态消除虚调用",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -515,7 +515,7 @@
       "category": "code",
       "complexity": "moderate",
       "filePath": "memory-pool/include/memory_pool_base.h",
-      "summary": "内存池 CRTP 基类，静态多态转发分配与释放",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -533,7 +533,7 @@
       "tags": [
         "tested"
       ],
-      "summary": "内存池工厂与静态分发 deleter 声明"
+      "summary": "暂无摘要"
     },
     {
       "id": "function:memory-pool/include/memory_pool_factory.h::TieredMemoryPoolDeleter",
@@ -546,7 +546,7 @@
         "p"
       ],
       "complexity": "moderate",
-      "summary": "CRTP 静态分发删除池对象，避免虚析构开销",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -560,7 +560,7 @@
       "endLine": 24,
       "params": [],
       "complexity": "moderate",
-      "summary": "创建带自定义 deleter 的内存池智能指针",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -575,7 +575,7 @@
       "category": "code",
       "complexity": "moderate",
       "filePath": "memory-pool/include/size_class.h",
-      "summary": "大小分级常量与分级换算工具函数",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -591,7 +591,7 @@
         "size"
       ],
       "complexity": "moderate",
-      "summary": "将请求大小向上取整到 2 的幂分级",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -607,7 +607,7 @@
         "size"
       ],
       "complexity": "moderate",
-      "summary": "计算大小对应的分级索引",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -623,7 +623,7 @@
         "index"
       ],
       "complexity": "moderate",
-      "summary": "按索引返回分级块大小",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -638,7 +638,7 @@
       "category": "code",
       "complexity": "moderate",
       "filePath": "memory-pool/include/tiered_memory_pool.h",
-      "summary": "分层内存池声明（线程缓存、中心列表与合并提升）",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -674,7 +674,7 @@
         "registryHead_"
       ],
       "complexity": "moderate",
-      "summary": "分层内存池：线程缓存加中心列表，支持合并提升",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -688,7 +688,7 @@
       "endLine": 17,
       "params": [],
       "complexity": "moderate",
-      "summary": "默认构造内存池",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -702,7 +702,7 @@
       "endLine": 0,
       "params": [],
       "complexity": "moderate",
-      "summary": "将块归还线程缓存并处理超限与合并",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -717,7 +717,7 @@
       "category": "code",
       "complexity": "moderate",
       "filePath": "logger/include/logappender.h",
-      "summary": "日志输出地抽象基类与 stdout/文件实现声明",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -741,7 +741,7 @@
         "mutex_"
       ],
       "complexity": "moderate",
-      "summary": "日志输出地抽象基类（格式器与互斥锁）",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -758,7 +758,7 @@
       ],
       "properties": [],
       "complexity": "moderate",
-      "summary": "输出日志到标准输出的 Appender",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -782,7 +782,7 @@
         "auto_flush_"
       ],
       "complexity": "moderate",
-      "summary": "输出日志到文件的 Appender，支持自动 flush",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -796,7 +796,7 @@
       "endLine": 15,
       "params": [],
       "complexity": "moderate",
-      "summary": "虚析构函数",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -812,7 +812,7 @@
         "val"
       ],
       "complexity": "moderate",
-      "summary": "线程安全设置日志格式器",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -826,7 +826,7 @@
       "endLine": 27,
       "params": [],
       "complexity": "moderate",
-      "summary": "线程安全获取日志格式器",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -842,7 +842,7 @@
         "val"
       ],
       "complexity": "moderate",
-      "summary": "设置是否每条日志立即 flush 文件",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -856,7 +856,7 @@
       "endLine": 54,
       "params": [],
       "complexity": "moderate",
-      "summary": "查询自动 flush 开关状态",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -870,7 +870,7 @@
       "endLine": 0,
       "params": [],
       "complexity": "moderate",
-      "summary": "纯虚：输出一条格式化后的日志",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -884,7 +884,7 @@
       "endLine": 0,
       "params": [],
       "complexity": "moderate",
-      "summary": "关闭并重新打开日志文件流",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -899,7 +899,7 @@
       "category": "code",
       "complexity": "moderate",
       "filePath": "logger/include/logformatter.h",
-      "summary": "日志格式器声明（模式解析与格式化项）",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -920,7 +920,7 @@
         "items_"
       ],
       "complexity": "moderate",
-      "summary": "按模式字符串将日志事件格式化为文本",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -934,7 +934,7 @@
       "endLine": 0,
       "params": [],
       "complexity": "moderate",
-      "summary": "依格式项序列输出日志事件的格式化文本",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -949,7 +949,7 @@
       "methods": [],
       "properties": [],
       "complexity": "moderate",
-      "summary": "日志输出地前置声明",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -979,7 +979,7 @@
         "content_"
       ],
       "complexity": "moderate",
-      "summary": "日志事件，携带文件行号、线程、协程、时间等元数据",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -1023,7 +1023,7 @@
         "s_init_flag_"
       ],
       "complexity": "moderate",
-      "summary": "日志器单例，按级别过滤并分发事件到各 Appender",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -1037,7 +1037,7 @@
       "endLine": 30,
       "params": [],
       "complexity": "moderate",
-      "summary": "返回日志产生的源码行号",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -1051,7 +1051,7 @@
       "endLine": 32,
       "params": [],
       "complexity": "moderate",
-      "summary": "返回产生日志的线程 ID",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -1065,7 +1065,7 @@
       "endLine": 34,
       "params": [],
       "complexity": "moderate",
-      "summary": "返回程序启动至今的毫秒数",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -1079,7 +1079,7 @@
       "endLine": 36,
       "params": [],
       "complexity": "moderate",
-      "summary": "返回日志时间戳",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -1093,7 +1093,7 @@
       "endLine": 38,
       "params": [],
       "complexity": "moderate",
-      "summary": "返回产生日志的协程 ID",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -1107,7 +1107,7 @@
       "endLine": 90,
       "params": [],
       "complexity": "moderate",
-      "summary": "读取当前日志级别",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -1123,7 +1123,7 @@
         "val"
       ],
       "complexity": "moderate",
-      "summary": "设置当前日志级别",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -1139,7 +1139,7 @@
         "msg"
       ],
       "complexity": "moderate",
-      "summary": "静态 DEBUG 便捷日志，未初始化时静默丢弃",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -1155,7 +1155,7 @@
         "msg"
       ],
       "complexity": "moderate",
-      "summary": "静态 INFO 便捷日志，未初始化时静默丢弃",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -1171,7 +1171,7 @@
         "msg"
       ],
       "complexity": "moderate",
-      "summary": "静态 WARN 便捷日志，未初始化时静默丢弃",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -1187,7 +1187,7 @@
         "msg"
       ],
       "complexity": "moderate",
-      "summary": "静态 ERROR 便捷日志，未初始化时静默丢弃",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -1203,7 +1203,7 @@
         "msg"
       ],
       "complexity": "moderate",
-      "summary": "静态 FATAL 便捷日志，未初始化时静默丢弃",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -1217,7 +1217,7 @@
       "endLine": 0,
       "params": [],
       "complexity": "moderate",
-      "summary": "级别过滤后将事件分发给全部 Appender",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -1231,7 +1231,7 @@
       "endLine": 0,
       "params": [],
       "complexity": "moderate",
-      "summary": "创建带源码位置信息的日志事件",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -1245,7 +1245,7 @@
       "endLine": 0,
       "params": [],
       "complexity": "moderate",
-      "summary": "原子分配全局递增的协程 ID",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -1259,7 +1259,7 @@
       "endLine": 0,
       "params": [],
       "complexity": "moderate",
-      "summary": "设置当前线程的协程 ID",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -1273,7 +1273,7 @@
       "endLine": 0,
       "params": [],
       "complexity": "moderate",
-      "summary": "读取当前线程的协程 ID",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -1287,7 +1287,7 @@
       "endLine": 0,
       "params": [],
       "complexity": "moderate",
-      "summary": "记录一条 DEBUG 级别日志",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -1301,7 +1301,7 @@
       "endLine": 0,
       "params": [],
       "complexity": "moderate",
-      "summary": "记录一条 INFO 级别日志",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -1315,7 +1315,7 @@
       "endLine": 0,
       "params": [],
       "complexity": "moderate",
-      "summary": "记录一条 WARN 级别日志",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -1329,7 +1329,7 @@
       "endLine": 0,
       "params": [],
       "complexity": "moderate",
-      "summary": "记录一条 ERROR 级别日志",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -1343,7 +1343,7 @@
       "endLine": 0,
       "params": [],
       "complexity": "moderate",
-      "summary": "记录一条 FATAL 级别日志",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -1357,7 +1357,7 @@
       "endLine": 0,
       "params": [],
       "complexity": "moderate",
-      "summary": "注册一个日志输出地",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -1371,7 +1371,7 @@
       "endLine": 0,
       "params": [],
       "complexity": "moderate",
-      "summary": "移除一个日志输出地",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -1385,7 +1385,7 @@
       "endLine": 0,
       "params": [],
       "complexity": "moderate",
-      "summary": "单例初始化并挂载默认 stdout 输出地",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -1399,7 +1399,7 @@
       "endLine": 0,
       "params": [],
       "complexity": "moderate",
-      "summary": "销毁日志器单例",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -1451,8 +1451,7 @@
       "filePath": "plan/memory-pool-tiered-optimization.md",
       "summary": "L1/L2/L3 缓存与合并策略",
       "tags": [
-        "三级缓存架构",
-        "documentation"
+        "三级缓存架构"
       ],
       "complexity": "simple"
     },
@@ -1476,8 +1475,7 @@
       "filePath": "plan/step-0-2-infrastructure.md",
       "summary": "线程池接口优化",
       "tags": [
-        "thread-pool 接口",
-        "documentation"
+        "thread-pool 接口"
       ],
       "complexity": "simple"
     },
@@ -1488,8 +1486,7 @@
       "filePath": "plan/step-0-2-infrastructure.md",
       "summary": "HTTP 解析器优化",
       "tags": [
-        "HttpParser",
-        "documentation"
+        "HttpParser"
       ],
       "complexity": "simple"
     },
@@ -1513,8 +1510,7 @@
       "filePath": "plan/step-10-locked-thread-pool.md",
       "summary": "LockedThreadPool 类层次",
       "tags": [
-        "类关系",
-        "documentation"
+        "类关系"
       ],
       "complexity": "simple"
     },
@@ -1525,8 +1521,7 @@
       "filePath": "plan/step-10-locked-thread-pool.md",
       "summary": "完整接口签名",
       "tags": [
-        "接口签名",
-        "documentation"
+        "接口签名"
       ],
       "complexity": "simple"
     },
@@ -1550,8 +1545,7 @@
       "filePath": "plan/step-2-routing.md",
       "summary": "Trie 路由匹配",
       "tags": [
-        "Router 设计",
-        "documentation"
+        "Router 设计"
       ],
       "complexity": "simple"
     },
@@ -1562,8 +1556,7 @@
       "filePath": "plan/step-2-routing.md",
       "summary": "路由分发",
       "tags": [
-        "HttpServer 集成",
-        "documentation"
+        "HttpServer 集成"
       ],
       "complexity": "simple"
     },
@@ -1587,8 +1580,7 @@
       "filePath": "plan/step-2.5-arch-refactor.md",
       "summary": "模块接口抽象化",
       "tags": [
-        "架构调整",
-        "documentation"
+        "架构调整"
       ],
       "complexity": "simple"
     },
@@ -1612,8 +1604,7 @@
       "filePath": "plan/step-3-interface-layer.md",
       "summary": "两阶段单例",
       "tags": [
-        "Logger 接口",
-        "documentation"
+        "Logger 接口"
       ],
       "complexity": "simple"
     },
@@ -1624,8 +1615,7 @@
       "filePath": "plan/step-3-interface-layer.md",
       "summary": "CRTP 基类",
       "tags": [
-        "ThreadPool CRTP",
-        "documentation"
+        "ThreadPool CRTP"
       ],
       "complexity": "simple"
     },
@@ -1649,8 +1639,7 @@
       "filePath": "plan/step-4-file-system.md",
       "summary": "虚拟路径与文件操作",
       "tags": [
-        "文件系统接口",
-        "documentation"
+        "文件系统接口"
       ],
       "complexity": "simple"
     },
@@ -1674,8 +1663,7 @@
       "filePath": "plan/step-5-range-streaming.md",
       "summary": "分片流式协议",
       "tags": [
-        "Range 请求/响应",
-        "documentation"
+        "Range 请求/响应"
       ],
       "complexity": "simple"
     },
@@ -1700,8 +1688,7 @@
       "filePath": "plan/step-6-database.md",
       "summary": "MySQL 连接池架构",
       "tags": [
-        "连接池设计",
-        "documentation"
+        "连接池设计"
       ],
       "complexity": "simple"
     },
@@ -1725,8 +1712,7 @@
       "filePath": "plan/step-7-file-transfer.md",
       "summary": "ChunkHeader 与传输流程",
       "tags": [
-        "文件传输协议",
-        "documentation"
+        "文件传输协议"
       ],
       "complexity": "simple"
     },
@@ -1751,8 +1737,7 @@
       "filePath": "plan/step-8-https-tls.md",
       "summary": "OpenSSL 上下文管理",
       "tags": [
-        "SSL 集成",
-        "documentation"
+        "SSL 集成"
       ],
       "complexity": "simple"
     },
@@ -1776,8 +1761,7 @@
       "filePath": "plan/step-9-websocket.md",
       "summary": "RFC 6455 实现",
       "tags": [
-        "WebSocket 握手",
-        "documentation"
+        "WebSocket 握手"
       ],
       "complexity": "simple"
     },
@@ -1788,8 +1772,7 @@
       "filePath": "plan/step-9-websocket.md",
       "summary": "帧格式与编解码",
       "tags": [
-        "帧编解码",
-        "documentation"
+        "帧编解码"
       ],
       "complexity": "simple"
     },
@@ -1807,7 +1790,7 @@
       "complexity": "moderate",
       "name": ".clang-tidy",
       "filePath": ".clang-tidy",
-      "summary": "clang-tidy 静态分析配置（启用规则与抑制项）",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -1826,7 +1809,7 @@
       "complexity": "moderate",
       "name": "core/pch.h",
       "filePath": "core/pch.h",
-      "summary": "预编译头，集中包含标准库常用头文件",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -1844,7 +1827,7 @@
       },
       "complexity": "moderate",
       "name": "ServerConfig",
-      "summary": "服务器配置结构体（端口、线程数、SSL 与数据库等）",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -1866,7 +1849,7 @@
       },
       "complexity": "moderate",
       "name": "parse_server_section",
-      "summary": "解析配置文件中的服务器段配置",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -1888,7 +1871,7 @@
       },
       "complexity": "moderate",
       "name": "parse_database_section",
-      "summary": "解析数据库连接参数配置段",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -1910,7 +1893,7 @@
       },
       "complexity": "moderate",
       "name": "parse_ssl_section",
-      "summary": "解析 SSL 证书与验证开关配置段",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -1932,7 +1915,7 @@
       },
       "complexity": "moderate",
       "name": "parse_fs_section",
-      "summary": "解析文件系统根目录配置段",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -1956,7 +1939,7 @@
       },
       "complexity": "moderate",
       "name": "parse_cmd_args",
-      "summary": "解析命令行启动参数",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -1978,7 +1961,7 @@
       },
       "complexity": "moderate",
       "name": "parse_json_file",
-      "summary": "读取并解析 JSON 配置文件",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -1999,7 +1982,7 @@
       },
       "complexity": "moderate",
       "name": "apply_env_overrides",
-      "summary": "用环境变量覆盖默认配置项",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -2021,7 +2004,7 @@
       },
       "complexity": "moderate",
       "name": "load_config",
-      "summary": "加载并合并得到最终服务器配置",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -2044,7 +2027,7 @@
       },
       "complexity": "moderate",
       "name": "register_routes",
-      "summary": "注册健康检查、文件、音乐、播放列表等全部 HTTP 路由",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -2066,7 +2049,7 @@
       },
       "complexity": "moderate",
       "name": "main",
-      "summary": "服务入口：初始化日志、数据库、路由并启动 HTTP 服务器",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -2084,7 +2067,7 @@
       },
       "complexity": "moderate",
       "name": "Impl",
-      "summary": "Boost.MySQL 连接的 pimpl 实现（io_context 与 TLS 连接）",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -2100,7 +2083,7 @@
       },
       "complexity": "moderate",
       "name": "Impl",
-      "summary": "构造 Impl，创建 io_context 与 TLS 客户端 SSL 上下文",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -2116,7 +2099,7 @@
       },
       "complexity": "moderate",
       "name": "connect",
-      "summary": "解析主机名并建立 MySQL TLS 连接",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -2132,7 +2115,7 @@
       },
       "complexity": "moderate",
       "name": "is_open",
-      "summary": "检查底层 socket 是否已打开",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -2148,7 +2131,7 @@
       },
       "complexity": "moderate",
       "name": "ping",
-      "summary": "执行 SELECT 1 探测连接是否存活",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -2164,7 +2147,7 @@
       },
       "complexity": "moderate",
       "name": "query",
-      "summary": "执行查询 SQL（可选预处理参数）并返回行列字符串结果",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -2180,7 +2163,7 @@
       },
       "complexity": "moderate",
       "name": "execute",
-      "summary": "执行写 SQL（可选预处理参数）并返回受影响行数",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -2196,7 +2179,7 @@
       },
       "complexity": "moderate",
       "name": "close_socket",
-      "summary": "关闭底层 asio socket",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -2212,7 +2195,7 @@
       },
       "complexity": "moderate",
       "name": "execute_stmt",
-      "summary": "将参数绑定为 field_view 并执行预处理语句",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -2231,7 +2214,7 @@
       },
       "complexity": "moderate",
       "name": "BoostMySqlConnection",
-      "summary": "构造对外 MySQL 连接对象",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -2250,7 +2233,7 @@
       },
       "complexity": "moderate",
       "name": "~BoostMySqlConnection",
-      "summary": "析构时关闭 socket 并释放内部 Impl",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -2269,7 +2252,7 @@
       },
       "complexity": "moderate",
       "name": "close",
-      "summary": "关闭底层 MySQL 连接",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -2288,7 +2271,7 @@
       },
       "complexity": "moderate",
       "name": "default_factory",
-      "summary": "默认连接工厂，创建 BoostMySqlConnection 实例",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -2309,7 +2292,7 @@
       },
       "complexity": "moderate",
       "name": "DatabasePool",
-      "summary": "构造连接池并保存连接工厂",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -2328,7 +2311,7 @@
       },
       "complexity": "moderate",
       "name": "~DatabasePool",
-      "summary": "析构时关闭池内全部连接",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -2347,7 +2330,7 @@
       },
       "complexity": "moderate",
       "name": "close",
-      "summary": "关闭连接池并通知等待线程",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -2368,7 +2351,7 @@
       },
       "complexity": "moderate",
       "name": "init",
-      "summary": "按配置预建 pool_size 个连接，失败则回滚清空",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -2387,7 +2370,7 @@
       },
       "complexity": "moderate",
       "name": "do_close",
-      "summary": "等待活跃连接归还后关闭池中所有连接",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -2406,7 +2389,7 @@
       },
       "complexity": "moderate",
       "name": "get_connection",
-      "summary": "限时等待获取空闲连接，断开时自动重连",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -2427,7 +2410,7 @@
       },
       "complexity": "moderate",
       "name": "release_connection",
-      "summary": "将连接归还池中并唤醒等待者",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -2448,7 +2431,7 @@
       },
       "complexity": "moderate",
       "name": "escape_string",
-      "summary": "转义 SQL 字符串中的特殊字符",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -2469,7 +2452,7 @@
       },
       "complexity": "moderate",
       "name": "get_user",
-      "summary": "按用户名查询用户记录",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -2490,7 +2473,7 @@
       },
       "complexity": "moderate",
       "name": "create_user",
-      "summary": "插入新用户记录并检测唯一键冲突",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -2511,7 +2494,7 @@
       },
       "complexity": "moderate",
       "name": "log_download",
-      "summary": "写入一条文件下载日志",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -2532,7 +2515,7 @@
       },
       "complexity": "moderate",
       "name": "get_download_history",
-      "summary": "分页查询下载历史记录",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -2553,7 +2536,7 @@
       },
       "complexity": "moderate",
       "name": "store_file_meta",
-      "summary": "存储文件元数据记录",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -2574,7 +2557,7 @@
       },
       "complexity": "moderate",
       "name": "get_file_meta",
-      "summary": "按 ID 查询文件元数据",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -2592,7 +2575,7 @@
       },
       "complexity": "moderate",
       "name": "FileSystem",
-      "summary": "基于 base_dir 虚拟路径的文件系统实现，防路径穿越",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -2608,7 +2591,7 @@
       },
       "complexity": "moderate",
       "name": "split_file",
-      "summary": "按块大小计算文件分块边界（不读取内容）",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -2624,7 +2607,7 @@
       },
       "complexity": "moderate",
       "name": "compute_file_hash",
-      "summary": "流式计算整个文件的 SHA-256 哈希",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -2640,7 +2623,7 @@
       },
       "complexity": "moderate",
       "name": "compute_chunk_hash",
-      "summary": "按偏移读取分块内容计算 SHA-256",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -2656,7 +2639,7 @@
       },
       "complexity": "moderate",
       "name": "store_file",
-      "summary": "将数据写入虚拟路径并自动创建父目录",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -2672,7 +2655,7 @@
       },
       "complexity": "moderate",
       "name": "delete_file",
-      "summary": "删除虚拟路径对应的文件",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -2688,7 +2671,7 @@
       },
       "complexity": "moderate",
       "name": "read_file",
-      "summary": "读取虚拟路径对应文件内容",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -2704,7 +2687,7 @@
       },
       "complexity": "moderate",
       "name": "sha256_hex",
-      "summary": "对内存数据计算 SHA-256 返回十六进制串",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -2720,7 +2703,7 @@
       },
       "complexity": "moderate",
       "name": "resolve_path",
-      "summary": "虚拟路径解析为实际路径并拦截路径穿越",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -2736,7 +2719,7 @@
       },
       "complexity": "moderate",
       "name": "to_hex",
-      "summary": "二进制哈希字节转十六进制字符串",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -2754,7 +2737,7 @@
       },
       "complexity": "moderate",
       "name": "FileChunk",
-      "summary": "文件分块描述（源路径、偏移与大小）",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -2772,7 +2755,7 @@
       },
       "complexity": "moderate",
       "name": "IFileSystem",
-      "summary": "文件系统抽象接口（切割、哈希、存储管理）",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -2788,7 +2771,7 @@
       },
       "complexity": "moderate",
       "name": "~IFileSystem",
-      "summary": "虚析构函数",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -2804,7 +2787,7 @@
       },
       "complexity": "moderate",
       "name": "split_file",
-      "summary": "纯虚：按块大小切割文件为分块描述",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -2820,7 +2803,7 @@
       },
       "complexity": "moderate",
       "name": "compute_file_hash",
-      "summary": "纯虚：计算整文件 SHA-256",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -2836,7 +2819,7 @@
       },
       "complexity": "moderate",
       "name": "compute_chunk_hash",
-      "summary": "纯虚：计算单个分块 SHA-256",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -2852,7 +2835,7 @@
       },
       "complexity": "moderate",
       "name": "store_file",
-      "summary": "纯虚：存储数据到虚拟路径",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -2868,7 +2851,7 @@
       },
       "complexity": "moderate",
       "name": "delete_file",
-      "summary": "纯虚：删除虚拟路径文件",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -2884,7 +2867,7 @@
       },
       "complexity": "moderate",
       "name": "read_file",
-      "summary": "纯虚：读取虚拟路径文件内容",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -2905,7 +2888,7 @@
       },
       "complexity": "moderate",
       "name": "FileSystem",
-      "summary": "构造文件系统并规范化 base_dir 尾部斜杠",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -2927,7 +2910,7 @@
       },
       "complexity": "moderate",
       "name": "to_hex",
-      "summary": "哈希字节数组转小写十六进制串",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -2949,7 +2932,7 @@
       },
       "complexity": "moderate",
       "name": "sha256_hex",
-      "summary": "对数据执行 SHA-256 摘要并返回十六进制",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -2970,7 +2953,7 @@
       },
       "complexity": "moderate",
       "name": "resolve_path",
-      "summary": "weakly_canonical 规范化并校验前缀防穿越",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -2992,7 +2975,7 @@
       },
       "complexity": "moderate",
       "name": "split_file",
-      "summary": "按文件大小生成分块偏移与大小列表",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -3013,7 +2996,7 @@
       },
       "complexity": "moderate",
       "name": "compute_file_hash",
-      "summary": "64KB 缓冲流式读文件计算 SHA-256",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -3034,7 +3017,7 @@
       },
       "complexity": "moderate",
       "name": "compute_chunk_hash",
-      "summary": "seek 到块偏移后限量读取计算哈希",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -3056,7 +3039,7 @@
       },
       "complexity": "moderate",
       "name": "store_file",
-      "summary": "创建父目录并覆写目标文件",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -3077,7 +3060,7 @@
       },
       "complexity": "moderate",
       "name": "delete_file",
-      "summary": "删除文件，区分删除成功与不存在",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -3098,7 +3081,7 @@
       },
       "complexity": "moderate",
       "name": "read_file",
-      "summary": "以二进制流方式读取整个文件",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -3117,7 +3100,7 @@
       "complexity": "moderate",
       "name": "file-system/xmake.lua",
       "filePath": "file-system/xmake.lua",
-      "summary": "文件系统模块的 xmake 构建脚本",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -3136,7 +3119,7 @@
       "complexity": "moderate",
       "name": "logger/src/logappender.cpp",
       "filePath": "logger/src/logappender.cpp",
-      "summary": "stdout 与文件日志输出地实现",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -3157,7 +3140,7 @@
       },
       "complexity": "moderate",
       "name": "FileLogAppender",
-      "summary": "构造文件 Appender 并立即打开文件",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -3176,7 +3159,7 @@
       },
       "complexity": "moderate",
       "name": "reopen",
-      "summary": "加锁关闭旧流并追加模式重开文件",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -3198,7 +3181,7 @@
       },
       "complexity": "moderate",
       "name": "log",
-      "summary": "加锁格式化日志并写入文件（可选 flush）",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -3217,7 +3200,7 @@
       "complexity": "moderate",
       "name": "logger/src/logformatter.cpp",
       "filePath": "logger/src/logformatter.cpp",
-      "summary": "日志格式器实现（模式解析与各格式项）",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -3238,7 +3221,7 @@
       },
       "complexity": "moderate",
       "name": "LogFormatter",
-      "summary": "构造格式器并解析格式化模式",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -3260,7 +3243,7 @@
       },
       "complexity": "moderate",
       "name": "format",
-      "summary": "依次调用格式项拼装日志文本",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -3279,7 +3262,7 @@
       },
       "complexity": "moderate",
       "name": "init",
-      "summary": "解析 % 占位符并生成对应格式项序列",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -3302,7 +3285,7 @@
       },
       "complexity": "moderate",
       "name": "format",
-      "summary": "输出日志消息内容字段",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -3325,7 +3308,7 @@
       },
       "complexity": "moderate",
       "name": "format",
-      "summary": "输出日志级别文本",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -3348,7 +3331,7 @@
       },
       "complexity": "moderate",
       "name": "format",
-      "summary": "输出程序运行耗时",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -3371,7 +3354,7 @@
       },
       "complexity": "moderate",
       "name": "format",
-      "summary": "输出日志器名称",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -3394,7 +3377,7 @@
       },
       "complexity": "moderate",
       "name": "format",
-      "summary": "输出线程 ID",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -3417,7 +3400,7 @@
       },
       "complexity": "moderate",
       "name": "format",
-      "summary": "输出协程 ID",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -3438,7 +3421,7 @@
       },
       "complexity": "moderate",
       "name": "DateTimeFormatItem",
-      "summary": "保存日期时间格式串",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -3461,7 +3444,7 @@
       },
       "complexity": "moderate",
       "name": "format",
-      "summary": "按格式串输出日志时间戳",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -3484,7 +3467,7 @@
       },
       "complexity": "moderate",
       "name": "format",
-      "summary": "输出换行符",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -3507,7 +3490,7 @@
       },
       "complexity": "moderate",
       "name": "format",
-      "summary": "原样输出常量字符串",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -3530,7 +3513,7 @@
       },
       "complexity": "moderate",
       "name": "format",
-      "summary": "输出源码行号",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -3553,7 +3536,7 @@
       },
       "complexity": "moderate",
       "name": "format",
-      "summary": "输出源文件名",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -3576,7 +3559,7 @@
       },
       "complexity": "moderate",
       "name": "format",
-      "summary": "输出模式错误占位符",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -3599,7 +3582,7 @@
       },
       "complexity": "moderate",
       "name": "LogEvent",
-      "summary": "构造日志事件并采集线程 ID、时间戳与耗时",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -3620,7 +3603,7 @@
       },
       "complexity": "moderate",
       "name": "Logger",
-      "summary": "构造指定名称的日志器",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -3642,7 +3625,7 @@
       },
       "complexity": "moderate",
       "name": "createEvent",
-      "summary": "创建携带日志器名的日志事件",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -3661,7 +3644,7 @@
       },
       "complexity": "moderate",
       "name": "allocCoroutineId",
-      "summary": "原子递增分配协程 ID",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -3682,7 +3665,7 @@
       },
       "complexity": "moderate",
       "name": "setCurrentCoroutineId",
-      "summary": "写入线程本地协程 ID",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -3701,7 +3684,7 @@
       },
       "complexity": "moderate",
       "name": "getCurrentCoroutineId",
-      "summary": "读取线程本地协程 ID",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -3722,7 +3705,7 @@
       },
       "complexity": "moderate",
       "name": "CoroutineScope",
-      "summary": "作用域进入时切换当前协程 ID",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -3741,7 +3724,7 @@
       },
       "complexity": "moderate",
       "name": "~CoroutineScope",
-      "summary": "作用域退出时恢复原协程 ID",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -3763,7 +3746,7 @@
       },
       "complexity": "moderate",
       "name": "log",
-      "summary": "快照 Appender 列表后依次输出事件",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -3785,7 +3768,7 @@
       },
       "complexity": "moderate",
       "name": "debug",
-      "summary": "创建 DEBUG 事件并写入日志",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -3807,7 +3790,7 @@
       },
       "complexity": "moderate",
       "name": "info",
-      "summary": "创建 INFO 事件并写入日志",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -3829,7 +3812,7 @@
       },
       "complexity": "moderate",
       "name": "warn",
-      "summary": "创建 WARN 事件并写入日志",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -3851,7 +3834,7 @@
       },
       "complexity": "moderate",
       "name": "error",
-      "summary": "创建 ERROR 事件并写入日志",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -3873,7 +3856,7 @@
       },
       "complexity": "moderate",
       "name": "fatal",
-      "summary": "创建 FATAL 事件并写入日志",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -3894,7 +3877,7 @@
       },
       "complexity": "moderate",
       "name": "addAppender",
-      "summary": "加锁向 Appender 列表追加输出地",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -3915,7 +3898,7 @@
       },
       "complexity": "moderate",
       "name": "delAppender",
-      "summary": "加锁从列表移除指定输出地",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -3936,7 +3919,7 @@
       },
       "complexity": "moderate",
       "name": "init",
-      "summary": "call_once 初始化单例与默认 stdout 输出地",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -3955,7 +3938,7 @@
       },
       "complexity": "moderate",
       "name": "shutdown",
-      "summary": "重置并销毁日志器单例",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -3974,7 +3957,7 @@
       "complexity": "moderate",
       "name": "logger/xmake.lua",
       "filePath": "logger/xmake.lua",
-      "summary": "日志模块的 xmake 构建脚本",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -3993,7 +3976,7 @@
       },
       "complexity": "moderate",
       "name": "~TieredMemoryPool",
-      "summary": "销毁时释放全部页并清空线程缓存注册",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -4014,7 +3997,7 @@
       },
       "complexity": "moderate",
       "name": "ensure_registered",
-      "summary": "将线程缓存注册到池的注册链表",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -4036,7 +4019,7 @@
       },
       "complexity": "moderate",
       "name": "deallocate_impl",
-      "summary": "归还内存块，超限时合并提升或回中心",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -4057,7 +4040,7 @@
       },
       "complexity": "moderate",
       "name": "central_allocate_batch",
-      "summary": "分配新页并切成批块挂入中心列表",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -4080,7 +4063,7 @@
       },
       "complexity": "moderate",
       "name": "return_batch_to_central",
-      "summary": "整批归还中心列表并可能触发合并",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -4102,7 +4085,7 @@
       },
       "complexity": "moderate",
       "name": "try_merge_and_promote",
-      "summary": "线程缓存中合并相邻块并提升到更大分级",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -4126,7 +4109,7 @@
       },
       "complexity": "moderate",
       "name": "try_merge_in_list",
-      "summary": "遍历链表合并地址相邻的空闲块",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -4147,7 +4130,7 @@
       },
       "complexity": "moderate",
       "name": "try_merge_central",
-      "summary": "中心列表递归合并相邻块并提升",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -4169,7 +4152,7 @@
       },
       "complexity": "moderate",
       "name": "page_index_of",
-      "summary": "二分查找指针所属的页",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -4188,7 +4171,7 @@
       "complexity": "moderate",
       "name": "memory-pool/xmake.lua",
       "filePath": "memory-pool/xmake.lua",
-      "summary": "内存池模块的 xmake 构建脚本",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -4210,7 +4193,7 @@
       "tags": [
         "tested"
       ],
-      "summary": "协程包装类 CoroItem：内存池分配、yield/return 与取消支持"
+      "summary": "暂无摘要"
     },
     {
       "id": "file:net/file-receive-process/main.cpp",
@@ -4226,7 +4209,7 @@
       "complexity": "moderate",
       "name": "net/file-receive-process/main.cpp",
       "filePath": "net/file-receive-process/main.cpp",
-      "summary": "分片接收进程：监听端口接收分片并落盘校验",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -4244,7 +4227,7 @@
       },
       "complexity": "moderate",
       "name": "ClientContext",
-      "summary": "单连接接收上下文（fd、总块数与原子计数）",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -4265,7 +4248,7 @@
       },
       "complexity": "moderate",
       "name": "handle_client",
-      "summary": "读取块头与块数据并 pwrite 到目标文件",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -4290,7 +4273,7 @@
       },
       "complexity": "moderate",
       "name": "parse_args",
-      "summary": "解析命令行端口、保存路径与总块数参数",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -4312,7 +4295,7 @@
       },
       "complexity": "moderate",
       "name": "main",
-      "summary": "绑定监听端口，多线程接收分片并校验完整性",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -4331,7 +4314,7 @@
       "complexity": "moderate",
       "name": "net/file-receive-process/xmake.lua",
       "filePath": "net/file-receive-process/xmake.lua",
-      "summary": "分片接收进程的 xmake 构建脚本",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -4350,7 +4333,7 @@
       "complexity": "moderate",
       "name": "net/file-send-process/main.cpp",
       "filePath": "net/file-send-process/main.cpp",
-      "summary": "分片发送进程：从 stdin 读任务并并发发送分片",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -4368,7 +4351,7 @@
       },
       "complexity": "moderate",
       "name": "SendTask",
-      "summary": "单个分片发送任务描述（索引、偏移、大小与对端）",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -4391,7 +4374,7 @@
       },
       "complexity": "moderate",
       "name": "send_all",
-      "summary": "循环写满字节数，处理 EINTR 与 EAGAIN",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -4413,7 +4396,7 @@
       },
       "complexity": "moderate",
       "name": "send_chunk",
-      "summary": "连接对端并发送块头与分块数据",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -4432,7 +4415,7 @@
       },
       "complexity": "moderate",
       "name": "main",
-      "summary": "解析任务清单并在线程池中并发发送分片",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -4451,7 +4434,7 @@
       "complexity": "moderate",
       "name": "net/file-send-process/xmake.lua",
       "filePath": "net/file-send-process/xmake.lua",
-      "summary": "分片发送进程的 xmake 构建脚本",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -4470,7 +4453,7 @@
       "complexity": "moderate",
       "name": "net/file-transfer/include/chunk_header.h",
       "filePath": "net/file-transfer/include/chunk_header.h",
-      "summary": "分片头结构声明（魔数、索引、偏移与大小）",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -4488,7 +4471,7 @@
       },
       "complexity": "moderate",
       "name": "ChunkHeader",
-      "summary": "28 字节分片头，含 HPSF 魔数校验",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -4504,7 +4487,7 @@
       },
       "complexity": "moderate",
       "name": "to_network",
-      "summary": "头字段转网络字节序",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -4520,7 +4503,7 @@
       },
       "complexity": "moderate",
       "name": "from_network",
-      "summary": "头字段转主机字节序",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -4538,7 +4521,7 @@
       },
       "complexity": "moderate",
       "name": "IFileSystem",
-      "summary": "文件系统接口前置声明",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -4556,7 +4539,7 @@
       },
       "complexity": "moderate",
       "name": "FileTransfer",
-      "summary": "文件传输实现：小文件直发、大文件分片进程传输",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -4572,7 +4555,7 @@
       },
       "complexity": "moderate",
       "name": "transfer_small",
-      "summary": "读取小文件内容并整体发送给对端",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -4588,7 +4571,7 @@
       },
       "complexity": "moderate",
       "name": "transfer_large",
-      "summary": "分片后经 fork 子进程并发传输大文件",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -4604,7 +4587,7 @@
       },
       "complexity": "moderate",
       "name": "receive_file",
-      "summary": "监听端口循环接收分片写入保存路径",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -4620,7 +4603,7 @@
       },
       "complexity": "moderate",
       "name": "recv_all",
-      "summary": "从 fd 读满指定字节数",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -4639,7 +4622,7 @@
       "complexity": "moderate",
       "name": "net/file-transfer/include/i_file_transfer.h",
       "filePath": "net/file-transfer/include/i_file_transfer.h",
-      "summary": "文件传输抽象接口声明",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -4657,7 +4640,7 @@
       },
       "complexity": "moderate",
       "name": "ITcpClient",
-      "summary": "TCP 客户端前置声明",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -4675,7 +4658,7 @@
       },
       "complexity": "moderate",
       "name": "ITcpServer",
-      "summary": "TCP 服务器前置声明",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -4693,7 +4676,7 @@
       },
       "complexity": "moderate",
       "name": "IFileTransfer",
-      "summary": "文件传输抽象接口（小文件、大文件与接收）",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -4709,7 +4692,7 @@
       },
       "complexity": "moderate",
       "name": "~IFileTransfer",
-      "summary": "虚析构函数",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -4725,7 +4708,7 @@
       },
       "complexity": "moderate",
       "name": "transfer_small",
-      "summary": "纯虚：传输小文件",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -4741,7 +4724,7 @@
       },
       "complexity": "moderate",
       "name": "transfer_large",
-      "summary": "纯虚：传输大文件",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -4757,7 +4740,7 @@
       },
       "complexity": "moderate",
       "name": "receive_file",
-      "summary": "纯虚：接收文件",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -4776,7 +4759,7 @@
       "complexity": "moderate",
       "name": "net/file-transfer/src/chunk_header.cpp",
       "filePath": "net/file-transfer/src/chunk_header.cpp",
-      "summary": "分片头字节序转换实现",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -4795,7 +4778,7 @@
       },
       "complexity": "moderate",
       "name": "to_network",
-      "summary": "htons/htonl/htobe64 转换头字段",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -4814,7 +4797,7 @@
       },
       "complexity": "moderate",
       "name": "from_network",
-      "summary": "网络字节序还原头字段",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -4836,7 +4819,7 @@
       },
       "complexity": "moderate",
       "name": "FileTransfer",
-      "summary": "构造传输器并保存文件系统与块大小",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -4858,7 +4841,7 @@
       },
       "complexity": "moderate",
       "name": "transfer_small",
-      "summary": "读取文件后经 TCP 客户端整体发送",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -4881,7 +4864,7 @@
       },
       "complexity": "moderate",
       "name": "transfer_large",
-      "summary": "构建任务文本经管道交给子进程并发发送",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -4903,7 +4886,7 @@
       },
       "complexity": "moderate",
       "name": "setup_listen_socket",
-      "summary": "创建非阻塞监听 socket 并获取随机端口",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -4925,7 +4908,7 @@
       },
       "complexity": "moderate",
       "name": "accept_and_receive_chunk",
-      "summary": "接受连接接收一个分片并 pwrite 落盘",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -4946,7 +4929,7 @@
       },
       "complexity": "moderate",
       "name": "receive_file",
-      "summary": "循环接收分片直至全部完成，失败删残留文件",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -4969,7 +4952,7 @@
       },
       "complexity": "moderate",
       "name": "recv_all",
-      "summary": "循环读取直到收满指定字节数",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -4988,7 +4971,7 @@
       "complexity": "moderate",
       "name": "net/file-transfer/xmake.lua",
       "filePath": "net/file-transfer/xmake.lua",
-      "summary": "文件传输模块的 xmake 构建脚本",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -5007,7 +4990,7 @@
       "complexity": "moderate",
       "name": "net/http/include/url_decode.h",
       "filePath": "net/http/include/url_decode.h",
-      "summary": "URL 百分号解码函数声明",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -5026,7 +5009,7 @@
       },
       "complexity": "moderate",
       "name": "HttpParser",
-      "summary": "构造解析器并复位初始状态",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -5045,7 +5028,7 @@
       },
       "complexity": "moderate",
       "name": "reset",
-      "summary": "复位解析状态、请求对象与回调",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -5064,7 +5047,7 @@
       },
       "complexity": "moderate",
       "name": "reset_line_buf",
-      "summary": "清空行缓冲",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -5085,7 +5068,7 @@
       },
       "complexity": "moderate",
       "name": "feed",
-      "summary": "逐字节驱动状态机解析请求并返回消耗量",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -5106,7 +5089,7 @@
       },
       "complexity": "moderate",
       "name": "feed_request_line",
-      "summary": "解析请求行中的方法、路径与版本",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -5125,7 +5108,7 @@
       },
       "complexity": "moderate",
       "name": "handle_end_of_headers",
-      "summary": "头结束后按 Content-Length 或 chunked 进入体解析",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -5144,7 +5127,7 @@
       },
       "complexity": "moderate",
       "name": "parse_header_line",
-      "summary": "解析单行请求头键值对",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -5165,7 +5148,7 @@
       },
       "complexity": "moderate",
       "name": "feed_headers",
-      "summary": "逐行解析请求头直至空行",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -5186,7 +5169,7 @@
       },
       "complexity": "moderate",
       "name": "feed_body_identity",
-      "summary": "按 Content-Length 接收请求体",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -5207,7 +5190,7 @@
       },
       "complexity": "moderate",
       "name": "feed_chunk_size",
-      "summary": "解析 chunked 分块大小",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -5228,7 +5211,7 @@
       },
       "complexity": "moderate",
       "name": "feed_chunk_data",
-      "summary": "接收 chunked 分块数据并处理 CRLF",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -5249,7 +5232,7 @@
       },
       "complexity": "moderate",
       "name": "feed_chunk_trailer",
-      "summary": "跳过 chunked 尾随头直至完成",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -5270,7 +5253,7 @@
       },
       "complexity": "moderate",
       "name": "http_method_to_string",
-      "summary": "HTTP 方法枚举转字符串",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -5291,7 +5274,7 @@
       },
       "complexity": "moderate",
       "name": "string_to_http_method",
-      "summary": "字符串转 HTTP 方法枚举",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -5310,7 +5293,7 @@
       },
       "complexity": "moderate",
       "name": "clear",
-      "summary": "复位请求对象全部字段",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -5329,7 +5312,7 @@
       "complexity": "moderate",
       "name": "net/http/src/http_response.cpp",
       "filePath": "net/http/src/http_response.cpp",
-      "summary": "HTTP 响应对象实现（状态、头与序列化）",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -5351,7 +5334,7 @@
       },
       "complexity": "moderate",
       "name": "set_status",
-      "summary": "设置状态码与状态文本",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -5373,7 +5356,7 @@
       },
       "complexity": "moderate",
       "name": "set_header",
-      "summary": "设置单个响应头",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -5394,7 +5377,7 @@
       },
       "complexity": "moderate",
       "name": "set_content_type",
-      "summary": "设置 Content-Type 头",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -5415,7 +5398,7 @@
       },
       "complexity": "moderate",
       "name": "set_content_length",
-      "summary": "设置 Content-Length 头",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -5434,7 +5417,7 @@
       },
       "complexity": "moderate",
       "name": "serialize",
-      "summary": "序列化为完整 HTTP 报文",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -5453,7 +5436,7 @@
       },
       "complexity": "moderate",
       "name": "clear",
-      "summary": "复位为默认 200 OK 空响应",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -5474,7 +5457,7 @@
       },
       "complexity": "moderate",
       "name": "HttpServer",
-      "summary": "构造服务器并注册连接关闭清理回调",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -5493,7 +5476,7 @@
       },
       "complexity": "moderate",
       "name": "~HttpServer",
-      "summary": "析构时解除关闭回调",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -5512,7 +5495,7 @@
       },
       "complexity": "moderate",
       "name": "init",
-      "summary": "绑定连接处理回调并初始化底层 TCP 服务器",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -5531,7 +5514,7 @@
       },
       "complexity": "moderate",
       "name": "start",
-      "summary": "启动服务器事件循环",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -5550,7 +5533,7 @@
       },
       "complexity": "moderate",
       "name": "stop",
-      "summary": "停止服务器",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -5572,7 +5555,7 @@
       },
       "complexity": "moderate",
       "name": "get",
-      "summary": "注册 GET 方法路由处理器",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -5594,7 +5577,7 @@
       },
       "complexity": "moderate",
       "name": "post",
-      "summary": "注册 POST 方法路由处理器",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -5616,7 +5599,7 @@
       },
       "complexity": "moderate",
       "name": "put",
-      "summary": "注册 PUT 方法路由处理器",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -5638,7 +5621,7 @@
       },
       "complexity": "moderate",
       "name": "del",
-      "summary": "注册 DELETE 方法路由处理器",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -5660,7 +5643,7 @@
       },
       "complexity": "moderate",
       "name": "ws",
-      "summary": "注册 WebSocket 路径处理器",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -5681,7 +5664,7 @@
       },
       "complexity": "moderate",
       "name": "get_conn_mutex",
-      "summary": "获取或创建连接级互斥锁",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -5704,7 +5687,7 @@
       },
       "complexity": "moderate",
       "name": "try_handle_ws_upgrade",
-      "summary": "完成 WebSocket 握手并启动帧事件循环",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -5725,7 +5708,7 @@
       },
       "complexity": "moderate",
       "name": "handle_connection",
-      "summary": "解析请求、鉴权并分发到路由、上传或 WebSocket 处理",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -5749,7 +5732,7 @@
       },
       "complexity": "moderate",
       "name": "send_error",
-      "summary": "构造错误响应并追加到连接写缓冲",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -5771,7 +5754,7 @@
       "tags": [
         "tested"
       ],
-      "summary": "Range 头解析与 206/416 响应构造实现"
+      "summary": "暂无摘要"
     },
     {
       "id": "function:net/http/src/range_parser.cpp::consume_prefix",
@@ -5790,7 +5773,7 @@
       },
       "complexity": "moderate",
       "name": "consume_prefix",
-      "summary": "忽略大小写匹配并消费前缀",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -5811,7 +5794,7 @@
       },
       "complexity": "moderate",
       "name": "skip_spaces",
-      "summary": "跳过空格与制表符",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -5832,7 +5815,7 @@
       },
       "complexity": "moderate",
       "name": "parse_number",
-      "summary": "用 from_chars 解析无符号数字",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -5855,7 +5838,7 @@
       },
       "complexity": "moderate",
       "name": "try_parse_suffix",
-      "summary": "解析后缀式范围（-N 字节）",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -5878,7 +5861,7 @@
       },
       "complexity": "moderate",
       "name": "try_parse_byte_range",
-      "summary": "解析起止式字节范围",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -5900,7 +5883,7 @@
       },
       "complexity": "moderate",
       "name": "parse_range_header",
-      "summary": "解析完整 Range 头为区间列表并判定可满足性",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -5923,7 +5906,7 @@
       },
       "complexity": "moderate",
       "name": "build_206_headers",
-      "summary": "构造 206 部分内容响应头",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -5945,7 +5928,7 @@
       },
       "complexity": "moderate",
       "name": "build_416_response",
-      "summary": "构造 416 范围不可满足响应",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -5967,7 +5950,7 @@
       "tags": [
         "tested"
       ],
-      "summary": "前缀树 HTTP 路由器实现（静态段与参数段）"
+      "summary": "暂无摘要"
     },
     {
       "id": "function:net/http/src/router.cpp::Router",
@@ -5983,7 +5966,7 @@
       },
       "complexity": "moderate",
       "name": "Router",
-      "summary": "构造路由器根节点",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -6002,7 +5985,7 @@
       },
       "complexity": "moderate",
       "name": "~Router",
-      "summary": "默认析构释放节点树",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -6023,7 +6006,7 @@
       },
       "complexity": "moderate",
       "name": "split_path",
-      "summary": "按斜杠切分路径为段列表",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -6046,7 +6029,7 @@
       },
       "complexity": "moderate",
       "name": "add",
-      "summary": "注册方法路径到处理器",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -6071,7 +6054,7 @@
       },
       "complexity": "moderate",
       "name": "insert",
-      "summary": "递归插入静态或参数段节点并挂处理器",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -6095,7 +6078,7 @@
       },
       "complexity": "moderate",
       "name": "match",
-      "summary": "匹配路径并输出处理器与路径参数",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -6121,7 +6104,7 @@
       },
       "complexity": "moderate",
       "name": "search",
-      "summary": "递归回溯匹配，静态段优先参数段兜底",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -6142,7 +6125,7 @@
       },
       "complexity": "moderate",
       "name": "path_exists",
-      "summary": "检查路径是否已有任何处理器",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -6164,7 +6147,7 @@
       "tags": [
         "tested"
       ],
-      "summary": "URL 百分号解码实现"
+      "summary": "暂无摘要"
     },
     {
       "id": "function:net/http/src/url_decode.cpp::hex_value",
@@ -6182,7 +6165,7 @@
       },
       "complexity": "moderate",
       "name": "hex_value",
-      "summary": "十六进制字符转数值",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -6204,7 +6187,7 @@
       },
       "complexity": "moderate",
       "name": "url_decode",
-      "summary": "解码 %XX 转义与加号空格",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -6223,7 +6206,7 @@
       "complexity": "moderate",
       "name": "net/ssl/include/ssl_context.h",
       "filePath": "net/ssl/include/ssl_context.h",
-      "summary": "SSL 上下文封装声明（证书加载与读写）",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -6241,7 +6224,7 @@
       },
       "complexity": "moderate",
       "name": "ssl_st",
-      "summary": "OpenSSL SSL 对象前置声明",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -6259,7 +6242,7 @@
       },
       "complexity": "moderate",
       "name": "ssl_ctx_st",
-      "summary": "OpenSSL SSL_CTX 前置声明",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -6277,7 +6260,7 @@
       },
       "complexity": "moderate",
       "name": "SslConfig",
-      "summary": "SSL 配置结构（证书、私钥、CA 与验证开关）",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -6295,7 +6278,7 @@
       },
       "complexity": "moderate",
       "name": "SslContext",
-      "summary": "SSL 上下文封装，管理握手、读写与错误判定",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -6311,7 +6294,7 @@
       },
       "complexity": "moderate",
       "name": "SslContext",
-      "summary": "构造上下文并加载证书与私钥",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -6327,7 +6310,7 @@
       },
       "complexity": "moderate",
       "name": "accept",
-      "summary": "对指定 fd 执行服务端 TLS 握手",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -6343,7 +6326,7 @@
       },
       "complexity": "moderate",
       "name": "shutdown_and_free",
-      "summary": "关闭并释放 SSL 对象",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -6359,7 +6342,7 @@
       },
       "complexity": "moderate",
       "name": "want_read",
-      "summary": "判断错误是否等待可读",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -6375,7 +6358,7 @@
       },
       "complexity": "moderate",
       "name": "want_write",
-      "summary": "判断错误是否等待可写",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -6391,7 +6374,7 @@
       },
       "complexity": "moderate",
       "name": "read",
-      "summary": "SSL 读取并归一化 WANT 错误码",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -6407,7 +6390,7 @@
       },
       "complexity": "moderate",
       "name": "write",
-      "summary": "SSL 写入并归一化 WANT 错误码",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -6429,7 +6412,7 @@
       "tags": [
         "tested"
       ],
-      "summary": "SSL 上下文实现（OpenSSL 初始化与证书加载）"
+      "summary": "暂无摘要"
     },
     {
       "id": "function:net/ssl/src/ssl_context.cpp::ensure_openssl",
@@ -6445,7 +6428,7 @@
       },
       "complexity": "moderate",
       "name": "ensure_openssl",
-      "summary": "一次性初始化 OpenSSL 库与错误串",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -6466,7 +6449,7 @@
       },
       "complexity": "moderate",
       "name": "SslContext",
-      "summary": "创建 TLS 服务端上下文并加载证书私钥 CA",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -6485,7 +6468,7 @@
       },
       "complexity": "moderate",
       "name": "~SslContext",
-      "summary": "释放 SSL_CTX",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -6507,7 +6490,7 @@
       },
       "complexity": "moderate",
       "name": "accept",
-      "summary": "绑定 fd 并执行 SSL_accept 握手",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -6528,7 +6511,7 @@
       },
       "complexity": "moderate",
       "name": "shutdown_and_free",
-      "summary": "执行 SSL_shutdown 并释放对象",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -6550,7 +6533,7 @@
       },
       "complexity": "moderate",
       "name": "want_read",
-      "summary": "错误码判定 WANT_READ",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -6572,7 +6555,7 @@
       },
       "complexity": "moderate",
       "name": "want_write",
-      "summary": "错误码判定 WANT_WRITE",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -6595,7 +6578,7 @@
       },
       "complexity": "moderate",
       "name": "read",
-      "summary": "SSL_read 并将 WANT/关闭映射为 0",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -6618,7 +6601,7 @@
       },
       "complexity": "moderate",
       "name": "write",
-      "summary": "SSL_write 并将 WANT/关闭映射为 0",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -6637,7 +6620,7 @@
       "complexity": "moderate",
       "name": "net/ssl/xmake.lua",
       "filePath": "net/ssl/xmake.lua",
-      "summary": "SSL 模块的 xmake 构建脚本",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -6656,7 +6639,7 @@
       "complexity": "moderate",
       "name": "net/tcp/tcp_client/include/i_tcp_client.h",
       "filePath": "net/tcp/tcp_client/include/i_tcp_client.h",
-      "summary": "非阻塞 TCP 客户端抽象接口",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -6674,7 +6657,7 @@
       },
       "complexity": "moderate",
       "name": "ITcpClient",
-      "summary": "TCP 客户端抽象接口（连接、发送、接收）",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -6690,7 +6673,7 @@
       },
       "complexity": "moderate",
       "name": "~ITcpClient",
-      "summary": "虚析构函数",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -6706,7 +6689,7 @@
       },
       "complexity": "moderate",
       "name": "connect_to_server",
-      "summary": "纯虚：连接服务器",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -6722,7 +6705,7 @@
       },
       "complexity": "moderate",
       "name": "disconnect",
-      "summary": "纯虚：断开连接",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -6738,7 +6721,7 @@
       },
       "complexity": "moderate",
       "name": "send_message",
-      "summary": "纯虚：发送消息",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -6754,7 +6737,7 @@
       },
       "complexity": "moderate",
       "name": "receive_message",
-      "summary": "纯虚：按行或原始模式接收消息",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -6770,7 +6753,7 @@
       },
       "complexity": "moderate",
       "name": "is_connected",
-      "summary": "纯虚：是否已连接",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -6789,7 +6772,7 @@
       "complexity": "moderate",
       "name": "net/tcp/tcp_client/include/tcp_client.h",
       "filePath": "net/tcp/tcp_client/include/tcp_client.h",
-      "summary": "非阻塞 TCP 客户端类声明",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -6807,7 +6790,7 @@
       },
       "complexity": "moderate",
       "name": "TcpClient",
-      "summary": "非阻塞 TCP 客户端，支持连接、收发与文件发送",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -6823,7 +6806,7 @@
       },
       "complexity": "moderate",
       "name": "TcpClient",
-      "summary": "构造客户端（默认连接超时）",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -6839,7 +6822,7 @@
       },
       "complexity": "moderate",
       "name": "connect_to_server",
-      "summary": "创建非阻塞 socket 并连接服务器",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -6855,7 +6838,7 @@
       },
       "complexity": "moderate",
       "name": "disconnect",
-      "summary": "关闭 socket 并清空读缓冲",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -6871,7 +6854,7 @@
       },
       "complexity": "moderate",
       "name": "send_message",
-      "summary": "发送消息并处理部分写",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -6887,7 +6870,7 @@
       },
       "complexity": "moderate",
       "name": "receive_message",
-      "summary": "按 LINE/RAW 模式接收消息",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -6903,7 +6886,7 @@
       },
       "complexity": "moderate",
       "name": "send_file",
-      "summary": "流式发送文件内容",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -6919,7 +6902,7 @@
       },
       "complexity": "moderate",
       "name": "is_connected",
-      "summary": "查询连接状态",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -6935,7 +6918,7 @@
       },
       "complexity": "moderate",
       "name": "send_all",
-      "summary": "循环发送全部字节处理 EAGAIN/EINTR",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -6951,7 +6934,7 @@
       },
       "complexity": "moderate",
       "name": "wait_connected",
-      "summary": "poll 等待非阻塞连接完成并查 SO_ERROR",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -6967,7 +6950,7 @@
       },
       "complexity": "moderate",
       "name": "wait_readable",
-      "summary": "poll 等待 socket 可读",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -6983,7 +6966,7 @@
       },
       "complexity": "moderate",
       "name": "recv_into_buffer",
-      "summary": "接收数据追加到读缓冲",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -6999,7 +6982,7 @@
       },
       "complexity": "moderate",
       "name": "read_line",
-      "summary": "从缓冲提取一行消息",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -7015,7 +6998,7 @@
       },
       "complexity": "moderate",
       "name": "read_raw",
-      "summary": "读取全部可用数据",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -7037,7 +7020,7 @@
       },
       "complexity": "moderate",
       "name": "TcpClient",
-      "summary": "构造并保存服务器地址与超时",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -7056,7 +7039,7 @@
       },
       "complexity": "moderate",
       "name": "~TcpClient",
-      "summary": "析构时主动断开连接",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -7080,7 +7063,7 @@
       },
       "complexity": "moderate",
       "name": "send_all",
-      "summary": "循环发送，阻塞后 poll 等待可写重试",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -7102,7 +7085,7 @@
       },
       "complexity": "moderate",
       "name": "wait_connected",
-      "summary": "poll 等待连接建立并校验 SO_ERROR",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -7124,7 +7107,7 @@
       },
       "complexity": "moderate",
       "name": "wait_readable",
-      "summary": "poll 等待数据可读",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -7143,7 +7126,7 @@
       },
       "complexity": "moderate",
       "name": "connect_to_server",
-      "summary": "getaddrinfo 解析并异步 connect 连接",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -7162,7 +7145,7 @@
       },
       "complexity": "moderate",
       "name": "disconnect",
-      "summary": "关闭 socket 并复位状态",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -7183,7 +7166,7 @@
       },
       "complexity": "moderate",
       "name": "send_message",
-      "summary": "校验连接后发送整条消息",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -7206,7 +7189,7 @@
       },
       "complexity": "moderate",
       "name": "receive_message",
-      "summary": "分发到行模式或原始模式接收",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -7227,7 +7210,7 @@
       },
       "complexity": "moderate",
       "name": "recv_into_buffer",
-      "summary": "等待可读后 recv 追加到缓冲，对端关闭标记",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -7248,7 +7231,7 @@
       },
       "complexity": "moderate",
       "name": "read_line",
-      "summary": "缓冲中查找换行提取一行，不足则继续接收",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -7270,7 +7253,7 @@
       },
       "complexity": "moderate",
       "name": "read_raw",
-      "summary": "先取缓冲再循环读取直至超时",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -7291,7 +7274,7 @@
       },
       "complexity": "moderate",
       "name": "send_file",
-      "summary": "分块读文件并循环发送全部数据",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -7310,7 +7293,7 @@
       "complexity": "moderate",
       "name": "net/tcp/tcp_client/xmake.lua",
       "filePath": "net/tcp/tcp_client/xmake.lua",
-      "summary": "TCP 客户端模块的 xmake 构建脚本",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -7332,7 +7315,7 @@
       },
       "complexity": "moderate",
       "name": "Connection",
-      "summary": "构造连接并记录对端地址与活跃时间",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -7351,7 +7334,7 @@
       },
       "complexity": "moderate",
       "name": "~Connection",
-      "summary": "析构时确保连接已关闭",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -7370,7 +7353,7 @@
       },
       "complexity": "moderate",
       "name": "client_ip",
-      "summary": "格式化对端 IP 为字符串",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -7389,7 +7372,7 @@
       },
       "complexity": "moderate",
       "name": "client_port",
-      "summary": "返回对端端口",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -7408,7 +7391,7 @@
       },
       "complexity": "moderate",
       "name": "read_from_fd",
-      "summary": "从 fd 读取数据到读缓冲（SSL/明文分流）",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -7427,7 +7410,7 @@
       },
       "complexity": "moderate",
       "name": "ssl_read_from_fd",
-      "summary": "SSL 读取到读缓冲，处理 WANT 与关闭",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -7446,7 +7429,7 @@
       },
       "complexity": "moderate",
       "name": "plain_read_from_fd",
-      "summary": "普通 ET 循环读取到读缓冲",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -7465,7 +7448,7 @@
       },
       "complexity": "moderate",
       "name": "ssl_write_to_fd_locked",
-      "summary": "SSL 刷写写缓冲并推进偏移",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -7484,7 +7467,7 @@
       },
       "complexity": "moderate",
       "name": "plain_write_to_fd_locked",
-      "summary": "普通刷写写缓冲并推进偏移",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -7503,7 +7486,7 @@
       },
       "complexity": "moderate",
       "name": "write_to_fd",
-      "summary": "加锁后刷写写缓冲",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -7522,7 +7505,7 @@
       },
       "complexity": "moderate",
       "name": "write_to_fd_locked",
-      "summary": "刷写并紧凑写缓冲，更新活跃时间",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -7541,7 +7524,7 @@
       },
       "complexity": "moderate",
       "name": "close",
-      "summary": "关闭 SSL 与 fd 并置状态为 CLOSED",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -7562,7 +7545,7 @@
       },
       "complexity": "moderate",
       "name": "consume_read_buffer",
-      "summary": "加锁消费读缓冲前 bytes 字节",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -7581,7 +7564,7 @@
       },
       "complexity": "moderate",
       "name": "await_read",
-      "summary": "返回读操作协程可等待对象",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -7600,7 +7583,7 @@
       },
       "complexity": "moderate",
       "name": "await_write",
-      "summary": "返回写操作协程可等待对象",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -7621,7 +7604,7 @@
       },
       "complexity": "moderate",
       "name": "await_suspend",
-      "summary": "协程挂起时同步执行读写并立即恢复",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -7639,7 +7622,7 @@
       },
       "complexity": "moderate",
       "name": "EpollFd",
-      "summary": "epoll 目标 fd 的轻量封装",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -7657,7 +7640,7 @@
       },
       "complexity": "moderate",
       "name": "EpollEvents",
-      "summary": "epoll 事件标志封装",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -7680,7 +7663,7 @@
       },
       "complexity": "moderate",
       "name": "epoll_ctl_add",
-      "summary": "将 fd 以指定事件注册到 epoll",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -7703,7 +7686,7 @@
       },
       "complexity": "moderate",
       "name": "epoll_ctl_mod",
-      "summary": "修改 fd 在 epoll 中的事件",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -7724,7 +7707,7 @@
       },
       "complexity": "moderate",
       "name": "signal_handler",
-      "summary": "信号回调，触发服务器优雅停止",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -7745,7 +7728,7 @@
       },
       "complexity": "moderate",
       "name": "TcpServer",
-      "summary": "构造服务器并校正 epoll 超时下限",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -7764,7 +7747,7 @@
       },
       "complexity": "moderate",
       "name": "~TcpServer",
-      "summary": "析构时停止服务器并清理单例指针",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -7783,7 +7766,7 @@
       },
       "complexity": "moderate",
       "name": "init",
-      "summary": "创建 socket、epoll、eventfd 与线程池",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -7804,7 +7787,7 @@
       },
       "complexity": "moderate",
       "name": "set_handler",
-      "summary": "设置连接数据处理回调",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -7823,7 +7806,7 @@
       },
       "complexity": "moderate",
       "name": "start",
-      "summary": "原子置运行标志并进入事件循环",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -7842,7 +7825,7 @@
       },
       "complexity": "moderate",
       "name": "stop",
-      "summary": "置停止标志并唤醒事件循环",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -7861,7 +7844,7 @@
       },
       "complexity": "moderate",
       "name": "event_loop",
-      "summary": "epoll_wait 主循环，分发事件直至停止",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -7880,7 +7863,7 @@
       },
       "complexity": "moderate",
       "name": "cleanup_resources",
-      "summary": "停线程池、关闭全部连接与 fd",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -7901,7 +7884,7 @@
       },
       "complexity": "moderate",
       "name": "handle_event",
-      "summary": "分发监听、唤醒与客户端连接事件",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -7920,7 +7903,7 @@
       },
       "complexity": "moderate",
       "name": "handle_accept",
-      "summary": "循环 accept 新连接并注册 epoll",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -7941,7 +7924,7 @@
       },
       "complexity": "moderate",
       "name": "handle_read",
-      "summary": "读取连接数据并投递处理器到线程池",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -7962,7 +7945,7 @@
       },
       "complexity": "moderate",
       "name": "handle_write",
-      "summary": "刷写连接写缓冲并调整 epoll 事件",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -7984,7 +7967,7 @@
       },
       "complexity": "moderate",
       "name": "try_ssl_detection",
-      "summary": "探测 TLS 首字节并初始化 SSL 握手",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -8006,7 +7989,7 @@
       },
       "complexity": "moderate",
       "name": "try_ssl_handshake",
-      "summary": "握手状态连接转入握手处理",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -8028,7 +8011,7 @@
       },
       "complexity": "moderate",
       "name": "handle_client_event",
-      "summary": "处理客户端读写与断开事件",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -8050,7 +8033,7 @@
       },
       "complexity": "moderate",
       "name": "handle_ssl_handshake",
-      "summary": "执行 SSL_accept 并处理 WANT 读写",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -8071,7 +8054,7 @@
       },
       "complexity": "moderate",
       "name": "close_connection",
-      "summary": "关闭连接、触发回调并从映射移除",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -8092,7 +8075,7 @@
       },
       "complexity": "moderate",
       "name": "notify_wake",
-      "summary": "写 eventfd 唤醒事件循环",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -8111,7 +8094,7 @@
       },
       "complexity": "moderate",
       "name": "process_dirty_connections",
-      "summary": "重试刷写脏连接的写缓冲",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -8130,7 +8113,7 @@
       "complexity": "moderate",
       "name": "net/tcp/tcp_server/xmake.lua",
       "filePath": "net/tcp/tcp_server/xmake.lua",
-      "summary": "TCP 服务器模块的 xmake 构建脚本",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -8151,7 +8134,7 @@
       },
       "complexity": "moderate",
       "name": "LockedThreadPool",
-      "summary": "创建指定数量的 jthread 工作线程",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -8170,7 +8153,7 @@
       },
       "complexity": "moderate",
       "name": "~LockedThreadPool",
-      "summary": "析构时自动停止线程池",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -8191,7 +8174,7 @@
       },
       "complexity": "moderate",
       "name": "worker",
-      "summary": "工作循环取任务执行并捕获异常",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -8210,7 +8193,7 @@
       },
       "complexity": "moderate",
       "name": "wait_impl",
-      "summary": "条件变量等待 pending 归零",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -8231,7 +8214,7 @@
       },
       "complexity": "moderate",
       "name": "wait_for",
-      "summary": "限时等待 pending 归零",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -8250,7 +8233,7 @@
       },
       "complexity": "moderate",
       "name": "stop_impl",
-      "summary": "置停止位清空队列并 join 全部线程",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -8271,7 +8254,7 @@
       },
       "complexity": "moderate",
       "name": "LockFreeThreadPool",
-      "summary": "创建指定数量的工作线程",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -8290,7 +8273,7 @@
       },
       "complexity": "moderate",
       "name": "~LockFreeThreadPool",
-      "summary": "析构时调用 stop 停止线程池",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -8309,7 +8292,7 @@
       },
       "complexity": "moderate",
       "name": "stop_impl",
-      "summary": "等待在途入队完成后停止并停队列",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -8330,7 +8313,7 @@
       },
       "complexity": "moderate",
       "name": "worker",
-      "summary": "从无锁队列取任务执行并维护计数",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -8349,7 +8332,7 @@
       },
       "complexity": "moderate",
       "name": "wait_impl",
-      "summary": "等待 pending 与入队者均为零",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -8368,7 +8351,7 @@
       "complexity": "moderate",
       "name": "net/thread-pool/xmake.lua",
       "filePath": "net/thread-pool/xmake.lua",
-      "summary": "线程池模块的 xmake 构建脚本",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -8387,7 +8370,7 @@
       "complexity": "moderate",
       "name": "net/websocket/include/websocket.h",
       "filePath": "net/websocket/include/websocket.h",
-      "summary": "WebSocket 帧结构与编解码、握手函数声明",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -8405,7 +8388,7 @@
       },
       "complexity": "moderate",
       "name": "WsFrame",
-      "summary": "WebSocket 帧（FIN 位、操作码与负载）",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -8424,7 +8407,7 @@
       "complexity": "moderate",
       "name": "net/websocket/include/ws_connection.h",
       "filePath": "net/websocket/include/ws_connection.h",
-      "summary": "WebSocket 连接封装声明",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -8442,7 +8425,7 @@
       },
       "complexity": "moderate",
       "name": "WsConnection",
-      "summary": "WebSocket 连接封装，管理收发与关闭回调",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -8458,7 +8441,7 @@
       },
       "complexity": "moderate",
       "name": "send",
-      "summary": "编码并发送一个 WebSocket 帧",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -8474,7 +8457,7 @@
       },
       "complexity": "moderate",
       "name": "close",
-      "summary": "发送关闭帧并关闭底层连接",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -8490,7 +8473,7 @@
       },
       "complexity": "moderate",
       "name": "set_message_handler",
-      "summary": "设置消息接收回调",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -8506,7 +8489,7 @@
       },
       "complexity": "moderate",
       "name": "set_close_handler",
-      "summary": "设置关闭回调",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -8522,7 +8505,7 @@
       },
       "complexity": "moderate",
       "name": "start_event_loop",
-      "summary": "启动帧事件循环",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -8538,7 +8521,7 @@
       },
       "complexity": "moderate",
       "name": "do_send",
-      "summary": "追加帧数据到写缓冲并刷写",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -8560,7 +8543,7 @@
       "tags": [
         "tested"
       ],
-      "summary": "WebSocket 握手、帧编解码与 base64 实现"
+      "summary": "暂无摘要"
     },
     {
       "id": "function:net/websocket/src/websocket.cpp::base64_encode",
@@ -8578,7 +8561,7 @@
       },
       "complexity": "moderate",
       "name": "base64_encode",
-      "summary": "标准 base64 编码",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -8600,7 +8583,7 @@
       },
       "complexity": "moderate",
       "name": "ws_server_handshake",
-      "summary": "校验握手头并生成 Sec-WebSocket-Accept",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -8623,7 +8606,7 @@
       },
       "complexity": "moderate",
       "name": "ws_encode_frame",
-      "summary": "构造服务端帧（含长度扩展）",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -8644,7 +8627,7 @@
       },
       "complexity": "moderate",
       "name": "ws_decode_frame",
-      "summary": "解析客户端帧并解掩码",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -8665,7 +8648,7 @@
       },
       "complexity": "moderate",
       "name": "ws_close_code",
-      "summary": "从关闭帧负载提取关闭码",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -8688,7 +8671,7 @@
       },
       "complexity": "moderate",
       "name": "WsConnection",
-      "summary": "构造连接并保存消息与关闭回调",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -8711,7 +8694,7 @@
       },
       "complexity": "moderate",
       "name": "send",
-      "summary": "编码帧并写入连接写缓冲",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -8733,7 +8716,7 @@
       },
       "complexity": "moderate",
       "name": "close",
-      "summary": "构造关闭帧发送并关闭连接",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -8754,7 +8737,7 @@
       },
       "complexity": "moderate",
       "name": "calc_frame_size",
-      "summary": "计算一帧在缓冲中的完整长度",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -8779,7 +8762,7 @@
       },
       "complexity": "moderate",
       "name": "handle_frame",
-      "summary": "分发关闭、PING/PONG 与消息帧",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -8798,7 +8781,7 @@
       },
       "complexity": "moderate",
       "name": "start_event_loop",
-      "summary": "poll 读取并逐帧解析处理",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -8819,7 +8802,7 @@
       },
       "complexity": "moderate",
       "name": "do_send",
-      "summary": "加锁追加帧并刷写写缓冲",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -8838,7 +8821,7 @@
       "complexity": "moderate",
       "name": "net/xmake.lua",
       "filePath": "net/xmake.lua",
-      "summary": "网络层聚合子项目构建脚本",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -8857,7 +8840,7 @@
       "complexity": "moderate",
       "name": "tests/test_coroutine.cpp",
       "filePath": "tests/test_coroutine.cpp",
-      "summary": "协程与 Connection 可等待对象测试",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -8879,7 +8862,7 @@
       },
       "complexity": "moderate",
       "name": "main",
-      "summary": "gtest 测试入口",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -8898,7 +8881,7 @@
       },
       "complexity": "moderate",
       "name": "TEST",
-      "summary": "协程异常传播、完成与 await 读写测试用例",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -8917,7 +8900,7 @@
       },
       "complexity": "moderate",
       "name": "zero_addr",
-      "summary": "构造全零 sockaddr_in 辅助函数",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -8938,7 +8921,7 @@
       },
       "complexity": "moderate",
       "name": "read_coro",
-      "summary": "协程内 co_await 读取并返回字节数",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -8959,7 +8942,7 @@
       },
       "complexity": "moderate",
       "name": "write_coro",
-      "summary": "协程内 co_await 刷写并返回写入量",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -8977,7 +8960,7 @@
       },
       "complexity": "moderate",
       "name": "MockPool",
-      "summary": "数据库连接池测试夹具（Mock 连接与生命周期协调器）",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -8993,7 +8976,7 @@
       },
       "complexity": "moderate",
       "name": "MockPool",
-      "summary": "构造 Mock 连接并初始化连接池",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -9012,7 +8995,7 @@
       },
       "complexity": "moderate",
       "name": "TEST",
-      "summary": "数据库池连接管理、VIP、播放列表与文件删除等测试",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -9034,7 +9017,7 @@
       },
       "complexity": "moderate",
       "name": "main",
-      "summary": "gtest 测试入口",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -9053,7 +9036,7 @@
       "complexity": "moderate",
       "name": "tests/test_file_system.cpp",
       "filePath": "tests/test_file_system.cpp",
-      "summary": "文件系统切割、哈希与存储测试",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -9071,7 +9054,7 @@
       },
       "complexity": "moderate",
       "name": "TempDir",
-      "summary": "临时测试目录 RAII 封装",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -9087,7 +9070,7 @@
       },
       "complexity": "moderate",
       "name": "TempDir",
-      "summary": "创建 pid 命名的临时目录",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -9103,7 +9086,7 @@
       },
       "complexity": "moderate",
       "name": "~TempDir",
-      "summary": "递归删除临时目录",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -9119,7 +9102,7 @@
       },
       "complexity": "moderate",
       "name": "file_path",
-      "summary": "拼接临时目录下文件路径",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -9135,7 +9118,7 @@
       },
       "complexity": "moderate",
       "name": "write_file",
-      "summary": "向临时目录写入测试文件",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -9157,7 +9140,7 @@
       },
       "complexity": "moderate",
       "name": "main",
-      "summary": "gtest 测试入口",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -9176,7 +9159,7 @@
       },
       "complexity": "moderate",
       "name": "TEST",
-      "summary": "分块切割、SHA-256 哈希与路径穿越防护测试",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -9195,7 +9178,7 @@
       "complexity": "moderate",
       "name": "tests/test_file_transfer.cpp",
       "filePath": "tests/test_file_transfer.cpp",
-      "summary": "文件传输与分片头序列化测试",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -9213,7 +9196,7 @@
       },
       "complexity": "moderate",
       "name": "TempDir",
-      "summary": "临时目录 RAII 测试辅助",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -9229,7 +9212,7 @@
       },
       "complexity": "moderate",
       "name": "TempDir",
-      "summary": "创建临时测试目录",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -9245,7 +9228,7 @@
       },
       "complexity": "moderate",
       "name": "~TempDir",
-      "summary": "清理临时目录",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -9261,7 +9244,7 @@
       },
       "complexity": "moderate",
       "name": "file_path",
-      "summary": "生成临时文件路径",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -9277,7 +9260,7 @@
       },
       "complexity": "moderate",
       "name": "write_file",
-      "summary": "写入测试文件",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -9296,7 +9279,7 @@
       },
       "complexity": "moderate",
       "name": "create_echo_server",
-      "summary": "创建回显测试服务器 socket",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -9317,7 +9300,7 @@
       },
       "complexity": "moderate",
       "name": "get_port",
-      "summary": "获取监听 socket 端口",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -9338,7 +9321,7 @@
       },
       "complexity": "moderate",
       "name": "run_echo_server",
-      "summary": "回显服务器线程主体",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -9361,7 +9344,7 @@
       },
       "complexity": "moderate",
       "name": "recv_all",
-      "summary": "接收指定字节数的辅助函数",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -9380,7 +9363,7 @@
       },
       "complexity": "moderate",
       "name": "TEST",
-      "summary": "小文件传输与分片头字节序测试",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -9402,7 +9385,7 @@
       },
       "complexity": "moderate",
       "name": "main",
-      "summary": "gtest 测试入口",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -9421,7 +9404,7 @@
       },
       "complexity": "moderate",
       "name": "TEST",
-      "summary": "请求行、头、chunked 体与错误处理解析测试",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -9443,7 +9426,7 @@
       },
       "complexity": "moderate",
       "name": "main",
-      "summary": "gtest 测试入口",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -9462,7 +9445,7 @@
       },
       "complexity": "moderate",
       "name": "TEST",
-      "summary": "请求对象默认状态与方法转换测试",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -9484,7 +9467,7 @@
       },
       "complexity": "moderate",
       "name": "main",
-      "summary": "gtest 测试入口",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -9503,7 +9486,7 @@
       "complexity": "moderate",
       "name": "tests/test_http_response.cpp",
       "filePath": "tests/test_http_response.cpp",
-      "summary": "HTTP 响应对象测试",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -9522,7 +9505,7 @@
       },
       "complexity": "moderate",
       "name": "TEST",
-      "summary": "响应状态、头设置与序列化测试",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -9544,7 +9527,7 @@
       },
       "complexity": "moderate",
       "name": "main",
-      "summary": "gtest 测试入口",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -9566,7 +9549,7 @@
       },
       "complexity": "moderate",
       "name": "main",
-      "summary": "gtest 测试入口",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -9588,7 +9571,7 @@
       },
       "complexity": "moderate",
       "name": "send_raw",
-      "summary": "向服务器发送原始 HTTP 数据并返回响应",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -9607,7 +9590,7 @@
       },
       "complexity": "moderate",
       "name": "TEST",
-      "summary": "上传流、鉴权与生命周期守卫集成测试",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -9626,7 +9609,7 @@
       "complexity": "moderate",
       "name": "tests/test_lock_free_queue.cpp",
       "filePath": "tests/test_lock_free_queue.cpp",
-      "summary": "无锁队列并发测试",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -9648,7 +9631,7 @@
       },
       "complexity": "moderate",
       "name": "main",
-      "summary": "gtest 测试入口",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -9667,7 +9650,7 @@
       },
       "complexity": "moderate",
       "name": "TEST",
-      "summary": "无锁队列基本操作与并发压测",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -9686,7 +9669,7 @@
       "complexity": "moderate",
       "name": "tests/test_locked_thread_pool.cpp",
       "filePath": "tests/test_locked_thread_pool.cpp",
-      "summary": "互斥队列线程池测试",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -9708,7 +9691,7 @@
       },
       "complexity": "moderate",
       "name": "main",
-      "summary": "gtest 测试入口",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -9727,7 +9710,7 @@
       },
       "complexity": "moderate",
       "name": "TEST",
-      "summary": "线程池任务执行、等待与停止测试",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -9746,7 +9729,7 @@
       "complexity": "moderate",
       "name": "tests/test_memory_pool.cpp",
       "filePath": "tests/test_memory_pool.cpp",
-      "summary": "分层内存池功能测试",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -9768,7 +9751,7 @@
       },
       "complexity": "moderate",
       "name": "main",
-      "summary": "gtest 测试入口",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -9787,7 +9770,7 @@
       },
       "complexity": "moderate",
       "name": "TEST",
-      "summary": "内存池分配释放、合并与多线程测试",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -9806,7 +9789,7 @@
       "complexity": "moderate",
       "name": "tests/test_move_only_function.cpp",
       "filePath": "tests/test_move_only_function.cpp",
-      "summary": "MoveOnlyFunction 与无锁队列集成测试",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -9825,7 +9808,7 @@
       },
       "complexity": "moderate",
       "name": "TEST",
-      "summary": "SBO 存储、移动语义与复位测试",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -9847,7 +9830,7 @@
       },
       "complexity": "moderate",
       "name": "main",
-      "summary": "gtest 测试入口",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -9866,7 +9849,7 @@
       "complexity": "moderate",
       "name": "tests/test_range_parser.cpp",
       "filePath": "tests/test_range_parser.cpp",
-      "summary": "Range 头解析测试",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -9888,7 +9871,7 @@
       },
       "complexity": "moderate",
       "name": "main",
-      "summary": "gtest 测试入口",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -9907,7 +9890,7 @@
       },
       "complexity": "moderate",
       "name": "TEST",
-      "summary": "单段、后缀、多段范围与 206/416 测试",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -9929,7 +9912,7 @@
       },
       "complexity": "moderate",
       "name": "main",
-      "summary": "gtest 测试入口",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -9950,7 +9933,7 @@
       },
       "complexity": "moderate",
       "name": "make_handler",
-      "summary": "构造测试用路由处理器",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -9969,7 +9952,7 @@
       },
       "complexity": "moderate",
       "name": "TEST",
-      "summary": "静态、参数段匹配与回溯优先级测试",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -9988,7 +9971,7 @@
       "complexity": "moderate",
       "name": "tests/test_ssl.cpp",
       "filePath": "tests/test_ssl.cpp",
-      "summary": "SSL 上下文与 TLS 服务器集成测试",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -10006,7 +9989,7 @@
       },
       "complexity": "moderate",
       "name": "SslClient",
-      "summary": "测试用 SSL 客户端辅助类",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -10022,7 +10005,7 @@
       },
       "complexity": "moderate",
       "name": "connect_to",
-      "summary": "建立 TCP 与 TLS 连接",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -10038,7 +10021,7 @@
       },
       "complexity": "moderate",
       "name": "read",
-      "summary": "SSL 读取测试数据",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -10054,7 +10037,7 @@
       },
       "complexity": "moderate",
       "name": "write",
-      "summary": "SSL 写入测试数据",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -10070,7 +10053,7 @@
       },
       "complexity": "moderate",
       "name": "~SslClient",
-      "summary": "关闭 SSL 与 socket",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -10091,7 +10074,7 @@
       },
       "complexity": "moderate",
       "name": "cert_path",
-      "summary": "拼接测试证书路径",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -10110,7 +10093,7 @@
       },
       "complexity": "moderate",
       "name": "ensure_certs",
-      "summary": "用 openssl 命令生成测试自签证书",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -10131,7 +10114,7 @@
       },
       "complexity": "moderate",
       "name": "raw_connect",
-      "summary": "建立裸 TCP 连接用于明文探测测试",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -10150,7 +10133,7 @@
       },
       "complexity": "moderate",
       "name": "TEST",
-      "summary": "TLS 握手、加密收发与明文/密文双模式测试",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -10172,7 +10155,7 @@
       },
       "complexity": "moderate",
       "name": "main",
-      "summary": "gtest 测试入口",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -10191,7 +10174,7 @@
       },
       "complexity": "moderate",
       "name": "create_echo_server",
-      "summary": "创建回显服务器 socket",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -10212,7 +10195,7 @@
       },
       "complexity": "moderate",
       "name": "get_port",
-      "summary": "获取监听端口",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -10233,7 +10216,7 @@
       },
       "complexity": "moderate",
       "name": "run_echo_server",
-      "summary": "回显服务器线程主体",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -10252,7 +10235,7 @@
       },
       "complexity": "moderate",
       "name": "temp_file_path",
-      "summary": "生成临时文件路径",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -10271,7 +10254,7 @@
       },
       "complexity": "moderate",
       "name": "TEST",
-      "summary": "客户端连接、行/原始接收与文件发送测试",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -10293,7 +10276,7 @@
       },
       "complexity": "moderate",
       "name": "main",
-      "summary": "gtest 测试入口",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -10312,7 +10295,7 @@
       "complexity": "moderate",
       "name": "tests/test_tcp_server_connection.cpp",
       "filePath": "tests/test_tcp_server_connection.cpp",
-      "summary": "Connection 对象单元测试",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -10330,7 +10313,7 @@
       },
       "complexity": "moderate",
       "name": "ConnectionTest",
-      "summary": "Connection 测试夹具（socketpair 连接对）",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -10346,7 +10329,7 @@
       },
       "complexity": "moderate",
       "name": "SetUp",
-      "summary": "创建 socketpair 并设为非阻塞",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -10362,7 +10345,7 @@
       },
       "complexity": "moderate",
       "name": "TearDown",
-      "summary": "关闭连接对",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -10381,7 +10364,7 @@
       },
       "complexity": "moderate",
       "name": "TEST_F",
-      "summary": "构造、读写缓冲与关闭行为测试",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -10403,7 +10386,7 @@
       },
       "complexity": "moderate",
       "name": "main",
-      "summary": "gtest 测试入口",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -10421,7 +10404,7 @@
       },
       "complexity": "moderate",
       "name": "TcpServerTest",
-      "summary": "TCP 服务器测试夹具（自动分配端口）",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -10437,7 +10420,7 @@
       },
       "complexity": "moderate",
       "name": "SetUp",
-      "summary": "配置服务器参数",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -10453,7 +10436,7 @@
       },
       "complexity": "moderate",
       "name": "TearDown",
-      "summary": "停止服务器并回收线程",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -10469,7 +10452,7 @@
       },
       "complexity": "moderate",
       "name": "start_server",
-      "summary": "初始化并在子线程启动服务器",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -10485,7 +10468,7 @@
       },
       "complexity": "moderate",
       "name": "connect_client",
-      "summary": "连接服务器并返回 fd",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -10504,7 +10487,7 @@
       },
       "complexity": "moderate",
       "name": "TEST_F",
-      "summary": "并发连接、断开与 epoll 停止等服务器测试",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -10526,7 +10509,7 @@
       },
       "complexity": "moderate",
       "name": "main",
-      "summary": "gtest 测试入口",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -10545,7 +10528,7 @@
       "complexity": "moderate",
       "name": "tests/test_url_decode.cpp",
       "filePath": "tests/test_url_decode.cpp",
-      "summary": "URL 解码函数测试",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -10564,7 +10547,7 @@
       },
       "complexity": "moderate",
       "name": "TEST",
-      "summary": "百分号、加号与非法输入解码测试",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -10586,7 +10569,7 @@
       },
       "complexity": "moderate",
       "name": "main",
-      "summary": "gtest 测试入口",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -10605,7 +10588,7 @@
       "complexity": "moderate",
       "name": "tests/test_websocket.cpp",
       "filePath": "tests/test_websocket.cpp",
-      "summary": "WebSocket 握手与帧编解码集成测试",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -10623,7 +10606,7 @@
       },
       "complexity": "moderate",
       "name": "B64TestCase",
-      "summary": "base64 测试用例结构体",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -10645,7 +10628,7 @@
       },
       "complexity": "moderate",
       "name": "main",
-      "summary": "gtest 测试入口",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -10666,7 +10649,7 @@
       },
       "complexity": "moderate",
       "name": "make_ws_request",
-      "summary": "构造 WebSocket 握手请求",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -10688,7 +10671,7 @@
       },
       "complexity": "moderate",
       "name": "send_raw",
-      "summary": "发送原始数据并接收响应",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -10711,7 +10694,7 @@
       },
       "complexity": "moderate",
       "name": "make_masked_frame",
-      "summary": "构造带掩码的客户端帧",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -10730,7 +10713,7 @@
       },
       "complexity": "moderate",
       "name": "TEST",
-      "summary": "握手、base64 与帧编解码测试",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -10749,7 +10732,7 @@
       },
       "complexity": "moderate",
       "name": "red",
-      "summary": "输出红色提示文本",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -10768,7 +10751,7 @@
       },
       "complexity": "moderate",
       "name": "green",
-      "summary": "输出绿色提示文本",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -10787,7 +10770,7 @@
       },
       "complexity": "moderate",
       "name": "yellow",
-      "summary": "输出黄色提示文本",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -10806,7 +10789,7 @@
       },
       "complexity": "moderate",
       "name": "blue",
-      "summary": "输出蓝色提示文本",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -10825,7 +10808,7 @@
       },
       "complexity": "moderate",
       "name": "check",
-      "summary": "执行验证检查并报告结果",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -10844,7 +10827,7 @@
       },
       "complexity": "moderate",
       "name": "check_skip",
-      "summary": "执行可跳过的验证检查",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -10863,7 +10846,7 @@
       },
       "complexity": "moderate",
       "name": "cleanup",
-      "summary": "清理验证过程产生的临时资源",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -10886,7 +10869,7 @@
       },
       "complexity": "moderate",
       "name": "test_ws_handshake",
-      "summary": "验证 WebSocket 握手流程的测试函数",
+      "summary": "暂无摘要",
       "tags": [
         "untagged"
       ]
@@ -24584,14 +24567,12 @@
     },
     {
       "id": "file:db/schema.sql",
-      "type": "file",
+      "type": "table",
       "name": "db/schema.sql",
       "summary": "MySQL 数据库总模式：定义用户、文件分片存储、音乐元数据与歌单共 8 张表，支撑认证、文件去重与音乐库业务。",
       "tags": [
         "mysql",
         "schema",
-        "database",
-        "ddl",
         "database",
         "ddl"
       ],

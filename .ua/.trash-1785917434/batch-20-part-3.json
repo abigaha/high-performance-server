@@ -1,0 +1,307 @@
+{
+  "nodes": [
+    {
+      "id": "file:benchmark/tools/migrate_legacy_reports.py",
+      "type": "file",
+      "name": "migrate_legacy_reports.py",
+      "filePath": "benchmark/tools/migrate_legacy_reports.py",
+      "summary": "历史性能基准报告迁移脚本，将旧格式报告按目标拆分为结构化条目，并以原子写入与索引方式安全发布到新目录。",
+      "tags": ["python", "migration", "reporting", "atomic-write"],
+      "complexity": "complex"
+    },
+    {
+      "id": "class:benchmark/tools/migrate_legacy_reports.py:MigrationEntry",
+      "type": "class",
+      "name": "MigrationEntry",
+      "summary": "迁移条目的数据模型，保存 kind、源路径、SHA256、字节区间与目标相对路径等信息。",
+      "tags": ["migration", "dataclass", "model"],
+      "complexity": "simple",
+      "lineRange": [42, 52]
+    },
+    {
+      "id": "class:benchmark/tools/migrate_legacy_reports.py:PublishedFile",
+      "type": "class",
+      "name": "PublishedFile",
+      "summary": "已发布文件记录，持有目录 fd、文件名与设备/inode，用于安全校验与回滚删除。",
+      "tags": ["migration", "dataclass", "file-handle"],
+      "complexity": "simple",
+      "lineRange": [56, 61]
+    },
+    {
+      "id": "function:benchmark/tools/migrate_legacy_reports.py:parse_args",
+      "type": "function",
+      "name": "parse_args",
+      "summary": "解析命令行参数，包括源目录、目标目录与 --no-clobber 等选项。",
+      "tags": ["cli", "argparse", "migration"],
+      "complexity": "simple",
+      "lineRange": [64, 73]
+    },
+    {
+      "id": "function:benchmark/tools/migrate_legacy_reports.py:is_legacy_report_header",
+      "type": "function",
+      "name": "is_legacy_report_header",
+      "summary": "识别旧格式报告头部的标题、日期与分隔线特征，用于定位章节边界。",
+      "tags": ["migration", "parsing", "header-detection"],
+      "complexity": "moderate",
+      "lineRange": [94, 118]
+    },
+    {
+      "id": "function:benchmark/tools/migrate_legacy_reports.py:aggregate_entry",
+      "type": "function",
+      "name": "aggregate_entry",
+      "summary": "将一段报告内容汇总为 MigrationEntry，计算 SHA256 并构造目标相对路径。",
+      "tags": ["migration", "entry", "sha256"],
+      "complexity": "moderate",
+      "lineRange": [121, 141]
+    },
+    {
+      "id": "function:benchmark/tools/migrate_legacy_reports.py:split_entries",
+      "type": "function",
+      "name": "split_entries",
+      "summary": "按章节正则切分旧报告文本为多个迁移条目，处理重复目标与未匹配片段。",
+      "tags": ["migration", "parsing", "splitting"],
+      "complexity": "complex",
+      "lineRange": [144, 194]
+    },
+    {
+      "id": "function:benchmark/tools/migrate_legacy_reports.py:discover_entries",
+      "type": "function",
+      "name": "discover_entries",
+      "summary": "递归扫描源目录，识别符合命名规则的旧报告文件并解析出全部条目。",
+      "tags": ["migration", "discovery", "scan"],
+      "complexity": "moderate",
+      "lineRange": [197, 210]
+    },
+    {
+      "id": "function:benchmark/tools/migrate_legacy_reports.py:resolve_safe_destination_dir",
+      "type": "function",
+      "name": "resolve_safe_destination_dir",
+      "summary": "解析并校验目标目录，拒绝符号链接路径以保证写入安全。",
+      "tags": ["security", "path-validation", "migration"],
+      "complexity": "moderate",
+      "lineRange": [213, 229]
+    },
+    {
+      "id": "function:benchmark/tools/migrate_legacy_reports.py:open_child_directory",
+      "type": "function",
+      "name": "open_child_directory",
+      "summary": "基于父目录 fd 打开或创建子目录，使用 openat 风格的目录句柄安全操作。",
+      "tags": ["file-descriptor", "directory", "security"],
+      "complexity": "simple",
+      "lineRange": [232, 243]
+    },
+    {
+      "id": "function:benchmark/tools/migrate_legacy_reports.py:open_safe_directory",
+      "type": "function",
+      "name": "open_safe_directory",
+      "summary": "安全打开目标根目录，拒绝符号链接与相对路径绕过。",
+      "tags": ["file-descriptor", "security", "directory"],
+      "complexity": "moderate",
+      "lineRange": [246, 258]
+    },
+    {
+      "id": "function:benchmark/tools/migrate_legacy_reports.py:open_safe_relative_directory",
+      "type": "function",
+      "name": "open_safe_relative_directory",
+      "summary": "在已打开的根 fd 下逐级安全打开相对目录，防止路径穿越。",
+      "tags": ["file-descriptor", "security", "path-traversal"],
+      "complexity": "moderate",
+      "lineRange": [261, 273]
+    },
+    {
+      "id": "function:benchmark/tools/migrate_legacy_reports.py:unlink_owned_file",
+      "type": "function",
+      "name": "unlink_owned_file",
+      "summary": "在目录 fd 上先根据设备与 inode 校验归属，再删除文件，避免误删他人文件。",
+      "tags": ["file-descriptor", "security", "delete"],
+      "complexity": "simple",
+      "lineRange": [287, 293]
+    },
+    {
+      "id": "function:benchmark/tools/migrate_legacy_reports.py:create_temporary_file",
+      "type": "function",
+      "name": "create_temporary_file",
+      "summary": "在指定目录 fd 内用 O_EXCL 创建唯一临时文件，供原子写入使用。",
+      "tags": ["temporary-file", "security", "atomic-write"],
+      "complexity": "simple",
+      "lineRange": [296, 304]
+    },
+    {
+      "id": "function:benchmark/tools/migrate_legacy_reports.py:atomic_write",
+      "type": "function",
+      "name": "atomic_write",
+      "summary": "通过写临时文件、fsync、硬链接与 os.replace 实现原子发布，失败时按 inode 校验回滚删除。",
+      "tags": ["atomic-write", "fsync", "security", "rollback"],
+      "complexity": "complex",
+      "lineRange": [307, 362]
+    },
+    {
+      "id": "function:benchmark/tools/migrate_legacy_reports.py:write_index",
+      "type": "function",
+      "name": "write_index",
+      "summary": "将迁移结果汇总生成 JSON 索引文件并原子写入目标目录。",
+      "tags": ["migration", "index", "json"],
+      "complexity": "moderate",
+      "lineRange": [372, 395]
+    },
+    {
+      "id": "function:benchmark/tools/migrate_legacy_reports.py:main",
+      "type": "function",
+      "name": "main",
+      "summary": "编排整体迁移流程：解析参数、发现条目、冲突检测、逐条原子写入、写索引与失败清理。",
+      "tags": ["migration", "main", "orchestration"],
+      "complexity": "complex",
+      "lineRange": [413, 475]
+    },
+    {
+      "id": "file:core/include/api_datetime.h",
+      "type": "file",
+      "name": "api_datetime.h",
+      "filePath": "core/include/api_datetime.h",
+      "summary": "提供 API 时间格式化工具，将 MySQL UTC datetime 转换为 RFC3339 UTC 字符串。",
+      "tags": ["datetime", "api", "utility", "serialization"],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:core/include/api_datetime.h:format_api_datetime",
+      "type": "function",
+      "name": "format_api_datetime",
+      "summary": "解析 MySQL 格式的 UTC 时间并格式化为 RFC3339 UTC 字符串，失败返回 nullopt。",
+      "tags": ["datetime", "rfc3339", "mysql", "utility"],
+      "complexity": "simple",
+      "lineRange": [11, 17]
+    },
+    {
+      "id": "file:core/include/auth_routes.h",
+      "type": "file",
+      "name": "auth_routes.h",
+      "filePath": "core/include/auth_routes.h",
+      "summary": "声明认证相关路由的注册函数，并前向声明所需的服务接口类型。",
+      "tags": ["auth", "routes", "api", "header"],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:core/include/auth_routes.h:register_auth_routes",
+      "type": "function",
+      "name": "register_auth_routes",
+      "summary": "在 IHttpServer 上注册认证相关路由，并绑定额外的数据库与认证服务。",
+      "tags": ["auth", "routes", "registration"],
+      "complexity": "simple",
+      "lineRange": [9, 9]
+    },
+    {
+      "id": "file:core/include/email_validation.h",
+      "type": "file",
+      "name": "email_validation.h",
+      "filePath": "core/include/email_validation.h",
+      "summary": "提供邮箱校验内联函数，检查长度、空白字符、@ 分隔与域名格式。",
+      "tags": ["validation", "email", "utility"],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:core/include/email_validation.h:is_valid_email",
+      "type": "function",
+      "name": "is_valid_email",
+      "summary": "校验邮箱格式：非空、长度受限、不含空白、恰有一个 @ 且域名含点号。",
+      "tags": ["validation", "email", "format-check"],
+      "complexity": "simple",
+      "lineRange": [11, 24]
+    },
+    {
+      "id": "file:core/include/file_routes.h",
+      "type": "file",
+      "name": "file_routes.h",
+      "filePath": "core/include/file_routes.h",
+      "summary": "声明文件服务相关路由的注册函数，并前向声明依赖的服务接口类型。",
+      "tags": ["file", "routes", "api", "header"],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:core/include/file_routes.h:register_file_routes",
+      "type": "function",
+      "name": "register_file_routes",
+      "summary": "在 HTTP 服务器上注册文件相关路由，并绑定数据库、文件系统与分片生命周期协调器。",
+      "tags": ["file", "routes", "registration"],
+      "complexity": "simple",
+      "lineRange": [10, 13]
+    },
+    {
+      "id": "file:core/include/password_validation.h",
+      "type": "file",
+      "name": "password_validation.h",
+      "filePath": "core/include/password_validation.h",
+      "summary": "提供密码长度校验工具，限制用户密码的字节范围。",
+      "tags": ["validation", "password", "security", "utility"],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:core/include/password_validation.h:is_valid_user_password",
+      "type": "function",
+      "name": "is_valid_user_password",
+      "summary": "校验用户密码字节长度在 6 到 128 之间。",
+      "tags": ["validation", "password", "length-check"],
+      "complexity": "simple",
+      "lineRange": [11, 13]
+    }
+  ],
+  "edges": [
+    {"source": "file:benchmark/tools/migrate_legacy_reports.py", "target": "class:benchmark/tools/migrate_legacy_reports.py:MigrationEntry", "type": "contains", "direction": "forward", "weight": 1.0},
+    {"source": "file:benchmark/tools/migrate_legacy_reports.py", "target": "class:benchmark/tools/migrate_legacy_reports.py:PublishedFile", "type": "contains", "direction": "forward", "weight": 1.0},
+    {"source": "file:benchmark/tools/migrate_legacy_reports.py", "target": "function:benchmark/tools/migrate_legacy_reports.py:parse_args", "type": "contains", "direction": "forward", "weight": 1.0},
+    {"source": "file:benchmark/tools/migrate_legacy_reports.py", "target": "function:benchmark/tools/migrate_legacy_reports.py:is_legacy_report_header", "type": "contains", "direction": "forward", "weight": 1.0},
+    {"source": "file:benchmark/tools/migrate_legacy_reports.py", "target": "function:benchmark/tools/migrate_legacy_reports.py:aggregate_entry", "type": "contains", "direction": "forward", "weight": 1.0},
+    {"source": "file:benchmark/tools/migrate_legacy_reports.py", "target": "function:benchmark/tools/migrate_legacy_reports.py:split_entries", "type": "contains", "direction": "forward", "weight": 1.0},
+    {"source": "file:benchmark/tools/migrate_legacy_reports.py", "target": "function:benchmark/tools/migrate_legacy_reports.py:discover_entries", "type": "contains", "direction": "forward", "weight": 1.0},
+    {"source": "file:benchmark/tools/migrate_legacy_reports.py", "target": "function:benchmark/tools/migrate_legacy_reports.py:resolve_safe_destination_dir", "type": "contains", "direction": "forward", "weight": 1.0},
+    {"source": "file:benchmark/tools/migrate_legacy_reports.py", "target": "function:benchmark/tools/migrate_legacy_reports.py:open_child_directory", "type": "contains", "direction": "forward", "weight": 1.0},
+    {"source": "file:benchmark/tools/migrate_legacy_reports.py", "target": "function:benchmark/tools/migrate_legacy_reports.py:open_safe_directory", "type": "contains", "direction": "forward", "weight": 1.0},
+    {"source": "file:benchmark/tools/migrate_legacy_reports.py", "target": "function:benchmark/tools/migrate_legacy_reports.py:open_safe_relative_directory", "type": "contains", "direction": "forward", "weight": 1.0},
+    {"source": "file:benchmark/tools/migrate_legacy_reports.py", "target": "function:benchmark/tools/migrate_legacy_reports.py:unlink_owned_file", "type": "contains", "direction": "forward", "weight": 1.0},
+    {"source": "file:benchmark/tools/migrate_legacy_reports.py", "target": "function:benchmark/tools/migrate_legacy_reports.py:create_temporary_file", "type": "contains", "direction": "forward", "weight": 1.0},
+    {"source": "file:benchmark/tools/migrate_legacy_reports.py", "target": "function:benchmark/tools/migrate_legacy_reports.py:atomic_write", "type": "contains", "direction": "forward", "weight": 1.0},
+    {"source": "file:benchmark/tools/migrate_legacy_reports.py", "target": "function:benchmark/tools/migrate_legacy_reports.py:write_index", "type": "contains", "direction": "forward", "weight": 1.0},
+    {"source": "file:benchmark/tools/migrate_legacy_reports.py", "target": "function:benchmark/tools/migrate_legacy_reports.py:main", "type": "contains", "direction": "forward", "weight": 1.0},
+    {"source": "file:benchmark/tools/migrate_legacy_reports.py", "target": "class:benchmark/tools/migrate_legacy_reports.py:MigrationEntry", "type": "exports", "direction": "forward", "weight": 0.8},
+    {"source": "file:benchmark/tools/migrate_legacy_reports.py", "target": "class:benchmark/tools/migrate_legacy_reports.py:PublishedFile", "type": "exports", "direction": "forward", "weight": 0.8},
+    {"source": "file:benchmark/tools/migrate_legacy_reports.py", "target": "function:benchmark/tools/migrate_legacy_reports.py:parse_args", "type": "exports", "direction": "forward", "weight": 0.8},
+    {"source": "file:benchmark/tools/migrate_legacy_reports.py", "target": "function:benchmark/tools/migrate_legacy_reports.py:is_legacy_report_header", "type": "exports", "direction": "forward", "weight": 0.8},
+    {"source": "file:benchmark/tools/migrate_legacy_reports.py", "target": "function:benchmark/tools/migrate_legacy_reports.py:aggregate_entry", "type": "exports", "direction": "forward", "weight": 0.8},
+    {"source": "file:benchmark/tools/migrate_legacy_reports.py", "target": "function:benchmark/tools/migrate_legacy_reports.py:split_entries", "type": "exports", "direction": "forward", "weight": 0.8},
+    {"source": "file:benchmark/tools/migrate_legacy_reports.py", "target": "function:benchmark/tools/migrate_legacy_reports.py:discover_entries", "type": "exports", "direction": "forward", "weight": 0.8},
+    {"source": "file:benchmark/tools/migrate_legacy_reports.py", "target": "function:benchmark/tools/migrate_legacy_reports.py:resolve_safe_destination_dir", "type": "exports", "direction": "forward", "weight": 0.8},
+    {"source": "file:benchmark/tools/migrate_legacy_reports.py", "target": "function:benchmark/tools/migrate_legacy_reports.py:open_child_directory", "type": "exports", "direction": "forward", "weight": 0.8},
+    {"source": "file:benchmark/tools/migrate_legacy_reports.py", "target": "function:benchmark/tools/migrate_legacy_reports.py:open_safe_directory", "type": "exports", "direction": "forward", "weight": 0.8},
+    {"source": "file:benchmark/tools/migrate_legacy_reports.py", "target": "function:benchmark/tools/migrate_legacy_reports.py:open_safe_relative_directory", "type": "exports", "direction": "forward", "weight": 0.8},
+    {"source": "file:benchmark/tools/migrate_legacy_reports.py", "target": "function:benchmark/tools/migrate_legacy_reports.py:unlink_owned_file", "type": "exports", "direction": "forward", "weight": 0.8},
+    {"source": "file:benchmark/tools/migrate_legacy_reports.py", "target": "function:benchmark/tools/migrate_legacy_reports.py:create_temporary_file", "type": "exports", "direction": "forward", "weight": 0.8},
+    {"source": "file:benchmark/tools/migrate_legacy_reports.py", "target": "function:benchmark/tools/migrate_legacy_reports.py:atomic_write", "type": "exports", "direction": "forward", "weight": 0.8},
+    {"source": "file:benchmark/tools/migrate_legacy_reports.py", "target": "function:benchmark/tools/migrate_legacy_reports.py:write_index", "type": "exports", "direction": "forward", "weight": 0.8},
+    {"source": "file:benchmark/tools/migrate_legacy_reports.py", "target": "function:benchmark/tools/migrate_legacy_reports.py:main", "type": "exports", "direction": "forward", "weight": 0.8},
+    {"source": "function:benchmark/tools/migrate_legacy_reports.py:split_entries", "target": "function:benchmark/tools/migrate_legacy_reports.py:aggregate_entry", "type": "calls", "direction": "forward", "weight": 0.8},
+    {"source": "function:benchmark/tools/migrate_legacy_reports.py:split_entries", "target": "function:benchmark/tools/migrate_legacy_reports.py:is_legacy_report_header", "type": "calls", "direction": "forward", "weight": 0.8},
+    {"source": "function:benchmark/tools/migrate_legacy_reports.py:discover_entries", "target": "function:benchmark/tools/migrate_legacy_reports.py:split_entries", "type": "calls", "direction": "forward", "weight": 0.8},
+    {"source": "function:benchmark/tools/migrate_legacy_reports.py:atomic_write", "target": "function:benchmark/tools/migrate_legacy_reports.py:open_safe_relative_directory", "type": "calls", "direction": "forward", "weight": 0.8},
+    {"source": "function:benchmark/tools/migrate_legacy_reports.py:atomic_write", "target": "function:benchmark/tools/migrate_legacy_reports.py:create_temporary_file", "type": "calls", "direction": "forward", "weight": 0.8},
+    {"source": "function:benchmark/tools/migrate_legacy_reports.py:atomic_write", "target": "function:benchmark/tools/migrate_legacy_reports.py:unlink_owned_file", "type": "calls", "direction": "forward", "weight": 0.8},
+    {"source": "function:benchmark/tools/migrate_legacy_reports.py:atomic_write", "target": "class:benchmark/tools/migrate_legacy_reports.py:PublishedFile", "type": "calls", "direction": "forward", "weight": 0.8},
+    {"source": "function:benchmark/tools/migrate_legacy_reports.py:open_safe_directory", "target": "function:benchmark/tools/migrate_legacy_reports.py:open_child_directory", "type": "calls", "direction": "forward", "weight": 0.8},
+    {"source": "function:benchmark/tools/migrate_legacy_reports.py:open_safe_relative_directory", "target": "function:benchmark/tools/migrate_legacy_reports.py:open_child_directory", "type": "calls", "direction": "forward", "weight": 0.8},
+    {"source": "function:benchmark/tools/migrate_legacy_reports.py:write_index", "target": "function:benchmark/tools/migrate_legacy_reports.py:atomic_write", "type": "calls", "direction": "forward", "weight": 0.8},
+    {"source": "function:benchmark/tools/migrate_legacy_reports.py:main", "target": "function:benchmark/tools/migrate_legacy_reports.py:parse_args", "type": "calls", "direction": "forward", "weight": 0.8},
+    {"source": "function:benchmark/tools/migrate_legacy_reports.py:main", "target": "function:benchmark/tools/migrate_legacy_reports.py:resolve_safe_destination_dir", "type": "calls", "direction": "forward", "weight": 0.8},
+    {"source": "function:benchmark/tools/migrate_legacy_reports.py:main", "target": "function:benchmark/tools/migrate_legacy_reports.py:discover_entries", "type": "calls", "direction": "forward", "weight": 0.8},
+    {"source": "function:benchmark/tools/migrate_legacy_reports.py:main", "target": "function:benchmark/tools/migrate_legacy_reports.py:open_safe_directory", "type": "calls", "direction": "forward", "weight": 0.8},
+    {"source": "function:benchmark/tools/migrate_legacy_reports.py:main", "target": "function:benchmark/tools/migrate_legacy_reports.py:atomic_write", "type": "calls", "direction": "forward", "weight": 0.8},
+    {"source": "function:benchmark/tools/migrate_legacy_reports.py:main", "target": "function:benchmark/tools/migrate_legacy_reports.py:write_index", "type": "calls", "direction": "forward", "weight": 0.8},
+    {"source": "file:core/include/api_datetime.h", "target": "function:core/include/api_datetime.h:format_api_datetime", "type": "contains", "direction": "forward", "weight": 1.0},
+    {"source": "file:core/include/api_datetime.h", "target": "function:core/include/api_datetime.h:format_api_datetime", "type": "exports", "direction": "forward", "weight": 0.8},
+    {"source": "file:core/include/auth_routes.h", "target": "function:core/include/auth_routes.h:register_auth_routes", "type": "contains", "direction": "forward", "weight": 1.0},
+    {"source": "file:core/include/auth_routes.h", "target": "function:core/include/auth_routes.h:register_auth_routes", "type": "exports", "direction": "forward", "weight": 0.8},
+    {"source": "file:core/include/email_validation.h", "target": "function:core/include/email_validation.h:is_valid_email", "type": "contains", "direction": "forward", "weight": 1.0},
+    {"source": "file:core/include/email_validation.h", "target": "function:core/include/email_validation.h:is_valid_email", "type": "exports", "direction": "forward", "weight": 0.8},
+    {"source": "file:core/include/file_routes.h", "target": "function:core/include/file_routes.h:register_file_routes", "type": "contains", "direction": "forward", "weight": 1.0},
+    {"source": "file:core/include/file_routes.h", "target": "function:core/include/file_routes.h:register_file_routes", "type": "exports", "direction": "forward", "weight": 0.8},
+    {"source": "file:core/include/password_validation.h", "target": "function:core/include/password_validation.h:is_valid_user_password", "type": "contains", "direction": "forward", "weight": 1.0},
+    {"source": "file:core/include/password_validation.h", "target": "function:core/include/password_validation.h:is_valid_user_password", "type": "exports", "direction": "forward", "weight": 0.8}
+  ]
+}

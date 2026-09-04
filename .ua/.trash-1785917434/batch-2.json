@@ -1,0 +1,1722 @@
+{
+  "nodes": [
+    {
+      "id": "file:frontend/src/App.tsx",
+      "type": "file",
+      "name": "frontend/src/App.tsx",
+      "filePath": "frontend/src/App.tsx",
+      "summary": "应用根组件，挂载全局 Toast 与路由 Provider，启动时注入 toast 引用并触发认证会话恢复。",
+      "tags": [
+        "react",
+        "root-component",
+        "routing",
+        "bootstrapping"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:frontend/src/components/GuestLayout.tsx",
+      "type": "file",
+      "name": "frontend/src/components/GuestLayout.tsx",
+      "filePath": "frontend/src/components/GuestLayout.tsx",
+      "summary": "未登录访客的布局外壳，包含品牌标识与主题切换按钮，渲染子路由出口。",
+      "tags": [
+        "react",
+        "guest-layout",
+        "layout",
+        "ui"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:frontend/src/components/Header.tsx",
+      "type": "file",
+      "name": "frontend/src/components/Header.tsx",
+      "filePath": "frontend/src/components/Header.tsx",
+      "summary": "登录后应用的顶部导航栏，依据当前路由展示页面标题，显示用户信息并提供登出。",
+      "tags": [
+        "react",
+        "header",
+        "navigation",
+        "user-menu"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:frontend/src/components/Layout.tsx",
+      "type": "file",
+      "name": "frontend/src/components/Layout.tsx",
+      "filePath": "frontend/src/components/Layout.tsx",
+      "summary": "应用整体布局外壳，组合侧边栏、顶部导航与播放器，管理响应式抽屉菜单的开关与焦点恢复。",
+      "tags": [
+        "react",
+        "app-layout",
+        "drawer-menu",
+        "a11y"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:frontend/src/components/ProtectedRoute.tsx",
+      "type": "file",
+      "name": "frontend/src/components/ProtectedRoute.tsx",
+      "filePath": "frontend/src/components/ProtectedRoute.tsx",
+      "summary": "路由守卫组件，按令牌存在性、角色或权限能力校验访问，未通过时重定向到登录页或文件列表。",
+      "tags": [
+        "react",
+        "route-guard",
+        "rbac",
+        "authentication"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:frontend/src/components/RoleUsersRedirect.tsx",
+      "type": "file",
+      "name": "frontend/src/components/RoleUsersRedirect.tsx",
+      "filePath": "frontend/src/components/RoleUsersRedirect.tsx",
+      "summary": "依据当前用户角色将 /users 路径重定向到管理员用户页或文件列表的轻量组件。",
+      "tags": [
+        "react",
+        "redirect",
+        "rbac",
+        "ui"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:frontend/src/components/Sidebar.tsx",
+      "type": "file",
+      "name": "frontend/src/components/Sidebar.tsx",
+      "filePath": "frontend/src/components/Sidebar.tsx",
+      "summary": "应用导航侧边栏，通过 matchMedia 判断桌面布局，并按用户能力过滤导航链接。",
+      "tags": [
+        "react",
+        "sidebar",
+        "navigation",
+        "responsive"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:frontend/src/components/ThemeToggle.tsx",
+      "type": "file",
+      "name": "frontend/src/components/ThemeToggle.tsx",
+      "filePath": "frontend/src/components/ThemeToggle.tsx",
+      "summary": "浅色/深色主题切换按钮，读取 localStorage 与系统偏好初始化，并将选择持久化到 localStorage。",
+      "tags": [
+        "react",
+        "theme-toggle",
+        "dark-mode",
+        "local-storage"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:frontend/src/components/Toast.tsx",
+      "type": "file",
+      "name": "frontend/src/components/Toast.tsx",
+      "filePath": "frontend/src/components/Toast.tsx",
+      "summary": "全局轻提示消息列表组件，从 toast store 读取消息，按类型渲染图标并支持手动关闭。",
+      "tags": [
+        "react",
+        "toast",
+        "notification",
+        "ui"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:frontend/src/main.tsx",
+      "type": "file",
+      "name": "frontend/src/main.tsx",
+      "filePath": "frontend/src/main.tsx",
+      "summary": "前端入口文件，注入会话清理器与未经授权处理器，创建 React 根节点并渲染应用。",
+      "tags": [
+        "react",
+        "entry-point",
+        "bootstrap",
+        "session"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:frontend/src/pages/LoginPage.tsx",
+      "type": "file",
+      "name": "frontend/src/pages/LoginPage.tsx",
+      "filePath": "frontend/src/pages/LoginPage.tsx",
+      "summary": "登录页，校验表单输入并调用认证 store 登录，成功后安全重定向到来源页或文件列表。",
+      "tags": [
+        "react",
+        "login",
+        "authentication",
+        "form"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:frontend/src/pages/RegisterPage.tsx",
+      "type": "file",
+      "name": "frontend/src/pages/RegisterPage.tsx",
+      "filePath": "frontend/src/pages/RegisterPage.tsx",
+      "summary": "注册页，校验用户名、密码与邮箱并调用认证 store 注册，成功后跳转到文件列表。",
+      "tags": [
+        "react",
+        "register",
+        "authentication",
+        "form"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:frontend/src/router.tsx",
+      "type": "file",
+      "name": "frontend/src/router.tsx",
+      "filePath": "frontend/src/router.tsx",
+      "summary": "定义应用的浏览器路由表，用访客、受保护、受限布局包裹各页面路由及其访问限制。",
+      "tags": [
+        "react-router-dom",
+        "routing",
+        "route-table",
+        "rbac"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:frontend/src/session/createUnauthorizedHandler.ts",
+      "type": "file",
+      "name": "frontend/src/session/createUnauthorizedHandler.ts",
+      "filePath": "frontend/src/session/createUnauthorizedHandler.ts",
+      "summary": "工厂函数：组合会话清理与跳转登录的回调，生成统一的 401 未经授权处理逻辑。",
+      "tags": [
+        "session",
+        "unauthorized",
+        "factory",
+        "auth"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:frontend/src/stores/auth.ts",
+      "type": "file",
+      "name": "frontend/src/stores/auth.ts",
+      "filePath": "frontend/src/stores/auth.ts",
+      "summary": "Zustand 认证状态仓库，管理令牌、用户与加载态，提供登录、注册、登出、会话恢复及基于快照的并发去重。",
+      "tags": [
+        "zustand",
+        "authentication",
+        "session-restore",
+        "state-management",
+        "concurrency"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "file:frontend/tests/components/GuestLayout.test.tsx",
+      "type": "file",
+      "name": "frontend/tests/components/GuestLayout.test.tsx",
+      "filePath": "frontend/tests/components/GuestLayout.test.tsx",
+      "summary": "GuestLayout 组件的单元测试，验证访客布局渲染与导航出口。",
+      "tags": [
+        "test",
+        "guest-layout",
+        "vitest",
+        "react-testing-library"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:frontend/tests/components/Layout.test.tsx",
+      "type": "file",
+      "name": "frontend/tests/components/Layout.test.tsx",
+      "filePath": "frontend/tests/components/Layout.test.tsx",
+      "summary": "AppLayout 布局组件的单元测试，覆盖抽屉菜单行为与子路由渲染。",
+      "tags": [
+        "test",
+        "app-layout",
+        "vitest",
+        "react-testing-library"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:frontend/tests/components/ProtectedRoute.test.tsx",
+      "type": "file",
+      "name": "frontend/tests/components/ProtectedRoute.test.tsx",
+      "filePath": "frontend/tests/components/ProtectedRoute.test.tsx",
+      "summary": "ProtectedRoute 守卫的单元测试，验证令牌、角色与能力校验及重定向行为。",
+      "tags": [
+        "test",
+        "route-guard",
+        "vitest",
+        "react-testing-library"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:frontend/tests/components/RoleUsersRedirect.test.tsx",
+      "type": "file",
+      "name": "frontend/tests/components/RoleUsersRedirect.test.tsx",
+      "filePath": "frontend/tests/components/RoleUsersRedirect.test.tsx",
+      "summary": "RoleUsersRedirect 组件的单元测试，验证按角色重定向的行为。",
+      "tags": [
+        "test",
+        "redirect",
+        "vitest",
+        "react-testing-library"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:frontend/tests/components/Sidebar.test.tsx",
+      "type": "file",
+      "name": "frontend/tests/components/Sidebar.test.tsx",
+      "filePath": "frontend/tests/components/Sidebar.test.tsx",
+      "summary": "Sidebar 组件的单元测试，验证侧边栏渲染与能力过滤的导航链接。",
+      "tags": [
+        "test",
+        "sidebar",
+        "vitest",
+        "react-testing-library"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:frontend/tests/components/ThemeToggle.test.tsx",
+      "type": "file",
+      "name": "frontend/tests/components/ThemeToggle.test.tsx",
+      "filePath": "frontend/tests/components/ThemeToggle.test.tsx",
+      "summary": "ThemeToggle 主题切换组件的单元测试，验证主题状态切换与持久化行为。",
+      "tags": [
+        "test",
+        "theme-toggle",
+        "vitest",
+        "react-testing-library"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:frontend/tests/components/Toast.test.tsx",
+      "type": "file",
+      "name": "frontend/tests/components/Toast.test.tsx",
+      "filePath": "frontend/tests/components/Toast.test.tsx",
+      "summary": "Toast 通知组件的单元测试，验证消息渲染与关闭行为。",
+      "tags": [
+        "test",
+        "toast",
+        "vitest",
+        "react-testing-library"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:frontend/tests/pages/RegisterPage.test.tsx",
+      "type": "file",
+      "name": "frontend/tests/pages/RegisterPage.test.tsx",
+      "filePath": "frontend/tests/pages/RegisterPage.test.tsx",
+      "summary": "RegisterPage 注册页的集成测试，模拟填写并提交表单，覆盖卸载与竞态安全。",
+      "tags": [
+        "test",
+        "register",
+        "vitest",
+        "integration"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:frontend/tests/pages/login.test.tsx",
+      "type": "file",
+      "name": "frontend/tests/pages/login.test.tsx",
+      "filePath": "frontend/tests/pages/login.test.tsx",
+      "summary": "LoginPage 登录页的集成测试，模拟登录提交、成功跳转与卸载竞态安全。",
+      "tags": [
+        "test",
+        "login",
+        "vitest",
+        "integration"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:frontend/src/App.tsx:App",
+      "type": "function",
+      "name": "App",
+      "summary": "应用根组件，注入 toast 引用并触发会话恢复，渲染全局 Toast 与路由 Provider。",
+      "tags": [
+        "react",
+        "root-component"
+      ],
+      "complexity": "simple",
+      "lineRange": [
+        9,
+        24
+      ]
+    },
+    {
+      "id": "function:frontend/src/components/GuestLayout.tsx:GuestLayout",
+      "type": "function",
+      "name": "GuestLayout",
+      "summary": "访客入口布局，展示品牌与主题切换按钮并渲染子路由出口。",
+      "tags": [
+        "react",
+        "guest-layout"
+      ],
+      "complexity": "simple",
+      "lineRange": [
+        5,
+        21
+      ]
+    },
+    {
+      "id": "function:frontend/src/components/Header.tsx:getPageTitle",
+      "type": "function",
+      "name": "getPageTitle",
+      "summary": "根据 pathname 返回对应页面的中文标题，供顶部导航条展示。",
+      "tags": [
+        "title",
+        "routing",
+        "helper"
+      ],
+      "complexity": "simple",
+      "lineRange": [
+        12,
+        23
+      ]
+    },
+    {
+      "id": "function:frontend/src/components/Header.tsx:Header",
+      "type": "function",
+      "name": "Header",
+      "summary": "顶部导航栏组件，展示页面标题、当前用户信息并提供登出后跳转登录。",
+      "tags": [
+        "react",
+        "header",
+        "navigation"
+      ],
+      "complexity": "moderate",
+      "lineRange": [
+        25,
+        82
+      ]
+    },
+    {
+      "id": "function:frontend/src/components/Layout.tsx:AppLayout",
+      "type": "function",
+      "name": "AppLayout",
+      "summary": "应用布局组件，管理抽屉菜单开关与焦点恢复，组合侧边栏、页头、播放器与出口。",
+      "tags": [
+        "react",
+        "app-layout",
+        "a11y"
+      ],
+      "complexity": "moderate",
+      "lineRange": [
+        7,
+        97
+      ]
+    },
+    {
+      "id": "function:frontend/src/components/ProtectedRoute.tsx:ProtectedRoute",
+      "type": "function",
+      "name": "ProtectedRoute",
+      "summary": "路由守卫组件，校验令牌、角色或能力后决定渲染出口还是重定向。",
+      "tags": [
+        "route-guard",
+        "rbac",
+        "react"
+      ],
+      "complexity": "moderate",
+      "lineRange": [
+        11,
+        37
+      ]
+    },
+    {
+      "id": "function:frontend/src/components/RoleUsersRedirect.tsx:RoleUsersRedirect",
+      "type": "function",
+      "name": "RoleUsersRedirect",
+      "summary": "依据当前用户角色将页面重定向到管理员用户页或文件列表。",
+      "tags": [
+        "redirect",
+        "rbac",
+        "react"
+      ],
+      "complexity": "simple",
+      "lineRange": [
+        4,
+        7
+      ]
+    },
+    {
+      "id": "function:frontend/src/components/Sidebar.tsx:useDesktopLayout",
+      "type": "function",
+      "name": "useDesktopLayout",
+      "summary": "通过 matchMedia 监听视口宽度，返回是否为桌面布局以控制侧边栏展示。",
+      "tags": [
+        "hook",
+        "responsive",
+        "match-media"
+      ],
+      "complexity": "simple",
+      "lineRange": [
+        31,
+        48
+      ]
+    },
+    {
+      "id": "function:frontend/src/components/Sidebar.tsx:Sidebar",
+      "type": "function",
+      "name": "Sidebar",
+      "summary": "导航侧边栏组件，渲染按用户能力过滤后的导航链接并处理关闭聚焦。",
+      "tags": [
+        "react",
+        "sidebar",
+        "navigation"
+      ],
+      "complexity": "moderate",
+      "lineRange": [
+        50,
+        123
+      ]
+    },
+    {
+      "id": "function:frontend/src/components/ThemeToggle.tsx:ThemeToggle",
+      "type": "function",
+      "name": "ThemeToggle",
+      "summary": "主题切换组件，切换根元素 dark 类并持久化主题选择到 localStorage。",
+      "tags": [
+        "react",
+        "theme-toggle"
+      ],
+      "complexity": "simple",
+      "lineRange": [
+        16,
+        46
+      ]
+    },
+    {
+      "id": "function:frontend/src/components/Toast.tsx:Toast",
+      "type": "function",
+      "name": "Toast",
+      "summary": "从 toast store 读取消息并渲染通知列表，支持手动关闭其中单条。",
+      "tags": [
+        "react",
+        "toast"
+      ],
+      "complexity": "simple",
+      "lineRange": [
+        10,
+        52
+      ]
+    },
+    {
+      "id": "function:frontend/src/pages/LoginPage.tsx:getSafeInternalRedirect",
+      "type": "function",
+      "name": "getSafeInternalRedirect",
+      "summary": "校验来源 location state 并构造安全的站内重定向地址，防范开放重定向。",
+      "tags": [
+        "redirect",
+        "security",
+        "helper"
+      ],
+      "complexity": "simple",
+      "lineRange": [
+        13,
+        25
+      ]
+    },
+    {
+      "id": "function:frontend/src/pages/LoginPage.tsx:LoginPage",
+      "type": "function",
+      "name": "LoginPage",
+      "summary": "登录页组件，处理表单提交、错误提示，成功后安全跳转到来源页或文件列表。",
+      "tags": [
+        "react",
+        "login",
+        "form"
+      ],
+      "complexity": "moderate",
+      "lineRange": [
+        27,
+        132
+      ]
+    },
+    {
+      "id": "function:frontend/src/pages/RegisterPage.tsx:RegisterPage",
+      "type": "function",
+      "name": "RegisterPage",
+      "summary": "注册页组件，处理注册表单提交、字段校验与成功后跳转。",
+      "tags": [
+        "react",
+        "register",
+        "form"
+      ],
+      "complexity": "moderate",
+      "lineRange": [
+        5,
+        120
+      ]
+    },
+    {
+      "id": "function:frontend/src/session/createUnauthorizedHandler.ts:createUnauthorizedHandler",
+      "type": "function",
+      "name": "createUnauthorizedHandler",
+      "summary": "组合会话清理与登录跳转回调，返回统一的未经授权处理函数。",
+      "tags": [
+        "session",
+        "unauthorized",
+        "factory"
+      ],
+      "complexity": "simple",
+      "lineRange": [
+        3,
+        11
+      ]
+    },
+    {
+      "id": "function:frontend/src/stores/auth.ts:injectSessionClearer",
+      "type": "function",
+      "name": "injectSessionClearer",
+      "summary": "注入外部会话清理回调，供外部模块接管认证会话清除逻辑。",
+      "tags": [
+        "session",
+        "injection",
+        "auth"
+      ],
+      "complexity": "simple",
+      "lineRange": [
+        148,
+        150
+      ]
+    },
+    {
+      "id": "function:frontend/src/stores/auth.ts:clearAuthSession",
+      "type": "function",
+      "name": "clearAuthSession",
+      "summary": "清除本地令牌并重置认证状态，同时更新会话修订号以保持客户端一致。",
+      "tags": [
+        "session",
+        "logout",
+        "auth"
+      ],
+      "complexity": "moderate",
+      "lineRange": [
+        152,
+        166
+      ]
+    },
+    {
+      "id": "function:frontend/tests/components/Layout.test.tsx:renderLayout",
+      "type": "function",
+      "name": "renderLayout",
+      "summary": "测试辅助函数：在路由上下文中渲染 AppLayout 供各用例复用。",
+      "tags": [
+        "test-helper",
+        "render",
+        "vitest"
+      ],
+      "complexity": "simple",
+      "lineRange": [
+        36,
+        49
+      ]
+    },
+    {
+      "id": "function:frontend/tests/components/ProtectedRoute.test.tsx:LoginDestination",
+      "type": "function",
+      "name": "LoginDestination",
+      "summary": "测试辅助组件，展示当前 location 以断言受保护路由的重定向目标。",
+      "tags": [
+        "test-helper",
+        "component",
+        "vitest"
+      ],
+      "complexity": "simple",
+      "lineRange": [
+        14,
+        29
+      ]
+    },
+    {
+      "id": "function:frontend/tests/components/ProtectedRoute.test.tsx:renderGuard",
+      "type": "function",
+      "name": "renderGuard",
+      "summary": "测试辅助函数：按指定能力与角色渲染路由守卫供断言。",
+      "tags": [
+        "test-helper",
+        "render",
+        "vitest"
+      ],
+      "complexity": "simple",
+      "lineRange": [
+        31,
+        42
+      ]
+    },
+    {
+      "id": "function:frontend/tests/pages/RegisterPage.test.tsx:RegisterUnmountHarness",
+      "type": "function",
+      "name": "RegisterUnmountHarness",
+      "summary": "测试辅助组件，验证卸载与提交竞态场景下注册页的状态处理。",
+      "tags": [
+        "test-helper",
+        "unmount",
+        "vitest"
+      ],
+      "complexity": "simple",
+      "lineRange": [
+        30,
+        40
+      ]
+    },
+    {
+      "id": "function:frontend/tests/pages/login.test.tsx:submitLogin",
+      "type": "function",
+      "name": "submitLogin",
+      "summary": "测试辅助函数：模拟用户输入用户名与密码并提交登录表单。",
+      "tags": [
+        "test-helper",
+        "user-event",
+        "vitest"
+      ],
+      "complexity": "simple",
+      "lineRange": [
+        16,
+        29
+      ]
+    },
+    {
+      "id": "function:frontend/tests/pages/login.test.tsx:LoginUnmountHarness",
+      "type": "function",
+      "name": "LoginUnmountHarness",
+      "summary": "测试辅助组件，验证登录页卸载与提交竞态下的状态处理。",
+      "tags": [
+        "test-helper",
+        "unmount",
+        "vitest"
+      ],
+      "complexity": "simple",
+      "lineRange": [
+        36,
+        46
+      ]
+    }
+  ],
+  "edges": [
+    {
+      "source": "file:frontend/src/App.tsx",
+      "target": "function:frontend/src/App.tsx:App",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:frontend/src/App.tsx",
+      "target": "function:frontend/src/App.tsx:App",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/components/GuestLayout.tsx",
+      "target": "function:frontend/src/components/GuestLayout.tsx:GuestLayout",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:frontend/src/components/GuestLayout.tsx",
+      "target": "function:frontend/src/components/GuestLayout.tsx:GuestLayout",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/components/Header.tsx",
+      "target": "function:frontend/src/components/Header.tsx:getPageTitle",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:frontend/src/components/Header.tsx",
+      "target": "function:frontend/src/components/Header.tsx:Header",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:frontend/src/components/Header.tsx",
+      "target": "function:frontend/src/components/Header.tsx:Header",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/components/Layout.tsx",
+      "target": "function:frontend/src/components/Layout.tsx:AppLayout",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:frontend/src/components/Layout.tsx",
+      "target": "function:frontend/src/components/Layout.tsx:AppLayout",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/components/ProtectedRoute.tsx",
+      "target": "function:frontend/src/components/ProtectedRoute.tsx:ProtectedRoute",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:frontend/src/components/ProtectedRoute.tsx",
+      "target": "function:frontend/src/components/ProtectedRoute.tsx:ProtectedRoute",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/components/RoleUsersRedirect.tsx",
+      "target": "function:frontend/src/components/RoleUsersRedirect.tsx:RoleUsersRedirect",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:frontend/src/components/RoleUsersRedirect.tsx",
+      "target": "function:frontend/src/components/RoleUsersRedirect.tsx:RoleUsersRedirect",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/components/Sidebar.tsx",
+      "target": "function:frontend/src/components/Sidebar.tsx:useDesktopLayout",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:frontend/src/components/Sidebar.tsx",
+      "target": "function:frontend/src/components/Sidebar.tsx:Sidebar",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:frontend/src/components/Sidebar.tsx",
+      "target": "function:frontend/src/components/Sidebar.tsx:Sidebar",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/components/ThemeToggle.tsx",
+      "target": "function:frontend/src/components/ThemeToggle.tsx:ThemeToggle",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:frontend/src/components/ThemeToggle.tsx",
+      "target": "function:frontend/src/components/ThemeToggle.tsx:ThemeToggle",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/components/Toast.tsx",
+      "target": "function:frontend/src/components/Toast.tsx:Toast",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:frontend/src/components/Toast.tsx",
+      "target": "function:frontend/src/components/Toast.tsx:Toast",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/pages/LoginPage.tsx",
+      "target": "function:frontend/src/pages/LoginPage.tsx:getSafeInternalRedirect",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:frontend/src/pages/LoginPage.tsx",
+      "target": "function:frontend/src/pages/LoginPage.tsx:LoginPage",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:frontend/src/pages/LoginPage.tsx",
+      "target": "function:frontend/src/pages/LoginPage.tsx:LoginPage",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/pages/RegisterPage.tsx",
+      "target": "function:frontend/src/pages/RegisterPage.tsx:RegisterPage",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:frontend/src/pages/RegisterPage.tsx",
+      "target": "function:frontend/src/pages/RegisterPage.tsx:RegisterPage",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/session/createUnauthorizedHandler.ts",
+      "target": "function:frontend/src/session/createUnauthorizedHandler.ts:createUnauthorizedHandler",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:frontend/src/session/createUnauthorizedHandler.ts",
+      "target": "function:frontend/src/session/createUnauthorizedHandler.ts:createUnauthorizedHandler",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/stores/auth.ts",
+      "target": "function:frontend/src/stores/auth.ts:injectSessionClearer",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:frontend/src/stores/auth.ts",
+      "target": "function:frontend/src/stores/auth.ts:injectSessionClearer",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/stores/auth.ts",
+      "target": "function:frontend/src/stores/auth.ts:clearAuthSession",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:frontend/src/stores/auth.ts",
+      "target": "function:frontend/src/stores/auth.ts:clearAuthSession",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/tests/components/Layout.test.tsx",
+      "target": "function:frontend/tests/components/Layout.test.tsx:renderLayout",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:frontend/tests/components/ProtectedRoute.test.tsx",
+      "target": "function:frontend/tests/components/ProtectedRoute.test.tsx:LoginDestination",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:frontend/tests/components/ProtectedRoute.test.tsx",
+      "target": "function:frontend/tests/components/ProtectedRoute.test.tsx:renderGuard",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:frontend/tests/pages/RegisterPage.test.tsx",
+      "target": "function:frontend/tests/pages/RegisterPage.test.tsx:RegisterUnmountHarness",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:frontend/tests/pages/login.test.tsx",
+      "target": "function:frontend/tests/pages/login.test.tsx:submitLogin",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:frontend/tests/pages/login.test.tsx",
+      "target": "function:frontend/tests/pages/login.test.tsx:LoginUnmountHarness",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:frontend/src/App.tsx",
+      "target": "file:frontend/src/api/client.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/App.tsx",
+      "target": "file:frontend/src/components/Toast.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/App.tsx",
+      "target": "file:frontend/src/router.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/App.tsx",
+      "target": "file:frontend/src/stores/auth.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/App.tsx",
+      "target": "file:frontend/src/stores/toast.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/components/GuestLayout.tsx",
+      "target": "file:frontend/src/components/ThemeToggle.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/components/Header.tsx",
+      "target": "file:frontend/src/stores/auth.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/components/Layout.tsx",
+      "target": "file:frontend/src/components/AudioPlayer.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/components/Layout.tsx",
+      "target": "file:frontend/src/components/Header.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/components/Layout.tsx",
+      "target": "file:frontend/src/components/Sidebar.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/components/ProtectedRoute.tsx",
+      "target": "file:frontend/src/stores/auth.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/components/ProtectedRoute.tsx",
+      "target": "file:frontend/src/types/api.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/components/RoleUsersRedirect.tsx",
+      "target": "file:frontend/src/stores/auth.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/components/Sidebar.tsx",
+      "target": "file:frontend/src/components/ThemeToggle.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/components/Sidebar.tsx",
+      "target": "file:frontend/src/stores/auth.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/components/Toast.tsx",
+      "target": "file:frontend/src/stores/toast.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/main.tsx",
+      "target": "file:frontend/src/api/client.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/main.tsx",
+      "target": "file:frontend/src/App.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/main.tsx",
+      "target": "file:frontend/src/index.css",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/main.tsx",
+      "target": "file:frontend/src/session/clearUserSession.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/main.tsx",
+      "target": "file:frontend/src/session/createUnauthorizedHandler.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/main.tsx",
+      "target": "file:frontend/src/stores/auth.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/pages/LoginPage.tsx",
+      "target": "file:frontend/src/stores/auth.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/pages/RegisterPage.tsx",
+      "target": "file:frontend/src/stores/auth.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/router.tsx",
+      "target": "file:frontend/src/components/GuestLayout.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/router.tsx",
+      "target": "file:frontend/src/components/Layout.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/router.tsx",
+      "target": "file:frontend/src/components/ProtectedRoute.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/router.tsx",
+      "target": "file:frontend/src/components/RoleUsersRedirect.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/router.tsx",
+      "target": "file:frontend/src/pages/AdminUsersPage.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/router.tsx",
+      "target": "file:frontend/src/pages/FileDetailPage.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/router.tsx",
+      "target": "file:frontend/src/pages/FileListPage.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/router.tsx",
+      "target": "file:frontend/src/pages/LoginPage.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/router.tsx",
+      "target": "file:frontend/src/pages/MusicLibraryPage.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/router.tsx",
+      "target": "file:frontend/src/pages/PlayerPage.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/router.tsx",
+      "target": "file:frontend/src/pages/ProfilePage.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/router.tsx",
+      "target": "file:frontend/src/pages/RegisterPage.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/router.tsx",
+      "target": "file:frontend/src/pages/UploadPage.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/router.tsx",
+      "target": "file:frontend/src/pages/UserPlaylistPage.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/router.tsx",
+      "target": "file:frontend/src/pages/VipCenterPage.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/stores/auth.ts",
+      "target": "file:frontend/src/api/auth.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/stores/auth.ts",
+      "target": "file:frontend/src/api/client.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/stores/auth.ts",
+      "target": "file:frontend/src/types/api.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/tests/components/GuestLayout.test.tsx",
+      "target": "file:frontend/src/components/GuestLayout.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/tests/components/Layout.test.tsx",
+      "target": "file:frontend/src/components/Layout.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/tests/components/ProtectedRoute.test.tsx",
+      "target": "file:frontend/src/components/ProtectedRoute.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/tests/components/RoleUsersRedirect.test.tsx",
+      "target": "file:frontend/src/components/RoleUsersRedirect.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/tests/components/Sidebar.test.tsx",
+      "target": "file:frontend/src/components/Sidebar.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/tests/components/ThemeToggle.test.tsx",
+      "target": "file:frontend/src/components/ThemeToggle.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/tests/components/Toast.test.tsx",
+      "target": "file:frontend/src/components/Toast.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/tests/pages/RegisterPage.test.tsx",
+      "target": "file:frontend/src/pages/RegisterPage.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/tests/pages/login.test.tsx",
+      "target": "file:frontend/src/pages/LoginPage.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/tests/pages/login.test.tsx",
+      "target": "file:frontend/src/stores/auth.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "function:frontend/src/App.tsx:App",
+      "target": "file:frontend/src/stores/auth.ts",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:frontend/src/components/Header.tsx:Header",
+      "target": "file:frontend/src/stores/auth.ts",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:frontend/src/components/ProtectedRoute.tsx:ProtectedRoute",
+      "target": "file:frontend/src/stores/auth.ts",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:frontend/src/components/RoleUsersRedirect.tsx:RoleUsersRedirect",
+      "target": "file:frontend/src/stores/auth.ts",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:frontend/src/components/Sidebar.tsx:Sidebar",
+      "target": "file:frontend/src/stores/auth.ts",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:frontend/src/pages/LoginPage.tsx:LoginPage",
+      "target": "file:frontend/src/stores/auth.ts",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:frontend/src/pages/RegisterPage.tsx:RegisterPage",
+      "target": "file:frontend/src/stores/auth.ts",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:frontend/src/App.tsx:App",
+      "target": "function:frontend/src/api/client.ts:injectToast",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:frontend/src/App.tsx:App",
+      "target": "file:frontend/src/router.tsx",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:frontend/src/App.tsx:App",
+      "target": "function:frontend/src/components/Toast.tsx:Toast",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:frontend/src/App.tsx:App",
+      "target": "function:frontend/src/stores/toast.ts:useToastStore",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/router.tsx",
+      "target": "function:frontend/src/components/GuestLayout.tsx:GuestLayout",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/router.tsx",
+      "target": "function:frontend/src/components/Layout.tsx:AppLayout",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/router.tsx",
+      "target": "function:frontend/src/components/ProtectedRoute.tsx:ProtectedRoute",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/router.tsx",
+      "target": "function:frontend/src/components/RoleUsersRedirect.tsx:RoleUsersRedirect",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/router.tsx",
+      "target": "function:frontend/src/pages/LoginPage.tsx:LoginPage",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/router.tsx",
+      "target": "function:frontend/src/pages/RegisterPage.tsx:RegisterPage",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/router.tsx",
+      "target": "function:frontend/src/pages/AdminUsersPage.tsx:AdminUsersPage",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/router.tsx",
+      "target": "function:frontend/src/pages/FileDetailPage.tsx:FileDetailPage",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/router.tsx",
+      "target": "function:frontend/src/pages/FileListPage.tsx:FileListPage",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/router.tsx",
+      "target": "function:frontend/src/pages/MusicLibraryPage.tsx:MusicLibraryPage",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/router.tsx",
+      "target": "function:frontend/src/pages/PlayerPage.tsx:PlayerPage",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/router.tsx",
+      "target": "function:frontend/src/pages/ProfilePage.tsx:ProfilePage",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/router.tsx",
+      "target": "function:frontend/src/pages/UploadPage.tsx:UploadPage",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/router.tsx",
+      "target": "function:frontend/src/pages/UserPlaylistPage.tsx:UserPlaylistPage",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/router.tsx",
+      "target": "function:frontend/src/pages/VipCenterPage.tsx:VipCenterPage",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:frontend/src/components/GuestLayout.tsx:GuestLayout",
+      "target": "function:frontend/src/components/ThemeToggle.tsx:ThemeToggle",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:frontend/src/components/Sidebar.tsx:Sidebar",
+      "target": "function:frontend/src/components/Sidebar.tsx:useDesktopLayout",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:frontend/src/components/Sidebar.tsx:Sidebar",
+      "target": "function:frontend/src/components/ThemeToggle.tsx:ThemeToggle",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:frontend/src/components/Layout.tsx:AppLayout",
+      "target": "function:frontend/src/components/Header.tsx:Header",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:frontend/src/components/Layout.tsx:AppLayout",
+      "target": "function:frontend/src/components/Sidebar.tsx:Sidebar",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:frontend/src/components/Layout.tsx:AppLayout",
+      "target": "function:frontend/src/components/AudioPlayer.tsx:AudioPlayer",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:frontend/src/pages/LoginPage.tsx:LoginPage",
+      "target": "function:frontend/src/pages/LoginPage.tsx:getSafeInternalRedirect",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:frontend/src/components/Toast.tsx:Toast",
+      "target": "function:frontend/src/stores/toast.ts:useToastStore",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/main.tsx",
+      "target": "function:frontend/src/stores/auth.ts:injectSessionClearer",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/main.tsx",
+      "target": "function:frontend/src/session/clearUserSession.ts:clearUserSession",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/main.tsx",
+      "target": "function:frontend/src/session/createUnauthorizedHandler.ts:createUnauthorizedHandler",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/main.tsx",
+      "target": "function:frontend/src/api/client.ts:injectUnauthorizedHandler",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/main.tsx",
+      "target": "function:frontend/src/App.tsx:App",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/stores/auth.ts",
+      "target": "function:frontend/src/api/auth.ts:login",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/stores/auth.ts",
+      "target": "function:frontend/src/api/auth.ts:register",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/stores/auth.ts",
+      "target": "function:frontend/src/api/auth.ts:logout",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/stores/auth.ts",
+      "target": "function:frontend/src/api/auth.ts:getMe",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/stores/auth.ts",
+      "target": "function:frontend/src/api/client.ts:markSessionChanged",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/stores/auth.ts",
+      "target": "function:frontend/src/api/client.ts:getSessionRevision",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/stores/auth.ts",
+      "target": "function:frontend/src/api/client.ts:captureSessionSnapshot",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/stores/auth.ts",
+      "target": "function:frontend/src/api/client.ts:isSessionSnapshotCurrent",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/components/GuestLayout.tsx",
+      "target": "file:frontend/tests/components/GuestLayout.test.tsx",
+      "type": "tested_by",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "file:frontend/src/components/Layout.tsx",
+      "target": "file:frontend/tests/components/Layout.test.tsx",
+      "type": "tested_by",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "file:frontend/src/components/ProtectedRoute.tsx",
+      "target": "file:frontend/tests/components/ProtectedRoute.test.tsx",
+      "type": "tested_by",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "file:frontend/src/components/RoleUsersRedirect.tsx",
+      "target": "file:frontend/tests/components/RoleUsersRedirect.test.tsx",
+      "type": "tested_by",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "file:frontend/src/components/Sidebar.tsx",
+      "target": "file:frontend/tests/components/Sidebar.test.tsx",
+      "type": "tested_by",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "file:frontend/src/components/ThemeToggle.tsx",
+      "target": "file:frontend/tests/components/ThemeToggle.test.tsx",
+      "type": "tested_by",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "file:frontend/src/components/Toast.tsx",
+      "target": "file:frontend/tests/components/Toast.test.tsx",
+      "type": "tested_by",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "file:frontend/src/pages/RegisterPage.tsx",
+      "target": "file:frontend/tests/pages/RegisterPage.test.tsx",
+      "type": "tested_by",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "file:frontend/src/pages/LoginPage.tsx",
+      "target": "file:frontend/tests/pages/login.test.tsx",
+      "type": "tested_by",
+      "direction": "forward",
+      "weight": 0.5
+    }
+  ]
+}

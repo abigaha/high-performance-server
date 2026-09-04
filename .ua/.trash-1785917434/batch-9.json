@@ -1,0 +1,596 @@
+{
+  "nodes": [
+    {
+      "id": "file:scripts/docker.sh",
+      "type": "file",
+      "name": "scripts/docker.sh",
+      "filePath": "scripts/docker.sh",
+      "summary": "基于 Docker Compose 的部署运维脚本，提供 build、deploy、restart、status、stop、logs、health、runtime-fingerprint 等子命令及交互式菜单，含环境文件校验与端口可用性检查。",
+      "tags": ["docker-compose", "deployment", "health-check", "devops", "bash"],
+      "complexity": "complex",
+      "lineRange": "1-850"
+    },
+    {
+      "id": "function:scripts/docker.sh:usage",
+      "type": "function",
+      "name": "usage",
+      "summary": "打印脚本整体用法与全部子命令的功能说明。",
+      "tags": ["usage", "help", "bash"],
+      "complexity": "simple",
+      "lineRange": "14-37"
+    },
+    {
+      "id": "function:scripts/docker.sh:parse_deployment_options",
+      "type": "function",
+      "name": "parse_deployment_options",
+      "summary": "解析部署相关的命令行选项与参数并写入全局变量。",
+      "tags": ["argument-parsing", "deployment", "bash"],
+      "complexity": "moderate",
+      "lineRange": "63-103"
+    },
+    {
+      "id": "function:scripts/docker.sh:require_docker",
+      "type": "function",
+      "name": "require_docker",
+      "summary": "检查 docker 命令是否可用，缺失时报错退出。",
+      "tags": ["dependency-check", "docker", "bash"],
+      "complexity": "simple",
+      "lineRange": "114-124"
+    },
+    {
+      "id": "function:scripts/docker.sh:require_deploy_tools",
+      "type": "function",
+      "name": "require_deploy_tools",
+      "summary": "检查部署流程所需的工具链是否齐全。",
+      "tags": ["dependency-check", "deployment", "bash"],
+      "complexity": "simple",
+      "lineRange": "126-137"
+    },
+    {
+      "id": "function:scripts/docker.sh:env_file_value",
+      "type": "function",
+      "name": "env_file_value",
+      "summary": "从环境文件中读取指定键对应的值，缺省返回默认值。",
+      "tags": ["env-file", "configuration", "bash"],
+      "complexity": "simple",
+      "lineRange": "138-159"
+    },
+    {
+      "id": "function:scripts/docker.sh:validate_env_file",
+      "type": "function",
+      "name": "validate_env_file",
+      "summary": "校验环境文件中键值对的格式与合法性，发现问题即报错。",
+      "tags": ["env-file", "validation", "bash"],
+      "complexity": "moderate",
+      "lineRange": "161-223"
+    },
+    {
+      "id": "function:scripts/docker.sh:ensure_env_file",
+      "type": "function",
+      "name": "ensure_env_file",
+      "summary": "确保环境文件存在，缺失时从模板生成并补齐默认配置值。",
+      "tags": ["env-file", "bootstrap", "bash"],
+      "complexity": "moderate",
+      "lineRange": "226-298"
+    },
+    {
+      "id": "function:scripts/docker.sh:current_project_nginx_uses_port",
+      "type": "function",
+      "name": "current_project_nginx_uses_port",
+      "summary": "判断当前项目 nginx 是否占用了指定端口。",
+      "tags": ["port-check", "nginx", "bash"],
+      "complexity": "simple",
+      "lineRange": "300-318"
+    },
+    {
+      "id": "function:scripts/docker.sh:host_port_is_listening",
+      "type": "function",
+      "name": "host_port_is_listening",
+      "summary": "检测主机上指定端口是否已被监听。",
+      "tags": ["port-check", "network", "bash"],
+      "complexity": "simple",
+      "lineRange": "320-333"
+    },
+    {
+      "id": "function:scripts/docker.sh:validate_http_port_availability",
+      "type": "function",
+      "name": "validate_http_port_availability",
+      "summary": "校验 HTTP 端口可用性，与现有服务冲突时给出明确错误提示。",
+      "tags": ["port-check", "validation", "bash"],
+      "complexity": "moderate",
+      "lineRange": "335-379"
+    },
+    {
+      "id": "function:scripts/docker.sh:cmd_build",
+      "type": "function",
+      "name": "cmd_build",
+      "summary": "build 子命令入口，触发服务镜像构建流程。",
+      "tags": ["build", "docker", "bash"],
+      "complexity": "simple",
+      "lineRange": "381-393"
+    },
+    {
+      "id": "function:scripts/docker.sh:verify_service_health",
+      "type": "function",
+      "name": "verify_service_health",
+      "summary": "在超时时间内轮询服务健康端点直至服务就绪。",
+      "tags": ["health-check", "polling", "bash"],
+      "complexity": "simple",
+      "lineRange": "416-433"
+    },
+    {
+      "id": "function:scripts/docker.sh:print_backend_runtime_state",
+      "type": "function",
+      "name": "print_backend_runtime_state",
+      "summary": "打印后端容器的运行状态与关键信息。",
+      "tags": ["status", "docker", "bash"],
+      "complexity": "simple",
+      "lineRange": "435-446"
+    },
+    {
+      "id": "function:scripts/docker.sh:public_base_url",
+      "type": "function",
+      "name": "public_base_url",
+      "summary": "根据环境配置计算对外公网基础 URL 并校验其可达性。",
+      "tags": ["url", "validation", "deployment", "bash"],
+      "complexity": "moderate",
+      "lineRange": "448-518"
+    },
+    {
+      "id": "function:scripts/docker.sh:require_runtime_fingerprint_tools",
+      "type": "function",
+      "name": "require_runtime_fingerprint_tools",
+      "summary": "检查计算运行时指纹所需的系统工具是否可用。",
+      "tags": ["dependency-check", "fingerprint", "bash"],
+      "complexity": "simple",
+      "lineRange": "531-552"
+    },
+    {
+      "id": "function:scripts/docker.sh:configured_service_image",
+      "type": "function",
+      "name": "configured_service_image",
+      "summary": "从环境配置中读取服务镜像名称。",
+      "tags": ["configuration", "docker", "bash"],
+      "complexity": "simple",
+      "lineRange": "554-570"
+    },
+    {
+      "id": "function:scripts/docker.sh:cmd_runtime_fingerprint",
+      "type": "function",
+      "name": "cmd_runtime_fingerprint",
+      "summary": "计算并输出当前运行时环境的指纹信息用于部署追踪。",
+      "tags": ["fingerprint", "diagnostics", "bash"],
+      "complexity": "moderate",
+      "lineRange": "572-625"
+    },
+    {
+      "id": "function:scripts/docker.sh:cmd_health",
+      "type": "function",
+      "name": "cmd_health",
+      "summary": "health 子命令入口，检查服务健康状态。",
+      "tags": ["health-check", "subcommand", "bash"],
+      "complexity": "simple",
+      "lineRange": "627-647"
+    },
+    {
+      "id": "function:scripts/docker.sh:cmd_deploy",
+      "type": "function",
+      "name": "cmd_deploy",
+      "summary": "deploy 子命令入口，执行镜像构建、启动与健康验证的完整部署流程。",
+      "tags": ["deployment", "subcommand", "bash"],
+      "complexity": "moderate",
+      "lineRange": "649-679"
+    },
+    {
+      "id": "function:scripts/docker.sh:cmd_restart",
+      "type": "function",
+      "name": "cmd_restart",
+      "summary": "restart 子命令入口，重启项目服务。",
+      "tags": ["restart", "subcommand", "bash"],
+      "complexity": "simple",
+      "lineRange": "681-690"
+    },
+    {
+      "id": "function:scripts/docker.sh:cmd_status",
+      "type": "function",
+      "name": "cmd_status",
+      "summary": "status 子命令入口，展示服务运行状态。",
+      "tags": ["status", "subcommand", "bash"],
+      "complexity": "simple",
+      "lineRange": "692-706"
+    },
+    {
+      "id": "function:scripts/docker.sh:cmd_stop",
+      "type": "function",
+      "name": "cmd_stop",
+      "summary": "stop 子命令入口，停止服务并可选择清理数据卷。",
+      "tags": ["stop", "cleanup", "bash"],
+      "complexity": "simple",
+      "lineRange": "708-729"
+    },
+    {
+      "id": "function:scripts/docker.sh:cmd_logs",
+      "type": "function",
+      "name": "cmd_logs",
+      "summary": "logs 子命令入口，按服务名查看容器日志。",
+      "tags": ["logs", "diagnostics", "bash"],
+      "complexity": "moderate",
+      "lineRange": "731-771"
+    },
+    {
+      "id": "function:scripts/docker.sh:handle_menu_choice",
+      "type": "function",
+      "name": "handle_menu_choice",
+      "summary": "处理交互菜单中的用户选项并分发到对应子命令。",
+      "tags": ["menu", "dispatch", "bash"],
+      "complexity": "simple",
+      "lineRange": "773-783"
+    },
+    {
+      "id": "function:scripts/docker.sh:menu",
+      "type": "function",
+      "name": "menu",
+      "summary": "显示交互式运维管理菜单供用户选择操作。",
+      "tags": ["menu", "interactive", "bash"],
+      "complexity": "simple",
+      "lineRange": "785-795"
+    },
+    {
+      "id": "file:scripts/lint.sh",
+      "type": "file",
+      "name": "scripts/lint.sh",
+      "filePath": "scripts/lint.sh",
+      "summary": "前端与 C/C++ 代码的静态检查入口脚本，支持全量、指定路径与 git 变更文件三种 lint 模式，并自动检测 clang-tidy 等工具。",
+      "tags": ["lint", "clang-tidy", "eslint", "quality", "bash"],
+      "complexity": "complex",
+      "lineRange": "1-329"
+    },
+    {
+      "id": "function:scripts/lint.sh:usage",
+      "type": "function",
+      "name": "usage",
+      "summary": "打印脚本用法与可用命令行选项说明。",
+      "tags": ["usage", "help", "bash"],
+      "complexity": "simple",
+      "lineRange": "14-30"
+    },
+    {
+      "id": "function:scripts/lint.sh:detect_clang_tidy",
+      "type": "function",
+      "name": "detect_clang_tidy",
+      "summary": "检测系统中 clang-tidy 工具是否存在及可用版本。",
+      "tags": ["tool-detection", "clang-tidy", "bash"],
+      "complexity": "simple",
+      "lineRange": "32-41"
+    },
+    {
+      "id": "function:scripts/lint.sh:check_required_tools",
+      "type": "function",
+      "name": "check_required_tools",
+      "summary": "检查执行 lint 所需的工具链是否完整。",
+      "tags": ["dependency-check", "lint", "bash"],
+      "complexity": "simple",
+      "lineRange": "43-53"
+    },
+    {
+      "id": "function:scripts/lint.sh:lint_timeout_value",
+      "type": "function",
+      "name": "lint_timeout_value",
+      "summary": "从配置读取 lint 执行超时值并归一化。",
+      "tags": ["timeout", "configuration", "bash"],
+      "complexity": "simple",
+      "lineRange": "55-65"
+    },
+    {
+      "id": "function:scripts/lint.sh:run_frontend_lint",
+      "type": "function",
+      "name": "run_frontend_lint",
+      "summary": "运行前端 eslint 静态检查。",
+      "tags": ["frontend", "eslint", "bash"],
+      "complexity": "simple",
+      "lineRange": "67-78"
+    },
+    {
+      "id": "function:scripts/lint.sh:collect_path_sources",
+      "type": "function",
+      "name": "collect_path_sources",
+      "summary": "收集指定路径下的待检查源码文件列表。",
+      "tags": ["source-collection", "lint", "bash"],
+      "complexity": "simple",
+      "lineRange": "133-149"
+    },
+    {
+      "id": "function:scripts/lint.sh:collect_changed_sources",
+      "type": "function",
+      "name": "collect_changed_sources",
+      "summary": "通过 git 收集本次变更的源码文件用于增量检查。",
+      "tags": ["git", "incremental-lint", "bash"],
+      "complexity": "simple",
+      "lineRange": "151-170"
+    },
+    {
+      "id": "file:scripts/test.sh",
+      "type": "file",
+      "name": "scripts/test.sh",
+      "filePath": "scripts/test.sh",
+      "summary": "项目统一测试入口脚本，运行前端单元测试、脚本回归测试与端到端测试，并对测试路径进行合法性校验。",
+      "tags": ["testing", "frontend", "e2e", "regression", "bash"],
+      "complexity": "moderate",
+      "lineRange": "1-261"
+    },
+    {
+      "id": "function:scripts/test.sh:run_frontend_tests",
+      "type": "function",
+      "name": "run_frontend_tests",
+      "summary": "运行前端单元测试并输出结果。",
+      "tags": ["frontend", "unit-test", "bash"],
+      "complexity": "simple",
+      "lineRange": "8-21"
+    },
+    {
+      "id": "function:scripts/test.sh:run_script_regression_tests",
+      "type": "function",
+      "name": "run_script_regression_tests",
+      "summary": "运行 shell 脚本的回归测试。",
+      "tags": ["regression", "shell", "bash"],
+      "complexity": "simple",
+      "lineRange": "23-33"
+    },
+    {
+      "id": "function:scripts/test.sh:run_e2e_tests",
+      "type": "function",
+      "name": "run_e2e_tests",
+      "summary": "执行端到端测试套件，处理环境准备、用例运行与结果收集。",
+      "tags": ["e2e", "testing", "bash"],
+      "complexity": "moderate",
+      "lineRange": "49-169"
+    }
+  ],
+  "edges": [
+    {
+      "source": "file:scripts/docker.sh",
+      "target": "function:scripts/docker.sh:usage",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:scripts/docker.sh",
+      "target": "function:scripts/docker.sh:parse_deployment_options",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:scripts/docker.sh",
+      "target": "function:scripts/docker.sh:require_docker",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:scripts/docker.sh",
+      "target": "function:scripts/docker.sh:require_deploy_tools",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:scripts/docker.sh",
+      "target": "function:scripts/docker.sh:env_file_value",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:scripts/docker.sh",
+      "target": "function:scripts/docker.sh:validate_env_file",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:scripts/docker.sh",
+      "target": "function:scripts/docker.sh:ensure_env_file",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:scripts/docker.sh",
+      "target": "function:scripts/docker.sh:current_project_nginx_uses_port",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:scripts/docker.sh",
+      "target": "function:scripts/docker.sh:host_port_is_listening",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:scripts/docker.sh",
+      "target": "function:scripts/docker.sh:validate_http_port_availability",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:scripts/docker.sh",
+      "target": "function:scripts/docker.sh:cmd_build",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:scripts/docker.sh",
+      "target": "function:scripts/docker.sh:verify_service_health",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:scripts/docker.sh",
+      "target": "function:scripts/docker.sh:print_backend_runtime_state",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:scripts/docker.sh",
+      "target": "function:scripts/docker.sh:public_base_url",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:scripts/docker.sh",
+      "target": "function:scripts/docker.sh:require_runtime_fingerprint_tools",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:scripts/docker.sh",
+      "target": "function:scripts/docker.sh:configured_service_image",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:scripts/docker.sh",
+      "target": "function:scripts/docker.sh:cmd_runtime_fingerprint",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:scripts/docker.sh",
+      "target": "function:scripts/docker.sh:cmd_health",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:scripts/docker.sh",
+      "target": "function:scripts/docker.sh:cmd_deploy",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:scripts/docker.sh",
+      "target": "function:scripts/docker.sh:cmd_restart",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:scripts/docker.sh",
+      "target": "function:scripts/docker.sh:cmd_status",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:scripts/docker.sh",
+      "target": "function:scripts/docker.sh:cmd_stop",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:scripts/docker.sh",
+      "target": "function:scripts/docker.sh:cmd_logs",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:scripts/docker.sh",
+      "target": "function:scripts/docker.sh:handle_menu_choice",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:scripts/docker.sh",
+      "target": "function:scripts/docker.sh:menu",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:scripts/lint.sh",
+      "target": "function:scripts/lint.sh:usage",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:scripts/lint.sh",
+      "target": "function:scripts/lint.sh:detect_clang_tidy",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:scripts/lint.sh",
+      "target": "function:scripts/lint.sh:check_required_tools",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:scripts/lint.sh",
+      "target": "function:scripts/lint.sh:lint_timeout_value",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:scripts/lint.sh",
+      "target": "function:scripts/lint.sh:run_frontend_lint",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:scripts/lint.sh",
+      "target": "function:scripts/lint.sh:collect_path_sources",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:scripts/lint.sh",
+      "target": "function:scripts/lint.sh:collect_changed_sources",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:scripts/test.sh",
+      "target": "function:scripts/test.sh:run_frontend_tests",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:scripts/test.sh",
+      "target": "function:scripts/test.sh:run_script_regression_tests",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:scripts/test.sh",
+      "target": "function:scripts/test.sh:run_e2e_tests",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    }
+  ]
+}

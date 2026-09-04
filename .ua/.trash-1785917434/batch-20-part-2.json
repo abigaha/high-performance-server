@@ -1,0 +1,425 @@
+{
+  "nodes": [
+    {
+      "id": "file:benchmark/.clang-tidy",
+      "type": "file",
+      "name": ".clang-tidy",
+      "filePath": "benchmark/.clang-tidy",
+      "summary": "benchmark 目录下的 clang-tidy 静态分析配置，定义检查项与参数，用于约束基准代码质量。",
+      "tags": ["clang-tidy", "lint", "static-analysis", "config"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:benchmark/bench_logger.cpp",
+      "type": "file",
+      "name": "bench_logger.cpp",
+      "filePath": "benchmark/bench_logger.cpp",
+      "summary": "日志模块微基准，测量 info/error 写入、多线程并发与格式化拼接场景下的吞吐。",
+      "tags": ["benchmark", "logger", "logging", "performance"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "class:benchmark/bench_logger.cpp:LoggerBench",
+      "type": "class",
+      "name": "LoggerBench",
+      "summary": "日志基准夹具，在 SetUp/TearDown 中初始化与关闭日志系统。",
+      "tags": ["logger", "fixture", "benchmark"],
+      "complexity": "simple",
+      "lineRange": [11, 16]
+    },
+    {
+      "id": "function:benchmark/bench_logger.cpp:BENCHMARK_DEFINE_F(LoggerBench, Multithreaded)",
+      "type": "function",
+      "name": "BENCHMARK_DEFINE_F(LoggerBench, Multithreaded)",
+      "summary": "测量多线程并发写入日志时的吞吐与竞争表现。",
+      "tags": ["benchmark", "logger", "multithreaded"],
+      "complexity": "moderate",
+      "lineRange": [42, 58]
+    },
+    {
+      "id": "function:benchmark/bench_logger.cpp:BENCHMARK_DEFINE_F(LoggerBench, Format)",
+      "type": "function",
+      "name": "BENCHMARK_DEFINE_F(LoggerBench, Format)",
+      "summary": "测量带参数格式化拼接日志消息的性能。",
+      "tags": ["benchmark", "logger", "format"],
+      "complexity": "moderate",
+      "lineRange": [62, 71]
+    },
+    {
+      "id": "file:benchmark/bench_memory_pool.cpp",
+      "type": "file",
+      "name": "bench_memory_pool.cpp",
+      "filePath": "benchmark/bench_memory_pool.cpp",
+      "summary": "内存池微基准，覆盖分配/释放、批量分配、混合尺寸、与 malloc 对比及跨线程归还场景。",
+      "tags": ["benchmark", "memory-pool", "allocation", "performance"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:benchmark/bench_memory_pool.cpp:BM_MemoryPool_BatchAllocate",
+      "type": "function",
+      "name": "BM_MemoryPool_BatchAllocate",
+      "summary": "测量批量分配再批量释放的吞吐。",
+      "tags": ["benchmark", "memory-pool", "batch-allocate"],
+      "complexity": "moderate",
+      "lineRange": [30, 45]
+    },
+    {
+      "id": "function:benchmark/bench_memory_pool.cpp:BM_MemoryPool_MixedSizes",
+      "type": "function",
+      "name": "BM_MemoryPool_MixedSizes",
+      "summary": "测量多种尺寸混合分配时的性能。",
+      "tags": ["benchmark", "memory-pool", "mixed-sizes"],
+      "complexity": "moderate",
+      "lineRange": [49, 63]
+    },
+    {
+      "id": "function:benchmark/bench_memory_pool.cpp:BM_MemoryPool_MultiThreadAlloc",
+      "type": "function",
+      "name": "BM_MemoryPool_MultiThreadAlloc",
+      "summary": "测量多线程并发分配与释放的扩展性。",
+      "tags": ["benchmark", "memory-pool", "multithread", "concurrency"],
+      "complexity": "moderate",
+      "lineRange": [78, 98]
+    },
+    {
+      "id": "function:benchmark/bench_memory_pool.cpp:BM_MemoryPool_CrossThreadReturn",
+      "type": "function",
+      "name": "BM_MemoryPool_CrossThreadReturn",
+      "summary": "测量跨线程分配与归还（归还到其他线程缓存）的开销。",
+      "tags": ["benchmark", "memory-pool", "cross-thread"],
+      "complexity": "moderate",
+      "lineRange": [102, 123]
+    },
+    {
+      "id": "file:benchmark/bench_move_only_function.cpp",
+      "type": "file",
+      "name": "bench_move_only_function.cpp",
+      "filePath": "benchmark/bench_move_only_function.cpp",
+      "summary": "MoveOnlyFunction 与 std::function 的微基准，对比构造、捕获、大对象与调用开销。",
+      "tags": ["benchmark", "move-only-function", "function-object", "performance"],
+      "complexity": "simple"
+    },
+    {
+      "id": "class:benchmark/bench_move_only_function.cpp:BigObject",
+      "type": "class",
+      "name": "BigObject",
+      "summary": "体积较大的捕获对象，用于模拟大捕获场景下函数对象的构造开销。",
+      "tags": ["move-only-function", "capture", "benchmark"],
+      "complexity": "simple",
+      "lineRange": [11, 14]
+    },
+    {
+      "id": "file:benchmark/bench_router.cpp",
+      "type": "file",
+      "name": "bench_router.cpp",
+      "filePath": "benchmark/bench_router.cpp",
+      "summary": "HTTP 路由表微基准，测量静态/参数/未命中路径匹配及大路由表下的查找性能。",
+      "tags": ["benchmark", "router", "routing", "performance"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "class:benchmark/bench_router.cpp:RouterWithRoutes",
+      "type": "class",
+      "name": "RouterWithRoutes",
+      "summary": "路由基准夹具，向 Router 注册一批静态与参数化路由。",
+      "tags": ["router", "fixture", "benchmark"],
+      "complexity": "moderate",
+      "lineRange": [16, 29]
+    },
+    {
+      "id": "function:benchmark/bench_router.cpp:BM_Router_MatchStatic",
+      "type": "function",
+      "name": "BM_Router_MatchStatic",
+      "summary": "测量静态路径匹配的性能。",
+      "tags": ["benchmark", "router", "static-match"],
+      "complexity": "simple",
+      "lineRange": [33, 42]
+    },
+    {
+      "id": "function:benchmark/bench_router.cpp:BM_Router_MatchParam",
+      "type": "function",
+      "name": "BM_Router_MatchParam",
+      "summary": "测量含路径参数路由匹配的性能。",
+      "tags": ["benchmark", "router", "param-match"],
+      "complexity": "simple",
+      "lineRange": [46, 55]
+    },
+    {
+      "id": "function:benchmark/bench_router.cpp:BM_Router_MatchLargeTable",
+      "type": "function",
+      "name": "BM_Router_MatchLargeTable",
+      "summary": "测量包含大量路由条目时未命中路径的查找性能。",
+      "tags": ["benchmark", "router", "large-table"],
+      "complexity": "moderate",
+      "lineRange": [93, 102]
+    },
+    {
+      "id": "file:benchmark/bench_ssl.cpp",
+      "type": "file",
+      "name": "bench_ssl.cpp",
+      "filePath": "benchmark/bench_ssl.cpp",
+      "summary": "TLS 模块微基准，测量 SSL 上下文创建、读写吞吐与握手延迟。",
+      "tags": ["benchmark", "ssl", "tls", "performance"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "class:benchmark/bench_ssl.cpp:SslBenchFixture",
+      "type": "class",
+      "name": "SslBenchFixture",
+      "summary": "TLS 基准夹具，提供基础的 SSL 配置对象。",
+      "tags": ["ssl", "fixture", "benchmark"],
+      "complexity": "simple",
+      "lineRange": [11, 19]
+    },
+    {
+      "id": "function:benchmark/bench_ssl.cpp:BM_SslContext_NotEnabled",
+      "type": "function",
+      "name": "BM_SslContext_NotEnabled",
+      "summary": "测量未启用 SSL 时上下文创建与 accept/shutdown 快速路径的开销。",
+      "tags": ["benchmark", "ssl", "context-create"],
+      "complexity": "moderate",
+      "lineRange": [33, 42]
+    },
+    {
+      "id": "function:benchmark/bench_ssl.cpp:BM_SSL_ReadWriteThroughput",
+      "type": "function",
+      "name": "BM_SSL_ReadWriteThroughput",
+      "summary": "测量 SSL 读写吞吐。",
+      "tags": ["benchmark", "ssl", "throughput"],
+      "complexity": "moderate",
+      "lineRange": [46, 60]
+    },
+    {
+      "id": "function:benchmark/bench_ssl.cpp:BM_SSL_HandshakeLatency",
+      "type": "function",
+      "name": "BM_SSL_HandshakeLatency",
+      "summary": "测量 SSL 握手（accept）的延迟。",
+      "tags": ["benchmark", "ssl", "handshake", "latency"],
+      "complexity": "moderate",
+      "lineRange": [64, 73]
+    },
+    {
+      "id": "file:benchmark/bench_tcp_server.cpp",
+      "type": "file",
+      "name": "bench_tcp_server.cpp",
+      "filePath": "benchmark/bench_tcp_server.cpp",
+      "summary": "端到端 TCP 服务器基准，通过真实连接测量建连、收发、并发连接与吞吐。",
+      "tags": ["benchmark", "tcp-server", "end-to-end", "performance"],
+      "complexity": "complex"
+    },
+    {
+      "id": "class:benchmark/bench_tcp_server.cpp:TcpServerBench",
+      "type": "class",
+      "name": "TcpServerBench",
+      "summary": "TCP 服务器基准夹具，启动 TcpServer、注册回显 handler 并维护连接工具。",
+      "tags": ["tcp-server", "fixture", "benchmark"],
+      "complexity": "complex",
+      "lineRange": [18, 57]
+    },
+    {
+      "id": "function:benchmark/bench_tcp_server.cpp:SetUp",
+      "type": "function",
+      "name": "SetUp",
+      "summary": "创建并启动 TcpServer，注册读写回显 handler，记录实际端口。",
+      "tags": ["fixture", "setup", "tcp-server"],
+      "complexity": "moderate",
+      "lineRange": [20, 44]
+    },
+    {
+      "id": "function:benchmark/bench_tcp_server.cpp:BENCHMARK_DEFINE_F(TcpServerBench, Connect)",
+      "type": "function",
+      "name": "BENCHMARK_DEFINE_F(TcpServerBench, Connect)",
+      "summary": "测量 TCP 建连与断开的成本。",
+      "tags": ["benchmark", "tcp-server", "connect"],
+      "complexity": "simple",
+      "lineRange": [60, 68]
+    },
+    {
+      "id": "function:benchmark/bench_tcp_server.cpp:BENCHMARK_DEFINE_F(TcpServerBench, SendReceive)",
+      "type": "function",
+      "name": "BENCHMARK_DEFINE_F(TcpServerBench, SendReceive)",
+      "summary": "测量单连接发送接收往返的吞吐。",
+      "tags": ["benchmark", "tcp-server", "send-receive"],
+      "complexity": "moderate",
+      "lineRange": [72, 86]
+    },
+    {
+      "id": "function:benchmark/bench_tcp_server.cpp:BENCHMARK_DEFINE_F(TcpServerBench, ConcurrentConnections)",
+      "type": "function",
+      "name": "BENCHMARK_DEFINE_F(TcpServerBench, ConcurrentConnections)",
+      "summary": "测量并发连接数递增时服务器处理能力。",
+      "tags": ["benchmark", "tcp-server", "concurrent", "connections"],
+      "complexity": "moderate",
+      "lineRange": [90, 106]
+    },
+    {
+      "id": "function:benchmark/bench_tcp_server.cpp:BENCHMARK_DEFINE_F(TcpServerBench, Throughput)",
+      "type": "function",
+      "name": "BENCHMARK_DEFINE_F(TcpServerBench, Throughput)",
+      "summary": "测量 TCP 数据吞吐，按字节数统计。",
+      "tags": ["benchmark", "tcp-server", "throughput"],
+      "complexity": "moderate",
+      "lineRange": [110, 125]
+    },
+    {
+      "id": "file:benchmark/bench_thread_pool.cpp",
+      "type": "file",
+      "name": "bench_thread_pool.cpp",
+      "filePath": "benchmark/bench_thread_pool.cpp",
+      "summary": "线程池微基准，对比无锁与加锁线程池的任务吞吐、重任务耗时与入队延迟。",
+      "tags": ["benchmark", "thread-pool", "lock-free", "performance"],
+      "complexity": "complex"
+    },
+    {
+      "id": "function:benchmark/bench_thread_pool.cpp:do_work",
+      "type": "function",
+      "name": "do_work",
+      "summary": "通用任务执行体，通过 enqueue 与 wait_for_all_tasks 驱动线程池跑指定任务量。",
+      "tags": ["thread-pool", "helper", "benchmark"],
+      "complexity": "moderate",
+      "lineRange": [14, 26]
+    },
+    {
+      "id": "function:benchmark/bench_thread_pool.cpp:BM_LockFreeThreadPool_HeavyTask",
+      "type": "function",
+      "name": "BM_LockFreeThreadPool_HeavyTask",
+      "summary": "测量无锁线程池执行重任务的平均耗时。",
+      "tags": ["benchmark", "thread-pool", "heavy-task"],
+      "complexity": "moderate",
+      "lineRange": [46, 62]
+    },
+    {
+      "id": "function:benchmark/bench_thread_pool.cpp:BM_LockedThreadPool_HeavyTask",
+      "type": "function",
+      "name": "BM_LockedThreadPool_HeavyTask",
+      "summary": "测量加锁线程池执行重任务的平均耗时。",
+      "tags": ["benchmark", "thread-pool", "heavy-task", "locked"],
+      "complexity": "moderate",
+      "lineRange": [66, 82]
+    },
+    {
+      "id": "function:benchmark/bench_thread_pool.cpp:BM_LockedThreadPool_EnqueueDelay",
+      "type": "function",
+      "name": "BM_LockedThreadPool_EnqueueDelay",
+      "summary": "测量加锁线程池的任务入队延迟分布（含排序统计）。",
+      "tags": ["benchmark", "thread-pool", "enqueue-delay", "latency"],
+      "complexity": "complex",
+      "lineRange": [86, 105]
+    },
+    {
+      "id": "file:benchmark/bench_websocket.cpp",
+      "type": "file",
+      "name": "bench_websocket.cpp",
+      "filePath": "benchmark/bench_websocket.cpp",
+      "summary": "WebSocket 编解码微基准，覆盖文本/二进制编码、解码、掩码、连续帧与超大载荷场景。",
+      "tags": ["benchmark", "websocket", "codec", "performance"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:benchmark/bench_websocket.cpp:BM_WebSocket_DecodeFrame",
+      "type": "function",
+      "name": "BM_WebSocket_DecodeFrame",
+      "summary": "测量 WebSocket 帧解码的吞吐。",
+      "tags": ["benchmark", "websocket", "decode"],
+      "complexity": "moderate",
+      "lineRange": [23, 32]
+    },
+    {
+      "id": "function:benchmark/bench_websocket.cpp:BM_WebSocket_DecodeWithMask",
+      "type": "function",
+      "name": "BM_WebSocket_DecodeWithMask",
+      "summary": "测量带掩码帧解码（客户端到服务端场景）的吞吐。",
+      "tags": ["benchmark", "websocket", "mask", "decode"],
+      "complexity": "moderate",
+      "lineRange": [47, 56]
+    },
+    {
+      "id": "function:benchmark/bench_websocket.cpp:BM_WebSocket_ContinuousFrames",
+      "type": "function",
+      "name": "BM_WebSocket_ContinuousFrames",
+      "summary": "测量连续帧编解码处理的开销。",
+      "tags": ["benchmark", "websocket", "continuous-frames"],
+      "complexity": "moderate",
+      "lineRange": [60, 71]
+    },
+    {
+      "id": "function:benchmark/bench_websocket.cpp:BM_WebSocket_LargePayload",
+      "type": "function",
+      "name": "BM_WebSocket_LargePayload",
+      "summary": "测量大载荷帧的编解码吞吐。",
+      "tags": ["benchmark", "websocket", "large-payload"],
+      "complexity": "moderate",
+      "lineRange": [75, 84]
+    },
+    {
+      "id": "document:benchmark/README.md",
+      "type": "document",
+      "name": "README.md",
+      "summary": "性能基准测试说明文档，介绍测试分层、微基准/模块 QPS/端到端 RPS 三级体系、依赖、预检、场景、Profile 与报告生成规则，并附 2026-08-04 实测记录。",
+      "tags": ["benchmark", "documentation", "qps", "rps", "reporting"],
+      "complexity": "moderate"
+    }
+  ],
+  "edges": [
+    {"source": "file:benchmark/bench_logger.cpp", "target": "class:benchmark/bench_logger.cpp:LoggerBench", "type": "contains", "direction": "forward", "weight": 1.0},
+    {"source": "file:benchmark/bench_logger.cpp", "target": "function:benchmark/bench_logger.cpp:BENCHMARK_DEFINE_F(LoggerBench, Multithreaded)", "type": "contains", "direction": "forward", "weight": 1.0},
+    {"source": "file:benchmark/bench_logger.cpp", "target": "function:benchmark/bench_logger.cpp:BENCHMARK_DEFINE_F(LoggerBench, Format)", "type": "contains", "direction": "forward", "weight": 1.0},
+    {"source": "file:benchmark/bench_logger.cpp", "target": "class:benchmark/bench_logger.cpp:LoggerBench", "type": "exports", "direction": "forward", "weight": 0.8},
+    {"source": "file:benchmark/bench_logger.cpp", "target": "function:benchmark/bench_logger.cpp:BENCHMARK_DEFINE_F(LoggerBench, Multithreaded)", "type": "exports", "direction": "forward", "weight": 0.8},
+    {"source": "file:benchmark/bench_logger.cpp", "target": "function:benchmark/bench_logger.cpp:BENCHMARK_DEFINE_F(LoggerBench, Format)", "type": "exports", "direction": "forward", "weight": 0.8},
+    {"source": "file:benchmark/bench_memory_pool.cpp", "target": "function:benchmark/bench_memory_pool.cpp:BM_MemoryPool_BatchAllocate", "type": "contains", "direction": "forward", "weight": 1.0},
+    {"source": "file:benchmark/bench_memory_pool.cpp", "target": "function:benchmark/bench_memory_pool.cpp:BM_MemoryPool_MixedSizes", "type": "contains", "direction": "forward", "weight": 1.0},
+    {"source": "file:benchmark/bench_memory_pool.cpp", "target": "function:benchmark/bench_memory_pool.cpp:BM_MemoryPool_MultiThreadAlloc", "type": "contains", "direction": "forward", "weight": 1.0},
+    {"source": "file:benchmark/bench_memory_pool.cpp", "target": "function:benchmark/bench_memory_pool.cpp:BM_MemoryPool_CrossThreadReturn", "type": "contains", "direction": "forward", "weight": 1.0},
+    {"source": "file:benchmark/bench_move_only_function.cpp", "target": "class:benchmark/bench_move_only_function.cpp:BigObject", "type": "contains", "direction": "forward", "weight": 1.0},
+    {"source": "file:benchmark/bench_move_only_function.cpp", "target": "class:benchmark/bench_move_only_function.cpp:BigObject", "type": "exports", "direction": "forward", "weight": 0.8},
+    {"source": "file:benchmark/bench_router.cpp", "target": "class:benchmark/bench_router.cpp:RouterWithRoutes", "type": "contains", "direction": "forward", "weight": 1.0},
+    {"source": "file:benchmark/bench_router.cpp", "target": "function:benchmark/bench_router.cpp:BM_Router_MatchStatic", "type": "contains", "direction": "forward", "weight": 1.0},
+    {"source": "file:benchmark/bench_router.cpp", "target": "function:benchmark/bench_router.cpp:BM_Router_MatchParam", "type": "contains", "direction": "forward", "weight": 1.0},
+    {"source": "file:benchmark/bench_router.cpp", "target": "function:benchmark/bench_router.cpp:BM_Router_MatchLargeTable", "type": "contains", "direction": "forward", "weight": 1.0},
+    {"source": "file:benchmark/bench_router.cpp", "target": "class:benchmark/bench_router.cpp:RouterWithRoutes", "type": "exports", "direction": "forward", "weight": 0.8},
+    {"source": "file:benchmark/bench_ssl.cpp", "target": "class:benchmark/bench_ssl.cpp:SslBenchFixture", "type": "contains", "direction": "forward", "weight": 1.0},
+    {"source": "file:benchmark/bench_ssl.cpp", "target": "function:benchmark/bench_ssl.cpp:BM_SslContext_NotEnabled", "type": "contains", "direction": "forward", "weight": 1.0},
+    {"source": "file:benchmark/bench_ssl.cpp", "target": "function:benchmark/bench_ssl.cpp:BM_SSL_ReadWriteThroughput", "type": "contains", "direction": "forward", "weight": 1.0},
+    {"source": "file:benchmark/bench_ssl.cpp", "target": "function:benchmark/bench_ssl.cpp:BM_SSL_HandshakeLatency", "type": "contains", "direction": "forward", "weight": 1.0},
+    {"source": "file:benchmark/bench_ssl.cpp", "target": "class:benchmark/bench_ssl.cpp:SslBenchFixture", "type": "exports", "direction": "forward", "weight": 0.8},
+    {"source": "file:benchmark/bench_tcp_server.cpp", "target": "class:benchmark/bench_tcp_server.cpp:TcpServerBench", "type": "contains", "direction": "forward", "weight": 1.0},
+    {"source": "file:benchmark/bench_tcp_server.cpp", "target": "function:benchmark/bench_tcp_server.cpp:SetUp", "type": "contains", "direction": "forward", "weight": 1.0},
+    {"source": "file:benchmark/bench_tcp_server.cpp", "target": "function:benchmark/bench_tcp_server.cpp:BENCHMARK_DEFINE_F(TcpServerBench, Connect)", "type": "contains", "direction": "forward", "weight": 1.0},
+    {"source": "file:benchmark/bench_tcp_server.cpp", "target": "function:benchmark/bench_tcp_server.cpp:BENCHMARK_DEFINE_F(TcpServerBench, SendReceive)", "type": "contains", "direction": "forward", "weight": 1.0},
+    {"source": "file:benchmark/bench_tcp_server.cpp", "target": "function:benchmark/bench_tcp_server.cpp:BENCHMARK_DEFINE_F(TcpServerBench, ConcurrentConnections)", "type": "contains", "direction": "forward", "weight": 1.0},
+    {"source": "file:benchmark/bench_tcp_server.cpp", "target": "function:benchmark/bench_tcp_server.cpp:BENCHMARK_DEFINE_F(TcpServerBench, Throughput)", "type": "contains", "direction": "forward", "weight": 1.0},
+    {"source": "file:benchmark/bench_tcp_server.cpp", "target": "class:benchmark/bench_tcp_server.cpp:TcpServerBench", "type": "exports", "direction": "forward", "weight": 0.8},
+    {"source": "file:benchmark/bench_tcp_server.cpp", "target": "function:benchmark/bench_tcp_server.cpp:SetUp", "type": "exports", "direction": "forward", "weight": 0.8},
+    {"source": "file:benchmark/bench_tcp_server.cpp", "target": "function:benchmark/bench_tcp_server.cpp:BENCHMARK_DEFINE_F(TcpServerBench, Connect)", "type": "exports", "direction": "forward", "weight": 0.8},
+    {"source": "file:benchmark/bench_tcp_server.cpp", "target": "function:benchmark/bench_tcp_server.cpp:BENCHMARK_DEFINE_F(TcpServerBench, SendReceive)", "type": "exports", "direction": "forward", "weight": 0.8},
+    {"source": "file:benchmark/bench_tcp_server.cpp", "target": "function:benchmark/bench_tcp_server.cpp:BENCHMARK_DEFINE_F(TcpServerBench, ConcurrentConnections)", "type": "exports", "direction": "forward", "weight": 0.8},
+    {"source": "file:benchmark/bench_tcp_server.cpp", "target": "function:benchmark/bench_tcp_server.cpp:BENCHMARK_DEFINE_F(TcpServerBench, Throughput)", "type": "exports", "direction": "forward", "weight": 0.8},
+    {"source": "file:benchmark/bench_thread_pool.cpp", "target": "function:benchmark/bench_thread_pool.cpp:do_work", "type": "contains", "direction": "forward", "weight": 1.0},
+    {"source": "file:benchmark/bench_thread_pool.cpp", "target": "function:benchmark/bench_thread_pool.cpp:BM_LockFreeThreadPool_HeavyTask", "type": "contains", "direction": "forward", "weight": 1.0},
+    {"source": "file:benchmark/bench_thread_pool.cpp", "target": "function:benchmark/bench_thread_pool.cpp:BM_LockedThreadPool_HeavyTask", "type": "contains", "direction": "forward", "weight": 1.0},
+    {"source": "file:benchmark/bench_thread_pool.cpp", "target": "function:benchmark/bench_thread_pool.cpp:BM_LockedThreadPool_EnqueueDelay", "type": "contains", "direction": "forward", "weight": 1.0},
+    {"source": "file:benchmark/bench_thread_pool.cpp", "target": "function:benchmark/bench_thread_pool.cpp:do_work", "type": "exports", "direction": "forward", "weight": 0.8},
+    {"source": "file:benchmark/bench_websocket.cpp", "target": "function:benchmark/bench_websocket.cpp:BM_WebSocket_DecodeFrame", "type": "contains", "direction": "forward", "weight": 1.0},
+    {"source": "file:benchmark/bench_websocket.cpp", "target": "function:benchmark/bench_websocket.cpp:BM_WebSocket_DecodeWithMask", "type": "contains", "direction": "forward", "weight": 1.0},
+    {"source": "file:benchmark/bench_websocket.cpp", "target": "function:benchmark/bench_websocket.cpp:BM_WebSocket_ContinuousFrames", "type": "contains", "direction": "forward", "weight": 1.0},
+    {"source": "file:benchmark/bench_websocket.cpp", "target": "function:benchmark/bench_websocket.cpp:BM_WebSocket_LargePayload", "type": "contains", "direction": "forward", "weight": 1.0},
+    {"source": "document:benchmark/README.md", "target": "file:benchmark/bench_auth_service.cpp", "type": "documents", "direction": "forward", "weight": 0.5},
+    {"source": "document:benchmark/README.md", "target": "file:benchmark/bench_chunk_header.cpp", "type": "documents", "direction": "forward", "weight": 0.5},
+    {"source": "document:benchmark/README.md", "target": "file:benchmark/bench_coroutine.cpp", "type": "documents", "direction": "forward", "weight": 0.5},
+    {"source": "document:benchmark/README.md", "target": "file:benchmark/bench_database_pool.cpp", "type": "documents", "direction": "forward", "weight": 0.5},
+    {"source": "document:benchmark/README.md", "target": "file:benchmark/bench_file_system.cpp", "type": "documents", "direction": "forward", "weight": 0.5},
+    {"source": "document:benchmark/README.md", "target": "file:benchmark/bench_http_parser.cpp", "type": "documents", "direction": "forward", "weight": 0.5},
+    {"source": "document:benchmark/README.md", "target": "file:benchmark/bench_http_server.cpp", "type": "documents", "direction": "forward", "weight": 0.5},
+    {"source": "document:benchmark/README.md", "target": "file:benchmark/bench_lock_free_queue.cpp", "type": "documents", "direction": "forward", "weight": 0.5},
+    {"source": "document:benchmark/README.md", "target": "file:benchmark/bench_logger.cpp", "type": "documents", "direction": "forward", "weight": 0.5},
+    {"source": "document:benchmark/README.md", "target": "file:benchmark/bench_memory_pool.cpp", "type": "documents", "direction": "forward", "weight": 0.5},
+    {"source": "document:benchmark/README.md", "target": "file:benchmark/bench_move_only_function.cpp", "type": "documents", "direction": "forward", "weight": 0.5},
+    {"source": "document:benchmark/README.md", "target": "file:benchmark/bench_router.cpp", "type": "documents", "direction": "forward", "weight": 0.5},
+    {"source": "document:benchmark/README.md", "target": "file:benchmark/bench_ssl.cpp", "type": "documents", "direction": "forward", "weight": 0.5},
+    {"source": "document:benchmark/README.md", "target": "file:benchmark/bench_tcp_server.cpp", "type": "documents", "direction": "forward", "weight": 0.5},
+    {"source": "document:benchmark/README.md", "target": "file:benchmark/bench_thread_pool.cpp", "type": "documents", "direction": "forward", "weight": 0.5},
+    {"source": "document:benchmark/README.md", "target": "file:benchmark/bench_websocket.cpp", "type": "documents", "direction": "forward", "weight": 0.5},
+    {"source": "document:benchmark/README.md", "target": "file:benchmark/tools/migrate_legacy_reports.py", "type": "documents", "direction": "forward", "weight": 0.5}
+  ]
+}

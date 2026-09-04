@@ -1,0 +1,856 @@
+{
+ "nodes": [
+  {
+   "id": "file:tests/test_pending_chunk_deletions.cpp",
+   "type": "file",
+   "name": "tests/test_pending_chunk_deletions.cpp",
+   "summary": "针对待删除分块生命周期协调器（pending_chunk_deletions）的单元测试，用 StubPendingDatabase 与 StatusFileSystem 模拟数据库和文件系统，覆盖清理与上传并发互斥、异常路径及失败传播。",
+   "tags": [
+    "pending-chunk-deletions",
+    "chunk-lifecycle",
+    "database",
+    "unit-test",
+    "cpp"
+   ],
+   "complexity": "complex",
+   "filePath": "tests/test_pending_chunk_deletions.cpp"
+  },
+  {
+   "id": "function:tests/test_pending_chunk_deletions.cpp:search_files_ext",
+   "type": "function",
+   "name": "search_files_ext",
+   "summary": "测试文件中的辅助函数，为测试用例搭建环境或执行公共逻辑（12 行）。",
+   "tags": [
+    "test-helper",
+    "test-utility",
+    "cpp"
+   ],
+   "complexity": "simple",
+   "lineRange": [
+    107,
+    118
+   ]
+  },
+  {
+   "id": "function:tests/test_pending_chunk_deletions.cpp:update_playlist",
+   "type": "function",
+   "name": "update_playlist",
+   "summary": "测试文件中的辅助函数，为测试用例搭建环境或执行公共逻辑（10 行）。",
+   "tags": [
+    "test-helper",
+    "test-utility",
+    "cpp"
+   ],
+   "complexity": "simple",
+   "lineRange": [
+    196,
+    205
+   ]
+  },
+  {
+   "id": "function:tests/test_pending_chunk_deletions.cpp:claim_pending_chunk_deletions",
+   "type": "function",
+   "name": "claim_pending_chunk_deletions",
+   "summary": "测试文件中的辅助函数，为测试用例搭建环境或执行公共逻辑（15 行）。",
+   "tags": [
+    "test-helper",
+    "test-utility",
+    "cpp"
+   ],
+   "complexity": "moderate",
+   "lineRange": [
+    244,
+    258
+   ]
+  },
+  {
+   "id": "function:tests/test_pending_chunk_deletions.cpp:complete_pending_chunk_deletion",
+   "type": "function",
+   "name": "complete_pending_chunk_deletion",
+   "summary": "测试文件中的辅助函数，为测试用例搭建环境或执行公共逻辑（13 行）。",
+   "tags": [
+    "test-helper",
+    "test-utility",
+    "cpp"
+   ],
+   "complexity": "simple",
+   "lineRange": [
+    260,
+    272
+   ]
+  },
+  {
+   "id": "function:tests/test_pending_chunk_deletions.cpp:release_pending_chunk_deletion",
+   "type": "function",
+   "name": "release_pending_chunk_deletion",
+   "summary": "测试文件中的辅助函数，为测试用例搭建环境或执行公共逻辑（15 行）。",
+   "tags": [
+    "test-helper",
+    "test-utility",
+    "cpp"
+   ],
+   "complexity": "moderate",
+   "lineRange": [
+    274,
+    288
+   ]
+  },
+  {
+   "id": "function:tests/test_pending_chunk_deletions.cpp:has_chunk_references",
+   "type": "function",
+   "name": "has_chunk_references",
+   "summary": "测试文件中的辅助函数，为测试用例搭建环境或执行公共逻辑（12 行）。",
+   "tags": [
+    "test-helper",
+    "test-utility",
+    "cpp"
+   ],
+   "complexity": "simple",
+   "lineRange": [
+    290,
+    301
+   ]
+  },
+  {
+   "id": "function:tests/test_pending_chunk_deletions.cpp:cancel_pending_chunk_deletion",
+   "type": "function",
+   "name": "cancel_pending_chunk_deletion",
+   "summary": "测试文件中的辅助函数，为测试用例搭建环境或执行公共逻辑（13 行）。",
+   "tags": [
+    "test-helper",
+    "test-utility",
+    "cpp"
+   ],
+   "complexity": "simple",
+   "lineRange": [
+    303,
+    315
+   ]
+  },
+  {
+   "id": "function:tests/test_pending_chunk_deletions.cpp:delete_file_status",
+   "type": "function",
+   "name": "delete_file_status",
+   "summary": "测试文件中的辅助函数，为测试用例搭建环境或执行公共逻辑（15 行）。",
+   "tags": [
+    "test-helper",
+    "test-utility",
+    "cpp"
+   ],
+   "complexity": "moderate",
+   "lineRange": [
+    358,
+    372
+   ]
+  },
+  {
+   "id": "function:tests/test_pending_chunk_deletions.cpp:ChunkLifecycleCoordinatorTest.RegisteredCleanupWaiterPrecedesLaterUpload",
+   "type": "function",
+   "name": "ChunkLifecycleCoordinatorTest.RegisteredCleanupWaiterPrecedesLaterUpload",
+   "summary": "gtest 测试用例 ChunkLifecycleCoordinatorTest.RegisteredCleanupWaiterPrecedesLaterUpload，验证相关生产组件的预期行为（37 行）。",
+   "tags": [
+    "test-case",
+    "gtest",
+    "cpp"
+   ],
+   "complexity": "moderate",
+   "lineRange": [
+    402,
+    438
+   ]
+  },
+  {
+   "id": "function:tests/test_pending_chunk_deletions.cpp:ChunkLifecycleCoordinatorTest.GuardsAreMoveSafeAndReleaseOnDestruction",
+   "type": "function",
+   "name": "ChunkLifecycleCoordinatorTest.GuardsAreMoveSafeAndReleaseOnDestruction",
+   "summary": "gtest 测试用例 ChunkLifecycleCoordinatorTest.GuardsAreMoveSafeAndReleaseOnDestruction，验证相关生产组件的预期行为（37 行）。",
+   "tags": [
+    "test-case",
+    "gtest",
+    "cpp"
+   ],
+   "complexity": "moderate",
+   "lineRange": [
+    440,
+    476
+   ]
+  },
+  {
+   "id": "function:tests/test_pending_chunk_deletions.cpp:ChunkLifecycleCoordinatorTest.ActiveCleanupBlocksUploadSetupAndWrite",
+   "type": "function",
+   "name": "ChunkLifecycleCoordinatorTest.ActiveCleanupBlocksUploadSetupAndWrite",
+   "summary": "gtest 测试用例 ChunkLifecycleCoordinatorTest.ActiveCleanupBlocksUploadSetupAndWrite，验证相关生产组件的预期行为（19 行）。",
+   "tags": [
+    "test-case",
+    "gtest",
+    "cpp"
+   ],
+   "complexity": "moderate",
+   "lineRange": [
+    478,
+    496
+   ]
+  },
+  {
+   "id": "function:tests/test_pending_chunk_deletions.cpp:ChunkLifecycleCoordinatorTest.MovedFromCleanupPermitCannotAuthorizeCleanupAfterOwnerReleasesLock",
+   "type": "function",
+   "name": "ChunkLifecycleCoordinatorTest.MovedFromCleanupPermitCannotAuthorizeCleanupAfterOwnerReleasesLock",
+   "summary": "gtest 测试用例 ChunkLifecycleCoordinatorTest.MovedFromCleanupPermitCannotAuthorizeCleanupAfterOwnerReleasesLock，验证相关生产组件的预期行为（45 行）。",
+   "tags": [
+    "test-case",
+    "gtest",
+    "cpp"
+   ],
+   "complexity": "complex",
+   "lineRange": [
+    524,
+    568
+   ]
+  },
+  {
+   "id": "function:tests/test_pending_chunk_deletions.cpp:ChunkLifecycleCoordinatorTest.NestedUploadsOnSameThreadMaintainActiveCount",
+   "type": "function",
+   "name": "ChunkLifecycleCoordinatorTest.NestedUploadsOnSameThreadMaintainActiveCount",
+   "summary": "gtest 测试用例 ChunkLifecycleCoordinatorTest.NestedUploadsOnSameThreadMaintainActiveCount，验证相关生产组件的预期行为（14 行）。",
+   "tags": [
+    "test-case",
+    "gtest",
+    "cpp"
+   ],
+   "complexity": "simple",
+   "lineRange": [
+    584,
+    597
+   ]
+  },
+  {
+   "id": "function:tests/test_pending_chunk_deletions.cpp:ChunkLifecycleCoordinatorTest.UploadGuardMovedAcrossThreadReleasesAcquisitionThreadCount",
+   "type": "function",
+   "name": "ChunkLifecycleCoordinatorTest.UploadGuardMovedAcrossThreadReleasesAcquisitionThreadCount",
+   "summary": "gtest 测试用例 ChunkLifecycleCoordinatorTest.UploadGuardMovedAcrossThreadReleasesAcquisitionThreadCount，验证相关生产组件的预期行为（34 行）。",
+   "tags": [
+    "test-case",
+    "gtest",
+    "cpp"
+   ],
+   "complexity": "moderate",
+   "lineRange": [
+    599,
+    632
+   ]
+  },
+  {
+   "id": "function:tests/test_pending_chunk_deletions.cpp:PendingChunkDeletionConsumerTest.GuardedEntryRejectsPermitFromDifferentCanonicalCoordinator",
+   "type": "function",
+   "name": "PendingChunkDeletionConsumerTest.GuardedEntryRejectsPermitFromDifferentCanonicalCoordinator",
+   "summary": "gtest 测试用例 PendingChunkDeletionConsumerTest.GuardedEntryRejectsPermitFromDifferentCanonicalCoordinator，验证相关生产组件的预期行为（14 行）。",
+   "tags": [
+    "test-case",
+    "gtest",
+    "cpp"
+   ],
+   "complexity": "simple",
+   "lineRange": [
+    634,
+    647
+   ]
+  },
+  {
+   "id": "function:tests/test_pending_chunk_deletions.cpp:PendingChunkDeletionConsumerTest.DefaultDatabaseDeleteRejectsPermitFromDifferentCoordinator",
+   "type": "function",
+   "name": "PendingChunkDeletionConsumerTest.DefaultDatabaseDeleteRejectsPermitFromDifferentCoordinator",
+   "summary": "gtest 测试用例 PendingChunkDeletionConsumerTest.DefaultDatabaseDeleteRejectsPermitFromDifferentCoordinator，验证相关生产组件的预期行为（12 行）。",
+   "tags": [
+    "test-case",
+    "gtest",
+    "cpp"
+   ],
+   "complexity": "simple",
+   "lineRange": [
+    649,
+    660
+   ]
+  },
+  {
+   "id": "function:tests/test_pending_chunk_deletions.cpp:PendingChunkDeletionConsumerTest.DeletedAndMissingChunksAreCompleted",
+   "type": "function",
+   "name": "PendingChunkDeletionConsumerTest.DeletedAndMissingChunksAreCompleted",
+   "summary": "gtest 测试用例 PendingChunkDeletionConsumerTest.DeletedAndMissingChunksAreCompleted，验证相关生产组件的预期行为（18 行）。",
+   "tags": [
+    "test-case",
+    "gtest",
+    "cpp"
+   ],
+   "complexity": "moderate",
+   "lineRange": [
+    662,
+    679
+   ]
+  },
+  {
+   "id": "function:tests/test_pending_chunk_deletions.cpp:PendingChunkDeletionConsumerTest.StorageErrorIsReleasedWithSanitizedBoundedMessage",
+   "type": "function",
+   "name": "PendingChunkDeletionConsumerTest.StorageErrorIsReleasedWithSanitizedBoundedMessage",
+   "summary": "gtest 测试用例 PendingChunkDeletionConsumerTest.StorageErrorIsReleasedWithSanitizedBoundedMessage，验证相关生产组件的预期行为（17 行）。",
+   "tags": [
+    "test-case",
+    "gtest",
+    "cpp"
+   ],
+   "complexity": "moderate",
+   "lineRange": [
+    681,
+    697
+   ]
+  },
+  {
+   "id": "function:tests/test_pending_chunk_deletions.cpp:PendingChunkDeletionConsumerTest.ClaimStorageFailureStopsWithoutPhysicalDeletion",
+   "type": "function",
+   "name": "PendingChunkDeletionConsumerTest.ClaimStorageFailureStopsWithoutPhysicalDeletion",
+   "summary": "gtest 测试用例 PendingChunkDeletionConsumerTest.ClaimStorageFailureStopsWithoutPhysicalDeletion，验证相关生产组件的预期行为（12 行）。",
+   "tags": [
+    "test-case",
+    "gtest",
+    "cpp"
+   ],
+   "complexity": "simple",
+   "lineRange": [
+    699,
+    710
+   ]
+  },
+  {
+   "id": "function:tests/test_pending_chunk_deletions.cpp:PendingChunkDeletionConsumerTest.ThrowingClaimIsConvertedToStorageErrorWithoutPhysicalDeletion",
+   "type": "function",
+   "name": "PendingChunkDeletionConsumerTest.ThrowingClaimIsConvertedToStorageErrorWithoutPhysicalDeletion",
+   "summary": "gtest 测试用例 PendingChunkDeletionConsumerTest.ThrowingClaimIsConvertedToStorageErrorWithoutPhysicalDeletion，验证相关生产组件的预期行为（15 行）。",
+   "tags": [
+    "test-case",
+    "gtest",
+    "cpp"
+   ],
+   "complexity": "moderate",
+   "lineRange": [
+    712,
+    726
+   ]
+  },
+  {
+   "id": "function:tests/test_pending_chunk_deletions.cpp:PendingChunkDeletionConsumerTest.ThrowingReferenceLookupReleasesCurrentAndRemainingClaimsWithoutDeletingThem",
+   "type": "function",
+   "name": "PendingChunkDeletionConsumerTest.ThrowingReferenceLookupReleasesCurrentAndRemainingClaimsWithoutDeletingThem",
+   "summary": "gtest 测试用例 PendingChunkDeletionConsumerTest.ThrowingReferenceLookupReleasesCurrentAndRemainingClaimsWithoutDeletingThem，验证相关生产组件的预期行为（21 行）。",
+   "tags": [
+    "test-case",
+    "gtest",
+    "cpp"
+   ],
+   "complexity": "moderate",
+   "lineRange": [
+    728,
+    748
+   ]
+  },
+  {
+   "id": "function:tests/test_pending_chunk_deletions.cpp:PendingChunkDeletionConsumerTest.ThrowingCompleteReleasesCurrentAndRemainingClaimsWithoutDeletingLaterItem",
+   "type": "function",
+   "name": "PendingChunkDeletionConsumerTest.ThrowingCompleteReleasesCurrentAndRemainingClaimsWithoutDeletingLaterItem",
+   "summary": "gtest 测试用例 PendingChunkDeletionConsumerTest.ThrowingCompleteReleasesCurrentAndRemainingClaimsWithoutDeletingLaterItem，验证相关生产组件的预期行为（21 行）。",
+   "tags": [
+    "test-case",
+    "gtest",
+    "cpp"
+   ],
+   "complexity": "moderate",
+   "lineRange": [
+    750,
+    770
+   ]
+  },
+  {
+   "id": "function:tests/test_pending_chunk_deletions.cpp:PendingChunkDeletionConsumerTest.ThrowingCancelReleasesCurrentAndRemainingClaimsWithoutPhysicalDeletion",
+   "type": "function",
+   "name": "PendingChunkDeletionConsumerTest.ThrowingCancelReleasesCurrentAndRemainingClaimsWithoutPhysicalDeletion",
+   "summary": "gtest 测试用例 PendingChunkDeletionConsumerTest.ThrowingCancelReleasesCurrentAndRemainingClaimsWithoutPhysicalDeletion，验证相关生产组件的预期行为（22 行）。",
+   "tags": [
+    "test-case",
+    "gtest",
+    "cpp"
+   ],
+   "complexity": "moderate",
+   "lineRange": [
+    772,
+    793
+   ]
+  },
+  {
+   "id": "function:tests/test_pending_chunk_deletions.cpp:PendingChunkDeletionConsumerTest.ThrowingReleaseStillAttemptsEveryRemainingClaimWithoutPhysicalDeletion",
+   "type": "function",
+   "name": "PendingChunkDeletionConsumerTest.ThrowingReleaseStillAttemptsEveryRemainingClaimWithoutPhysicalDeletion",
+   "summary": "gtest 测试用例 PendingChunkDeletionConsumerTest.ThrowingReleaseStillAttemptsEveryRemainingClaimWithoutPhysicalDeletion，验证相关生产组件的预期行为（21 行）。",
+   "tags": [
+    "test-case",
+    "gtest",
+    "cpp"
+   ],
+   "complexity": "moderate",
+   "lineRange": [
+    795,
+    815
+   ]
+  },
+  {
+   "id": "function:tests/test_pending_chunk_deletions.cpp:PendingChunkDeletionConsumerTest.FullyCancelledBatchStillAllowsStartupLoopToClaimLaterDueRows",
+   "type": "function",
+   "name": "PendingChunkDeletionConsumerTest.FullyCancelledBatchStillAllowsStartupLoopToClaimLaterDueRows",
+   "summary": "gtest 测试用例 PendingChunkDeletionConsumerTest.FullyCancelledBatchStillAllowsStartupLoopToClaimLaterDueRows，验证相关生产组件的预期行为（27 行）。",
+   "tags": [
+    "test-case",
+    "gtest",
+    "cpp"
+   ],
+   "complexity": "moderate",
+   "lineRange": [
+    817,
+    843
+   ]
+  },
+  {
+   "id": "function:tests/test_pending_chunk_deletions.cpp:PendingChunkDeletionConsumerTest.CompleteFailureIsPropagated",
+   "type": "function",
+   "name": "PendingChunkDeletionConsumerTest.CompleteFailureIsPropagated",
+   "summary": "gtest 测试用例 PendingChunkDeletionConsumerTest.CompleteFailureIsPropagated，验证相关生产组件的预期行为（13 行）。",
+   "tags": [
+    "test-case",
+    "gtest",
+    "cpp"
+   ],
+   "complexity": "simple",
+   "lineRange": [
+    845,
+    857
+   ]
+  },
+  {
+   "id": "function:tests/test_pending_chunk_deletions.cpp:PendingChunkDeletionConsumerTest.ReferenceLookupFailureReleasesCurrentAndRemainingClaimsWithoutDeletingThem",
+   "type": "function",
+   "name": "PendingChunkDeletionConsumerTest.ReferenceLookupFailureReleasesCurrentAndRemainingClaimsWithoutDeletingThem",
+   "summary": "gtest 测试用例 PendingChunkDeletionConsumerTest.ReferenceLookupFailureReleasesCurrentAndRemainingClaimsWithoutDeletingThem，验证相关生产组件的预期行为（26 行）。",
+   "tags": [
+    "test-case",
+    "gtest",
+    "cpp"
+   ],
+   "complexity": "moderate",
+   "lineRange": [
+    859,
+    884
+   ]
+  },
+  {
+   "id": "function:tests/test_pending_chunk_deletions.cpp:PendingChunkDeletionConsumerTest.CompleteFailureReleasesCurrentAndRemainingClaimsWithoutDeletingLaterItems",
+   "type": "function",
+   "name": "PendingChunkDeletionConsumerTest.CompleteFailureReleasesCurrentAndRemainingClaimsWithoutDeletingLaterItems",
+   "summary": "gtest 测试用例 PendingChunkDeletionConsumerTest.CompleteFailureReleasesCurrentAndRemainingClaimsWithoutDeletingLaterItems，验证相关生产组件的预期行为（33 行）。",
+   "tags": [
+    "test-case",
+    "gtest",
+    "cpp"
+   ],
+   "complexity": "moderate",
+   "lineRange": [
+    886,
+    918
+   ]
+  },
+  {
+   "id": "function:tests/test_pending_chunk_deletions.cpp:PendingChunkDeletionConsumerTest.CancelFailureReleasesCurrentAndRemainingClaimsWithoutPhysicalDeletion",
+   "type": "function",
+   "name": "PendingChunkDeletionConsumerTest.CancelFailureReleasesCurrentAndRemainingClaimsWithoutPhysicalDeletion",
+   "summary": "gtest 测试用例 PendingChunkDeletionConsumerTest.CancelFailureReleasesCurrentAndRemainingClaimsWithoutPhysicalDeletion，验证相关生产组件的预期行为（30 行）。",
+   "tags": [
+    "test-case",
+    "gtest",
+    "cpp"
+   ],
+   "complexity": "moderate",
+   "lineRange": [
+    920,
+    949
+   ]
+  },
+  {
+   "id": "function:tests/test_pending_chunk_deletions.cpp:PendingChunkDeletionConsumerTest.ReleaseFailureStillAttemptsEveryRemainingClaimAndReturnsStorageError",
+   "type": "function",
+   "name": "PendingChunkDeletionConsumerTest.ReleaseFailureStillAttemptsEveryRemainingClaimAndReturnsStorageError",
+   "summary": "gtest 测试用例 PendingChunkDeletionConsumerTest.ReleaseFailureStillAttemptsEveryRemainingClaimAndReturnsStorageError，验证相关生产组件的预期行为（27 行）。",
+   "tags": [
+    "test-case",
+    "gtest",
+    "cpp"
+   ],
+   "complexity": "moderate",
+   "lineRange": [
+    951,
+    977
+   ]
+  },
+  {
+   "id": "function:tests/test_pending_chunk_deletions.cpp:PendingChunkDeletionConsumerTest.ReleaseFailureIsPropagated",
+   "type": "function",
+   "name": "PendingChunkDeletionConsumerTest.ReleaseFailureIsPropagated",
+   "summary": "gtest 测试用例 PendingChunkDeletionConsumerTest.ReleaseFailureIsPropagated，验证相关生产组件的预期行为（14 行）。",
+   "tags": [
+    "test-case",
+    "gtest",
+    "cpp"
+   ],
+   "complexity": "simple",
+   "lineRange": [
+    979,
+    992
+   ]
+  },
+  {
+   "id": "function:tests/test_pending_chunk_deletions.cpp:PendingChunkDeletionConsumerTest.CancelFailureIsPropagated",
+   "type": "function",
+   "name": "PendingChunkDeletionConsumerTest.CancelFailureIsPropagated",
+   "summary": "gtest 测试用例 PendingChunkDeletionConsumerTest.CancelFailureIsPropagated，验证相关生产组件的预期行为（14 行）。",
+   "tags": [
+    "test-case",
+    "gtest",
+    "cpp"
+   ],
+   "complexity": "simple",
+   "lineRange": [
+    994,
+    1007
+   ]
+  },
+  {
+   "id": "function:tests/test_pending_chunk_deletions.cpp:PendingChunkDeletionConsumerTest.UploadGuardBlocksPhysicalDeletionUntilDatabaseReferenceIsVisible",
+   "type": "function",
+   "name": "PendingChunkDeletionConsumerTest.UploadGuardBlocksPhysicalDeletionUntilDatabaseReferenceIsVisible",
+   "summary": "gtest 测试用例 PendingChunkDeletionConsumerTest.UploadGuardBlocksPhysicalDeletionUntilDatabaseReferenceIsVisible，验证相关生产组件的预期行为（24 行）。",
+   "tags": [
+    "test-case",
+    "gtest",
+    "cpp"
+   ],
+   "complexity": "moderate",
+   "lineRange": [
+    1009,
+    1032
+   ]
+  },
+  {
+   "id": "function:tests/test_pending_chunk_deletions.cpp:PendingChunkDeletionConsumerTest.ReferenceLookupFailureStopsWithoutPhysicalDeletion",
+   "type": "function",
+   "name": "PendingChunkDeletionConsumerTest.ReferenceLookupFailureStopsWithoutPhysicalDeletion",
+   "summary": "gtest 测试用例 PendingChunkDeletionConsumerTest.ReferenceLookupFailureStopsWithoutPhysicalDeletion，验证相关生产组件的预期行为（13 行）。",
+   "tags": [
+    "test-case",
+    "gtest",
+    "cpp"
+   ],
+   "complexity": "simple",
+   "lineRange": [
+    1034,
+    1046
+   ]
+  },
+  {
+   "id": "class:tests/test_pending_chunk_deletions.cpp:StubPendingDatabase",
+   "type": "class",
+   "name": "StubPendingDatabase",
+   "summary": "测试夹具/桩类 StubPendingDatabase，提供 37 个方法，用于模拟生产依赖（288 行）。",
+   "tags": [
+    "test-fixture",
+    "stub",
+    "cpp"
+   ],
+   "complexity": "complex",
+   "lineRange": [
+    29,
+    316
+   ]
+  },
+  {
+   "id": "class:tests/test_pending_chunk_deletions.cpp:StatusFileSystem",
+   "type": "class",
+   "name": "StatusFileSystem",
+   "summary": "测试夹具/桩类 StatusFileSystem，提供 8 个方法，用于模拟生产依赖（61 行）。",
+   "tags": [
+    "test-fixture",
+    "stub",
+    "cpp"
+   ],
+   "complexity": "moderate",
+   "lineRange": [
+    318,
+    378
+   ]
+  }
+ ],
+ "edges": [
+  {
+   "source": "file:tests/test_pending_chunk_deletions.cpp",
+   "target": "function:tests/test_pending_chunk_deletions.cpp:search_files_ext",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "file:tests/test_pending_chunk_deletions.cpp",
+   "target": "function:tests/test_pending_chunk_deletions.cpp:update_playlist",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "file:tests/test_pending_chunk_deletions.cpp",
+   "target": "function:tests/test_pending_chunk_deletions.cpp:claim_pending_chunk_deletions",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "file:tests/test_pending_chunk_deletions.cpp",
+   "target": "function:tests/test_pending_chunk_deletions.cpp:complete_pending_chunk_deletion",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "file:tests/test_pending_chunk_deletions.cpp",
+   "target": "function:tests/test_pending_chunk_deletions.cpp:release_pending_chunk_deletion",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "file:tests/test_pending_chunk_deletions.cpp",
+   "target": "function:tests/test_pending_chunk_deletions.cpp:has_chunk_references",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "file:tests/test_pending_chunk_deletions.cpp",
+   "target": "function:tests/test_pending_chunk_deletions.cpp:cancel_pending_chunk_deletion",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "file:tests/test_pending_chunk_deletions.cpp",
+   "target": "function:tests/test_pending_chunk_deletions.cpp:delete_file_status",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "file:tests/test_pending_chunk_deletions.cpp",
+   "target": "function:tests/test_pending_chunk_deletions.cpp:ChunkLifecycleCoordinatorTest.RegisteredCleanupWaiterPrecedesLaterUpload",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "file:tests/test_pending_chunk_deletions.cpp",
+   "target": "function:tests/test_pending_chunk_deletions.cpp:ChunkLifecycleCoordinatorTest.GuardsAreMoveSafeAndReleaseOnDestruction",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "file:tests/test_pending_chunk_deletions.cpp",
+   "target": "function:tests/test_pending_chunk_deletions.cpp:ChunkLifecycleCoordinatorTest.ActiveCleanupBlocksUploadSetupAndWrite",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "file:tests/test_pending_chunk_deletions.cpp",
+   "target": "function:tests/test_pending_chunk_deletions.cpp:ChunkLifecycleCoordinatorTest.MovedFromCleanupPermitCannotAuthorizeCleanupAfterOwnerReleasesLock",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "file:tests/test_pending_chunk_deletions.cpp",
+   "target": "function:tests/test_pending_chunk_deletions.cpp:ChunkLifecycleCoordinatorTest.NestedUploadsOnSameThreadMaintainActiveCount",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "file:tests/test_pending_chunk_deletions.cpp",
+   "target": "function:tests/test_pending_chunk_deletions.cpp:ChunkLifecycleCoordinatorTest.UploadGuardMovedAcrossThreadReleasesAcquisitionThreadCount",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "file:tests/test_pending_chunk_deletions.cpp",
+   "target": "function:tests/test_pending_chunk_deletions.cpp:PendingChunkDeletionConsumerTest.GuardedEntryRejectsPermitFromDifferentCanonicalCoordinator",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "file:tests/test_pending_chunk_deletions.cpp",
+   "target": "function:tests/test_pending_chunk_deletions.cpp:PendingChunkDeletionConsumerTest.DefaultDatabaseDeleteRejectsPermitFromDifferentCoordinator",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "file:tests/test_pending_chunk_deletions.cpp",
+   "target": "function:tests/test_pending_chunk_deletions.cpp:PendingChunkDeletionConsumerTest.DeletedAndMissingChunksAreCompleted",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "file:tests/test_pending_chunk_deletions.cpp",
+   "target": "function:tests/test_pending_chunk_deletions.cpp:PendingChunkDeletionConsumerTest.StorageErrorIsReleasedWithSanitizedBoundedMessage",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "file:tests/test_pending_chunk_deletions.cpp",
+   "target": "function:tests/test_pending_chunk_deletions.cpp:PendingChunkDeletionConsumerTest.ClaimStorageFailureStopsWithoutPhysicalDeletion",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "file:tests/test_pending_chunk_deletions.cpp",
+   "target": "function:tests/test_pending_chunk_deletions.cpp:PendingChunkDeletionConsumerTest.ThrowingClaimIsConvertedToStorageErrorWithoutPhysicalDeletion",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "file:tests/test_pending_chunk_deletions.cpp",
+   "target": "function:tests/test_pending_chunk_deletions.cpp:PendingChunkDeletionConsumerTest.ThrowingReferenceLookupReleasesCurrentAndRemainingClaimsWithoutDeletingThem",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "file:tests/test_pending_chunk_deletions.cpp",
+   "target": "function:tests/test_pending_chunk_deletions.cpp:PendingChunkDeletionConsumerTest.ThrowingCompleteReleasesCurrentAndRemainingClaimsWithoutDeletingLaterItem",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "file:tests/test_pending_chunk_deletions.cpp",
+   "target": "function:tests/test_pending_chunk_deletions.cpp:PendingChunkDeletionConsumerTest.ThrowingCancelReleasesCurrentAndRemainingClaimsWithoutPhysicalDeletion",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "file:tests/test_pending_chunk_deletions.cpp",
+   "target": "function:tests/test_pending_chunk_deletions.cpp:PendingChunkDeletionConsumerTest.ThrowingReleaseStillAttemptsEveryRemainingClaimWithoutPhysicalDeletion",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "file:tests/test_pending_chunk_deletions.cpp",
+   "target": "function:tests/test_pending_chunk_deletions.cpp:PendingChunkDeletionConsumerTest.FullyCancelledBatchStillAllowsStartupLoopToClaimLaterDueRows",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "file:tests/test_pending_chunk_deletions.cpp",
+   "target": "function:tests/test_pending_chunk_deletions.cpp:PendingChunkDeletionConsumerTest.CompleteFailureIsPropagated",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "file:tests/test_pending_chunk_deletions.cpp",
+   "target": "function:tests/test_pending_chunk_deletions.cpp:PendingChunkDeletionConsumerTest.ReferenceLookupFailureReleasesCurrentAndRemainingClaimsWithoutDeletingThem",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "file:tests/test_pending_chunk_deletions.cpp",
+   "target": "function:tests/test_pending_chunk_deletions.cpp:PendingChunkDeletionConsumerTest.CompleteFailureReleasesCurrentAndRemainingClaimsWithoutDeletingLaterItems",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "file:tests/test_pending_chunk_deletions.cpp",
+   "target": "function:tests/test_pending_chunk_deletions.cpp:PendingChunkDeletionConsumerTest.CancelFailureReleasesCurrentAndRemainingClaimsWithoutPhysicalDeletion",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "file:tests/test_pending_chunk_deletions.cpp",
+   "target": "function:tests/test_pending_chunk_deletions.cpp:PendingChunkDeletionConsumerTest.ReleaseFailureStillAttemptsEveryRemainingClaimAndReturnsStorageError",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "file:tests/test_pending_chunk_deletions.cpp",
+   "target": "function:tests/test_pending_chunk_deletions.cpp:PendingChunkDeletionConsumerTest.ReleaseFailureIsPropagated",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "file:tests/test_pending_chunk_deletions.cpp",
+   "target": "function:tests/test_pending_chunk_deletions.cpp:PendingChunkDeletionConsumerTest.CancelFailureIsPropagated",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "file:tests/test_pending_chunk_deletions.cpp",
+   "target": "function:tests/test_pending_chunk_deletions.cpp:PendingChunkDeletionConsumerTest.UploadGuardBlocksPhysicalDeletionUntilDatabaseReferenceIsVisible",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "file:tests/test_pending_chunk_deletions.cpp",
+   "target": "function:tests/test_pending_chunk_deletions.cpp:PendingChunkDeletionConsumerTest.ReferenceLookupFailureStopsWithoutPhysicalDeletion",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "file:tests/test_pending_chunk_deletions.cpp",
+   "target": "class:tests/test_pending_chunk_deletions.cpp:StubPendingDatabase",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "file:tests/test_pending_chunk_deletions.cpp",
+   "target": "class:tests/test_pending_chunk_deletions.cpp:StatusFileSystem",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "file:core/src/pending_chunk_deletions.cpp",
+   "target": "file:tests/test_pending_chunk_deletions.cpp",
+   "type": "tested_by",
+   "direction": "forward",
+   "weight": 0.5
+  }
+ ]
+}

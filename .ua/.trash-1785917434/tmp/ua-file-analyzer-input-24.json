@@ -1,0 +1,85 @@
+{
+  "projectRoot": "/home/jmj/work-space/projects/high-performance-server",
+  "batchFiles": [
+    {
+      "path": "net/http/xmake.lua",
+      "language": "lua",
+      "sizeLines": 25,
+      "fileCategory": "code"
+    },
+    {
+      "path": "net/tcp/tcp_client/src/tcp_client.cpp",
+      "language": "cpp",
+      "sizeLines": 304,
+      "fileCategory": "code"
+    },
+    {
+      "path": "net/tcp/tcp_server/src/connection.cpp",
+      "language": "cpp",
+      "sizeLines": 240,
+      "fileCategory": "code"
+    },
+    {
+      "path": "net/tcp/tcp_server/src/tcp_server.cpp",
+      "language": "cpp",
+      "sizeLines": 538,
+      "fileCategory": "code"
+    },
+    {
+      "path": "net/thread-pool/src/locked_thread_pool.cpp",
+      "language": "cpp",
+      "sizeLines": 83,
+      "fileCategory": "code"
+    },
+    {
+      "path": "net/thread-pool/src/thread_pool.cpp",
+      "language": "cpp",
+      "sizeLines": 99,
+      "fileCategory": "code"
+    },
+    {
+      "path": "net/websocket/src/ws_connection.cpp",
+      "language": "cpp",
+      "sizeLines": 169,
+      "fileCategory": "code"
+    },
+    {
+      "path": "net/websocket/xmake.lua",
+      "language": "lua",
+      "sizeLines": 13,
+      "fileCategory": "code"
+    },
+    {
+      "path": "scripts/lib/common.sh",
+      "language": "shell",
+      "sizeLines": 117,
+      "fileCategory": "script"
+    },
+    {
+      "path": "scripts/lib/isolated_docker_env.sh",
+      "language": "shell",
+      "sizeLines": 273,
+      "fileCategory": "script"
+    },
+    {
+      "path": "tests/.clang-tidy",
+      "language": "unknown",
+      "sizeLines": 79,
+      "fileCategory": "code"
+    }
+  ],
+  "batchImportData": {
+    "net/http/xmake.lua": [],
+    "net/tcp/tcp_client/src/tcp_client.cpp": [],
+    "net/tcp/tcp_server/src/connection.cpp": [],
+    "net/tcp/tcp_server/src/tcp_server.cpp": [],
+    "net/thread-pool/src/locked_thread_pool.cpp": [],
+    "net/thread-pool/src/thread_pool.cpp": [],
+    "net/websocket/src/ws_connection.cpp": [],
+    "net/websocket/xmake.lua": [],
+    "scripts/lib/common.sh": [],
+    "scripts/lib/isolated_docker_env.sh": [],
+    "tests/.clang-tidy": []
+  },
+  "neighborMap": {}
+}

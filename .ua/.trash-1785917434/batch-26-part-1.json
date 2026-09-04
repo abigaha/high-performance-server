@@ -1,0 +1,1038 @@
+{
+ "nodes": [
+  {
+   "id": "file:tests/test_mysql_field_to_string.cpp",
+   "type": "file",
+   "name": "tests/test_mysql_field_to_string.cpp",
+   "summary": "测试 MySQL 字段类型到字符串的转换逻辑，覆盖支持的字段类型转换。",
+   "tags": [
+    "mysql",
+    "field-conversion",
+    "unit-test",
+    "cpp"
+   ],
+   "complexity": "moderate",
+   "filePath": "tests/test_mysql_field_to_string.cpp"
+  },
+  {
+   "id": "function:tests/test_mysql_field_to_string.cpp:MySqlFieldToStringTest.ConvertsSupportedFields",
+   "type": "function",
+   "name": "MySqlFieldToStringTest.ConvertsSupportedFields",
+   "summary": "gtest 测试用例 MySqlFieldToStringTest.ConvertsSupportedFields，验证相关生产组件的预期行为（28 行）。",
+   "tags": [
+    "test-case",
+    "gtest",
+    "cpp"
+   ],
+   "complexity": "moderate",
+   "lineRange": [
+    20,
+    47
+   ]
+  },
+  {
+   "id": "file:tests/test_range_parser_extreme.cpp",
+   "type": "file",
+   "name": "tests/test_range_parser_extreme.cpp",
+   "summary": "针对 Range 请求头解析器的极限用例测试，覆盖单/多区间、开区间、前缀区间与非法格式。",
+   "tags": [
+    "range-parser",
+    "http",
+    "unit-test",
+    "cpp"
+   ],
+   "complexity": "moderate",
+   "filePath": "tests/test_range_parser_extreme.cpp"
+  },
+  {
+   "id": "function:tests/test_range_parser_extreme.cpp:RangeParserExtremeTest.MultipleRanges",
+   "type": "function",
+   "name": "RangeParserExtremeTest.MultipleRanges",
+   "summary": "gtest 测试用例 RangeParserExtremeTest.MultipleRanges，验证相关生产组件的预期行为（10 行）。",
+   "tags": [
+    "test-case",
+    "gtest",
+    "cpp"
+   ],
+   "complexity": "simple",
+   "lineRange": [
+    19,
+    28
+   ]
+  },
+  {
+   "id": "file:tests/test_router.cpp",
+   "type": "file",
+   "name": "tests/test_router.cpp",
+   "summary": "测试 HTTP 路由器的静态/参数路径匹配、方法不匹配与文件下载路由冲突处理。",
+   "tags": [
+    "router",
+    "http",
+    "routing",
+    "unit-test",
+    "cpp"
+   ],
+   "complexity": "complex",
+   "filePath": "tests/test_router.cpp"
+  },
+  {
+   "id": "function:tests/test_router.cpp:RouterTest.MultiParam",
+   "type": "function",
+   "name": "RouterTest.MultiParam",
+   "summary": "gtest 测试用例 RouterTest.MultiParam，验证相关生产组件的预期行为（10 行）。",
+   "tags": [
+    "test-case",
+    "gtest",
+    "cpp"
+   ],
+   "complexity": "simple",
+   "lineRange": [
+    45,
+    54
+   ]
+  },
+  {
+   "id": "function:tests/test_router.cpp:RouterTest.StaticBeforeParam",
+   "type": "function",
+   "name": "RouterTest.StaticBeforeParam",
+   "summary": "gtest 测试用例 RouterTest.StaticBeforeParam，验证相关生产组件的预期行为（17 行）。",
+   "tags": [
+    "test-case",
+    "gtest",
+    "cpp"
+   ],
+   "complexity": "moderate",
+   "lineRange": [
+    75,
+    91
+   ]
+  },
+  {
+   "id": "function:tests/test_router.cpp:RouterTest.SamePathDiffMethod",
+   "type": "function",
+   "name": "RouterTest.SamePathDiffMethod",
+   "summary": "gtest 测试用例 RouterTest.SamePathDiffMethod，验证相关生产组件的预期行为（11 行）。",
+   "tags": [
+    "test-case",
+    "gtest",
+    "cpp"
+   ],
+   "complexity": "simple",
+   "lineRange": [
+    114,
+    124
+   ]
+  },
+  {
+   "id": "function:tests/test_router.cpp:RouterTest.FileDownloadRoutesDoNotConflict",
+   "type": "function",
+   "name": "RouterTest.FileDownloadRoutesDoNotConflict",
+   "summary": "gtest 测试用例 RouterTest.FileDownloadRoutesDoNotConflict，验证相关生产组件的预期行为（31 行）。",
+   "tags": [
+    "test-case",
+    "gtest",
+    "cpp"
+   ],
+   "complexity": "moderate",
+   "lineRange": [
+    127,
+    157
+   ]
+  },
+  {
+   "id": "file:tests/test_url_decode_extreme.cpp",
+   "type": "file",
+   "name": "tests/test_url_decode_extreme.cpp",
+   "summary": "URL 解码极限用例测试，覆盖百分号编码、加号空格与非法编码输入。",
+   "tags": [
+    "url-decode",
+    "http",
+    "unit-test",
+    "cpp"
+   ],
+   "complexity": "moderate",
+   "filePath": "tests/test_url_decode_extreme.cpp"
+  },
+  {
+   "id": "function:tests/test_url_decode_extreme.cpp:UrlDecodeExtremeTest.AllPrintableChars",
+   "type": "function",
+   "name": "UrlDecodeExtremeTest.AllPrintableChars",
+   "summary": "gtest 测试用例 UrlDecodeExtremeTest.AllPrintableChars，验证相关生产组件的预期行为（20 行）。",
+   "tags": [
+    "test-case",
+    "gtest",
+    "cpp"
+   ],
+   "complexity": "moderate",
+   "lineRange": [
+    34,
+    53
+   ]
+  },
+  {
+   "id": "file:tests/test_ssl_extreme.cpp",
+   "type": "file",
+   "name": "tests/test_ssl_extreme.cpp",
+   "summary": "测试 SSL 上下文初始化、证书/密钥校验以及 SSL 对象的多实例创建与清理。",
+   "tags": [
+    "ssl",
+    "tls",
+    "unit-test",
+    "cpp"
+   ],
+   "complexity": "moderate",
+   "filePath": "tests/test_ssl_extreme.cpp"
+  },
+  {
+   "id": "function:tests/test_ssl_extreme.cpp:SslExtremeTest.SslContextInitSuccess",
+   "type": "function",
+   "name": "SslExtremeTest.SslContextInitSuccess",
+   "summary": "gtest 测试用例 SslExtremeTest.SslContextInitSuccess，验证相关生产组件的预期行为（11 行）。",
+   "tags": [
+    "test-case",
+    "gtest",
+    "cpp"
+   ],
+   "complexity": "simple",
+   "lineRange": [
+    24,
+    34
+   ]
+  },
+  {
+   "id": "function:tests/test_ssl_extreme.cpp:SslExtremeTest.CreateSslFromContext",
+   "type": "function",
+   "name": "SslExtremeTest.CreateSslFromContext",
+   "summary": "gtest 测试用例 SslExtremeTest.CreateSslFromContext，验证相关生产组件的预期行为（11 行）。",
+   "tags": [
+    "test-case",
+    "gtest",
+    "cpp"
+   ],
+   "complexity": "simple",
+   "lineRange": [
+    54,
+    64
+   ]
+  },
+  {
+   "id": "function:tests/test_ssl_extreme.cpp:SslExtremeTest.CreateSslMultipleTimes",
+   "type": "function",
+   "name": "SslExtremeTest.CreateSslMultipleTimes",
+   "summary": "gtest 测试用例 SslExtremeTest.CreateSslMultipleTimes，验证相关生产组件的预期行为（14 行）。",
+   "tags": [
+    "test-case",
+    "gtest",
+    "cpp"
+   ],
+   "complexity": "simple",
+   "lineRange": [
+    66,
+    79
+   ]
+  },
+  {
+   "id": "function:tests/test_ssl_extreme.cpp:SslExtremeTest.CleanupAfterInit",
+   "type": "function",
+   "name": "SslExtremeTest.CleanupAfterInit",
+   "summary": "gtest 测试用例 SslExtremeTest.CleanupAfterInit，验证相关生产组件的预期行为（13 行）。",
+   "tags": [
+    "test-case",
+    "gtest",
+    "cpp"
+   ],
+   "complexity": "simple",
+   "lineRange": [
+    81,
+    93
+   ]
+  },
+  {
+   "id": "file:tests/test_qps_runner.cpp",
+   "type": "file",
+   "name": "tests/test_qps_runner.cpp",
+   "summary": "测试 QPS 基准运行器的配置选择、失败统计与延迟采样行为。",
+   "tags": [
+    "benchmark",
+    "qps",
+    "unit-test",
+    "cpp"
+   ],
+   "complexity": "moderate",
+   "filePath": "tests/test_qps_runner.cpp"
+  },
+  {
+   "id": "function:tests/test_qps_runner.cpp:QpsRunnerTest.SelectsSmokeProfile",
+   "type": "function",
+   "name": "QpsRunnerTest.SelectsSmokeProfile",
+   "summary": "gtest 测试用例 QpsRunnerTest.SelectsSmokeProfile，验证相关生产组件的预期行为（10 行）。",
+   "tags": [
+    "test-case",
+    "gtest",
+    "cpp"
+   ],
+   "complexity": "simple",
+   "lineRange": [
+    40,
+    49
+   ]
+  },
+  {
+   "id": "function:tests/test_qps_runner.cpp:QpsRunnerTest.AcceptsVoidAndBoolOperations",
+   "type": "function",
+   "name": "QpsRunnerTest.AcceptsVoidAndBoolOperations",
+   "summary": "gtest 测试用例 QpsRunnerTest.AcceptsVoidAndBoolOperations，验证相关生产组件的预期行为（11 行）。",
+   "tags": [
+    "test-case",
+    "gtest",
+    "cpp"
+   ],
+   "complexity": "simple",
+   "lineRange": [
+    66,
+    76
+   ]
+  },
+  {
+   "id": "function:tests/test_qps_runner.cpp:QpsRunnerTest.TracksFailuresAndBoundsLatencySamples",
+   "type": "function",
+   "name": "QpsRunnerTest.TracksFailuresAndBoundsLatencySamples",
+   "summary": "gtest 测试用例 QpsRunnerTest.TracksFailuresAndBoundsLatencySamples，验证相关生产组件的预期行为（16 行）。",
+   "tags": [
+    "test-case",
+    "gtest",
+    "cpp"
+   ],
+   "complexity": "moderate",
+   "lineRange": [
+    78,
+    93
+   ]
+  },
+  {
+   "id": "class:tests/test_qps_runner.cpp:ScopedQpsProfile",
+   "type": "class",
+   "name": "ScopedQpsProfile",
+   "summary": "测试夹具/桩类 ScopedQpsProfile，提供 3 个方法，用于模拟生产依赖（23 行）。",
+   "tags": [
+    "test-fixture",
+    "stub",
+    "cpp"
+   ],
+   "complexity": "simple",
+   "lineRange": [
+    16,
+    38
+   ]
+  },
+  {
+   "id": "file:tests/test_stream_download_utils.cpp",
+   "type": "file",
+   "name": "tests/test_stream_download_utils.cpp",
+   "summary": "测试跨分片流式下载读取（完整文件与半开区间）以及 Content-Disposition 的安全构建。",
+   "tags": [
+    "stream-download",
+    "range",
+    "unit-test",
+    "cpp"
+   ],
+   "complexity": "complex",
+   "filePath": "tests/test_stream_download_utils.cpp"
+  },
+  {
+   "id": "function:tests/test_stream_download_utils.cpp:StreamDownloadUtilsTest.ReadsCompleteFileAcrossChunks",
+   "type": "function",
+   "name": "StreamDownloadUtilsTest.ReadsCompleteFileAcrossChunks",
+   "summary": "gtest 测试用例 StreamDownloadUtilsTest.ReadsCompleteFileAcrossChunks，验证相关生产组件的预期行为（11 行）。",
+   "tags": [
+    "test-case",
+    "gtest",
+    "cpp"
+   ],
+   "complexity": "simple",
+   "lineRange": [
+    68,
+    78
+   ]
+  },
+  {
+   "id": "function:tests/test_stream_download_utils.cpp:StreamDownloadUtilsTest.ReadsHalfOpenRangeAcrossChunks",
+   "type": "function",
+   "name": "StreamDownloadUtilsTest.ReadsHalfOpenRangeAcrossChunks",
+   "summary": "gtest 测试用例 StreamDownloadUtilsTest.ReadsHalfOpenRangeAcrossChunks，验证相关生产组件的预期行为（11 行）。",
+   "tags": [
+    "test-case",
+    "gtest",
+    "cpp"
+   ],
+   "complexity": "simple",
+   "lineRange": [
+    80,
+    90
+   ]
+  },
+  {
+   "id": "function:tests/test_stream_download_utils.cpp:StreamDownloadUtilsTest.BuildsSafeContentDisposition",
+   "type": "function",
+   "name": "StreamDownloadUtilsTest.BuildsSafeContentDisposition",
+   "summary": "gtest 测试用例 StreamDownloadUtilsTest.BuildsSafeContentDisposition，验证相关生产组件的预期行为（17 行）。",
+   "tags": [
+    "test-case",
+    "gtest",
+    "cpp"
+   ],
+   "complexity": "moderate",
+   "lineRange": [
+    102,
+    118
+   ]
+  },
+  {
+   "id": "class:tests/test_stream_download_utils.cpp:MemoryFileSystem",
+   "type": "class",
+   "name": "MemoryFileSystem",
+   "summary": "测试夹具/桩类 MemoryFileSystem，提供 6 个方法，用于模拟生产依赖（30 行）。",
+   "tags": [
+    "test-fixture",
+    "stub",
+    "cpp"
+   ],
+   "complexity": "moderate",
+   "lineRange": [
+    15,
+    44
+   ]
+  },
+  {
+   "id": "file:tests/test_websocket_extreme.cpp",
+   "type": "file",
+   "name": "tests/test_websocket_extreme.cpp",
+   "summary": "WebSocket 帧编解码测试，覆盖大载荷、掩码、分片帧、各类操作码与 Ping/Pong 往返。",
+   "tags": [
+    "websocket",
+    "frames",
+    "unit-test",
+    "cpp"
+   ],
+   "complexity": "complex",
+   "filePath": "tests/test_websocket_extreme.cpp"
+  },
+  {
+   "id": "function:tests/test_websocket_extreme.cpp:WebSocketExtremeTest.FrameVeryLargePayload",
+   "type": "function",
+   "name": "WebSocketExtremeTest.FrameVeryLargePayload",
+   "summary": "gtest 测试用例 WebSocketExtremeTest.FrameVeryLargePayload，验证相关生产组件的预期行为（11 行）。",
+   "tags": [
+    "test-case",
+    "gtest",
+    "cpp"
+   ],
+   "complexity": "simple",
+   "lineRange": [
+    14,
+    24
+   ]
+  },
+  {
+   "id": "function:tests/test_websocket_extreme.cpp:WebSocketExtremeTest.DecodeFragmentedFrame",
+   "type": "function",
+   "name": "WebSocketExtremeTest.DecodeFragmentedFrame",
+   "summary": "gtest 测试用例 WebSocketExtremeTest.DecodeFragmentedFrame，验证相关生产组件的预期行为（27 行）。",
+   "tags": [
+    "test-case",
+    "gtest",
+    "cpp"
+   ],
+   "complexity": "moderate",
+   "lineRange": [
+    36,
+    62
+   ]
+  },
+  {
+   "id": "function:tests/test_websocket_extreme.cpp:WebSocketExtremeTest.EncodeAllOpcodeTypes",
+   "type": "function",
+   "name": "WebSocketExtremeTest.EncodeAllOpcodeTypes",
+   "summary": "gtest 测试用例 WebSocketExtremeTest.EncodeAllOpcodeTypes，验证相关生产组件的预期行为（17 行）。",
+   "tags": [
+    "test-case",
+    "gtest",
+    "cpp"
+   ],
+   "complexity": "moderate",
+   "lineRange": [
+    64,
+    80
+   ]
+  },
+  {
+   "id": "function:tests/test_websocket_extreme.cpp:WebSocketExtremeTest.PingPongRoundtrip",
+   "type": "function",
+   "name": "WebSocketExtremeTest.PingPongRoundtrip",
+   "summary": "gtest 测试用例 WebSocketExtremeTest.PingPongRoundtrip，验证相关生产组件的预期行为（16 行）。",
+   "tags": [
+    "test-case",
+    "gtest",
+    "cpp"
+   ],
+   "complexity": "moderate",
+   "lineRange": [
+    82,
+    97
+   ]
+  },
+  {
+   "id": "function:tests/test_websocket_extreme.cpp:WebSocketExtremeTest.CloseFrameWithCode",
+   "type": "function",
+   "name": "WebSocketExtremeTest.CloseFrameWithCode",
+   "summary": "gtest 测试用例 WebSocketExtremeTest.CloseFrameWithCode，验证相关生产组件的预期行为（14 行）。",
+   "tags": [
+    "test-case",
+    "gtest",
+    "cpp"
+   ],
+   "complexity": "simple",
+   "lineRange": [
+    99,
+    112
+   ]
+  },
+  {
+   "id": "function:tests/test_websocket_extreme.cpp:WebSocketExtremeTest.MaskedFrameDecode",
+   "type": "function",
+   "name": "WebSocketExtremeTest.MaskedFrameDecode",
+   "summary": "gtest 测试用例 WebSocketExtremeTest.MaskedFrameDecode，验证相关生产组件的预期行为（28 行）。",
+   "tags": [
+    "test-case",
+    "gtest",
+    "cpp"
+   ],
+   "complexity": "moderate",
+   "lineRange": [
+    114,
+    141
+   ]
+  },
+  {
+   "id": "function:tests/test_websocket_extreme.cpp:WebSocketExtremeTest.EmptyPayloadFrame",
+   "type": "function",
+   "name": "WebSocketExtremeTest.EmptyPayloadFrame",
+   "summary": "gtest 测试用例 WebSocketExtremeTest.EmptyPayloadFrame，验证相关生产组件的预期行为（11 行）。",
+   "tags": [
+    "test-case",
+    "gtest",
+    "cpp"
+   ],
+   "complexity": "simple",
+   "lineRange": [
+    143,
+    153
+   ]
+  },
+  {
+   "id": "file:tests/test_tcp_client.cpp",
+   "type": "file",
+   "name": "tests/test_tcp_client.cpp",
+   "summary": "测试 TCP 客户端连接超时、收发数据、大文件传输、断线重连与移动语义。",
+   "tags": [
+    "tcp-client",
+    "networking",
+    "unit-test",
+    "cpp"
+   ],
+   "complexity": "complex",
+   "filePath": "tests/test_tcp_client.cpp"
+  },
+  {
+   "id": "function:tests/test_tcp_client.cpp:create_echo_server",
+   "type": "function",
+   "name": "create_echo_server",
+   "summary": "测试文件中的辅助函数，为测试用例搭建环境或执行公共逻辑（24 行）。",
+   "tags": [
+    "test-helper",
+    "test-utility",
+    "cpp"
+   ],
+   "complexity": "moderate",
+   "lineRange": [
+    17,
+    40
+   ]
+  },
+  {
+   "id": "function:tests/test_tcp_client.cpp:run_echo_server",
+   "type": "function",
+   "name": "run_echo_server",
+   "summary": "测试文件中的辅助函数，为测试用例搭建环境或执行公共逻辑（12 行）。",
+   "tags": [
+    "test-helper",
+    "test-utility",
+    "cpp"
+   ],
+   "complexity": "simple",
+   "lineRange": [
+    52,
+    63
+   ]
+  },
+  {
+   "id": "function:tests/test_tcp_client.cpp:read_until_size",
+   "type": "function",
+   "name": "read_until_size",
+   "summary": "测试文件中的辅助函数，为测试用例搭建环境或执行公共逻辑（11 行）。",
+   "tags": [
+    "test-helper",
+    "test-utility",
+    "cpp"
+   ],
+   "complexity": "simple",
+   "lineRange": [
+    73,
+    83
+   ]
+  },
+  {
+   "id": "function:tests/test_tcp_client.cpp:TcpClientTest.SendReceiveLine",
+   "type": "function",
+   "name": "TcpClientTest.SendReceiveLine",
+   "summary": "gtest 测试用例 TcpClientTest.SendReceiveLine，验证相关生产组件的预期行为（21 行）。",
+   "tags": [
+    "test-case",
+    "gtest",
+    "cpp"
+   ],
+   "complexity": "moderate",
+   "lineRange": [
+    93,
+    113
+   ]
+  },
+  {
+   "id": "function:tests/test_tcp_client.cpp:TcpClientTest.ReceiveTimeout",
+   "type": "function",
+   "name": "TcpClientTest.ReceiveTimeout",
+   "summary": "gtest 测试用例 TcpClientTest.ReceiveTimeout，验证相关生产组件的预期行为（18 行）。",
+   "tags": [
+    "test-case",
+    "gtest",
+    "cpp"
+   ],
+   "complexity": "moderate",
+   "lineRange": [
+    115,
+    132
+   ]
+  },
+  {
+   "id": "function:tests/test_tcp_client.cpp:TcpClientTest.SendFile",
+   "type": "function",
+   "name": "TcpClientTest.SendFile",
+   "summary": "gtest 测试用例 TcpClientTest.SendFile，验证相关生产组件的预期行为（28 行）。",
+   "tags": [
+    "test-case",
+    "gtest",
+    "cpp"
+   ],
+   "complexity": "moderate",
+   "lineRange": [
+    134,
+    161
+   ]
+  },
+  {
+   "id": "function:tests/test_tcp_client.cpp:TcpClientTest.SendLargeData",
+   "type": "function",
+   "name": "TcpClientTest.SendLargeData",
+   "summary": "gtest 测试用例 TcpClientTest.SendLargeData，验证相关生产组件的预期行为（22 行）。",
+   "tags": [
+    "test-case",
+    "gtest",
+    "cpp"
+   ],
+   "complexity": "moderate",
+   "lineRange": [
+    163,
+    184
+   ]
+  },
+  {
+   "id": "function:tests/test_tcp_client.cpp:TcpClientTest.DisconnectReconnect",
+   "type": "function",
+   "name": "TcpClientTest.DisconnectReconnect",
+   "summary": "gtest 测试用例 TcpClientTest.DisconnectReconnect，验证相关生产组件的预期行为（38 行）。",
+   "tags": [
+    "test-case",
+    "gtest",
+    "cpp"
+   ],
+   "complexity": "moderate",
+   "lineRange": [
+    186,
+    223
+   ]
+  },
+  {
+   "id": "function:tests/test_tcp_client.cpp:TcpClientTest.MoveSemantics",
+   "type": "function",
+   "name": "TcpClientTest.MoveSemantics",
+   "summary": "gtest 测试用例 TcpClientTest.MoveSemantics，验证相关生产组件的预期行为（25 行）。",
+   "tags": [
+    "test-case",
+    "gtest",
+    "cpp"
+   ],
+   "complexity": "moderate",
+   "lineRange": [
+    225,
+    249
+   ]
+  },
+  {
+   "id": "function:tests/test_tcp_client.cpp:TcpClientTest.SendPartialRetry",
+   "type": "function",
+   "name": "TcpClientTest.SendPartialRetry",
+   "summary": "gtest 测试用例 TcpClientTest.SendPartialRetry，验证相关生产组件的预期行为（22 行）。",
+   "tags": [
+    "test-case",
+    "gtest",
+    "cpp"
+   ],
+   "complexity": "moderate",
+   "lineRange": [
+    251,
+    272
+   ]
+  },
+  {
+   "id": "file:xmake.lua",
+   "type": "file",
+   "name": "xmake.lua",
+   "summary": "xmake 构建配置文件，定义项目目标、源文件集合与依赖关系。",
+   "tags": [
+    "build",
+    "xmake",
+    "lua",
+    "configuration"
+   ],
+   "complexity": "complex",
+   "filePath": "xmake.lua"
+  }
+ ],
+ "edges": [
+  {
+   "source": "file:tests/test_mysql_field_to_string.cpp",
+   "target": "function:tests/test_mysql_field_to_string.cpp:MySqlFieldToStringTest.ConvertsSupportedFields",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "file:db/include/detail/mysql_field_to_string.h",
+   "target": "file:tests/test_mysql_field_to_string.cpp",
+   "type": "tested_by",
+   "direction": "forward",
+   "weight": 0.5
+  },
+  {
+   "source": "file:tests/test_range_parser_extreme.cpp",
+   "target": "function:tests/test_range_parser_extreme.cpp:RangeParserExtremeTest.MultipleRanges",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "file:net/http/src/range_parser.cpp",
+   "target": "file:tests/test_range_parser_extreme.cpp",
+   "type": "tested_by",
+   "direction": "forward",
+   "weight": 0.5
+  },
+  {
+   "source": "file:tests/test_router.cpp",
+   "target": "function:tests/test_router.cpp:RouterTest.MultiParam",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "file:tests/test_router.cpp",
+   "target": "function:tests/test_router.cpp:RouterTest.StaticBeforeParam",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "file:tests/test_router.cpp",
+   "target": "function:tests/test_router.cpp:RouterTest.SamePathDiffMethod",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "file:tests/test_router.cpp",
+   "target": "function:tests/test_router.cpp:RouterTest.FileDownloadRoutesDoNotConflict",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "file:net/http/src/router.cpp",
+   "target": "file:tests/test_router.cpp",
+   "type": "tested_by",
+   "direction": "forward",
+   "weight": 0.5
+  },
+  {
+   "source": "file:tests/test_url_decode_extreme.cpp",
+   "target": "function:tests/test_url_decode_extreme.cpp:UrlDecodeExtremeTest.AllPrintableChars",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "file:net/http/src/url_decode.cpp",
+   "target": "file:tests/test_url_decode_extreme.cpp",
+   "type": "tested_by",
+   "direction": "forward",
+   "weight": 0.5
+  },
+  {
+   "source": "file:tests/test_ssl_extreme.cpp",
+   "target": "function:tests/test_ssl_extreme.cpp:SslExtremeTest.SslContextInitSuccess",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "file:tests/test_ssl_extreme.cpp",
+   "target": "function:tests/test_ssl_extreme.cpp:SslExtremeTest.CreateSslFromContext",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "file:tests/test_ssl_extreme.cpp",
+   "target": "function:tests/test_ssl_extreme.cpp:SslExtremeTest.CreateSslMultipleTimes",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "file:tests/test_ssl_extreme.cpp",
+   "target": "function:tests/test_ssl_extreme.cpp:SslExtremeTest.CleanupAfterInit",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "file:net/ssl/src/ssl_context.cpp",
+   "target": "file:tests/test_ssl_extreme.cpp",
+   "type": "tested_by",
+   "direction": "forward",
+   "weight": 0.5
+  },
+  {
+   "source": "file:tests/test_qps_runner.cpp",
+   "target": "function:tests/test_qps_runner.cpp:QpsRunnerTest.SelectsSmokeProfile",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "file:tests/test_qps_runner.cpp",
+   "target": "function:tests/test_qps_runner.cpp:QpsRunnerTest.AcceptsVoidAndBoolOperations",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "file:tests/test_qps_runner.cpp",
+   "target": "function:tests/test_qps_runner.cpp:QpsRunnerTest.TracksFailuresAndBoundsLatencySamples",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "file:tests/test_qps_runner.cpp",
+   "target": "class:tests/test_qps_runner.cpp:ScopedQpsProfile",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "file:benchmark/qps_runner.hpp",
+   "target": "file:tests/test_qps_runner.cpp",
+   "type": "tested_by",
+   "direction": "forward",
+   "weight": 0.5
+  },
+  {
+   "source": "file:tests/test_stream_download_utils.cpp",
+   "target": "function:tests/test_stream_download_utils.cpp:StreamDownloadUtilsTest.ReadsCompleteFileAcrossChunks",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "file:tests/test_stream_download_utils.cpp",
+   "target": "function:tests/test_stream_download_utils.cpp:StreamDownloadUtilsTest.ReadsHalfOpenRangeAcrossChunks",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "file:tests/test_stream_download_utils.cpp",
+   "target": "function:tests/test_stream_download_utils.cpp:StreamDownloadUtilsTest.BuildsSafeContentDisposition",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "file:tests/test_stream_download_utils.cpp",
+   "target": "class:tests/test_stream_download_utils.cpp:MemoryFileSystem",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "file:core/include/stream_download_utils.h",
+   "target": "file:tests/test_stream_download_utils.cpp",
+   "type": "tested_by",
+   "direction": "forward",
+   "weight": 0.5
+  },
+  {
+   "source": "file:tests/test_websocket_extreme.cpp",
+   "target": "function:tests/test_websocket_extreme.cpp:WebSocketExtremeTest.FrameVeryLargePayload",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "file:tests/test_websocket_extreme.cpp",
+   "target": "function:tests/test_websocket_extreme.cpp:WebSocketExtremeTest.DecodeFragmentedFrame",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "file:tests/test_websocket_extreme.cpp",
+   "target": "function:tests/test_websocket_extreme.cpp:WebSocketExtremeTest.EncodeAllOpcodeTypes",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "file:tests/test_websocket_extreme.cpp",
+   "target": "function:tests/test_websocket_extreme.cpp:WebSocketExtremeTest.PingPongRoundtrip",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "file:tests/test_websocket_extreme.cpp",
+   "target": "function:tests/test_websocket_extreme.cpp:WebSocketExtremeTest.CloseFrameWithCode",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "file:tests/test_websocket_extreme.cpp",
+   "target": "function:tests/test_websocket_extreme.cpp:WebSocketExtremeTest.MaskedFrameDecode",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "file:tests/test_websocket_extreme.cpp",
+   "target": "function:tests/test_websocket_extreme.cpp:WebSocketExtremeTest.EmptyPayloadFrame",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "file:net/websocket/src/websocket.cpp",
+   "target": "file:tests/test_websocket_extreme.cpp",
+   "type": "tested_by",
+   "direction": "forward",
+   "weight": 0.5
+  },
+  {
+   "source": "file:tests/test_tcp_client.cpp",
+   "target": "function:tests/test_tcp_client.cpp:create_echo_server",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "file:tests/test_tcp_client.cpp",
+   "target": "function:tests/test_tcp_client.cpp:run_echo_server",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "file:tests/test_tcp_client.cpp",
+   "target": "function:tests/test_tcp_client.cpp:read_until_size",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "file:tests/test_tcp_client.cpp",
+   "target": "function:tests/test_tcp_client.cpp:TcpClientTest.SendReceiveLine",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "file:tests/test_tcp_client.cpp",
+   "target": "function:tests/test_tcp_client.cpp:TcpClientTest.ReceiveTimeout",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "file:tests/test_tcp_client.cpp",
+   "target": "function:tests/test_tcp_client.cpp:TcpClientTest.SendFile",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "file:tests/test_tcp_client.cpp",
+   "target": "function:tests/test_tcp_client.cpp:TcpClientTest.SendLargeData",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "file:tests/test_tcp_client.cpp",
+   "target": "function:tests/test_tcp_client.cpp:TcpClientTest.DisconnectReconnect",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "file:tests/test_tcp_client.cpp",
+   "target": "function:tests/test_tcp_client.cpp:TcpClientTest.MoveSemantics",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "file:tests/test_tcp_client.cpp",
+   "target": "function:tests/test_tcp_client.cpp:TcpClientTest.SendPartialRetry",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1
+  },
+  {
+   "source": "file:net/tcp/tcp_client/src/tcp_client.cpp",
+   "target": "file:tests/test_tcp_client.cpp",
+   "type": "tested_by",
+   "direction": "forward",
+   "weight": 0.5
+  }
+ ]
+}

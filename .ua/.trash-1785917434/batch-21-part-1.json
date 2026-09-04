@@ -1,0 +1,1727 @@
+{
+ "nodes": [
+  {
+   "id": "file:core/include/pending_chunk_deletions.h",
+   "type": "file",
+   "name": "core/include/pending_chunk_deletions.h",
+   "summary": "声明待处理分片删除的后台清理任务接口（run_pending_chunk_deletions 系列），供调度器在获得清理许可后批量删除孤儿分片。",
+   "tags": [
+    "chunk-deletion",
+    "cleanup",
+    "header",
+    "scheduler"
+   ],
+   "complexity": "simple",
+   "filePath": "core/include/pending_chunk_deletions.h"
+  },
+  {
+   "id": "function:core/include/pending_chunk_deletions.h:run_pending_chunk_deletions",
+   "type": "function",
+   "name": "run_pending_chunk_deletions",
+   "summary": "运行待处理分片删除批量任务，处理最多 limit 条待删除分片记录。",
+   "tags": [
+    "chunk-deletion",
+    "cleanup",
+    "batch"
+   ],
+   "complexity": "simple",
+   "filePath": "core/include/pending_chunk_deletions.h",
+   "lineRange": [
+    11,
+    14
+   ]
+  },
+  {
+   "id": "function:core/include/pending_chunk_deletions.h:run_pending_chunk_deletions_guarded",
+   "type": "function",
+   "name": "run_pending_chunk_deletions_guarded",
+   "summary": "在持 CleanupPermit 许可的前提下运行分片删除批量任务，防止并发清理冲突。",
+   "tags": [
+    "chunk-deletion",
+    "cleanup",
+    "permit"
+   ],
+   "complexity": "simple",
+   "filePath": "core/include/pending_chunk_deletions.h",
+   "lineRange": [
+    16,
+    20
+   ]
+  },
+  {
+   "id": "file:core/include/playlist_routes.h",
+   "type": "file",
+   "name": "core/include/playlist_routes.h",
+   "summary": "声明歌单路由注册与歌单 JSON 解析接口（register_playlist_routes、parse_playlist_json_object）。",
+   "tags": [
+    "playlist",
+    "routes",
+    "api",
+    "header"
+   ],
+   "complexity": "simple",
+   "filePath": "core/include/playlist_routes.h"
+  },
+  {
+   "id": "function:core/include/playlist_routes.h:register_playlist_routes",
+   "type": "function",
+   "name": "register_playlist_routes",
+   "summary": "向 HTTP 服务器注册歌单相关路由处理器。",
+   "tags": [
+    "playlist",
+    "routes",
+    "register"
+   ],
+   "complexity": "simple",
+   "filePath": "core/include/playlist_routes.h",
+   "lineRange": [
+    12,
+    12
+   ]
+  },
+  {
+   "id": "function:core/include/playlist_routes.h:parse_playlist_json_object",
+   "type": "function",
+   "name": "parse_playlist_json_object",
+   "summary": "严格解析歌单 JSON 请求体，返回解析结果或空值。",
+   "tags": [
+    "playlist",
+    "json",
+    "parse"
+   ],
+   "complexity": "simple",
+   "filePath": "core/include/playlist_routes.h",
+   "lineRange": [
+    13,
+    13
+   ]
+  },
+  {
+   "id": "file:core/include/schema_migrations.h",
+   "type": "file",
+   "name": "core/include/schema_migrations.h",
+   "summary": "声明数据库 schema 迁移入口 run_schema_migrations，负责启动时执行 DDL 与数据回填迁移。",
+   "tags": [
+    "schema-migration",
+    "database",
+    "bootstrap",
+    "header"
+   ],
+   "complexity": "simple",
+   "filePath": "core/include/schema_migrations.h"
+  },
+  {
+   "id": "function:core/include/schema_migrations.h:run_schema_migrations",
+   "type": "function",
+   "name": "run_schema_migrations",
+   "summary": "在给定时间点执行数据库 schema 迁移（DDL 与回填），返回迁移结果。",
+   "tags": [
+    "schema-migration",
+    "database",
+    "bootstrap"
+   ],
+   "complexity": "simple",
+   "filePath": "core/include/schema_migrations.h",
+   "lineRange": [
+    11,
+    12
+   ]
+  },
+  {
+   "id": "file:core/include/stream_download_utils.h",
+   "type": "file",
+   "name": "core/include/stream_download_utils.h",
+   "summary": "内联实现流式下载辅助工具：RFC 5987 文件名编码、Content-Disposition 头构建，以及从分片存储读取文件/区间到响应体。",
+   "tags": [
+    "streaming",
+    "download",
+    "range",
+    "header",
+    "inline"
+   ],
+   "complexity": "moderate",
+   "filePath": "core/include/stream_download_utils.h"
+  },
+  {
+   "id": "function:core/include/stream_download_utils.h:is_rfc5987_attr_char",
+   "type": "function",
+   "name": "is_rfc5987_attr_char",
+   "summary": "判断字符是否为 RFC 5987 attr-char 允许字符。",
+   "tags": [
+    "rfc5987",
+    "encoding",
+    "char"
+   ],
+   "complexity": "simple",
+   "filePath": "core/include/stream_download_utils.h",
+   "lineRange": [
+    16,
+    21
+   ]
+  },
+  {
+   "id": "function:core/include/stream_download_utils.h:hexadecimal_digit",
+   "type": "function",
+   "name": "hexadecimal_digit",
+   "summary": "将字节值转换为十六进制字符。",
+   "tags": [
+    "hex",
+    "encoding",
+    "utility"
+   ],
+   "complexity": "simple",
+   "filePath": "core/include/stream_download_utils.h",
+   "lineRange": [
+    23,
+    26
+   ]
+  },
+  {
+   "id": "function:core/include/stream_download_utils.h:sanitize_ascii_filename",
+   "type": "function",
+   "name": "sanitize_ascii_filename",
+   "summary": "清理文件名中的非 ASCII 字符，并确保结果非空。",
+   "tags": [
+    "filename",
+    "sanitize",
+    "ascii"
+   ],
+   "complexity": "simple",
+   "filePath": "core/include/stream_download_utils.h",
+   "lineRange": [
+    30,
+    44
+   ]
+  },
+  {
+   "id": "function:core/include/stream_download_utils.h:encode_rfc5987_filename",
+   "type": "function",
+   "name": "encode_rfc5987_filename",
+   "summary": "按 RFC 5987 对非 ASCII 文件名进行百分号编码，生成可用的附件文件名。",
+   "tags": [
+    "rfc5987",
+    "percent-encode",
+    "filename"
+   ],
+   "complexity": "simple",
+   "filePath": "core/include/stream_download_utils.h",
+   "lineRange": [
+    46,
+    61
+   ]
+  },
+  {
+   "id": "function:core/include/stream_download_utils.h:build_attachment_content_disposition",
+   "type": "function",
+   "name": "build_attachment_content_disposition",
+   "summary": "构建 Content-Disposition 响应头的 attachment 部分（含 RFC 5987 编码文件名）。",
+   "tags": [
+    "http",
+    "header",
+    "content-disposition"
+   ],
+   "complexity": "simple",
+   "filePath": "core/include/stream_download_utils.h",
+   "lineRange": [
+    63,
+    66
+   ]
+  },
+  {
+   "id": "function:core/include/stream_download_utils.h:read_stream_file",
+   "type": "function",
+   "name": "read_stream_file",
+   "summary": "从分片存储按文件大小读取整个文件内容到响应体。",
+   "tags": [
+    "streaming",
+    "read",
+    "file",
+    "chunks"
+   ],
+   "complexity": "simple",
+   "filePath": "core/include/stream_download_utils.h",
+   "lineRange": [
+    68,
+    81
+   ]
+  },
+  {
+   "id": "function:core/include/stream_download_utils.h:read_stream_range",
+   "type": "function",
+   "name": "read_stream_range",
+   "summary": "按 Range 区间从分片存储读取文件字节段到响应体，支持分片边界对齐。",
+   "tags": [
+    "range",
+    "streaming",
+    "read",
+    "chunks"
+   ],
+   "complexity": "moderate",
+   "filePath": "core/include/stream_download_utils.h",
+   "lineRange": [
+    83,
+    120
+   ]
+  },
+  {
+   "id": "file:core/include/strict_json.h",
+   "type": "file",
+   "name": "core/include/strict_json.h",
+   "summary": "内联实现严格 JSON 请求体校验：按字段类型/必填/非负约束解析并匹配请求对象，拒绝多余字段与类型不匹配。",
+   "tags": [
+    "json-validation",
+    "strict",
+    "request",
+    "header",
+    "inline"
+   ],
+   "complexity": "moderate",
+   "filePath": "core/include/strict_json.h"
+  },
+  {
+   "id": "class:core/include/strict_json.h:StrictJsonField",
+   "type": "class",
+   "name": "StrictJsonField",
+   "summary": "JSON 字段约束描述结构体：字段名、类型、必填与非负标志。",
+   "tags": [
+    "json",
+    "validation",
+    "field",
+    "descriptor"
+   ],
+   "complexity": "simple",
+   "filePath": "core/include/strict_json.h",
+   "lineRange": [
+    20,
+    25
+   ]
+  },
+  {
+   "id": "function:core/include/strict_json.h:strict_json_integer_value",
+   "type": "function",
+   "name": "strict_json_integer_value",
+   "summary": "将 JSON 数值安全转换为 int64，溢出时抛异常。",
+   "tags": [
+    "json",
+    "integer",
+    "convert"
+   ],
+   "complexity": "simple",
+   "filePath": "core/include/strict_json.h",
+   "lineRange": [
+    27,
+    39
+   ]
+  },
+  {
+   "id": "function:core/include/strict_json.h:matches_strict_json_type",
+   "type": "function",
+   "name": "matches_strict_json_type",
+   "summary": "校验 JSON 值与期望类型是否匹配（含整数/字符串/数组）。",
+   "tags": [
+    "json",
+    "type",
+    "validation"
+   ],
+   "complexity": "simple",
+   "filePath": "core/include/strict_json.h",
+   "lineRange": [
+    41,
+    53
+   ]
+  },
+  {
+   "id": "function:core/include/strict_json.h:parse_strict_json_object",
+   "type": "function",
+   "name": "parse_strict_json_object",
+   "summary": "解析 JSON 请求体（两套重载：单对象解析与带字段约束解析），剥离多余字段并返回。",
+   "tags": [
+    "json",
+    "parse",
+    "strict",
+    "validation"
+   ],
+   "complexity": "moderate",
+   "filePath": "core/include/strict_json.h",
+   "lineRange": [
+    55,
+    113
+   ]
+  },
+  {
+   "id": "function:core/include/strict_json.h:matches_strict_json_object",
+   "type": "function",
+   "name": "matches_strict_json_object",
+   "summary": "校验 JSON 对象是否满足字段约束：必填、类型、非负与多余字段检查。",
+   "tags": [
+    "json",
+    "object",
+    "validation",
+    "strict"
+   ],
+   "complexity": "moderate",
+   "filePath": "core/include/strict_json.h",
+   "lineRange": [
+    80,
+    104
+   ]
+  },
+  {
+   "id": "file:core/include/upload_setup.h",
+   "type": "file",
+   "name": "core/include/upload_setup.h",
+   "summary": "声明 make_upload_setup，构建上传流式设置（上传流限制、校验器等装配）。",
+   "tags": [
+    "upload",
+    "setup",
+    "api",
+    "header"
+   ],
+   "complexity": "simple",
+   "filePath": "core/include/upload_setup.h"
+  },
+  {
+   "id": "function:core/include/upload_setup.h:make_upload_setup",
+   "type": "function",
+   "name": "make_upload_setup",
+   "summary": "构建上传流式设置（UploadStreamSetup），装配上传校验器与处理器。",
+   "tags": [
+    "upload",
+    "setup",
+    "assembly"
+   ],
+   "complexity": "simple",
+   "filePath": "core/include/upload_setup.h",
+   "lineRange": [
+    11,
+    13
+   ]
+  },
+  {
+   "id": "file:core/include/vip_admin_routes.h",
+   "type": "file",
+   "name": "core/include/vip_admin_routes.h",
+   "summary": "声明 VIP 与管理员路由注册接口（register_vip_routes、register_admin_routes）及可注入时钟类型。",
+   "tags": [
+    "vip",
+    "admin",
+    "routes",
+    "api",
+    "header"
+   ],
+   "complexity": "simple",
+   "filePath": "core/include/vip_admin_routes.h"
+  },
+  {
+   "id": "function:core/include/vip_admin_routes.h:register_vip_routes",
+   "type": "function",
+   "name": "register_vip_routes",
+   "summary": "注册 VIP 相关路由（套餐查询、会员激活等）。",
+   "tags": [
+    "vip",
+    "routes",
+    "register"
+   ],
+   "complexity": "simple",
+   "filePath": "core/include/vip_admin_routes.h",
+   "lineRange": [
+    14,
+    14
+   ]
+  },
+  {
+   "id": "function:core/include/vip_admin_routes.h:register_admin_routes",
+   "type": "function",
+   "name": "register_admin_routes",
+   "summary": "注册管理员相关路由（用户列表、授予/撤销 VIP）。",
+   "tags": [
+    "admin",
+    "routes",
+    "register"
+   ],
+   "complexity": "simple",
+   "filePath": "core/include/vip_admin_routes.h",
+   "lineRange": [
+    15,
+    15
+   ]
+  },
+  {
+   "id": "file:core/src/admin_bootstrap.cpp",
+   "type": "file",
+   "name": "core/src/admin_bootstrap.cpp",
+   "summary": "实现管理员账号引导逻辑：校验配置、查询现有管理员、按配置创建或更新管理员凭据。",
+   "tags": [
+    "admin",
+    "bootstrap",
+    "credentials",
+    "database"
+   ],
+   "complexity": "moderate",
+   "filePath": "core/src/admin_bootstrap.cpp"
+  },
+  {
+   "id": "function:core/src/admin_bootstrap.cpp:result",
+   "type": "function",
+   "name": "result",
+   "summary": "构造带状态码与消息的引导失败结果（AdminBootstrapResult）。",
+   "tags": [
+    "bootstrap",
+    "result",
+    "status"
+   ],
+   "complexity": "simple",
+   "filePath": "core/src/admin_bootstrap.cpp",
+   "lineRange": [
+    12,
+    22
+   ]
+  },
+  {
+   "id": "function:core/src/admin_bootstrap.cpp:validate_config",
+   "type": "function",
+   "name": "validate_config",
+   "summary": "校验管理员引导配置：必填项、邮箱格式与密码规则。",
+   "tags": [
+    "admin",
+    "config",
+    "validation"
+   ],
+   "complexity": "simple",
+   "filePath": "core/src/admin_bootstrap.cpp",
+   "lineRange": [
+    32,
+    47
+   ]
+  },
+  {
+   "id": "function:core/src/admin_bootstrap.cpp:update_existing_admin",
+   "type": "function",
+   "name": "update_existing_admin",
+   "summary": "按配置更新已存在管理员的邮箱与密码（重新加盐哈希）。",
+   "tags": [
+    "admin",
+    "credentials",
+    "update",
+    "password"
+   ],
+   "complexity": "moderate",
+   "filePath": "core/src/admin_bootstrap.cpp",
+   "lineRange": [
+    49,
+    81
+   ]
+  },
+  {
+   "id": "function:core/src/admin_bootstrap.cpp:bootstrap_admin",
+   "type": "function",
+   "name": "bootstrap_admin",
+   "summary": "引导创建/更新管理员账号：查询现有用户、创建缺失账号或更新既有账号凭据。",
+   "tags": [
+    "admin",
+    "bootstrap",
+    "create",
+    "credentials"
+   ],
+   "complexity": "moderate",
+   "filePath": "core/src/admin_bootstrap.cpp",
+   "lineRange": [
+    85,
+    132
+   ]
+  },
+  {
+   "id": "file:core/src/auth_routes.cpp",
+   "type": "file",
+   "name": "core/src/auth_routes.cpp",
+   "summary": "实现认证 HTTP 路由：注册、登录、获取/更新用户资料，校验请求体并签发鉴权响应。",
+   "tags": [
+    "auth",
+    "routes",
+    "register",
+    "login",
+    "http"
+   ],
+   "complexity": "complex",
+   "filePath": "core/src/auth_routes.cpp"
+  },
+  {
+   "id": "function:core/src/auth_routes.cpp:auth_error",
+   "type": "function",
+   "name": "auth_error",
+   "summary": "构造并发送认证错误 JSON 响应（按状态码映射消息）。",
+   "tags": [
+    "auth",
+    "error",
+    "http",
+    "json"
+   ],
+   "complexity": "moderate",
+   "filePath": "core/src/auth_routes.cpp",
+   "lineRange": [
+    25,
+    53
+   ]
+  },
+  {
+   "id": "function:core/src/auth_routes.cpp:require_authenticated",
+   "type": "function",
+   "name": "require_authenticated",
+   "summary": "检查请求是否已认证且具备所需能力，否则返回 401/403 错误。",
+   "tags": [
+    "auth",
+    "middleware",
+    "capability"
+   ],
+   "complexity": "simple",
+   "filePath": "core/src/auth_routes.cpp",
+   "lineRange": [
+    55,
+    65
+   ]
+  },
+  {
+   "id": "function:core/src/auth_routes.cpp:parse_profile_id",
+   "type": "function",
+   "name": "parse_profile_id",
+   "summary": "从请求参数解析用户 profile id。",
+   "tags": [
+    "parse",
+    "profile",
+    "id"
+   ],
+   "complexity": "simple",
+   "filePath": "core/src/auth_routes.cpp",
+   "lineRange": [
+    67,
+    78
+   ]
+  },
+  {
+   "id": "function:core/src/auth_routes.cpp:set_auth_user_response",
+   "type": "function",
+   "name": "set_auth_user_response",
+   "summary": "将认证用户信息序列化为 JSON 并写入响应（含身份推导重载）。",
+   "tags": [
+    "auth",
+    "response",
+    "serialize"
+   ],
+   "complexity": "simple",
+   "filePath": "core/src/auth_routes.cpp",
+   "lineRange": [
+    80,
+    89
+   ]
+  },
+  {
+   "id": "function:core/src/auth_routes.cpp:handle_register",
+   "type": "function",
+   "name": "handle_register",
+   "summary": "处理注册请求：严格校验请求体、拒绝保留字段、创建用户并返回认证响应。",
+   "tags": [
+    "register",
+    "auth",
+    "validation",
+    "handler"
+   ],
+   "complexity": "complex",
+   "filePath": "core/src/auth_routes.cpp",
+   "lineRange": [
+    100,
+    188
+   ]
+  },
+  {
+   "id": "function:core/src/auth_routes.cpp:handle_login",
+   "type": "function",
+   "name": "handle_login",
+   "summary": "处理登录请求：校验用户名密码并签发 token。",
+   "tags": [
+    "login",
+    "auth",
+    "token",
+    "handler"
+   ],
+   "complexity": "moderate",
+   "filePath": "core/src/auth_routes.cpp",
+   "lineRange": [
+    190,
+    228
+   ]
+  },
+  {
+   "id": "function:core/src/auth_routes.cpp:handle_get_me",
+   "type": "function",
+   "name": "handle_get_me",
+   "summary": "返回当前登录用户资料。",
+   "tags": [
+    "auth",
+    "profile",
+    "handler"
+   ],
+   "complexity": "moderate",
+   "filePath": "core/src/auth_routes.cpp",
+   "lineRange": [
+    230,
+    252
+   ]
+  },
+  {
+   "id": "function:core/src/auth_routes.cpp:handle_get_user",
+   "type": "function",
+   "name": "handle_get_user",
+   "summary": "按 id 查询并返回用户资料。",
+   "tags": [
+    "user",
+    "profile",
+    "handler"
+   ],
+   "complexity": "moderate",
+   "filePath": "core/src/auth_routes.cpp",
+   "lineRange": [
+    254,
+    280
+   ]
+  },
+  {
+   "id": "function:core/src/auth_routes.cpp:handle_put_user",
+   "type": "function",
+   "name": "handle_put_user",
+   "summary": "更新用户资料：校验邮箱等字段并持久化。",
+   "tags": [
+    "user",
+    "update",
+    "profile",
+    "handler"
+   ],
+   "complexity": "complex",
+   "filePath": "core/src/auth_routes.cpp",
+   "lineRange": [
+    282,
+    343
+   ]
+  },
+  {
+   "id": "function:core/src/auth_routes.cpp:register_auth_routes",
+   "type": "function",
+   "name": "register_auth_routes",
+   "summary": "向 HTTP 服务器注册全部认证路由。",
+   "tags": [
+    "auth",
+    "routes",
+    "register"
+   ],
+   "complexity": "moderate",
+   "filePath": "core/src/auth_routes.cpp",
+   "lineRange": [
+    347,
+    366
+   ]
+  },
+  {
+   "id": "file:core/src/auth_service.cpp",
+   "type": "file",
+   "name": "core/src/auth_service.cpp",
+   "summary": "实现认证服务：HMAC-SHA256 token 生成/校验、密码盐化哈希、base64 编解码与用户资料序列化。",
+   "tags": [
+    "auth",
+    "token",
+    "hmac",
+    "password-hash",
+    "service"
+   ],
+   "complexity": "complex",
+   "filePath": "core/src/auth_service.cpp"
+  },
+  {
+   "id": "function:core/src/auth_service.cpp:to_hex",
+   "type": "function",
+   "name": "to_hex",
+   "summary": "将字节数据转换为十六进制字符串。",
+   "tags": [
+    "hex",
+    "encoding",
+    "utility"
+   ],
+   "complexity": "simple",
+   "filePath": "core/src/auth_service.cpp",
+   "lineRange": [
+    35,
+    47
+   ]
+  },
+  {
+   "id": "function:core/src/auth_service.cpp:hmac_sha256",
+   "type": "function",
+   "name": "hmac_sha256",
+   "summary": "使用 OpenSSL 计算 HMAC-SHA256 并返回十六进制摘要。",
+   "tags": [
+    "hmac",
+    "sha256",
+    "crypto"
+   ],
+   "complexity": "simple",
+   "filePath": "core/src/auth_service.cpp",
+   "lineRange": [
+    49,
+    60
+   ]
+  },
+  {
+   "id": "function:core/src/auth_service.cpp:base64_encode",
+   "type": "function",
+   "name": "base64_encode",
+   "summary": "标准 base64 编码（带填充）。",
+   "tags": [
+    "base64",
+    "encode",
+    "utility"
+   ],
+   "complexity": "moderate",
+   "filePath": "core/src/auth_service.cpp",
+   "lineRange": [
+    62,
+    93
+   ]
+  },
+  {
+   "id": "function:core/src/auth_service.cpp:role_name",
+   "type": "function",
+   "name": "role_name",
+   "summary": "将角色枚举映射为字符串名称。",
+   "tags": [
+    "role",
+    "name",
+    "mapping"
+   ],
+   "complexity": "simple",
+   "filePath": "core/src/auth_service.cpp",
+   "lineRange": [
+    112,
+    124
+   ]
+  },
+  {
+   "id": "function:core/src/auth_service.cpp:vip_status_name",
+   "type": "function",
+   "name": "vip_status_name",
+   "summary": "将 VIP 状态枚举映射为字符串名称。",
+   "tags": [
+    "vip",
+    "status",
+    "mapping"
+   ],
+   "complexity": "simple",
+   "filePath": "core/src/auth_service.cpp",
+   "lineRange": [
+    126,
+    136
+   ]
+  },
+  {
+   "id": "class:core/src/auth_service.cpp:SimpleAuthService",
+   "type": "class",
+   "name": "SimpleAuthService",
+   "summary": "认证服务实现：基于 HMAC-SHA256 的 token 签发/校验、密码验证与 base64 解码。",
+   "tags": [
+    "auth",
+    "service",
+    "token",
+    "hmac"
+   ],
+   "complexity": "complex",
+   "filePath": "core/src/auth_service.cpp",
+   "lineRange": [
+    166,
+    310
+   ]
+  },
+  {
+   "id": "function:core/src/auth_service.cpp:create_auth_service",
+   "type": "function",
+   "name": "create_auth_service",
+   "summary": "构造并返回 SimpleAuthService（注入数据库、密钥与时钟）。",
+   "tags": [
+    "auth",
+    "factory",
+    "service"
+   ],
+   "complexity": "simple",
+   "filePath": "core/src/auth_service.cpp",
+   "lineRange": [
+    312,
+    317
+   ]
+  },
+  {
+   "id": "function:core/src/auth_service.cpp:serialize_auth_user",
+   "type": "function",
+   "name": "serialize_auth_user",
+   "summary": "将用户记录与生效身份序列化为 API JSON 用户对象。",
+   "tags": [
+    "serialize",
+    "user",
+    "json"
+   ],
+   "complexity": "moderate",
+   "filePath": "core/src/auth_service.cpp",
+   "lineRange": [
+    319,
+    342
+   ]
+  },
+  {
+   "id": "function:core/src/auth_service.cpp:serialize_auth_response",
+   "type": "function",
+   "name": "serialize_auth_response",
+   "summary": "组装认证响应 JSON（token、用户与身份）。",
+   "tags": [
+    "auth",
+    "response",
+    "serialize"
+   ],
+   "complexity": "simple",
+   "filePath": "core/src/auth_service.cpp",
+   "lineRange": [
+    344,
+    346
+   ]
+  },
+  {
+   "id": "function:core/src/auth_service.cpp:has_forbidden_registration_fields",
+   "type": "function",
+   "name": "has_forbidden_registration_fields",
+   "summary": "检查注册请求体是否包含禁止字段（如角色/VIP 相关）。",
+   "tags": [
+    "register",
+    "validation",
+    "forbidden"
+   ],
+   "complexity": "moderate",
+   "filePath": "core/src/auth_service.cpp",
+   "lineRange": [
+    348,
+    365
+   ]
+  },
+  {
+   "id": "file:core/src/authorization.cpp",
+   "type": "file",
+   "name": "core/src/authorization.cpp",
+   "summary": "实现授权判定：VIP 有效期检查、生效角色推导、生效身份构造与按角色的大小配额。",
+   "tags": [
+    "authorization",
+    "role",
+    "vip",
+    "quota"
+   ],
+   "complexity": "simple",
+   "filePath": "core/src/authorization.cpp"
+  },
+  {
+   "id": "function:core/src/authorization.cpp:effective_role",
+   "type": "function",
+   "name": "effective_role",
+   "summary": "结合 VIP 有效期推导用户生效角色。",
+   "tags": [
+    "authorization",
+    "role",
+    "vip"
+   ],
+   "complexity": "simple",
+   "filePath": "core/src/authorization.cpp",
+   "lineRange": [
+    9,
+    17
+   ]
+  },
+  {
+   "id": "function:core/src/authorization.cpp:make_effective_identity",
+   "type": "function",
+   "name": "make_effective_identity",
+   "summary": "构造用户生效身份（角色与 VIP 状态，考虑过期情况）。",
+   "tags": [
+    "authorization",
+    "identity",
+    "role",
+    "vip"
+   ],
+   "complexity": "moderate",
+   "filePath": "core/src/authorization.cpp",
+   "lineRange": [
+    19,
+    34
+   ]
+  },
+  {
+   "id": "function:core/src/authorization.cpp:role_size_limit",
+   "type": "function",
+   "name": "role_size_limit",
+   "summary": "按角色与配置返回上传大小配额限制。",
+   "tags": [
+    "quota",
+    "role",
+    "config",
+    "size-limit"
+   ],
+   "complexity": "simple",
+   "filePath": "core/src/authorization.cpp",
+   "lineRange": [
+    36,
+    47
+   ]
+  }
+ ],
+ "edges": [
+  {
+   "source": "file:core/include/pending_chunk_deletions.h",
+   "target": "function:core/include/pending_chunk_deletions.h:run_pending_chunk_deletions",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:core/include/pending_chunk_deletions.h",
+   "target": "function:core/include/pending_chunk_deletions.h:run_pending_chunk_deletions_guarded",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:core/include/pending_chunk_deletions.h",
+   "target": "function:core/include/pending_chunk_deletions.h:run_pending_chunk_deletions",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:core/include/pending_chunk_deletions.h",
+   "target": "function:core/include/pending_chunk_deletions.h:run_pending_chunk_deletions_guarded",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:core/include/playlist_routes.h",
+   "target": "function:core/include/playlist_routes.h:register_playlist_routes",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:core/include/playlist_routes.h",
+   "target": "function:core/include/playlist_routes.h:parse_playlist_json_object",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:core/include/playlist_routes.h",
+   "target": "function:core/include/playlist_routes.h:register_playlist_routes",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:core/include/playlist_routes.h",
+   "target": "function:core/include/playlist_routes.h:parse_playlist_json_object",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:core/include/schema_migrations.h",
+   "target": "function:core/include/schema_migrations.h:run_schema_migrations",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:core/include/schema_migrations.h",
+   "target": "function:core/include/schema_migrations.h:run_schema_migrations",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:core/include/stream_download_utils.h:build_attachment_content_disposition",
+   "target": "function:core/include/stream_download_utils.h:sanitize_ascii_filename",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:core/include/stream_download_utils.h:build_attachment_content_disposition",
+   "target": "function:core/include/stream_download_utils.h:encode_rfc5987_filename",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:core/include/stream_download_utils.h",
+   "target": "function:core/include/stream_download_utils.h:is_rfc5987_attr_char",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:core/include/stream_download_utils.h",
+   "target": "function:core/include/stream_download_utils.h:hexadecimal_digit",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:core/include/stream_download_utils.h",
+   "target": "function:core/include/stream_download_utils.h:sanitize_ascii_filename",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:core/include/stream_download_utils.h",
+   "target": "function:core/include/stream_download_utils.h:encode_rfc5987_filename",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:core/include/stream_download_utils.h",
+   "target": "function:core/include/stream_download_utils.h:build_attachment_content_disposition",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:core/include/stream_download_utils.h",
+   "target": "function:core/include/stream_download_utils.h:read_stream_file",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:core/include/stream_download_utils.h",
+   "target": "function:core/include/stream_download_utils.h:read_stream_range",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:core/include/stream_download_utils.h",
+   "target": "function:core/include/stream_download_utils.h:is_rfc5987_attr_char",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:core/include/stream_download_utils.h",
+   "target": "function:core/include/stream_download_utils.h:hexadecimal_digit",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:core/include/stream_download_utils.h",
+   "target": "function:core/include/stream_download_utils.h:sanitize_ascii_filename",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:core/include/stream_download_utils.h",
+   "target": "function:core/include/stream_download_utils.h:encode_rfc5987_filename",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:core/include/stream_download_utils.h",
+   "target": "function:core/include/stream_download_utils.h:build_attachment_content_disposition",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:core/include/stream_download_utils.h",
+   "target": "function:core/include/stream_download_utils.h:read_stream_file",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:core/include/stream_download_utils.h",
+   "target": "function:core/include/stream_download_utils.h:read_stream_range",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:core/include/strict_json.h:matches_strict_json_type",
+   "target": "function:core/include/strict_json.h:strict_json_integer_value",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:core/include/strict_json.h:parse_strict_json_object",
+   "target": "function:core/include/strict_json.h:matches_strict_json_object",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:core/include/strict_json.h:matches_strict_json_object",
+   "target": "function:core/include/strict_json.h:matches_strict_json_type",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:core/include/strict_json.h",
+   "target": "class:core/include/strict_json.h:StrictJsonField",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:core/include/strict_json.h",
+   "target": "function:core/include/strict_json.h:strict_json_integer_value",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:core/include/strict_json.h",
+   "target": "function:core/include/strict_json.h:matches_strict_json_type",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:core/include/strict_json.h",
+   "target": "function:core/include/strict_json.h:parse_strict_json_object",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:core/include/strict_json.h",
+   "target": "function:core/include/strict_json.h:matches_strict_json_object",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:core/include/strict_json.h",
+   "target": "class:core/include/strict_json.h:StrictJsonField",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:core/include/strict_json.h",
+   "target": "function:core/include/strict_json.h:strict_json_integer_value",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:core/include/strict_json.h",
+   "target": "function:core/include/strict_json.h:matches_strict_json_type",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:core/include/strict_json.h",
+   "target": "function:core/include/strict_json.h:parse_strict_json_object",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:core/include/strict_json.h",
+   "target": "function:core/include/strict_json.h:matches_strict_json_object",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:core/include/upload_setup.h",
+   "target": "function:core/include/upload_setup.h:make_upload_setup",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:core/include/upload_setup.h",
+   "target": "function:core/include/upload_setup.h:make_upload_setup",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:core/include/vip_admin_routes.h",
+   "target": "function:core/include/vip_admin_routes.h:register_vip_routes",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:core/include/vip_admin_routes.h",
+   "target": "function:core/include/vip_admin_routes.h:register_admin_routes",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:core/include/vip_admin_routes.h",
+   "target": "function:core/include/vip_admin_routes.h:register_vip_routes",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:core/include/vip_admin_routes.h",
+   "target": "function:core/include/vip_admin_routes.h:register_admin_routes",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:core/src/admin_bootstrap.cpp:validate_config",
+   "target": "function:core/src/admin_bootstrap.cpp:result",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:core/src/admin_bootstrap.cpp:update_existing_admin",
+   "target": "function:core/src/admin_bootstrap.cpp:result",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:core/src/admin_bootstrap.cpp:bootstrap_admin",
+   "target": "function:core/src/admin_bootstrap.cpp:result",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:core/src/admin_bootstrap.cpp:bootstrap_admin",
+   "target": "function:core/src/admin_bootstrap.cpp:validate_config",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:core/src/admin_bootstrap.cpp:bootstrap_admin",
+   "target": "function:core/src/admin_bootstrap.cpp:update_existing_admin",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:core/src/admin_bootstrap.cpp",
+   "target": "function:core/src/admin_bootstrap.cpp:result",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:core/src/admin_bootstrap.cpp",
+   "target": "function:core/src/admin_bootstrap.cpp:validate_config",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:core/src/admin_bootstrap.cpp",
+   "target": "function:core/src/admin_bootstrap.cpp:update_existing_admin",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:core/src/admin_bootstrap.cpp",
+   "target": "function:core/src/admin_bootstrap.cpp:bootstrap_admin",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "function:core/src/auth_routes.cpp:require_authenticated",
+   "target": "function:core/src/auth_routes.cpp:auth_error",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:core/src/auth_routes.cpp:set_auth_user_response",
+   "target": "function:core/src/auth_service.cpp:serialize_auth_user",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:core/src/auth_routes.cpp:set_auth_user_response",
+   "target": "function:core/src/authorization.cpp:make_effective_identity",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:core/src/auth_routes.cpp:handle_register",
+   "target": "function:core/src/auth_routes.cpp:auth_error",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:core/src/auth_routes.cpp:handle_register",
+   "target": "function:core/include/strict_json.h:parse_strict_json_object",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:core/src/auth_routes.cpp:handle_register",
+   "target": "function:core/include/strict_json.h:matches_strict_json_object",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:core/src/auth_routes.cpp:handle_register",
+   "target": "function:core/src/auth_service.cpp:has_forbidden_registration_fields",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:core/src/auth_routes.cpp:handle_login",
+   "target": "function:core/src/auth_routes.cpp:auth_error",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:core/src/auth_routes.cpp:handle_login",
+   "target": "function:core/src/auth_service.cpp:serialize_auth_response",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:core/src/auth_routes.cpp:handle_get_me",
+   "target": "function:core/src/auth_routes.cpp:require_authenticated",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:core/src/auth_routes.cpp:handle_get_me",
+   "target": "function:core/src/auth_routes.cpp:set_auth_user_response",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:core/src/auth_routes.cpp:handle_get_me",
+   "target": "function:core/src/auth_routes.cpp:auth_error",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:core/src/auth_routes.cpp:handle_get_user",
+   "target": "function:core/src/auth_routes.cpp:require_authenticated",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:core/src/auth_routes.cpp:handle_get_user",
+   "target": "function:core/src/auth_routes.cpp:parse_profile_id",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:core/src/auth_routes.cpp:handle_get_user",
+   "target": "function:core/src/auth_routes.cpp:auth_error",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:core/src/auth_routes.cpp:handle_get_user",
+   "target": "function:core/src/auth_routes.cpp:set_auth_user_response",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:core/src/auth_routes.cpp:handle_put_user",
+   "target": "function:core/src/auth_routes.cpp:require_authenticated",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:core/src/auth_routes.cpp:handle_put_user",
+   "target": "function:core/src/auth_routes.cpp:parse_profile_id",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:core/src/auth_routes.cpp:handle_put_user",
+   "target": "function:core/src/auth_routes.cpp:auth_error",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:core/src/auth_routes.cpp:handle_put_user",
+   "target": "function:core/src/auth_routes.cpp:set_auth_user_response",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:core/src/auth_routes.cpp:register_auth_routes",
+   "target": "function:core/src/auth_routes.cpp:handle_register",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:core/src/auth_routes.cpp:register_auth_routes",
+   "target": "function:core/src/auth_routes.cpp:handle_login",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:core/src/auth_routes.cpp:register_auth_routes",
+   "target": "function:core/src/auth_routes.cpp:handle_get_me",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:core/src/auth_routes.cpp:register_auth_routes",
+   "target": "function:core/src/auth_routes.cpp:handle_get_user",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:core/src/auth_routes.cpp:register_auth_routes",
+   "target": "function:core/src/auth_routes.cpp:handle_put_user",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:core/src/auth_routes.cpp",
+   "target": "function:core/src/auth_routes.cpp:auth_error",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:core/src/auth_routes.cpp",
+   "target": "function:core/src/auth_routes.cpp:require_authenticated",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:core/src/auth_routes.cpp",
+   "target": "function:core/src/auth_routes.cpp:parse_profile_id",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:core/src/auth_routes.cpp",
+   "target": "function:core/src/auth_routes.cpp:set_auth_user_response",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:core/src/auth_routes.cpp",
+   "target": "function:core/src/auth_routes.cpp:handle_register",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:core/src/auth_routes.cpp",
+   "target": "function:core/src/auth_routes.cpp:handle_login",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:core/src/auth_routes.cpp",
+   "target": "function:core/src/auth_routes.cpp:handle_get_me",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:core/src/auth_routes.cpp",
+   "target": "function:core/src/auth_routes.cpp:handle_get_user",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:core/src/auth_routes.cpp",
+   "target": "function:core/src/auth_routes.cpp:handle_put_user",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:core/src/auth_routes.cpp",
+   "target": "function:core/src/auth_routes.cpp:register_auth_routes",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "function:core/src/auth_service.cpp:hmac_sha256",
+   "target": "function:core/src/auth_service.cpp:to_hex",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:core/src/auth_service.cpp:serialize_auth_user",
+   "target": "function:core/src/auth_service.cpp:role_name",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:core/src/auth_service.cpp:serialize_auth_user",
+   "target": "function:core/src/auth_service.cpp:vip_status_name",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:core/src/auth_service.cpp:serialize_auth_response",
+   "target": "function:core/src/auth_service.cpp:serialize_auth_user",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:core/src/auth_service.cpp",
+   "target": "function:core/src/auth_service.cpp:to_hex",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:core/src/auth_service.cpp",
+   "target": "function:core/src/auth_service.cpp:hmac_sha256",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:core/src/auth_service.cpp",
+   "target": "function:core/src/auth_service.cpp:base64_encode",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:core/src/auth_service.cpp",
+   "target": "function:core/src/auth_service.cpp:role_name",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:core/src/auth_service.cpp",
+   "target": "function:core/src/auth_service.cpp:vip_status_name",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:core/src/auth_service.cpp",
+   "target": "class:core/src/auth_service.cpp:SimpleAuthService",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:core/src/auth_service.cpp",
+   "target": "function:core/src/auth_service.cpp:create_auth_service",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:core/src/auth_service.cpp",
+   "target": "function:core/src/auth_service.cpp:serialize_auth_user",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:core/src/auth_service.cpp",
+   "target": "function:core/src/auth_service.cpp:serialize_auth_response",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:core/src/auth_service.cpp",
+   "target": "function:core/src/auth_service.cpp:has_forbidden_registration_fields",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "function:core/src/authorization.cpp:make_effective_identity",
+   "target": "function:core/src/authorization.cpp:effective_role",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:core/src/authorization.cpp",
+   "target": "function:core/src/authorization.cpp:effective_role",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:core/src/authorization.cpp",
+   "target": "function:core/src/authorization.cpp:make_effective_identity",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:core/src/authorization.cpp",
+   "target": "function:core/src/authorization.cpp:role_size_limit",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  }
+ ]
+}

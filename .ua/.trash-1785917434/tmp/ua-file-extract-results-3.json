@@ -1,0 +1,4097 @@
+{
+  "scriptCompleted": true,
+  "filesAnalyzed": 20,
+  "filesSkipped": [],
+  "results": [
+    {
+      "path": "benchmark/qps_auth_service.cpp",
+      "language": "cpp",
+      "fileCategory": "code",
+      "totalLines": 96,
+      "nonEmptyLines": 85,
+      "functions": [
+        {
+          "name": "run_benchmark",
+          "startLine": 15,
+          "endLine": 83,
+          "params": []
+        },
+        {
+          "name": "main",
+          "startLine": 87,
+          "endLine": 96,
+          "params": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "run_benchmark",
+          "line": 15,
+          "isDefault": false
+        },
+        {
+          "name": "main",
+          "line": 87,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "run_benchmark",
+          "callee": "hps::hash_password",
+          "lineNumber": 18
+        },
+        {
+          "caller": "run_benchmark",
+          "callee": "std::make_unique<hps::DatabasePool>",
+          "lineNumber": 19
+        },
+        {
+          "caller": "run_benchmark",
+          "callee": "std::make_unique<hps::MockConnection>",
+          "lineNumber": 20
+        },
+        {
+          "caller": "run_benchmark",
+          "callee": "find",
+          "lineNumber": 28
+        },
+        {
+          "caller": "run_benchmark",
+          "callee": "init",
+          "lineNumber": 45
+        },
+        {
+          "caller": "run_benchmark",
+          "callee": "hps::create_auth_service",
+          "lineNumber": 50
+        },
+        {
+          "caller": "run_benchmark",
+          "callee": "generate_token",
+          "lineNumber": 56
+        },
+        {
+          "caller": "run_benchmark",
+          "callee": "hps::bench::default_qps_levels",
+          "lineNumber": 58
+        },
+        {
+          "caller": "run_benchmark",
+          "callee": "hps::bench::run_qps_steps",
+          "lineNumber": 60
+        },
+        {
+          "caller": "run_benchmark",
+          "callee": "std::to_string",
+          "lineNumber": 62
+        },
+        {
+          "caller": "run_benchmark",
+          "callee": "create_user",
+          "lineNumber": 66
+        },
+        {
+          "caller": "run_benchmark",
+          "callee": "hps::bench::run_qps_steps",
+          "lineNumber": 69
+        },
+        {
+          "caller": "run_benchmark",
+          "callee": "authenticate",
+          "lineNumber": 70
+        },
+        {
+          "caller": "run_benchmark",
+          "callee": "has_value",
+          "lineNumber": 71
+        },
+        {
+          "caller": "run_benchmark",
+          "callee": "hps::bench::run_qps_steps",
+          "lineNumber": 75
+        },
+        {
+          "caller": "run_benchmark",
+          "callee": "validate_token",
+          "lineNumber": 76
+        },
+        {
+          "caller": "run_benchmark",
+          "callee": "close",
+          "lineNumber": 81
+        },
+        {
+          "caller": "main",
+          "callee": "run_benchmark",
+          "lineNumber": 89
+        },
+        {
+          "caller": "main",
+          "callee": "std::fprintf",
+          "lineNumber": 91
+        },
+        {
+          "caller": "main",
+          "callee": "what",
+          "lineNumber": 91
+        },
+        {
+          "caller": "main",
+          "callee": "std::fputs",
+          "lineNumber": 93
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 2,
+        "functionCount": 2,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "benchmark/qps_chunk_header.cpp",
+      "language": "cpp",
+      "fileCategory": "code",
+      "totalLines": 70,
+      "nonEmptyLines": 60,
+      "functions": [
+        {
+          "name": "run_benchmark",
+          "startLine": 11,
+          "endLine": 57,
+          "params": []
+        },
+        {
+          "name": "main",
+          "startLine": 61,
+          "endLine": 70,
+          "params": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "run_benchmark",
+          "line": 11,
+          "isDefault": false
+        },
+        {
+          "name": "main",
+          "line": 61,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "run_benchmark",
+          "callee": "hps::bench::default_qps_levels",
+          "lineNumber": 12
+        },
+        {
+          "caller": "run_benchmark",
+          "callee": "hps::bench::run_qps_steps",
+          "lineNumber": 24
+        },
+        {
+          "caller": "run_benchmark",
+          "callee": "to_network",
+          "lineNumber": 26
+        },
+        {
+          "caller": "run_benchmark",
+          "callee": "from_network",
+          "lineNumber": 27
+        },
+        {
+          "caller": "run_benchmark",
+          "callee": "to_network",
+          "lineNumber": 43
+        },
+        {
+          "caller": "run_benchmark",
+          "callee": "hps::bench::run_qps_steps",
+          "lineNumber": 45
+        },
+        {
+          "caller": "run_benchmark",
+          "callee": "std::memcpy",
+          "lineNumber": 47
+        },
+        {
+          "caller": "run_benchmark",
+          "callee": "data",
+          "lineNumber": 47
+        },
+        {
+          "caller": "run_benchmark",
+          "callee": "std::memcpy",
+          "lineNumber": 48
+        },
+        {
+          "caller": "run_benchmark",
+          "callee": "data",
+          "lineNumber": 48
+        },
+        {
+          "caller": "run_benchmark",
+          "callee": "std::memcpy",
+          "lineNumber": 49
+        },
+        {
+          "caller": "run_benchmark",
+          "callee": "data",
+          "lineNumber": 49
+        },
+        {
+          "caller": "run_benchmark",
+          "callee": "std::memcpy",
+          "lineNumber": 50
+        },
+        {
+          "caller": "run_benchmark",
+          "callee": "data",
+          "lineNumber": 50
+        },
+        {
+          "caller": "run_benchmark",
+          "callee": "std::memcpy",
+          "lineNumber": 51
+        },
+        {
+          "caller": "run_benchmark",
+          "callee": "data",
+          "lineNumber": 51
+        },
+        {
+          "caller": "run_benchmark",
+          "callee": "std::memcmp",
+          "lineNumber": 52
+        },
+        {
+          "caller": "run_benchmark",
+          "callee": "data",
+          "lineNumber": 52
+        },
+        {
+          "caller": "main",
+          "callee": "run_benchmark",
+          "lineNumber": 63
+        },
+        {
+          "caller": "main",
+          "callee": "std::fprintf",
+          "lineNumber": 65
+        },
+        {
+          "caller": "main",
+          "callee": "what",
+          "lineNumber": 65
+        },
+        {
+          "caller": "main",
+          "callee": "std::fputs",
+          "lineNumber": 67
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 2,
+        "functionCount": 2,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "benchmark/qps_coroutine.cpp",
+      "language": "cpp",
+      "fileCategory": "code",
+      "totalLines": 71,
+      "nonEmptyLines": 51,
+      "functions": [
+        {
+          "name": "CoroBench",
+          "startLine": 36,
+          "endLine": 36,
+          "params": [
+            "h"
+          ]
+        },
+        {
+          "name": "CoroBench",
+          "startLine": 38,
+          "endLine": 38,
+          "params": [
+            "other"
+          ]
+        },
+        {
+          "name": "~CoroBench",
+          "startLine": 40,
+          "endLine": 43,
+          "params": []
+        },
+        {
+          "name": "bench_coro_impl",
+          "startLine": 49,
+          "endLine": 51,
+          "params": []
+        },
+        {
+          "name": "main",
+          "startLine": 55,
+          "endLine": 71,
+          "params": []
+        }
+      ],
+      "classes": [
+        {
+          "name": "CoroBench",
+          "startLine": 11,
+          "endLine": 47,
+          "methods": [
+            "CoroBench",
+            "CoroBench",
+            "~CoroBench"
+          ],
+          "properties": [
+            "handle_"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "CoroBench",
+          "line": 36,
+          "isDefault": false
+        },
+        {
+          "name": "CoroBench",
+          "line": 38,
+          "isDefault": false
+        },
+        {
+          "name": "~CoroBench",
+          "line": 40,
+          "isDefault": false
+        },
+        {
+          "name": "CoroBench",
+          "line": 11,
+          "isDefault": false
+        },
+        {
+          "name": "bench_coro_impl",
+          "line": 49,
+          "isDefault": false
+        },
+        {
+          "name": "main",
+          "line": 55,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "await_suspend",
+          "callee": "resume",
+          "lineNumber": 17
+        },
+        {
+          "caller": "get_return_object",
+          "callee": "CoroBench",
+          "lineNumber": 23
+        },
+        {
+          "caller": "get_return_object",
+          "callee": "std::coroutine_handle<Promise>::from_promise",
+          "lineNumber": 23
+        },
+        {
+          "caller": "~CoroBench",
+          "callee": "destroy",
+          "lineNumber": 42
+        },
+        {
+          "caller": "main",
+          "callee": "hps::bench::default_qps_levels",
+          "lineNumber": 57
+        },
+        {
+          "caller": "main",
+          "callee": "hps::bench::run_qps_steps",
+          "lineNumber": 59
+        },
+        {
+          "caller": "main",
+          "callee": "bench_coro_impl",
+          "lineNumber": 60
+        },
+        {
+          "caller": "main",
+          "callee": "what",
+          "lineNumber": 66
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 6,
+        "functionCount": 5,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "benchmark/qps_database_pool.cpp",
+      "language": "cpp",
+      "fileCategory": "code",
+      "totalLines": 65,
+      "nonEmptyLines": 57,
+      "functions": [
+        {
+          "name": "main",
+          "startLine": 11,
+          "endLine": 65,
+          "params": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "main",
+          "line": 11,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "main",
+          "callee": "hps::bench::default_qps_levels",
+          "lineNumber": 13
+        },
+        {
+          "caller": "main",
+          "callee": "std::make_unique<hps::MockConnection>",
+          "lineNumber": 17
+        },
+        {
+          "caller": "main",
+          "callee": "init",
+          "lineNumber": 26
+        },
+        {
+          "caller": "main",
+          "callee": "hps::bench::run_qps_steps",
+          "lineNumber": 28
+        },
+        {
+          "caller": "main",
+          "callee": "get_user",
+          "lineNumber": 29
+        },
+        {
+          "caller": "main",
+          "callee": "std::make_unique<hps::MockConnection>",
+          "lineNumber": 36
+        },
+        {
+          "caller": "main",
+          "callee": "init",
+          "lineNumber": 45
+        },
+        {
+          "caller": "main",
+          "callee": "hps::bench::run_qps_steps",
+          "lineNumber": 52
+        },
+        {
+          "caller": "main",
+          "callee": "create_user",
+          "lineNumber": 53
+        },
+        {
+          "caller": "main",
+          "callee": "what",
+          "lineNumber": 60
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 1,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "benchmark/qps_file_system.cpp",
+      "language": "cpp",
+      "fileCategory": "code",
+      "totalLines": 72,
+      "nonEmptyLines": 64,
+      "functions": [
+        {
+          "name": "create_temp_file",
+          "startLine": 14,
+          "endLine": 29,
+          "params": [
+            "size"
+          ]
+        },
+        {
+          "name": "main",
+          "startLine": 33,
+          "endLine": 72,
+          "params": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "create_temp_file",
+          "line": 14,
+          "isDefault": false
+        },
+        {
+          "name": "main",
+          "line": 33,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "create_temp_file",
+          "callee": "mkstemp",
+          "lineNumber": 16
+        },
+        {
+          "caller": "create_temp_file",
+          "callee": "static_cast<ssize_t>",
+          "lineNumber": 21
+        },
+        {
+          "caller": "create_temp_file",
+          "callee": "write",
+          "lineNumber": 22
+        },
+        {
+          "caller": "create_temp_file",
+          "callee": "data",
+          "lineNumber": 22
+        },
+        {
+          "caller": "create_temp_file",
+          "callee": "static_cast<std::size_t>",
+          "lineNumber": 22
+        },
+        {
+          "caller": "create_temp_file",
+          "callee": "close",
+          "lineNumber": 27
+        },
+        {
+          "caller": "create_temp_file",
+          "callee": "std::string",
+          "lineNumber": 28
+        },
+        {
+          "caller": "main",
+          "callee": "hps::bench::default_qps_levels",
+          "lineNumber": 35
+        },
+        {
+          "caller": "main",
+          "callee": "hps::bench::run_qps_steps",
+          "lineNumber": 40
+        },
+        {
+          "caller": "main",
+          "callee": "hps::FileSystem::sha256_hex",
+          "lineNumber": 41
+        },
+        {
+          "caller": "main",
+          "callee": "data",
+          "lineNumber": 41
+        },
+        {
+          "caller": "main",
+          "callee": "size",
+          "lineNumber": 41
+        },
+        {
+          "caller": "main",
+          "callee": "std::to_string",
+          "lineNumber": 52
+        },
+        {
+          "caller": "main",
+          "callee": "store_file",
+          "lineNumber": 53
+        },
+        {
+          "caller": "main",
+          "callee": "delete_file",
+          "lineNumber": 54
+        },
+        {
+          "caller": "main",
+          "callee": "hps::bench::run_qps_steps",
+          "lineNumber": 56
+        },
+        {
+          "caller": "main",
+          "callee": "std::to_string",
+          "lineNumber": 57
+        },
+        {
+          "caller": "main",
+          "callee": "store_file",
+          "lineNumber": 58
+        },
+        {
+          "caller": "main",
+          "callee": "read_file",
+          "lineNumber": 59
+        },
+        {
+          "caller": "main",
+          "callee": "delete_file",
+          "lineNumber": 61
+        },
+        {
+          "caller": "main",
+          "callee": "what",
+          "lineNumber": 67
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 2,
+        "functionCount": 2,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "benchmark/qps_file_transfer.cpp",
+      "language": "cpp",
+      "fileCategory": "code",
+      "totalLines": 134,
+      "nonEmptyLines": 107,
+      "functions": [
+        {
+          "name": "TempWorkspace",
+          "startLine": 27,
+          "endLine": 32,
+          "params": []
+        },
+        {
+          "name": "~TempWorkspace",
+          "startLine": 34,
+          "endLine": 37,
+          "params": []
+        },
+        {
+          "name": "TempWorkspace",
+          "startLine": 39,
+          "endLine": 39,
+          "params": []
+        },
+        {
+          "name": "path",
+          "startLine": 42,
+          "endLine": 42,
+          "params": []
+        },
+        {
+          "name": "file_path",
+          "startLine": 44,
+          "endLine": 44,
+          "params": [
+            "name"
+          ]
+        },
+        {
+          "name": "MockTcpClient",
+          "startLine": 52,
+          "endLine": 53,
+          "params": [
+            "expected_payload",
+            "accept_send"
+          ]
+        },
+        {
+          "name": "connect_to_server",
+          "startLine": 55,
+          "endLine": 58,
+          "params": []
+        },
+        {
+          "name": "disconnect",
+          "startLine": 60,
+          "endLine": 60,
+          "params": []
+        },
+        {
+          "name": "send_message",
+          "startLine": 62,
+          "endLine": 62,
+          "params": [
+            "message"
+          ]
+        },
+        {
+          "name": "receive_message",
+          "startLine": 64,
+          "endLine": 69,
+          "params": [
+            "message",
+            "mode",
+            "timeout_ms"
+          ]
+        },
+        {
+          "name": "is_connected",
+          "startLine": 71,
+          "endLine": 71,
+          "params": []
+        },
+        {
+          "name": "validate_chunks",
+          "startLine": 79,
+          "endLine": 92,
+          "params": [
+            "chunks"
+          ]
+        },
+        {
+          "name": "main",
+          "startLine": 96,
+          "endLine": 134,
+          "params": []
+        }
+      ],
+      "classes": [
+        {
+          "name": "TempWorkspace",
+          "startLine": 25,
+          "endLine": 48,
+          "methods": [
+            "TempWorkspace",
+            "~TempWorkspace",
+            "TempWorkspace",
+            "path",
+            "file_path"
+          ],
+          "properties": [
+            "path_"
+          ]
+        },
+        {
+          "name": "MockTcpClient",
+          "startLine": 50,
+          "endLine": 77,
+          "methods": [
+            "MockTcpClient",
+            "connect_to_server",
+            "disconnect",
+            "send_message",
+            "receive_message",
+            "is_connected"
+          ],
+          "properties": [
+            "expected_payload_",
+            "accept_send_",
+            "connected_"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "TempWorkspace",
+          "line": 27,
+          "isDefault": false
+        },
+        {
+          "name": "~TempWorkspace",
+          "line": 34,
+          "isDefault": false
+        },
+        {
+          "name": "TempWorkspace",
+          "line": 39,
+          "isDefault": false
+        },
+        {
+          "name": "path",
+          "line": 42,
+          "isDefault": false
+        },
+        {
+          "name": "file_path",
+          "line": 44,
+          "isDefault": false
+        },
+        {
+          "name": "TempWorkspace",
+          "line": 25,
+          "isDefault": false
+        },
+        {
+          "name": "MockTcpClient",
+          "line": 52,
+          "isDefault": false
+        },
+        {
+          "name": "connect_to_server",
+          "line": 55,
+          "isDefault": false
+        },
+        {
+          "name": "disconnect",
+          "line": 60,
+          "isDefault": false
+        },
+        {
+          "name": "send_message",
+          "line": 62,
+          "isDefault": false
+        },
+        {
+          "name": "receive_message",
+          "line": 64,
+          "isDefault": false
+        },
+        {
+          "name": "is_connected",
+          "line": 71,
+          "isDefault": false
+        },
+        {
+          "name": "MockTcpClient",
+          "line": 50,
+          "isDefault": false
+        },
+        {
+          "name": "validate_chunks",
+          "line": 79,
+          "isDefault": false
+        },
+        {
+          "name": "main",
+          "line": 96,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "TempWorkspace",
+          "callee": "std::getenv",
+          "lineNumber": 28
+        },
+        {
+          "caller": "TempWorkspace",
+          "callee": "std::to_string",
+          "lineNumber": 30
+        },
+        {
+          "caller": "TempWorkspace",
+          "callee": "getpid",
+          "lineNumber": 30
+        },
+        {
+          "caller": "TempWorkspace",
+          "callee": "std::filesystem::create_directories",
+          "lineNumber": 31
+        },
+        {
+          "caller": "~TempWorkspace",
+          "callee": "std::filesystem::remove_all",
+          "lineNumber": 36
+        },
+        {
+          "caller": "path",
+          "callee": "string",
+          "lineNumber": 42
+        },
+        {
+          "caller": "file_path",
+          "callee": "string",
+          "lineNumber": 44
+        },
+        {
+          "caller": "MockTcpClient",
+          "callee": "std::move",
+          "lineNumber": 53
+        },
+        {
+          "caller": "receive_message",
+          "callee": "static_cast<void>",
+          "lineNumber": 65
+        },
+        {
+          "caller": "receive_message",
+          "callee": "static_cast<void>",
+          "lineNumber": 66
+        },
+        {
+          "caller": "receive_message",
+          "callee": "static_cast<void>",
+          "lineNumber": 67
+        },
+        {
+          "caller": "validate_chunks",
+          "callee": "size",
+          "lineNumber": 80
+        },
+        {
+          "caller": "main",
+          "callee": "std::make_shared<hps::FileSystem>",
+          "lineNumber": 99
+        },
+        {
+          "caller": "main",
+          "callee": "path",
+          "lineNumber": 99
+        },
+        {
+          "caller": "main",
+          "callee": "begin",
+          "lineNumber": 101
+        },
+        {
+          "caller": "main",
+          "callee": "end",
+          "lineNumber": 101
+        },
+        {
+          "caller": "main",
+          "callee": "store_file",
+          "lineNumber": 104
+        },
+        {
+          "caller": "main",
+          "callee": "store_file",
+          "lineNumber": 104
+        },
+        {
+          "caller": "main",
+          "callee": "hps::bench::default_qps_levels",
+          "lineNumber": 112
+        },
+        {
+          "caller": "main",
+          "callee": "hps::bench::run_qps_steps",
+          "lineNumber": 114
+        },
+        {
+          "caller": "main",
+          "callee": "transfer_small",
+          "lineNumber": 115
+        },
+        {
+          "caller": "main",
+          "callee": "file_path",
+          "lineNumber": 118
+        },
+        {
+          "caller": "main",
+          "callee": "hps::bench::run_qps_steps",
+          "lineNumber": 119
+        },
+        {
+          "caller": "main",
+          "callee": "validate_chunks",
+          "lineNumber": 120
+        },
+        {
+          "caller": "main",
+          "callee": "split_file",
+          "lineNumber": 120
+        },
+        {
+          "caller": "main",
+          "callee": "hps::bench::run_qps_steps",
+          "lineNumber": 123
+        },
+        {
+          "caller": "main",
+          "callee": "transfer_small",
+          "lineNumber": 124
+        },
+        {
+          "caller": "main",
+          "callee": "what",
+          "lineNumber": 129
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 15,
+        "functionCount": 13,
+        "classCount": 2
+      }
+    },
+    {
+      "path": "benchmark/qps_http_parser.cpp",
+      "language": "cpp",
+      "fileCategory": "code",
+      "totalLines": 91,
+      "nonEmptyLines": 81,
+      "functions": [
+        {
+          "name": "make_get_request",
+          "startLine": 12,
+          "endLine": 21,
+          "params": [
+            "path"
+          ]
+        },
+        {
+          "name": "make_post_request",
+          "startLine": 23,
+          "endLine": 35,
+          "params": [
+            "path",
+            "body"
+          ]
+        },
+        {
+          "name": "main",
+          "startLine": 39,
+          "endLine": 91,
+          "params": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "make_get_request",
+          "line": 12,
+          "isDefault": false
+        },
+        {
+          "name": "make_post_request",
+          "line": 23,
+          "isDefault": false
+        },
+        {
+          "name": "main",
+          "line": 39,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "make_get_request",
+          "callee": "std::string",
+          "lineNumber": 13
+        },
+        {
+          "caller": "make_post_request",
+          "callee": "std::string",
+          "lineNumber": 24
+        },
+        {
+          "caller": "make_post_request",
+          "callee": "std::to_string",
+          "lineNumber": 29
+        },
+        {
+          "caller": "make_post_request",
+          "callee": "size",
+          "lineNumber": 29
+        },
+        {
+          "caller": "main",
+          "callee": "hps::bench::default_qps_levels",
+          "lineNumber": 41
+        },
+        {
+          "caller": "main",
+          "callee": "make_get_request",
+          "lineNumber": 45
+        },
+        {
+          "caller": "main",
+          "callee": "hps::bench::run_qps_steps",
+          "lineNumber": 46
+        },
+        {
+          "caller": "main",
+          "callee": "feed",
+          "lineNumber": 48
+        },
+        {
+          "caller": "main",
+          "callee": "reset",
+          "lineNumber": 49
+        },
+        {
+          "caller": "main",
+          "callee": "make_post_request",
+          "lineNumber": 55
+        },
+        {
+          "caller": "main",
+          "callee": "hps::bench::run_qps_steps",
+          "lineNumber": 56
+        },
+        {
+          "caller": "main",
+          "callee": "feed",
+          "lineNumber": 58
+        },
+        {
+          "caller": "main",
+          "callee": "reset",
+          "lineNumber": 59
+        },
+        {
+          "caller": "main",
+          "callee": "hps::bench::run_qps_steps",
+          "lineNumber": 77
+        },
+        {
+          "caller": "main",
+          "callee": "feed",
+          "lineNumber": 79
+        },
+        {
+          "caller": "main",
+          "callee": "reset",
+          "lineNumber": 80
+        },
+        {
+          "caller": "main",
+          "callee": "what",
+          "lineNumber": 86
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 3,
+        "functionCount": 3,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "benchmark/qps_http_response.cpp",
+      "language": "cpp",
+      "fileCategory": "code",
+      "totalLines": 124,
+      "nonEmptyLines": 106,
+      "functions": [
+        {
+          "name": "is_cleared",
+          "startLine": 19,
+          "endLine": 22,
+          "params": [
+            "response"
+          ]
+        },
+        {
+          "name": "run_benchmark",
+          "startLine": 24,
+          "endLine": 111,
+          "params": []
+        },
+        {
+          "name": "main",
+          "startLine": 115,
+          "endLine": 124,
+          "params": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "is_cleared",
+          "line": 19,
+          "isDefault": false
+        },
+        {
+          "name": "run_benchmark",
+          "line": 24,
+          "isDefault": false
+        },
+        {
+          "name": "main",
+          "line": 115,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "is_cleared",
+          "callee": "empty",
+          "lineNumber": 20
+        },
+        {
+          "caller": "is_cleared",
+          "callee": "empty",
+          "lineNumber": 21
+        },
+        {
+          "caller": "run_benchmark",
+          "callee": "hps::bench::default_qps_levels",
+          "lineNumber": 25
+        },
+        {
+          "caller": "run_benchmark",
+          "callee": "hps::bench::run_qps_steps",
+          "lineNumber": 27
+        },
+        {
+          "caller": "run_benchmark",
+          "callee": "set_content_type",
+          "lineNumber": 29
+        },
+        {
+          "caller": "run_benchmark",
+          "callee": "set_content_length",
+          "lineNumber": 31
+        },
+        {
+          "caller": "run_benchmark",
+          "callee": "size",
+          "lineNumber": 31
+        },
+        {
+          "caller": "run_benchmark",
+          "callee": "serialize",
+          "lineNumber": 33
+        },
+        {
+          "caller": "run_benchmark",
+          "callee": "starts_with",
+          "lineNumber": 34
+        },
+        {
+          "caller": "run_benchmark",
+          "callee": "find",
+          "lineNumber": 35
+        },
+        {
+          "caller": "run_benchmark",
+          "callee": "ends_with",
+          "lineNumber": 36
+        },
+        {
+          "caller": "run_benchmark",
+          "callee": "clear",
+          "lineNumber": 37
+        },
+        {
+          "caller": "run_benchmark",
+          "callee": "is_cleared",
+          "lineNumber": 38
+        },
+        {
+          "caller": "run_benchmark",
+          "callee": "hps::bench::run_qps_steps",
+          "lineNumber": 42
+        },
+        {
+          "caller": "run_benchmark",
+          "callee": "set_content_type",
+          "lineNumber": 44
+        },
+        {
+          "caller": "run_benchmark",
+          "callee": "set_content_length",
+          "lineNumber": 46
+        },
+        {
+          "caller": "run_benchmark",
+          "callee": "size",
+          "lineNumber": 46
+        },
+        {
+          "caller": "run_benchmark",
+          "callee": "serialize",
+          "lineNumber": 48
+        },
+        {
+          "caller": "run_benchmark",
+          "callee": "size",
+          "lineNumber": 49
+        },
+        {
+          "caller": "run_benchmark",
+          "callee": "size",
+          "lineNumber": 49
+        },
+        {
+          "caller": "run_benchmark",
+          "callee": "ends_with",
+          "lineNumber": 49
+        },
+        {
+          "caller": "run_benchmark",
+          "callee": "clear",
+          "lineNumber": 50
+        },
+        {
+          "caller": "run_benchmark",
+          "callee": "is_cleared",
+          "lineNumber": 51
+        },
+        {
+          "caller": "run_benchmark",
+          "callee": "hps::bench::run_qps_steps",
+          "lineNumber": 68
+        },
+        {
+          "caller": "run_benchmark",
+          "callee": "set_header",
+          "lineNumber": 71
+        },
+        {
+          "caller": "run_benchmark",
+          "callee": "set_content_length",
+          "lineNumber": 74
+        },
+        {
+          "caller": "run_benchmark",
+          "callee": "size",
+          "lineNumber": 74
+        },
+        {
+          "caller": "run_benchmark",
+          "callee": "serialize",
+          "lineNumber": 76
+        },
+        {
+          "caller": "run_benchmark",
+          "callee": "size",
+          "lineNumber": 77
+        },
+        {
+          "caller": "run_benchmark",
+          "callee": "size",
+          "lineNumber": 77
+        },
+        {
+          "caller": "run_benchmark",
+          "callee": "find",
+          "lineNumber": 78
+        },
+        {
+          "caller": "run_benchmark",
+          "callee": "ends_with",
+          "lineNumber": 79
+        },
+        {
+          "caller": "run_benchmark",
+          "callee": "clear",
+          "lineNumber": 80
+        },
+        {
+          "caller": "run_benchmark",
+          "callee": "is_cleared",
+          "lineNumber": 81
+        },
+        {
+          "caller": "run_benchmark",
+          "callee": "hps::parse_range_header",
+          "lineNumber": 84
+        },
+        {
+          "caller": "run_benchmark",
+          "callee": "hps::bench::run_qps_steps",
+          "lineNumber": 85
+        },
+        {
+          "caller": "run_benchmark",
+          "callee": "hps::build_206_headers",
+          "lineNumber": 87
+        },
+        {
+          "caller": "run_benchmark",
+          "callee": "assign",
+          "lineNumber": 88
+        },
+        {
+          "caller": "run_benchmark",
+          "callee": "serialize",
+          "lineNumber": 90
+        },
+        {
+          "caller": "run_benchmark",
+          "callee": "starts_with",
+          "lineNumber": 92
+        },
+        {
+          "caller": "run_benchmark",
+          "callee": "ends_with",
+          "lineNumber": 93
+        },
+        {
+          "caller": "run_benchmark",
+          "callee": "clear",
+          "lineNumber": 94
+        },
+        {
+          "caller": "run_benchmark",
+          "callee": "is_cleared",
+          "lineNumber": 95
+        },
+        {
+          "caller": "run_benchmark",
+          "callee": "hps::bench::run_qps_steps",
+          "lineNumber": 98
+        },
+        {
+          "caller": "run_benchmark",
+          "callee": "hps::build_416_response",
+          "lineNumber": 100
+        },
+        {
+          "caller": "run_benchmark",
+          "callee": "serialize",
+          "lineNumber": 102
+        },
+        {
+          "caller": "run_benchmark",
+          "callee": "starts_with",
+          "lineNumber": 104
+        },
+        {
+          "caller": "run_benchmark",
+          "callee": "ends_with",
+          "lineNumber": 105
+        },
+        {
+          "caller": "run_benchmark",
+          "callee": "clear",
+          "lineNumber": 106
+        },
+        {
+          "caller": "run_benchmark",
+          "callee": "is_cleared",
+          "lineNumber": 107
+        },
+        {
+          "caller": "main",
+          "callee": "run_benchmark",
+          "lineNumber": 117
+        },
+        {
+          "caller": "main",
+          "callee": "what",
+          "lineNumber": 119
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 3,
+        "functionCount": 3,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "benchmark/qps_http_server.cpp",
+      "language": "cpp",
+      "fileCategory": "code",
+      "totalLines": 132,
+      "nonEmptyLines": 115,
+      "functions": [
+        {
+          "name": "ServerFixture",
+          "startLine": 23,
+          "endLine": 42,
+          "params": []
+        },
+        {
+          "name": "~ServerFixture",
+          "startLine": 44,
+          "endLine": 48,
+          "params": []
+        },
+        {
+          "name": "make_get",
+          "startLine": 50,
+          "endLine": 55,
+          "params": []
+        },
+        {
+          "name": "make_post",
+          "startLine": 57,
+          "endLine": 68,
+          "params": []
+        },
+        {
+          "name": "make_server_config",
+          "startLine": 71,
+          "endLine": 76,
+          "params": []
+        },
+        {
+          "name": "exchange_http_request",
+          "startLine": 81,
+          "endLine": 102,
+          "params": [
+            "port",
+            "request",
+            "expected_body"
+          ]
+        },
+        {
+          "name": "run_benchmark",
+          "startLine": 104,
+          "endLine": 119,
+          "params": []
+        },
+        {
+          "name": "main",
+          "startLine": 123,
+          "endLine": 132,
+          "params": []
+        }
+      ],
+      "classes": [
+        {
+          "name": "ServerFixture",
+          "startLine": 18,
+          "endLine": 77,
+          "methods": [
+            "ServerFixture",
+            "~ServerFixture",
+            "make_get",
+            "make_post",
+            "make_server_config"
+          ],
+          "properties": [
+            "server",
+            "server_thread",
+            "port"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "ServerFixture",
+          "line": 23,
+          "isDefault": false
+        },
+        {
+          "name": "~ServerFixture",
+          "line": 44,
+          "isDefault": false
+        },
+        {
+          "name": "make_get",
+          "line": 50,
+          "isDefault": false
+        },
+        {
+          "name": "make_post",
+          "line": 57,
+          "isDefault": false
+        },
+        {
+          "name": "ServerFixture",
+          "line": 18,
+          "isDefault": false
+        },
+        {
+          "name": "exchange_http_request",
+          "line": 81,
+          "isDefault": false
+        },
+        {
+          "name": "run_benchmark",
+          "line": 104,
+          "isDefault": false
+        },
+        {
+          "name": "main",
+          "line": 123,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "ServerFixture",
+          "callee": "std::make_unique<hps::HttpServer>",
+          "lineNumber": 23
+        },
+        {
+          "caller": "ServerFixture",
+          "callee": "make_server_config",
+          "lineNumber": 23
+        },
+        {
+          "caller": "ServerFixture",
+          "callee": "get",
+          "lineNumber": 24
+        },
+        {
+          "caller": "ServerFixture",
+          "callee": "set_status",
+          "lineNumber": 25
+        },
+        {
+          "caller": "ServerFixture",
+          "callee": "set_header",
+          "lineNumber": 26
+        },
+        {
+          "caller": "ServerFixture",
+          "callee": "post",
+          "lineNumber": 29
+        },
+        {
+          "caller": "ServerFixture",
+          "callee": "set_status",
+          "lineNumber": 30
+        },
+        {
+          "caller": "ServerFixture",
+          "callee": "set_header",
+          "lineNumber": 31
+        },
+        {
+          "caller": "ServerFixture",
+          "callee": "init",
+          "lineNumber": 34
+        },
+        {
+          "caller": "ServerFixture",
+          "callee": "std::runtime_error",
+          "lineNumber": 35
+        },
+        {
+          "caller": "ServerFixture",
+          "callee": "actual_port",
+          "lineNumber": 37
+        },
+        {
+          "caller": "ServerFixture",
+          "callee": "std::runtime_error",
+          "lineNumber": 39
+        },
+        {
+          "caller": "ServerFixture",
+          "callee": "std::thread",
+          "lineNumber": 41
+        },
+        {
+          "caller": "ServerFixture",
+          "callee": "start",
+          "lineNumber": 41
+        },
+        {
+          "caller": "~ServerFixture",
+          "callee": "stop",
+          "lineNumber": 45
+        },
+        {
+          "caller": "~ServerFixture",
+          "callee": "joinable",
+          "lineNumber": 46
+        },
+        {
+          "caller": "~ServerFixture",
+          "callee": "join",
+          "lineNumber": 47
+        },
+        {
+          "caller": "make_post",
+          "callee": "std::to_string",
+          "lineNumber": 63
+        },
+        {
+          "caller": "make_post",
+          "callee": "size",
+          "lineNumber": 63
+        },
+        {
+          "caller": "exchange_http_request",
+          "callee": "is_connected",
+          "lineNumber": 82
+        },
+        {
+          "caller": "exchange_http_request",
+          "callee": "std::make_unique<hps::TcpClient>",
+          "lineNumber": 83
+        },
+        {
+          "caller": "exchange_http_request",
+          "callee": "connect_to_server",
+          "lineNumber": 84
+        },
+        {
+          "caller": "exchange_http_request",
+          "callee": "reset",
+          "lineNumber": 85
+        },
+        {
+          "caller": "exchange_http_request",
+          "callee": "send_message",
+          "lineNumber": 89
+        },
+        {
+          "caller": "exchange_http_request",
+          "callee": "reset",
+          "lineNumber": 90
+        },
+        {
+          "caller": "exchange_http_request",
+          "callee": "receive_message",
+          "lineNumber": 95
+        },
+        {
+          "caller": "exchange_http_request",
+          "callee": "reset",
+          "lineNumber": 96
+        },
+        {
+          "caller": "exchange_http_request",
+          "callee": "find",
+          "lineNumber": 99
+        },
+        {
+          "caller": "exchange_http_request",
+          "callee": "starts_with",
+          "lineNumber": 100
+        },
+        {
+          "caller": "exchange_http_request",
+          "callee": "substr",
+          "lineNumber": 101
+        },
+        {
+          "caller": "exchange_http_request",
+          "callee": "std::string_view",
+          "lineNumber": 101
+        },
+        {
+          "caller": "run_benchmark",
+          "callee": "hps::bench::default_qps_levels",
+          "lineNumber": 106
+        },
+        {
+          "caller": "run_benchmark",
+          "callee": "ServerFixture::make_get",
+          "lineNumber": 108
+        },
+        {
+          "caller": "run_benchmark",
+          "callee": "hps::bench::run_qps_steps",
+          "lineNumber": 109
+        },
+        {
+          "caller": "run_benchmark",
+          "callee": "exchange_http_request",
+          "lineNumber": 110
+        },
+        {
+          "caller": "run_benchmark",
+          "callee": "ServerFixture::make_post",
+          "lineNumber": 113
+        },
+        {
+          "caller": "run_benchmark",
+          "callee": "hps::bench::run_qps_steps",
+          "lineNumber": 114
+        },
+        {
+          "caller": "run_benchmark",
+          "callee": "exchange_http_request",
+          "lineNumber": 115
+        },
+        {
+          "caller": "main",
+          "callee": "run_benchmark",
+          "lineNumber": 125
+        },
+        {
+          "caller": "main",
+          "callee": "what",
+          "lineNumber": 127
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 8,
+        "functionCount": 8,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "benchmark/qps_http_utilities.cpp",
+      "language": "cpp",
+      "fileCategory": "code",
+      "totalLines": 92,
+      "nonEmptyLines": 79,
+      "functions": [
+        {
+          "name": "run_benchmark",
+          "startLine": 16,
+          "endLine": 79,
+          "params": []
+        },
+        {
+          "name": "main",
+          "startLine": 83,
+          "endLine": 92,
+          "params": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "run_benchmark",
+          "line": 16,
+          "isDefault": false
+        },
+        {
+          "name": "main",
+          "line": 83,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "run_benchmark",
+          "callee": "hps::bench::default_qps_levels",
+          "lineNumber": 17
+        },
+        {
+          "caller": "run_benchmark",
+          "callee": "hps::bench::run_qps_steps",
+          "lineNumber": 21
+        },
+        {
+          "caller": "run_benchmark",
+          "callee": "hps::url_decode",
+          "lineNumber": 23
+        },
+        {
+          "caller": "run_benchmark",
+          "callee": "hps::bench::run_qps_steps",
+          "lineNumber": 27
+        },
+        {
+          "caller": "run_benchmark",
+          "callee": "hps::url_decode",
+          "lineNumber": 29
+        },
+        {
+          "caller": "run_benchmark",
+          "callee": "hps::bench::run_qps_steps",
+          "lineNumber": 32
+        },
+        {
+          "caller": "run_benchmark",
+          "callee": "hps::parse_range_header",
+          "lineNumber": 33
+        },
+        {
+          "caller": "run_benchmark",
+          "callee": "size",
+          "lineNumber": 34
+        },
+        {
+          "caller": "run_benchmark",
+          "callee": "hps::bench::run_qps_steps",
+          "lineNumber": 39
+        },
+        {
+          "caller": "run_benchmark",
+          "callee": "hps::parse_range_header",
+          "lineNumber": 40
+        },
+        {
+          "caller": "run_benchmark",
+          "callee": "size",
+          "lineNumber": 41
+        },
+        {
+          "caller": "run_benchmark",
+          "callee": "hps::bench::run_qps_steps",
+          "lineNumber": 56
+        },
+        {
+          "caller": "run_benchmark",
+          "callee": "hps::http_method_to_string",
+          "lineNumber": 58
+        },
+        {
+          "caller": "run_benchmark",
+          "callee": "hps::string_to_http_method",
+          "lineNumber": 58
+        },
+        {
+          "caller": "run_benchmark",
+          "callee": "hps::string_to_http_method",
+          "lineNumber": 62
+        },
+        {
+          "caller": "run_benchmark",
+          "callee": "hps::bench::run_qps_steps",
+          "lineNumber": 65
+        },
+        {
+          "caller": "run_benchmark",
+          "callee": "size",
+          "lineNumber": 73
+        },
+        {
+          "caller": "run_benchmark",
+          "callee": "clear",
+          "lineNumber": 74
+        },
+        {
+          "caller": "run_benchmark",
+          "callee": "empty",
+          "lineNumber": 75
+        },
+        {
+          "caller": "main",
+          "callee": "run_benchmark",
+          "lineNumber": 85
+        },
+        {
+          "caller": "main",
+          "callee": "what",
+          "lineNumber": 87
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 2,
+        "functionCount": 2,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "benchmark/qps_lock_free_queue.cpp",
+      "language": "cpp",
+      "fileCategory": "code",
+      "totalLines": 117,
+      "nonEmptyLines": 102,
+      "functions": [
+        {
+          "name": "main",
+          "startLine": 14,
+          "endLine": 117,
+          "params": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "main",
+          "line": 14,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "main",
+          "callee": "hps::bench::default_qps_levels",
+          "lineNumber": 16
+        },
+        {
+          "caller": "main",
+          "callee": "std::format",
+          "lineNumber": 22
+        },
+        {
+          "caller": "main",
+          "callee": "flush",
+          "lineNumber": 23
+        },
+        {
+          "caller": "main",
+          "callee": "reserve",
+          "lineNumber": 32
+        },
+        {
+          "caller": "main",
+          "callee": "emplace_back",
+          "lineNumber": 35
+        },
+        {
+          "caller": "main",
+          "callee": "load",
+          "lineNumber": 36
+        },
+        {
+          "caller": "main",
+          "callee": "std::chrono::steady_clock::now",
+          "lineNumber": 38
+        },
+        {
+          "caller": "main",
+          "callee": "std::chrono::seconds",
+          "lineNumber": 38
+        },
+        {
+          "caller": "main",
+          "callee": "std::chrono::steady_clock::now",
+          "lineNumber": 40
+        },
+        {
+          "caller": "main",
+          "callee": "load",
+          "lineNumber": 40
+        },
+        {
+          "caller": "main",
+          "callee": "push",
+          "lineNumber": 41
+        },
+        {
+          "caller": "main",
+          "callee": "std::this_thread::yield",
+          "lineNumber": 44
+        },
+        {
+          "caller": "main",
+          "callee": "fetch_add",
+          "lineNumber": 47
+        },
+        {
+          "caller": "main",
+          "callee": "count_down",
+          "lineNumber": 48
+        },
+        {
+          "caller": "main",
+          "callee": "emplace_back",
+          "lineNumber": 51
+        },
+        {
+          "caller": "main",
+          "callee": "load",
+          "lineNumber": 52
+        },
+        {
+          "caller": "main",
+          "callee": "std::chrono::steady_clock::now",
+          "lineNumber": 55
+        },
+        {
+          "caller": "main",
+          "callee": "std::chrono::seconds",
+          "lineNumber": 55
+        },
+        {
+          "caller": "main",
+          "callee": "std::chrono::steady_clock::now",
+          "lineNumber": 56
+        },
+        {
+          "caller": "main",
+          "callee": "load",
+          "lineNumber": 56
+        },
+        {
+          "caller": "main",
+          "callee": "try_pop",
+          "lineNumber": 57
+        },
+        {
+          "caller": "main",
+          "callee": "std::this_thread::yield",
+          "lineNumber": 58
+        },
+        {
+          "caller": "main",
+          "callee": "count_down",
+          "lineNumber": 61
+        },
+        {
+          "caller": "main",
+          "callee": "std::chrono::steady_clock::now",
+          "lineNumber": 65
+        },
+        {
+          "caller": "main",
+          "callee": "store",
+          "lineNumber": 66
+        },
+        {
+          "caller": "main",
+          "callee": "load",
+          "lineNumber": 71
+        },
+        {
+          "caller": "main",
+          "callee": "std::this_thread::sleep_for",
+          "lineNumber": 72
+        },
+        {
+          "caller": "main",
+          "callee": "std::chrono::seconds",
+          "lineNumber": 72
+        },
+        {
+          "caller": "main",
+          "callee": "load",
+          "lineNumber": 73
+        },
+        {
+          "caller": "main",
+          "callee": "std::chrono::seconds",
+          "lineNumber": 80
+        },
+        {
+          "caller": "main",
+          "callee": "std::chrono::milliseconds",
+          "lineNumber": 80
+        },
+        {
+          "caller": "main",
+          "callee": "std::chrono::steady_clock::now",
+          "lineNumber": 81
+        },
+        {
+          "caller": "main",
+          "callee": "std::this_thread::sleep_for",
+          "lineNumber": 82
+        },
+        {
+          "caller": "main",
+          "callee": "std::chrono::milliseconds",
+          "lineNumber": 82
+        },
+        {
+          "caller": "main",
+          "callee": "store",
+          "lineNumber": 84
+        },
+        {
+          "caller": "main",
+          "callee": "stop",
+          "lineNumber": 85
+        },
+        {
+          "caller": "main",
+          "callee": "try_wait",
+          "lineNumber": 88
+        },
+        {
+          "caller": "main",
+          "callee": "wait",
+          "lineNumber": 89
+        },
+        {
+          "caller": "main",
+          "callee": "store",
+          "lineNumber": 92
+        },
+        {
+          "caller": "main",
+          "callee": "joinable",
+          "lineNumber": 93
+        },
+        {
+          "caller": "main",
+          "callee": "join",
+          "lineNumber": 94
+        },
+        {
+          "caller": "main",
+          "callee": "join",
+          "lineNumber": 95
+        },
+        {
+          "caller": "main",
+          "callee": "std::chrono::steady_clock::now",
+          "lineNumber": 97
+        },
+        {
+          "caller": "main",
+          "callee": "count",
+          "lineNumber": 98
+        },
+        {
+          "caller": "main",
+          "callee": "std::chrono::duration<double>",
+          "lineNumber": 98
+        },
+        {
+          "caller": "main",
+          "callee": "load",
+          "lineNumber": 99
+        },
+        {
+          "caller": "main",
+          "callee": "static_cast<double>",
+          "lineNumber": 104
+        },
+        {
+          "caller": "main",
+          "callee": "std::format",
+          "lineNumber": 105
+        },
+        {
+          "caller": "main",
+          "callee": "static_cast<int64_t>",
+          "lineNumber": 105
+        },
+        {
+          "caller": "main",
+          "callee": "push_back",
+          "lineNumber": 106
+        },
+        {
+          "caller": "main",
+          "callee": "hps::bench::print_qps_report",
+          "lineNumber": 108
+        },
+        {
+          "caller": "main",
+          "callee": "what",
+          "lineNumber": 112
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 1,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "benchmark/qps_logger.cpp",
+      "language": "cpp",
+      "fileCategory": "code",
+      "totalLines": 54,
+      "nonEmptyLines": 45,
+      "functions": [
+        {
+          "name": "run_benchmark",
+          "startLine": 13,
+          "endLine": 41,
+          "params": []
+        },
+        {
+          "name": "main",
+          "startLine": 45,
+          "endLine": 54,
+          "params": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "run_benchmark",
+          "line": 13,
+          "isDefault": false
+        },
+        {
+          "name": "main",
+          "line": 45,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "run_benchmark",
+          "callee": "hps::bench::default_qps_levels",
+          "lineNumber": 14
+        },
+        {
+          "caller": "run_benchmark",
+          "callee": "hps::bench::run_qps_steps",
+          "lineNumber": 16
+        },
+        {
+          "caller": "run_benchmark",
+          "callee": "std::make_shared<hps::LogEvent>",
+          "lineNumber": 17
+        },
+        {
+          "caller": "run_benchmark",
+          "callee": "getContent",
+          "lineNumber": 18
+        },
+        {
+          "caller": "run_benchmark",
+          "callee": "hps::bench::run_qps_steps",
+          "lineNumber": 21
+        },
+        {
+          "caller": "run_benchmark",
+          "callee": "std::make_shared<hps::LogEvent>",
+          "lineNumber": 24
+        },
+        {
+          "caller": "run_benchmark",
+          "callee": "std::to_string",
+          "lineNumber": 24
+        },
+        {
+          "caller": "run_benchmark",
+          "callee": "empty",
+          "lineNumber": 25
+        },
+        {
+          "caller": "run_benchmark",
+          "callee": "format",
+          "lineNumber": 25
+        },
+        {
+          "caller": "run_benchmark",
+          "callee": "std::make_shared<hps::FileLogAppender>",
+          "lineNumber": 28
+        },
+        {
+          "caller": "run_benchmark",
+          "callee": "set_auto_flush",
+          "lineNumber": 29
+        },
+        {
+          "caller": "run_benchmark",
+          "callee": "setFormatter",
+          "lineNumber": 30
+        },
+        {
+          "caller": "run_benchmark",
+          "callee": "std::make_shared<hps::LogFormatter>",
+          "lineNumber": 30
+        },
+        {
+          "caller": "run_benchmark",
+          "callee": "reopen",
+          "lineNumber": 31
+        },
+        {
+          "caller": "run_benchmark",
+          "callee": "hps::bench::run_qps_steps",
+          "lineNumber": 34
+        },
+        {
+          "caller": "run_benchmark",
+          "callee": "std::make_shared<hps::LogEvent>",
+          "lineNumber": 35
+        },
+        {
+          "caller": "run_benchmark",
+          "callee": "std::to_string",
+          "lineNumber": 35
+        },
+        {
+          "caller": "run_benchmark",
+          "callee": "log",
+          "lineNumber": 36
+        },
+        {
+          "caller": "main",
+          "callee": "run_benchmark",
+          "lineNumber": 47
+        },
+        {
+          "caller": "main",
+          "callee": "std::fprintf",
+          "lineNumber": 49
+        },
+        {
+          "caller": "main",
+          "callee": "what",
+          "lineNumber": 49
+        },
+        {
+          "caller": "main",
+          "callee": "std::fputs",
+          "lineNumber": 51
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 2,
+        "functionCount": 2,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "benchmark/qps_memory_pool.cpp",
+      "language": "cpp",
+      "fileCategory": "code",
+      "totalLines": 49,
+      "nonEmptyLines": 43,
+      "functions": [
+        {
+          "name": "main",
+          "startLine": 11,
+          "endLine": 49,
+          "params": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "main",
+          "line": 11,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "main",
+          "callee": "hps::bench::default_qps_levels",
+          "lineNumber": 13
+        },
+        {
+          "caller": "main",
+          "callee": "hps::CreateMemoryPool",
+          "lineNumber": 17
+        },
+        {
+          "caller": "main",
+          "callee": "hps::bench::run_qps_steps",
+          "lineNumber": 18
+        },
+        {
+          "caller": "main",
+          "callee": "allocate",
+          "lineNumber": 19
+        },
+        {
+          "caller": "main",
+          "callee": "deallocate",
+          "lineNumber": 20
+        },
+        {
+          "caller": "main",
+          "callee": "hps::CreateMemoryPool",
+          "lineNumber": 26
+        },
+        {
+          "caller": "main",
+          "callee": "hps::bench::run_qps_steps",
+          "lineNumber": 27
+        },
+        {
+          "caller": "main",
+          "callee": "allocate",
+          "lineNumber": 28
+        },
+        {
+          "caller": "main",
+          "callee": "deallocate",
+          "lineNumber": 29
+        },
+        {
+          "caller": "main",
+          "callee": "hps::CreateMemoryPool",
+          "lineNumber": 35
+        },
+        {
+          "caller": "main",
+          "callee": "hps::bench::run_qps_steps",
+          "lineNumber": 36
+        },
+        {
+          "caller": "main",
+          "callee": "allocate",
+          "lineNumber": 37
+        },
+        {
+          "caller": "main",
+          "callee": "deallocate",
+          "lineNumber": 38
+        },
+        {
+          "caller": "main",
+          "callee": "what",
+          "lineNumber": 44
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 1,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "benchmark/qps_move_only_function.cpp",
+      "language": "cpp",
+      "fileCategory": "code",
+      "totalLines": 43,
+      "nonEmptyLines": 37,
+      "functions": [
+        {
+          "name": "main",
+          "startLine": 8,
+          "endLine": 43,
+          "params": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "main",
+          "line": 8,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "main",
+          "callee": "hps::bench::default_qps_levels",
+          "lineNumber": 10
+        },
+        {
+          "caller": "main",
+          "callee": "hps::bench::run_qps_steps",
+          "lineNumber": 14
+        },
+        {
+          "caller": "main",
+          "callee": "f",
+          "lineNumber": 17
+        },
+        {
+          "caller": "main",
+          "callee": "hps::bench::run_qps_steps",
+          "lineNumber": 29
+        },
+        {
+          "caller": "main",
+          "callee": "f",
+          "lineNumber": 32
+        },
+        {
+          "caller": "main",
+          "callee": "what",
+          "lineNumber": 38
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 1,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "benchmark/qps_router.cpp",
+      "language": "cpp",
+      "fileCategory": "code",
+      "totalLines": 84,
+      "nonEmptyLines": 72,
+      "functions": [
+        {
+          "name": "RouterWithRoutes",
+          "startLine": 19,
+          "endLine": 27,
+          "params": []
+        },
+        {
+          "name": "main",
+          "startLine": 32,
+          "endLine": 84,
+          "params": []
+        }
+      ],
+      "classes": [
+        {
+          "name": "RouterWithRoutes",
+          "startLine": 16,
+          "endLine": 28,
+          "methods": [
+            "RouterWithRoutes"
+          ],
+          "properties": [
+            "router"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "RouterWithRoutes",
+          "line": 19,
+          "isDefault": false
+        },
+        {
+          "name": "RouterWithRoutes",
+          "line": 16,
+          "isDefault": false
+        },
+        {
+          "name": "main",
+          "line": 32,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "RouterWithRoutes",
+          "callee": "std::to_string",
+          "lineNumber": 21
+        },
+        {
+          "caller": "RouterWithRoutes",
+          "callee": "add",
+          "lineNumber": 22
+        },
+        {
+          "caller": "RouterWithRoutes",
+          "callee": "add",
+          "lineNumber": 24
+        },
+        {
+          "caller": "RouterWithRoutes",
+          "callee": "add",
+          "lineNumber": 25
+        },
+        {
+          "caller": "RouterWithRoutes",
+          "callee": "add",
+          "lineNumber": 26
+        },
+        {
+          "caller": "main",
+          "callee": "hps::bench::default_qps_levels",
+          "lineNumber": 34
+        },
+        {
+          "caller": "main",
+          "callee": "hps::bench::run_qps_steps",
+          "lineNumber": 39
+        },
+        {
+          "caller": "main",
+          "callee": "match",
+          "lineNumber": 42
+        },
+        {
+          "caller": "main",
+          "callee": "hps::bench::run_qps_steps",
+          "lineNumber": 49
+        },
+        {
+          "caller": "main",
+          "callee": "match",
+          "lineNumber": 52
+        },
+        {
+          "caller": "LargeRouter",
+          "callee": "std::to_string",
+          "lineNumber": 63
+        },
+        {
+          "caller": "LargeRouter",
+          "callee": "add",
+          "lineNumber": 64
+        },
+        {
+          "caller": "main",
+          "callee": "hps::bench::run_qps_steps",
+          "lineNumber": 70
+        },
+        {
+          "caller": "main",
+          "callee": "match",
+          "lineNumber": 73
+        },
+        {
+          "caller": "main",
+          "callee": "what",
+          "lineNumber": 79
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 3,
+        "functionCount": 2,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "benchmark/qps_runner.hpp",
+      "language": "cpp",
+      "fileCategory": "code",
+      "totalLines": 373,
+      "nonEmptyLines": 342,
+      "functions": [
+        {
+          "name": "default_qps_levels",
+          "startLine": 50,
+          "endLine": 71,
+          "params": []
+        },
+        {
+          "name": "percentile_index",
+          "startLine": 87,
+          "endLine": 89,
+          "params": [
+            "size",
+            "percentile"
+          ]
+        },
+        {
+          "name": "add_latency_sample",
+          "startLine": 91,
+          "endLine": 109,
+          "params": [
+            "samples",
+            "samples_seen",
+            "random_state",
+            "latency_ns"
+          ]
+        },
+        {
+          "name": "print_qps_header",
+          "startLine": 262,
+          "endLine": 287,
+          "params": []
+        },
+        {
+          "name": "print_qps_row",
+          "startLine": 289,
+          "endLine": 304,
+          "params": [
+            "s"
+          ]
+        },
+        {
+          "name": "print_qps_report",
+          "startLine": 306,
+          "endLine": 352,
+          "params": [
+            "bench_name",
+            "results"
+          ]
+        }
+      ],
+      "classes": [
+        {
+          "name": "QpsSample",
+          "startLine": 25,
+          "endLine": 40,
+          "methods": [],
+          "properties": [
+            "concurrency",
+            "duration_sec",
+            "total_attempts",
+            "total_ops",
+            "total_errors",
+            "latency_samples",
+            "qps",
+            "error_rate",
+            "avg_latency_ns",
+            "p50_ns",
+            "p90_ns",
+            "p99_ns",
+            "p99_9_ns"
+          ]
+        },
+        {
+          "name": "QpsLevel",
+          "startLine": 42,
+          "endLine": 45,
+          "methods": [],
+          "properties": [
+            "concurrency",
+            "duration_sec"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "QpsSample",
+          "line": 25,
+          "isDefault": false
+        },
+        {
+          "name": "QpsLevel",
+          "line": 42,
+          "isDefault": false
+        },
+        {
+          "name": "default_qps_levels",
+          "line": 50,
+          "isDefault": false
+        },
+        {
+          "name": "percentile_index",
+          "line": 87,
+          "isDefault": false
+        },
+        {
+          "name": "add_latency_sample",
+          "line": 91,
+          "isDefault": false
+        },
+        {
+          "name": "print_qps_header",
+          "line": 262,
+          "isDefault": false
+        },
+        {
+          "name": "print_qps_row",
+          "line": 289,
+          "isDefault": false
+        },
+        {
+          "name": "print_qps_report",
+          "line": 306,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "default_qps_levels",
+          "callee": "std::getenv",
+          "lineNumber": 51
+        },
+        {
+          "caller": "default_qps_levels",
+          "callee": "std::string_view",
+          "lineNumber": 52
+        },
+        {
+          "caller": "default_qps_levels",
+          "callee": "empty",
+          "lineNumber": 53
+        },
+        {
+          "caller": "default_qps_levels",
+          "callee": "std::invalid_argument",
+          "lineNumber": 70
+        },
+        {
+          "caller": "invoke_qps_operation",
+          "callee": "std::invoke",
+          "lineNumber": 79
+        },
+        {
+          "caller": "invoke_qps_operation",
+          "callee": "static_cast<bool>",
+          "lineNumber": 83
+        },
+        {
+          "caller": "invoke_qps_operation",
+          "callee": "std::invoke",
+          "lineNumber": 83
+        },
+        {
+          "caller": "percentile_index",
+          "callee": "static_cast<std::size_t>",
+          "lineNumber": 88
+        },
+        {
+          "caller": "percentile_index",
+          "callee": "static_cast<double>",
+          "lineNumber": 88
+        },
+        {
+          "caller": "add_latency_sample",
+          "callee": "size",
+          "lineNumber": 96
+        },
+        {
+          "caller": "add_latency_sample",
+          "callee": "push_back",
+          "lineNumber": 97
+        },
+        {
+          "caller": "add_latency_sample",
+          "callee": "static_cast<std::size_t>",
+          "lineNumber": 105
+        },
+        {
+          "caller": "add_latency_sample",
+          "callee": "size",
+          "lineNumber": 106
+        },
+        {
+          "caller": "run_qps",
+          "callee": "std::invalid_argument",
+          "lineNumber": 116
+        },
+        {
+          "caller": "run_qps",
+          "callee": "reserve",
+          "lineNumber": 127
+        },
+        {
+          "caller": "run_qps",
+          "callee": "static_cast<std::size_t>",
+          "lineNumber": 127
+        },
+        {
+          "caller": "run_qps",
+          "callee": "static_cast<std::size_t>",
+          "lineNumber": 134
+        },
+        {
+          "caller": "run_qps",
+          "callee": "reserve",
+          "lineNumber": 135
+        },
+        {
+          "caller": "run_qps",
+          "callee": "static_cast<std::uint64_t>",
+          "lineNumber": 137
+        },
+        {
+          "caller": "run_qps",
+          "callee": "count_down",
+          "lineNumber": 140
+        },
+        {
+          "caller": "run_qps",
+          "callee": "load",
+          "lineNumber": 141
+        },
+        {
+          "caller": "run_qps",
+          "callee": "std::this_thread::yield",
+          "lineNumber": 142
+        },
+        {
+          "caller": "run_qps",
+          "callee": "std::chrono::steady_clock::now",
+          "lineNumber": 145
+        },
+        {
+          "caller": "run_qps",
+          "callee": "std::chrono::steady_clock::now",
+          "lineNumber": 146
+        },
+        {
+          "caller": "run_qps",
+          "callee": "detail::invoke_qps_operation",
+          "lineNumber": 149
+        },
+        {
+          "caller": "run_qps",
+          "callee": "std::chrono::steady_clock::now",
+          "lineNumber": 153
+        },
+        {
+          "caller": "run_qps",
+          "callee": "detail::add_latency_sample",
+          "lineNumber": 160
+        },
+        {
+          "caller": "run_qps",
+          "callee": "count",
+          "lineNumber": 163
+        },
+        {
+          "caller": "run_qps",
+          "callee": "std::chrono::duration_cast<std::chrono::nanoseconds>",
+          "lineNumber": 163
+        },
+        {
+          "caller": "run_qps",
+          "callee": "emplace_back",
+          "lineNumber": 173
+        },
+        {
+          "caller": "run_qps",
+          "callee": "std::chrono::steady_clock::now",
+          "lineNumber": 176
+        },
+        {
+          "caller": "run_qps",
+          "callee": "store",
+          "lineNumber": 177
+        },
+        {
+          "caller": "run_qps",
+          "callee": "join",
+          "lineNumber": 179
+        },
+        {
+          "caller": "run_qps",
+          "callee": "wait",
+          "lineNumber": 184
+        },
+        {
+          "caller": "run_qps",
+          "callee": "std::thread",
+          "lineNumber": 190
+        },
+        {
+          "caller": "run_qps",
+          "callee": "wait_for",
+          "lineNumber": 193
+        },
+        {
+          "caller": "run_qps",
+          "callee": "std::chrono::seconds",
+          "lineNumber": 193
+        },
+        {
+          "caller": "run_qps",
+          "callee": "std::chrono::steady_clock::now",
+          "lineNumber": 200
+        },
+        {
+          "caller": "run_qps",
+          "callee": "store",
+          "lineNumber": 201
+        },
+        {
+          "caller": "run_qps",
+          "callee": "join",
+          "lineNumber": 203
+        },
+        {
+          "caller": "run_qps",
+          "callee": "std::chrono::steady_clock::now",
+          "lineNumber": 208
+        },
+        {
+          "caller": "run_qps",
+          "callee": "std::chrono::seconds",
+          "lineNumber": 209
+        },
+        {
+          "caller": "run_qps",
+          "callee": "store",
+          "lineNumber": 210
+        },
+        {
+          "caller": "run_qps",
+          "callee": "join",
+          "lineNumber": 213
+        },
+        {
+          "caller": "run_qps",
+          "callee": "notify_one",
+          "lineNumber": 219
+        },
+        {
+          "caller": "run_qps",
+          "callee": "join",
+          "lineNumber": 220
+        },
+        {
+          "caller": "run_qps",
+          "callee": "std::chrono::steady_clock::now",
+          "lineNumber": 221
+        },
+        {
+          "caller": "run_qps",
+          "callee": "size",
+          "lineNumber": 231
+        },
+        {
+          "caller": "run_qps",
+          "callee": "reserve",
+          "lineNumber": 235
+        },
+        {
+          "caller": "run_qps",
+          "callee": "insert",
+          "lineNumber": 237
+        },
+        {
+          "caller": "run_qps",
+          "callee": "end",
+          "lineNumber": 237
+        },
+        {
+          "caller": "run_qps",
+          "callee": "begin",
+          "lineNumber": 237
+        },
+        {
+          "caller": "run_qps",
+          "callee": "end",
+          "lineNumber": 237
+        },
+        {
+          "caller": "run_qps",
+          "callee": "std::sort",
+          "lineNumber": 239
+        },
+        {
+          "caller": "run_qps",
+          "callee": "begin",
+          "lineNumber": 239
+        },
+        {
+          "caller": "run_qps",
+          "callee": "end",
+          "lineNumber": 239
+        },
+        {
+          "caller": "run_qps",
+          "callee": "count",
+          "lineNumber": 241
+        },
+        {
+          "caller": "run_qps",
+          "callee": "std::chrono::duration<double>",
+          "lineNumber": 241
+        },
+        {
+          "caller": "run_qps",
+          "callee": "size",
+          "lineNumber": 248
+        },
+        {
+          "caller": "run_qps",
+          "callee": "static_cast<double>",
+          "lineNumber": 249
+        },
+        {
+          "caller": "run_qps",
+          "callee": "static_cast<double>",
+          "lineNumber": 250
+        },
+        {
+          "caller": "run_qps",
+          "callee": "empty",
+          "lineNumber": 251
+        },
+        {
+          "caller": "run_qps",
+          "callee": "std::accumulate",
+          "lineNumber": 252
+        },
+        {
+          "caller": "run_qps",
+          "callee": "begin",
+          "lineNumber": 252
+        },
+        {
+          "caller": "run_qps",
+          "callee": "end",
+          "lineNumber": 252
+        },
+        {
+          "caller": "run_qps",
+          "callee": "static_cast<double>",
+          "lineNumber": 253
+        },
+        {
+          "caller": "run_qps",
+          "callee": "size",
+          "lineNumber": 253
+        },
+        {
+          "caller": "run_qps",
+          "callee": "static_cast<double>",
+          "lineNumber": 254
+        },
+        {
+          "caller": "run_qps",
+          "callee": "detail::percentile_index",
+          "lineNumber": 254
+        },
+        {
+          "caller": "run_qps",
+          "callee": "size",
+          "lineNumber": 254
+        },
+        {
+          "caller": "run_qps",
+          "callee": "static_cast<double>",
+          "lineNumber": 255
+        },
+        {
+          "caller": "run_qps",
+          "callee": "detail::percentile_index",
+          "lineNumber": 255
+        },
+        {
+          "caller": "run_qps",
+          "callee": "size",
+          "lineNumber": 255
+        },
+        {
+          "caller": "run_qps",
+          "callee": "static_cast<double>",
+          "lineNumber": 256
+        },
+        {
+          "caller": "run_qps",
+          "callee": "detail::percentile_index",
+          "lineNumber": 256
+        },
+        {
+          "caller": "run_qps",
+          "callee": "size",
+          "lineNumber": 256
+        },
+        {
+          "caller": "run_qps",
+          "callee": "static_cast<double>",
+          "lineNumber": 257
+        },
+        {
+          "caller": "run_qps",
+          "callee": "detail::percentile_index",
+          "lineNumber": 257
+        },
+        {
+          "caller": "run_qps",
+          "callee": "size",
+          "lineNumber": 257
+        },
+        {
+          "caller": "print_qps_header",
+          "callee": "std::format",
+          "lineNumber": 263
+        },
+        {
+          "caller": "print_qps_header",
+          "callee": "std::format",
+          "lineNumber": 275
+        },
+        {
+          "caller": "print_qps_row",
+          "callee": "std::format",
+          "lineNumber": 291
+        },
+        {
+          "caller": "print_qps_report",
+          "callee": "std::format",
+          "lineNumber": 307
+        },
+        {
+          "caller": "print_qps_report",
+          "callee": "print_qps_header",
+          "lineNumber": 319
+        },
+        {
+          "caller": "print_qps_report",
+          "callee": "print_qps_row",
+          "lineNumber": 321
+        },
+        {
+          "caller": "print_qps_report",
+          "callee": "std::format",
+          "lineNumber": 324
+        },
+        {
+          "caller": "print_qps_report",
+          "callee": "std::format",
+          "lineNumber": 326
+        },
+        {
+          "caller": "print_qps_report",
+          "callee": "std::format",
+          "lineNumber": 335
+        },
+        {
+          "caller": "run_qps_steps",
+          "callee": "reserve",
+          "lineNumber": 357
+        },
+        {
+          "caller": "run_qps_steps",
+          "callee": "size",
+          "lineNumber": 357
+        },
+        {
+          "caller": "run_qps_steps",
+          "callee": "std::format",
+          "lineNumber": 360
+        },
+        {
+          "caller": "run_qps_steps",
+          "callee": "flush",
+          "lineNumber": 361
+        },
+        {
+          "caller": "run_qps_steps",
+          "callee": "run_qps",
+          "lineNumber": 362
+        },
+        {
+          "caller": "run_qps_steps",
+          "callee": "std::format",
+          "lineNumber": 363
+        },
+        {
+          "caller": "run_qps_steps",
+          "callee": "static_cast<int64_t>",
+          "lineNumber": 363
+        },
+        {
+          "caller": "run_qps_steps",
+          "callee": "push_back",
+          "lineNumber": 365
+        },
+        {
+          "caller": "run_qps_steps",
+          "callee": "print_qps_report",
+          "lineNumber": 367
+        },
+        {
+          "caller": "run_qps_steps",
+          "callee": "std::runtime_error",
+          "lineNumber": 369
+        },
+        {
+          "caller": "run_qps_steps",
+          "callee": "std::format",
+          "lineNumber": 369
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 8,
+        "functionCount": 6,
+        "classCount": 2
+      }
+    },
+    {
+      "path": "benchmark/qps_ssl.cpp",
+      "language": "cpp",
+      "fileCategory": "code",
+      "totalLines": 48,
+      "nonEmptyLines": 41,
+      "functions": [
+        {
+          "name": "main",
+          "startLine": 8,
+          "endLine": 48,
+          "params": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "main",
+          "line": 8,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "main",
+          "callee": "hps::bench::default_qps_levels",
+          "lineNumber": 10
+        },
+        {
+          "caller": "main",
+          "callee": "clear",
+          "lineNumber": 16
+        },
+        {
+          "caller": "main",
+          "callee": "clear",
+          "lineNumber": 17
+        },
+        {
+          "caller": "main",
+          "callee": "hps::bench::run_qps_steps",
+          "lineNumber": 19
+        },
+        {
+          "caller": "main",
+          "callee": "clear",
+          "lineNumber": 29
+        },
+        {
+          "caller": "main",
+          "callee": "clear",
+          "lineNumber": 30
+        },
+        {
+          "caller": "main",
+          "callee": "hps::bench::run_qps_steps",
+          "lineNumber": 33
+        },
+        {
+          "caller": "main",
+          "callee": "create_ssl",
+          "lineNumber": 34
+        },
+        {
+          "caller": "main",
+          "callee": "accept",
+          "lineNumber": 35
+        },
+        {
+          "caller": "main",
+          "callee": "shutdown_and_free",
+          "lineNumber": 36
+        },
+        {
+          "caller": "main",
+          "callee": "what",
+          "lineNumber": 43
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 1,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "benchmark/qps_tcp_server.cpp",
+      "language": "cpp",
+      "fileCategory": "code",
+      "totalLines": 120,
+      "nonEmptyLines": 106,
+      "functions": [
+        {
+          "name": "ServerFixture",
+          "startLine": 29,
+          "endLine": 62,
+          "params": []
+        },
+        {
+          "name": "~ServerFixture",
+          "startLine": 64,
+          "endLine": 68,
+          "params": []
+        },
+        {
+          "name": "exchange_tcp_payload",
+          "startLine": 73,
+          "endLine": 94,
+          "params": [
+            "port",
+            "payload"
+          ]
+        },
+        {
+          "name": "main",
+          "startLine": 98,
+          "endLine": 120,
+          "params": []
+        }
+      ],
+      "classes": [
+        {
+          "name": "ServerFixture",
+          "startLine": 23,
+          "endLine": 69,
+          "methods": [
+            "ServerFixture",
+            "~ServerFixture"
+          ],
+          "properties": [
+            "config",
+            "server",
+            "server_thread",
+            "port"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "ServerFixture",
+          "line": 29,
+          "isDefault": false
+        },
+        {
+          "name": "~ServerFixture",
+          "line": 64,
+          "isDefault": false
+        },
+        {
+          "name": "ServerFixture",
+          "line": 23,
+          "isDefault": false
+        },
+        {
+          "name": "exchange_tcp_payload",
+          "line": 73,
+          "isDefault": false
+        },
+        {
+          "name": "main",
+          "line": 98,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "ServerFixture",
+          "callee": "std::make_unique<hps::TcpServer>",
+          "lineNumber": 33
+        },
+        {
+          "caller": "ServerFixture",
+          "callee": "set_handler",
+          "lineNumber": 34
+        },
+        {
+          "caller": "ServerFixture",
+          "callee": "read_from_fd",
+          "lineNumber": 35
+        },
+        {
+          "caller": "ServerFixture",
+          "callee": "read_buffer",
+          "lineNumber": 36
+        },
+        {
+          "caller": "ServerFixture",
+          "callee": "empty",
+          "lineNumber": 37
+        },
+        {
+          "caller": "ServerFixture",
+          "callee": "write_buffer",
+          "lineNumber": 38
+        },
+        {
+          "caller": "ServerFixture",
+          "callee": "consume_read_buffer",
+          "lineNumber": 39
+        },
+        {
+          "caller": "ServerFixture",
+          "callee": "size",
+          "lineNumber": 39
+        },
+        {
+          "caller": "ServerFixture",
+          "callee": "write_to_fd",
+          "lineNumber": 40
+        },
+        {
+          "caller": "ServerFixture",
+          "callee": "init",
+          "lineNumber": 43
+        },
+        {
+          "caller": "ServerFixture",
+          "callee": "std::runtime_error",
+          "lineNumber": 44
+        },
+        {
+          "caller": "ServerFixture",
+          "callee": "actual_port",
+          "lineNumber": 46
+        },
+        {
+          "caller": "ServerFixture",
+          "callee": "std::runtime_error",
+          "lineNumber": 48
+        },
+        {
+          "caller": "ServerFixture",
+          "callee": "std::thread",
+          "lineNumber": 50
+        },
+        {
+          "caller": "ServerFixture",
+          "callee": "start",
+          "lineNumber": 50
+        },
+        {
+          "caller": "ServerFixture",
+          "callee": "std::chrono::steady_clock::now",
+          "lineNumber": 51
+        },
+        {
+          "caller": "ServerFixture",
+          "callee": "is_running",
+          "lineNumber": 52
+        },
+        {
+          "caller": "ServerFixture",
+          "callee": "std::chrono::steady_clock::now",
+          "lineNumber": 52
+        },
+        {
+          "caller": "ServerFixture",
+          "callee": "std::this_thread::sleep_for",
+          "lineNumber": 53
+        },
+        {
+          "caller": "ServerFixture",
+          "callee": "is_running",
+          "lineNumber": 55
+        },
+        {
+          "caller": "ServerFixture",
+          "callee": "stop",
+          "lineNumber": 56
+        },
+        {
+          "caller": "ServerFixture",
+          "callee": "joinable",
+          "lineNumber": 57
+        },
+        {
+          "caller": "ServerFixture",
+          "callee": "join",
+          "lineNumber": 58
+        },
+        {
+          "caller": "ServerFixture",
+          "callee": "std::runtime_error",
+          "lineNumber": 60
+        },
+        {
+          "caller": "~ServerFixture",
+          "callee": "stop",
+          "lineNumber": 65
+        },
+        {
+          "caller": "~ServerFixture",
+          "callee": "joinable",
+          "lineNumber": 66
+        },
+        {
+          "caller": "~ServerFixture",
+          "callee": "join",
+          "lineNumber": 67
+        },
+        {
+          "caller": "exchange_tcp_payload",
+          "callee": "is_connected",
+          "lineNumber": 76
+        },
+        {
+          "caller": "exchange_tcp_payload",
+          "callee": "std::make_unique<hps::TcpClient>",
+          "lineNumber": 77
+        },
+        {
+          "caller": "exchange_tcp_payload",
+          "callee": "connect_to_server",
+          "lineNumber": 78
+        },
+        {
+          "caller": "exchange_tcp_payload",
+          "callee": "reset",
+          "lineNumber": 79
+        },
+        {
+          "caller": "exchange_tcp_payload",
+          "callee": "send_message",
+          "lineNumber": 85
+        },
+        {
+          "caller": "exchange_tcp_payload",
+          "callee": "receive_message",
+          "lineNumber": 85
+        },
+        {
+          "caller": "exchange_tcp_payload",
+          "callee": "reset",
+          "lineNumber": 91
+        },
+        {
+          "caller": "main",
+          "callee": "hps::bench::default_qps_levels",
+          "lineNumber": 101
+        },
+        {
+          "caller": "main",
+          "callee": "hps::bench::run_qps_steps",
+          "lineNumber": 103
+        },
+        {
+          "caller": "main",
+          "callee": "connect_to_server",
+          "lineNumber": 105
+        },
+        {
+          "caller": "main",
+          "callee": "hps::bench::run_qps_steps",
+          "lineNumber": 109
+        },
+        {
+          "caller": "main",
+          "callee": "exchange_tcp_payload",
+          "lineNumber": 110
+        },
+        {
+          "caller": "main",
+          "callee": "what",
+          "lineNumber": 115
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 5,
+        "functionCount": 4,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "benchmark/qps_thread_pool.cpp",
+      "language": "cpp",
+      "fileCategory": "code",
+      "totalLines": 126,
+      "nonEmptyLines": 111,
+      "functions": [
+        {
+          "name": "bench_pool",
+          "startLine": 15,
+          "endLine": 78,
+          "params": [
+            "sample",
+            "pool",
+            "concurrency",
+            "duration_sec"
+          ]
+        },
+        {
+          "name": "main",
+          "startLine": 82,
+          "endLine": 126,
+          "params": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "bench_pool",
+          "line": 15,
+          "isDefault": false
+        },
+        {
+          "name": "main",
+          "line": 82,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "bench_pool",
+          "callee": "emplace_back",
+          "lineNumber": 23
+        },
+        {
+          "caller": "bench_pool",
+          "callee": "load",
+          "lineNumber": 24
+        },
+        {
+          "caller": "bench_pool",
+          "callee": "std::chrono::steady_clock::now",
+          "lineNumber": 26
+        },
+        {
+          "caller": "bench_pool",
+          "callee": "std::chrono::seconds",
+          "lineNumber": 26
+        },
+        {
+          "caller": "bench_pool",
+          "callee": "std::chrono::steady_clock::now",
+          "lineNumber": 27
+        },
+        {
+          "caller": "bench_pool",
+          "callee": "acquire",
+          "lineNumber": 28
+        },
+        {
+          "caller": "bench_pool",
+          "callee": "enqueue",
+          "lineNumber": 29
+        },
+        {
+          "caller": "bench_pool",
+          "callee": "fetch_add",
+          "lineNumber": 30
+        },
+        {
+          "caller": "bench_pool",
+          "callee": "release",
+          "lineNumber": 31
+        },
+        {
+          "caller": "bench_pool",
+          "callee": "std::chrono::steady_clock::now",
+          "lineNumber": 37
+        },
+        {
+          "caller": "bench_pool",
+          "callee": "store",
+          "lineNumber": 38
+        },
+        {
+          "caller": "bench_pool",
+          "callee": "load",
+          "lineNumber": 44
+        },
+        {
+          "caller": "bench_pool",
+          "callee": "std::this_thread::sleep_for",
+          "lineNumber": 45
+        },
+        {
+          "caller": "bench_pool",
+          "callee": "std::chrono::seconds",
+          "lineNumber": 45
+        },
+        {
+          "caller": "bench_pool",
+          "callee": "load",
+          "lineNumber": 46
+        },
+        {
+          "caller": "bench_pool",
+          "callee": "std::chrono::seconds",
+          "lineNumber": 55
+        },
+        {
+          "caller": "bench_pool",
+          "callee": "std::chrono::milliseconds",
+          "lineNumber": 55
+        },
+        {
+          "caller": "bench_pool",
+          "callee": "std::chrono::steady_clock::now",
+          "lineNumber": 56
+        },
+        {
+          "caller": "bench_pool",
+          "callee": "std::this_thread::sleep_for",
+          "lineNumber": 57
+        },
+        {
+          "caller": "bench_pool",
+          "callee": "std::chrono::milliseconds",
+          "lineNumber": 57
+        },
+        {
+          "caller": "bench_pool",
+          "callee": "store",
+          "lineNumber": 60
+        },
+        {
+          "caller": "bench_pool",
+          "callee": "joinable",
+          "lineNumber": 61
+        },
+        {
+          "caller": "bench_pool",
+          "callee": "join",
+          "lineNumber": 62
+        },
+        {
+          "caller": "bench_pool",
+          "callee": "join",
+          "lineNumber": 66
+        },
+        {
+          "caller": "bench_pool",
+          "callee": "wait_for_all_tasks",
+          "lineNumber": 67
+        },
+        {
+          "caller": "bench_pool",
+          "callee": "stop",
+          "lineNumber": 68
+        },
+        {
+          "caller": "bench_pool",
+          "callee": "wait_for_all_tasks",
+          "lineNumber": 69
+        },
+        {
+          "caller": "bench_pool",
+          "callee": "std::chrono::steady_clock::now",
+          "lineNumber": 70
+        },
+        {
+          "caller": "bench_pool",
+          "callee": "count",
+          "lineNumber": 72
+        },
+        {
+          "caller": "bench_pool",
+          "callee": "std::chrono::duration<double>",
+          "lineNumber": 72
+        },
+        {
+          "caller": "bench_pool",
+          "callee": "load",
+          "lineNumber": 73
+        },
+        {
+          "caller": "bench_pool",
+          "callee": "static_cast<double>",
+          "lineNumber": 77
+        },
+        {
+          "caller": "main",
+          "callee": "hps::bench::default_qps_levels",
+          "lineNumber": 84
+        },
+        {
+          "caller": "main",
+          "callee": "clear",
+          "lineNumber": 89
+        },
+        {
+          "caller": "main",
+          "callee": "std::format",
+          "lineNumber": 93
+        },
+        {
+          "caller": "main",
+          "callee": "flush",
+          "lineNumber": 94
+        },
+        {
+          "caller": "main",
+          "callee": "bench_pool",
+          "lineNumber": 95
+        },
+        {
+          "caller": "main",
+          "callee": "stop",
+          "lineNumber": 96
+        },
+        {
+          "caller": "main",
+          "callee": "std::format",
+          "lineNumber": 97
+        },
+        {
+          "caller": "main",
+          "callee": "static_cast<int64_t>",
+          "lineNumber": 97
+        },
+        {
+          "caller": "main",
+          "callee": "push_back",
+          "lineNumber": 98
+        },
+        {
+          "caller": "main",
+          "callee": "hps::bench::print_qps_report",
+          "lineNumber": 100
+        },
+        {
+          "caller": "main",
+          "callee": "clear",
+          "lineNumber": 105
+        },
+        {
+          "caller": "main",
+          "callee": "std::format",
+          "lineNumber": 109
+        },
+        {
+          "caller": "main",
+          "callee": "flush",
+          "lineNumber": 110
+        },
+        {
+          "caller": "main",
+          "callee": "bench_pool",
+          "lineNumber": 111
+        },
+        {
+          "caller": "main",
+          "callee": "stop",
+          "lineNumber": 112
+        },
+        {
+          "caller": "main",
+          "callee": "std::format",
+          "lineNumber": 113
+        },
+        {
+          "caller": "main",
+          "callee": "static_cast<int64_t>",
+          "lineNumber": 113
+        },
+        {
+          "caller": "main",
+          "callee": "push_back",
+          "lineNumber": 114
+        },
+        {
+          "caller": "main",
+          "callee": "hps::bench::print_qps_report",
+          "lineNumber": 116
+        },
+        {
+          "caller": "main",
+          "callee": "what",
+          "lineNumber": 121
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 2,
+        "functionCount": 2,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "benchmark/qps_websocket.cpp",
+      "language": "cpp",
+      "fileCategory": "code",
+      "totalLines": 50,
+      "nonEmptyLines": 44,
+      "functions": [
+        {
+          "name": "main",
+          "startLine": 10,
+          "endLine": 50,
+          "params": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "main",
+          "line": 10,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "main",
+          "callee": "hps::bench::default_qps_levels",
+          "lineNumber": 12
+        },
+        {
+          "caller": "main",
+          "callee": "hps::bench::run_qps_steps",
+          "lineNumber": 17
+        },
+        {
+          "caller": "main",
+          "callee": "hps::ws_encode_frame",
+          "lineNumber": 18
+        },
+        {
+          "caller": "main",
+          "callee": "hps::ws_encode_frame",
+          "lineNumber": 26
+        },
+        {
+          "caller": "main",
+          "callee": "data",
+          "lineNumber": 27
+        },
+        {
+          "caller": "main",
+          "callee": "size",
+          "lineNumber": 27
+        },
+        {
+          "caller": "main",
+          "callee": "hps::bench::run_qps_steps",
+          "lineNumber": 28
+        },
+        {
+          "caller": "main",
+          "callee": "hps::ws_decode_frame",
+          "lineNumber": 29
+        },
+        {
+          "caller": "main",
+          "callee": "hps::bench::run_qps_steps",
+          "lineNumber": 37
+        },
+        {
+          "caller": "main",
+          "callee": "hps::ws_encode_frame",
+          "lineNumber": 38
+        },
+        {
+          "caller": "main",
+          "callee": "what",
+          "lineNumber": 45
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 1,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    }
+  ]
+}

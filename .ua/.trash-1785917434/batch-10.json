@@ -1,0 +1,372 @@
+{
+  "nodes": [
+    {
+      "id": "file:logger/include/logger.h",
+      "type": "file",
+      "name": "logger/include/logger.h",
+      "summary": "日志模块核心头文件，定义日志级别枚举、日志事件 LogEvent、单例日志器 Logger（含嵌套协程作用域类）及静态便捷日志 API，支持协程 ID 关联、多追加器与 init/shutdown 两阶段生命周期管理。",
+      "tags": ["logging", "header", "singleton", "coroutine", "cpp"],
+      "complexity": "moderate",
+      "filePath": "logger/include/logger.h"
+    },
+    {
+      "id": "class:logger/include/logger.h:LogAppender",
+      "type": "class",
+      "name": "LogAppender",
+      "summary": "日志追加器的前置声明接口，Logger 通过 appenders_ 列表持有多个追加器实例，用于定义日志输出的目的地（如控制台、文件等）。",
+      "tags": ["logging", "appender", "interface"],
+      "complexity": "simple",
+      "lineRange": "13-13"
+    },
+    {
+      "id": "class:logger/include/logger.h:LogEvent",
+      "type": "class",
+      "name": "LogEvent",
+      "summary": "日志事件类，封装单条日志的源文件名、行号、线程 ID、程序运行耗时、时间戳、协程 ID、日志器名称与内容等元信息，并提供相应访问器。",
+      "tags": ["logging", "event", "metadata", "source-location"],
+      "complexity": "simple",
+      "lineRange": "19-51"
+    },
+    {
+      "id": "class:logger/include/logger.h:Logger",
+      "type": "class",
+      "name": "Logger",
+      "summary": "单例日志器，持有原子日志级别与追加器列表，提供 debug/info/warn/error/fatal 各级别日志输出、静态便捷 API、协程 ID 管理以及 init/shutdown 两阶段生命周期控制。",
+      "tags": ["logging", "singleton", "coroutine", "thread-safe"],
+      "complexity": "moderate",
+      "lineRange": "54-141"
+    },
+    {
+      "id": "class:logger/include/logger.h:CoroutineScope",
+      "type": "class",
+      "name": "CoroutineScope",
+      "summary": "Logger 内部嵌套的 RAII 作用域类，构造时设置当前协程 ID、析构时恢复先前协程 ID，用于将日志输出与协程执行上下文关联。",
+      "tags": ["logging", "coroutine", "raii"],
+      "complexity": "simple",
+      "lineRange": "63-73"
+    },
+    {
+      "id": "function:logger/include/logger.h:debug",
+      "type": "function",
+      "name": "debug",
+      "summary": "Logger 实例方法，以 DEBUG 级别记录日志事件，接收日志消息与 source_location（声明于头文件，实现在源文件中）。",
+      "tags": ["logging", "debug", "method"],
+      "complexity": "simple",
+      "lineRange": "79-79"
+    },
+    {
+      "id": "function:logger/include/logger.h:info",
+      "type": "function",
+      "name": "info",
+      "summary": "Logger 实例方法，以 INFO 级别记录日志事件，接收日志消息与 source_location（声明于头文件，实现在源文件中）。",
+      "tags": ["logging", "info", "method"],
+      "complexity": "simple",
+      "lineRange": "80-80"
+    },
+    {
+      "id": "function:logger/include/logger.h:warn",
+      "type": "function",
+      "name": "warn",
+      "summary": "Logger 实例方法，以 WARN 级别记录日志事件，接收日志消息与 source_location（声明于头文件，实现在源文件中）。",
+      "tags": ["logging", "warn", "method"],
+      "complexity": "simple",
+      "lineRange": "81-81"
+    },
+    {
+      "id": "function:logger/include/logger.h:error",
+      "type": "function",
+      "name": "error",
+      "summary": "Logger 实例方法，以 ERROR 级别记录日志事件，接收日志消息与 source_location（声明于头文件，实现在源文件中）。",
+      "tags": ["logging", "error", "method"],
+      "complexity": "simple",
+      "lineRange": "82-82"
+    },
+    {
+      "id": "function:logger/include/logger.h:fatal",
+      "type": "function",
+      "name": "fatal",
+      "summary": "Logger 实例方法，以 FATAL 级别记录日志事件，接收日志消息与 source_location（声明于头文件，实现在源文件中）。",
+      "tags": ["logging", "fatal", "method"],
+      "complexity": "simple",
+      "lineRange": "83-83"
+    },
+    {
+      "id": "function:logger/include/logger.h:_debug",
+      "type": "function",
+      "name": "_debug",
+      "summary": "Logger 静态便捷 API，单例已初始化时以 DEBUG 级别输出日志，未初始化时静默丢弃，供全局直接调用。",
+      "tags": ["logging", "debug", "static", "singleton"],
+      "complexity": "simple",
+      "lineRange": "100-104"
+    },
+    {
+      "id": "function:logger/include/logger.h:_info",
+      "type": "function",
+      "name": "_info",
+      "summary": "Logger 静态便捷 API，单例已初始化时以 INFO 级别输出日志，未初始化时静默丢弃，供全局直接调用。",
+      "tags": ["logging", "info", "static", "singleton"],
+      "complexity": "simple",
+      "lineRange": "106-110"
+    },
+    {
+      "id": "function:logger/include/logger.h:_warn",
+      "type": "function",
+      "name": "_warn",
+      "summary": "Logger 静态便捷 API，单例已初始化时以 WARN 级别输出日志，未初始化时静默丢弃，供全局直接调用。",
+      "tags": ["logging", "warn", "static", "singleton"],
+      "complexity": "simple",
+      "lineRange": "112-116"
+    },
+    {
+      "id": "function:logger/include/logger.h:_error",
+      "type": "function",
+      "name": "_error",
+      "summary": "Logger 静态便捷 API，单例已初始化时以 ERROR 级别输出日志，未初始化时静默丢弃，供全局直接调用。",
+      "tags": ["logging", "error", "static", "singleton"],
+      "complexity": "simple",
+      "lineRange": "118-122"
+    },
+    {
+      "id": "function:logger/include/logger.h:_fatal",
+      "type": "function",
+      "name": "_fatal",
+      "summary": "Logger 静态便捷 API，单例已初始化时以 FATAL 级别输出日志，未初始化时静默丢弃，供全局直接调用。",
+      "tags": ["logging", "fatal", "static", "singleton"],
+      "complexity": "simple",
+      "lineRange": "124-128"
+    }
+  ],
+  "edges": [
+    {
+      "source": "file:logger/include/logger.h",
+      "target": "class:logger/include/logger.h:LogAppender",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:logger/include/logger.h",
+      "target": "class:logger/include/logger.h:LogEvent",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:logger/include/logger.h",
+      "target": "class:logger/include/logger.h:Logger",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:logger/include/logger.h",
+      "target": "class:logger/include/logger.h:CoroutineScope",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:logger/include/logger.h",
+      "target": "function:logger/include/logger.h:debug",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:logger/include/logger.h",
+      "target": "function:logger/include/logger.h:info",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:logger/include/logger.h",
+      "target": "function:logger/include/logger.h:warn",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:logger/include/logger.h",
+      "target": "function:logger/include/logger.h:error",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:logger/include/logger.h",
+      "target": "function:logger/include/logger.h:fatal",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:logger/include/logger.h",
+      "target": "function:logger/include/logger.h:_debug",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:logger/include/logger.h",
+      "target": "function:logger/include/logger.h:_info",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:logger/include/logger.h",
+      "target": "function:logger/include/logger.h:_warn",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:logger/include/logger.h",
+      "target": "function:logger/include/logger.h:_error",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:logger/include/logger.h",
+      "target": "function:logger/include/logger.h:_fatal",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:logger/include/logger.h",
+      "target": "class:logger/include/logger.h:LogAppender",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:logger/include/logger.h",
+      "target": "class:logger/include/logger.h:LogEvent",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:logger/include/logger.h",
+      "target": "class:logger/include/logger.h:Logger",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:logger/include/logger.h",
+      "target": "class:logger/include/logger.h:CoroutineScope",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:logger/include/logger.h",
+      "target": "function:logger/include/logger.h:debug",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:logger/include/logger.h",
+      "target": "function:logger/include/logger.h:info",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:logger/include/logger.h",
+      "target": "function:logger/include/logger.h:warn",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:logger/include/logger.h",
+      "target": "function:logger/include/logger.h:error",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:logger/include/logger.h",
+      "target": "function:logger/include/logger.h:fatal",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:logger/include/logger.h",
+      "target": "function:logger/include/logger.h:_debug",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:logger/include/logger.h",
+      "target": "function:logger/include/logger.h:_info",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:logger/include/logger.h",
+      "target": "function:logger/include/logger.h:_warn",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:logger/include/logger.h",
+      "target": "function:logger/include/logger.h:_error",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:logger/include/logger.h",
+      "target": "function:logger/include/logger.h:_fatal",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:logger/include/logger.h:_debug",
+      "target": "function:logger/include/logger.h:debug",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:logger/include/logger.h:_info",
+      "target": "function:logger/include/logger.h:info",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:logger/include/logger.h:_warn",
+      "target": "function:logger/include/logger.h:warn",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:logger/include/logger.h:_error",
+      "target": "function:logger/include/logger.h:error",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:logger/include/logger.h:_fatal",
+      "target": "function:logger/include/logger.h:fatal",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    }
+  ]
+}

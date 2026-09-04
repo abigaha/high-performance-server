@@ -1,0 +1,1518 @@
+{
+ "nodes": [
+  {
+   "id": "file:net/tcp/tcp_server/src/connection.cpp",
+   "type": "file",
+   "name": "net/tcp/tcp_server/src/connection.cpp",
+   "summary": "Connection 连接类实现：封装 TCP/SSL 读写、读写缓冲区消费、连接活跃时间管理与协程 awaiter。",
+   "tags": [
+    "tcp-connection",
+    "ssl",
+    "buffer",
+    "coroutine",
+    "cpp"
+   ],
+   "complexity": "complex",
+   "filePath": "net/tcp/tcp_server/src/connection.cpp"
+  },
+  {
+   "id": "function:net/tcp/tcp_server/src/connection.cpp:Connection",
+   "type": "function",
+   "name": "Connection",
+   "summary": "构造函数，记录 fd、对端地址与创建时间。",
+   "tags": [
+    "connection",
+    "cpp",
+    "tcp"
+   ],
+   "complexity": "simple",
+   "lineRange": [
+    15,
+    15
+   ]
+  },
+  {
+   "id": "function:net/tcp/tcp_server/src/connection.cpp:~Connection",
+   "type": "function",
+   "name": "~Connection",
+   "summary": "析构时调用 close 关闭连接。",
+   "tags": [
+    "connection",
+    "cpp",
+    "tcp"
+   ],
+   "complexity": "simple",
+   "lineRange": [
+    17,
+    21
+   ]
+  },
+  {
+   "id": "function:net/tcp/tcp_server/src/connection.cpp:client_ip",
+   "type": "function",
+   "name": "client_ip",
+   "summary": "使用 inet_ntop 格式化客户端 IP 字符串。",
+   "tags": [
+    "client-ip",
+    "cpp",
+    "tcp"
+   ],
+   "complexity": "simple",
+   "lineRange": [
+    23,
+    27
+   ]
+  },
+  {
+   "id": "function:net/tcp/tcp_server/src/connection.cpp:client_port",
+   "type": "function",
+   "name": "client_port",
+   "summary": "返回客户端端口号。",
+   "tags": [
+    "client-port",
+    "cpp",
+    "tcp"
+   ],
+   "complexity": "simple",
+   "lineRange": [
+    29,
+    31
+   ]
+  },
+  {
+   "id": "function:net/tcp/tcp_server/src/connection.cpp:read_from_fd",
+   "type": "function",
+   "name": "read_from_fd",
+   "summary": "根据 SSL 状态分派到加密或明文读取路径，并更新活跃时间。",
+   "tags": [
+    "read-from-fd",
+    "cpp",
+    "tcp"
+   ],
+   "complexity": "simple",
+   "lineRange": [
+    33,
+    43
+   ]
+  },
+  {
+   "id": "function:net/tcp/tcp_server/src/connection.cpp:ssl_read_from_fd",
+   "type": "function",
+   "name": "ssl_read_from_fd",
+   "summary": "SSL_read 读入缓冲区，处理 WANT_READ/WANT_WRITE 等 SSL 错误码。",
+   "tags": [
+    "ssl-read-from-fd",
+    "cpp",
+    "tcp"
+   ],
+   "complexity": "moderate",
+   "lineRange": [
+    45,
+    77
+   ]
+  },
+  {
+   "id": "function:net/tcp/tcp_server/src/connection.cpp:plain_read_from_fd",
+   "type": "function",
+   "name": "plain_read_from_fd",
+   "summary": "::read 读入缓冲区，处理 EAGAIN、错误与断开。",
+   "tags": [
+    "plain-read-from-fd",
+    "cpp",
+    "tcp"
+   ],
+   "complexity": "moderate",
+   "lineRange": [
+    79,
+    110
+   ]
+  },
+  {
+   "id": "function:net/tcp/tcp_server/src/connection.cpp:ssl_write_to_fd_locked",
+   "type": "function",
+   "name": "ssl_write_to_fd_locked",
+   "summary": "SSL_write 写出数据，处理 SSL 错误并推进写入位置。",
+   "tags": [
+    "ssl-write-to-fd-locked",
+    "cpp",
+    "tcp"
+   ],
+   "complexity": "moderate",
+   "lineRange": [
+    112,
+    136
+   ]
+  },
+  {
+   "id": "function:net/tcp/tcp_server/src/connection.cpp:plain_write_to_fd_locked",
+   "type": "function",
+   "name": "plain_write_to_fd_locked",
+   "summary": "::write 写出数据并推进写入位置。",
+   "tags": [
+    "plain-write-to-fd-locked",
+    "cpp",
+    "tcp"
+   ],
+   "complexity": "moderate",
+   "lineRange": [
+    138,
+    159
+   ]
+  },
+  {
+   "id": "function:net/tcp/tcp_server/src/connection.cpp:write_to_fd",
+   "type": "function",
+   "name": "write_to_fd",
+   "summary": "加锁后调用 write_to_fd_locked 写出。",
+   "tags": [
+    "write-to-fd",
+    "cpp",
+    "tcp"
+   ],
+   "complexity": "simple",
+   "lineRange": [
+    161,
+    165
+   ]
+  },
+  {
+   "id": "function:net/tcp/tcp_server/src/connection.cpp:write_to_fd_locked",
+   "type": "function",
+   "name": "write_to_fd_locked",
+   "summary": "加锁写出写缓冲区已写入部分并清空，更新活跃时间。",
+   "tags": [
+    "write-to-fd-locked",
+    "cpp",
+    "tcp"
+   ],
+   "complexity": "moderate",
+   "lineRange": [
+    167,
+    187
+   ]
+  },
+  {
+   "id": "function:net/tcp/tcp_server/src/connection.cpp:close",
+   "type": "function",
+   "name": "close",
+   "summary": "SSL_shutdown/SSL_free 释放 SSL 并关闭底层 fd。",
+   "tags": [
+    "close",
+    "cpp",
+    "tcp"
+   ],
+   "complexity": "simple",
+   "lineRange": [
+    189,
+    203
+   ]
+  },
+  {
+   "id": "function:net/tcp/tcp_server/src/connection.cpp:consume_read_buffer",
+   "type": "function",
+   "name": "consume_read_buffer",
+   "summary": "消费读缓冲区前部指定字节。",
+   "tags": [
+    "consume-read-buffer",
+    "cpp",
+    "tcp"
+   ],
+   "complexity": "simple",
+   "lineRange": [
+    205,
+    208
+   ]
+  },
+  {
+   "id": "function:net/tcp/tcp_server/src/connection.cpp:consume_read_buffer_locked",
+   "type": "function",
+   "name": "consume_read_buffer_locked",
+   "summary": "加锁消费读缓冲区并更新活跃时间。",
+   "tags": [
+    "consume-read-buffer-locked",
+    "cpp",
+    "tcp"
+   ],
+   "complexity": "simple",
+   "lineRange": [
+    210,
+    217
+   ]
+  },
+  {
+   "id": "function:net/tcp/tcp_server/src/connection.cpp:await_read",
+   "type": "function",
+   "name": "await_read",
+   "summary": "await_read 协程 awaiter 类型。",
+   "tags": [
+    "await-read",
+    "cpp",
+    "tcp"
+   ],
+   "complexity": "simple",
+   "lineRange": [
+    222,
+    224
+   ]
+  },
+  {
+   "id": "function:net/tcp/tcp_server/src/connection.cpp:await_write",
+   "type": "function",
+   "name": "await_write",
+   "summary": "await_write 协程 awaiter 类型。",
+   "tags": [
+    "await-write",
+    "cpp",
+    "tcp"
+   ],
+   "complexity": "simple",
+   "lineRange": [
+    226,
+    228
+   ]
+  },
+  {
+   "id": "function:net/tcp/tcp_server/src/connection.cpp:await_suspend",
+   "type": "function",
+   "name": "await_suspend",
+   "summary": "协程挂起时触发 read_from_fd 或 write_to_fd 并恢复执行（重载合并）。",
+   "tags": [
+    "await-suspend",
+    "cpp",
+    "tcp"
+   ],
+   "complexity": "moderate",
+   "lineRange": [
+    230,
+    238
+   ]
+  },
+  {
+   "id": "file:net/tcp/tcp_server/src/tcp_server.cpp",
+   "type": "file",
+   "name": "net/tcp/tcp_server/src/tcp_server.cpp",
+   "summary": "TcpServer 实现：epoll ET 事件循环服务端，处理 accept/读写事件、TLS 探测与握手、线程池派发与优雅关闭。",
+   "tags": [
+    "tcp-server",
+    "epoll",
+    "event-loop",
+    "tls",
+    "cpp"
+   ],
+   "complexity": "complex",
+   "filePath": "net/tcp/tcp_server/src/tcp_server.cpp"
+  },
+  {
+   "id": "class:net/tcp/tcp_server/src/tcp_server.cpp:EpollFd",
+   "type": "class",
+   "name": "EpollFd",
+   "summary": "epoll 文件描述符的 RAII 包装结构。",
+   "tags": [
+    "epoll",
+    "raii",
+    "tcp"
+   ],
+   "complexity": "simple",
+   "lineRange": [
+    28,
+    30
+   ]
+  },
+  {
+   "id": "class:net/tcp/tcp_server/src/tcp_server.cpp:EpollEvents",
+   "type": "class",
+   "name": "EpollEvents",
+   "summary": "epoll 事件标志位集合的包装结构。",
+   "tags": [
+    "epoll",
+    "event-flags",
+    "tcp"
+   ],
+   "complexity": "simple",
+   "lineRange": [
+    32,
+    34
+   ]
+  },
+  {
+   "id": "function:net/tcp/tcp_server/src/tcp_server.cpp:epoll_ctl_add",
+   "type": "function",
+   "name": "epoll_ctl_add",
+   "summary": "包装 epoll_ctl 的 EPOLL_CTL_ADD 操作。",
+   "tags": [
+    "epoll-ctl-add",
+    "cpp",
+    "tcp"
+   ],
+   "complexity": "simple",
+   "lineRange": [
+    36,
+    42
+   ]
+  },
+  {
+   "id": "function:net/tcp/tcp_server/src/tcp_server.cpp:epoll_ctl_mod",
+   "type": "function",
+   "name": "epoll_ctl_mod",
+   "summary": "包装 epoll_ctl 的 EPOLL_CTL_MOD 操作。",
+   "tags": [
+    "epoll-ctl-mod",
+    "cpp",
+    "tcp"
+   ],
+   "complexity": "simple",
+   "lineRange": [
+    44,
+    50
+   ]
+  },
+  {
+   "id": "function:net/tcp/tcp_server/src/tcp_server.cpp:signal_handler",
+   "type": "function",
+   "name": "signal_handler",
+   "summary": "捕获 SIGINT/SIGTERM 信号并触发服务器停止。",
+   "tags": [
+    "signal-handler",
+    "cpp",
+    "tcp"
+   ],
+   "complexity": "simple",
+   "lineRange": [
+    56,
+    61
+   ]
+  },
+  {
+   "id": "function:net/tcp/tcp_server/src/tcp_server.cpp:TcpServer",
+   "type": "function",
+   "name": "TcpServer",
+   "summary": "构造函数，保存服务器配置。",
+   "tags": [
+    "tcpserver",
+    "cpp",
+    "tcp"
+   ],
+   "complexity": "simple",
+   "lineRange": [
+    63,
+    68
+   ]
+  },
+  {
+   "id": "function:net/tcp/tcp_server/src/tcp_server.cpp:~TcpServer",
+   "type": "function",
+   "name": "~TcpServer",
+   "summary": "析构函数，调用 stop 停止服务器。",
+   "tags": [
+    "tcpserver",
+    "cpp",
+    "tcp"
+   ],
+   "complexity": "simple",
+   "lineRange": [
+    70,
+    75
+   ]
+  },
+  {
+   "id": "function:net/tcp/tcp_server/src/tcp_server.cpp:init",
+   "type": "function",
+   "name": "init",
+   "summary": "创建监听 socket、设置 SO_REUSEADDR、bind/listen、创建 epoll 与 eventfd、注册信号处理，初始化线程池与 SSL 上下文。",
+   "tags": [
+    "init",
+    "cpp",
+    "tcp"
+   ],
+   "complexity": "complex",
+   "lineRange": [
+    77,
+    199
+   ]
+  },
+  {
+   "id": "function:net/tcp/tcp_server/src/tcp_server.cpp:set_handler",
+   "type": "function",
+   "name": "set_handler",
+   "summary": "设置连接事件处理回调。",
+   "tags": [
+    "set-handler",
+    "cpp",
+    "tcp"
+   ],
+   "complexity": "simple",
+   "lineRange": [
+    201,
+    203
+   ]
+  },
+  {
+   "id": "function:net/tcp/tcp_server/src/tcp_server.cpp:start",
+   "type": "function",
+   "name": "start",
+   "summary": "启动事件循环主线程。",
+   "tags": [
+    "start",
+    "cpp",
+    "tcp"
+   ],
+   "complexity": "simple",
+   "lineRange": [
+    205,
+    210
+   ]
+  },
+  {
+   "id": "function:net/tcp/tcp_server/src/tcp_server.cpp:stop",
+   "type": "function",
+   "name": "stop",
+   "summary": "置停止标志并通过 eventfd 唤醒事件循环。",
+   "tags": [
+    "stop",
+    "cpp",
+    "tcp"
+   ],
+   "complexity": "moderate",
+   "lineRange": [
+    212,
+    223
+   ]
+  },
+  {
+   "id": "function:net/tcp/tcp_server/src/tcp_server.cpp:event_loop",
+   "type": "function",
+   "name": "event_loop",
+   "summary": "epoll_wait 主循环，分发事件并在退出时清理资源。",
+   "tags": [
+    "event-loop",
+    "cpp",
+    "tcp"
+   ],
+   "complexity": "moderate",
+   "lineRange": [
+    225,
+    245
+   ]
+  },
+  {
+   "id": "function:net/tcp/tcp_server/src/tcp_server.cpp:cleanup_resources",
+   "type": "function",
+   "name": "cleanup_resources",
+   "summary": "关闭监听 fd、eventfd 并清理所有连接资源。",
+   "tags": [
+    "cleanup-resources",
+    "cpp",
+    "tcp"
+   ],
+   "complexity": "moderate",
+   "lineRange": [
+    247,
+    276
+   ]
+  },
+  {
+   "id": "function:net/tcp/tcp_server/src/tcp_server.cpp:handle_event",
+   "type": "function",
+   "name": "handle_event",
+   "summary": "根据事件类型与唤醒 fd 分派到 accept/读写处理。",
+   "tags": [
+    "handle-event",
+    "cpp",
+    "tcp"
+   ],
+   "complexity": "moderate",
+   "lineRange": [
+    278,
+    303
+   ]
+  },
+  {
+   "id": "function:net/tcp/tcp_server/src/tcp_server.cpp:handle_accept",
+   "type": "function",
+   "name": "handle_accept",
+   "summary": "accept4 接受新连接，创建 Connection 并注册到 epoll。",
+   "tags": [
+    "handle-accept",
+    "cpp",
+    "tcp"
+   ],
+   "complexity": "moderate",
+   "lineRange": [
+    305,
+    335
+   ]
+  },
+  {
+   "id": "function:net/tcp/tcp_server/src/tcp_server.cpp:handle_read",
+   "type": "function",
+   "name": "handle_read",
+   "summary": "读取连接数据，将请求派发到线程池处理，处理写缓冲与唤醒。",
+   "tags": [
+    "handle-read",
+    "cpp",
+    "tcp"
+   ],
+   "complexity": "complex",
+   "lineRange": [
+    337,
+    380
+   ]
+  },
+  {
+   "id": "function:net/tcp/tcp_server/src/tcp_server.cpp:handle_write",
+   "type": "function",
+   "name": "handle_write",
+   "summary": "写出写缓冲并调整 epoll 事件注册。",
+   "tags": [
+    "handle-write",
+    "cpp",
+    "tcp"
+   ],
+   "complexity": "moderate",
+   "lineRange": [
+    382,
+    404
+   ]
+  },
+  {
+   "id": "function:net/tcp/tcp_server/src/tcp_server.cpp:try_ssl_detection",
+   "type": "function",
+   "name": "try_ssl_detection",
+   "summary": "探测首字节判断客户端是否发起 TLS，创建并设置 SSL 对象。",
+   "tags": [
+    "try-ssl-detection",
+    "cpp",
+    "tcp"
+   ],
+   "complexity": "moderate",
+   "lineRange": [
+    406,
+    429
+   ]
+  },
+  {
+   "id": "function:net/tcp/tcp_server/src/tcp_server.cpp:try_ssl_handshake",
+   "type": "function",
+   "name": "try_ssl_handshake",
+   "summary": "根据 SSL 状态决定是否进入握手流程。",
+   "tags": [
+    "try-ssl-handshake",
+    "cpp",
+    "tcp"
+   ],
+   "complexity": "simple",
+   "lineRange": [
+    431,
+    437
+   ]
+  },
+  {
+   "id": "function:net/tcp/tcp_server/src/tcp_server.cpp:handle_client_event",
+   "type": "function",
+   "name": "handle_client_event",
+   "summary": "客户端可读/可写/关闭事件的分派处理。",
+   "tags": [
+    "handle-client-event",
+    "cpp",
+    "tcp"
+   ],
+   "complexity": "moderate",
+   "lineRange": [
+    439,
+    458
+   ]
+  },
+  {
+   "id": "function:net/tcp/tcp_server/src/tcp_server.cpp:handle_ssl_handshake",
+   "type": "function",
+   "name": "handle_ssl_handshake",
+   "summary": "SSL_accept 握手流程、事件调整与错误处理。",
+   "tags": [
+    "handle-ssl-handshake",
+    "cpp",
+    "tcp"
+   ],
+   "complexity": "moderate",
+   "lineRange": [
+    460,
+    486
+   ]
+  },
+  {
+   "id": "function:net/tcp/tcp_server/src/tcp_server.cpp:close_connection",
+   "type": "function",
+   "name": "close_connection",
+   "summary": "关闭连接、注销 epoll 并调用关闭回调。",
+   "tags": [
+    "close-connection",
+    "cpp",
+    "tcp"
+   ],
+   "complexity": "moderate",
+   "lineRange": [
+    488,
+    502
+   ]
+  },
+  {
+   "id": "function:net/tcp/tcp_server/src/tcp_server.cpp:notify_wake",
+   "type": "function",
+   "name": "notify_wake",
+   "summary": "向 eventfd 写入字节以唤醒事件循环。",
+   "tags": [
+    "notify-wake",
+    "cpp",
+    "tcp"
+   ],
+   "complexity": "simple",
+   "lineRange": [
+    504,
+    510
+   ]
+  },
+  {
+   "id": "function:net/tcp/tcp_server/src/tcp_server.cpp:process_dirty_connections",
+   "type": "function",
+   "name": "process_dirty_connections",
+   "summary": "处理待写连接队列，加锁写出数据。",
+   "tags": [
+    "process-dirty-connections",
+    "cpp",
+    "tcp"
+   ],
+   "complexity": "moderate",
+   "lineRange": [
+    512,
+    536
+   ]
+  },
+  {
+   "id": "file:net/websocket/src/ws_connection.cpp",
+   "type": "file",
+   "name": "net/websocket/src/ws_connection.cpp",
+   "summary": "WsConnection 实现：WebSocket 连接封装，负责帧编码/解码、事件循环读取与写缓冲发送。",
+   "tags": [
+    "websocket",
+    "frame-codec",
+    "event-loop",
+    "cpp"
+   ],
+   "complexity": "moderate",
+   "filePath": "net/websocket/src/ws_connection.cpp"
+  },
+  {
+   "id": "function:net/websocket/src/ws_connection.cpp:WsConnection",
+   "type": "function",
+   "name": "WsConnection",
+   "summary": "构造函数，保存底层连接与消息/关闭回调。",
+   "tags": [
+    "wsconnection",
+    "cpp",
+    "websocket"
+   ],
+   "complexity": "simple",
+   "lineRange": [
+    17,
+    18
+   ]
+  },
+  {
+   "id": "function:net/websocket/src/ws_connection.cpp:send",
+   "type": "function",
+   "name": "send",
+   "summary": "编码一帧并加入发送队列。",
+   "tags": [
+    "send",
+    "cpp",
+    "websocket"
+   ],
+   "complexity": "simple",
+   "lineRange": [
+    20,
+    26
+   ]
+  },
+  {
+   "id": "function:net/websocket/src/ws_connection.cpp:close",
+   "type": "function",
+   "name": "close",
+   "summary": "构造关闭帧发送，并关闭底层连接。",
+   "tags": [
+    "close",
+    "cpp",
+    "websocket"
+   ],
+   "complexity": "moderate",
+   "lineRange": [
+    28,
+    42
+   ]
+  },
+  {
+   "id": "function:net/websocket/src/ws_connection.cpp:calc_frame_size",
+   "type": "function",
+   "name": "calc_frame_size",
+   "summary": "根据负载长度计算帧头大小。",
+   "tags": [
+    "calc-frame-size",
+    "cpp",
+    "websocket"
+   ],
+   "complexity": "simple",
+   "lineRange": [
+    46,
+    62
+   ]
+  },
+  {
+   "id": "function:net/websocket/src/ws_connection.cpp:handle_frame",
+   "type": "function",
+   "name": "handle_frame",
+   "summary": "处理单帧：关闭帧回复、数据帧回调分派。",
+   "tags": [
+    "handle-frame",
+    "cpp",
+    "websocket"
+   ],
+   "complexity": "moderate",
+   "lineRange": [
+    64,
+    92
+   ]
+  },
+  {
+   "id": "function:net/websocket/src/ws_connection.cpp:start_event_loop",
+   "type": "function",
+   "name": "start_event_loop",
+   "summary": "poll 事件循环：读取、解码帧、处理消息并响应关闭。",
+   "tags": [
+    "start-event-loop",
+    "cpp",
+    "websocket"
+   ],
+   "complexity": "complex",
+   "lineRange": [
+    96,
+    161
+   ]
+  },
+  {
+   "id": "function:net/websocket/src/ws_connection.cpp:do_send",
+   "type": "function",
+   "name": "do_send",
+   "summary": "加锁将帧数据追加到写缓冲。",
+   "tags": [
+    "do-send",
+    "cpp",
+    "websocket"
+   ],
+   "complexity": "simple",
+   "lineRange": [
+    163,
+    167
+   ]
+  },
+  {
+   "id": "file:net/websocket/xmake.lua",
+   "type": "file",
+   "name": "net/websocket/xmake.lua",
+   "summary": "net/websocket 模块的 xmake 构建脚本，声明 WebSocket 库的源文件与目标配置。",
+   "tags": [
+    "xmake",
+    "build-config",
+    "websocket",
+    "net"
+   ],
+   "complexity": "simple",
+   "filePath": "net/websocket/xmake.lua"
+  }
+ ],
+ "edges": [
+  {
+   "source": "file:net/tcp/tcp_server/src/connection.cpp",
+   "target": "function:net/tcp/tcp_server/src/connection.cpp:Connection",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:net/tcp/tcp_server/src/connection.cpp",
+   "target": "function:net/tcp/tcp_server/src/connection.cpp:~Connection",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:net/tcp/tcp_server/src/connection.cpp",
+   "target": "function:net/tcp/tcp_server/src/connection.cpp:client_ip",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:net/tcp/tcp_server/src/connection.cpp",
+   "target": "function:net/tcp/tcp_server/src/connection.cpp:client_port",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:net/tcp/tcp_server/src/connection.cpp",
+   "target": "function:net/tcp/tcp_server/src/connection.cpp:read_from_fd",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:net/tcp/tcp_server/src/connection.cpp",
+   "target": "function:net/tcp/tcp_server/src/connection.cpp:ssl_read_from_fd",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:net/tcp/tcp_server/src/connection.cpp",
+   "target": "function:net/tcp/tcp_server/src/connection.cpp:plain_read_from_fd",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:net/tcp/tcp_server/src/connection.cpp",
+   "target": "function:net/tcp/tcp_server/src/connection.cpp:ssl_write_to_fd_locked",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:net/tcp/tcp_server/src/connection.cpp",
+   "target": "function:net/tcp/tcp_server/src/connection.cpp:plain_write_to_fd_locked",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:net/tcp/tcp_server/src/connection.cpp",
+   "target": "function:net/tcp/tcp_server/src/connection.cpp:write_to_fd",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:net/tcp/tcp_server/src/connection.cpp",
+   "target": "function:net/tcp/tcp_server/src/connection.cpp:write_to_fd_locked",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:net/tcp/tcp_server/src/connection.cpp",
+   "target": "function:net/tcp/tcp_server/src/connection.cpp:close",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:net/tcp/tcp_server/src/connection.cpp",
+   "target": "function:net/tcp/tcp_server/src/connection.cpp:consume_read_buffer",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:net/tcp/tcp_server/src/connection.cpp",
+   "target": "function:net/tcp/tcp_server/src/connection.cpp:consume_read_buffer_locked",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:net/tcp/tcp_server/src/connection.cpp",
+   "target": "function:net/tcp/tcp_server/src/connection.cpp:await_read",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:net/tcp/tcp_server/src/connection.cpp",
+   "target": "function:net/tcp/tcp_server/src/connection.cpp:await_write",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:net/tcp/tcp_server/src/connection.cpp",
+   "target": "function:net/tcp/tcp_server/src/connection.cpp:await_suspend",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:net/tcp/tcp_server/src/tcp_server.cpp",
+   "target": "class:net/tcp/tcp_server/src/tcp_server.cpp:EpollFd",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:net/tcp/tcp_server/src/tcp_server.cpp",
+   "target": "class:net/tcp/tcp_server/src/tcp_server.cpp:EpollEvents",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:net/tcp/tcp_server/src/tcp_server.cpp",
+   "target": "function:net/tcp/tcp_server/src/tcp_server.cpp:epoll_ctl_add",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:net/tcp/tcp_server/src/tcp_server.cpp",
+   "target": "function:net/tcp/tcp_server/src/tcp_server.cpp:epoll_ctl_mod",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:net/tcp/tcp_server/src/tcp_server.cpp",
+   "target": "function:net/tcp/tcp_server/src/tcp_server.cpp:signal_handler",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:net/tcp/tcp_server/src/tcp_server.cpp",
+   "target": "function:net/tcp/tcp_server/src/tcp_server.cpp:TcpServer",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:net/tcp/tcp_server/src/tcp_server.cpp",
+   "target": "function:net/tcp/tcp_server/src/tcp_server.cpp:~TcpServer",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:net/tcp/tcp_server/src/tcp_server.cpp",
+   "target": "function:net/tcp/tcp_server/src/tcp_server.cpp:init",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:net/tcp/tcp_server/src/tcp_server.cpp",
+   "target": "function:net/tcp/tcp_server/src/tcp_server.cpp:set_handler",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:net/tcp/tcp_server/src/tcp_server.cpp",
+   "target": "function:net/tcp/tcp_server/src/tcp_server.cpp:start",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:net/tcp/tcp_server/src/tcp_server.cpp",
+   "target": "function:net/tcp/tcp_server/src/tcp_server.cpp:stop",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:net/tcp/tcp_server/src/tcp_server.cpp",
+   "target": "function:net/tcp/tcp_server/src/tcp_server.cpp:event_loop",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:net/tcp/tcp_server/src/tcp_server.cpp",
+   "target": "function:net/tcp/tcp_server/src/tcp_server.cpp:cleanup_resources",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:net/tcp/tcp_server/src/tcp_server.cpp",
+   "target": "function:net/tcp/tcp_server/src/tcp_server.cpp:handle_event",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:net/tcp/tcp_server/src/tcp_server.cpp",
+   "target": "function:net/tcp/tcp_server/src/tcp_server.cpp:handle_accept",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:net/tcp/tcp_server/src/tcp_server.cpp",
+   "target": "function:net/tcp/tcp_server/src/tcp_server.cpp:handle_read",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:net/tcp/tcp_server/src/tcp_server.cpp",
+   "target": "function:net/tcp/tcp_server/src/tcp_server.cpp:handle_write",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:net/tcp/tcp_server/src/tcp_server.cpp",
+   "target": "function:net/tcp/tcp_server/src/tcp_server.cpp:try_ssl_detection",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:net/tcp/tcp_server/src/tcp_server.cpp",
+   "target": "function:net/tcp/tcp_server/src/tcp_server.cpp:try_ssl_handshake",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:net/tcp/tcp_server/src/tcp_server.cpp",
+   "target": "function:net/tcp/tcp_server/src/tcp_server.cpp:handle_client_event",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:net/tcp/tcp_server/src/tcp_server.cpp",
+   "target": "function:net/tcp/tcp_server/src/tcp_server.cpp:handle_ssl_handshake",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:net/tcp/tcp_server/src/tcp_server.cpp",
+   "target": "function:net/tcp/tcp_server/src/tcp_server.cpp:close_connection",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:net/tcp/tcp_server/src/tcp_server.cpp",
+   "target": "function:net/tcp/tcp_server/src/tcp_server.cpp:notify_wake",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:net/tcp/tcp_server/src/tcp_server.cpp",
+   "target": "function:net/tcp/tcp_server/src/tcp_server.cpp:process_dirty_connections",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:net/websocket/src/ws_connection.cpp",
+   "target": "function:net/websocket/src/ws_connection.cpp:WsConnection",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:net/websocket/src/ws_connection.cpp",
+   "target": "function:net/websocket/src/ws_connection.cpp:send",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:net/websocket/src/ws_connection.cpp",
+   "target": "function:net/websocket/src/ws_connection.cpp:close",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:net/websocket/src/ws_connection.cpp",
+   "target": "function:net/websocket/src/ws_connection.cpp:calc_frame_size",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:net/websocket/src/ws_connection.cpp",
+   "target": "function:net/websocket/src/ws_connection.cpp:handle_frame",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:net/websocket/src/ws_connection.cpp",
+   "target": "function:net/websocket/src/ws_connection.cpp:start_event_loop",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:net/websocket/src/ws_connection.cpp",
+   "target": "function:net/websocket/src/ws_connection.cpp:do_send",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "function:net/tcp/tcp_server/src/connection.cpp:~Connection",
+   "target": "function:net/tcp/tcp_server/src/connection.cpp:close",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:net/tcp/tcp_server/src/connection.cpp:read_from_fd",
+   "target": "function:net/tcp/tcp_server/src/connection.cpp:ssl_read_from_fd",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:net/tcp/tcp_server/src/connection.cpp:read_from_fd",
+   "target": "function:net/tcp/tcp_server/src/connection.cpp:plain_read_from_fd",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:net/tcp/tcp_server/src/connection.cpp:write_to_fd",
+   "target": "function:net/tcp/tcp_server/src/connection.cpp:write_to_fd_locked",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:net/tcp/tcp_server/src/connection.cpp:write_to_fd_locked",
+   "target": "function:net/tcp/tcp_server/src/connection.cpp:ssl_write_to_fd_locked",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:net/tcp/tcp_server/src/connection.cpp:write_to_fd_locked",
+   "target": "function:net/tcp/tcp_server/src/connection.cpp:plain_write_to_fd_locked",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:net/tcp/tcp_server/src/connection.cpp:consume_read_buffer",
+   "target": "function:net/tcp/tcp_server/src/connection.cpp:consume_read_buffer_locked",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:net/tcp/tcp_server/src/connection.cpp:await_suspend",
+   "target": "function:net/tcp/tcp_server/src/connection.cpp:read_from_fd",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:net/tcp/tcp_server/src/connection.cpp:await_suspend",
+   "target": "function:net/tcp/tcp_server/src/connection.cpp:write_to_fd",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:net/tcp/tcp_server/src/tcp_server.cpp:signal_handler",
+   "target": "function:net/tcp/tcp_server/src/tcp_server.cpp:stop",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:net/tcp/tcp_server/src/tcp_server.cpp:~TcpServer",
+   "target": "function:net/tcp/tcp_server/src/tcp_server.cpp:stop",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:net/tcp/tcp_server/src/tcp_server.cpp:init",
+   "target": "function:net/tcp/tcp_server/src/tcp_server.cpp:epoll_ctl_add",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:net/tcp/tcp_server/src/tcp_server.cpp:init",
+   "target": "function:net/tcp/tcp_server/src/tcp_server.cpp:cleanup_resources",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:net/tcp/tcp_server/src/tcp_server.cpp:start",
+   "target": "function:net/tcp/tcp_server/src/tcp_server.cpp:event_loop",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:net/tcp/tcp_server/src/tcp_server.cpp:event_loop",
+   "target": "function:net/tcp/tcp_server/src/tcp_server.cpp:handle_event",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:net/tcp/tcp_server/src/tcp_server.cpp:event_loop",
+   "target": "function:net/tcp/tcp_server/src/tcp_server.cpp:cleanup_resources",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:net/tcp/tcp_server/src/tcp_server.cpp:cleanup_resources",
+   "target": "function:net/tcp/tcp_server/src/tcp_server.cpp:stop",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:net/tcp/tcp_server/src/tcp_server.cpp:handle_event",
+   "target": "function:net/tcp/tcp_server/src/tcp_server.cpp:handle_accept",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:net/tcp/tcp_server/src/tcp_server.cpp:handle_event",
+   "target": "function:net/tcp/tcp_server/src/tcp_server.cpp:process_dirty_connections",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:net/tcp/tcp_server/src/tcp_server.cpp:handle_event",
+   "target": "function:net/tcp/tcp_server/src/tcp_server.cpp:try_ssl_detection",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:net/tcp/tcp_server/src/tcp_server.cpp:handle_event",
+   "target": "function:net/tcp/tcp_server/src/tcp_server.cpp:try_ssl_handshake",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:net/tcp/tcp_server/src/tcp_server.cpp:handle_event",
+   "target": "function:net/tcp/tcp_server/src/tcp_server.cpp:handle_client_event",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:net/tcp/tcp_server/src/tcp_server.cpp:handle_accept",
+   "target": "function:net/tcp/tcp_server/src/tcp_server.cpp:epoll_ctl_add",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:net/tcp/tcp_server/src/tcp_server.cpp:handle_read",
+   "target": "function:net/tcp/tcp_server/src/connection.cpp:read_from_fd",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:net/tcp/tcp_server/src/tcp_server.cpp:handle_read",
+   "target": "function:net/tcp/tcp_server/src/tcp_server.cpp:notify_wake",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:net/tcp/tcp_server/src/tcp_server.cpp:handle_read",
+   "target": "function:net/tcp/tcp_server/src/connection.cpp:write_to_fd_locked",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:net/tcp/tcp_server/src/tcp_server.cpp:handle_write",
+   "target": "function:net/tcp/tcp_server/src/connection.cpp:write_to_fd_locked",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:net/tcp/tcp_server/src/tcp_server.cpp:handle_write",
+   "target": "function:net/tcp/tcp_server/src/tcp_server.cpp:epoll_ctl_mod",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:net/tcp/tcp_server/src/tcp_server.cpp:try_ssl_detection",
+   "target": "function:net/tcp/tcp_server/src/tcp_server.cpp:handle_ssl_handshake",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:net/tcp/tcp_server/src/tcp_server.cpp:try_ssl_handshake",
+   "target": "function:net/tcp/tcp_server/src/tcp_server.cpp:handle_ssl_handshake",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:net/tcp/tcp_server/src/tcp_server.cpp:handle_client_event",
+   "target": "function:net/tcp/tcp_server/src/tcp_server.cpp:handle_read",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:net/tcp/tcp_server/src/tcp_server.cpp:handle_client_event",
+   "target": "function:net/tcp/tcp_server/src/tcp_server.cpp:close_connection",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:net/tcp/tcp_server/src/tcp_server.cpp:handle_client_event",
+   "target": "function:net/tcp/tcp_server/src/tcp_server.cpp:handle_write",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:net/tcp/tcp_server/src/tcp_server.cpp:handle_ssl_handshake",
+   "target": "function:net/tcp/tcp_server/src/tcp_server.cpp:handle_read",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:net/tcp/tcp_server/src/tcp_server.cpp:handle_ssl_handshake",
+   "target": "function:net/tcp/tcp_server/src/tcp_server.cpp:close_connection",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:net/tcp/tcp_server/src/tcp_server.cpp:handle_ssl_handshake",
+   "target": "function:net/tcp/tcp_server/src/tcp_server.cpp:epoll_ctl_mod",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:net/tcp/tcp_server/src/tcp_server.cpp:close_connection",
+   "target": "function:net/tcp/tcp_server/src/connection.cpp:close",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:net/tcp/tcp_server/src/tcp_server.cpp:process_dirty_connections",
+   "target": "function:net/tcp/tcp_server/src/connection.cpp:write_to_fd_locked",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:net/tcp/tcp_server/src/tcp_server.cpp:process_dirty_connections",
+   "target": "function:net/tcp/tcp_server/src/tcp_server.cpp:epoll_ctl_mod",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:net/websocket/src/ws_connection.cpp:send",
+   "target": "function:net/websocket/src/ws_connection.cpp:do_send",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:net/websocket/src/ws_connection.cpp:close",
+   "target": "function:net/websocket/src/ws_connection.cpp:do_send",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:net/websocket/src/ws_connection.cpp:close",
+   "target": "function:net/tcp/tcp_server/src/connection.cpp:close",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:net/websocket/src/ws_connection.cpp:handle_frame",
+   "target": "function:net/websocket/src/ws_connection.cpp:do_send",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:net/websocket/src/ws_connection.cpp:start_event_loop",
+   "target": "function:net/tcp/tcp_server/src/connection.cpp:read_from_fd",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:net/websocket/src/ws_connection.cpp:start_event_loop",
+   "target": "function:net/tcp/tcp_server/src/connection.cpp:consume_read_buffer_locked",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:net/websocket/src/ws_connection.cpp:start_event_loop",
+   "target": "function:net/websocket/src/ws_connection.cpp:calc_frame_size",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:net/websocket/src/ws_connection.cpp:start_event_loop",
+   "target": "function:net/websocket/src/ws_connection.cpp:handle_frame",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:net/websocket/src/ws_connection.cpp:start_event_loop",
+   "target": "function:net/websocket/src/ws_connection.cpp:do_send",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:net/websocket/src/ws_connection.cpp:start_event_loop",
+   "target": "function:net/websocket/src/ws_connection.cpp:close",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:net/websocket/src/ws_connection.cpp:do_send",
+   "target": "function:net/tcp/tcp_server/src/connection.cpp:write_to_fd_locked",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  }
+ ]
+}
